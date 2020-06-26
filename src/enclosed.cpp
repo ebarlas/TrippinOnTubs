@@ -58,10 +58,8 @@ void gameLoop(SDL_Renderer *ren, const trippin::Vector<int> &windowSize) {
     bool displayLabels = true;
 
     int ticksPerFrame = 20;
-    int ticksSquaredPerFrame = ticksPerFrame * ticksPerFrame;
 
     trippin::Vector<double> terminalVelocity = {20.0 / ticksPerFrame, 20.0 / ticksPerFrame};
-    trippin::Vector<double> acceleration = {0, 0.2 / ticksSquaredPerFrame};
 
     RenderableObject leftWall;
     leftWall.setId(nextId++);
@@ -107,8 +105,8 @@ void gameLoop(SDL_Renderer *ren, const trippin::Vector<int> &windowSize) {
 
     int numObjects = 10;
     for (int i = 0; i < numObjects; i++) {
-        int width = 50 + std::rand() % 100;
-        int height = 50 + std::rand() % 100;
+        int width = 75 + std::rand() % 100;
+        int height = 75 + std::rand() % 100;
         auto obj = new RenderableObject();
         obj->setId(nextId++);
         obj->setPlatform(false);
@@ -119,7 +117,6 @@ void gameLoop(SDL_Renderer *ren, const trippin::Vector<int> &windowSize) {
         obj->setVelocity({
                 static_cast<double>((std::rand() % static_cast<int>(terminalVelocity.x / 2 * 1000.0)) / 1000.0),
                 static_cast<double>((std::rand() % static_cast<int>(terminalVelocity.y / 2 * 1000.0)) / 1000.0)});
-        obj->setAcceleration(acceleration);
         obj->setTerminalVelocity(terminalVelocity * 2);
         obj->color = {static_cast<Uint8>(std::rand() % 128),
                       static_cast<Uint8>(std::rand() % 128),
