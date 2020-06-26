@@ -28,7 +28,7 @@ catch_discover_tests(
         --out=tests.xml)
 
 add_executable(sides_tests engine/sides_tests.cpp)
-target_link_libraries(sides_tests PRIVATE catch_main)
+target_link_libraries(sides_tests PRIVATE Sides catch_main)
 catch_discover_tests(
         sides_tests
         TEST_PREFIX
@@ -50,7 +50,7 @@ catch_discover_tests(
         --out=tests.xml)
 
 add_executable(object_tests engine/object_tests.cpp)
-target_link_libraries(object_tests PRIVATE catch_main)
+target_link_libraries(object_tests PRIVATE Sides PlasmaPhysics Physics catch_main)
 catch_discover_tests(
         object_tests
         TEST_PREFIX

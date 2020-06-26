@@ -26,60 +26,60 @@ namespace trippin {
         std::size_t size();
         bool wasVisited(V value) const;
     };
+}
 
-    template<class V, class M, class C>
-    Queue<V, M, C>::Queue(const C &compare) : q(compare) {}
+template<class V, class M, class C>
+trippin::Queue<V, M, C>::Queue(const C &compare) : q(compare) {}
 
-    template<class V, class M, class C>
-    void Queue<V, M, C>::removeVisited() {
-        while (!q.empty() && visited.count(q.top().first)) {
-            q.pop();
-        }
-    }
-
-    template<class V, class M, class C>
-    void Queue<V, M, C>::push(V value) {
-        q.push({value, {}});
-    }
-
-    template<class V, class M, class C>
-    void Queue<V, M, C>::push(V value, const M &material) {
-        if (visited.count(value) == 0) {
-            auto m = materials[value] |= material;
-            q.push({value, m});
-        }
-    }
-
-    template<class V, class M, class C>
-    V Queue<V, M, C>::pop() {
-        removeVisited();
-        auto top = q.top();
+template<class V, class M, class C>
+void trippin::Queue<V, M, C>::removeVisited() {
+    while (!q.empty() && visited.count(q.top().first)) {
         q.pop();
-        visited.insert(top.first);
-        return top.first;
     }
+}
 
-    template<class V, class M, class C>
-    M &Queue<V, M, C>::material(V value) {
-        return materials[value];
-    }
+template<class V, class M, class C>
+void trippin::Queue<V, M, C>::push(V value) {
+    q.push({value, {}});
+}
 
-    template<class V, class M, class C>
-    bool Queue<V, M, C>::empty() {
-        removeVisited();
-        return q.empty();
+template<class V, class M, class C>
+void trippin::Queue<V, M, C>::push(V value, const M &material) {
+    if (visited.count(value) == 0) {
+        auto m = materials[value] |= material;
+        q.push({value, m});
     }
+}
 
-    template<class V, class M, class C>
-    std::size_t Queue<V, M, C>::size() {
-        removeVisited();
-        return q.size();
-    }
+template<class V, class M, class C>
+V trippin::Queue<V, M, C>::pop() {
+    removeVisited();
+    auto top = q.top();
+    q.pop();
+    visited.insert(top.first);
+    return top.first;
+}
 
-    template<class V, class M, class C>
-    bool Queue<V, M, C>::wasVisited(V value) const {
-        return visited.count(value);
-    }
+template<class V, class M, class C>
+M &trippin::Queue<V, M, C>::material(V value) {
+    return materials[value];
+}
+
+template<class V, class M, class C>
+bool trippin::Queue<V, M, C>::empty() {
+    removeVisited();
+    return q.empty();
+}
+
+template<class V, class M, class C>
+std::size_t trippin::Queue<V, M, C>::size() {
+    removeVisited();
+    return q.size();
+}
+
+template<class V, class M, class C>
+bool trippin::Queue<V, M, C>::wasVisited(V value) const {
+    return visited.count(value);
 }
 
 #endif

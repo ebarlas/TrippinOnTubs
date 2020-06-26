@@ -26,63 +26,6 @@ namespace trippin {
         void setRight(bool on);
         void setBottom(bool on);
     };
-
-    Sides &Sides::operator|=(const Sides &s) {
-        sides |= s.sides;
-        return *this;
-    }
-
-    Sides::operator bool() const {
-        return sides.any();
-    }
-
-    Sides::operator int() const {
-        return sides.count();
-    }
-
-    int Sides::count() const {
-        return sides.count();
-    }
-
-    void Sides::set(Sides::Side side, bool on) {
-        sides.set(side, on);
-    }
-
-    bool Sides::test(Sides::Side side) const {
-        return sides.test(side);
-    }
-
-    bool Sides::testLeft() const {
-        return test(Side::left);
-    }
-
-    bool Sides::testTop() const {
-        return test(Side::top);
-    }
-
-    bool Sides::testRight() const {
-        return test(Side::right);
-    }
-
-    bool Sides::testBottom() const {
-        return test(Side::bottom);
-    }
-
-    void Sides::setLeft(bool on) {
-        set(Side::left, on);
-    }
-
-    void Sides::setTop(bool on) {
-        set(Side::top, on);
-    }
-
-    void Sides::setRight(bool on) {
-        set(Side::right, on);
-    }
-
-    void Sides::setBottom(bool on) {
-        set(Side::bottom, on);
-    }
 }
 
 #endif
