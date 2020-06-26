@@ -11,7 +11,7 @@
 
 namespace trippin {
     class Object {
-    private:
+    protected:
         int id{};
         bool platform{};
         double mass{};
@@ -37,6 +37,8 @@ namespace trippin {
         void setSize(const Vector<int> &s);
         void setPosition(const Vector<double> &p);
         void setVelocity(const Vector<double> &v);
+        void setTerminalVelocity(const Vector<double> &v);
+        void setAcceleration(const Vector<double> &a);
         void setMass(double m);
         const Vector<double> &getPosition() const;
         const Vector<double> &getVelocity() const;
@@ -75,6 +77,14 @@ namespace trippin {
 
     void Object::setVelocity(const Vector<double> &v) {
         velocity = v;
+    }
+
+    void Object::setTerminalVelocity(const Vector<double> &v) {
+        terminalVelocity = v;
+    }
+
+    void Object::setAcceleration(const Vector<double> &a) {
+        acceleration = a;
     }
 
     void Object::setMass(double m) {
