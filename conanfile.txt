@@ -1,0 +1,8 @@
+[requires]
+sdl2/2.0.12@bincrafters/stable
+sdl2_ttf/2.0.15@bincrafters/stable
+nlohmann_json/3.8.0
+catch2/2.12.2
+
+[generators]
+cmake
