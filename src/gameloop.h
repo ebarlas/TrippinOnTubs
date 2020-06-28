@@ -5,9 +5,10 @@
 #include "graphics/FontRenderer.h"
 
 struct GameState {
-    SDL_Renderer *renderer;
-    trippin::FontRenderer *fontRenderer;
-    trippin::Vector<int> windowSize;
+    SDL_Renderer *renderer{};
+    trippin::FontRenderer *fontRenderer{};
+    trippin::Vector<int> windowSize{};
+    trippin::Sides keysDown{};
 };
 
 void gameLoop(

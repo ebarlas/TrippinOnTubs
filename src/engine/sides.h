@@ -12,6 +12,7 @@ namespace trippin {
         std::bitset<4> sides;
     public:
         Sides &operator|=(const Sides &c);
+        bool operator==(const Sides &c) const;
         operator bool() const;
         operator int() const;
         int count() const;
@@ -25,6 +26,7 @@ namespace trippin {
         void setTop(bool on);
         void setRight(bool on);
         void setBottom(bool on);
+        void flip();
     };
 }
 

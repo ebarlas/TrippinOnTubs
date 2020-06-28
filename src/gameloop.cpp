@@ -1,3 +1,4 @@
+#include "engine/Sides.h"
 #include "gameloop.h"
 
 void gameLoop(
@@ -10,6 +11,7 @@ void gameLoop(
 
     initFn({ren, &fontRenderer, windowSize});
 
+    trippin::Sides keysDown;
     bool debug = false;
     bool quit = false;
     while (!quit) {
@@ -26,6 +28,31 @@ void gameLoop(
                 if (e.key.keysym.scancode == SDL_SCANCODE_SPACE) {
                     spacePressed = true;
                 }
+                if (e.key.keysym.scancode == SDL_SCANCODE_LEFT) {
+                    keysDown.setLeft(true);
+                }
+                if (e.key.keysym.scancode == SDL_SCANCODE_UP) {
+                    keysDown.setTop(true);
+                }
+                if (e.key.keysym.scancode == SDL_SCANCODE_RIGHT) {
+                    keysDown.setRight(true);
+                }
+                if (e.key.keysym.scancode == SDL_SCANCODE_DOWN) {
+                    keysDown.setBottom(true);
+                }
+            } else if (e.type == SDL_KEYUP) {
+                if (e.key.keysym.scancode == SDL_SCANCODE_LEFT) {
+                    keysDown.setLeft(false);
+                }
+                if (e.key.keysym.scancode == SDL_SCANCODE_UP) {
+                    keysDown.setTop(false);
+                }
+                if (e.key.keysym.scancode == SDL_SCANCODE_RIGHT) {
+                    keysDown.setRight(false);
+                }
+                if (e.key.keysym.scancode == SDL_SCANCODE_DOWN) {
+                    keysDown.setBottom(false);
+                }
             }
         }
 
@@ -34,13 +61,13 @@ void gameLoop(
         }
 
         if (!debug || spacePressed) {
-            updateFn({ren, &fontRenderer, windowSize});
+            updateFn({ren, &fontRenderer, windowSize, keysDown});
         }
 
         SDL_SetRenderDrawColor(ren, 255, 255, 255, 255);
         SDL_RenderClear(ren);
 
-        renderFn({ren, &fontRenderer, windowSize});
+        renderFn({ren, &fontRenderer, windowSize, keysDown});
 
         SDL_RenderPresent(ren);
     }

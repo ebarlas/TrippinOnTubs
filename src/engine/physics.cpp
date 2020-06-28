@@ -1,5 +1,5 @@
 #include <cmath>
-#include "physics.h"
+#include "Physics.h"
 
 std::pair<double, double> trippin::elasticCollision1D(double v1, double v2, double m1, double m2) {
     auto v1p = (m1 - m2) / (m1 + m2) * v1 + (2 * m2) / (m1 + m2) * v2;

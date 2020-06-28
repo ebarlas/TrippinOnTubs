@@ -50,9 +50,20 @@ catch_discover_tests(
         --out=tests.xml)
 
 add_executable(object_tests engine/object_tests.cpp)
-target_link_libraries(object_tests PRIVATE Sides PlasmaPhysics Physics catch_main)
+target_link_libraries(object_tests PRIVATE Engine catch_main)
 catch_discover_tests(
         object_tests
+        TEST_PREFIX
+        "unittests."
+        EXTRA_ARGS
+        -s
+        --reporter=xml
+        --out=tests.xml)
+
+add_executable(engine_tests engine/engine_tests.cpp)
+target_link_libraries(engine_tests PRIVATE Engine catch_main)
+catch_discover_tests(
+        engine_tests
         TEST_PREFIX
         "unittests."
         EXTRA_ARGS

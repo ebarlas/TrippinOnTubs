@@ -1,8 +1,8 @@
-#include "engine/object.h"
+#include "engine/Engine.h"
 #include "graphics/RenderableObject.h"
 #include "gameloop.h"
 
-void init(int ticksPerFrame, std::vector<trippin::Object*> &objects, const GameState &gs) {
+void init(int ticksPerFrame, std::vector<trippin::Object *> &objects, const GameState &gs) {
     int nextId = 1;
     int wallWidth = 50;
     bool displayLabels = true;
@@ -53,10 +53,10 @@ void init(int ticksPerFrame, std::vector<trippin::Object*> &objects, const GameS
     ceiling->fontRenderer = gs.fontRenderer;
     objects.push_back(ceiling);
 
-    int numObjects = 10;
+    int numObjects = 20;
     for (int i = 0; i < numObjects; i++) {
-        int width = 75 + std::rand() % 100;
-        int height = 75 + std::rand() % 100;
+        int width = 50 + std::rand() % 100;
+        int height = 50 + std::rand() % 100;
         auto obj = new trippin::RenderableObject();
         obj->setId(nextId++);
         obj->setPlatform(false);
@@ -82,27 +82,24 @@ void init(int ticksPerFrame, std::vector<trippin::Object*> &objects, const GameS
 }
 
 int main() {
-    int ticksPerFrame = 20;
+    trippin::Engine engine;
+    engine.setPlatformCollisionType(trippin::Engine::PlatformCollisionType::reflective);
+    engine.setObjectCollisionType(trippin::Engine::ObjectCollisionType::elastic2D);
 
-    std::vector<trippin::Object*> objects;
+    int ticksPerFrame = 10;
 
-    auto initFn = [&ticksPerFrame, &objects](const GameState &gs) {
+    std::vector<trippin::Object *> objects;
+
+    auto initFn = [&ticksPerFrame, &objects, &engine](const GameState &gs) {
         init(ticksPerFrame, objects, gs);
+        for (auto obj : objects) {
+            engine.add(obj);
+        }
     };
 
-    auto objPlatFn = [](trippin::Object &a, trippin::Object &b, const trippin::Sides &collision) {
-        return a.reflectiveCollision(b, collision);
-    };
-
-    auto objObjFn = [](trippin::Object &a, trippin::Object &b, const trippin::Sides &collision) {
-        return a.elasticCollision2D(b, collision);
-    };
-
-    auto updateFn = [&ticksPerFrame, &objects, &objPlatFn, &objObjFn](const GameState &gs) {
+    auto updateFn = [&ticksPerFrame, &engine](const GameState &gs) {
         for (int i = 0; i < ticksPerFrame; i++) {
-            trippin::Object::applyMotion(objects);
-            trippin::Object::snapObjects(objects);
-            trippin::Object::applyPhysics(objects, objPlatFn, objObjFn);
+            engine.tick();
         }
     };
 

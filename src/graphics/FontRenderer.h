@@ -4,7 +4,7 @@
 #include <string>
 #include "SDL.h"
 #include "SDL2/SDL_ttf.h"
-#include "engine/vector.h"
+#include "engine/Vector.h"
 
 namespace trippin {
     class FontRenderer {

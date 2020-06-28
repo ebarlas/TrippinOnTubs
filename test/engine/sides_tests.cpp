@@ -1,5 +1,5 @@
 #include "catch2/catch.hpp"
-#include "engine/sides.h"
+#include "engine/Sides.h"
 
 TEST_CASE("Sides initialization", "[sides]") {
     REQUIRE(!trippin::Sides());

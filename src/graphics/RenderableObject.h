@@ -3,7 +3,7 @@
 
 #include <string>
 #include "graphics/FontRenderer.h"
-#include "engine/object.h"
+#include "engine/Object.h"
 
 namespace trippin {
     class RenderableObject : public trippin::Object {

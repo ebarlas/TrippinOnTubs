@@ -1,5 +1,5 @@
 #include "catch2/catch.hpp"
-#include "engine/vector.h"
+#include "engine/Vector.h"
 
 TEST_CASE("Vector initialization", "[vector]")
 {

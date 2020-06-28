@@ -3,14 +3,16 @@
 
 #include <iostream>
 #include <functional>
-#include "rect.h"
-#include "vector.h"
-#include "sides.h"
-#include "queue.h"
-#include "physics.h"
+#include "Rect.h"
+#include "Vector.h"
+#include "Sides.h"
+#include "Queue.h"
+#include "Physics.h"
 
 namespace trippin {
     class Object {
+        friend class Engine;
+
     protected:
         int id{};
         bool platform{};
@@ -40,22 +42,18 @@ namespace trippin {
         void setTerminalVelocity(const Vector<double> &v);
         void setAcceleration(const Vector<double> &a);
         void setMass(double m);
+        void setFriction(const Vector<double> &f);
+        void setGravity(const Vector<double> &g);
         const Vector<double> &getPosition() const;
         const Vector<double> &getVelocity() const;
+        const Vector<double> &getGravity() const;
+        const Vector<double> &getFriction() const;
+        const Vector<double> &getTerminalVelocity() const;
+        const Vector<int> &getSize() const;
         const Rect<int> &getRoundedBox() const;
+        const Vector<int> &getRoundedPosition() const;
+        const Sides &getPlatformCollisions() const;
         void applyMotion();
-        static void applyMotion(std::vector<Object *> &objects);
-        void snapTo(const Object &other, const Rect<int> &overlap, const Sides &sides);
-        static void snapObjects(std::vector<Object *> &objects);
-        static void applyPhysics(
-                std::vector<Object *> &objects,
-                const std::function<void(Object &, Object &, const Sides &)> &objPlatFunc,
-                const std::function<void(Object &, Object &, const Sides &)> &objObjFunc);
-        void reflectiveCollision(Object &p, const Sides &collision);
-        void absorbantCollision(Object &p, const Sides &collision);
-        void elasticCollision1D(Object &p, const Sides &collision);
-        void elasticCollision2D(Object &p, const Sides &collision);
-        void inelasticCollision2D(Object &p, const Sides &collision);
     };
 }
 

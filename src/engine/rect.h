@@ -2,8 +2,8 @@
 #define TRIPPIN_RECT_H
 
 #include <ostream>
-#include "vector.h"
-#include "sides.h"
+#include "Vector.h"
+#include "Sides.h"
 
 namespace trippin {
     template<class T>
@@ -23,6 +23,7 @@ namespace trippin {
         operator bool() const;
         static Sides collision(const trippin::Rect<T> &a, const trippin::Rect<T> &b);
         Sides collision(const trippin::Rect<T> &b) const;
+        bool operator==(const Rect<T> &other) const;
     };
 }
 
@@ -104,6 +105,11 @@ trippin::Sides trippin::Rect<T>::collision(const trippin::Rect<T> &a, const trip
 template<class T>
 trippin::Sides trippin::Rect<T>::collision(const trippin::Rect<T> &b) const {
     return collision(*this, b);
+}
+
+template<class T>
+bool trippin::Rect<T>::operator==(const trippin::Rect<T> &other) const {
+    return x == other.x && y == other.y && w == other.w && h == other.h;
 }
 
 #endif

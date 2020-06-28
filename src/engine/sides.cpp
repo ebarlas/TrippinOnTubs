@@ -1,4 +1,4 @@
-#include "sides.h" 
+#include "Sides.h"
 
 trippin::Sides &trippin::Sides::operator|=(const Sides &s) {
     sides |= s.sides;
@@ -55,4 +55,19 @@ void trippin::Sides::setRight(bool on) {
 
 void trippin::Sides::setBottom(bool on) {
     set(Side::bottom, on);
+}
+
+void trippin::Sides::flip() {
+    if (sides.test(Side::top) || sides.test(Side::bottom)) {
+        sides.set(Side::top, !sides.test(Side::top));
+        sides.set(Side::bottom, !sides.test(Side::bottom));
+    }
+    if (sides.test(Side::left) || sides.test(Side::right)) {
+        sides.set(Side::left, !sides.test(Side::left));
+        sides.set(Side::right, !sides.test(Side::right));
+    }
+}
+
+bool trippin::Sides::operator==(const trippin::Sides &other) const {
+    return sides == other.sides;
 }

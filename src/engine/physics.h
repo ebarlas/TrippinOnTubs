@@ -2,8 +2,8 @@
 #define TRIPPIN_PHYSICS_H
 
 #include <utility>
-#include "vector.h"
-#include "plasmaphysics.h"
+#include "Vector.h"
+#include "PlasmaPhysics.h"
 
 namespace trippin {
 

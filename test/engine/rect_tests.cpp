@@ -1,5 +1,5 @@
 #include "catch2/catch.hpp"
-#include "engine/rect.h"
+#include "engine/Rect.h"
 
 TEST_CASE("Rect initialization", "[rect]")
 {
