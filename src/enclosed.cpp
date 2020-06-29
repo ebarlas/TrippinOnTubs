@@ -105,7 +105,8 @@ int main() {
 
     auto renderFn = [&objects](const GameState &gs) {
         for (auto obj : objects) {
-            (reinterpret_cast<trippin::RenderableObject *>(obj))->render(gs.renderer);
+            trippin::Rect<int> viewport{0, 0, gs.windowSize.x, gs.windowSize.y};
+            (reinterpret_cast<trippin::RenderableObject *>(obj))->render(gs.renderer, viewport);
         }
     };
 

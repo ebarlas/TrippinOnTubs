@@ -101,6 +101,7 @@ void trippin::Object::applyMotion() {
     position += velocity;
     updateRounded();
     platformCollisions = {};
+    objectCollisions = {};
 }
 
 const trippin::Vector<int> &trippin::Object::getSize() const {
@@ -121,4 +122,32 @@ const trippin::Sides &trippin::Object::getPlatformCollisions() const {
 
 const trippin::Vector<int> &trippin::Object::getRoundedPosition() const {
     return roundedPosition;
+}
+
+const trippin::Vector<double> &trippin::Object::getCenter() const {
+    return center;
+}
+
+const trippin::Vector<int> &trippin::Object::getRoundedCenter() const {
+    return roundedCenter;
+}
+
+const trippin::Vector<double> &trippin::Object::getAcceleration() const {
+    return acceleration;
+}
+
+const trippin::Sides &trippin::Object::getObjectCollisions() const {
+    return objectCollisions;
+}
+
+void trippin::Object::onPlatformCollision(trippin::Object &other, const trippin::Sides &collision) {
+
+}
+
+void trippin::Object::onObjectCollision(trippin::Object &other, const trippin::Sides &collision) {
+
+}
+
+int trippin::Object::getId() const {
+    return id;
 }

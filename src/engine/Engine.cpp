@@ -72,7 +72,11 @@ void trippin::Engine::snapObjects() {
     }
 }
 
-void trippin::Engine::snapTo(Object &obj, const Object &p, const trippin::Rect<int> &overlap, const Sides &previousCollisions) {
+void trippin::Engine::snapTo(
+        Object &obj,
+        const Object &p,
+        const trippin::Rect<int> &overlap,
+        const Sides &previousCollisions) {
     auto x = 0.0;
     auto y = 0.0;
 
@@ -138,6 +142,7 @@ void trippin::Engine::applyPlatformCollision(
         trippin::Object &object,
         trippin::Object &platform,
         const Sides &collision) {
+    object.onPlatformCollision(platform, collision);
     if (platformCollisionType == PlatformCollisionType::absorbant) {
         absorbantCollision(object, platform, collision);
     } else {
@@ -174,6 +179,11 @@ void trippin::Engine::applyObjectCollision(
         trippin::Object &left,
         trippin::Object &right,
         const trippin::Sides &collision) {
+    left.objectCollisions |= collision;
+    right.objectCollisions |= collision.flip();
+    left.onObjectCollision(right, collision);
+    right.onObjectCollision(left, collision.flip());
+
     if (testCollision(left, right)) {
         return;
     }
@@ -222,7 +232,8 @@ void trippin::Engine::inelasticCollision2D(
         trippin::Object &p,
         const trippin::Sides &collision) {
     if (rationalCollision(obj, p, collision)) {
-        auto pair = trippin::inelasticCollision2D(obj.velocity, p.velocity, obj.center, p.center, obj.mass, p.mass, 0.9);
+        auto pair = trippin::inelasticCollision2D(obj.velocity, p.velocity, obj.center, p.center, obj.mass, p.mass,
+                                                  0.9);
         obj.velocity = pair.first;
         p.velocity = pair.second;
         registerCollision(obj, p, pair.first, pair.second);
@@ -266,7 +277,8 @@ bool trippin::Engine::testCollision(const trippin::Object &obj, const trippin::O
            : prevCollisions.count({p.id, obj.id, p.velocity, obj.velocity});
 }
 
-void trippin::Engine::registerCollision(const trippin::Object &obj, const trippin::Object &p, const Vector<double> &v1, const Vector<double> &v2) {
+void trippin::Engine::registerCollision(const trippin::Object &obj, const trippin::Object &p, const Vector<double> &v1,
+                                        const Vector<double> &v2) {
     if (obj.id < p.id) {
         nextCollisions.insert({obj.id, p.id, v1, v2});
     } else {

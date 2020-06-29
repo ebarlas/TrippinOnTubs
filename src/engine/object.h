@@ -31,6 +31,7 @@ namespace trippin {
         Rect<int> roundedBox{};
 
         Sides platformCollisions{};
+        Sides objectCollisions{};
 
         void updateRounded();
     public:
@@ -44,16 +45,23 @@ namespace trippin {
         void setMass(double m);
         void setFriction(const Vector<double> &f);
         void setGravity(const Vector<double> &g);
+        int getId() const;
         const Vector<double> &getPosition() const;
+        const Vector<double> &getCenter() const;
         const Vector<double> &getVelocity() const;
+        const Vector<double> &getAcceleration() const;
         const Vector<double> &getGravity() const;
         const Vector<double> &getFriction() const;
         const Vector<double> &getTerminalVelocity() const;
         const Vector<int> &getSize() const;
         const Rect<int> &getRoundedBox() const;
         const Vector<int> &getRoundedPosition() const;
+        const Vector<int> &getRoundedCenter() const;
         const Sides &getPlatformCollisions() const;
+        const Sides &getObjectCollisions() const;
         void applyMotion();
+        virtual void onPlatformCollision(Object &other, const trippin::Sides &collision);
+        virtual void onObjectCollision(Object &other, const trippin::Sides &collision);
     };
 }
 

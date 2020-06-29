@@ -15,7 +15,7 @@ void init(int ticksPerFrame, std::vector<trippin::Object *> &objects, const Game
     auto player = new trippin::RenderableObject;
     player->setId(nextId++);
     player->setPlatform(false);
-    player->setSize({120, 120});
+    player->setSize({80, 200});
     player->setPosition({gs.windowSize.x / 2.0 - player->getSize().x / 2.0, 0});
     player->setVelocity({0, 0});
     player->setTerminalVelocity(terminalVelocity);
@@ -28,21 +28,21 @@ void init(int ticksPerFrame, std::vector<trippin::Object *> &objects, const Game
     player->fontRenderer = gs.fontRenderer;
     objects.push_back(player);
 
-    auto agent = new trippin::RenderableObject;
-    agent->setId(nextId++);
-    agent->setPlatform(false);
-    agent->setSize({120, 120});
-    agent->setPosition({gs.windowSize.x / 2.0 - agent->getSize().x / 2.0, -200});
-    agent->setVelocity({0, 0});
-    agent->setTerminalVelocity(terminalVelocity);
-    agent->setFriction(friction);
-    agent->setGravity(gravity);
-    agent->setMass(agent->getSize().x * agent->getSize().y);
-    agent->color = {0, 0, 128, 255};
-    agent->fontColor = {255, 255, 255, 255};
-    agent->displayLabel = displayLabels;
-    agent->fontRenderer = gs.fontRenderer;
-    objects.push_back(agent);
+    auto frog = new trippin::RenderableObject;
+    frog->setId(nextId++);
+    frog->setPlatform(false);
+    frog->setSize({60, 20});
+    frog->setPosition({gs.windowSize.x / 2.0 - frog->getSize().x / 2.0, -200});
+    frog->setVelocity({0, 0});
+    frog->setTerminalVelocity(terminalVelocity);
+    frog->setFriction(friction);
+    frog->setGravity(gravity);
+    frog->setMass(frog->getSize().x * frog->getSize().y);
+    frog->color = {0, 0, 128, 255};
+    frog->fontColor = {255, 255, 255, 255};
+    frog->displayLabel = displayLabels;
+    frog->fontRenderer = gs.fontRenderer;
+    objects.push_back(frog);
 
     int wallWidth = 50;
 
@@ -68,39 +68,16 @@ void init(int ticksPerFrame, std::vector<trippin::Object *> &objects, const Game
     rightWall->fontRenderer = gs.fontRenderer;
     objects.push_back(rightWall);
 
-    auto midFloor = new trippin::RenderableObject;
-    midFloor->setId(nextId++);
-    midFloor->setPlatform(true);
-    midFloor->setSize({gs.windowSize.x - 200 * 2, wallWidth});
-    midFloor->setPosition({200, 500});
-    midFloor->color = {0, 0, 0, 255};
-    midFloor->fontColor = {255, 255, 255, 255};
-    midFloor->displayLabel = displayLabels;
-    midFloor->fontRenderer = gs.fontRenderer;
-    objects.push_back(midFloor);
-
-    auto leftFloor = new trippin::RenderableObject;
-    leftFloor->setId(nextId++);
-    leftFloor->setPlatform(true);
-    leftFloor->setSize({(gs.windowSize.x - 200) / 2, wallWidth});
-    leftFloor->setPosition({0, static_cast<double>(gs.windowSize.y - wallWidth)});
-    leftFloor->color = {0, 0, 0, 255};
-    leftFloor->fontColor = {255, 255, 255, 255};
-    leftFloor->displayLabel = displayLabels;
-    leftFloor->fontRenderer = gs.fontRenderer;
-    objects.push_back(leftFloor);
-
-    auto rightFloor = new trippin::RenderableObject;
-    rightFloor->setId(nextId++);
-    rightFloor->setPlatform(true);
-    rightFloor->setSize({(gs.windowSize.x - 200) / 2, wallWidth});
-    rightFloor->setPosition({static_cast<double>(gs.windowSize.x / 2.0 + 100),
-                             static_cast<double>(gs.windowSize.y - wallWidth)});
-    rightFloor->color = {0, 0, 0, 255};
-    rightFloor->fontColor = {255, 255, 255, 255};
-    rightFloor->displayLabel = displayLabels;
-    rightFloor->fontRenderer = gs.fontRenderer;
-    objects.push_back(rightFloor);
+    auto floor = new trippin::RenderableObject;
+    floor->setId(nextId++);
+    floor->setPlatform(true);
+    floor->setSize({gs.windowSize.x, wallWidth});
+    floor->setPosition({0, static_cast<double>(gs.windowSize.y - wallWidth)});
+    floor->color = {0, 0, 0, 255};
+    floor->fontColor = {255, 255, 255, 255};
+    floor->displayLabel = displayLabels;
+    floor->fontRenderer = gs.fontRenderer;
+    objects.push_back(floor);
 }
 
 int main() {
@@ -124,29 +101,29 @@ int main() {
 
     auto updateFn = [&lastTime, &ticksPerFrame, &ticksSquaredPerFrame, &objects, &engine](
             const GameState &gs) {
+        auto player = objects[0];
+
         Uint32 now = SDL_GetTicks();
-        if (now - lastTime > 200) {
-            int width = 50 + std::rand() % 100;
-            int height = 50 + std::rand() % 100;
-            auto obj = new trippin::RenderableObject;
-            obj->setId(objects.size() + 1);
-            obj->setPlatform(false);
-            obj->setSize({width, height});
-            obj->setPosition({static_cast<double>(300 + std::rand() % 1000), -200});
-            obj->setVelocity({0, 0});
-            obj->setGravity(objects[0]->getGravity());
-            obj->setTerminalVelocity(objects[0]->getTerminalVelocity());
-            obj->setFriction(objects[0]->getFriction());
-            obj->color = {static_cast<Uint8>(std::rand() % 128),
-                          static_cast<Uint8>(std::rand() % 128),
-                          static_cast<Uint8>(std::rand() % 128),
-                          255};
-            obj->fontColor = {255, 255, 255, 255};
-            obj->displayLabel = reinterpret_cast<trippin::RenderableObject*>(objects[0])->displayLabel;
-            obj->fontRenderer = gs.fontRenderer;
-            obj->setMass(width * height);
-            objects.push_back(obj);
-            engine.add(obj);
+        if (now - lastTime > 2000) {
+            auto frog = new trippin::RenderableObject;
+            frog->setId(objects.size() + 1);
+            frog->setPlatform(false);
+            frog->setSize({60, 20});
+            frog->setPosition({static_cast<double>(300 + std::rand() % 1000), -200});
+            frog->setVelocity({0, 0});
+            frog->setGravity(objects[0]->getGravity());
+            frog->setTerminalVelocity(objects[0]->getTerminalVelocity());
+            frog->setFriction(objects[0]->getFriction());
+            frog->color = {static_cast<Uint8>(std::rand() % 128),
+                            static_cast<Uint8>(std::rand() % 128),
+                            static_cast<Uint8>(std::rand() % 128),
+                            255};
+            frog->fontColor = {255, 255, 255, 255};
+            frog->displayLabel = reinterpret_cast<trippin::RenderableObject*>(objects[0])->displayLabel;
+            frog->fontRenderer = gs.fontRenderer;
+            frog->setMass(frog->getSize().x * frog->getSize().y);
+            objects.push_back(frog);
+            engine.add(frog);
             lastTime = now;
         }
 
@@ -165,9 +142,22 @@ int main() {
         } else {
             a.x = 0;
         }
-        objects[0]->setAcceleration(a);
+        player->setAcceleration(a);
 
         for (int i = 0; i < ticksPerFrame; i++) {
+            for (int j=1; j<objects.size(); j++) {
+                auto frog = objects[j];
+                if (frog->getPlatformCollisions().testBottom()) {
+                    auto accel = frog->getPosition().x < player->getPosition().x
+                                 ? 0.15 / ticksSquaredPerFrame
+                                 : -0.15 / ticksSquaredPerFrame;
+                    frog->setAcceleration({accel, frog->getAcceleration().y});
+                    if (std::rand() % (100 * ticksPerFrame) < 5) {
+                        frog->setVelocity({frog->getVelocity().x, -0.5});
+                    }
+                }
+            }
+
             engine.tick();
         }
     };

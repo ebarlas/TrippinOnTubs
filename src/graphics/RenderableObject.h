@@ -13,7 +13,7 @@ namespace trippin {
         SDL_Color fontColor{};
         bool displayLabel{};
         static std::string format(double d, int precision = 2);
-        void render(SDL_Renderer *renderer);
+        void render(SDL_Renderer *renderer, const Rect<int> &viewport);
     };
 }
 

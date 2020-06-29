@@ -16,3 +16,9 @@ target_link_libraries(enclosed GameLoop Graphics Engine)
 
 add_executable(arena arena.cpp)
 target_link_libraries(arena GameLoop Graphics Engine)
+
+add_executable(frogs frogs.cpp)
+target_link_libraries(frogs GameLoop Graphics Engine)
+
+add_executable(mice mice.cpp)
+target_link_libraries(mice GameLoop Graphics Engine)

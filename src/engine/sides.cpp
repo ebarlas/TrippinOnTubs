@@ -57,15 +57,17 @@ void trippin::Sides::setBottom(bool on) {
     set(Side::bottom, on);
 }
 
-void trippin::Sides::flip() {
+trippin::Sides trippin::Sides::flip() const {
+    Sides res;
     if (sides.test(Side::top) || sides.test(Side::bottom)) {
-        sides.set(Side::top, !sides.test(Side::top));
-        sides.set(Side::bottom, !sides.test(Side::bottom));
+        res.sides.set(Side::top, !sides.test(Side::top));
+        res.sides.set(Side::bottom, !sides.test(Side::bottom));
     }
     if (sides.test(Side::left) || sides.test(Side::right)) {
-        sides.set(Side::left, !sides.test(Side::left));
-        sides.set(Side::right, !sides.test(Side::right));
+        res.sides.set(Side::left, !sides.test(Side::left));
+        res.sides.set(Side::right, !sides.test(Side::right));
     }
+    return res;
 }
 
 bool trippin::Sides::operator==(const trippin::Sides &other) const {
