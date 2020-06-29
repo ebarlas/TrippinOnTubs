@@ -8,9 +8,9 @@ TEST_CASE("Sides initialization", "[sides]") {
 
 TEST_CASE("Sides set and get", "[sides]") {
     trippin::Sides c;
-    c.set(trippin::Sides::left, true);
-    REQUIRE(c.test(trippin::Sides::left));
-    REQUIRE(!c.test(trippin::Sides::top));
-    REQUIRE(!c.test(trippin::Sides::right));
-    REQUIRE(!c.test(trippin::Sides::bottom));
+    c.setLeft(true);
+    REQUIRE(c.testLeft());
+    REQUIRE(!c.testTop());
+    REQUIRE(!c.testRight());
+    REQUIRE(!c.testBottom());
 }
