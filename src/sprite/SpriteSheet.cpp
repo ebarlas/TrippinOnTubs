@@ -33,10 +33,10 @@ void trippin::SpriteSheet::load(SDL_Renderer *renderer, const std::string &name,
     SDL_FreeSurface(surface);
 }
 
-void trippin::SpriteSheet::render(SDL_Renderer *renderer, SDL_Rect *clip, SDL_Rect *target) {
+void trippin::SpriteSheet::render(SDL_Renderer *renderer, SDL_Rect *clip, SDL_Rect *target) const {
     SDL_RenderCopyEx(renderer, texture, clip, target, 0, nullptr, SDL_FLIP_NONE);
 }
 
-const trippin::Vector<int> &trippin::SpriteSheet::getSize() {
+const trippin::Vector<int> &trippin::SpriteSheet::getSize() const {
     return size;
 }

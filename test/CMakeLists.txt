@@ -16,7 +16,7 @@ catch_discover_tests(
         --reporter=xml
         --out=tests.xml)
 
-add_executable(sprite_tests sprite/sprite_metadata_tests.cpp sprite/sprite_sheet_tests.cpp)
+add_executable(sprite_tests sprite/sprite_metadata_tests.cpp sprite/sprite_sheet_tests.cpp sprite/sprite_tests.cpp)
 target_link_libraries(sprite_tests PRIVATE Sprite catch_main)
 catch_discover_tests(
         sprite_tests

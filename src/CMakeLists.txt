@@ -7,7 +7,7 @@ target_link_libraries(IO CONAN_PKG::sdl2)
 
 add_library(Exception exception/TubsException.cpp)
 
-add_library(Sprite sprite/SpriteMetadata.cpp sprite/SpriteSheet.cpp)
+add_library(Sprite sprite/SpriteMetadata.cpp sprite/SpriteSheet.cpp  sprite/Sprite.cpp)
 target_link_libraries(Sprite IO Exception CONAN_PKG::nlohmann_json CONAN_PKG::sdl2_image)
 
 add_library(Graphics graphics/FontRenderer.cpp graphics/RenderableObject.cpp)
