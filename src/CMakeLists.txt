@@ -7,7 +7,7 @@ target_link_libraries(IO CONAN_PKG::sdl2)
 
 add_library(Exception exception/TubsException.cpp)
 
-add_library(Sprite sprite/SpriteMetadata.cpp sprite/SpriteSheet.cpp sprite/Sprite.cpp sprite/SpriteManager.cpp)
+add_library(Sprite sprite/SpriteMetadata.cpp sprite/SpriteSheet.cpp sprite/Sprite.cpp sprite/SpriteManager.cpp sprite/Camera.cpp)
 target_link_libraries(Sprite IO Exception CONAN_PKG::nlohmann_json CONAN_PKG::sdl2_image)
 
 add_library(Graphics graphics/FontRenderer.cpp graphics/RenderableObject.cpp)
@@ -30,3 +30,6 @@ target_link_libraries(frogs GameLoop Graphics Engine)
 
 add_executable(mice mice.cpp)
 target_link_libraries(mice GameLoop Graphics Engine)
+
+add_executable(goggin goggin.cpp)
+target_link_libraries(goggin GameLoop Sprite Engine)

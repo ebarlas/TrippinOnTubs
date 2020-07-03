@@ -10,8 +10,13 @@ namespace trippin {
     public:
         void load(SDL_Renderer *renderer, const std::string &name, Scale scale);
         void render(SDL_Renderer *renderer, const Vector<int> position, int frame) const;
-        Vector<int> getSize() const;
+        const Vector<int> &getSize() const;
+        const Rect<int> &getHitBox() const;
+        int getDuration() const;
+        int getFrames() const;
     private:
+        Vector<int> size;
+        Rect<int> hitBox;
         SpriteMetadata metadata{};
         SpriteSheet sheet{};
     };

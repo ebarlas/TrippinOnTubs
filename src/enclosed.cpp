@@ -83,8 +83,8 @@ void init(int ticksPerFrame, std::vector<trippin::Object *> &objects, const Game
 
 int main() {
     trippin::Engine engine;
-    engine.setPlatformCollisionType(trippin::Engine::PlatformCollisionType::reflective);
-    engine.setObjectCollisionType(trippin::Engine::ObjectCollisionType::elastic2D);
+    engine.setPlatformCollisionType(trippin::PlatformCollisionType::reflective);
+    engine.setObjectCollisionType(trippin::ObjectCollisionType::elastic2D);
 
     int ticksPerFrame = 10;
 

@@ -8,6 +8,8 @@
 #include "Sides.h"
 #include "Queue.h"
 #include "Physics.h"
+#include "Optional.h"
+#include "CollisionType.h"
 
 namespace trippin {
     class Object {
@@ -30,6 +32,8 @@ namespace trippin {
         Vector<int> roundedCenter{};
         Rect<int> roundedBox{};
 
+        Optional<PlatformCollisionType> platformCollisionType{};
+
         Sides platformCollisions{};
         Sides objectCollisions{};
 
@@ -45,6 +49,7 @@ namespace trippin {
         void setMass(double m);
         void setFriction(const Vector<double> &f);
         void setGravity(const Vector<double> &g);
+        void setPlatformCollisionType(PlatformCollisionType type);
         int getId() const;
         const Vector<double> &getPosition() const;
         const Vector<double> &getCenter() const;

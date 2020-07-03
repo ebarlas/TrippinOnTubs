@@ -15,6 +15,7 @@ namespace trippin {
         static bool valueInRange(T value, T min, T max);
         static trippin::Rect<T> intersect(const trippin::Rect<T> &a, const trippin::Rect<T> &b);
         Vector<T> corner() const;
+        T area() const;
         trippin::Rect<T> intersect(const trippin::Rect<T> &b) const;
         bool leftAlignedWith(const trippin::Rect<T> &other) const;
         bool rightAlignedWith(const trippin::Rect<T> &other) const;
@@ -24,6 +25,7 @@ namespace trippin {
         static Sides collision(const trippin::Rect<T> &a, const trippin::Rect<T> &b);
         Sides collision(const trippin::Rect<T> &b) const;
         bool operator==(const Rect<T> &other) const;
+        Rect<T> operator-(const Vector<T> &other);
     };
 }
 
@@ -110,6 +112,16 @@ trippin::Sides trippin::Rect<T>::collision(const trippin::Rect<T> &b) const {
 template<class T>
 bool trippin::Rect<T>::operator==(const trippin::Rect<T> &other) const {
     return x == other.x && y == other.y && w == other.w && h == other.h;
+}
+
+template<class T>
+T trippin::Rect<T>::area() const {
+    return w * h;
+}
+
+template<class T>
+trippin::Rect<T> trippin::Rect<T>::operator-(const trippin::Vector<T> &other) {
+    return {x - other.x, y - other.y, w, h};
 }
 
 #endif

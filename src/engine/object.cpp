@@ -14,6 +14,7 @@ void trippin::Object::setPlatform(bool p) {
 
 void trippin::Object::setSize(const trippin::Vector<int> &s) {
     size = s;
+    updateRounded();
 }
 
 void trippin::Object::setPosition(const trippin::Vector<double> &p) {
@@ -150,4 +151,8 @@ void trippin::Object::onObjectCollision(trippin::Object &other, const trippin::S
 
 int trippin::Object::getId() const {
     return id;
+}
+
+void trippin::Object::setPlatformCollisionType(trippin::PlatformCollisionType type) {
+    platformCollisionType.set(type);
 }

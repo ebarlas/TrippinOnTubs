@@ -13,6 +13,7 @@ namespace trippin {
         Vector operator-(const Vector<T> &right);
         T operator*(const Vector<T> &right) const;
         Vector operator*(T right) const;
+        Vector operator/(T right) const;
         T sumOfSquares() const;
         bool operator==(const Vector<T> &v) const;
         friend std::ostream &operator<<(std::ostream &out, const Vector<T> &v);
@@ -63,6 +64,11 @@ std::ostream &operator<<(std::ostream &out, const trippin::Vector<T> &v) {
 template<class T>
 bool trippin::Vector<T>::operator==(const trippin::Vector<T> &v) const {
     return x == v.x && y == v.y;
+}
+
+template<class T>
+trippin::Vector<T> trippin::Vector<T>::operator/(T right) const {
+    return {x / right, y / right};
 }
 
 #endif

@@ -9,6 +9,7 @@ struct GameState {
     trippin::FontRenderer *fontRenderer{};
     trippin::Vector<int> windowSize{};
     trippin::Sides keysDown{};
+    Uint32 ticks{};
 };
 
 void gameLoop(

@@ -142,8 +142,11 @@ void trippin::Engine::applyPlatformCollision(
         trippin::Object &object,
         trippin::Object &platform,
         const Sides &collision) {
+    auto type = object.platformCollisionType.isPresent()
+                ? object.platformCollisionType.get()
+                : platformCollisionType;
     object.onPlatformCollision(platform, collision);
-    if (platformCollisionType == PlatformCollisionType::absorbant) {
+    if (type == PlatformCollisionType::absorbant) {
         absorbantCollision(object, platform, collision);
     } else {
         reflectiveCollision(object, platform, collision);
@@ -286,10 +289,10 @@ void trippin::Engine::registerCollision(const trippin::Object &obj, const trippi
     }
 }
 
-void trippin::Engine::setPlatformCollisionType(trippin::Engine::PlatformCollisionType t) {
+void trippin::Engine::setPlatformCollisionType(trippin::PlatformCollisionType t) {
     platformCollisionType = t;
 }
 
-void trippin::Engine::setObjectCollisionType(trippin::Engine::ObjectCollisionType t) {
+void trippin::Engine::setObjectCollisionType(trippin::ObjectCollisionType t) {
     objectCollisionType = t;
 }

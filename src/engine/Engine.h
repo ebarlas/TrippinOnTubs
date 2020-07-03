@@ -4,20 +4,10 @@
 #include <vector>
 #include <unordered_set>
 #include "Object.h"
+#include "CollisionType.h"
 
 namespace trippin {
     class Engine {
-    public:
-        enum class PlatformCollisionType {
-            absorbant,
-            reflective
-        };
-
-        enum class ObjectCollisionType {
-            elastic1D,
-            elastic2D,
-            inelastic
-        };
     private:
         struct CollisionKey {
             int id1;

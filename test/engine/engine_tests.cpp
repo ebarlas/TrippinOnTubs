@@ -4,8 +4,8 @@
 TEST_CASE("Engine object platform collision", "[engine]")
 {
     trippin::Engine engine;
-    engine.setPlatformCollisionType(trippin::Engine::PlatformCollisionType::absorbant);
-    engine.setObjectCollisionType(trippin::Engine::ObjectCollisionType::elastic1D);
+    engine.setPlatformCollisionType(trippin::PlatformCollisionType::absorbant);
+    engine.setObjectCollisionType(trippin::ObjectCollisionType::elastic1D);
 
     trippin::Object a;
     a.setPlatform(true);
@@ -31,8 +31,8 @@ TEST_CASE("Engine object platform collision", "[engine]")
 TEST_CASE("Engine object snap reaction", "[engine]")
 {
     trippin::Engine engine;
-    engine.setPlatformCollisionType(trippin::Engine::PlatformCollisionType::absorbant);
-    engine.setObjectCollisionType(trippin::Engine::ObjectCollisionType::elastic1D);
+    engine.setPlatformCollisionType(trippin::PlatformCollisionType::absorbant);
+    engine.setObjectCollisionType(trippin::ObjectCollisionType::elastic1D);
 
     trippin::Object a;
     a.setPlatform(true);
@@ -66,8 +66,8 @@ TEST_CASE("Engine object snap reaction", "[engine]")
 TEST_CASE("Engine object 1D collision", "[engine]")
 {
     trippin::Engine engine;
-    engine.setPlatformCollisionType(trippin::Engine::PlatformCollisionType::absorbant);
-    engine.setObjectCollisionType(trippin::Engine::ObjectCollisionType::elastic1D);
+    engine.setPlatformCollisionType(trippin::PlatformCollisionType::absorbant);
+    engine.setObjectCollisionType(trippin::ObjectCollisionType::elastic1D);
 
     trippin::Object a;
     a.setPlatform(false);
@@ -104,8 +104,8 @@ TEST_CASE("Engine object 1D collision", "[engine]")
 TEST_CASE("Engine object 1D fractional collision no oscillation", "[engine]")
 {
     trippin::Engine engine;
-    engine.setPlatformCollisionType(trippin::Engine::PlatformCollisionType::absorbant);
-    engine.setObjectCollisionType(trippin::Engine::ObjectCollisionType::elastic1D);
+    engine.setPlatformCollisionType(trippin::PlatformCollisionType::absorbant);
+    engine.setObjectCollisionType(trippin::ObjectCollisionType::elastic1D);
 
     trippin::Object a;
     a.setPlatform(false);
@@ -142,8 +142,8 @@ TEST_CASE("Engine object 1D fractional collision no oscillation", "[engine]")
 TEST_CASE("Engine object 1D fractional collision no irrational2", "[engine]")
 {
     trippin::Engine engine;
-    engine.setPlatformCollisionType(trippin::Engine::PlatformCollisionType::absorbant);
-    engine.setObjectCollisionType(trippin::Engine::ObjectCollisionType::elastic1D);
+    engine.setPlatformCollisionType(trippin::PlatformCollisionType::absorbant);
+    engine.setObjectCollisionType(trippin::ObjectCollisionType::elastic1D);
 
     trippin::Object a;
     a.setPlatform(true);

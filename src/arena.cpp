@@ -105,8 +105,8 @@ void init(int ticksPerFrame, std::vector<trippin::Object *> &objects, const Game
 
 int main() {
     trippin::Engine engine;
-    engine.setPlatformCollisionType(trippin::Engine::PlatformCollisionType::absorbant);
-    engine.setObjectCollisionType(trippin::Engine::ObjectCollisionType::inelastic);
+    engine.setPlatformCollisionType(trippin::PlatformCollisionType::absorbant);
+    engine.setObjectCollisionType(trippin::ObjectCollisionType::inelastic);
 
     int ticksPerFrame = 10;
     int ticksSquaredPerFrame = ticksPerFrame * ticksPerFrame;

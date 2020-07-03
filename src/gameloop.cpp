@@ -9,7 +9,11 @@ void gameLoop(
         const std::function<void(const GameState &)> &renderFn) {
     trippin::FontRenderer fontRenderer{ren};
 
-    initFn({ren, &fontRenderer, windowSize});
+    Uint32 nowTicks = SDL_GetTicks();
+    Uint32 lastTicks = nowTicks;
+    Uint32 ticks = nowTicks - lastTicks;
+
+    initFn({ren, &fontRenderer, windowSize, {}, ticks});
 
     trippin::Sides keysDown;
     bool debug = false;
@@ -61,7 +65,13 @@ void gameLoop(
         }
 
         if (!debug || spacePressed) {
-            updateFn({ren, &fontRenderer, windowSize, keysDown});
+            nowTicks = SDL_GetTicks();
+            ticks = nowTicks - lastTicks;
+            lastTicks = nowTicks;
+
+            updateFn({ren, &fontRenderer, windowSize, keysDown, ticks});
+        } else {
+            nowTicks = lastTicks = SDL_GetTicks();
         }
 
         SDL_SetRenderDrawColor(ren, 255, 255, 255, 255);
