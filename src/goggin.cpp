@@ -7,6 +7,9 @@
 
 constexpr bool displayLabel = true;
 constexpr SDL_Color fontColor{100, 100, 100, 255};
+constexpr int clockTicksPerGameTick = 1;
+constexpr int gameTicksPerSecond = 1000 / clockTicksPerGameTick;
+constexpr int gameTicksPerSecondSq = gameTicksPerSecond * gameTicksPerSecond;
 
 std::string format(double d, int precision = 2) {
     std::stringstream stream;
@@ -27,8 +30,8 @@ public:
         updateRounded();
     }
 
-    void tick() {
-        ticks++;
+    void clockTimes(int clockTicks) {
+        ticks += clockTicks;
     }
 
     void render(const GameState &gs, const trippin::Camera &camera) {
@@ -62,6 +65,7 @@ public:
     std::vector<SpriteObject *> balls{};
     trippin::Camera camera{};
     Uint32 totalTicks{};
+    int remainderClockTicks{};
 
     void create() {
         auto initFn = [this](const GameState &gs) {
@@ -103,13 +107,11 @@ public:
         int nextId = 1;
 
         auto pixelsPerMeter = 240 * mul;
-        auto ticksPerSecond = 1000;
-        auto ticksPerSecondSq = ticksPerSecond * ticksPerSecond;
-        auto yAccel = (8.0 * pixelsPerMeter) / ticksPerSecondSq;
-        auto xTerminalGoggin = (8.0 * pixelsPerMeter) / ticksPerSecond;
-        auto xTerminalBall = (10.0 * pixelsPerMeter) / ticksPerSecond;
-        auto yTerminal = (35.0 * pixelsPerMeter) / ticksPerSecond;
-        auto xFrictionBall = (1.0 * pixelsPerMeter) / ticksPerSecondSq;
+        auto yAccel = (8.0 * pixelsPerMeter) / gameTicksPerSecondSq;
+        auto xTerminalGoggin = (8.0 * pixelsPerMeter) / gameTicksPerSecond;
+        auto xTerminalBall = (10.0 * pixelsPerMeter) / gameTicksPerSecond;
+        auto yTerminal = (35.0 * pixelsPerMeter) / gameTicksPerSecond;
+        auto xFrictionBall = (1.0 * pixelsPerMeter) / gameTicksPerSecondSq;
 
         auto &hb = gogginSprite.getHitBox();
         goggin.setId(nextId++);
@@ -151,12 +153,13 @@ public:
         auto scale = trippin::Scale::small;
         auto mul = scaleMultiplier(scale);
         auto pixelsPerMeter = 240 * mul;
-        auto ticksPerSecond = 1000;
-        auto ticksPerSecondSq = ticksPerSecond * ticksPerSecond;
-        auto xAccel = (7.0 * pixelsPerMeter) / ticksPerSecondSq;
-        auto yAccel = (8.0 * pixelsPerMeter) / ticksPerSecondSq;
+        auto xAccel = (7.0 * pixelsPerMeter) / gameTicksPerSecondSq;
+        auto yAccel = (8.0 * pixelsPerMeter) / gameTicksPerSecondSq;
 
-        for (int i = 0; i < gs.ticks; i++) {
+        auto clockTicks = (remainderClockTicks + gs.ticks) / clockTicksPerGameTick;
+        remainderClockTicks = gs.ticks % clockTicksPerGameTick;
+
+        for (int i = 0; i < clockTicks; i++) {
             if (goggin.getPlatformCollisions().testBottom()) {
                 goggin.setAcceleration({xAccel, yAccel});
             } else {
@@ -164,9 +167,9 @@ public:
             }
 
             engine.tick();
-            goggin.tick();
         }
 
+        goggin.clockTimes(gs.ticks);
         totalTicks += gs.ticks;
     }
 
