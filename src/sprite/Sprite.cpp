@@ -16,13 +16,13 @@ void trippin::Sprite::load(SDL_Renderer *renderer, const std::string &name, Scal
               static_cast<int>(std::round(hb.h * mul))};
 }
 
-void trippin::Sprite::render(SDL_Renderer *renderer, const trippin::Vector<int> position, int frame) const {
+void trippin::Sprite::render(SDL_Renderer *renderer, const trippin::Point<int> position, int frame) const {
     SDL_Rect clip{frame * size.x, 0, size.x, size.y};
     SDL_Rect target{position.x, position.y, size.x, size.y};
     sheet.render(renderer, &clip, &target);
 }
 
-const trippin::Vector<int> &trippin::Sprite::getSize() const {
+const trippin::Point<int> &trippin::Sprite::getSize() const {
     return size;
 }
 

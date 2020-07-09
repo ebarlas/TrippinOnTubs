@@ -3,7 +3,7 @@
 
 void gameLoop(
         SDL_Renderer *ren,
-        const trippin::Vector<int> &windowSize,
+        const trippin::Point<int> &windowSize,
         const std::function<void(const GameState &)> &initFn,
         const std::function<void(const GameState &)> &updateFn,
         const std::function<void(const GameState &)> &renderFn) {
@@ -86,8 +86,8 @@ void gameLoop(
 void gameLoop(const std::function<void(const GameState &)> &initFn,
              const std::function<void(const GameState &)> &updateFn,
              const std::function<void(const GameState &)> &renderFn) {
-    trippin::Vector<int> windowSize{1600, 900};
-    trippin::Vector<int> windowPos{100, 100};
+    trippin::Point<int> windowSize{1600, 900};
+    trippin::Point<int> windowPos{100, 100};
     auto title = "Hacking";
 
     SDL_Init(SDL_INIT_VIDEO);

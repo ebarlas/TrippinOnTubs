@@ -46,11 +46,11 @@ public:
                 auto posLabel = format(position.x) + ", " + format(position.y);
                 auto velLabel = format(velocity.x) + ", " + format(velocity.y);
                 gs.fontRenderer->render(std::to_string(id), fontColor,
-                                        roundedPosition - viewport.corner() + trippin::Vector<int>{5, 10});
+                                        roundedPosition - viewport.corner() + trippin::Point<int>{5, 10});
                 gs.fontRenderer->render(posLabel, fontColor,
-                                        roundedPosition - viewport.corner() + trippin::Vector<int>{5, 30});
+                                        roundedPosition - viewport.corner() + trippin::Point<int>{5, 30});
                 gs.fontRenderer->render(velLabel, fontColor,
-                                        roundedPosition - viewport.corner() + trippin::Vector<int>{5, 50});
+                                        roundedPosition - viewport.corner() + trippin::Point<int>{5, 50});
             }
         }
     }
@@ -126,7 +126,7 @@ public:
             auto ground = new SpriteObject;
             ground->setId(nextId++);
             ground->setPlatform(true);
-            ground->setPosition(trippin::Vector<double>{i * 480.0, 4880} * mul);
+            ground->setPosition(trippin::Point<double>{i * 480.0, 4880} * mul);
             ground->init(&groundSprite);
             grounds.push_back(ground);
             engine.add(ground);

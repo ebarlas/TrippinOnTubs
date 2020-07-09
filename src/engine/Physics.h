@@ -2,7 +2,7 @@
 #define TRIPPIN_PHYSICS_H
 
 #include <utility>
-#include "Vector.h"
+#include "Point.h"
 #include "PlasmaPhysics.h"
 
 namespace trippin {
@@ -13,19 +13,19 @@ namespace trippin {
             double m1,
             double m2);
 
-    std::pair<DoubleVector, DoubleVector> elasticCollision2D(
-            DoubleVector v1,
-            DoubleVector v2,
-            DoubleVector p1,
-            DoubleVector p2,
+    std::pair<DoublePoint, DoublePoint> elasticCollision2D(
+            DoublePoint v1,
+            DoublePoint v2,
+            DoublePoint p1,
+            DoublePoint p2,
             double m1,
             double m2);
 
-    std::pair<DoubleVector, DoubleVector> inelasticCollision2D(
-            DoubleVector v1,
-            DoubleVector v2,
-            DoubleVector p1,
-            DoubleVector p2,
+    std::pair<DoublePoint, DoublePoint> inelasticCollision2D(
+            DoublePoint v1,
+            DoublePoint v2,
+            DoublePoint p1,
+            DoublePoint p2,
             double m1,
             double m2,
             double restitutionCoefficient);

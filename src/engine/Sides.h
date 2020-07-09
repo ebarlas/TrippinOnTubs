@@ -10,14 +10,14 @@ namespace trippin {
             left, top, bottom, right
         };
         std::bitset<4> sides;
+        void set(Side side, bool on);
+        bool test(Side side) const;
     public:
         Sides &operator|=(const Sides &c);
         bool operator==(const Sides &c) const;
         operator bool() const;
         operator int() const;
         int count() const;
-        void set(Side side, bool on);
-        bool test(Side side) const;
         bool testLeft() const;
         bool testTop() const;
         bool testRight() const;

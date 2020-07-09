@@ -7,14 +7,14 @@
 struct GameState {
     SDL_Renderer *renderer{};
     trippin::FontRenderer *fontRenderer{};
-    trippin::Vector<int> windowSize{};
+    trippin::Point<int> windowSize{};
     trippin::Sides keysDown{};
     Uint32 ticks{};
 };
 
 void gameLoop(
         SDL_Renderer *ren,
-        const trippin::Vector<int> &windowSize,
+        const trippin::Point<int> &windowSize,
         const std::function<void(const GameState &)> &initFn,
         const std::function<void(const GameState &)> &updateFn,
         const std::function<void(const GameState &)> &renderFn);

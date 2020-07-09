@@ -7,7 +7,7 @@ void init(int ticksPerFrame, std::vector<trippin::Object *> &objects, const Game
     int wallWidth = 50;
     bool displayLabels = true;
 
-    trippin::Vector<double> terminalVelocity = {20.0 / ticksPerFrame, 20.0 / ticksPerFrame};
+    trippin::Point<double> terminalVelocity = {20.0 / ticksPerFrame, 20.0 / ticksPerFrame};
 
     auto leftWall = new trippin::RenderableObject;
     leftWall->setId(nextId++);

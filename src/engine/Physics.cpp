@@ -7,11 +7,11 @@ std::pair<double, double> trippin::elasticCollision1D(double v1, double v2, doub
     return {v1p, v2p};
 }
 
-std::pair<trippin::DoubleVector, trippin::DoubleVector> trippin::elasticCollision2D(
-        trippin::DoubleVector v1,
-        trippin::DoubleVector v2,
-        trippin::DoubleVector p1,
-        trippin::DoubleVector p2,
+std::pair<trippin::DoublePoint, trippin::DoublePoint> trippin::elasticCollision2D(
+        trippin::DoublePoint v1,
+        trippin::DoublePoint v2,
+        trippin::DoublePoint p1,
+        trippin::DoublePoint p2,
         double m1,
         double m2) {
     auto pDiff = p1 - p2;
@@ -35,11 +35,11 @@ std::pair<trippin::DoubleVector, trippin::DoubleVector> trippin::elasticCollisio
     return {v1p, v2p};
 }
 
-std::pair<trippin::DoubleVector, trippin::DoubleVector> trippin::inelasticCollision2D(
-        trippin::DoubleVector v1,
-        trippin::DoubleVector v2,
-        trippin::DoubleVector p1,
-        trippin::DoubleVector p2,
+std::pair<trippin::DoublePoint, trippin::DoublePoint> trippin::inelasticCollision2D(
+        trippin::DoublePoint v1,
+        trippin::DoublePoint v2,
+        trippin::DoublePoint p1,
+        trippin::DoublePoint p2,
         double m1,
         double m2,
         double restitutionCoefficient) {

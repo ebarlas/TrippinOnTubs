@@ -1,5 +1,6 @@
 #include <sstream>
 #include <iomanip>
+#include <cmath>
 #include "RenderableObject.h"
 
 std::string trippin::RenderableObject::format(double d, int precision) {
@@ -16,9 +17,9 @@ void trippin::RenderableObject::render(SDL_Renderer *renderer, const Rect<int> &
         auto posLabel = format(position.x) + ", " + format(position.y);
         auto velLabel = format(velocity.x) + ", " + format(velocity.y);
         if (displayLabel) {
-            fontRenderer->render(std::to_string(id), fontColor, roundedPosition - viewport.corner() + trippin::Vector<int>{5, 10});
-            fontRenderer->render(posLabel, fontColor, roundedPosition - viewport.corner() + trippin::Vector<int>{5, 30});
-            fontRenderer->render(velLabel, fontColor, roundedPosition - viewport.corner() + trippin::Vector<int>{5, 50});
+            fontRenderer->render(std::to_string(id), fontColor, roundedPosition - viewport.corner() + trippin::Point<int>{5, 10});
+            fontRenderer->render(posLabel, fontColor, roundedPosition - viewport.corner() + trippin::Point<int>{5, 30});
+            fontRenderer->render(velLabel, fontColor, roundedPosition - viewport.corner() + trippin::Point<int>{5, 50});
         }
     }
 }

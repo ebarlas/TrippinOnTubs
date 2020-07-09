@@ -6,7 +6,7 @@
 namespace trippin {
     class Camera {
     public:
-        void centerOn(Vector<int> point);
+        void centerOn(Point<int> point);
         void setUniverse(Rect<int> universe);
         void setViewport(Rect<int> viewport);
         bool inView(const Rect<int> &rect) const;

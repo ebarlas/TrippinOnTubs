@@ -1,5 +1,5 @@
 #include "catch2/catch.hpp"
-#include "engine/queue.h"
+#include "engine/Queue.h"
 
 TEST_CASE("Queue lifecycle no material", "[queue]") {
     auto compare = [](const std::pair<int, bool> &left, const std::pair<int, bool> &right) {

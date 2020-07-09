@@ -1,8 +1,8 @@
-#include "Rect.h"
-#include "Vector.h"
-#include "Sides.h"
-#include "Queue.h"
-#include "Object.h"
+#include <cmath>
+#include "engine/Rect.h"
+#include "engine/Point.h"
+#include "engine/Sides.h"
+#include "engine/Object.h"
 
 void trippin::Object::setId(int n) {
     id = n;
@@ -12,25 +12,25 @@ void trippin::Object::setPlatform(bool p) {
     platform = p;
 }
 
-void trippin::Object::setSize(const trippin::Vector<int> &s) {
+void trippin::Object::setSize(const trippin::Point<int> &s) {
     size = s;
     updateRounded();
 }
 
-void trippin::Object::setPosition(const trippin::Vector<double> &p) {
+void trippin::Object::setPosition(const trippin::Point<double> &p) {
     position = p;
     updateRounded();
 }
 
-void trippin::Object::setVelocity(const trippin::Vector<double> &v) {
+void trippin::Object::setVelocity(const trippin::Point<double> &v) {
     velocity = v;
 }
 
-void trippin::Object::setTerminalVelocity(const trippin::Vector<double> &v) {
+void trippin::Object::setTerminalVelocity(const trippin::Point<double> &v) {
     terminalVelocity = v;
 }
 
-void trippin::Object::setAcceleration(const trippin::Vector<double> &a) {
+void trippin::Object::setAcceleration(const trippin::Point<double> &a) {
     acceleration = a;
 }
 
@@ -38,23 +38,23 @@ void trippin::Object::setMass(double m) {
     mass = m;
 }
 
-const trippin::Vector<double> &trippin::Object::getPosition() const {
+const trippin::Point<double> &trippin::Object::getPosition() const {
     return position;
 }
 
-const trippin::Vector<double> &trippin::Object::getVelocity() const {
+const trippin::Point<double> &trippin::Object::getVelocity() const {
     return velocity;
 }
 
-const trippin::Vector<double> &trippin::Object::getTerminalVelocity() const {
+const trippin::Point<double> &trippin::Object::getTerminalVelocity() const {
     return terminalVelocity;
 }
 
-const trippin::Vector<double> &trippin::Object::getGravity() const {
+const trippin::Point<double> &trippin::Object::getGravity() const {
     return gravity;
 }
 
-const trippin::Vector<double> &trippin::Object::getFriction() const {
+const trippin::Point<double> &trippin::Object::getFriction() const {
     return friction;
 }
 
@@ -105,15 +105,15 @@ void trippin::Object::applyMotion() {
     objectCollisions = {};
 }
 
-const trippin::Vector<int> &trippin::Object::getSize() const {
+const trippin::Point<int> &trippin::Object::getSize() const {
     return size;
 }
 
-void trippin::Object::setFriction(const Vector<double> &f) {
+void trippin::Object::setFriction(const Point<double> &f) {
     friction = f;
 }
 
-void trippin::Object::setGravity(const Vector<double> &g) {
+void trippin::Object::setGravity(const Point<double> &g) {
     gravity = g;
 }
 
@@ -121,19 +121,19 @@ const trippin::Sides &trippin::Object::getPlatformCollisions() const {
     return platformCollisions;
 }
 
-const trippin::Vector<int> &trippin::Object::getRoundedPosition() const {
+const trippin::Point<int> &trippin::Object::getRoundedPosition() const {
     return roundedPosition;
 }
 
-const trippin::Vector<double> &trippin::Object::getCenter() const {
+const trippin::Point<double> &trippin::Object::getCenter() const {
     return center;
 }
 
-const trippin::Vector<int> &trippin::Object::getRoundedCenter() const {
+const trippin::Point<int> &trippin::Object::getRoundedCenter() const {
     return roundedCenter;
 }
 
-const trippin::Vector<double> &trippin::Object::getAcceleration() const {
+const trippin::Point<double> &trippin::Object::getAcceleration() const {
     return acceleration;
 }
 

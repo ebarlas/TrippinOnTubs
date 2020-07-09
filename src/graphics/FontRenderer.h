@@ -4,7 +4,7 @@
 #include <string>
 #include "SDL.h"
 #include "SDL2/SDL_ttf.h"
-#include "engine/Vector.h"
+#include "engine/Point.h"
 
 namespace trippin {
     class FontRenderer {
@@ -14,7 +14,7 @@ namespace trippin {
     public:
         FontRenderer(SDL_Renderer *renderer);
         ~FontRenderer();
-        void render(const std::string &text, const SDL_Color &color, const trippin::Vector<int> &pos);
+        void render(const std::string &text, const SDL_Color &color, const trippin::Point<int> &pos);
     };
 }
 

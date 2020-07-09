@@ -6,9 +6,9 @@ void init(int ticksPerFrame, std::vector<trippin::Object *> &objects, const Game
     int ticksSquaredPerFrame = ticksPerFrame * ticksPerFrame;
     bool displayLabels = false;
 
-    trippin::Vector<double> terminalVelocity{20.0 / ticksPerFrame, 20.0 / ticksPerFrame};
-    trippin::Vector<double> friction{0.05 / ticksSquaredPerFrame, 0.05 / ticksSquaredPerFrame};
-    trippin::Vector<double> gravity{0, 0.2 / ticksSquaredPerFrame};
+    trippin::Point<double> terminalVelocity{20.0 / ticksPerFrame, 20.0 / ticksPerFrame};
+    trippin::Point<double> friction{0.05 / ticksSquaredPerFrame, 0.05 / ticksSquaredPerFrame};
+    trippin::Point<double> gravity{0, 0.2 / ticksSquaredPerFrame};
 
     int nextId = 1;
 
@@ -82,8 +82,8 @@ void init(int ticksPerFrame, std::vector<trippin::Object *> &objects, const Game
 
 int main() {
     trippin::Engine engine;
-    engine.setPlatformCollisionType(trippin::Engine::PlatformCollisionType::absorbant);
-    engine.setObjectCollisionType(trippin::Engine::ObjectCollisionType::inelastic);
+    engine.setPlatformCollisionType(trippin::PlatformCollisionType::absorbant);
+    engine.setObjectCollisionType(trippin::ObjectCollisionType::inelastic);
 
     int ticksPerFrame = 10;
     int ticksSquaredPerFrame = ticksPerFrame * ticksPerFrame;
@@ -127,7 +127,7 @@ int main() {
             lastTime = now;
         }
 
-        trippin::Vector<double> a{};
+        trippin::Point<double> a{};
         if (gs.keysDown.testTop()) {
             a.y = -0.6 / ticksSquaredPerFrame;
         } else if (gs.keysDown.testBottom()) {

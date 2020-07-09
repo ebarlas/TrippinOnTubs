@@ -16,7 +16,7 @@ const trippin::Rect<int> &trippin::Camera::getUniverse() const {
     return universe;
 }
 
-void trippin::Camera::centerOn(Vector<int> center) {
+void trippin::Camera::centerOn(Point<int> center) {
     double x = center.x - viewport.w / 2.0;
     double y = center.y - viewport.h / 2.0;
 

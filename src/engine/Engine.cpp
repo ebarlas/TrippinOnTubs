@@ -1,4 +1,8 @@
-#include "Engine.h"
+#include <functional>
+#include <unordered_map>
+#include "engine/Engine.h"
+#include "engine/PriorityQueue.h"
+#include "engine/Physics.h"
 
 void trippin::Engine::add(trippin::Object *object) {
     if (object->platform) {
@@ -44,9 +48,10 @@ void trippin::Engine::snapObjects() {
         return left.first->position.y < right.first->position.y;
     };
 
-    Queue<Object *, Sides, decltype(compare)> q(compare);
+    std::unordered_map<Object *, Sides> collisions{};
+    PriorityQueue<Object *, Sides, decltype(compare)> q(compare);
 
-    // 1. initialize queue with all objects
+    // Load all objects into queue
     for (auto obj : platforms) {
         q.push(obj);
     }
@@ -54,18 +59,20 @@ void trippin::Engine::snapObjects() {
         q.push(obj);
     }
 
-    // 2. traverse objects in priority order where priority is determined by platform contacts
+    // Traverse objects in priority order where priority is determined by platform contacts.
+    // Each object acts like a platform once. All non-platform, overlapping neighbor objects are snapped.
     while (!q.empty()) {
         auto plat = q.pop();
         for (auto kin : objects) {
             if (plat != kin && !kin->platform) {
                 auto overlap = kin->roundedBox.intersect(plat->roundedBox);
                 if (overlap) {
-                    snapTo(*kin, *plat, overlap, q.material(kin));
+                    snapTo(*kin, *plat, overlap, collisions[kin]);
                 }
                 auto collision = kin->roundedBox.collision(plat->roundedBox);
                 if (collision) {
-                    q.push(kin, collision);
+                    auto c = collisions[kin] |= collision;
+                    q.push(kin, c);
                 }
             }
         }
@@ -80,30 +87,34 @@ void trippin::Engine::snapTo(
     auto x = 0.0;
     auto y = 0.0;
 
-    // examine horizontal overlap
-    if (obj.roundedBox.leftAlignedWith(overlap)) {
+    // examine horizontal overlap - the overlap rect must align with left-right sides of the two objects
+    // this check excludes interior collisions, for example a tally, skinny object that drops vertically in the
+    // middle of a wide platform
+    if (obj.roundedBox.leftAlignedWith(overlap) && p.roundedBox.rightAlignedWith(overlap)) {
         x = overlap.w;
-    } else if (obj.roundedBox.rightAlignedWith(overlap)) {
+    } else if (obj.roundedBox.rightAlignedWith(overlap) && p.roundedBox.leftAlignedWith(overlap)) {
         x = -overlap.w;
     }
 
-    // examine vertical overlap
-    if (obj.roundedBox.topAlignedWith(overlap)) {
+    // examine vertical overlap - the overlap rect must align with top-bottom sides of the two objects
+    // this check excludes interior collisions, for example a short, wide object that move laterally in the
+    // middle of a tall platform
+    if (obj.roundedBox.topAlignedWith(overlap) && p.roundedBox.bottomAlignedWith(overlap)) {
         y = overlap.h;
-    } else if (obj.roundedBox.bottomAlignedWith(overlap)) {
+    } else if (obj.roundedBox.bottomAlignedWith(overlap) && p.roundedBox.topAlignedWith(overlap)) {
         y = -overlap.h;
     }
 
     bool updated = false;
 
     // use smallest displacement
-    if (x != 0 && std::abs(x) < std::abs(y)) {
+    if (x != 0 && (y == 0 || (std::abs(x) < std::abs(y)))) {
         // dont snap back over previous overlap - oldest snap wins
         if ((x > 0 && !previousCollisions.testRight()) || (x < 0 && !previousCollisions.testLeft())) {
             obj.position.x += x;
             updated = true;
         }
-    } else {
+    } else if (y != 0) {
         // same as above
         if ((y > 0 && !previousCollisions.testBottom()) || (y < 0 && !previousCollisions.testTop())) {
             obj.position.y += y;
@@ -280,8 +291,8 @@ bool trippin::Engine::testCollision(const trippin::Object &obj, const trippin::O
            : prevCollisions.count({p.id, obj.id, p.velocity, obj.velocity});
 }
 
-void trippin::Engine::registerCollision(const trippin::Object &obj, const trippin::Object &p, const Vector<double> &v1,
-                                        const Vector<double> &v2) {
+void trippin::Engine::registerCollision(const trippin::Object &obj, const trippin::Object &p, const Point<double> &v1,
+                                        const Point<double> &v2) {
     if (obj.id < p.id) {
         nextCollisions.insert({obj.id, p.id, v1, v2});
     } else {

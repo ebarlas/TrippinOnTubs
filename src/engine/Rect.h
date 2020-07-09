@@ -2,7 +2,7 @@
 #define TRIPPIN_RECT_H
 
 #include <ostream>
-#include "Vector.h"
+#include "Point.h"
 #include "Sides.h"
 
 namespace trippin {
@@ -14,7 +14,7 @@ namespace trippin {
         T h;
         static bool valueInRange(T value, T min, T max);
         static trippin::Rect<T> intersect(const trippin::Rect<T> &a, const trippin::Rect<T> &b);
-        Vector<T> corner() const;
+        Point<T> corner() const;
         T area() const;
         trippin::Rect<T> intersect(const trippin::Rect<T> &b) const;
         bool leftAlignedWith(const trippin::Rect<T> &other) const;
@@ -25,7 +25,7 @@ namespace trippin {
         static Sides collision(const trippin::Rect<T> &a, const trippin::Rect<T> &b);
         Sides collision(const trippin::Rect<T> &b) const;
         bool operator==(const Rect<T> &other) const;
-        Rect<T> operator-(const Vector<T> &other);
+        Rect<T> operator-(const Point<T> &other);
     };
 }
 
@@ -55,7 +55,7 @@ trippin::Rect<T> trippin::Rect<T>::intersect(const trippin::Rect<T> &a, const tr
 }
 
 template<class T>
-trippin::Vector<T> trippin::Rect<T>::corner() const {
+trippin::Point<T> trippin::Rect<T>::corner() const {
     return {x, y};
 }
 
@@ -120,7 +120,7 @@ T trippin::Rect<T>::area() const {
 }
 
 template<class T>
-trippin::Rect<T> trippin::Rect<T>::operator-(const trippin::Vector<T> &other) {
+trippin::Rect<T> trippin::Rect<T>::operator-(const trippin::Point<T> &other) {
     return {x - other.x, y - other.y, w, h};
 }
 
