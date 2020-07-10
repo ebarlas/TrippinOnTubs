@@ -81,6 +81,39 @@ and `C` snaps to `D`. That leaves a new intersection between `B` and `C`. If `B`
 ### Collision Detection
 
 Once intersection detection and object snapping are done, collision detection is 
-quite straightforward. A collision occurs when two objects share part of
-an AABB side.  
+quite straightforward. A collision occurs when two grid-snapped AABBs share a portion
+of their perimeter. In other words, when they are touching.
 
+![Image of position updates](docs/collision.png)
+
+There are several special cases in which touching objects are not considered to be
+colliding.
+
+One such case is an irrational collision. An irrational collision is a collision
+that is attributed entirely to object snapping rather than object motion. In the
+example below, `A` and `B` are moving south but a collision occurs on the x-axis
+due to object snapping.
+
+![Image of position updates](docs/irrational.png)
+
+Another case is a redundant collision. A redundant collision occurs when the reaction
+to an initial collision doesn't create enough distance to avoid a second collision
+in the subsequence tick after grid snapping. The example below demonstrates that
+problem.
+
+![Image of position updates](docs/redundant.png)  
+
+### Collision Reaction
+
+Collision reactions can be divided into two categories:
+1. Object-platform
+2. Object-object
+
+Object-platform collision reactions can be further subdivided:
+1. Absorbant
+2. Reflective
+
+Object-object collisions reaction can be further subdivided:
+1. 1D elastic
+2. 2D elastic
+3. 2D inelatic

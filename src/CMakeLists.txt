@@ -1,6 +1,6 @@
 include_directories(./)
 
-add_library(Engine engine/Object.cpp engine/Physics.cpp engine/PlasmaPhysics.cpp engine/Sides.cpp engine/Engine.cpp)
+add_library(Engine engine/Object.cpp engine/Physics.cpp engine/PlasmaPhysics.cpp engine/Sides.cpp engine/Engine.cpp engine/CollisionTable.cpp)
 
 add_library(IO io/File.cpp)
 target_link_libraries(IO CONAN_PKG::sdl2)

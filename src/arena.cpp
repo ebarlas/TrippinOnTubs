@@ -125,7 +125,7 @@ int main() {
     auto updateFn = [&lastTime, &ticksPerFrame, &ticksSquaredPerFrame, &objects, &engine](
             const GameState &gs) {
         Uint32 now = SDL_GetTicks();
-        if (now - lastTime > 200) {
+        if (now - lastTime > 1000) {
             int width = 50 + std::rand() % 100;
             int height = 50 + std::rand() % 100;
             auto obj = new trippin::RenderableObject;

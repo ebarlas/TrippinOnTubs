@@ -28,6 +28,31 @@ TEST_CASE("Engine object platform collision", "[engine]")
     REQUIRE(b.getPlatformCollisions().testTop());
 }
 
+TEST_CASE("Engine object platform interior", "[engine]")
+{
+    trippin::Engine engine;
+    engine.setPlatformCollisionType(trippin::PlatformCollisionType::absorbant);
+    engine.setObjectCollisionType(trippin::ObjectCollisionType::elastic1D);
+
+    trippin::Object a;
+    a.setPlatform(true);
+    a.setSize({4, 12});
+    a.setPosition({2, 2});
+
+    trippin::Object b;
+    b.setPlatform(false);
+    b.setSize({9, 2});
+    b.setPosition({3, 6});
+
+    engine.add(&a);
+    engine.add(&b);
+
+    engine.tick();
+
+    REQUIRE(a.getRoundedBox() == trippin::Rect<int>{2, 2, 4, 12});
+    REQUIRE(b.getRoundedBox() == trippin::Rect<int>{6, 6, 9, 2});
+}
+
 TEST_CASE("Engine object snap reaction", "[engine]")
 {
     trippin::Engine engine;
@@ -61,6 +86,57 @@ TEST_CASE("Engine object snap reaction", "[engine]")
 
     REQUIRE(b.getPlatformCollisions().testLeft());
     REQUIRE(c.getPlatformCollisions() == trippin::Sides{});
+}
+
+TEST_CASE("Engine object snap reaction circle", "[engine]")
+{
+    trippin::Engine engine;
+    engine.setPlatformCollisionType(trippin::PlatformCollisionType::absorbant);
+    engine.setObjectCollisionType(trippin::ObjectCollisionType::elastic1D);
+
+    trippin::Object a;
+    a.setId(1);
+    a.setPlatform(true);
+    a.setSize({4, 4});
+    a.setPosition({9, 5});
+
+    trippin::Object b;
+    b.setId(2);
+    b.setPlatform(false);
+    b.setSize({4, 4});
+    b.setPosition({11, 8});
+
+    trippin::Object c;
+    c.setId(3);
+    c.setPlatform(false);
+    c.setSize({7, 4});
+    c.setPosition({6, 10});
+
+    trippin::Object d;
+    d.setId(4);
+    d.setPlatform(false);
+    d.setSize({6, 8});
+    d.setPosition({1, 4});
+
+    trippin::Object e;
+    e.setId(5);
+    e.setPlatform(false);
+    e.setSize({6, 6});
+    e.setPosition({2, 2});
+
+    engine.add(&a);
+    engine.add(&b);
+    engine.add(&c);
+    engine.add(&d);
+    engine.add(&e);
+
+    engine.tick();
+
+    REQUIRE(a.getRoundedBox() == trippin::Rect<int>{9, 5, 4, 4});
+    REQUIRE(b.getRoundedBox() == trippin::Rect<int>{11, 9, 4, 4});
+    REQUIRE(c.getRoundedBox() == trippin::Rect<int>{4, 10, 7, 4});
+    REQUIRE(d.getRoundedBox() == trippin::Rect<int>{1, 2, 6, 8});
+    REQUIRE(e.getRoundedBox() == trippin::Rect<int>{7, 2, 6, 6});
 }
 
 TEST_CASE("Engine object 1D collision", "[engine]")
@@ -139,7 +215,7 @@ TEST_CASE("Engine object 1D fractional collision no oscillation", "[engine]")
     REQUIRE(b.getVelocity().x == 0.1);
 }
 
-TEST_CASE("Engine object 1D fractional collision no irrational2", "[engine]")
+TEST_CASE("Engine object 1D fractional collision no irrational", "[engine]")
 {
     trippin::Engine engine;
     engine.setPlatformCollisionType(trippin::PlatformCollisionType::absorbant);
