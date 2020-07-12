@@ -13,23 +13,20 @@ target_link_libraries(Sprite IO Exception CONAN_PKG::nlohmann_json CONAN_PKG::sd
 add_library(Graphics graphics/FontRenderer.cpp graphics/RenderableObject.cpp)
 target_link_libraries(Graphics CONAN_PKG::sdl2 CONAN_PKG::sdl2_ttf)
 
-add_executable(Trippin main.cpp)
-target_link_libraries(Trippin Sprite)
-
-add_library(GameLoop gameloop.cpp)
+add_library(GameLoop applications/gameloop.cpp)
 target_link_libraries(GameLoop Graphics Engine)
 
-add_executable(enclosed enclosed.cpp)
+add_executable(enclosed applications/enclosed.cpp)
 target_link_libraries(enclosed GameLoop Graphics Engine)
 
-add_executable(arena arena.cpp)
+add_executable(arena applications/arena.cpp)
 target_link_libraries(arena GameLoop Graphics Engine)
 
-add_executable(frogs frogs.cpp)
+add_executable(frogs applications/frogs.cpp)
 target_link_libraries(frogs GameLoop Graphics Engine)
 
-add_executable(mice mice.cpp)
+add_executable(mice applications/mice.cpp)
 target_link_libraries(mice GameLoop Graphics Engine)
 
-add_executable(goggin goggin.cpp)
+add_executable(goggin applications/goggin.cpp)
 target_link_libraries(goggin GameLoop Sprite Engine)
