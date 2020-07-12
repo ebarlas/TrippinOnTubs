@@ -38,27 +38,27 @@ void trippin::Object::setMass(double m) {
     mass = m;
 }
 
-const trippin::Point<double> &trippin::Object::getPosition() const {
+trippin::Point<double> trippin::Object::getPosition() const {
     return position;
 }
 
-const trippin::Point<double> &trippin::Object::getVelocity() const {
+trippin::Point<double> trippin::Object::getVelocity() const {
     return velocity;
 }
 
-const trippin::Point<double> &trippin::Object::getTerminalVelocity() const {
+trippin::Point<double> trippin::Object::getTerminalVelocity() const {
     return terminalVelocity;
 }
 
-const trippin::Point<double> &trippin::Object::getGravity() const {
+trippin::Point<double> trippin::Object::getGravity() const {
     return gravity;
 }
 
-const trippin::Point<double> &trippin::Object::getFriction() const {
+trippin::Point<double> trippin::Object::getFriction() const {
     return friction;
 }
 
-const trippin::Rect<int> &trippin::Object::getRoundedBox() const {
+trippin::Rect<int> trippin::Object::getRoundedBox() const {
     return roundedBox;
 }
 
@@ -105,7 +105,7 @@ void trippin::Object::applyMotion() {
     objectCollisions = {};
 }
 
-const trippin::Point<int> &trippin::Object::getSize() const {
+trippin::Point<int> trippin::Object::getSize() const {
     return size;
 }
 
@@ -117,27 +117,27 @@ void trippin::Object::setGravity(const Point<double> &g) {
     gravity = g;
 }
 
-const trippin::Sides &trippin::Object::getPlatformCollisions() const {
+trippin::Sides trippin::Object::getPlatformCollisions() const {
     return platformCollisions;
 }
 
-const trippin::Point<int> &trippin::Object::getRoundedPosition() const {
+trippin::Point<int> trippin::Object::getRoundedPosition() const {
     return roundedPosition;
 }
 
-const trippin::Point<double> &trippin::Object::getCenter() const {
+trippin::Point<double> trippin::Object::getCenter() const {
     return center;
 }
 
-const trippin::Point<int> &trippin::Object::getRoundedCenter() const {
+trippin::Point<int> trippin::Object::getRoundedCenter() const {
     return roundedCenter;
 }
 
-const trippin::Point<double> &trippin::Object::getAcceleration() const {
+trippin::Point<double> trippin::Object::getAcceleration() const {
     return acceleration;
 }
 
-const trippin::Sides &trippin::Object::getObjectCollisions() const {
+trippin::Sides trippin::Object::getObjectCollisions() const {
     return objectCollisions;
 }
 
