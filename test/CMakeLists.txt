@@ -5,7 +5,16 @@ include_directories(../src/)
 add_library(catch_main STATIC catch_main.cpp)
 target_link_libraries(catch_main PUBLIC CONAN_PKG::catch2)
 
-add_executable(engine_tests engine/engine_tests.cpp engine/object_tests.cpp engine/priority_queue_tests.cpp engine/sides_tests.cpp engine/rect_tests.cpp engine/point_tests.cpp engine/rect_tests.cpp engine/collision_table_tests.cpp)
+add_executable(engine_tests
+        engine/engine_tests.cpp
+        engine/object_tests.cpp
+        engine/priority_queue_tests.cpp
+        engine/sides_tests.cpp
+        engine/rect_tests.cpp
+        engine/point_tests.cpp
+        engine/rect_tests.cpp
+        engine/collision_table_tests.cpp
+        engine/grid_tests.cpp)
 target_link_libraries(engine_tests PRIVATE Engine catch_main)
 catch_discover_tests(
         engine_tests
@@ -16,7 +25,11 @@ catch_discover_tests(
         --reporter=xml
         --out=tests.xml)
 
-add_executable(sprite_tests sprite/sprite_metadata_tests.cpp sprite/sprite_sheet_tests.cpp sprite/sprite_tests.cpp sprite/sprite_manager_tests.cpp)
+add_executable(sprite_tests
+        sprite/sprite_metadata_tests.cpp
+        sprite/sprite_sheet_tests.cpp
+        sprite/sprite_tests.cpp
+        sprite/sprite_manager_tests.cpp)
 target_link_libraries(sprite_tests PRIVATE Sprite catch_main)
 catch_discover_tests(
         sprite_tests

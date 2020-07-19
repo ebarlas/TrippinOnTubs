@@ -1,6 +1,7 @@
 #ifndef TRIPPIN_OBJECT_H
 #define TRIPPIN_OBJECT_H
 
+#include <vector>
 #include "engine/Rect.h"
 #include "engine/Point.h"
 #include "engine/Sides.h"
@@ -8,8 +9,12 @@
 #include "engine/CollisionType.h"
 
 namespace trippin {
+    class Partition;
+
     class Object {
         friend class Engine;
+        friend class Grid;
+        friend class Partition;
 
     protected:
         int id{};
@@ -32,6 +37,8 @@ namespace trippin {
 
         Sides platformCollisions{};
         Sides objectCollisions{};
+
+        std::vector<Partition *> partitions;
 
         void updateRounded();
     public:

@@ -19,7 +19,7 @@ TEST_CASE("Collision table lifecycle", "[collision table]") {
     REQUIRE(!ct.test(a, b));
     REQUIRE(!ct.test(b, a));
 
-    ct.prepare();
+    ct.rotate();
     REQUIRE(ct.test(a, b));
     REQUIRE(ct.test(b, a));
 

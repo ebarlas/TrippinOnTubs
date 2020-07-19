@@ -1,6 +1,6 @@
 #include "CollisionTable.h"
 
-void trippin::CollisionTable::prepare() {
+void trippin::CollisionTable::rotate() {
     previous = std::move(next);
     next.clear();
 }

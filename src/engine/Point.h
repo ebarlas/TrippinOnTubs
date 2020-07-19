@@ -9,13 +9,14 @@ namespace trippin {
         T x;
         T y;
         Point &operator+=(const Point<T> &right);
-        Point operator+(const Point<T> &right);
-        Point operator-(const Point<T> &right);
+        Point operator+(const Point<T> &right) const;
+        Point operator-(const Point<T> &right) const;
         T operator*(const Point<T> &right) const;
         Point operator*(T right) const;
         Point operator/(T right) const;
         T sumOfSquares() const;
         bool operator==(const Point<T> &p) const;
+        operator bool() const;
         friend std::ostream &operator<<(std::ostream &out, const Point<T> &p);
     };
 
@@ -31,12 +32,12 @@ trippin::Point<T> &trippin::Point<T>::operator+=(const trippin::Point<T> &right)
 }
 
 template<class T>
-trippin::Point<T> trippin::Point<T>::operator+(const trippin::Point<T> &right) {
+trippin::Point<T> trippin::Point<T>::operator+(const trippin::Point<T> &right) const {
     return {x + right.x, y + right.y};
 }
 
 template<class T>
-trippin::Point<T> trippin::Point<T>::operator-(const trippin::Point<T> &right) {
+trippin::Point<T> trippin::Point<T>::operator-(const trippin::Point<T> &right) const {
     return {x - right.x, y - right.y};
 }
 
@@ -69,6 +70,11 @@ bool trippin::Point<T>::operator==(const trippin::Point<T> &p) const {
 template<class T>
 trippin::Point<T> trippin::Point<T>::operator/(T right) const {
     return {x / right, y / right};
+}
+
+template<class T>
+trippin::Point<T>::operator bool() const {
+    return x || y;
 }
 
 #endif

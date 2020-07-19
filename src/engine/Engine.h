@@ -3,9 +3,10 @@
 
 #include <vector>
 #include <unordered_set>
-#include "Object.h"
-#include "CollisionType.h"
-#include "CollisionTable.h"
+#include "engine/Object.h"
+#include "engine/CollisionType.h"
+#include "engine/CollisionTable.h"
+#include "engine/Grid.h"
 
 namespace trippin {
     // Engine handles the movement and interaction of objects.
@@ -14,6 +15,11 @@ namespace trippin {
         // Add an object to the engine. The is a weak reference.
         // The object ought to out-live the engine.
         void add(Object *object);
+
+        // Set the size of the spacial partitioning grid.
+        // gridSize is the cols (x) and rows (y) of the grid.
+        // cellSize is the uniform width (x) and height (y) of each grid cell.
+        void setGridSize(Point<int> gridSize, Point<int> cellSize);
 
         // Sets the default type of collision between platform and non-platform objects.
         // This collision type can be overridden by individual objects.
@@ -29,6 +35,7 @@ namespace trippin {
         // (3) detect and react to collisions
         void tick();
     private:
+        Grid grid;
         std::vector<Object *> platforms;
         std::vector<Object *> objects;
         PlatformCollisionType platformCollisionType;
@@ -37,8 +44,10 @@ namespace trippin {
 
         void applyMotion();
         void snapObjects();
+        void snapObjects(Partition &partition);
         void applyPhysics();
         void snapTo(Object &obj, const Object &p, const trippin::Rect<int> &overlap, const Sides &previousContacts);
+        static bool snapCompare(const std::pair<Object *, Sides> &left, const std::pair<Object *, Sides> &right);
 
         void applyPlatformCollision(Object &object, Object &platform, const Sides &collision);
         void applyObjectCollision(Object &left, Object &right, const Sides &collision);

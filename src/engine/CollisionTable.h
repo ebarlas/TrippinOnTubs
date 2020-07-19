@@ -7,6 +7,8 @@
 
 namespace trippin {
     // Data structure to aid in the detection of redundant collisions in consecutive engine ticks.
+    // The idea is that if the velocity vectors for a pair of objects are unchanged, then a repeat
+    // collision should not occur.
     class CollisionTable {
     private:
         struct Key {
@@ -31,7 +33,7 @@ namespace trippin {
         std::unordered_set<Key, Hash, Equals> previous;
         std::unordered_set<Key, Hash, Equals> next;
     public:
-        void prepare();
+        void rotate();
         void add(const Object &a, const Object &b);
         bool test(const Object &a, const Object &b) const;
     };

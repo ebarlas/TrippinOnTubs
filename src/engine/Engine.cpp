@@ -4,16 +4,18 @@
 #include "engine/PriorityQueue.h"
 #include "engine/Physics.h"
 
-void trippin::Engine::add(Object *object) {
-    if (object->platform) {
-        platforms.push_back(object);
-    } else {
-        objects.push_back(object);
-    }
+void trippin::Engine::add(Object *obj) {
+    grid.add(obj);
+    auto &vec = obj->platform ? platforms : objects;
+    vec.push_back(obj);
+}
+
+void trippin::Engine::setGridSize(Point<int> gridSize, Point<int> cellSize) {
+    grid.setSize(gridSize, cellSize);
 }
 
 void trippin::Engine::tick() {
-    collisionTable.prepare();
+    collisionTable.rotate();
     applyMotion();
     snapObjects();
     applyPhysics();
@@ -22,35 +24,45 @@ void trippin::Engine::tick() {
 void trippin::Engine::applyMotion() {
     for (auto obj : objects) {
         obj->applyMotion();
+        grid.update(obj);
     }
 }
 
-void trippin::Engine::snapObjects() {
+bool trippin::Engine::snapCompare(const std::pair<Object *, Sides> &left, const std::pair<Object *, Sides> &right) {
+    // 1. platforms are highest priority
+    if (left.first->platform)
+        return false;
+    if (right.first->platform)
+        return true;
+
+    // 2. non-platforms with most collision sides is next highest priority
+    auto lcnt = left.second.count();
+    auto rcnt = right.second.count();
+    if (lcnt != rcnt)
+        return lcnt < rcnt;
+
+    // 3. non-platforms with highest y position (lower on screen) is next highest priority
+    return left.first->position.y < right.first->position.y;
+}
+
+void trippin::Engine::snapObjects(Partition &partition) {
+    // early exit if no work to do
+    if (partition.objects.empty()) {
+        return;
+    }
+
     auto compare = [](const std::pair<Object *, Sides> &left, const std::pair<Object *, Sides> &right) {
-        // 1. platforms are highest priority
-        if (left.first->platform)
-            return false;
-        if (right.first->platform)
-            return true;
-
-        // 2. non-platforms with most collision sides is next highest priority
-        auto lcnt = left.second.count();
-        auto rcnt = right.second.count();
-        if (lcnt != rcnt)
-            return lcnt < rcnt;
-
-        // 3. non-platforms with highest y position (lower on screen) is next highest priority
-        return left.first->position.y < right.first->position.y;
+        return snapCompare(left, right);
     };
 
     std::unordered_map<Object *, Sides> collisions{};
     PriorityQueue<Object *, Sides, decltype(compare)> q(compare);
 
     // Load all objects into queue
-    for (auto obj : platforms) {
+    for (auto obj : partition.platforms) {
         q.push(obj);
     }
-    for (auto obj : objects) {
+    for (auto obj : partition.objects) {
         q.push(obj);
     }
 
@@ -58,7 +70,7 @@ void trippin::Engine::snapObjects() {
     // Each object acts like a platform once. All non-platform, overlapping neighbor objects are snapped.
     while (!q.empty()) {
         auto plat = q.pop();
-        for (auto kin : objects) {
+        for (auto kin : partition.objects) {
             if (plat != kin && !kin->platform) {
                 auto overlap = kin->roundedBox.intersect(plat->roundedBox);
                 if (overlap) {
@@ -71,6 +83,12 @@ void trippin::Engine::snapObjects() {
                 }
             }
         }
+    }
+}
+
+void trippin::Engine::snapObjects() {
+    for (auto &partition : grid.partitions) {
+        snapObjects(partition);
     }
 }
 
@@ -119,22 +137,24 @@ void trippin::Engine::snapTo(Object &obj, const Object &p, const Rect<int> &over
 }
 
 void trippin::Engine::applyPhysics() {
-    for (auto platform : platforms) {
-        for (auto object : objects) {
-            auto collision = object->roundedBox.collision(platform->roundedBox);
-            if (collision) {
-                applyPlatformCollision(*object, *platform, collision);
+    for (auto &partition : grid.partitions) {
+        for (auto platform : partition.platforms) {
+            for (auto object : partition.objects) {
+                auto collision = object->roundedBox.collision(platform->roundedBox);
+                if (collision) {
+                    applyPlatformCollision(*object, *platform, collision);
+                }
             }
         }
-    }
 
-    for (int i = 0; i < objects.size(); i++) {
-        auto a = objects[i];
-        for (int j = i + 1; j < objects.size(); j++) {
-            auto b = objects[j];
-            auto collision = a->roundedBox.collision(b->roundedBox);
-            if (collision) {
-                applyObjectCollision(*a, *b, collision);
+        for (int i = 0; i < partition.objects.size(); i++) {
+            auto a = partition.objects[i];
+            for (int j = i + 1; j < partition.objects.size(); j++) {
+                auto b = partition.objects[j];
+                auto collision = a->roundedBox.collision(b->roundedBox);
+                if (collision) {
+                    applyObjectCollision(*a, *b, collision);
+                }
             }
         }
     }

@@ -1,8 +1,8 @@
-#include <sprite/Camera.h>
 #include <sstream>
 #include <iomanip>
 #include "sprite/SpriteManager.h"
 #include "engine/Engine.h"
+#include "sprite/Camera.h"
 #include "gameloop.h"
 
 constexpr bool displayLabel = true;
