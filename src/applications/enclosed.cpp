@@ -69,7 +69,7 @@ void init(int ticksPerFrame, std::vector<trippin::Object *> &objects, const Game
                                                      1000.0),
                                  static_cast<double>((std::rand() % static_cast<int>(terminalVelocity.y / 2 * 1000.0)) /
                                                      1000.0)});
-        obj->setTerminalVelocity(terminalVelocity * 2);
+        obj->setTerminalVelocity(terminalVelocity * 2.0);
         obj->color = {static_cast<Uint8>(std::rand() % 128),
                       static_cast<Uint8>(std::rand() % 128),
                       static_cast<Uint8>(std::rand() % 128),

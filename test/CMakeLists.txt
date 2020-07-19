@@ -8,12 +8,11 @@ target_link_libraries(catch_main PUBLIC CONAN_PKG::catch2)
 add_executable(engine_tests
         engine/engine_tests.cpp
         engine/object_tests.cpp
-        engine/priority_queue_tests.cpp
+        engine/snap_queue_tests.cpp
         engine/sides_tests.cpp
         engine/rect_tests.cpp
         engine/point_tests.cpp
         engine/rect_tests.cpp
-        engine/collision_table_tests.cpp
         engine/grid_tests.cpp)
 target_link_libraries(engine_tests PRIVATE Engine catch_main)
 catch_discover_tests(

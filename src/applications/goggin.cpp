@@ -1,5 +1,6 @@
 #include <sstream>
 #include <iomanip>
+#include "SDL_thread.h"
 #include "sprite/SpriteManager.h"
 #include "engine/Engine.h"
 #include "sprite/Camera.h"
@@ -56,6 +57,8 @@ public:
     }
 };
 
+int threadFunc(void *data);
+
 class Game {
 public:
     trippin::Engine engine{};
@@ -73,7 +76,7 @@ public:
         };
 
         auto updateFn = [this](const GameState &gs) {
-            update(gs);
+//            update(gs);
         };
 
         auto renderFn = [this](const GameState &gs) {
@@ -147,17 +150,19 @@ public:
             balls.push_back(ball);
             engine.add(ball);
         }
+
+        SDL_Thread *thread = SDL_CreateThread(threadFunc, "Engine Thread", (void *) this);
     }
 
-    void update(const GameState &gs) {
+    void update(Uint32 ticks) {
         auto scale = trippin::Scale::small;
         auto mul = scaleMultiplier(scale);
         auto pixelsPerMeter = 240 * mul;
         auto xAccel = (7.0 * pixelsPerMeter) / gameTicksPerSecondSq;
         auto yAccel = (8.0 * pixelsPerMeter) / gameTicksPerSecondSq;
 
-        auto clockTicks = (remainderClockTicks + gs.ticks) / clockTicksPerGameTick;
-        remainderClockTicks = gs.ticks % clockTicksPerGameTick;
+        auto clockTicks = (remainderClockTicks + ticks) / clockTicksPerGameTick;
+        remainderClockTicks = ticks % clockTicksPerGameTick;
 
         for (int i = 0; i < clockTicks; i++) {
             if (goggin.getPlatformCollisions().testBottom()) {
@@ -169,8 +174,8 @@ public:
             engine.tick();
         }
 
-        goggin.clockTimes(gs.ticks);
-        totalTicks += gs.ticks;
+        goggin.clockTimes(ticks);
+        totalTicks += ticks;
     }
 
     void render(const GameState &gs) {
@@ -189,6 +194,21 @@ public:
         }
     }
 };
+
+int threadFunc(void *data) {
+    Game *game = (Game *) data;
+    Uint32 nowTicks = SDL_GetTicks();
+    Uint32 lastTicks = nowTicks;
+    Uint32 ticks = nowTicks - lastTicks;
+    while (true) {
+        nowTicks = SDL_GetTicks();
+        ticks = nowTicks - lastTicks;
+        lastTicks = nowTicks;
+        game->update(ticks);
+        SDL_Delay(10);
+    }
+    return 0;
+}
 
 int main() {
     Game game;

@@ -52,7 +52,7 @@ void trippin::Grid::add(Object *obj) {
 
 void trippin::Grid::update(Object *obj) {
     // capture previous obj partitions
-    auto prev = std::move(obj->partitions);
+    auto prev = obj->partitions;
     obj->partitions.clear();
 
     // examine each object corner, add object to each partition and add each partition to object

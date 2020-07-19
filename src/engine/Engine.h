@@ -5,7 +5,6 @@
 #include <unordered_set>
 #include "engine/Object.h"
 #include "engine/CollisionType.h"
-#include "engine/CollisionTable.h"
 #include "engine/Grid.h"
 
 namespace trippin {
@@ -40,7 +39,6 @@ namespace trippin {
         std::vector<Object *> objects;
         PlatformCollisionType platformCollisionType;
         ObjectCollisionType objectCollisionType;
-        CollisionTable collisionTable;
 
         void applyMotion();
         void snapObjects();

@@ -6,9 +6,9 @@ add_library(Engine
         engine/PlasmaPhysics.cpp
         engine/Sides.cpp
         engine/Engine.cpp
-        engine/CollisionTable.cpp
         engine/Partition.cpp
-        engine/Grid.cpp)
+        engine/Grid.cpp
+        engine/SnapQueue.cpp)
 
 add_library(IO io/File.cpp)
 target_link_libraries(IO CONAN_PKG::sdl2)

@@ -1,7 +1,7 @@
 #include <functional>
 #include <unordered_map>
 #include "engine/Engine.h"
-#include "engine/PriorityQueue.h"
+#include "engine/SnapQueue.h"
 #include "engine/Physics.h"
 
 void trippin::Engine::add(Object *obj) {
@@ -15,7 +15,6 @@ void trippin::Engine::setGridSize(Point<int> gridSize, Point<int> cellSize) {
 }
 
 void trippin::Engine::tick() {
-    collisionTable.rotate();
     applyMotion();
     snapObjects();
     applyPhysics();
@@ -51,12 +50,8 @@ void trippin::Engine::snapObjects(Partition &partition) {
         return;
     }
 
-    auto compare = [](const std::pair<Object *, Sides> &left, const std::pair<Object *, Sides> &right) {
-        return snapCompare(left, right);
-    };
-
     std::unordered_map<Object *, Sides> collisions{};
-    PriorityQueue<Object *, Sides, decltype(compare)> q(compare);
+    SnapQueue q{};
 
     // Load all objects into queue
     for (auto obj : partition.platforms) {
@@ -140,9 +135,12 @@ void trippin::Engine::applyPhysics() {
     for (auto &partition : grid.partitions) {
         for (auto platform : partition.platforms) {
             for (auto object : partition.objects) {
-                auto collision = object->roundedBox.collision(platform->roundedBox);
-                if (collision) {
-                    applyPlatformCollision(*object, *platform, collision);
+                if (!object->collidedPreviously(platform)) {
+                    auto collision = object->roundedBox.collision(platform->roundedBox);
+                    if (collision) {
+                        applyPlatformCollision(*object, *platform, collision);
+                        object->collisions.push_back(platform);
+                    }
                 }
             }
         }
@@ -151,9 +149,13 @@ void trippin::Engine::applyPhysics() {
             auto a = partition.objects[i];
             for (int j = i + 1; j < partition.objects.size(); j++) {
                 auto b = partition.objects[j];
-                auto collision = a->roundedBox.collision(b->roundedBox);
-                if (collision) {
-                    applyObjectCollision(*a, *b, collision);
+                if (!a->collidedPreviously(b)) {
+                    auto collision = a->roundedBox.collision(b->roundedBox);
+                    if (collision) {
+                        applyObjectCollision(*a, *b, collision);
+                        a->collisions.push_back(b);
+                        b->collisions.push_back(a);
+                    }
                 }
             }
         }
@@ -197,10 +199,6 @@ void trippin::Engine::applyObjectCollision(Object &left, Object &right, const Si
     left.onObjectCollision(right, collision);
     right.onObjectCollision(left, collision.flip());
 
-    if (collisionTable.test(left, right)) {
-        return;
-    }
-
     if (objectCollisionType == ObjectCollisionType::elastic1D) {
         elasticCollision1D(left, right, collision);
     } else if (objectCollisionType == ObjectCollisionType::elastic2D) {
@@ -215,13 +213,11 @@ void trippin::Engine::elasticCollision1D(Object &obj, Object &p, const Sides &co
         auto vels = trippin::elasticCollision1D(obj.velocity.x, p.velocity.x, obj.mass, p.mass);
         obj.velocity.x = vels.first;
         p.velocity.x = vels.second;
-        collisionTable.add(obj, p);
     }
     if (rationalVerticalCollision(obj, p, collision)) {
         auto vels = trippin::elasticCollision1D(obj.velocity.y, p.velocity.y, obj.mass, p.mass);
         obj.velocity.y = vels.first;
         p.velocity.y = vels.second;
-        collisionTable.add(obj, p);
     }
 }
 
@@ -230,7 +226,6 @@ void trippin::Engine::elasticCollision2D(Object &obj, Object &p, const Sides &co
         auto pair = trippin::elasticCollision2D(obj.velocity, p.velocity, obj.center, p.center, obj.mass, p.mass);
         obj.velocity = pair.first;
         p.velocity = pair.second;
-        collisionTable.add(obj, p);
     }
 }
 
@@ -240,7 +235,6 @@ void trippin::Engine::inelasticCollision2D(Object &obj, Object &p, const Sides &
                                                   0.9);
         obj.velocity = pair.first;
         p.velocity = pair.second;
-        collisionTable.add(obj, p);
     }
 }
 
