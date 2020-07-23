@@ -9,6 +9,7 @@ add_library(Engine
         engine/Partition.cpp
         engine/Grid.cpp
         engine/SnapQueue.cpp)
+target_link_libraries(Engine CONAN_PKG::sdl2)
 
 add_library(IO io/File.cpp)
 target_link_libraries(IO CONAN_PKG::sdl2)
@@ -43,3 +44,6 @@ target_link_libraries(mice GameLoop Graphics Engine)
 
 add_executable(goggin applications/goggin.cpp)
 target_link_libraries(goggin GameLoop Sprite Engine)
+
+add_executable(tgoggin applications/tgoggin.cpp)
+target_link_libraries(tgoggin GameLoop Sprite Engine)

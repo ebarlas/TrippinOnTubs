@@ -1,5 +1,6 @@
 #include <sstream>
 #include <iomanip>
+#include "SDL_thread.h"
 #include "sprite/SpriteManager.h"
 #include "engine/Engine.h"
 #include "sprite/Camera.h"
@@ -7,8 +8,7 @@
 
 constexpr bool displayLabel = true;
 constexpr SDL_Color fontColor{100, 100, 100, 255};
-constexpr int clockTicksPerGameTick = 1;
-constexpr int gameTicksPerSecond = 1000 / clockTicksPerGameTick;
+constexpr int gameTicksPerSecond = 180;
 constexpr int gameTicksPerSecondSq = gameTicksPerSecond * gameTicksPerSecond;
 
 std::string format(double d, int precision = 2) {
@@ -20,7 +20,6 @@ std::string format(double d, int precision = 2) {
 class SpriteObject : public trippin::Object {
 public:
     const trippin::Sprite *sprite{};
-    Uint32 ticks{};
 
     void init(const trippin::Sprite *sp) {
         sprite = sp;
@@ -30,17 +29,13 @@ public:
         updateRounded();
     }
 
-    void clockTimes(int clockTicks) {
-        ticks += clockTicks;
-    }
-
     void render(const GameState &gs, const trippin::Camera &camera) {
         auto &hb = sprite->getHitBox();
         auto &viewport = camera.getViewport();
         auto &size = sprite->getSize();
         trippin::Rect<int> box{roundedPosition.x - hb.x, roundedPosition.y - hb.y, size.x, size.y};
         if (box.intersect(viewport)) {
-            auto frame = (ticks / sprite->getDuration()) % sprite->getFrames();
+            auto frame = (SDL_GetTicks() / sprite->getDuration()) % sprite->getFrames();
             sprite->render(gs.renderer, {box.x - viewport.x, box.y - viewport.y}, frame);
             if (displayLabel) {
                 auto posLabel = format(position.x) + ", " + format(position.y);
@@ -56,16 +51,58 @@ public:
     }
 };
 
+class Goggin : public SpriteObject {
+public:
+    trippin::SpriteManager *spriteManager{};
+    int *nextId{};
+    double xAccel{};
+    double yAccel{};
+    trippin::Scale scale{};
+
+    void setScale(trippin::Scale sc) {
+        scale = sc;
+    }
+
+    void setNextId(int *next) {
+        nextId = next;
+    }
+
+    void setSpriteManager(trippin::SpriteManager *sm) {
+        spriteManager = sm;
+    }
+
+    void init() {
+        auto pixelsPerMeter = 240 * scaleMultiplier(scale);
+        xAccel = (7.0 * pixelsPerMeter) / gameTicksPerSecondSq;
+        yAccel = (8.0 * pixelsPerMeter) / gameTicksPerSecondSq;
+        auto xTerminal = (8.0 * pixelsPerMeter) / gameTicksPerSecond;
+        auto yTerminal = (35.0 * pixelsPerMeter) / gameTicksPerSecond;
+
+        auto &sprite = spriteManager->get(trippin::SpriteType::goggin);
+
+        auto &hb = sprite.getHitBox();
+        id = *nextId++;
+        platform = false;
+        position = {static_cast<double>(hb.corner().x), static_cast<double>(hb.corner().y)};
+        acceleration = {0, yAccel};
+        terminalVelocity = {xTerminal, yTerminal};
+
+        SpriteObject::init(&sprite);
+    }
+
+    void onPlatformCollision(Object &other, const trippin::Sides &collision) override {
+        acceleration = {xAccel, yAccel};
+    }
+};
+
 class Game {
 public:
     trippin::Engine engine{};
     trippin::SpriteManager spriteManager{};
-    SpriteObject goggin{};
+    Goggin goggin{};
     std::vector<SpriteObject *> grounds{};
     std::vector<SpriteObject *> balls{};
     trippin::Camera camera{};
-    Uint32 totalTicks{};
-    int remainderClockTicks{};
 
     void create() {
         auto initFn = [this](const GameState &gs) {
@@ -73,7 +110,7 @@ public:
         };
 
         auto updateFn = [this](const GameState &gs) {
-            update(gs);
+
         };
 
         auto renderFn = [this](const GameState &gs) {
@@ -89,7 +126,6 @@ public:
 
         spriteManager.setScale(scale);
         spriteManager.load(gs.renderer);
-        auto &gogginSprite = spriteManager.get(trippin::SpriteType::goggin);
         auto &groundSprite = spriteManager.get(trippin::SpriteType::ground);
         auto &ballSprite = spriteManager.get(trippin::SpriteType::ball);
 
@@ -101,6 +137,7 @@ public:
                             numGroundPlatforms * groundSprite.getSize().x,
                             static_cast<int>(8000 * mul)});
 
+        engine.setTicksPerSecond(gameTicksPerSecond);
         engine.setPlatformCollisionType(trippin::PlatformCollisionType::absorbant);
         engine.setObjectCollisionType(trippin::ObjectCollisionType::inelastic);
 
@@ -108,18 +145,14 @@ public:
 
         auto pixelsPerMeter = 240 * mul;
         auto yAccel = (8.0 * pixelsPerMeter) / gameTicksPerSecondSq;
-        auto xTerminalGoggin = (8.0 * pixelsPerMeter) / gameTicksPerSecond;
         auto xTerminalBall = (10.0 * pixelsPerMeter) / gameTicksPerSecond;
         auto yTerminal = (35.0 * pixelsPerMeter) / gameTicksPerSecond;
         auto xFrictionBall = (1.0 * pixelsPerMeter) / gameTicksPerSecondSq;
 
-        auto &hb = gogginSprite.getHitBox();
-        goggin.setId(nextId++);
-        goggin.setPlatform(false);
-        goggin.setPosition({static_cast<double>(hb.corner().x), static_cast<double>(hb.corner().y)});
-        goggin.setAcceleration({0, yAccel});
-        goggin.setTerminalVelocity({xTerminalGoggin, yTerminal});
-        goggin.init(&gogginSprite);
+        goggin.setScale(scale);
+        goggin.setNextId(&nextId);
+        goggin.setSpriteManager(&spriteManager);
+        goggin.init();
         engine.add(&goggin);
 
         for (int i = 0; i < numGroundPlatforms; i++) {
@@ -147,30 +180,8 @@ public:
             balls.push_back(ball);
             engine.add(ball);
         }
-    }
 
-    void update(const GameState &gs) {
-        auto scale = trippin::Scale::small;
-        auto mul = scaleMultiplier(scale);
-        auto pixelsPerMeter = 240 * mul;
-        auto xAccel = (7.0 * pixelsPerMeter) / gameTicksPerSecondSq;
-        auto yAccel = (8.0 * pixelsPerMeter) / gameTicksPerSecondSq;
-
-        auto clockTicks = (remainderClockTicks + gs.ticks) / clockTicksPerGameTick;
-        remainderClockTicks = gs.ticks % clockTicksPerGameTick;
-
-        for (int i = 0; i < clockTicks; i++) {
-            if (goggin.getPlatformCollisions().testBottom()) {
-                goggin.setAcceleration({xAccel, yAccel});
-            } else {
-                goggin.setAcceleration({0, yAccel});
-            }
-
-            engine.tick();
-        }
-
-        goggin.clockTimes(gs.ticks);
-        totalTicks += gs.ticks;
+        engine.start();
     }
 
     void render(const GameState &gs) {
@@ -182,10 +193,6 @@ public:
         }
         for (auto ball : balls) {
             ball->render(gs, camera);
-        }
-        if (displayLabel) {
-            gs.fontRenderer->render(std::to_string(SDL_GetTicks()), fontColor, {5, 10});
-            gs.fontRenderer->render(std::to_string(totalTicks), fontColor, {5, 30});
         }
     }
 };

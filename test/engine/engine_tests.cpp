@@ -213,6 +213,13 @@ TEST_CASE("Engine object 1D fractional collision no oscillation", "[engine]")
     REQUIRE(b.getPosition().x == 10.2);
     REQUIRE(a.getVelocity().x == -0.1);
     REQUIRE(b.getVelocity().x == 0.1);
+
+    engine.tick();
+
+    REQUIRE(a.getPosition().x == -0.1);
+    REQUIRE(b.getPosition().x == 10.0 + 0.1 + 0.1 + 0.1);
+    REQUIRE(a.getVelocity().x == -0.1);
+    REQUIRE(b.getVelocity().x == 0.1);
 }
 
 TEST_CASE("Engine object 1D fractional collision no irrational", "[engine]")

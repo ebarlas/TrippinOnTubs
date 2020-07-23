@@ -103,8 +103,6 @@ void trippin::Object::applyMotion() {
     updateRounded();
     platformCollisions = {};
     objectCollisions = {};
-    previousCollisions = collisions;
-    collisions.clear();
 }
 
 trippin::Point<int> trippin::Object::getSize() const {
@@ -159,6 +157,10 @@ void trippin::Object::setPlatformCollisionType(trippin::PlatformCollisionType ty
     platformCollisionType.set(type);
 }
 
-bool trippin::Object::collidedPreviously(const Object *obj) const {
-    return std::find(previousCollisions.begin(), previousCollisions.end(), obj) != previousCollisions.end();
+void trippin::Object::beforeTick() {
+
+}
+
+void trippin::Object::afterTick() {
+
 }

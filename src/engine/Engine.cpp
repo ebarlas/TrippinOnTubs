@@ -1,5 +1,5 @@
-#include <functional>
 #include <unordered_map>
+#include "SDL.h"
 #include "engine/Engine.h"
 #include "engine/SnapQueue.h"
 #include "engine/Physics.h"
@@ -14,10 +14,24 @@ void trippin::Engine::setGridSize(Point<int> gridSize, Point<int> cellSize) {
     grid.setSize(gridSize, cellSize);
 }
 
+void trippin::Engine::beforeTick() {
+    for (auto obj : objects) {
+        obj->beforeTick();
+    }
+}
+
+void trippin::Engine::afterTick() {
+    for (auto obj : objects) {
+        obj->afterTick();
+    }
+}
+
 void trippin::Engine::tick() {
+    beforeTick();
     applyMotion();
     snapObjects();
     applyPhysics();
+    afterTick();
 }
 
 void trippin::Engine::applyMotion() {
@@ -25,23 +39,6 @@ void trippin::Engine::applyMotion() {
         obj->applyMotion();
         grid.update(obj);
     }
-}
-
-bool trippin::Engine::snapCompare(const std::pair<Object *, Sides> &left, const std::pair<Object *, Sides> &right) {
-    // 1. platforms are highest priority
-    if (left.first->platform)
-        return false;
-    if (right.first->platform)
-        return true;
-
-    // 2. non-platforms with most collision sides is next highest priority
-    auto lcnt = left.second.count();
-    auto rcnt = right.second.count();
-    if (lcnt != rcnt)
-        return lcnt < rcnt;
-
-    // 3. non-platforms with highest y position (lower on screen) is next highest priority
-    return left.first->position.y < right.first->position.y;
 }
 
 void trippin::Engine::snapObjects(Partition &partition) {
@@ -135,12 +132,9 @@ void trippin::Engine::applyPhysics() {
     for (auto &partition : grid.partitions) {
         for (auto platform : partition.platforms) {
             for (auto object : partition.objects) {
-                if (!object->collidedPreviously(platform)) {
-                    auto collision = object->roundedBox.collision(platform->roundedBox);
-                    if (collision) {
-                        applyPlatformCollision(*object, *platform, collision);
-                        object->collisions.push_back(platform);
-                    }
+                auto collision = object->roundedBox.collision(platform->roundedBox);
+                if (collision) {
+                    applyPlatformCollision(*object, *platform, collision);
                 }
             }
         }
@@ -149,13 +143,9 @@ void trippin::Engine::applyPhysics() {
             auto a = partition.objects[i];
             for (int j = i + 1; j < partition.objects.size(); j++) {
                 auto b = partition.objects[j];
-                if (!a->collidedPreviously(b)) {
-                    auto collision = a->roundedBox.collision(b->roundedBox);
-                    if (collision) {
-                        applyObjectCollision(*a, *b, collision);
-                        a->collisions.push_back(b);
-                        b->collisions.push_back(a);
-                    }
+                auto collision = a->roundedBox.collision(b->roundedBox);
+                if (collision) {
+                    applyObjectCollision(*a, *b, collision);
                 }
             }
         }
@@ -231,8 +221,11 @@ void trippin::Engine::elasticCollision2D(Object &obj, Object &p, const Sides &co
 
 void trippin::Engine::inelasticCollision2D(Object &obj, Object &p, const Sides &collision) {
     if (rationalCollision(obj, p, collision)) {
-        auto pair = trippin::inelasticCollision2D(obj.velocity, p.velocity, obj.center, p.center, obj.mass, p.mass,
-                                                  0.9);
+        auto pair = trippin::inelasticCollision2D(
+                obj.velocity, p.velocity,
+                obj.center, p.center,
+                obj.mass, p.mass,
+                restitutionCoefficient);
         obj.velocity = pair.first;
         p.velocity = pair.second;
     }
@@ -264,4 +257,61 @@ void trippin::Engine::setPlatformCollisionType(PlatformCollisionType t) {
 
 void trippin::Engine::setObjectCollisionType(ObjectCollisionType t) {
     objectCollisionType = t;
+}
+
+void trippin::Engine::setRestitutionCoefficient(double r) {
+    restitutionCoefficient = r;
+}
+
+void trippin::Engine::setTicksPerSecond(int tps) {
+    ticksPerSecond = tps;
+}
+
+int run(void *data) {
+    auto engine = (trippin::Engine *) data;
+    engine->runEngineLoop();
+    return 0;
+}
+
+void trippin::Engine::runEngineLoop() {
+    auto nowTicks = SDL_GetTicks();
+    auto lastTicks = nowTicks;
+    auto remainderTicks = 0.0;
+    auto counter = 0;
+    auto clockTicksPerEngineTick = 1000.0 / ticksPerSecond;
+    Uint32 lastSecond = nowTicks / 1000;
+    while (!stopped) {
+        nowTicks = SDL_GetTicks();
+        auto ticksElapsed = nowTicks - lastTicks + remainderTicks;
+        auto gameTicks = ticksElapsed / clockTicksPerEngineTick;
+        auto gameTicksFloor = static_cast<int>(gameTicks);
+        remainderTicks = clockTicksPerEngineTick * (gameTicks - gameTicksFloor);
+        if (!paused) {
+            for (int i=0; i < gameTicksFloor; i++) {
+                tick();
+            }
+        }
+        auto thisSecond = nowTicks / 1000;
+        if (thisSecond == lastSecond) {
+            counter += gameTicksFloor;
+        } else {
+            SDL_Log("now=%d, tps=%d", nowTicks, counter);
+            counter = gameTicksFloor;
+        }
+        lastTicks = nowTicks;
+        lastSecond = thisSecond;
+        SDL_Delay(threadPeriod);
+    }
+}
+
+void trippin::Engine::start() {
+    thread = SDL_CreateThread(run, "Engine Thread", (void *) this);
+}
+
+void trippin::Engine::pause() {
+    paused = true;
+}
+
+void trippin::Engine::stop() {
+    stopped = true;
 }

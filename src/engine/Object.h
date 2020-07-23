@@ -36,24 +36,17 @@ namespace trippin {
 
         Optional<PlatformCollisionType> platformCollisionType{};
 
-        // flag used by snap priority queue
+        // Flag used by snap priority queue.
         bool queueVisited;
 
-        // collision sides use to determine whether movement is allowed in each direction
+        // Collision sides use to determine whether movement is allowed in each direction.
         Sides platformCollisions{};
         Sides objectCollisions{};
 
-        // the partitions in which this object resides
-        // 1 partition minimum and 4 partitions maximum
+        // The partitions in which this object resides; 1 partition minimum and 4 partitions maximum.
         std::vector<Partition *> partitions;
 
-        // rule: a pair of objects cannot collide in consecutive ticks
-        // record previous collisions to prevent re-processing of same collision in subsequent tick
-        std::vector<Object *> collisions;
-        std::vector<Object *> previousCollisions;
-
         void updateRounded();
-        bool collidedPreviously(const Object *obj) const;
     public:
         void setId(int id);
         void setPlatform(bool p);
@@ -83,6 +76,8 @@ namespace trippin {
         void applyMotion();
         virtual void onPlatformCollision(Object &other, const trippin::Sides &collision);
         virtual void onObjectCollision(Object &other, const trippin::Sides &collision);
+        virtual void beforeTick();
+        virtual void afterTick();
     };
 }
 
