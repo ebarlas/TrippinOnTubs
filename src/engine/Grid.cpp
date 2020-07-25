@@ -51,6 +51,11 @@ void trippin::Grid::add(Object *obj) {
 }
 
 void trippin::Grid::update(Object *obj) {
+    // no work to do if everything is in a single partition
+    if (partitions.size() == 1) {
+        return;
+    }
+
     // capture previous obj partitions
     auto prev = obj->partitions;
     obj->partitions.clear();
