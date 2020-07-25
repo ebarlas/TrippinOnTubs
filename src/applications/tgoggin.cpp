@@ -6,11 +6,6 @@
 #include "sprite/Camera.h"
 #include "gameloop.h"
 
-constexpr bool displayLabel = true;
-constexpr SDL_Color fontColor{100, 100, 100, 255};
-constexpr int gameTicksPerSecond = 180;
-constexpr int gameTicksPerSecondSq = gameTicksPerSecond * gameTicksPerSecond;
-
 std::string format(double d, int precision = 2) {
     std::stringstream stream;
     stream << std::fixed << std::setprecision(precision) << (d >= 0 ? "" : "_") << std::abs(d);
@@ -20,6 +15,8 @@ std::string format(double d, int precision = 2) {
 class SpriteObject : public trippin::Object {
 public:
     const trippin::Sprite *sprite{};
+    bool displayLabel{};
+    SDL_Color fontColor{};
 
     void init(const trippin::Sprite *sp) {
         sprite = sp;
@@ -40,36 +37,53 @@ public:
             if (displayLabel) {
                 auto posLabel = format(position.x) + ", " + format(position.y);
                 auto velLabel = format(velocity.x) + ", " + format(velocity.y);
-                gs.fontRenderer->render(std::to_string(id), fontColor,
-                                        roundedPosition - viewport.corner() + trippin::Point<int>{5, 10});
-                gs.fontRenderer->render(posLabel, fontColor,
-                                        roundedPosition - viewport.corner() + trippin::Point<int>{5, 30});
-                gs.fontRenderer->render(velLabel, fontColor,
-                                        roundedPosition - viewport.corner() + trippin::Point<int>{5, 50});
+                auto corner = roundedPosition - viewport.corner();
+                gs.fontRenderer->render(std::to_string(id), fontColor, corner + trippin::Point<int>{5, 10});
+                gs.fontRenderer->render(posLabel, fontColor, corner + trippin::Point<int>{5, 30});
+                gs.fontRenderer->render(velLabel, fontColor, corner + trippin::Point<int>{5, 50});
             }
         }
+    }
+};
+
+class Ball : public SpriteObject {
+public:
+    trippin::SpriteManager *spriteManager{};
+    trippin::Camera *camera{};
+    trippin::Scale scale{};
+    double gameTicksPerSecond{};
+    double gameTicksPerSecondSq{};
+
+    void init() {
+        auto mul = scaleMultiplier(scale);
+        auto pixelsPerMeter = 240 * mul;
+        auto yAccel = (8.0 * pixelsPerMeter) / gameTicksPerSecondSq;
+        auto xTerminal = (10.0 * pixelsPerMeter) / gameTicksPerSecond;
+        auto yTerminal = (35.0 * pixelsPerMeter) / gameTicksPerSecond;
+        auto xFriction = (1.0 * pixelsPerMeter) / gameTicksPerSecondSq;
+
+        auto &sprite = spriteManager->get(trippin::SpriteType::ball);
+        
+        platform = false;
+        position.x = 200 + (std::rand() % camera->getUniverse().w / 2);
+        position.y = (4880 * mul) - (600 + std::rand() % 100) * mul;
+        acceleration = {0, yAccel};
+        friction = {xFriction, 0};
+        terminalVelocity = {xTerminal, yTerminal};
+        platformCollisionType.set(trippin::PlatformCollisionType::reflective);
+
+        SpriteObject::init(&sprite);
     }
 };
 
 class Goggin : public SpriteObject {
 public:
     trippin::SpriteManager *spriteManager{};
-    int *nextId{};
     double xAccel{};
     double yAccel{};
     trippin::Scale scale{};
-
-    void setScale(trippin::Scale sc) {
-        scale = sc;
-    }
-
-    void setNextId(int *next) {
-        nextId = next;
-    }
-
-    void setSpriteManager(trippin::SpriteManager *sm) {
-        spriteManager = sm;
-    }
+    double gameTicksPerSecond{};
+    double gameTicksPerSecondSq{};
 
     void init() {
         auto pixelsPerMeter = 240 * scaleMultiplier(scale);
@@ -81,7 +95,6 @@ public:
         auto &sprite = spriteManager->get(trippin::SpriteType::goggin);
 
         auto &hb = sprite.getHitBox();
-        id = *nextId++;
         platform = false;
         position = {static_cast<double>(hb.corner().x), static_cast<double>(hb.corner().y)};
         acceleration = {0, yAccel};
@@ -101,7 +114,7 @@ public:
     trippin::SpriteManager spriteManager{};
     Goggin goggin{};
     std::vector<SpriteObject *> grounds{};
-    std::vector<SpriteObject *> balls{};
+    std::vector<Ball *> balls{};
     trippin::Camera camera{};
 
     void create() {
@@ -123,6 +136,7 @@ public:
     void init(const GameState &gs) {
         auto scale = trippin::Scale::small;
         auto mul = scaleMultiplier(scale);
+        auto displayLabel = false;
 
         spriteManager.setScale(scale);
         spriteManager.load(gs.renderer);
@@ -131,27 +145,29 @@ public:
 
         int numGroundPlatforms = 20;
         int numBalls = 20;
+        int universeHeight = 8'000;
 
         camera.setViewport({0, 0, gs.windowSize.x, gs.windowSize.y});
         camera.setUniverse({0, 0,
                             numGroundPlatforms * groundSprite.getSize().x,
-                            static_cast<int>(8000 * mul)});
+                            static_cast<int>(universeHeight * mul)});
 
-        engine.setTicksPerSecond(gameTicksPerSecond);
+        auto tickPeriod = 5;
+        auto gameTicksPerSecond = 1000.0 / tickPeriod;
+        auto gameTicksPerSecondSq = gameTicksPerSecond * gameTicksPerSecond;
+
+        engine.setTickPeriod(tickPeriod);
         engine.setPlatformCollisionType(trippin::PlatformCollisionType::absorbant);
         engine.setObjectCollisionType(trippin::ObjectCollisionType::inelastic);
 
         int nextId = 1;
 
-        auto pixelsPerMeter = 240 * mul;
-        auto yAccel = (8.0 * pixelsPerMeter) / gameTicksPerSecondSq;
-        auto xTerminalBall = (10.0 * pixelsPerMeter) / gameTicksPerSecond;
-        auto yTerminal = (35.0 * pixelsPerMeter) / gameTicksPerSecond;
-        auto xFrictionBall = (1.0 * pixelsPerMeter) / gameTicksPerSecondSq;
-
-        goggin.setScale(scale);
-        goggin.setNextId(&nextId);
-        goggin.setSpriteManager(&spriteManager);
+        goggin.displayLabel = displayLabel;
+        goggin.scale = scale;
+        goggin.setId(nextId++);
+        goggin.spriteManager = &spriteManager;
+        goggin.gameTicksPerSecond = gameTicksPerSecond;
+        goggin.gameTicksPerSecondSq = gameTicksPerSecondSq;
         goggin.init();
         engine.add(&goggin);
 
@@ -166,17 +182,15 @@ public:
         }
 
         for (int i = 0; i < numBalls; i++) {
-            auto ball = new SpriteObject;
-            double x = 200 + (std::rand() % camera.getUniverse().w / 2);
-            double y = (4880 * mul) - (300 + std::rand() % 100);
+            auto ball = new Ball;
+            ball->gameTicksPerSecond = gameTicksPerSecond;
+            ball->gameTicksPerSecondSq = gameTicksPerSecondSq;
+            ball->displayLabel = displayLabel;
+            ball->scale = scale;
+            ball->camera = &camera;
+            ball->spriteManager = &spriteManager;
             ball->setId(nextId++);
-            ball->setPlatform(false);
-            ball->setPlatformCollisionType(trippin::PlatformCollisionType::reflective);
-            ball->setPosition({x, y});
-            ball->setFriction({xFrictionBall, 0});
-            ball->setAcceleration({0, yAccel});
-            ball->setTerminalVelocity({xTerminalBall, yTerminal});
-            ball->init(&ballSprite);
+            ball->init();
             balls.push_back(ball);
             engine.add(ball);
         }

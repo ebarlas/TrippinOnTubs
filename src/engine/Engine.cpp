@@ -263,8 +263,8 @@ void trippin::Engine::setRestitutionCoefficient(double r) {
     restitutionCoefficient = r;
 }
 
-void trippin::Engine::setTicksPerSecond(int tps) {
-    ticksPerSecond = tps;
+void trippin::Engine::setTickPeriod(int tp) {
+    tickPeriod = tp;
 }
 
 int run(void *data) {
@@ -274,33 +274,30 @@ int run(void *data) {
 }
 
 void trippin::Engine::runEngineLoop() {
-    auto nowTicks = SDL_GetTicks();
-    auto lastTicks = nowTicks;
-    auto remainderTicks = 0.0;
-    auto counter = 0;
-    auto clockTicksPerEngineTick = 1000.0 / ticksPerSecond;
-    Uint32 lastSecond = nowTicks / 1000;
+    Uint32 secondCounter = 0;
+    Uint32 totalCounter = 0;
+    auto firstTick = SDL_GetTicks();
+    auto lastSecond = firstTick / 1000;
     while (!stopped) {
-        nowTicks = SDL_GetTicks();
-        auto ticksElapsed = nowTicks - lastTicks + remainderTicks;
-        auto gameTicks = ticksElapsed / clockTicksPerEngineTick;
-        auto gameTicksFloor = static_cast<int>(gameTicks);
-        remainderTicks = clockTicksPerEngineTick * (gameTicks - gameTicksFloor);
         if (!paused) {
-            for (int i=0; i < gameTicksFloor; i++) {
-                tick();
-            }
+            tick();
         }
+        auto nowTicks = SDL_GetTicks();
         auto thisSecond = nowTicks / 1000;
+        totalCounter++;
         if (thisSecond == lastSecond) {
-            counter += gameTicksFloor;
+            secondCounter++;
         } else {
-            SDL_Log("now=%d, tps=%d", nowTicks, counter);
-            counter = gameTicksFloor;
+            SDL_Log("now=%d, tps=%d", nowTicks, secondCounter);
+            secondCounter = 1;
         }
-        lastTicks = nowTicks;
+        auto elapsed = nowTicks - firstTick;
+        auto targetTicks = totalCounter * tickPeriod;
+        auto sleep = targetTicks - elapsed;
+        if (sleep > 0) {
+            SDL_Delay(sleep);
+        }
         lastSecond = thisSecond;
-        SDL_Delay(threadPeriod);
     }
 }
 

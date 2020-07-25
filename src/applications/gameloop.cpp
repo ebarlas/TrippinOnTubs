@@ -71,7 +71,7 @@ void gameLoop(
 
             updateFn({ren, &fontRenderer, windowSize, keysDown, ticks});
         } else {
-            nowTicks = lastTicks = SDL_GetTicks();
+            lastTicks = SDL_GetTicks();
         }
 
         SDL_SetRenderDrawColor(ren, 255, 255, 255, 255);

@@ -32,8 +32,9 @@ namespace trippin {
         // Restitution coefficient for inelastic collisions.
         void setRestitutionCoefficient(double r);
 
-        // Set the target engine ticks per second.
-        void setTicksPerSecond(int tps);
+        // Set the target engine tick period. Ticks per second are 1000 / tick-period.
+        // A tick period of 10 results in 100 tps.
+        void setTickPeriod(int tp);
 
         // Advance the engine simulation by one tick. In each tick:
         // (1) apply motion to objects and snap to grid
@@ -58,8 +59,9 @@ namespace trippin {
         double restitutionCoefficient = 0.9;
 
         SDL_Thread *thread;
-        int ticksPerSecond = 180;
-        int threadPeriod = 4;
+        int tickPeriod = 10;
+//        int ticksPerSecond = 180;
+//        int threadPeriod = 4;
         bool paused = false;
         bool stopped = false;
 
