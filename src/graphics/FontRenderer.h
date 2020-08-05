@@ -3,7 +3,7 @@
 
 #include <string>
 #include "SDL.h"
-#include "SDL2/SDL_ttf.h"
+#include "SDL_ttf.h"
 #include "engine/Point.h"
 
 namespace trippin {

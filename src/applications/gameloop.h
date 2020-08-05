@@ -19,8 +19,11 @@ void gameLoop(
         const std::function<void(const GameState &)> &updateFn,
         const std::function<void(const GameState &)> &renderFn);
 
-void gameLoop(const std::function<void(const GameState &)> &initFn,
-             const std::function<void(const GameState &)> &updateFn,
-             const std::function<void(const GameState &)> &renderFn);
+
+void gameLoop(
+        const std::function<void(const GameState &)> &initFn,
+        const std::function<void(const GameState &)> &updateFn,
+        const std::function<void(const GameState &)> &renderFn,
+        bool fullScreen = false);
 
 #endif

@@ -1,6 +1,7 @@
 #include <sstream>
 #include <iomanip>
 #include "SDL_thread.h"
+#include "exception/TubsException.h"
 #include "sprite/SpriteManager.h"
 #include "engine/Engine.h"
 #include "sprite/Camera.h"
@@ -130,7 +131,7 @@ public:
             render(gs);
         };
 
-        gameLoop(initFn, updateFn, renderFn);
+        gameLoop(initFn, updateFn, renderFn, true);
     }
 
     void init(const GameState &gs) {
@@ -211,7 +212,13 @@ public:
     }
 };
 
-int main() {
-    Game game;
-    game.create();
+int main( int argc, char* args[] ) {
+    try {
+        Game game;
+        game.create();
+        return 0;
+    } catch (trippin::TubsException &ex) {
+        SDL_Log("%s", ex.getMessage().c_str());
+        return -1;
+    }
 }

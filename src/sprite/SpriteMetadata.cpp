@@ -5,7 +5,7 @@
 
 void trippin::SpriteMetadata::load(const std::string &name) {
     std::stringstream filePath;
-    filePath << "assets/sprites/" << name << "/" << name << ".json";
+    filePath << "sprites/" << name << "/" << name << ".json";
     auto in = readFile(filePath.str().c_str());
 
     nlohmann::json j;

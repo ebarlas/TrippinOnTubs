@@ -7,3 +7,4 @@ Trippin
 *.cmake
 CMakeCache.txt
 build/
+android/work/

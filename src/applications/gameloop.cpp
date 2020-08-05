@@ -85,13 +85,20 @@ void gameLoop(
 
 void gameLoop(const std::function<void(const GameState &)> &initFn,
              const std::function<void(const GameState &)> &updateFn,
-             const std::function<void(const GameState &)> &renderFn) {
+             const std::function<void(const GameState &)> &renderFn,
+             bool fullScreen) {
     trippin::Point<int> windowSize{1600, 900};
-    trippin::Point<int> windowPos{100, 100};
+
     auto title = "Hacking";
 
     SDL_Init(SDL_INIT_VIDEO);
-    SDL_Window *win = SDL_CreateWindow(title, windowPos.x, windowPos.y, windowSize.x, windowSize.y, SDL_WINDOW_SHOWN);
+    if (fullScreen) {
+        SDL_DisplayMode displayMode;
+        SDL_GetCurrentDisplayMode( 0, &displayMode );
+        windowSize = {displayMode.w, displayMode.h};
+    }
+
+    SDL_Window *win = SDL_CreateWindow(title, SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, windowSize.x, windowSize.y, SDL_WINDOW_SHOWN);
     SDL_Renderer *ren = SDL_CreateRenderer(win, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
     TTF_Init();
 

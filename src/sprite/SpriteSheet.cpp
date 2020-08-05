@@ -26,7 +26,7 @@ SDL_Texture *trippin::SpriteSheet::createTexture(SDL_Renderer *renderer, SDL_Sur
 
 void trippin::SpriteSheet::load(SDL_Renderer *renderer, const std::string &name, Scale scale) {
     std::stringstream path;
-    path << "assets/sprites/" << name << "/" << name << "_" << scaleName(scale) << ".png";
+    path << "sprites/" << name << "/" << name << "_" << scaleName(scale) << ".png";
     auto surface = loadImage(path.str().c_str());
     size = {surface->w, surface->h};
     texture = createTexture(renderer, surface);
