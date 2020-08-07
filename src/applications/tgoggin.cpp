@@ -16,8 +16,6 @@ std::string format(double d, int precision = 2) {
 class SpriteObject : public trippin::Object {
 public:
     const trippin::Sprite *sprite{};
-    bool displayLabel{};
-    SDL_Color fontColor{};
 
     void init(const trippin::Sprite *sp) {
         sprite = sp;
@@ -35,14 +33,6 @@ public:
         if (box.intersect(viewport)) {
             auto frame = (SDL_GetTicks() / sprite->getDuration()) % sprite->getFrames();
             sprite->render(gs.renderer, {box.x - viewport.x, box.y - viewport.y}, frame);
-            if (displayLabel) {
-                auto posLabel = format(position.x) + ", " + format(position.y);
-                auto velLabel = format(velocity.x) + ", " + format(velocity.y);
-                auto corner = roundedPosition - viewport.corner();
-                gs.fontRenderer->render(std::to_string(id), fontColor, corner + trippin::Point<int>{5, 10});
-                gs.fontRenderer->render(posLabel, fontColor, corner + trippin::Point<int>{5, 30});
-                gs.fontRenderer->render(velLabel, fontColor, corner + trippin::Point<int>{5, 50});
-            }
         }
     }
 };
@@ -194,9 +184,8 @@ public:
     }
 
     void init(const GameState &gs) {
-        auto scale = trippin::Scale::small;
+        auto scale = trippin::Scale::xxsmall;
         auto mul = scaleMultiplier(scale);
-        auto displayLabel = false;
 
         spriteManager.setScale(scale);
         spriteManager.load(gs.renderer);
@@ -222,7 +211,6 @@ public:
 
         int nextId = 1;
 
-        goggin.displayLabel = displayLabel;
         goggin.scale = scale;
         goggin.setId(nextId++);
         goggin.spriteManager = &spriteManager;
@@ -245,7 +233,6 @@ public:
             auto ball = new Ball;
             ball->gameTicksPerSecond = gameTicksPerSecond;
             ball->gameTicksPerSecondSq = gameTicksPerSecondSq;
-            ball->displayLabel = displayLabel;
             ball->scale = scale;
             ball->camera = &camera;
             ball->spriteManager = &spriteManager;
