@@ -27,7 +27,7 @@ public:
         updateRounded();
     }
 
-    void render(const GameState &gs, const trippin::Camera &camera) {
+    virtual void render(const GameState &gs, const trippin::Camera &camera) {
         auto &hb = sprite->getHitBox();
         auto &viewport = camera.getViewport();
         auto &size = sprite->getSize();
@@ -80,32 +80,91 @@ public:
 class Goggin : public SpriteObject {
 public:
     trippin::SpriteManager *spriteManager{};
-    double xAccel{};
-    double yAccel{};
+    double runAccel{};
+    double gravAccel{};
+    double fallGravAccel{};
+    double jumpVel{};
     trippin::Scale scale{};
     double gameTicksPerSecond{};
     double gameTicksPerSecondSq{};
 
+    enum State {
+        running,
+        launching,
+        rising,
+        falling
+    };
+
+    State state = State::falling;
+    Uint32 firstFrame{};
+
     void init() {
         auto pixelsPerMeter = 240 * scaleMultiplier(scale);
-        xAccel = (7.0 * pixelsPerMeter) / gameTicksPerSecondSq;
-        yAccel = (8.0 * pixelsPerMeter) / gameTicksPerSecondSq;
+        runAccel = (7.0 * pixelsPerMeter) / gameTicksPerSecondSq;
+        gravAccel = (10.0 * pixelsPerMeter) / gameTicksPerSecondSq;
+        fallGravAccel = (18.0 * pixelsPerMeter) / gameTicksPerSecondSq;
+        jumpVel = (-8.5 * pixelsPerMeter) / gameTicksPerSecond;
         auto xTerminal = (8.0 * pixelsPerMeter) / gameTicksPerSecond;
-        auto yTerminal = (35.0 * pixelsPerMeter) / gameTicksPerSecond;
+        auto yTerminal = (18.0 * pixelsPerMeter) / gameTicksPerSecond;
 
         auto &sprite = spriteManager->get(trippin::SpriteType::goggin);
 
         auto &hb = sprite.getHitBox();
         platform = false;
         position = {static_cast<double>(hb.corner().x), static_cast<double>(hb.corner().y)};
-        acceleration = {0, yAccel};
+        acceleration = {0, 0};
+        gravity = {0, gravAccel};
+        fallGravity = fallGravAccel;
         terminalVelocity = {xTerminal, yTerminal};
 
         SpriteObject::init(&sprite);
+
+        firstFrame = SDL_GetTicks() / sprite.getDuration();
     }
 
-    void onPlatformCollision(Object &other, const trippin::Sides &collision) override {
-        acceleration = {xAccel, yAccel};
+    void render(const GameState &gs, const trippin::Camera &camera) override {
+        auto &hb = sprite->getHitBox();
+        auto &viewport = camera.getViewport();
+        auto &size = sprite->getSize();
+        trippin::Rect<int> box{roundedPosition.x - hb.x, roundedPosition.y - hb.y, size.x, size.y};
+        if (box.intersect(viewport)) {
+            auto frame = SDL_GetTicks() / sprite->getDuration();
+            if (state == running) {
+                auto runFrame = (frame - firstFrame) % 8;
+                sprite->render(gs.renderer, {box.x - viewport.x, box.y - viewport.y}, runFrame);
+            } else if (state == launching || state == rising) {
+                auto riseFrame = 8 + std::min(3, static_cast<int>(frame - firstFrame));
+                sprite->render(gs.renderer, {box.x - viewport.x, box.y - viewport.y}, riseFrame);
+            } else {
+                auto fallFrame = 12 + std::min(2, static_cast<int>(frame - firstFrame));
+                sprite->render(gs.renderer, {box.x - viewport.x, box.y - viewport.y}, fallFrame);
+            }
+        }
+    }
+
+    void afterTick() override {
+        if (platformCollisions.testBottom()) {
+            SDL_Log("touching bottom");
+            acceleration = {runAccel, 0};
+        } else {
+            acceleration = {0, 0};
+        }
+
+        auto frame = SDL_GetTicks() / sprite->getDuration();
+
+        if (state == State::running && platformCollisions.testBottom() && std::rand() % 200 == 0) {
+            state = State::launching;
+            firstFrame = frame;
+        } else if(state == State::launching && frame - firstFrame > 2) {
+            state = State::rising;
+            velocity.y = jumpVel;
+        } else if (state == rising && velocity.y >= 0) {
+            state = State::falling;
+            firstFrame = frame;
+        } else if (state == falling && platformCollisions.testBottom()) {
+            state = State::running;
+            firstFrame = frame;
+        }
     }
 };
 
@@ -131,7 +190,7 @@ public:
             render(gs);
         };
 
-        gameLoop(initFn, updateFn, renderFn, true);
+        gameLoop(initFn, updateFn, renderFn);
     }
 
     void init(const GameState &gs) {

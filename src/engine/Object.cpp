@@ -70,32 +70,35 @@ void trippin::Object::updateRounded() {
 }
 
 void trippin::Object::applyMotion() {
-    if (platformCollisions.testBottom() || platformCollisions.testTop()) {
+    auto &pc = platformCollisions;
+    if (pc.testBottom() || pc.testTop()) {
         velocity.x = velocity.x > 0
                      ? std::max(velocity.x - friction.x, 0.0)
                      : std::min(velocity.x + friction.x, 0.0);
     }
-    if (platformCollisions.testLeft() || platformCollisions.testRight()) {
+    if (pc.testLeft() || pc.testRight()) {
         velocity.y = velocity.y > 0
                      ? std::max(velocity.y - friction.y, 0.0)
                      : std::min(velocity.y + friction.y, 0.0);
     }
 
-    if ((!platformCollisions.testLeft() && gravity.x < 0) ||
-        (!platformCollisions.testRight() && gravity.x > 0)) {
+    if ((!pc.testLeft() && gravity.x < 0) || (!pc.testRight() && gravity.x > 0)) {
         velocity.x = std::max(std::min(velocity.x + gravity.x, terminalVelocity.x), -terminalVelocity.x);
     }
-    if ((!platformCollisions.testTop() && gravity.y < 0) ||
-        (!platformCollisions.testBottom() && gravity.y > 0)) {
-        velocity.y = std::max(std::min(velocity.y + gravity.y, terminalVelocity.y), -terminalVelocity.y);
+    if (fallGravity > 0 && velocity.y > 0) {
+        if ((!pc.testTop() && gravity.y < 0) || (!pc.testBottom() && gravity.y > 0)) {
+            velocity.y = std::max(std::min(velocity.y + fallGravity, terminalVelocity.y), -terminalVelocity.y);
+        }
+    } else {
+        if ((!pc.testTop() && gravity.y < 0) || (!pc.testBottom() && gravity.y > 0)) {
+            velocity.y = std::max(std::min(velocity.y + gravity.y, terminalVelocity.y), -terminalVelocity.y);
+        }
     }
 
-    if ((!platformCollisions.testLeft() && acceleration.x < 0) ||
-        (!platformCollisions.testRight() && acceleration.x > 0)) {
+    if ((!pc.testLeft() && acceleration.x < 0) || (!pc.testRight() && acceleration.x > 0)) {
         velocity.x = std::max(std::min(velocity.x + acceleration.x, terminalVelocity.x), -terminalVelocity.x);
     }
-    if ((!platformCollisions.testTop() && acceleration.y < 0) ||
-        (!platformCollisions.testBottom() && acceleration.y > 0)) {
+    if ((!pc.testTop() && acceleration.y < 0) || (!pc.testBottom() && acceleration.y > 0)) {
         velocity.y = std::max(std::min(velocity.y + acceleration.y, terminalVelocity.y), -terminalVelocity.y);
     }
 

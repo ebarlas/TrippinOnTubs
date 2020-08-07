@@ -40,7 +40,7 @@ public:
         auto &size = sprite->getSize();
         trippin::Rect<int> box{roundedPosition.x - hb.x, roundedPosition.y - hb.y, size.x, size.y};
         if (box.intersect(viewport)) {
-            auto frame = (ticks / sprite->getDuration()) % sprite->getFrames();
+            auto frame = (ticks / sprite->getDuration()) % 8;
             sprite->render(gs.renderer, {box.x - viewport.x, box.y - viewport.y}, frame);
             if (displayLabel) {
                 auto posLabel = format(position.x) + ", " + format(position.y);

@@ -28,6 +28,7 @@ namespace trippin {
         Point<double> terminalVelocity{};
         Point<double> friction{};
         Point<double> gravity{};
+        double fallGravity{};
         Point<int> size{};
 
         Point<int> roundedPosition{};
