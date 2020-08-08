@@ -21,7 +21,6 @@ public:
         sprite = sp;
         auto &hb = sprite->getHitBox();
         size = {hb.w, hb.h};
-        mass = hb.area();
         updateRounded();
     }
 
@@ -62,6 +61,7 @@ public:
         friction = {xFriction, 0};
         terminalVelocity = {xTerminal, yTerminal};
         platformCollisionType.set(trippin::PlatformCollisionType::reflective);
+        mass = sprite.getHitBox().area();
 
         SpriteObject::init(&sprite);
     }
@@ -106,6 +106,7 @@ public:
         gravity = {0, gravAccel};
         fallGravity = fallGravAccel;
         terminalVelocity = {xTerminal, yTerminal};
+        mass = sprite.getHitBox().area();
 
         SpriteObject::init(&sprite);
 
@@ -134,7 +135,6 @@ public:
 
     void afterTick() override {
         if (platformCollisions.testBottom()) {
-            SDL_Log("touching bottom");
             acceleration = {runAccel, 0};
         } else {
             acceleration = {0, 0};
