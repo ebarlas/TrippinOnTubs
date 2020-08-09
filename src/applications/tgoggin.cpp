@@ -1,7 +1,6 @@
 #include <sstream>
 #include <iomanip>
 #include "SDL_thread.h"
-#include "sprite/SpriteException.h"
 #include "sprite/SpriteManager.h"
 #include "engine/Engine.h"
 #include "sprite/Camera.h"
@@ -253,12 +252,7 @@ public:
 };
 
 int main( int argc, char* args[] ) {
-    try {
-        Game game;
-        game.create();
-        return 0;
-    } catch (trippin::SpriteException &ex) {
-        SDL_Log("%s", ex.getMessage().c_str());
-        return -1;
-    }
+    Game game;
+    game.create();
+    return 0;
 }

@@ -14,6 +14,7 @@ namespace trippin {
         int frames{};
         int duration{};
         Rect<int> hitBox{};
+        static std::string getMetadataFile(const std::string& name);
     };
 }
 
