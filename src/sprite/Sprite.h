@@ -8,17 +8,17 @@
 namespace trippin {
     class Sprite {
     public:
-        void load(SDL_Renderer *renderer, const std::string &name, Scale scale);
-        void render(SDL_Renderer *renderer, const Point<int> position, int frame) const;
-        const Point<int> &getSize() const;
-        const Rect<int> &getHitBox() const;
+        Sprite(SDL_Renderer *renderer, const std::string &name, Scale scale);
+        void render(Point<int> position, int frame) const;
+        Point<int> getSize() const;
+        Rect<int> getHitBox() const;
         int getDuration() const;
         int getFrames() const;
     private:
         Point<int> size;
         Rect<int> hitBox;
-        SpriteMetadata metadata{};
-        SpriteSheet sheet{};
+        SpriteMetadata metadata;
+        SpriteSheet sheet;
     };
 }
 

@@ -1,12 +1,10 @@
 #include <iostream>
 #include "nlohmann/json.hpp"
 #include "SpriteMetadata.h"
-#include "io/File.h"
+#include "SpriteFiles.h"
 
 void trippin::SpriteMetadata::load(const std::string &name) {
-    std::stringstream filePath;
-    filePath << "sprites/" << name << "/" << name << ".json";
-    auto in = readFile(filePath.str().c_str());
+    auto in = readFile(getMetadataFile(name).c_str());
 
     nlohmann::json j;
     in >> j;
@@ -27,6 +25,6 @@ int trippin::SpriteMetadata::getDuration() const {
     return duration;
 }
 
-const trippin::Rect<int> &trippin::SpriteMetadata::getHitBox() const {
+trippin::Rect<int> trippin::SpriteMetadata::getHitBox() const {
     return hitBox;
 }

@@ -1,7 +1,7 @@
 #include <sstream>
 #include <iomanip>
 #include "SDL_thread.h"
-#include "exception/TubsException.h"
+#include "sprite/SpriteException.h"
 #include "sprite/SpriteManager.h"
 #include "engine/Engine.h"
 #include "sprite/Camera.h"
@@ -17,28 +17,26 @@ class SpriteObject : public trippin::Object {
 public:
     const trippin::Sprite *sprite{};
 
-    void init(const trippin::Sprite *sp) {
-        sprite = sp;
-        auto &hb = sprite->getHitBox();
+    void init() {
+        auto hb = sprite->getHitBox();
         size = {hb.w, hb.h};
         updateRounded();
     }
 
     virtual void render(const GameState &gs, const trippin::Camera &camera) {
-        auto &hb = sprite->getHitBox();
+        auto hb = sprite->getHitBox();
         auto &viewport = camera.getViewport();
-        auto &size = sprite->getSize();
+        auto size = sprite->getSize();
         trippin::Rect<int> box{roundedPosition.x - hb.x, roundedPosition.y - hb.y, size.x, size.y};
         if (box.intersect(viewport)) {
             auto frame = (SDL_GetTicks() / sprite->getDuration()) % sprite->getFrames();
-            sprite->render(gs.renderer, {box.x - viewport.x, box.y - viewport.y}, frame);
+            sprite->render({box.x - viewport.x, box.y - viewport.y}, frame);
         }
     }
 };
 
 class Ball : public SpriteObject {
 public:
-    trippin::SpriteManager *spriteManager{};
     trippin::Camera *camera{};
     trippin::Scale scale{};
     double gameTicksPerSecond{};
@@ -51,8 +49,6 @@ public:
         auto xTerminal = (10.0 * pixelsPerMeter) / gameTicksPerSecond;
         auto yTerminal = (35.0 * pixelsPerMeter) / gameTicksPerSecond;
         auto xFriction = (1.0 * pixelsPerMeter) / gameTicksPerSecondSq;
-
-        auto &sprite = spriteManager->get(trippin::SpriteType::ball);
         
         platform = false;
         position.x = 200 + (std::rand() % camera->getUniverse().w / 2);
@@ -61,15 +57,14 @@ public:
         friction = {xFriction, 0};
         terminalVelocity = {xTerminal, yTerminal};
         platformCollisionType.set(trippin::PlatformCollisionType::reflective);
-        mass = sprite.getHitBox().area();
+        mass = sprite->getHitBox().area();
 
-        SpriteObject::init(&sprite);
+        SpriteObject::init();
     }
 };
 
 class Goggin : public SpriteObject {
 public:
-    trippin::SpriteManager *spriteManager{};
     double runAccel{};
     double gravAccel{};
     double fallGravAccel{};
@@ -97,38 +92,36 @@ public:
         auto xTerminal = (8.0 * pixelsPerMeter) / gameTicksPerSecond;
         auto yTerminal = (18.0 * pixelsPerMeter) / gameTicksPerSecond;
 
-        auto &sprite = spriteManager->get(trippin::SpriteType::goggin);
-
-        auto &hb = sprite.getHitBox();
+        auto hb = sprite->getHitBox();
         platform = false;
         position = {static_cast<double>(hb.corner().x), static_cast<double>(hb.corner().y)};
         acceleration = {0, 0};
         gravity = {0, gravAccel};
         fallGravity = fallGravAccel;
         terminalVelocity = {xTerminal, yTerminal};
-        mass = sprite.getHitBox().area();
+        mass = hb.area();
 
-        SpriteObject::init(&sprite);
+        SpriteObject::init();
 
-        firstFrame = SDL_GetTicks() / sprite.getDuration();
+        firstFrame = SDL_GetTicks() / sprite->getDuration();
     }
 
     void render(const GameState &gs, const trippin::Camera &camera) override {
-        auto &hb = sprite->getHitBox();
+        auto hb = sprite->getHitBox();
         auto &viewport = camera.getViewport();
-        auto &size = sprite->getSize();
+        auto size = sprite->getSize();
         trippin::Rect<int> box{roundedPosition.x - hb.x, roundedPosition.y - hb.y, size.x, size.y};
         if (box.intersect(viewport)) {
             auto frame = SDL_GetTicks() / sprite->getDuration();
             if (state == running) {
                 auto runFrame = (frame - firstFrame) % 8;
-                sprite->render(gs.renderer, {box.x - viewport.x, box.y - viewport.y}, runFrame);
+                sprite->render({box.x - viewport.x, box.y - viewport.y}, runFrame);
             } else if (state == launching || state == rising) {
                 auto riseFrame = 8 + std::min(3, static_cast<int>(frame - firstFrame));
-                sprite->render(gs.renderer, {box.x - viewport.x, box.y - viewport.y}, riseFrame);
+                sprite->render({box.x - viewport.x, box.y - viewport.y}, riseFrame);
             } else {
                 auto fallFrame = 12 + std::min(2, static_cast<int>(frame - firstFrame));
-                sprite->render(gs.renderer, {box.x - viewport.x, box.y - viewport.y}, fallFrame);
+                sprite->render({box.x - viewport.x, box.y - viewport.y}, fallFrame);
             }
         }
     }
@@ -161,7 +154,7 @@ public:
 class Game {
 public:
     trippin::Engine engine{};
-    trippin::SpriteManager spriteManager{};
+    std::unique_ptr<trippin::SpriteManager> spriteManager{};
     Goggin goggin{};
     std::vector<SpriteObject *> grounds{};
     std::vector<Ball *> balls{};
@@ -187,10 +180,10 @@ public:
         auto scale = trippin::Scale::xxsmall;
         auto mul = scaleMultiplier(scale);
 
-        spriteManager.setScale(scale);
-        spriteManager.load(gs.renderer);
-        auto &groundSprite = spriteManager.get(trippin::SpriteType::ground);
-        auto &ballSprite = spriteManager.get(trippin::SpriteType::ball);
+        spriteManager = std::make_unique<trippin::SpriteManager>(gs.renderer, scale);
+        auto &groundSprite = spriteManager->get(trippin::SpriteType::ground);
+        auto &ballSprite = spriteManager->get(trippin::SpriteType::ball);
+        auto &gogginSprite = spriteManager->get(trippin::SpriteType::goggin);
 
         int numGroundPlatforms = 20;
         int numBalls = 20;
@@ -213,7 +206,7 @@ public:
 
         goggin.scale = scale;
         goggin.setId(nextId++);
-        goggin.spriteManager = &spriteManager;
+        goggin.sprite = &gogginSprite;
         goggin.gameTicksPerSecond = gameTicksPerSecond;
         goggin.gameTicksPerSecondSq = gameTicksPerSecondSq;
         goggin.init();
@@ -224,7 +217,8 @@ public:
             ground->setId(nextId++);
             ground->setPlatform(true);
             ground->setPosition(trippin::Point<double>{i * 480.0, 4880} * mul);
-            ground->init(&groundSprite);
+            ground->sprite = &groundSprite;
+            ground->init();
             grounds.push_back(ground);
             engine.add(ground);
         }
@@ -235,7 +229,7 @@ public:
             ball->gameTicksPerSecondSq = gameTicksPerSecondSq;
             ball->scale = scale;
             ball->camera = &camera;
-            ball->spriteManager = &spriteManager;
+            ball->sprite = &ballSprite;
             ball->setId(nextId++);
             ball->init();
             balls.push_back(ball);
@@ -263,7 +257,7 @@ int main( int argc, char* args[] ) {
         Game game;
         game.create();
         return 0;
-    } catch (trippin::TubsException &ex) {
+    } catch (trippin::SpriteException &ex) {
         SDL_Log("%s", ex.getMessage().c_str());
         return -1;
     }

@@ -2,11 +2,13 @@
 #define TRIPPINONTUBS_SPRITETYPE_H
 
 namespace trippin {
-    enum class SpriteType {
+    enum SpriteType {
         goggin,
         ground,
         ball
     };
+
+    constexpr int numSprites = 3;
 
     constexpr SpriteType spriteTypes[] = {SpriteType::goggin, SpriteType::ground, SpriteType::ball};
 

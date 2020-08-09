@@ -9,7 +9,7 @@ namespace trippin {
         void load(const std::string &name);
         int getFrames() const;
         int getDuration() const;
-        const Rect<int> &getHitBox() const;
+        Rect<int> getHitBox() const;
     private:
         int frames{};
         int duration{};

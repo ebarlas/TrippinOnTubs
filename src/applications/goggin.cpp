@@ -24,7 +24,7 @@ public:
 
     void init(const trippin::Sprite *sp) {
         sprite = sp;
-        auto &hb = sprite->getHitBox();
+        auto hb = sprite->getHitBox();
         size = {hb.w, hb.h};
         mass = hb.area();
         updateRounded();
@@ -35,13 +35,13 @@ public:
     }
 
     void render(const GameState &gs, const trippin::Camera &camera) {
-        auto &hb = sprite->getHitBox();
+        auto hb = sprite->getHitBox();
         auto &viewport = camera.getViewport();
-        auto &size = sprite->getSize();
+        auto size = sprite->getSize();
         trippin::Rect<int> box{roundedPosition.x - hb.x, roundedPosition.y - hb.y, size.x, size.y};
         if (box.intersect(viewport)) {
             auto frame = (ticks / sprite->getDuration()) % 8;
-            sprite->render(gs.renderer, {box.x - viewport.x, box.y - viewport.y}, frame);
+            sprite->render({box.x - viewport.x, box.y - viewport.y}, frame);
             if (displayLabel) {
                 auto posLabel = format(position.x) + ", " + format(position.y);
                 auto velLabel = format(velocity.x) + ", " + format(velocity.y);
@@ -59,7 +59,7 @@ public:
 class Game {
 public:
     trippin::Engine engine{};
-    trippin::SpriteManager spriteManager{};
+    std::unique_ptr<trippin::SpriteManager> spriteManager{};
     SpriteObject goggin{};
     std::vector<SpriteObject *> grounds{};
     std::vector<SpriteObject *> balls{};
@@ -87,11 +87,10 @@ public:
         auto scale = trippin::Scale::small;
         auto mul = scaleMultiplier(scale);
 
-        spriteManager.setScale(scale);
-        spriteManager.load(gs.renderer);
-        auto &gogginSprite = spriteManager.get(trippin::SpriteType::goggin);
-        auto &groundSprite = spriteManager.get(trippin::SpriteType::ground);
-        auto &ballSprite = spriteManager.get(trippin::SpriteType::ball);
+        spriteManager = std::make_unique<trippin::SpriteManager>(gs.renderer, scale);
+        auto &gogginSprite = spriteManager->get(trippin::SpriteType::goggin);
+        auto &groundSprite = spriteManager->get(trippin::SpriteType::ground);
+        auto &ballSprite = spriteManager->get(trippin::SpriteType::ball);
 
         int numGroundPlatforms = 20;
         int numBalls = 20;
@@ -113,7 +112,7 @@ public:
         auto yTerminal = (35.0 * pixelsPerMeter) / gameTicksPerSecond;
         auto xFrictionBall = (1.0 * pixelsPerMeter) / gameTicksPerSecondSq;
 
-        auto &hb = gogginSprite.getHitBox();
+        auto hb = gogginSprite.getHitBox();
         goggin.setId(nextId++);
         goggin.setPlatform(false);
         goggin.setPosition({static_cast<double>(hb.corner().x), static_cast<double>(hb.corner().y)});
