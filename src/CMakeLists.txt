@@ -11,9 +11,6 @@ add_library(Engine
         engine/SnapQueue.cpp)
 target_link_libraries(Engine CONAN_PKG::sdl2)
 
-add_library(Sdl sdl/Lib.cpp sdl/Window.cpp sdl/Renderer.cpp sdl/Surface.cpp sdl/Texture.cpp)
-target_link_libraries(Sdl CONAN_PKG::sdl2 CONAN_PKG::sdl2_image)
-
 add_library(Sprite
         sprite/SpriteMetadata.cpp
         sprite/SpriteSheet.cpp
@@ -21,7 +18,7 @@ add_library(Sprite
         sprite/SpriteManager.cpp
         sprite/Files.cpp
         sprite/Camera.cpp)
-target_link_libraries(Sprite Sdl CONAN_PKG::nlohmann_json CONAN_PKG::sdl2 CONAN_PKG::sdl2_image)
+target_link_libraries(Sprite CONAN_PKG::nlohmann_json CONAN_PKG::sdl2 CONAN_PKG::sdl2_image)
 
 add_library(Graphics graphics/FontRenderer.cpp graphics/RenderableObject.cpp)
 target_link_libraries(Graphics CONAN_PKG::sdl2 CONAN_PKG::sdl2_ttf)
@@ -47,5 +44,5 @@ target_link_libraries(goggin GameLoop Sprite Engine)
 add_executable(tgoggin applications/tgoggin.cpp)
 target_link_libraries(tgoggin GameLoop Sprite Engine)
 
-add_executable(trippin applications/trippin.cpp applications/Game.cpp)
+add_executable(trippin applications/trippin.cpp applications/Game.cpp applications/Configuration.cpp)
 target_link_libraries(trippin Sprite Engine)

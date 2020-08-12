@@ -1,6 +1,7 @@
 #include "SpriteManager.h"
 
-trippin::SpriteManager::SpriteManager(SDL_Renderer *renderer, trippin::Scale sc) : scale(sc) {
+void trippin::SpriteManager::load(SDL_Renderer *renderer, trippin::Scale sc) {
+    scale = sc;
     for (auto type : spriteTypes) {
         auto name = getSpriteName(type);
         sprites[type] = std::make_unique<Sprite>(renderer, name, sc);

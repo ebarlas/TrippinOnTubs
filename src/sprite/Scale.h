@@ -11,6 +11,17 @@ namespace trippin {
         large
     };
 
+    constexpr int numScales = 6;
+
+    constexpr Scale allScales[] = {
+            Scale::xxxsmall,
+            Scale::xxsmall,
+            Scale::xsmall,
+            Scale::small,
+            Scale::medium,
+            Scale::large
+    };
+
     constexpr const char *scaleName(trippin::Scale scale) {
         switch (scale) {
             case Scale::xxxsmall:

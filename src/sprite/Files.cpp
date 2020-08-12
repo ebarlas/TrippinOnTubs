@@ -6,7 +6,7 @@
 std::stringstream trippin::readFile(const char *fileName) {
     auto file = SDL_RWFromFile(fileName, "rb");
     if (file == nullptr) {
-        SDL_Log("Warning: Unable to open file! SDL Error: %s", SDL_GetError());
+        SDL_Log("Unable to open file %s! SDL Error: %s", fileName, SDL_GetError());
         std::terminate();
     }
 
