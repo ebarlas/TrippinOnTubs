@@ -2,7 +2,6 @@
 #define TRIPPIN_ENGINE_H
 
 #include <vector>
-#include <unordered_set>
 #include "SDL.h"
 #include "engine/Object.h"
 #include "engine/CollisionType.h"

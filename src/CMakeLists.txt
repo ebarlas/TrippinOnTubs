@@ -20,6 +20,12 @@ add_library(Sprite
         sprite/Camera.cpp)
 target_link_libraries(Sprite CONAN_PKG::nlohmann_json CONAN_PKG::sdl2 CONAN_PKG::sdl2_image)
 
+add_library(Game
+        game/Game.cpp
+        game/Map.cpp
+        game/Configuration.cpp)
+target_link_libraries(Game CONAN_PKG::nlohmann_json CONAN_PKG::sdl2 CONAN_PKG::sdl2_image)
+
 add_library(Graphics graphics/FontRenderer.cpp graphics/RenderableObject.cpp)
 target_link_libraries(Graphics CONAN_PKG::sdl2 CONAN_PKG::sdl2_ttf)
 
@@ -44,5 +50,5 @@ target_link_libraries(goggin GameLoop Sprite Engine)
 add_executable(tgoggin applications/tgoggin.cpp)
 target_link_libraries(tgoggin GameLoop Sprite Engine)
 
-add_executable(trippin applications/trippin.cpp applications/Game.cpp applications/Configuration.cpp)
-target_link_libraries(trippin Sprite Engine)
+add_executable(trippin applications/trippin.cpp)
+target_link_libraries(trippin Sprite Engine Game)

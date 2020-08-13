@@ -1,0 +1,112 @@
+{
+  "universe": {
+    "width": 40000,
+    "height": 5000
+  },
+  "objects": [
+    {
+      "id": 1,
+      "type": "goggin",
+      "position": {
+        "x": 0,
+        "y": 0
+      }
+    },
+    {
+      "id": 2,
+      "type": "floor",
+      "position": {
+        "x": 0,
+        "y": 2640
+      }
+    },
+    {
+      "id": 3,
+      "type": "floor",
+      "position": {
+        "x": 480,
+        "y": 2640
+      }
+    },
+    {
+      "id": 4,
+      "type": "floor",
+      "position": {
+        "x": 960,
+        "y": 2640
+      }
+    },
+    {
+      "id": 5,
+      "type": "floor",
+      "position": {
+        "x": 1440,
+        "y": 2640
+      }
+    },
+    {
+      "id": 6,
+      "type": "floor",
+      "position": {
+        "x": 1920,
+        "y": 2640
+      }
+    },
+    {
+      "id": 7,
+      "type": "floor",
+      "position": {
+        "x": 2400,
+        "y": 2640
+      }
+    },
+    {
+      "id": 8,
+      "type": "floor",
+      "position": {
+        "x": 2880,
+        "y": 2640
+      }
+    },
+    {
+      "id": 9,
+      "type": "floor",
+      "position": {
+        "x": 3360,
+        "y": 2640
+      }
+    },
+    {
+      "id": 10,
+      "type": "floor",
+      "position": {
+        "x": 3840,
+        "y": 2640
+      }
+    },
+    {
+      "id": 11,
+      "type": "floor",
+      "position": {
+        "x": 4320,
+        "y": 2640
+      }
+    },
+    {
+      "id": 12,
+      "type": "floor",
+      "position": {
+        "x": 4800,
+        "y": 2640
+      }
+    },
+    {
+      "id": 13,
+      "type": "floor",
+      "position": {
+        "x": 5280,
+        "y": 2640
+      }
+    }
+  ]
+}

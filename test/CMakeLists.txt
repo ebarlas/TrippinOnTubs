@@ -38,3 +38,16 @@ catch_discover_tests(
         -s
         --reporter=xml
         --out=tests.xml)
+
+add_executable(game_tests2
+        game/map_tests.cpp
+        game/configuration_tests.cpp)
+target_link_libraries(game_tests2 PRIVATE Game Sprite Engine catch_main)
+catch_discover_tests(
+        game_tests2
+        TEST_PREFIX
+        "unittests."
+        EXTRA_ARGS
+        -s
+        --reporter=xml
+        --out=tests.xml)

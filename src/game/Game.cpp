@@ -49,15 +49,15 @@ void trippin::Game::initRenderer() {
 }
 
 void trippin::Game::initConfiguration() {
-    configuration.load("trippin");
+    configuration.load(configName);
 }
 
 void trippin::Game::initScale() {
     scale = allScales[0];
     for (int i = numScales - 1; i > 0; i--) {
         auto mul = scaleMultiplier(allScales[i]);
-        auto spans = windowSize.x / (configuration.getPlayerBaseWidth() * mul);
-        if (spans >= configuration.getMinPlayerSpan()) {
+        auto spans = windowSize.x / (configuration.playerBaseWidth * mul);
+        if (spans >= configuration.minPlayerSpan) {
             scale = allScales[i];
             break;
         }
@@ -66,6 +66,10 @@ void trippin::Game::initScale() {
 
 void trippin::Game::initSpriteManager() {
     spriteManager.load(renderer, scale);
+}
+
+trippin::Game::Game(std::string configName) : configName(std::move(configName)) {
+
 }
 
 trippin::Game::~Game() {

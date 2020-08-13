@@ -4,12 +4,9 @@
 
 void trippin::Configuration::load(const std::string &name) {
     auto in = readFile(getConfigFile(name).c_str());
-
     nlohmann::json j;
     in >> j;
-
-    j.at("minPlayerSpan").get_to(minPlayerSpan);
-    j.at("playerBaseWidth").get_to(playerBaseWidth);
+    j.get_to(*this);
 }
 
 std::string trippin::Configuration::getConfigFile(const std::string &name) {
@@ -18,10 +15,8 @@ std::string trippin::Configuration::getConfigFile(const std::string &name) {
     return path.str();
 }
 
-int trippin::Configuration::getMinPlayerSpan() const {
-    return minPlayerSpan;
-}
-
-int trippin::Configuration::getPlayerBaseWidth() const {
-    return playerBaseWidth;
+void trippin::from_json(const nlohmann::json &j, Configuration &config) {
+    j.at("minPlayerSpan").get_to(config.minPlayerSpan);
+    j.at("playerBaseWidth").get_to(config.playerBaseWidth);
+    j.at("map").get_to(config.map);
 }
