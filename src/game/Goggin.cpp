@@ -106,7 +106,6 @@ void trippin::Goggin::onRunning(const trippin::Clock &clock) {
         state = State::launching;
         channel.frame = FRAME_LAUNCHING_FIRST;
         ticks = 0;
-        acceleration.x = 0;
         return;
     }
 
@@ -138,5 +137,6 @@ void trippin::Goggin::onRising(const trippin::Clock &clock) {
         state = State::falling;
         channel.frame = FRAME_FALLING_FIRST;
         ticks = 0;
+        acceleration.x = 0;
     }
 }
