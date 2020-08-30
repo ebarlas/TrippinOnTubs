@@ -8,9 +8,17 @@
 namespace trippin {
     struct Map {
         struct Object {
-            int id;
+            int id{};
             std::string type;
-            Point<int> position;
+            Point<double> position;
+            double activatedAcceleration{};
+            double gravity{};
+            double fallGravity{};
+            double mass{};
+            double jumpVelocity;
+            Point<double> velocity{};
+            Point<double> terminalVelocity;
+            Point<double> friction;
         };
 
         Point<int> universe;

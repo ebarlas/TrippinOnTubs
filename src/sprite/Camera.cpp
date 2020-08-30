@@ -4,7 +4,7 @@ void trippin::Camera::setViewport(Rect<int> vp) {
     viewport = vp;
 }
 
-const trippin::Rect<int> &trippin::Camera::getViewport() const {
+trippin::Rect<int> trippin::Camera::getViewport() const {
     return viewport;
 }
 
@@ -12,7 +12,7 @@ void trippin::Camera::setUniverse(Rect<int> uni) {
     universe = uni;
 }
 
-const trippin::Rect<int> &trippin::Camera::getUniverse() const {
+trippin::Rect<int> trippin::Camera::getUniverse() const {
     return universe;
 }
 
@@ -36,6 +36,6 @@ void trippin::Camera::centerOn(Point<int> center) {
     viewport.y = y;
 }
 
-bool trippin::Camera::inView(const Rect<int> &rect) const {
+bool trippin::Camera::inView(Rect<int> rect) const {
     return viewport.intersect(rect);
 }

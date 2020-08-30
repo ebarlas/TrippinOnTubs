@@ -8,8 +8,9 @@ add_library(Engine
         engine/Engine.cpp
         engine/Partition.cpp
         engine/Grid.cpp
-        engine/SnapQueue.cpp)
-target_link_libraries(Engine CONAN_PKG::sdl2)
+        engine/SnapQueue.cpp
+        engine/Clock.cpp)
+target_link_libraries(Engine CONAN_PKG::nlohmann_json CONAN_PKG::sdl2)
 
 add_library(Sprite
         sprite/SpriteMetadata.cpp
@@ -23,11 +24,15 @@ target_link_libraries(Sprite CONAN_PKG::nlohmann_json CONAN_PKG::sdl2 CONAN_PKG:
 add_library(Game
         game/Game.cpp
         game/Map.cpp
-        game/Configuration.cpp)
+        game/Configuration.cpp
+        game/SpriteObject.cpp
+        game/SimpleObject.cpp
+        game/Lock.cpp
+        game/Goggin.cpp)
 target_link_libraries(Game CONAN_PKG::nlohmann_json CONAN_PKG::sdl2 CONAN_PKG::sdl2_image)
 
 add_library(Graphics graphics/FontRenderer.cpp graphics/RenderableObject.cpp)
-target_link_libraries(Graphics CONAN_PKG::sdl2 CONAN_PKG::sdl2_ttf)
+target_link_libraries(Graphics Engine CONAN_PKG::sdl2_ttf)
 
 add_library(GameLoop applications/gameloop.cpp)
 target_link_libraries(GameLoop Graphics Engine)

@@ -1,7 +1,8 @@
 #include <cmath>
 #include "Sprite.h"
 
-trippin::Sprite::Sprite(SDL_Renderer *ren, const std::string &name, trippin::Scale scale) : sheet(ren, name, scale) {
+trippin::Sprite::Sprite(SDL_Renderer *ren, const std::string &name, trippin::Scale scale)
+        : scale(scale), sheet(ren, name, scale) {
     metadata.load(name);
 
     size = sheet.getSize();
@@ -35,4 +36,8 @@ int trippin::Sprite::getDuration() const {
 
 int trippin::Sprite::getFrames() const {
     return metadata.getFrames();
+}
+
+trippin::Scale trippin::Sprite::getScale() const {
+    return scale;
 }

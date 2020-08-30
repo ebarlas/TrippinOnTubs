@@ -24,7 +24,7 @@ public:
 
     virtual void render(const GameState &gs, const trippin::Camera &camera) {
         auto hb = sprite->getHitBox();
-        auto &viewport = camera.getViewport();
+        auto viewport = camera.getViewport();
         auto size = sprite->getSize();
         trippin::Rect<int> box{roundedPosition.x - hb.x, roundedPosition.y - hb.y, size.x, size.y};
         if (box.intersect(viewport)) {
@@ -48,7 +48,7 @@ public:
         auto xTerminal = (10.0 * pixelsPerMeter) / gameTicksPerSecond;
         auto yTerminal = (35.0 * pixelsPerMeter) / gameTicksPerSecond;
         auto xFriction = (1.0 * pixelsPerMeter) / gameTicksPerSecondSq;
-        
+
         platform = false;
         position.x = 200 + (std::rand() % camera->getUniverse().w / 2);
         position.y = (4880 * mul) - (600 + std::rand() % 100) * mul;
@@ -71,16 +71,20 @@ public:
     trippin::Scale scale{};
     double gameTicksPerSecond{};
     double gameTicksPerSecondSq{};
+    double tickPeriod{};
+    int framePeriod{};
 
     enum State {
         running,
         launching,
         rising,
-        falling
+        falling,
+        landing
     };
 
     State state = State::falling;
-    Uint32 firstFrame{};
+    int frame = 14;
+    int ticks;
 
     void init() {
         auto pixelsPerMeter = 240 * scaleMultiplier(scale);
@@ -95,57 +99,86 @@ public:
         platform = false;
         position = {static_cast<double>(hb.corner().x), static_cast<double>(hb.corner().y)};
         acceleration = {0, 0};
-        gravity = {0, gravAccel};
+        gravity = gravAccel;
         fallGravity = fallGravAccel;
         terminalVelocity = {xTerminal, yTerminal};
         mass = hb.area();
 
-        SpriteObject::init();
+        framePeriod = static_cast<int>(sprite->getDuration() / tickPeriod);
 
-        firstFrame = SDL_GetTicks() / sprite->getDuration();
+        SpriteObject::init();
     }
 
     void render(const GameState &gs, const trippin::Camera &camera) override {
         auto hb = sprite->getHitBox();
-        auto &viewport = camera.getViewport();
+        auto viewport = camera.getViewport();
         auto size = sprite->getSize();
         trippin::Rect<int> box{roundedPosition.x - hb.x, roundedPosition.y - hb.y, size.x, size.y};
         if (box.intersect(viewport)) {
-            auto frame = SDL_GetTicks() / sprite->getDuration();
-            if (state == running) {
-                auto runFrame = (frame - firstFrame) % 8;
-                sprite->render({box.x - viewport.x, box.y - viewport.y}, runFrame);
-            } else if (state == launching || state == rising) {
-                auto riseFrame = 8 + std::min(3, static_cast<int>(frame - firstFrame));
-                sprite->render({box.x - viewport.x, box.y - viewport.y}, riseFrame);
-            } else {
-                auto fallFrame = 12 + std::min(2, static_cast<int>(frame - firstFrame));
-                sprite->render({box.x - viewport.x, box.y - viewport.y}, fallFrame);
-            }
+            sprite->render({box.x - viewport.x, box.y - viewport.y}, frame);
         }
     }
 
-    void afterTick() override {
-        if (platformCollisions.testBottom()) {
+    void afterTick(const trippin::Clock &clock) override {
+        ticks++;
+
+        if (state == State::falling) {
+            if (platformCollisions.testBottom()) {
+                state = State::landing;
+                ticks = 0;
+                frame = 15;
+            } else {
+                if (ticks == framePeriod) {
+                    ticks = 0;
+                    if (frame < 14) {
+                        frame++;
+                    }
+                }
+            }
+        } else if (state == State::landing) {
+            if (ticks == framePeriod) {
+                ticks = 0;
+                if (frame == 15) {
+                    frame = 16;
+                } else {
+                    state = State::running;
+                    frame = 3;
+                }
+            }
+        } else if (state == State::running) {
+            if (std::rand() % 200 == 0) {
+                state = State::launching;
+                ticks = 0;
+                frame = 8;
+            } else {
+                if (ticks == framePeriod) {
+                    ticks = 0;
+                    frame = (frame + 1) % 8;
+                }
+            }
+        } else if (state == State::launching) {
+            if (ticks == framePeriod) {
+                ticks = 0;
+                if (frame < 11) {
+                    frame++;
+                    if (frame == 11) {
+                        state = State::rising;
+                        velocity.y = jumpVel;
+                    }
+                }
+            }
+        } else if (state == State::rising) {
+            if (velocity.y >= 0) {
+                state = State::falling;
+                ticks = 0;
+                frame = 12;
+            }
+        }
+
+        if (state == State::running) {
             acceleration = {runAccel, 0};
         } else {
             acceleration = {0, 0};
-        }
-
-        auto frame = SDL_GetTicks() / sprite->getDuration();
-
-        if (state == State::running && platformCollisions.testBottom() && std::rand() % 200 == 0) {
-            state = State::launching;
-            firstFrame = frame;
-        } else if(state == State::launching && frame - firstFrame > 2) {
-            state = State::rising;
-            velocity.y = jumpVel;
-        } else if (state == rising && velocity.y >= 0) {
-            state = State::falling;
-            firstFrame = frame;
-        } else if (state == falling && platformCollisions.testBottom()) {
-            state = State::running;
-            firstFrame = frame;
         }
     }
 };
@@ -208,6 +241,7 @@ public:
         goggin.sprite = &gogginSprite;
         goggin.gameTicksPerSecond = gameTicksPerSecond;
         goggin.gameTicksPerSecondSq = gameTicksPerSecondSq;
+        goggin.tickPeriod = tickPeriod;
         goggin.init();
         engine.add(&goggin);
 
@@ -251,7 +285,7 @@ public:
     }
 };
 
-int main( int argc, char* args[] ) {
+int main(int argc, char *args[]) {
     Game game;
     game.create();
     return 0;

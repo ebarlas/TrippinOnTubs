@@ -8,6 +8,8 @@
 #include "engine/Point.h"
 #include "sprite/SpriteManager.h"
 #include "Configuration.h"
+#include "Map.h"
+#include "Goggin.h"
 
 namespace trippin {
     class Game {
@@ -17,9 +19,13 @@ namespace trippin {
         SDL_Renderer* renderer;
         Point<int> windowSize;
         Configuration configuration;
+        Map map;
         Scale scale;
         SpriteManager spriteManager;
+        Camera camera;
         Engine engine;
+        std::vector<std::unique_ptr<SpriteObject>> objects;
+        Goggin *goggin;
         void initRuntime();
         void initWindowSize();
         void initWindow();
@@ -27,6 +33,9 @@ namespace trippin {
         void initConfiguration();
         void initScale();
         void initSpriteManager();
+        void initCamera();
+        void initEngine();
+        void renderLoop();
 
     public:
         Game(std::string configName);

@@ -7,6 +7,7 @@
 #include "engine/Sides.h"
 #include "engine/Optional.h"
 #include "engine/CollisionType.h"
+#include "engine/Clock.h"
 
 namespace trippin {
     class Partition;
@@ -50,7 +51,7 @@ namespace trippin {
 
         // The acceleration due to gravity in units per engine tick per engine tick.
         // This quantity is applied continuously, except when an object is in contact with a platform.
-        Point<double> gravity{};
+        double gravity{};
 
         // The acceleration due to gravity applied to falling objects in units per engine tick per engine tick.
         // This quantity is applied continuously, except when an object is in contact with a platform.
@@ -105,7 +106,7 @@ namespace trippin {
         Point<double> getCenter() const;
         Point<double> getVelocity() const;
         Point<double> getAcceleration() const;
-        Point<double> getGravity() const;
+        double getGravity() const;
         Point<double> getFriction() const;
         Point<double> getTerminalVelocity() const;
         Point<int> getSize() const;
@@ -117,8 +118,8 @@ namespace trippin {
         void applyMotion();
         virtual void onPlatformCollision(Object &other, const trippin::Sides &collision);
         virtual void onObjectCollision(Object &other, const trippin::Sides &collision);
-        virtual void beforeTick();
-        virtual void afterTick();
+        virtual void beforeTick(const Clock &clock);
+        virtual void afterTick(const Clock &clock);
     };
 }
 

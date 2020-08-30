@@ -6,6 +6,7 @@
 #include "engine/Object.h"
 #include "engine/CollisionType.h"
 #include "engine/Grid.h"
+#include "engine/Clock.h"
 
 namespace trippin {
     // Engine handles the movement and interaction of objects.
@@ -39,7 +40,7 @@ namespace trippin {
         // (1) apply motion to objects and snap to grid
         // (2) detect intersections and snap objects
         // (3) detect and react to collisions
-        void tick();
+        void tick(Clock clock);
 
         void runEngineLoop();
 
@@ -58,14 +59,12 @@ namespace trippin {
         double restitutionCoefficient = 0.9;
 
         SDL_Thread *thread;
-        int tickPeriod = 10;
-//        int ticksPerSecond = 180;
-//        int threadPeriod = 4;
+        int tickPeriod;
         bool paused = false;
         bool stopped = false;
 
-        void beforeTick();
-        void afterTick();
+        void beforeTick(Clock clock);
+        void afterTick(Clock clock);
         void applyMotion();
         void snapObjects();
         void snapObjects(Partition &partition);

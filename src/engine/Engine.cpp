@@ -3,6 +3,7 @@
 #include "engine/Engine.h"
 #include "engine/SnapQueue.h"
 #include "engine/Physics.h"
+#include "engine/Clock.h"
 
 void trippin::Engine::add(Object *obj) {
     grid.add(obj);
@@ -14,24 +15,24 @@ void trippin::Engine::setGridSize(Point<int> gridSize, Point<int> cellSize) {
     grid.setSize(gridSize, cellSize);
 }
 
-void trippin::Engine::beforeTick() {
+void trippin::Engine::beforeTick(Clock clock) {
     for (auto obj : objects) {
-        obj->beforeTick();
+        obj->beforeTick(clock);
     }
 }
 
-void trippin::Engine::afterTick() {
+void trippin::Engine::afterTick(Clock clock) {
     for (auto obj : objects) {
-        obj->afterTick();
+        obj->afterTick(clock);
     }
 }
 
-void trippin::Engine::tick() {
-    beforeTick();
+void trippin::Engine::tick(Clock clock) {
+    beforeTick(clock);
     applyMotion();
     snapObjects();
     applyPhysics();
-    afterTick();
+    afterTick(clock);
 }
 
 void trippin::Engine::applyMotion() {
@@ -274,30 +275,13 @@ int run(void *data) {
 }
 
 void trippin::Engine::runEngineLoop() {
-    Uint32 secondCounter = 0;
-    Uint32 totalCounter = 0;
-    auto firstTick = SDL_GetTicks();
-    auto lastSecond = firstTick / 1000;
+    Clock clock;
+    clock.setTickPeriod(tickPeriod);
     while (!stopped) {
         if (!paused) {
-            tick();
+            tick(clock);
         }
-        auto nowTicks = SDL_GetTicks();
-        auto thisSecond = nowTicks / 1000;
-        totalCounter++;
-        if (thisSecond == lastSecond) {
-            secondCounter++;
-        } else {
-            SDL_Log("now=%d, tps=%d", nowTicks, secondCounter);
-            secondCounter = 1;
-        }
-        auto elapsed = nowTicks - firstTick;
-        auto targetTicks = totalCounter * tickPeriod;
-        auto sleep = targetTicks - elapsed;
-        if (sleep > 0) {
-            SDL_Delay(sleep);
-        }
-        lastSecond = thisSecond;
+        clock.next();
     }
 }
 

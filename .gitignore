@@ -1,4 +1,5 @@
 .idea
+.DS_Store
 CMakeFiles
 cmake-build-debug
 *.cbp

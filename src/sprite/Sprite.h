@@ -14,7 +14,9 @@ namespace trippin {
         Rect<int> getHitBox() const;
         int getDuration() const;
         int getFrames() const;
+        Scale getScale() const;
     private:
+        Scale scale;
         Point<int> size;
         Rect<int> hitBox;
         SpriteMetadata metadata;

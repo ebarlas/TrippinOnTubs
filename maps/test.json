@@ -10,11 +10,19 @@
       "position": {
         "x": 0,
         "y": 0
-      }
+      },
+      "terminalVelocity": {
+        "x": 1920.0,
+        "y": 4320.0
+      },
+      "gravity": 2400.0,
+      "fallGravity": 4320.0,
+      "jumpVelocity": -2040.0,
+      "activatedAcceleration": 1680.0
     },
     {
       "id": 2,
-      "type": "floor",
+      "type": "ground",
       "position": {
         "x": 0,
         "y": 2640
@@ -22,7 +30,7 @@
     },
     {
       "id": 3,
-      "type": "floor",
+      "type": "ground",
       "position": {
         "x": 480,
         "y": 2640
@@ -30,7 +38,7 @@
     },
     {
       "id": 4,
-      "type": "floor",
+      "type": "ground",
       "position": {
         "x": 960,
         "y": 2640
@@ -38,7 +46,7 @@
     },
     {
       "id": 5,
-      "type": "floor",
+      "type": "ground",
       "position": {
         "x": 1440,
         "y": 2640
@@ -46,7 +54,7 @@
     },
     {
       "id": 6,
-      "type": "floor",
+      "type": "ground",
       "position": {
         "x": 1920,
         "y": 2640
@@ -54,7 +62,7 @@
     },
     {
       "id": 7,
-      "type": "floor",
+      "type": "ground",
       "position": {
         "x": 2400,
         "y": 2640
@@ -62,7 +70,7 @@
     },
     {
       "id": 8,
-      "type": "floor",
+      "type": "ground",
       "position": {
         "x": 2880,
         "y": 2640
@@ -70,7 +78,7 @@
     },
     {
       "id": 9,
-      "type": "floor",
+      "type": "ground",
       "position": {
         "x": 3360,
         "y": 2640
@@ -78,7 +86,7 @@
     },
     {
       "id": 10,
-      "type": "floor",
+      "type": "ground",
       "position": {
         "x": 3840,
         "y": 2640
@@ -86,7 +94,7 @@
     },
     {
       "id": 11,
-      "type": "floor",
+      "type": "ground",
       "position": {
         "x": 4320,
         "y": 2640
@@ -94,7 +102,7 @@
     },
     {
       "id": 12,
-      "type": "floor",
+      "type": "ground",
       "position": {
         "x": 4800,
         "y": 2640
@@ -102,7 +110,7 @@
     },
     {
       "id": 13,
-      "type": "floor",
+      "type": "ground",
       "position": {
         "x": 5280,
         "y": 2640

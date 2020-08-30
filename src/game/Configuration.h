@@ -9,6 +9,7 @@ namespace trippin {
     struct Configuration {
         int minPlayerSpan;
         int playerBaseWidth;
+        int tickPeriod;
         std::string map;
         void load(const std::string &name);
         static std::string getConfigFile(const std::string &name);

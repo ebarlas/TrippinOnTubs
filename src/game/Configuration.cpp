@@ -18,5 +18,6 @@ std::string trippin::Configuration::getConfigFile(const std::string &name) {
 void trippin::from_json(const nlohmann::json &j, Configuration &config) {
     j.at("minPlayerSpan").get_to(config.minPlayerSpan);
     j.at("playerBaseWidth").get_to(config.playerBaseWidth);
+    j.at("tickPeriod").get_to(config.tickPeriod);
     j.at("map").get_to(config.map);
 }

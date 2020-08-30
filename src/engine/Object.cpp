@@ -50,7 +50,7 @@ trippin::Point<double> trippin::Object::getTerminalVelocity() const {
     return terminalVelocity;
 }
 
-trippin::Point<double> trippin::Object::getGravity() const {
+double trippin::Object::getGravity() const {
     return gravity;
 }
 
@@ -82,16 +82,13 @@ void trippin::Object::applyMotion() {
                      : std::min(velocity.y + friction.y, 0.0);
     }
 
-    if ((!pc.testLeft() && gravity.x < 0) || (!pc.testRight() && gravity.x > 0)) {
-        velocity.x = std::max(std::min(velocity.x + gravity.x, terminalVelocity.x), -terminalVelocity.x);
-    }
     if (fallGravity > 0 && velocity.y > 0) {
-        if ((!pc.testTop() && gravity.y < 0) || (!pc.testBottom() && gravity.y > 0)) {
+        if ((!pc.testTop() && fallGravity < 0) || (!pc.testBottom() && fallGravity > 0)) {
             velocity.y = std::max(std::min(velocity.y + fallGravity, terminalVelocity.y), -terminalVelocity.y);
         }
     } else {
-        if ((!pc.testTop() && gravity.y < 0) || (!pc.testBottom() && gravity.y > 0)) {
-            velocity.y = std::max(std::min(velocity.y + gravity.y, terminalVelocity.y), -terminalVelocity.y);
+        if ((!pc.testTop() && gravity < 0) || (!pc.testBottom() && gravity > 0)) {
+            velocity.y = std::max(std::min(velocity.y + gravity, terminalVelocity.y), -terminalVelocity.y);
         }
     }
 
@@ -160,10 +157,10 @@ void trippin::Object::setPlatformCollisionType(trippin::PlatformCollisionType ty
     platformCollisionType.set(type);
 }
 
-void trippin::Object::beforeTick() {
+void trippin::Object::beforeTick(const Clock &clock) {
 
 }
 
-void trippin::Object::afterTick() {
+void trippin::Object::afterTick(const Clock &clock) {
 
 }

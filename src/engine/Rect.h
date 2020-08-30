@@ -2,16 +2,17 @@
 #define TRIPPIN_RECT_H
 
 #include <ostream>
+#include "nlohmann/json.hpp"
 #include "Point.h"
 #include "Sides.h"
 
 namespace trippin {
     template<class T>
     struct Rect {
-        T x;
-        T y;
-        T w;
-        T h;
+        T x{};
+        T y{};
+        T w{};
+        T h{};
         static bool valueInRange(T value, T min, T max);
         static trippin::Rect<T> intersect(const trippin::Rect<T> &a, const trippin::Rect<T> &b);
         Point<T> corner() const;
@@ -27,6 +28,9 @@ namespace trippin {
         bool operator==(const Rect<T> &other) const;
         Rect<T> operator-(const Point<T> &other);
     };
+
+    template<class T>
+    void from_json(const nlohmann::json& j, Rect<T>& r);
 }
 
 template<class T>
@@ -122,6 +126,14 @@ T trippin::Rect<T>::area() const {
 template<class T>
 trippin::Rect<T> trippin::Rect<T>::operator-(const trippin::Point<T> &other) {
     return {x - other.x, y - other.y, w, h};
+}
+
+template<class T>
+void trippin::from_json(const nlohmann::json& j, Rect<T>& r) {
+    j.at("x").get_to(r.x);
+    j.at("y").get_to(r.y);
+    j.at("w").get_to(r.w);
+    j.at("h").get_to(r.h);
 }
 
 #endif
