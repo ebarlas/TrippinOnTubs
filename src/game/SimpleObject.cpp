@@ -14,9 +14,8 @@ void trippin::SimpleObject::render(SDL_Renderer *renderer, const trippin::Camera
     auto ch = getChannel();
     trippin::Rect<int> box{ch.roundedPosition.x - hb.x, ch.roundedPosition.y - hb.y, size.x, size.y};
     if (box.intersect(viewport)) {
-        auto frame = (SDL_GetTicks() / sprite->getDuration()) % sprite->getFrames();
         Point<int> target = {box.x - viewport.x, box.y - viewport.y};
-        sprite->render(target, frame);
+        sprite->render(target, 0);
     }
 }
 

@@ -20,7 +20,7 @@ void trippin::Clock::next() {
     lastSecond = thisSecond;
     auto elapsed = nowMillis - firstMillis;
     auto targetTicks = totalTicks * tickPeriod;
-    auto sleep = targetTicks - elapsed;
+    auto sleep = targetTicks > elapsed ? targetTicks - elapsed : 0;
     if (sleep > 0) {
         SDL_Delay(sleep);
     }

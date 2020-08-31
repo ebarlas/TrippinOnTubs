@@ -12,11 +12,16 @@ namespace trippin {
         void afterTick(const Clock &clock) override;
         void render(SDL_Renderer *renderer, const Camera &camera) override;
         void center(Camera &camera);
+        void onKeyDown();
+        void onKeyUp();
+        void beforeTick(const Clock &clock) override;
     private:
         struct Channel {
             Point<int> roundedPosition;
             Point<int> roundedCenter;
             int frame;
+            bool charge;
+            bool jump;
         };
 
         constexpr static const int FRAME_LANDING_FIRST = 15;
@@ -30,10 +35,19 @@ namespace trippin {
 
         Channel channel;
 
+        bool skipLaunch;
         double jumpVelocity;
-        double activatedAcceleration;
+        double risingAcceleration;
+        double runningAcceleration;
 
-        int framePeriod{};
+        int framePeriod;
+
+        double minJumpVelocity;
+        double maxJumpVelocity;
+        int minJumpChargeTicks;
+        int maxJumpChargeTicks;
+
+        Uint32 chargeTicks{};
 
         enum State {
             running,
@@ -47,6 +61,7 @@ namespace trippin {
         int ticks{};
 
         Channel getChannel();
+        double findJumpVelocity(int ticks) const;
         void onFalling(const Clock &clock);
         void onLanding(const Clock &clock);
         void onRunning(const Clock &clock);

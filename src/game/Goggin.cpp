@@ -1,3 +1,4 @@
+#include <algorithm>
 #include "sprite/Sprite.h"
 #include "Goggin.h"
 #include "Lock.h"
@@ -9,12 +10,43 @@ void trippin::Goggin::init(const Configuration &config, const Map::Object &obj, 
     auto gameTicksPerSecond = 1000.0 / config.tickPeriod;
     auto gameTicksPerSecondSq = gameTicksPerSecond * gameTicksPerSecond;
 
+    skipLaunch = true;
     platform = false;
-    activatedAcceleration = (obj.activatedAcceleration / gameTicksPerSecondSq) * mul;
-    jumpVelocity = (obj.jumpVelocity / gameTicksPerSecond) * mul;
-    framePeriod = static_cast<int>(sprite->getDuration() / config.tickPeriod);
+    framePeriod = sprite->getDuration() / config.tickPeriod;
+    runningAcceleration = (obj.runningAcceleration / gameTicksPerSecondSq) * mul;
+    risingAcceleration = (obj.risingAcceleration / gameTicksPerSecondSq) * mul;
+    minJumpVelocity = (obj.minJumpVelocity / gameTicksPerSecond) * mul;
+    maxJumpVelocity = (obj.maxJumpVelocity / gameTicksPerSecond) * mul;
+    minJumpChargeTicks = obj.minJumpChargeTime / config.tickPeriod;
+    maxJumpChargeTicks = obj.maxJumpChargeTime / config.tickPeriod;
     state = State::falling;
     channel.frame = 14;
+}
+
+void trippin::Goggin::beforeTick(const trippin::Clock &clock) {
+    Lock lock(mutex);
+    if (channel.charge && !chargeTicks) {
+        chargeTicks = clock.getTicks();
+    }
+    if (channel.jump && chargeTicks) {
+        int jumpTicks = clock.getTicks() - chargeTicks;
+        channel.charge = false;
+        channel.jump = false;
+        chargeTicks = 0;
+        if (state == running && platformCollisions.testBottom()) {
+            if (skipLaunch) {
+                state = State::rising;
+                channel.frame = FRAME_LAUNCHING_LAST;
+                velocity.y = findJumpVelocity(jumpTicks);
+            } else {
+                state = State::launching;
+                channel.frame = FRAME_LAUNCHING_FIRST;
+                jumpVelocity = findJumpVelocity(jumpTicks);
+            }
+            acceleration.x = risingAcceleration;
+            ticks = 0;
+        }
+    }
 }
 
 void trippin::Goggin::afterTick(const Clock &clock) {
@@ -90,7 +122,7 @@ void trippin::Goggin::onLanding(const trippin::Clock &clock) {
 
     state = State::running;
     channel.frame = FRAME_RUN_AFTER_LAND;
-    acceleration.x = activatedAcceleration;
+    acceleration.x = runningAcceleration;
 }
 
 void trippin::Goggin::onRunning(const trippin::Clock &clock) {
@@ -99,13 +131,6 @@ void trippin::Goggin::onRunning(const trippin::Clock &clock) {
         channel.frame = FRAME_FALLING_FIRST;
         ticks = 0;
         acceleration.x = 0;
-        return;
-    }
-
-    if (std::rand() % 200 == 0) {
-        state = State::launching;
-        channel.frame = FRAME_LAUNCHING_FIRST;
-        ticks = 0;
         return;
     }
 
@@ -139,4 +164,22 @@ void trippin::Goggin::onRising(const trippin::Clock &clock) {
         ticks = 0;
         acceleration.x = 0;
     }
+}
+
+void trippin::Goggin::onKeyDown() {
+    Lock lock(mutex);
+    channel.charge = true;
+}
+
+void trippin::Goggin::onKeyUp() {
+    Lock lock(mutex);
+    if (channel.charge) {
+        channel.jump = true;
+    }
+}
+
+double trippin::Goggin::findJumpVelocity(int ticks) const {
+    auto range = static_cast<double>(maxJumpChargeTicks - minJumpChargeTicks);
+    auto ratio = (std::max(minJumpChargeTicks, std::min(ticks, maxJumpChargeTicks)) - minJumpChargeTicks) / range;
+    return minJumpVelocity + ratio * (maxJumpVelocity - minJumpVelocity);
 }

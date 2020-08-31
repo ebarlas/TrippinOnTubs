@@ -19,14 +19,20 @@ void trippin::from_json(const nlohmann::json& j, Map& map) {
     j.at("universe").at("width").get_to(map.universe.x);
     j.at("universe").at("height").get_to(map.universe.y);
     j.at("objects").get_to(map.objects);
+
+    // automatically assign object ids
+    for (int i=0; i<map.objects.size(); i++) {
+        map.objects[i].id = i;
+    }
 }
 
 void trippin::from_json(const nlohmann::json& j, Map::Object& obj) {
-    j.at("id").get_to(obj.id);
     j.at("type").get_to(obj.type);
     j.at("position").get_to(obj.position);
-    if (j.contains("activatedAcceleration"))
-        j.at("activatedAcceleration").get_to(obj.activatedAcceleration);
+    if (j.contains("runningAcceleration"))
+        j.at("runningAcceleration").get_to(obj.runningAcceleration);
+    if (j.contains("risingAcceleration"))
+        j.at("risingAcceleration").get_to(obj.risingAcceleration);
     if (j.contains("gravity"))
         j.at("gravity").get_to(obj.gravity);
     if (j.contains("fallGravity"))
@@ -35,8 +41,14 @@ void trippin::from_json(const nlohmann::json& j, Map::Object& obj) {
         j.at("mass").get_to(obj.mass);
     if (j.contains("velocity"))
         j.at("velocity").get_to(obj.velocity);
-    if (j.contains("jumpVelocity"))
-        j.at("jumpVelocity").get_to(obj.jumpVelocity);
+    if (j.contains("minJumpVelocity"))
+        j.at("minJumpVelocity").get_to(obj.minJumpVelocity);
+    if (j.contains("maxJumpVelocity"))
+        j.at("maxJumpVelocity").get_to(obj.maxJumpVelocity);
+    if (j.contains("minJumpChargeTime"))
+        j.at("minJumpChargeTime").get_to(obj.minJumpChargeTime);
+    if (j.contains("maxJumpChargeTime"))
+        j.at("maxJumpChargeTime").get_to(obj.maxJumpChargeTime);
     if (j.contains("terminalVelocity"))
         j.at("terminalVelocity").get_to(obj.terminalVelocity);
     if (j.contains("friction"))

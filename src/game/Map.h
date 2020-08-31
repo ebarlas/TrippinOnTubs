@@ -11,11 +11,15 @@ namespace trippin {
             int id{};
             std::string type;
             Point<double> position;
-            double activatedAcceleration{};
+            double runningAcceleration{};
+            double risingAcceleration{};
             double gravity{};
             double fallGravity{};
             double mass{};
-            double jumpVelocity;
+            double minJumpVelocity;
+            double maxJumpVelocity;
+            int minJumpChargeTime;
+            int maxJumpChargeTime;
             Point<double> velocity{};
             Point<double> terminalVelocity;
             Point<double> friction;

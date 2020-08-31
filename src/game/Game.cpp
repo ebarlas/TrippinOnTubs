@@ -123,6 +123,14 @@ void trippin::Game::renderLoop() {
         while (SDL_PollEvent(&e) != 0) {
             if (e.type == SDL_QUIT) {
                 quit = true;
+            } else if (e.type == SDL_KEYDOWN) {
+                if (e.key.keysym.scancode == SDL_SCANCODE_SPACE) {
+                    goggin->onKeyDown();
+                }
+            } else if (e.type == SDL_KEYUP) {
+                if (e.key.keysym.scancode == SDL_SCANCODE_SPACE) {
+                    goggin->onKeyUp();
+                }
             }
         }
 
