@@ -12,3 +12,4 @@ android/work/
 raw/
 .python-version
 build-sprites
+__pycache__

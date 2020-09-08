@@ -1,5 +1,6 @@
 import gif
 import sprite
+import map
 
 
 def gif_test():
@@ -20,6 +21,14 @@ def sprite_test():
     sprite.make_metadata(svg_file, 'tmp/metadata.json')
 
 
+def map_test():
+    src_file = '../raw/map.svg'
+    dst_file = 'map.json'
+    model = map.make_model(src_file)
+    map.serialize_model(model, dst_file)
+
+
 if __name__ == '__main__':
     gif_test()
     sprite_test()
+    map_test()
