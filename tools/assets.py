@@ -1,0 +1,40 @@
+import sprite
+import sys
+
+scales = [('xxxsmall', 0.25), ('xxsmall', 0.375), ('xsmall', 0.5), ('small', 0.75), ('medium', 1), ('large', 1.25)]
+
+sprites = ['goggin', 'ball', 'ground']
+
+dir_raw = 'raw'
+dir_svgs = 'svgs'
+dir_build = 'build-sprites'
+dir_sprites = 'sprites'
+
+def main():
+    proj_home = '..'
+    if len(sys.argv) > 1:
+        proj_home = sys.argv[1]
+
+    raw_dir = f'{proj_home}/{dir_raw}'
+    src_dir = f'{proj_home}/{dir_svgs}'
+    build_dir = f'{proj_home}/{dir_build}'
+    sprites_dir = f'{proj_home}/{dir_sprites}'
+
+    for spr in sprites:
+        raw_file = f'{raw_dir}/{spr}.svg'
+        svg_file = f'{src_dir}/{spr}.svg'
+        meta_file = f'{sprites_dir}/{spr}/{spr}.json'
+
+        sprite.sanitize(raw_file, svg_file)
+
+        num_frames = sprite.count_frames(svg_file)
+        sprite.make_metadata(svg_file, meta_file)
+        sprite.export_pngs(svg_file, build_dir, build_dir, scales, spr)
+        for scale in scales:
+            src_files = [f'{build_dir}/{spr}_{n+1}_{scale[0]}.png' for n in range(num_frames)]
+            output_file = f'{sprites_dir}/{spr}/{spr}_{scale[0]}.png'
+            sprite.make_sprite_sheet(src_files, output_file)
+
+
+if __name__ == '__main__':
+    main()

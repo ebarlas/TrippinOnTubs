@@ -9,3 +9,6 @@ Trippin
 CMakeCache.txt
 build/
 android/work/
+raw/
+.python-version
+build-sprites
