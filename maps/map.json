@@ -5,25 +5,27 @@
   },
   "objects": [
     {
+      "id": 1,
       "type": "goggin",
       "position": {
         "x": 0,
         "y": 0
       },
       "terminalVelocity": {
-        "x": 1500.0,
-        "y": 4320.0
+        "x": 1700.0,
+        "y": 4500.0
       },
-      "gravity": 2400.0,
+      "gravity": 4000.0,
       "fallGravity": 6000.0,
-      "minJumpVelocity": -1000.0,
-      "maxJumpVelocity": -2500.0,
-      "minJumpChargeTime": 0.0,
+      "minJumpVelocity": -1500.0,
+      "maxJumpVelocity": -3500.0,
+      "minJumpChargeTime": 100.0,
       "maxJumpChargeTime": 300.0,
       "runningAcceleration": 2000.0,
       "risingAcceleration": 200.0
     },
     {
+      "id": 2,
       "type": "ground",
       "position": {
         "x": 0,
@@ -31,6 +33,7 @@
       }
     },
     {
+      "id": 3,
       "type": "ground",
       "position": {
         "x": 480,
@@ -38,6 +41,7 @@
       }
     },
     {
+      "id": 4,
       "type": "ground",
       "position": {
         "x": 960,
@@ -45,6 +49,7 @@
       }
     },
     {
+      "id": 5,
       "type": "ground",
       "position": {
         "x": 1440,
@@ -52,6 +57,7 @@
       }
     },
     {
+      "id": 6,
       "type": "ground",
       "position": {
         "x": 1920,
@@ -59,6 +65,7 @@
       }
     },
     {
+      "id": 7,
       "type": "ground",
       "position": {
         "x": 2400,
@@ -66,6 +73,7 @@
       }
     },
     {
+      "id": 8,
       "type": "ground",
       "position": {
         "x": 2880,
@@ -73,6 +81,7 @@
       }
     },
     {
+      "id": 9,
       "type": "ground",
       "position": {
         "x": 3360,
@@ -80,6 +89,7 @@
       }
     },
     {
+      "id": 10,
       "type": "ground",
       "position": {
         "x": 3840,
@@ -87,6 +97,7 @@
       }
     },
     {
+      "id": 11,
       "type": "ground",
       "position": {
         "x": 4320,
@@ -94,6 +105,7 @@
       }
     },
     {
+      "id": 12,
       "type": "ground",
       "position": {
         "x": 4800,
@@ -101,6 +113,7 @@
       }
     },
     {
+      "id": 13,
       "type": "ground",
       "position": {
         "x": 5280,
@@ -108,6 +121,7 @@
       }
     },
     {
+      "id": 14,
       "type": "ground",
       "position": {
         "x": 6200,
@@ -115,6 +129,7 @@
       }
     },
     {
+      "id": 15,
       "type": "ground",
       "position": {
         "x": 6680,
@@ -122,6 +137,7 @@
       }
     },
     {
+      "id": 16,
       "type": "ground",
       "position": {
         "x": 7160,
@@ -129,6 +145,7 @@
       }
     },
     {
+      "id": 17,
       "type": "ground",
       "position": {
         "x": 7960,
@@ -136,6 +153,7 @@
       }
     },
     {
+      "id": 18,
       "type": "ground",
       "position": {
         "x": 8440,
@@ -143,6 +161,7 @@
       }
     },
     {
+      "id": 19,
       "type": "ground",
       "position": {
         "x": 8920,
@@ -150,6 +169,7 @@
       }
     },
     {
+      "id": 20,
       "type": "ground",
       "position": {
         "x": 9400,
@@ -157,6 +177,7 @@
       }
     },
     {
+      "id": 21,
       "type": "ground",
       "position": {
         "x": 8240,
@@ -164,6 +185,7 @@
       }
     },
     {
+      "id": 22,
       "type": "ground",
       "position": {
         "x": 8720,
@@ -171,6 +193,7 @@
       }
     },
     {
+      "id": 23,
       "type": "ground",
       "position": {
         "x": 9120,
@@ -178,6 +201,7 @@
       }
     },
     {
+      "id": 24,
       "type": "ground",
       "position": {
         "x": 9520,
@@ -185,6 +209,7 @@
       }
     },
     {
+      "id": 25,
       "type": "ground",
       "position": {
         "x": 9920,
@@ -192,6 +217,7 @@
       }
     },
     {
+      "id": 26,
       "type": "ground",
       "position": {
         "x": 10320,
@@ -199,6 +225,7 @@
       }
     },
     {
+      "id": 27,
       "type": "ground",
       "position": {
         "x": 11360,
@@ -206,6 +233,7 @@
       }
     },
     {
+      "id": 28,
       "type": "ground",
       "position": {
         "x": 11760,
@@ -213,6 +241,7 @@
       }
     },
     {
+      "id": 29,
       "type": "ground",
       "position": {
         "x": 12160,
@@ -220,6 +249,7 @@
       }
     },
     {
+      "id": 30,
       "type": "ground",
       "position": {
         "x": 10920,
@@ -227,6 +257,7 @@
       }
     },
     {
+      "id": 31,
       "type": "ground",
       "position": {
         "x": 11320,
@@ -234,6 +265,7 @@
       }
     },
     {
+      "id": 32,
       "type": "ground",
       "position": {
         "x": 11720,
@@ -241,6 +273,7 @@
       }
     },
     {
+      "id": 33,
       "type": "ground",
       "position": {
         "x": 14520,
@@ -248,6 +281,7 @@
       }
     },
     {
+      "id": 34,
       "type": "ground",
       "position": {
         "x": 14920,

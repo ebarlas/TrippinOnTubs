@@ -1,6 +1,6 @@
 {
-  "minPlayerSpan": 7,
+  "minPlayerSpan": 9,
   "playerBaseWidth": 480,
   "tickPeriod": 5,
-  "map": "test"
+  "map": "map"
 }
