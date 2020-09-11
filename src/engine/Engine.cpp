@@ -275,8 +275,7 @@ int run(void *data) {
 }
 
 void trippin::Engine::runEngineLoop() {
-    Clock clock;
-    clock.setTickPeriod(tickPeriod);
+    Clock clock{static_cast<Uint32>(tickPeriod)};
     while (!stopped) {
         if (!paused) {
             tick(clock);

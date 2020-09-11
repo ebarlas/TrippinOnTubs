@@ -4,6 +4,7 @@
 #include <vector>
 #include "nlohmann/json.hpp"
 #include "engine/Point.h"
+#include "engine/Rect.h"
 
 namespace trippin {
     struct Map {
@@ -31,6 +32,12 @@ namespace trippin {
         void load(const std::string &name);
         static std::string getMapFile(const std::string& name);
     };
+
+    template<class T>
+    void from_json(const nlohmann::json& j, Point<T>& p) {
+        j.at("x").get_to(p.x);
+        j.at("y").get_to(p.y);
+    }
 
     void from_json(const nlohmann::json& j, Map& map);
     void from_json(const nlohmann::json& j, Map::Object& obj);

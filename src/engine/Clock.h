@@ -24,11 +24,9 @@ namespace trippin {
         // The previous engine second
         Uint32 lastSecond;
     public:
-        Clock();
+        Clock(Uint32 tickPeriod);
         void next();
-        Uint32 getTickPeriod() const;
         Uint32 getTicks() const;
-        void setTickPeriod(Uint32 period);
     };
 }
 

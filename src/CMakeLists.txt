@@ -10,7 +10,7 @@ add_library(Engine
         engine/Grid.cpp
         engine/SnapQueue.cpp
         engine/Clock.cpp)
-target_link_libraries(Engine CONAN_PKG::nlohmann_json CONAN_PKG::sdl2)
+target_link_libraries(Engine CONAN_PKG::sdl2)
 
 add_library(Sprite
         sprite/SpriteMetadata.cpp

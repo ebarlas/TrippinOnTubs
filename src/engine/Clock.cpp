@@ -1,10 +1,11 @@
 #include "Clock.h"
 
-trippin::Clock::Clock() {
+trippin::Clock::Clock(Uint32 period) {
     totalTicks = 0;
     secondTicks = 0;
     firstMillis = SDL_GetTicks();
     lastSecond = firstMillis / 1000;
+    tickPeriod = period;
 }
 
 void trippin::Clock::next() {
@@ -28,12 +29,4 @@ void trippin::Clock::next() {
 
 Uint32 trippin::Clock::getTicks() const {
     return totalTicks;
-}
-
-void trippin::Clock::setTickPeriod(Uint32 period) {
-    tickPeriod = period;
-}
-
-Uint32 trippin::Clock::getTickPeriod() const {
-    return tickPeriod;
 }

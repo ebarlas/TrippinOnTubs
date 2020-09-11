@@ -2,7 +2,6 @@
 #define TRIPPIN_POINT_H
 
 #include <ostream>
-#include "nlohmann/json.hpp"
 
 namespace trippin {
     template<class T>
@@ -22,10 +21,6 @@ namespace trippin {
     };
 
     using DoublePoint = Point<double>;
-    using IntPoint = Point<double>;
-
-    template<class T>
-    void from_json(const nlohmann::json& j, Point<T>& p);
 }
 
 template<class T>
@@ -79,12 +74,6 @@ trippin::Point<T> trippin::Point<T>::operator/(T right) const {
 template<class T>
 trippin::Point<T>::operator bool() const {
     return x || y;
-}
-
-template<class T>
-void trippin::from_json(const nlohmann::json& j, Point<T>& p) {
-    j.at("x").get_to(p.x);
-    j.at("y").get_to(p.y);
 }
 
 #endif
