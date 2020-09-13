@@ -138,7 +138,7 @@
       "type": "platformleft",
       "platform": true,
       "position": {
-        "x": 5880,
+        "x": 6080,
         "y": 2240
       }
     },
@@ -147,7 +147,7 @@
       "type": "platformmid",
       "platform": true,
       "position": {
-        "x": 6360,
+        "x": 6560,
         "y": 2240
       }
     },
@@ -156,7 +156,7 @@
       "type": "platformright",
       "platform": true,
       "position": {
-        "x": 7320,
+        "x": 7520,
         "y": 2240
       }
     },
@@ -165,7 +165,7 @@
       "type": "platformleft",
       "platform": true,
       "position": {
-        "x": 7920,
+        "x": 8120,
         "y": 2880
       }
     },
@@ -174,7 +174,7 @@
       "type": "platformmid",
       "platform": true,
       "position": {
-        "x": 8400,
+        "x": 8600,
         "y": 2880
       }
     },
@@ -183,7 +183,7 @@
       "type": "platformmid",
       "platform": true,
       "position": {
-        "x": 8880,
+        "x": 9080,
         "y": 2880
       }
     },
@@ -192,7 +192,7 @@
       "type": "platformright",
       "platform": true,
       "position": {
-        "x": 9360,
+        "x": 9560,
         "y": 2880
       }
     },
@@ -201,7 +201,7 @@
       "type": "platformleft",
       "platform": true,
       "position": {
-        "x": 7680,
+        "x": 8160,
         "y": 1160
       }
     },
@@ -210,7 +210,7 @@
       "type": "platformmid",
       "platform": true,
       "position": {
-        "x": 8160,
+        "x": 8640,
         "y": 1160
       }
     },
@@ -219,7 +219,7 @@
       "type": "platformmid",
       "platform": true,
       "position": {
-        "x": 8560,
+        "x": 9040,
         "y": 1160
       }
     },
@@ -228,7 +228,7 @@
       "type": "platformmid",
       "platform": true,
       "position": {
-        "x": 8960,
+        "x": 9440,
         "y": 1160
       }
     },
@@ -237,7 +237,7 @@
       "type": "platformmid",
       "platform": true,
       "position": {
-        "x": 9360,
+        "x": 9840,
         "y": 1160
       }
     },
@@ -246,7 +246,7 @@
       "type": "platformright",
       "platform": true,
       "position": {
-        "x": 9760,
+        "x": 10240,
         "y": 1160
       }
     },
@@ -255,8 +255,8 @@
       "type": "platformleft",
       "platform": true,
       "position": {
-        "x": 10480,
-        "y": 1800
+        "x": 10640,
+        "y": 1920
       }
     },
     {
@@ -264,8 +264,8 @@
       "type": "platformmid",
       "platform": true,
       "position": {
-        "x": 10880,
-        "y": 1800
+        "x": 11040,
+        "y": 1920
       }
     },
     {
@@ -273,8 +273,8 @@
       "type": "platformright",
       "platform": true,
       "position": {
-        "x": 11280,
-        "y": 1800
+        "x": 11920,
+        "y": 1920
       }
     },
     {
@@ -282,7 +282,7 @@
       "type": "platformleft",
       "platform": true,
       "position": {
-        "x": 10920,
+        "x": 11120,
         "y": 3400
       }
     },
@@ -291,7 +291,7 @@
       "type": "platformmid",
       "platform": true,
       "position": {
-        "x": 11320,
+        "x": 11520,
         "y": 3400
       }
     },
@@ -300,7 +300,7 @@
       "type": "platformright",
       "platform": true,
       "position": {
-        "x": 11720,
+        "x": 11920,
         "y": 3400
       }
     },
@@ -309,8 +309,8 @@
       "type": "platformleft",
       "platform": true,
       "position": {
-        "x": 12220,
-        "y": 1580
+        "x": 13040,
+        "y": 2240
       }
     },
     {
@@ -318,8 +318,8 @@
       "type": "platformright",
       "platform": true,
       "position": {
-        "x": 13020,
-        "y": 1580
+        "x": 13840,
+        "y": 2240
       }
     },
     {
@@ -327,7 +327,7 @@
       "type": "platformmid",
       "platform": true,
       "position": {
-        "x": 6840,
+        "x": 7040,
         "y": 2240
       }
     },
@@ -336,8 +336,17 @@
       "type": "platformmid",
       "platform": true,
       "position": {
-        "x": 12620,
-        "y": 1580
+        "x": 13440,
+        "y": 2240
+      }
+    },
+    {
+      "id": 37,
+      "type": "platformmid",
+      "platform": true,
+      "position": {
+        "x": 11440,
+        "y": 1920
       }
     }
   ]
