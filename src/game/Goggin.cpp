@@ -11,7 +11,6 @@ void trippin::Goggin::init(const Configuration &config, const Map::Object &obj, 
     auto gameTicksPerSecondSq = gameTicksPerSecond * gameTicksPerSecond;
 
     skipLaunch = true;
-    platform = false;
     framePeriod = sprite->getDuration() / config.tickPeriod;
     runningAcceleration = (obj.runningAcceleration / gameTicksPerSecondSq) * mul;
     risingAcceleration = (obj.risingAcceleration / gameTicksPerSecondSq) * mul;

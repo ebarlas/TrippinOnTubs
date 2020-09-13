@@ -37,6 +37,7 @@ def make_model(svg_file):
         obj = {
             'id': id_counter,
             'type': node.attrib['type'],
+            'platform': node.attrib['platform'] == 'true',
             'position': {
                 'x': int(node.attrib['x']),
                 'y': int(node.attrib['y'])

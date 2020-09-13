@@ -1,13 +1,15 @@
 #include "SpriteManager.h"
 
-void trippin::SpriteManager::load(SDL_Renderer *renderer, trippin::Scale sc) {
-    scale = sc;
-    for (auto type : spriteTypes) {
-        auto name = getSpriteName(type);
-        sprites[type] = std::make_unique<Sprite>(renderer, name, sc);
-    }
+trippin::SpriteManager::SpriteManager(SDL_Renderer *renderer, trippin::Scale scale)
+        : renderer(renderer), scale(scale) {
+
 }
 
-const trippin::Sprite &trippin::SpriteManager::get(SpriteType type) {
-    return *sprites[type];
+const trippin::Sprite &trippin::SpriteManager::get(const std::string &type) {
+    auto it = sprites.find(type);
+    if (it == sprites.end()) {
+        return *(sprites[type] = std::make_unique<Sprite>(renderer, type, scale));
+    } else {
+        return *it->second;
+    }
 }

@@ -72,7 +72,7 @@ void trippin::Game::initScale() {
 }
 
 void trippin::Game::initSpriteManager() {
-    spriteManager.load(renderer, scale);
+    spriteManager = std::make_unique<SpriteManager>(renderer, scale);
 }
 
 void trippin::Game::initCamera() {
@@ -85,16 +85,16 @@ void trippin::Game::initEngine() {
     engine.setPlatformCollisionType(trippin::PlatformCollisionType::absorbant);
     engine.setObjectCollisionType(trippin::ObjectCollisionType::inelastic);
     for (auto &obj : map.objects) {
-        if (obj.type == getSpriteName(SpriteType::goggin)) {
+        if (obj.type == "goggin") {
             auto uptr = std::make_unique<Goggin>();
-            uptr->init(configuration, obj, spriteManager.get(SpriteType::goggin));
+            uptr->init(configuration, obj, spriteManager->get(obj.type));
             goggin = &(*uptr);
             objects.push_back(std::move(uptr));
             engine.add(goggin);
-        } else if (obj.type == getSpriteName(SpriteType::ground)) {
+        } else {
             auto uptr = std::make_unique<SimpleObject>();
             auto ptr = &(*uptr);
-            uptr->init(configuration, obj, spriteManager.get(SpriteType::ground));
+            uptr->init(configuration, obj, spriteManager->get(obj.type));
             objects.push_back(std::move(uptr));
             engine.add(ptr);
         }

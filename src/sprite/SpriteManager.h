@@ -3,19 +3,21 @@
 
 #include <unordered_map>
 #include <string>
-#include <array>
+#include <vector>
+#include <unordered_map>
 #include "sprite/Sprite.h"
 #include "sprite/SpriteType.h"
 
 namespace trippin {
     class SpriteManager {
     public:
-        void load(SDL_Renderer *renderer, Scale scale);
-        const Sprite &get(SpriteType type);
+        SpriteManager(SDL_Renderer *renderer, Scale scale);
+        const Sprite &get(const std::string &type);
     private:
         using SpritePtr = std::unique_ptr<Sprite>;
         Scale scale{};
-        std::array<SpritePtr, numSprites> sprites;
+        SDL_Renderer *renderer;
+        std::unordered_map<std::string, SpritePtr> sprites;
     };
 }
 

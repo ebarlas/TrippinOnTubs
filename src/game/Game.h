@@ -21,7 +21,7 @@ namespace trippin {
         Configuration configuration;
         Map map;
         Scale scale;
-        SpriteManager spriteManager;
+        std::unique_ptr<SpriteManager> spriteManager;
         Camera camera;
         Engine engine;
         std::vector<std::unique_ptr<SpriteObject>> objects;

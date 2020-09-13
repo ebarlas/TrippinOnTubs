@@ -74,6 +74,7 @@ def count_frames(svg_file):
 
 
 def make_metadata(svg_file, output_file):
+    Path(output_file).parent.mkdir(parents=True, exist_ok=True)
     num_frames = count_frames(svg_file)
     hit_box = find_hit_box(svg_file)
     duration = find_frame_duration(svg_file)

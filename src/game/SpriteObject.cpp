@@ -21,7 +21,7 @@ void trippin::SpriteObject::init(
     auto gameTicksPerSecond = 1000.0 / config.tickPeriod;
     auto gameTicksPerSecondSq = gameTicksPerSecond * gameTicksPerSecond;
 
-    platform = true;
+    platform = obj.platform;
     sprite = &spr;
     id = obj.id;
     gravity = (obj.gravity / gameTicksPerSecondSq) * mul;

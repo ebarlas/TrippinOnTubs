@@ -1,0 +1,27 @@
+<ns0:svg xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:ns0="http://www.w3.org/2000/svg" xmlns:ns1="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd" xmlns:ns2="http://www.inkscape.org/namespaces/inkscape" xmlns:ns4="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" ns1:docname="platform-left.svg" ns2:version="1.0beta2 (2b71d25, 2019-12-03)" id="svg8" version="1.1" viewBox="0 0 480 480" duration="80" height="480" width="480">
+  <ns0:defs id="defs2" />
+  <ns1:namedview ns2:window-maximized="0" ns2:window-y="217" ns2:window-x="687" ns2:window-height="1415" ns2:window-width="2801" units="px" showgrid="true" ns2:document-rotation="0" ns2:current-layer="svg8" ns2:document-units="px" ns2:cy="80.538769" ns2:cx="353.7037" ns2:zoom="3.959798" ns2:pageshadow="2" ns2:pageopacity="0.0" borderopacity="1.0" bordercolor="#666666" pagecolor="#ffffff" id="base" ns2:snap-global="true" showguides="true" ns2:guide-bbox="true" ns2:snap-grids="true" ns2:snap-to-guides="true">
+    <ns2:grid id="grid833" type="xygrid" />
+    <ns1:guide id="guide890" orientation="0,480" position="0,480" />
+    <ns1:guide id="guide892" orientation="480,0" position="480,480" />
+    <ns1:guide id="guide894" orientation="0,-480" position="480,0" />
+    <ns1:guide id="guide896" orientation="-480,0" position="0,0" />
+    <ns1:guide position="-80,450" orientation="0,-1" id="guide853" />
+  </ns1:namedview>
+  <ns0:metadata id="metadata5">
+    <rdf:RDF>
+      <ns4:Work rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title />
+      </ns4:Work>
+    </rdf:RDF>
+  </ns0:metadata>
+  <ns0:g ns1:insensitive="true" style="display:none" ns2:label="hitbox" type="hitbox" id="hitbox" ns2:groupmode="layer">
+    <ns0:rect style="display:inline;fill:none;fill-opacity:1;stroke:#000000;stroke-width:0.150957;stroke-opacity:1" id="rect848" width="250" height="100" x="230" y="30" />
+  </ns0:g>
+  <ns0:g ns1:insensitive="true" style="display:inline" ns2:label="frame1-platformleft" id="frame1-platformleft" type="frame" frame="1" platform="true" ns2:groupmode="layer">
+    <ns0:path ns1:nodetypes="ccccccccc" ns2:connector-curvature="0" id="path2153" d="M 480,40 H 245 l 6.78571,65.35714 20.53572,16.60714 h 33.21428 l 29.82143,-6.42857 70,18.39286 36.07143,-14.10714 L 480,120" style="fill:#653c2c;fill-opacity:1;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+    <ns0:path ns1:nodetypes="ccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc" ns2:connector-curvature="0" id="path2149" d="M 480,30 H 245 l -5,10 h -10 l 6.25,3.214285 -11.42857,0.357143 3.39285,5.892857 -5,0.892858 8.39286,7.142857 -8.57143,3.571428 5.17857,3.035714 -1.07142,5.357143 8.57142,-2.857143 1.96429,4.107143 8.57143,4.107143 2.5,4.464286 3.75,6.071428 1.78571,-6.071428 1.42857,0.178571 3.21429,-4.821428 2.85714,4.464285 4.46429,-6.25 11.42857,2.857143 0.17857,-9.642857 9.28572,-2.142857 10.17857,8.928571 0.35714,-12.142857 10.35714,1.785715 0.89286,3.035714 5.71429,-4.285714 4.10714,1.428571 -1.60714,3.75 6.25,0.357143 3.57142,7.321428 4.82143,-14.821428 16.96429,6.607143 6.25,4.642857 -0.35715,-9.464286 4.10715,0.535714 3.92857,6.964286 L 366.25,60.892857 365.53571,57.5 l 4.10714,1.607142 2.67858,4.821429 11.78571,-1.071429 -1.42857,-3.928571 4.82143,2.5 -1.60715,-5.178571 5.71429,-2.321429 3.75,11.964286 5.35714,-8.571429 1.07143,3.392857 9.64286,-3.75 8.21428,13.75 2.5,-9.642857 L 435,61.428571 434.46428,55.357143 h 2.85715 L 442.5,63.392857 445.35714,58.75 l 0.89286,10 8.57143,-7.142858 1.78571,4.107143 L 473.03571,61.25 480,60" style="fill:#88a538;fill-opacity:1;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+  </ns0:g>
+</ns0:svg>

@@ -8,10 +8,6 @@ namespace trippin {
         ball
     };
 
-    constexpr int numSprites = 3;
-
-    constexpr SpriteType spriteTypes[] = {SpriteType::goggin, SpriteType::ground, SpriteType::ball};
-
     constexpr const char* getSpriteName(SpriteType type) {
         switch (type) {
             case SpriteType::goggin:

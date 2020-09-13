@@ -19,15 +19,12 @@ void trippin::from_json(const nlohmann::json& j, Map& map) {
     j.at("universe").at("width").get_to(map.universe.x);
     j.at("universe").at("height").get_to(map.universe.y);
     j.at("objects").get_to(map.objects);
-
-    // automatically assign object ids
-    for (int i=0; i<map.objects.size(); i++) {
-        map.objects[i].id = i;
-    }
 }
 
 void trippin::from_json(const nlohmann::json& j, Map::Object& obj) {
+    j.at("id").get_to(obj.id);
     j.at("type").get_to(obj.type);
+    j.at("platform").get_to(obj.platform);
     j.at("position").get_to(obj.position);
     if (j.contains("runningAcceleration"))
         j.at("runningAcceleration").get_to(obj.runningAcceleration);

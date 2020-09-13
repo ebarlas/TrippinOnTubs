@@ -11,6 +11,7 @@ namespace trippin {
         struct Object {
             int id{};
             std::string type;
+            bool platform;
             Point<double> position;
             double runningAcceleration{};
             double risingAcceleration{};
