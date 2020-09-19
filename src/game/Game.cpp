@@ -1,5 +1,6 @@
 #include "Game.h"
 #include "SimpleObject.h"
+#include "Ground.h"
 
 void trippin::Game::init() {
     initRuntime();
@@ -91,6 +92,12 @@ void trippin::Game::initEngine() {
             goggin = &(*uptr);
             objects.push_back(std::move(uptr));
             engine.add(goggin);
+        } else if (obj.type == "platformmid" || obj.type == "platformleft" || obj.type == "platformright") {
+            auto uptr = std::make_unique<Ground>();
+            auto ptr = &(*uptr);
+            uptr->init(configuration, obj, spriteManager->get(obj.type));
+            objects.push_back(std::move(uptr));
+            engine.add(ptr);
         } else {
             auto uptr = std::make_unique<SimpleObject>();
             auto ptr = &(*uptr);

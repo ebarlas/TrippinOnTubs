@@ -8,7 +8,7 @@ void init(int ticksPerFrame, std::vector<trippin::Object *> &objects, const Game
 
     trippin::Point<double> terminalVelocity{20.0 / ticksPerFrame, 20.0 / ticksPerFrame};
     trippin::Point<double> friction{0.05 / ticksSquaredPerFrame, 0.05 / ticksSquaredPerFrame};
-    trippin::Point<double> gravity{0, 0.2 / ticksSquaredPerFrame};
+    double gravity = 0.2 / ticksSquaredPerFrame;
 
     int nextId = 1;
 
@@ -168,7 +168,7 @@ int main() {
         objects[0]->setAcceleration(a);
 
         for (int i = 0; i < ticksPerFrame; i++) {
-            engine.tick();
+            engine.tick({0});
         }
     };
 

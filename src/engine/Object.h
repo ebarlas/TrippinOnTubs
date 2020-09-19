@@ -78,6 +78,9 @@ namespace trippin {
         // Optional platform collision type, which overrides engine default.
         Optional<PlatformCollisionType> platformCollisionType{};
 
+        // Flag that indicates whether this object has expired and can be removed.
+        bool expired{};
+
         // Flag used by snap priority queue.
         bool queueVisited;
 
@@ -99,7 +102,7 @@ namespace trippin {
         void setAcceleration(const Point<double> &a);
         void setMass(double m);
         void setFriction(const Point<double> &f);
-        void setGravity(const Point<double> &g);
+        void setGravity(double g);
         void setPlatformCollisionType(PlatformCollisionType type);
         int getId() const;
         Point<double> getPosition() const;

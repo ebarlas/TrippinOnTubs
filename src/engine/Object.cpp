@@ -113,7 +113,7 @@ void trippin::Object::setFriction(const Point<double> &f) {
     friction = f;
 }
 
-void trippin::Object::setGravity(const Point<double> &g) {
+void trippin::Object::setGravity(double g) {
     gravity = g;
 }
 

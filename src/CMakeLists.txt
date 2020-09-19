@@ -6,8 +6,6 @@ add_library(Engine
         engine/PlasmaPhysics.cpp
         engine/Sides.cpp
         engine/Engine.cpp
-        engine/Partition.cpp
-        engine/Grid.cpp
         engine/SnapQueue.cpp
         engine/Clock.cpp)
 target_link_libraries(Engine CONAN_PKG::sdl2)
@@ -27,6 +25,7 @@ add_library(Game
         game/Configuration.cpp
         game/SpriteObject.cpp
         game/SimpleObject.cpp
+        game/Ground.cpp
         game/Lock.cpp
         game/Goggin.cpp)
 target_link_libraries(Game CONAN_PKG::nlohmann_json CONAN_PKG::sdl2 CONAN_PKG::sdl2_image)

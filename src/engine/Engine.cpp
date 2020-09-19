@@ -6,29 +6,37 @@
 #include "engine/Clock.h"
 
 void trippin::Engine::add(Object *obj) {
-    grid.add(obj);
     auto &vec = obj->platform ? platforms : objects;
     vec.push_back(obj);
 }
 
-void trippin::Engine::setGridSize(Point<int> gridSize, Point<int> cellSize) {
-    grid.setSize(gridSize, cellSize);
+void trippin::Engine::remove(Object *obj) {
+    auto &vec = obj->platform ? platforms : objects;
+    vec.erase(std::find(vec.begin(), vec.end(), obj));
+}
+
+void trippin::Engine::forEachObject(std::function<void(Object * )> fn) {
+    std::for_each(platforms.begin(), platforms.end(), fn);
+    std::for_each(objects.begin(), objects.end(), fn);
 }
 
 void trippin::Engine::beforeTick(Clock clock) {
-    for (auto obj : objects) {
-        obj->beforeTick(clock);
-    }
+    forEachObject([&clock](Object *obj) { obj->beforeTick(clock); });
 }
 
 void trippin::Engine::afterTick(Clock clock) {
-    for (auto obj : objects) {
-        obj->afterTick(clock);
-    }
+    forEachObject([&clock](Object *obj) { obj->afterTick(clock); });
+}
+
+void trippin::Engine::removeExpired() {
+    auto fn = [](Object *obj) { return obj->expired; };
+    platforms.erase(std::remove_if(platforms.begin(), platforms.end(), fn), platforms.end());
+    objects.erase(std::remove_if(objects.begin(), objects.end(), fn), objects.end());
 }
 
 void trippin::Engine::tick(Clock clock) {
     beforeTick(clock);
+    removeExpired();
     applyMotion();
     snapObjects();
     applyPhysics();
@@ -36,52 +44,31 @@ void trippin::Engine::tick(Clock clock) {
 }
 
 void trippin::Engine::applyMotion() {
-    for (auto obj : objects) {
-        obj->applyMotion();
-        grid.update(obj);
-    }
-}
-
-void trippin::Engine::snapObjects(Partition &partition) {
-    // early exit if no work to do
-    if (partition.objects.empty()) {
-        return;
-    }
-
-    std::unordered_map<Object *, Sides> collisions{};
-    SnapQueue q{};
-
-    // Load all objects into queue
-    for (auto obj : partition.platforms) {
-        q.push(obj);
-    }
-    for (auto obj : partition.objects) {
-        q.push(obj);
-    }
-
-    // Traverse objects in priority order where priority is determined by platform contacts.
-    // Each object acts like a platform once. All non-platform, overlapping neighbor objects are snapped.
-    while (!q.empty()) {
-        auto plat = q.pop();
-        for (auto kin : partition.objects) {
-            if (plat != kin && !kin->platform) {
-                auto overlap = kin->roundedBox.intersect(plat->roundedBox);
-                if (overlap) {
-                    snapTo(*kin, *plat, overlap, collisions[kin]);
-                }
-                auto collision = kin->roundedBox.collision(plat->roundedBox);
-                if (collision) {
-                    auto c = collisions[kin] |= collision;
-                    q.push(kin, c);
-                }
-            }
-        }
-    }
+    std::for_each(objects.begin(), objects.end(), [](Object *obj) { obj->applyMotion(); });
 }
 
 void trippin::Engine::snapObjects() {
-    for (auto &partition : grid.partitions) {
-        snapObjects(partition);
+    snapCollisions.clear();
+
+    forEachObject([this](Object *obj) { snapQueue.push(obj); });
+
+    // Traverse objects in priority order where priority is determined by platform contacts.
+    // Each object acts like a platform once. All non-platform, overlapping neighbor objects are snapped.
+    while (!snapQueue.empty()) {
+        auto plat = snapQueue.pop();
+        for (auto kin : objects) {
+            if (plat != kin && !kin->platform) {
+                auto overlap = kin->roundedBox.intersect(plat->roundedBox);
+                if (overlap) {
+                    snapTo(*kin, *plat, overlap, snapCollisions[kin]);
+                }
+                auto collision = kin->roundedBox.collision(plat->roundedBox);
+                if (collision) {
+                    auto c = snapCollisions[kin] |= collision;
+                    snapQueue.push(kin, c);
+                }
+            }
+        }
     }
 }
 
@@ -130,24 +117,22 @@ void trippin::Engine::snapTo(Object &obj, const Object &p, const Rect<int> &over
 }
 
 void trippin::Engine::applyPhysics() {
-    for (auto &partition : grid.partitions) {
-        for (auto platform : partition.platforms) {
-            for (auto object : partition.objects) {
-                auto collision = object->roundedBox.collision(platform->roundedBox);
-                if (collision) {
-                    applyPlatformCollision(*object, *platform, collision);
-                }
+    for (auto platform : platforms) {
+        for (auto object : objects) {
+            auto collision = object->roundedBox.collision(platform->roundedBox);
+            if (collision) {
+                applyPlatformCollision(*object, *platform, collision);
             }
         }
+    }
 
-        for (int i = 0; i < partition.objects.size(); i++) {
-            auto a = partition.objects[i];
-            for (int j = i + 1; j < partition.objects.size(); j++) {
-                auto b = partition.objects[j];
-                auto collision = a->roundedBox.collision(b->roundedBox);
-                if (collision) {
-                    applyObjectCollision(*a, *b, collision);
-                }
+    for (int i = 0; i < objects.size(); i++) {
+        auto a = objects[i];
+        for (int j = i + 1; j < objects.size(); j++) {
+            auto b = objects[j];
+            auto collision = a->roundedBox.collision(b->roundedBox);
+            if (collision) {
+                applyObjectCollision(*a, *b, collision);
             }
         }
     }

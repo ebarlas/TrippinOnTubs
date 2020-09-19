@@ -2,11 +2,13 @@
 #define TRIPPIN_ENGINE_H
 
 #include <vector>
+#include <unordered_map>
+#include <functional>
 #include "SDL.h"
 #include "engine/Object.h"
 #include "engine/CollisionType.h"
-#include "engine/Grid.h"
 #include "engine/Clock.h"
+#include "SnapQueue.h"
 
 namespace trippin {
     // Engine handles the movement and interaction of objects.
@@ -16,10 +18,8 @@ namespace trippin {
         // The object ought to out-live the engine.
         void add(Object *object);
 
-        // Set the size of the spacial partitioning grid.
-        // gridSize is the cols (x) and rows (y) of the grid.
-        // cellSize is the uniform width (x) and height (y) of each grid cell.
-        void setGridSize(Point<int> gridSize, Point<int> cellSize);
+        // Remove an object from the engine.
+        void remove(Object *object);
 
         // Sets the default type of collision between platform and non-platform objects.
         // This collision type can be overridden by individual objects.
@@ -50,7 +50,6 @@ namespace trippin {
 
         void stop();
     private:
-        Grid grid{};
         std::vector<Object *> platforms{};
         std::vector<Object *> objects{};
         PlatformCollisionType platformCollisionType = PlatformCollisionType::absorbant;
@@ -63,12 +62,19 @@ namespace trippin {
         bool paused = false;
         bool stopped = false;
 
+        // This map accumulates collision sides for each object over the course of a single round of object snapping
+        std::unordered_map<Object *, Sides> snapCollisions{};
+
+        // This data structure is used to prioritize objects during object snapping
+        SnapQueue snapQueue{};
+
         void beforeTick(Clock clock);
         void afterTick(Clock clock);
+        void removeExpired();
         void applyMotion();
         void snapObjects();
-        void snapObjects(Partition &partition);
         void applyPhysics();
+        void forEachObject(std::function<void(Object *)> fn);
         void snapTo(Object &obj, const Object &p, const trippin::Rect<int> &overlap, const Sides &previousContacts);
 
         void applyPlatformCollision(Object &object, Object &platform, const Sides &collision);

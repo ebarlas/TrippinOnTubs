@@ -99,7 +99,7 @@ int main() {
 
     auto updateFn = [&ticksPerFrame, &engine](const GameState &gs) {
         for (int i = 0; i < ticksPerFrame; i++) {
-            engine.tick();
+            engine.tick({0});
         }
     };
 

@@ -28,7 +28,12 @@ def map_test():
     map.serialize_model(model, dst_file)
 
 
+def animate_frames():
+    gif.animate_frames('../build-sprites/platformmid_', '_medium.png', 16, 'platformmid.gif', 80)
+
+
 if __name__ == '__main__':
     gif_test()
     sprite_test()
     map_test()
+    animate_frames()

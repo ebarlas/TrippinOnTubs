@@ -32,7 +32,7 @@ void init(int ticksPerFrame, std::vector<trippin::Object *> &objects, const Game
 
     trippin::Point<double> terminalVelocity{20.0 / ticksPerFrame, 20.0 / ticksPerFrame};
     trippin::Point<double> friction{0.05 / ticksSquaredPerFrame, 0.05 / ticksSquaredPerFrame};
-    trippin::Point<double> gravity{0, 0.2 / ticksSquaredPerFrame};
+    double gravity = 0.2 / ticksSquaredPerFrame;
 
     auto player = new trippin::RenderableObject;
     player->setId(1);
@@ -209,7 +209,7 @@ int main() {
                 }
             }
 
-            engine.tick();
+            engine.tick({0});
         }
     };
 

@@ -186,7 +186,7 @@ public:
 class Game {
 public:
     trippin::Engine engine{};
-    trippin::SpriteManager spriteManager{};
+    std::unique_ptr<trippin::SpriteManager> spriteManager;
     Goggin goggin{};
     std::vector<SpriteObject *> grounds{};
     std::vector<Ball *> balls{};
@@ -212,10 +212,10 @@ public:
         auto scale = trippin::Scale::xxsmall;
         auto mul = scaleMultiplier(scale);
 
-        spriteManager.load(gs.renderer, scale);
-        auto &groundSprite = spriteManager.get(trippin::SpriteType::ground);
-        auto &ballSprite = spriteManager.get(trippin::SpriteType::ball);
-        auto &gogginSprite = spriteManager.get(trippin::SpriteType::goggin);
+        spriteManager = std::make_unique<trippin::SpriteManager>(gs.renderer, scale);
+        auto &groundSprite = spriteManager->get("ground");
+        auto &ballSprite = spriteManager->get("ball");
+        auto &gogginSprite = spriteManager->get("goggin");
 
         int numGroundPlatforms = 20;
         int numBalls = 20;

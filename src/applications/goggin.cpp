@@ -36,7 +36,7 @@ public:
 
     void render(const GameState &gs, const trippin::Camera &camera) {
         auto hb = sprite->getHitBox();
-        auto &viewport = camera.getViewport();
+        auto viewport = camera.getViewport();
         auto size = sprite->getSize();
         trippin::Rect<int> box{roundedPosition.x - hb.x, roundedPosition.y - hb.y, size.x, size.y};
         if (box.intersect(viewport)) {
@@ -84,13 +84,13 @@ public:
     }
 
     void init(const GameState &gs) {
-        auto scale = trippin::Scale::small;
+        auto scale = trippin::Scale::xsmall;
         auto mul = scaleMultiplier(scale);
 
         spriteManager = std::make_unique<trippin::SpriteManager>(gs.renderer, scale);
-        auto &gogginSprite = spriteManager->get(trippin::SpriteType::goggin);
-        auto &groundSprite = spriteManager->get(trippin::SpriteType::ground);
-        auto &ballSprite = spriteManager->get(trippin::SpriteType::ball);
+        auto &gogginSprite = spriteManager->get("goggin");
+        auto &groundSprite = spriteManager->get("ground");
+        auto &ballSprite = spriteManager->get("ball");
 
         int numGroundPlatforms = 20;
         int numBalls = 20;
@@ -149,7 +149,7 @@ public:
     }
 
     void update(const GameState &gs) {
-        auto scale = trippin::Scale::small;
+        auto scale = trippin::Scale::xsmall;
         auto mul = scaleMultiplier(scale);
         auto pixelsPerMeter = 240 * mul;
         auto xAccel = (7.0 * pixelsPerMeter) / gameTicksPerSecondSq;
@@ -165,7 +165,7 @@ public:
                 goggin.setAcceleration({0, yAccel});
             }
 
-            engine.tick();
+            engine.tick({0});
         }
 
         goggin.clockTimes(gs.ticks);

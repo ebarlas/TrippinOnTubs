@@ -8,7 +8,7 @@ void init(int ticksPerFrame, std::vector<trippin::Object *> &objects, const Game
 
     trippin::Point<double> terminalVelocity{20.0 / ticksPerFrame, 20.0 / ticksPerFrame};
     trippin::Point<double> friction{0.05 / ticksSquaredPerFrame, 0.05 / ticksSquaredPerFrame};
-    trippin::Point<double> gravity{0, 0.2 / ticksSquaredPerFrame};
+    double gravity = 0.2 / ticksSquaredPerFrame;
 
     int nextId = 1;
 
@@ -115,11 +115,11 @@ int main() {
             frog->setTerminalVelocity(objects[0]->getTerminalVelocity());
             frog->setFriction(objects[0]->getFriction());
             frog->color = {static_cast<Uint8>(std::rand() % 128),
-                            static_cast<Uint8>(std::rand() % 128),
-                            static_cast<Uint8>(std::rand() % 128),
-                            255};
+                           static_cast<Uint8>(std::rand() % 128),
+                           static_cast<Uint8>(std::rand() % 128),
+                           255};
             frog->fontColor = {255, 255, 255, 255};
-            frog->displayLabel = reinterpret_cast<trippin::RenderableObject*>(objects[0])->displayLabel;
+            frog->displayLabel = reinterpret_cast<trippin::RenderableObject *>(objects[0])->displayLabel;
             frog->fontRenderer = gs.fontRenderer;
             frog->setMass(frog->getSize().x * frog->getSize().y);
             objects.push_back(frog);
@@ -145,7 +145,7 @@ int main() {
         player->setAcceleration(a);
 
         for (int i = 0; i < ticksPerFrame; i++) {
-            for (int j=1; j<objects.size(); j++) {
+            for (int j = 1; j < objects.size(); j++) {
                 auto frog = objects[j];
                 if (frog->getPlatformCollisions().testBottom()) {
                     auto accel = frog->getPosition().x < player->getPosition().x
@@ -158,13 +158,14 @@ int main() {
                 }
             }
 
-            engine.tick();
+            engine.tick({0});
         }
     };
 
     auto renderFn = [&objects](const GameState &gs) {
         auto center = objects[0]->getRoundedCenter();
-        trippin::Rect<int> viewport{center.x - gs.windowSize.x / 2, center.y - gs.windowSize.y / 2, gs.windowSize.x, gs.windowSize.y};
+        trippin::Rect<int> viewport{center.x - gs.windowSize.x / 2, center.y - gs.windowSize.y / 2, gs.windowSize.x,
+                                    gs.windowSize.y};
 
         for (auto obj : objects) {
             (reinterpret_cast<trippin::RenderableObject *>(obj))->render(gs.renderer, viewport);
