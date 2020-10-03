@@ -36,6 +36,12 @@ def export_pngs(svg_file, tmp_dir, export_dir, scales, name):
 
     img_width = int(root.attrib['width'])
     img_height = int(root.attrib['height'])
+
+    if 'scale' in root.attrib:
+        scale = float(root.attrib['scale'])
+        img_width = int(round(img_width * scale))
+        img_height = int(round(img_height * scale))
+
     num_frames = len(root.findall('.//svg:g[@type="frame"]', namespace))
 
     for n in range(1, num_frames + 1):
@@ -59,8 +65,17 @@ def export_pngs(svg_file, tmp_dir, export_dir, scales, name):
 
 def find_hit_box(svg_file):
     root = ET.parse(svg_file).getroot()
+
+    scale = 1.0
+
+    if 'scale' in root.attrib:
+        scale = float(root.attrib['scale'])
+
     for e in root.findall('.//svg:g[@type="hitbox"]/svg:rect', namespace):
-        return e.attrib['x'], e.attrib['y'], e.attrib['width'], e.attrib['height']
+        return int(e.attrib['x']), \
+               int(e.attrib['y']), \
+               int(round(int(e.attrib['width']) * scale)), \
+               int(round(int(e.attrib['height']) * scale))
 
 
 def find_frame_duration(svg_file):

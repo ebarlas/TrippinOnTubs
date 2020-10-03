@@ -92,7 +92,7 @@ void trippin::Game::initEngine() {
             goggin = &(*uptr);
             objects.push_back(std::move(uptr));
             engine.add(goggin);
-        } else if (obj.type == "platformmid" || obj.type == "platformleft" || obj.type == "platformright") {
+        } else if (obj.type.find_first_of("ground_melt_") == 0 || obj.type.find_first_of("platform") == 0) {
             auto uptr = std::make_unique<Ground>();
             auto ptr = &(*uptr);
             uptr->init(configuration, obj, spriteManager->get(obj.type));
