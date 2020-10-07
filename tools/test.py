@@ -29,7 +29,7 @@ def map_test():
 
 
 def animate_frames():
-    gif.animate_frames('../build-sprites/platformmid_', '_medium.png', 16, 'platformmid.gif', 80)
+    gif.animate_frames('../build-sprites/ground_melt_left_', '_medium.png', 20, 'ground_melt_left.gif', 80)
 
 
 if __name__ == '__main__':

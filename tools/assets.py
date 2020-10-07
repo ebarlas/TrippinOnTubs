@@ -2,7 +2,14 @@ import sprite
 import map
 import sys
 
-scales = [('xxxsmall', 0.25), ('xxsmall', 0.375), ('xsmall', 0.5), ('small', 0.75), ('medium', 1), ('large', 1.25)]
+scales = [
+    ('xxxsmall', 0.25),
+    ('xxsmall', 0.375),
+    ('xsmall', 0.5),
+    ('small', 0.75),
+    ('medium', 1),
+    ('large', 1.25)
+]
 
 sprites = [
     'goggin',
