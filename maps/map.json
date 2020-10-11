@@ -20,10 +20,11 @@
       "fallGravity": 6000.0,
       "minJumpVelocity": -1500.0,
       "maxJumpVelocity": -3500.0,
-      "minJumpChargeTime": 100.0,
-      "maxJumpChargeTime": 300.0,
       "runningAcceleration": 2000.0,
-      "risingAcceleration": 200.0
+      "risingAcceleration": 200.0,
+      "minJumpChargeTime": 100,
+      "maxJumpChargeTime": 300,
+      "jumpGracePeriod": 250
     },
     {
       "id": 2,

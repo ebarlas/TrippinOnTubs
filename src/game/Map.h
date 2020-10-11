@@ -22,6 +22,7 @@ namespace trippin {
             double maxJumpVelocity;
             int minJumpChargeTime;
             int maxJumpChargeTime;
+            int jumpGracePeriod;
             Point<double> velocity{};
             Point<double> terminalVelocity;
             Point<double> friction;

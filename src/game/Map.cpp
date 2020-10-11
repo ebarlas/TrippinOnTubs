@@ -46,6 +46,8 @@ void trippin::from_json(const nlohmann::json& j, Map::Object& obj) {
         j.at("minJumpChargeTime").get_to(obj.minJumpChargeTime);
     if (j.contains("maxJumpChargeTime"))
         j.at("maxJumpChargeTime").get_to(obj.maxJumpChargeTime);
+    if (j.contains("jumpGracePeriod"))
+        j.at("jumpGracePeriod").get_to(obj.jumpGracePeriod);
     if (j.contains("terminalVelocity"))
         j.at("terminalVelocity").get_to(obj.terminalVelocity);
     if (j.contains("friction"))

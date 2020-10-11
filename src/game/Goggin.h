@@ -46,6 +46,7 @@ namespace trippin {
         double maxJumpVelocity;
         int minJumpChargeTicks;
         int maxJumpChargeTicks;
+        int jumpGracePeriodTicks;
 
         Uint32 chargeTicks{};
 
@@ -59,6 +60,7 @@ namespace trippin {
 
         State state{};
         int ticks{};
+        Uint32 lastRunTick{};
 
         Channel getChannel();
         double findJumpVelocity(int ticks) const;

@@ -18,6 +18,7 @@ void trippin::Goggin::init(const Configuration &config, const Map::Object &obj, 
     maxJumpVelocity = (obj.maxJumpVelocity / gameTicksPerSecond) * mul;
     minJumpChargeTicks = obj.minJumpChargeTime / config.tickPeriod;
     maxJumpChargeTicks = obj.maxJumpChargeTime / config.tickPeriod;
+    jumpGracePeriodTicks = obj.jumpGracePeriod / config.tickPeriod;
     state = State::falling;
     channel.frame = 14;
 }
@@ -32,7 +33,7 @@ void trippin::Goggin::beforeTick(const trippin::Clock &clock) {
         channel.charge = false;
         channel.jump = false;
         chargeTicks = 0;
-        if (state == running && platformCollisions.testBottom()) {
+        if (state == running || (clock.getTicks() > lastRunTick && clock.getTicks() - lastRunTick < jumpGracePeriodTicks)) {
             if (skipLaunch) {
                 state = State::rising;
                 channel.frame = FRAME_LAUNCHING_LAST;
@@ -125,6 +126,8 @@ void trippin::Goggin::onLanding(const trippin::Clock &clock) {
 }
 
 void trippin::Goggin::onRunning(const trippin::Clock &clock) {
+    lastRunTick = clock.getTicks();
+
     if (!platformCollisions.testBottom()) {
         state = State::falling;
         channel.frame = FRAME_FALLING_FIRST;

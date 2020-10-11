@@ -11,6 +11,11 @@ def extract_float_from_xml(node, name, target):
         target[name] = float(node.attrib[name])
 
 
+def extract_int_from_xml(node, name, target):
+    if name in node.attrib:
+        target[name] = int(node.attrib[name])
+
+
 def extract_float_point_from_xml(node, name, target):
     if f'{name}X' in node.attrib and f'{name}Y' in node.attrib:
         target[name] = {
@@ -30,8 +35,9 @@ def make_model(svg_file):
     }
     objects = []
     points = ['velocity', 'terminalVelocity', 'friction']
-    scalars = ['mass', 'gravity', 'fallGravity', 'minJumpVelocity', 'maxJumpVelocity',
-               'minJumpChargeTime', 'maxJumpChargeTime', 'runningAcceleration', 'risingAcceleration']
+    floats = ['mass', 'gravity', 'fallGravity', 'minJumpVelocity', 'maxJumpVelocity',
+              'runningAcceleration', 'risingAcceleration']
+    ints = ['minJumpChargeTime', 'maxJumpChargeTime', 'jumpGracePeriod']
     id_counter = 1
     for node in root.findall('.//svg:image', namespace):
         obj = {
@@ -45,8 +51,10 @@ def make_model(svg_file):
         }
         for p in points:
             extract_float_point_from_xml(node, p, obj)
-        for s in scalars:
+        for s in floats:
             extract_float_from_xml(node, s, obj)
+        for s in ints:
+            extract_int_from_xml(node, s, obj)
         objects.append(obj)
         id_counter = id_counter + 1
     model['objects'] = objects
