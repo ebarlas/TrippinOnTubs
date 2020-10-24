@@ -9,7 +9,7 @@ void trippin::Ground::init(const Configuration &config, const Map::Object &obj, 
     channel.frame = 0;
 }
 
-void trippin::Ground::afterTick(const trippin::Clock &clock) {
+void trippin::Ground::afterTick(Uint32 engineTicks) {
     Lock lock(mutex);
     ticks++;
     channel.roundedPosition = roundedPosition;

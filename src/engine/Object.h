@@ -121,8 +121,8 @@ namespace trippin {
         void applyMotion();
         virtual void onPlatformCollision(Object &other, const trippin::Sides &collision);
         virtual void onObjectCollision(Object &other, const trippin::Sides &collision);
-        virtual void beforeTick(const Clock &clock);
-        virtual void afterTick(const Clock &clock);
+        virtual void beforeTick(Uint32 engineTicks);
+        virtual void afterTick(Uint32 engineTicks);
     };
 }
 

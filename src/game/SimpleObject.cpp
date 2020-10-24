@@ -19,7 +19,7 @@ void trippin::SimpleObject::render(SDL_Renderer *renderer, const trippin::Camera
     }
 }
 
-void trippin::SimpleObject::afterTick(const Clock &clock) {
+void trippin::SimpleObject::afterTick(Uint32 engineTicks) {
     Lock lock(mutex);
     channel.roundedPosition = roundedPosition;
 }

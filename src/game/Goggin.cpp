@@ -23,17 +23,17 @@ void trippin::Goggin::init(const Configuration &config, const Map::Object &obj, 
     channel.frame = 14;
 }
 
-void trippin::Goggin::beforeTick(const trippin::Clock &clock) {
+void trippin::Goggin::beforeTick(Uint32 engineTicks) {
     Lock lock(mutex);
     if (channel.charge && !chargeTicks) {
-        chargeTicks = clock.getTicks();
+        chargeTicks = engineTicks;
     }
     if (channel.jump && chargeTicks) {
-        int jumpTicks = clock.getTicks() - chargeTicks;
+        int jumpTicks = engineTicks - chargeTicks;
         channel.charge = false;
         channel.jump = false;
         chargeTicks = 0;
-        if (state == running || (clock.getTicks() > lastRunTick && clock.getTicks() - lastRunTick < jumpGracePeriodTicks)) {
+        if (state == running || (engineTicks > lastRunTick && engineTicks - lastRunTick < jumpGracePeriodTicks)) {
             if (skipLaunch) {
                 state = State::rising;
                 channel.frame = FRAME_LAUNCHING_LAST;
@@ -49,20 +49,20 @@ void trippin::Goggin::beforeTick(const trippin::Clock &clock) {
     }
 }
 
-void trippin::Goggin::afterTick(const Clock &clock) {
+void trippin::Goggin::afterTick(Uint32 engineTicks) {
     Lock lock(mutex);
     ticks++;
 
     if (state == State::falling) {
-        onFalling(clock);
+        onFalling(engineTicks);
     } else if (state == State::landing) {
-        onLanding(clock);
+        onLanding(engineTicks);
     } else if (state == State::running) {
-        onRunning(clock);
+        onRunning(engineTicks);
     } else if (state == State::launching) {
-        onLaunching(clock);
+        onLaunching(engineTicks);
     } else if (state == State::rising) {
-        onRising(clock);
+        onRising(engineTicks);
     }
 
     channel.roundedPosition = roundedPosition;
@@ -91,7 +91,7 @@ void trippin::Goggin::center(trippin::Camera &camera) {
     camera.centerOn(chanel.roundedCenter);
 }
 
-void trippin::Goggin::onFalling(const trippin::Clock &clock) {
+void trippin::Goggin::onFalling(Uint32 engineTicks) {
     if (platformCollisions.testBottom()) {
         state = State::landing;
         ticks = 0;
@@ -108,7 +108,7 @@ void trippin::Goggin::onFalling(const trippin::Clock &clock) {
     }
 }
 
-void trippin::Goggin::onLanding(const trippin::Clock &clock) {
+void trippin::Goggin::onLanding(Uint32 engineTicks) {
     if (ticks != framePeriod) {
         return;
     }
@@ -125,8 +125,8 @@ void trippin::Goggin::onLanding(const trippin::Clock &clock) {
     acceleration.x = runningAcceleration;
 }
 
-void trippin::Goggin::onRunning(const trippin::Clock &clock) {
-    lastRunTick = clock.getTicks();
+void trippin::Goggin::onRunning(Uint32 engineTicks) {
+    lastRunTick = engineTicks;
 
     if (!platformCollisions.testBottom()) {
         state = State::falling;
@@ -142,7 +142,7 @@ void trippin::Goggin::onRunning(const trippin::Clock &clock) {
     }
 }
 
-void trippin::Goggin::onLaunching(const trippin::Clock &clock) {
+void trippin::Goggin::onLaunching(Uint32 engineTicks) {
     if (ticks != framePeriod) {
         return;
     }
@@ -159,7 +159,7 @@ void trippin::Goggin::onLaunching(const trippin::Clock &clock) {
     }
 }
 
-void trippin::Goggin::onRising(const trippin::Clock &clock) {
+void trippin::Goggin::onRising(Uint32 engineTicks) {
     if (velocity.y >= 0) {
         state = State::falling;
         channel.frame = FRAME_FALLING_FIRST;

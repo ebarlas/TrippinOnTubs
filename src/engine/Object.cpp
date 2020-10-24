@@ -157,10 +157,10 @@ void trippin::Object::setPlatformCollisionType(trippin::PlatformCollisionType ty
     platformCollisionType.set(type);
 }
 
-void trippin::Object::beforeTick(const Clock &clock) {
+void trippin::Object::beforeTick(Uint32 engineTicks) {
 
 }
 
-void trippin::Object::afterTick(const Clock &clock) {
+void trippin::Object::afterTick(Uint32 engineTicks) {
 
 }

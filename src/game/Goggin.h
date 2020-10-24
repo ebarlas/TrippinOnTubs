@@ -9,12 +9,12 @@ namespace trippin {
     class Goggin : public SpriteObject {
     public:
         void init(const Configuration &config, const Map::Object &obj, const Sprite &spr) override;
-        void afterTick(const Clock &clock) override;
+        void beforeTick(Uint32 engineTicks) override;
+        void afterTick(Uint32 engineTicks) override;
         void render(SDL_Renderer *renderer, const Camera &camera) override;
         void center(Camera &camera);
         void onKeyDown();
         void onKeyUp();
-        void beforeTick(const Clock &clock) override;
     private:
         struct Channel {
             Point<int> roundedPosition;
@@ -64,11 +64,11 @@ namespace trippin {
 
         Channel getChannel();
         double findJumpVelocity(int ticks) const;
-        void onFalling(const Clock &clock);
-        void onLanding(const Clock &clock);
-        void onRunning(const Clock &clock);
-        void onLaunching(const Clock &clock);
-        void onRising(const Clock &clock);
+        void onFalling(Uint32 engineTicks);
+        void onLanding(Uint32 engineTicks);
+        void onRunning(Uint32 engineTicks);
+        void onLaunching(Uint32 engineTicks);
+        void onRising(Uint32 engineTicks);
     };
 }
 

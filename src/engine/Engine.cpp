@@ -20,12 +20,12 @@ void trippin::Engine::forEachObject(std::function<void(Object * )> fn) {
     std::for_each(objects.begin(), objects.end(), fn);
 }
 
-void trippin::Engine::beforeTick(Clock clock) {
-    forEachObject([&clock](Object *obj) { obj->beforeTick(clock); });
+void trippin::Engine::beforeTick(Uint32 engineTicks) {
+    forEachObject([engineTicks](Object *obj) { obj->beforeTick(engineTicks); });
 }
 
-void trippin::Engine::afterTick(Clock clock) {
-    forEachObject([&clock](Object *obj) { obj->afterTick(clock); });
+void trippin::Engine::afterTick(Uint32 engineTicks) {
+    forEachObject([engineTicks](Object *obj) { obj->afterTick(engineTicks); });
 }
 
 void trippin::Engine::removeExpired() {
@@ -34,13 +34,13 @@ void trippin::Engine::removeExpired() {
     objects.erase(std::remove_if(objects.begin(), objects.end(), fn), objects.end());
 }
 
-void trippin::Engine::tick(Clock clock) {
-    beforeTick(clock);
+void trippin::Engine::tick(Uint32 engineTicks) {
+    beforeTick(engineTicks);
     removeExpired();
     applyMotion();
     snapObjects();
     applyPhysics();
-    afterTick(clock);
+    afterTick(engineTicks);
 }
 
 void trippin::Engine::applyMotion() {
@@ -263,7 +263,7 @@ void trippin::Engine::runEngineLoop() {
     Clock clock{static_cast<Uint32>(tickPeriod)};
     while (!stopped) {
         if (!paused) {
-            tick(clock);
+            tick(clock.getTicks());
         }
         clock.next();
     }

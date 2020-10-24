@@ -40,7 +40,7 @@ namespace trippin {
         // (1) apply motion to objects and snap to grid
         // (2) detect intersections and snap objects
         // (3) detect and react to collisions
-        void tick(Clock clock);
+        void tick(Uint32 engineTicks);
 
         void runEngineLoop();
 
@@ -68,8 +68,8 @@ namespace trippin {
         // This data structure is used to prioritize objects during object snapping
         SnapQueue snapQueue{};
 
-        void beforeTick(Clock clock);
-        void afterTick(Clock clock);
+        void beforeTick(Uint32 engineTicks);
+        void afterTick(Uint32 engineTicks);
         void removeExpired();
         void applyMotion();
         void snapObjects();
