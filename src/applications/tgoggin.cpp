@@ -119,7 +119,7 @@ public:
         }
     }
 
-    void afterTick(const trippin::Clock &clock) override {
+    void afterTick(Uint32 engineTicks) override {
         ticks++;
 
         if (state == State::falling) {
