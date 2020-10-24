@@ -1,5 +1,6 @@
 #include <sstream>
 #include <iomanip>
+#include <graphics/RenderableObject.h>
 #include "sprite/SpriteManager.h"
 #include "engine/Engine.h"
 #include "sprite/Camera.h"
@@ -17,7 +18,7 @@ std::string format(double d, int precision = 2) {
     return stream.str();
 }
 
-class SpriteObject : public trippin::Object {
+class SpriteObject : public trippin::RenderableObject {
 public:
     const trippin::Sprite *sprite{};
     Uint32 ticks{};

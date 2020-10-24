@@ -20,13 +20,14 @@ public:
     }
 
     void onObjectCollision(Object &other, const trippin::Sides &collision) override {
-        if (other.getId() >= 2) {
+        RenderableObject ro = (RenderableObject &) other;
+        if (ro.getId() >= 2) {
             collisions.push_back({&other, collision});
         }
     }
 };
 
-void init(int ticksPerFrame, std::vector<trippin::Object *> &objects, const GameState &gs) {
+void init(int ticksPerFrame, std::vector<trippin::RenderableObject *> &objects, const GameState &gs) {
     int ticksSquaredPerFrame = ticksPerFrame * ticksPerFrame;
     bool displayLabels = false;
 
@@ -110,7 +111,7 @@ int main() {
     int ticksPerFrame = 10;
     int ticksSquaredPerFrame = ticksPerFrame * ticksPerFrame;
 
-    std::vector<trippin::Object *> objects;
+    std::vector<trippin::RenderableObject *> objects;
     Uint32 lastTime{};
 
     auto initFn = [&lastTime, &ticksPerFrame, &objects, &engine](const GameState &gs) {
@@ -209,7 +210,7 @@ int main() {
                 }
             }
 
-            engine.tick({0});
+            engine.tick(0);
         }
     };
 

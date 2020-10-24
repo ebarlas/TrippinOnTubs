@@ -2,7 +2,7 @@
 #include "graphics/RenderableObject.h"
 #include "gameloop.h"
 
-void init(int ticksPerFrame, std::vector<trippin::Object *> &objects, const GameState &gs) {
+void init(int ticksPerFrame, std::vector<trippin::RenderableObject *> &objects, const GameState &gs) {
     int ticksSquaredPerFrame = ticksPerFrame * ticksPerFrame;
     bool displayLabels = false;
 
@@ -111,7 +111,7 @@ int main() {
     int ticksPerFrame = 10;
     int ticksSquaredPerFrame = ticksPerFrame * ticksPerFrame;
 
-    std::vector<trippin::Object *> objects;
+    std::vector<trippin::RenderableObject *> objects;
     Uint32 lastTime{};
 
     auto initFn = [&lastTime, &ticksPerFrame, &objects, &engine](const GameState &gs) {
