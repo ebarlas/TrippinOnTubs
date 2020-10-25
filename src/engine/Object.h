@@ -10,8 +10,6 @@
 #include "engine/Clock.h"
 
 namespace trippin {
-    class Partition;
-
     class Object {
         friend class Engine;
         friend class Grid;
@@ -88,8 +86,8 @@ namespace trippin {
         Sides platformCollisions{};
         Sides objectCollisions{};
 
-        // The partitions in which this object resides; 1 partition minimum and 4 partitions maximum.
-        std::vector<Partition *> partitions;
+        // Accumulates collision sides over the course of a single round of object snapping
+        Sides snapCollisions{};
 
         void updateRounded();
     public:

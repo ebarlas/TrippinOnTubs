@@ -26,6 +26,7 @@ namespace trippin {
         void setTop(bool on);
         void setRight(bool on);
         void setBottom(bool on);
+        void clear();
         Sides flip() const;
     };
 }

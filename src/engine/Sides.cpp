@@ -57,6 +57,10 @@ void trippin::Sides::setBottom(bool on) {
     set(Side::bottom, on);
 }
 
+void trippin::Sides::clear() {
+    sides.reset();
+};
+
 trippin::Sides trippin::Sides::flip() const {
     Sides res;
     if (sides.test(Side::top) || sides.test(Side::bottom)) {

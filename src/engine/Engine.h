@@ -62,9 +62,6 @@ namespace trippin {
         bool paused = false;
         bool stopped = false;
 
-        // This map accumulates collision sides for each object over the course of a single round of object snapping
-        std::unordered_map<Object *, Sides> snapCollisions{};
-
         // This data structure is used to prioritize objects during object snapping
         SnapQueue snapQueue{};
 

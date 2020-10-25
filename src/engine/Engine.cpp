@@ -48,8 +48,7 @@ void trippin::Engine::applyMotion() {
 }
 
 void trippin::Engine::snapObjects() {
-    snapCollisions.clear();
-
+    forEachObject([](Object *obj) { obj->snapCollisions.clear(); });
     forEachObject([this](Object *obj) { snapQueue.push(obj); });
 
     // Traverse objects in priority order where priority is determined by platform contacts.
@@ -60,11 +59,11 @@ void trippin::Engine::snapObjects() {
             if (plat != kin && !kin->platform) {
                 auto overlap = kin->roundedBox.intersect(plat->roundedBox);
                 if (overlap) {
-                    snapTo(*kin, *plat, overlap, snapCollisions[kin]);
+                    snapTo(*kin, *plat, overlap, kin->snapCollisions);
                 }
                 auto collision = kin->roundedBox.collision(plat->roundedBox);
                 if (collision) {
-                    auto c = snapCollisions[kin] |= collision;
+                    auto c = kin->snapCollisions |= collision;
                     snapQueue.push(kin, c);
                 }
             }
