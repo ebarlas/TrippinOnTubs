@@ -2,5 +2,31 @@
   "minPlayerSpan": 9,
   "playerBaseWidth": 480,
   "tickPeriod": 5,
-  "map": "map_ground_melt"
+  "map": "map_ground_melt",
+  "scales": [
+    {
+      "name": "xxxsmall",
+      "multiplier": 0.25
+    },
+    {
+      "name": "xxsmall",
+      "multiplier": 0.375
+    },
+    {
+      "name": "xsmall",
+      "multiplier": 0.5
+    },
+    {
+      "name": "small",
+      "multiplier": 0.75
+    },
+    {
+      "name": "medium",
+      "multiplier": 1.0
+    },
+    {
+      "name": "large",
+      "multiplier": 1.25
+    }
+  ]
 }

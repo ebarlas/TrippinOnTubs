@@ -17,7 +17,7 @@ void trippin::SpriteObject::init(
         const Configuration &config,
         const trippin::Map::Object &obj,
         const trippin::Sprite &spr) {
-    auto mul = scaleMultiplier(spr.getScale());
+    auto mul = spr.getScale().getMultiplier();
     auto gameTicksPerSecond = 1000.0 / config.tickPeriod;
     auto gameTicksPerSecondSq = gameTicksPerSecond * gameTicksPerSecond;
 

@@ -1,14 +1,14 @@
 #include <cmath>
 #include "Sprite.h"
 
-trippin::Sprite::Sprite(SDL_Renderer *ren, const std::string &name, trippin::Scale scale)
+trippin::Sprite::Sprite(SDL_Renderer *ren, const std::string &name, const Scale &scale)
         : scale(scale), sheet(ren, name, scale) {
     metadata.load(name);
 
     size = sheet.getSize();
     size.x /= metadata.getFrames();
 
-    auto mul = scaleMultiplier(scale);
+    auto mul = scale.getMultiplier();
     auto hb = metadata.getHitBox();
     hitBox = {static_cast<int>(std::round(hb.x * mul)),
               static_cast<int>(std::round(hb.y * mul)),
@@ -38,6 +38,6 @@ int trippin::Sprite::getFrames() const {
     return metadata.getFrames();
 }
 
-trippin::Scale trippin::Sprite::getScale() const {
+const trippin::Scale &trippin::Sprite::getScale() const {
     return scale;
 }

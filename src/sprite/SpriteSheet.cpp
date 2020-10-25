@@ -3,7 +3,7 @@
 #include "SpriteSheet.h"
 #include "Files.h"
 
-trippin::SpriteSheet::SpriteSheet(SDL_Renderer *ren, const std::string &name, Scale scale) : renderer(ren) {
+trippin::SpriteSheet::SpriteSheet(SDL_Renderer *ren, const std::string &name, const Scale &scale) : renderer(ren) {
     auto surface = loadImage(getSpriteSheetFile(name, scale).c_str());
     size = {surface->w, surface->h};
     texture = createTexture(renderer, surface);
@@ -14,9 +14,9 @@ trippin::SpriteSheet::~SpriteSheet() {
     SDL_DestroyTexture(texture);
 }
 
-std::string trippin::SpriteSheet::getSpriteSheetFile(const std::string &name, Scale scale) {
+std::string trippin::SpriteSheet::getSpriteSheetFile(const std::string &name, const Scale &scale) {
     std::stringstream path;
-    path << "sprites/" << name << "/" << name << "_" << scaleName(scale) << ".png";
+    path << "sprites/" << name << "/" << name << "_" << scale.getName() << ".png";
     return path.str();
 }
 

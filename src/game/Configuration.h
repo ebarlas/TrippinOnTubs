@@ -4,6 +4,7 @@
 #include <string>
 #include <sstream>
 #include "nlohmann/json.hpp"
+#include "sprite/Scale.h"
 
 namespace trippin {
     struct Configuration {
@@ -11,6 +12,7 @@ namespace trippin {
         int playerBaseWidth;
         int tickPeriod;
         std::string map;
+        std::vector<Scale> scales;
         void load(const std::string &name);
         static std::string getConfigFile(const std::string &name);
     };

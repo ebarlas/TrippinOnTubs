@@ -20,4 +20,12 @@ void trippin::from_json(const nlohmann::json &j, Configuration &config) {
     j.at("playerBaseWidth").get_to(config.playerBaseWidth);
     j.at("tickPeriod").get_to(config.tickPeriod);
     j.at("map").get_to(config.map);
+
+    for (auto &elem : j.at("scales")) {
+        std::string name;
+        double multiplier;
+        elem.at("name").get_to(name);
+        elem.at("multiplier").get_to(multiplier);
+        config.scales.emplace_back(std::move(name), multiplier);
+    }
 }

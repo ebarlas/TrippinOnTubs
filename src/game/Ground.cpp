@@ -4,7 +4,7 @@
 void trippin::Ground::init(const Configuration &config, const Map::Object &obj, const Sprite &spr) {
     SpriteObject::init(config, obj, spr);
     framePeriod = sprite->getDuration() / config.tickPeriod;
-    activationTick = 150 + static_cast<int>(roundedPosition.x / (scaleMultiplier(spr.getScale()) * 8));
+    activationTick = 150 + static_cast<int>(roundedPosition.x / (spr.getScale().getMultiplier() * 8));
     channel.roundedPosition = roundedPosition;
     channel.frame = 0;
 }

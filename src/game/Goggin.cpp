@@ -6,7 +6,7 @@
 void trippin::Goggin::init(const Configuration &config, const Map::Object &obj, const Sprite &spr) {
     SpriteObject::init(config, obj, spr);
 
-    auto mul = scaleMultiplier(spr.getScale());
+    auto mul = spr.getScale().getMultiplier();
     auto gameTicksPerSecond = 1000.0 / config.tickPeriod;
     auto gameTicksPerSecondSq = gameTicksPerSecond * gameTicksPerSecond;
 

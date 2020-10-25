@@ -11,6 +11,7 @@ add_library(Engine
 target_link_libraries(Engine CONAN_PKG::sdl2)
 
 add_library(Sprite
+        sprite/Scale.cpp
         sprite/SpriteMetadata.cpp
         sprite/SpriteSheet.cpp
         sprite/Sprite.cpp

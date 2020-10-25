@@ -1,6 +1,6 @@
 #include "SpriteManager.h"
 
-trippin::SpriteManager::SpriteManager(SDL_Renderer *renderer, trippin::Scale scale)
+trippin::SpriteManager::SpriteManager(SDL_Renderer *renderer, const Scale &scale)
         : renderer(renderer), scale(scale) {
 
 }
