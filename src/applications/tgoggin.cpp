@@ -38,12 +38,12 @@ public:
 class Ball : public SpriteObject {
 public:
     trippin::Camera *camera{};
-    trippin::Scale scale{};
+    trippin::Scale *scale{};
     double gameTicksPerSecond{};
     double gameTicksPerSecondSq{};
 
     void init() {
-        auto mul = scaleMultiplier(scale);
+        auto mul = scale->getMultiplier();
         auto pixelsPerMeter = 240 * mul;
         auto yAccel = (8.0 * pixelsPerMeter) / gameTicksPerSecondSq;
         auto xTerminal = (10.0 * pixelsPerMeter) / gameTicksPerSecond;
@@ -69,7 +69,7 @@ public:
     double gravAccel{};
     double fallGravAccel{};
     double jumpVel{};
-    trippin::Scale scale{};
+    trippin::Scale *scale{};
     double gameTicksPerSecond{};
     double gameTicksPerSecondSq{};
     double tickPeriod{};
@@ -88,7 +88,7 @@ public:
     int ticks;
 
     void init() {
-        auto pixelsPerMeter = 240 * scaleMultiplier(scale);
+        auto pixelsPerMeter = 240 * scale->getMultiplier();
         runAccel = (7.0 * pixelsPerMeter) / gameTicksPerSecondSq;
         gravAccel = (10.0 * pixelsPerMeter) / gameTicksPerSecondSq;
         fallGravAccel = (18.0 * pixelsPerMeter) / gameTicksPerSecondSq;
@@ -210,8 +210,7 @@ public:
     }
 
     void init(const GameState &gs) {
-        auto scale = trippin::Scale::xxsmall;
-        auto mul = scaleMultiplier(scale);
+        trippin::Scale scale{"xxsmall", 0.375};
 
         spriteManager = std::make_unique<trippin::SpriteManager>(gs.renderer, scale);
         auto &groundSprite = spriteManager->get("ground");
@@ -225,7 +224,7 @@ public:
         camera.setViewport({0, 0, gs.windowSize.x, gs.windowSize.y});
         camera.setUniverse({0, 0,
                             numGroundPlatforms * groundSprite.getSize().x,
-                            static_cast<int>(universeHeight * mul)});
+                            static_cast<int>(universeHeight * scale.getMultiplier())});
 
         auto tickPeriod = 5;
         auto gameTicksPerSecond = 1000.0 / tickPeriod;
@@ -237,7 +236,7 @@ public:
 
         int nextId = 1;
 
-        goggin.scale = scale;
+        goggin.scale = &scale;
         goggin.setId(nextId++);
         goggin.sprite = &gogginSprite;
         goggin.gameTicksPerSecond = gameTicksPerSecond;
@@ -250,7 +249,7 @@ public:
             auto ground = new SpriteObject;
             ground->setId(nextId++);
             ground->setPlatform(true);
-            ground->setPosition(trippin::Point<double>{i * 480.0, 4880} * mul);
+            ground->setPosition(trippin::Point<double>{i * 480.0, 4880} * scale.getMultiplier());
             ground->sprite = &groundSprite;
             ground->init();
             grounds.push_back(ground);
@@ -261,7 +260,7 @@ public:
             auto ball = new Ball;
             ball->gameTicksPerSecond = gameTicksPerSecond;
             ball->gameTicksPerSecondSq = gameTicksPerSecondSq;
-            ball->scale = scale;
+            ball->scale = &scale;
             ball->camera = &camera;
             ball->sprite = &ballSprite;
             ball->setId(nextId++);

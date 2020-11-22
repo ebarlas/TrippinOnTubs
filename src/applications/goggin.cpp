@@ -85,8 +85,7 @@ public:
     }
 
     void init(const GameState &gs) {
-        auto scale = trippin::Scale::xsmall;
-        auto mul = scaleMultiplier(scale);
+        trippin::Scale scale{"xsmall", 0.5};
 
         spriteManager = std::make_unique<trippin::SpriteManager>(gs.renderer, scale);
         auto &gogginSprite = spriteManager->get("goggin");
@@ -99,14 +98,14 @@ public:
         camera.setViewport({0, 0, gs.windowSize.x, gs.windowSize.y});
         camera.setUniverse({0, 0,
                             numGroundPlatforms * groundSprite.getSize().x,
-                            static_cast<int>(8000 * mul)});
+                            static_cast<int>(8000 * scale.getMultiplier())});
 
         engine.setPlatformCollisionType(trippin::PlatformCollisionType::absorbant);
         engine.setObjectCollisionType(trippin::ObjectCollisionType::inelastic);
 
         int nextId = 1;
 
-        auto pixelsPerMeter = 240 * mul;
+        auto pixelsPerMeter = 240 * scale.getMultiplier();
         auto yAccel = (8.0 * pixelsPerMeter) / gameTicksPerSecondSq;
         auto xTerminalGoggin = (8.0 * pixelsPerMeter) / gameTicksPerSecond;
         auto xTerminalBall = (10.0 * pixelsPerMeter) / gameTicksPerSecond;
@@ -126,7 +125,7 @@ public:
             auto ground = new SpriteObject;
             ground->setId(nextId++);
             ground->setPlatform(true);
-            ground->setPosition(trippin::Point<double>{i * 480.0, 4880} * mul);
+            ground->setPosition(trippin::Point<double>{i * 480.0, 4880} * scale.getMultiplier());
             ground->init(&groundSprite);
             grounds.push_back(ground);
             engine.add(ground);
@@ -135,7 +134,7 @@ public:
         for (int i = 0; i < numBalls; i++) {
             auto ball = new SpriteObject;
             double x = 200 + (std::rand() % camera.getUniverse().w / 2);
-            double y = (4880 * mul) - (300 + std::rand() % 100);
+            double y = (4880 * scale.getMultiplier()) - (300 + std::rand() % 100);
             ball->setId(nextId++);
             ball->setPlatform(false);
             ball->setPlatformCollisionType(trippin::PlatformCollisionType::reflective);
@@ -150,9 +149,8 @@ public:
     }
 
     void update(const GameState &gs) {
-        auto scale = trippin::Scale::xsmall;
-        auto mul = scaleMultiplier(scale);
-        auto pixelsPerMeter = 240 * mul;
+        trippin::Scale scale{"xsmall", 0.5};
+        auto pixelsPerMeter = 240 * scale.getMultiplier();
         auto xAccel = (7.0 * pixelsPerMeter) / gameTicksPerSecondSq;
         auto yAccel = (8.0 * pixelsPerMeter) / gameTicksPerSecondSq;
 
