@@ -7,8 +7,7 @@ scales = [
     ('xxsmall', 0.375),
     ('xsmall', 0.5),
     ('small', 0.75),
-    ('medium', 1),
-    ('large', 1.25)
+    ('medium', 1)
 ]
 
 sprites = [
@@ -20,7 +19,8 @@ sprites = [
     'platformright',
     'ground_melt_left',
     'ground_melt_middle',
-    'ground_melt_right'
+    'ground_melt_right',
+    'winged-tub'
 ]
 
 levels = ['map', 'map_ground_melt']

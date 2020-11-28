@@ -19,14 +19,6 @@
     {
       "name": "small",
       "multiplier": 0.75
-    },
-    {
-      "name": "medium",
-      "multiplier": 1.0
-    },
-    {
-      "name": "large",
-      "multiplier": 1.25
     }
   ]
 }
