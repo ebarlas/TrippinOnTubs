@@ -6,15 +6,23 @@
 #include "engine/Point.h"
 #include "engine/Sides.h"
 #include "engine/Optional.h"
-#include "engine/CollisionType.h"
 #include "engine/Clock.h"
 
 namespace trippin {
+    class Collision;
+
     class Object {
         friend class Engine;
         friend class Grid;
-        friend class Partition;
         friend class SnapQueue;
+        friend class Collision;
+        friend class PlatformCollision;
+        friend class ObjectCollision;
+        friend class AbsorbentCollision;
+        friend class ReflectiveCollision;
+        friend class ElasticCollision1D;
+        friend class ElasticCollision2D;
+        friend class InelasticCollision;
 
     protected:
         // A unique identifier for this object.
@@ -73,8 +81,8 @@ namespace trippin {
         // This is a meta property based on position and size.
         Rect<int> roundedBox{};
 
-        // Optional platform collision type, which overrides engine default.
-        Optional<PlatformCollisionType> platformCollisionType{};
+        // Optional platform collision, which overrides engine default.
+        Optional<Collision *> platformCollision{};
 
         // Flag that indicates whether this object has expired and can be removed.
         bool expired{};

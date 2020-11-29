@@ -1,9 +1,14 @@
 include_directories(./)
 
 add_library(Engine
+        engine/PlatformCollision.cpp
+        engine/ObjectCollision.cpp
+        engine/AbsorbentCollision.cpp
+        engine/ReflectiveCollision.cpp
+        engine/ElasticCollision1D.cpp
+        engine/ElasticCollision2D.cpp
+        engine/InelasticCollision.cpp
         engine/Object.cpp
-        engine/Physics.cpp
-        engine/PlasmaPhysics.cpp
         engine/Sides.cpp
         engine/Engine.cpp
         engine/SnapQueue.cpp

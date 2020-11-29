@@ -2,7 +2,6 @@
 #include "SDL.h"
 #include "engine/Engine.h"
 #include "engine/SnapQueue.h"
-#include "engine/Physics.h"
 #include "engine/Clock.h"
 
 void trippin::Engine::add(Object *obj) {
@@ -137,115 +136,20 @@ void trippin::Engine::applyPhysics() {
     }
 }
 
-void trippin::Engine::applyPlatformCollision(Object &object, Object &platform, const Sides &collision) {
-    auto type = object.platformCollisionType.isPresent()
-                ? object.platformCollisionType.get()
-                : platformCollisionType;
-    object.onPlatformCollision(platform, collision);
-    if (type == PlatformCollisionType::absorbant) {
-        absorbantCollision(object, platform, collision);
-    } else {
-        reflectiveCollision(object, platform, collision);
-    }
+void trippin::Engine::applyPlatformCollision(Object &object, Object &platform, const Sides &sides) {
+    auto collision = object.platformCollision.isPresent()
+                ? object.platformCollision.get()
+                : platformCollision;
+    object.onPlatformCollision(platform, sides);
+    collision->onCollision(object, platform, sides);
 }
 
-void trippin::Engine::absorbantCollision(Object &obj, Object &p, const Sides &collision) {
-    if ((collision.testLeft() && obj.velocity.x < 0) || (collision.testRight() && obj.velocity.x > 0)) {
-        obj.velocity.x = 0;
-    }
-    if ((collision.testTop() && obj.velocity.y < 0) || (collision.testBottom() && obj.velocity.y > 0)) {
-        obj.velocity.y = 0;
-    }
-    obj.platformCollisions |= collision;
-}
-
-void trippin::Engine::reflectiveCollision(Object &object, Object &platform, const Sides &collision) {
-    if ((collision.testLeft() && object.velocity.x < 0) || (collision.testRight() && object.velocity.x > 0)) {
-        object.velocity.x *= -1;
-    }
-    if ((collision.testTop() && object.velocity.y < 0) || (collision.testBottom() && object.velocity.y > 0)) {
-        object.velocity.y *= -1;
-    }
-}
-
-void trippin::Engine::applyObjectCollision(Object &left, Object &right, const Sides &collision) {
-    left.objectCollisions |= collision;
-    right.objectCollisions |= collision.flip();
-    left.onObjectCollision(right, collision);
-    right.onObjectCollision(left, collision.flip());
-
-    if (objectCollisionType == ObjectCollisionType::elastic1D) {
-        elasticCollision1D(left, right, collision);
-    } else if (objectCollisionType == ObjectCollisionType::elastic2D) {
-        elasticCollision2D(left, right, collision);
-    } else {
-        inelasticCollision2D(left, right, collision);
-    }
-}
-
-void trippin::Engine::elasticCollision1D(Object &obj, Object &p, const Sides &collision) {
-    if (rationalHorizontalCollision(obj, p, collision)) {
-        auto vels = trippin::elasticCollision1D(obj.velocity.x, p.velocity.x, obj.mass, p.mass);
-        obj.velocity.x = vels.first;
-        p.velocity.x = vels.second;
-    }
-    if (rationalVerticalCollision(obj, p, collision)) {
-        auto vels = trippin::elasticCollision1D(obj.velocity.y, p.velocity.y, obj.mass, p.mass);
-        obj.velocity.y = vels.first;
-        p.velocity.y = vels.second;
-    }
-}
-
-void trippin::Engine::elasticCollision2D(Object &obj, Object &p, const Sides &collision) {
-    if (rationalCollision(obj, p, collision)) {
-        auto pair = trippin::elasticCollision2D(obj.velocity, p.velocity, obj.center, p.center, obj.mass, p.mass);
-        obj.velocity = pair.first;
-        p.velocity = pair.second;
-    }
-}
-
-void trippin::Engine::inelasticCollision2D(Object &obj, Object &p, const Sides &collision) {
-    if (rationalCollision(obj, p, collision)) {
-        auto pair = trippin::inelasticCollision2D(
-                obj.velocity, p.velocity,
-                obj.center, p.center,
-                obj.mass, p.mass,
-                restitutionCoefficient);
-        obj.velocity = pair.first;
-        p.velocity = pair.second;
-    }
-}
-
-bool trippin::Engine::rationalCollision(const Object &obj, const Object &p, const Sides &collision) {
-    return rationalHorizontalCollision(obj, p, collision) || rationalVerticalCollision(obj, p, collision);
-}
-
-bool trippin::Engine::rationalHorizontalCollision(const Object &obj, const Object &p, const Sides &collision) {
-    auto &ov = obj.velocity;
-    auto &pv = p.velocity;
-    auto leftCollision = collision.testLeft() && ((ov.x < 0 && ov.x < pv.x) || (pv.x > 0 && pv.x > ov.x));
-    bool rightCollision = collision.testRight() && ((ov.x > 0 && ov.x > pv.x) || (pv.x < 0 && pv.x < ov.x));
-    return leftCollision || rightCollision;
-}
-
-bool trippin::Engine::rationalVerticalCollision(const Object &obj, const Object &p, const Sides &collision) {
-    auto &ov = obj.velocity;
-    auto &pv = p.velocity;
-    auto topCollision = collision.testTop() && ((ov.y < 0 && ov.y < pv.y) || (pv.y > 0 && pv.y > ov.y));
-    auto bottomCollision = collision.testBottom() && ((ov.y > 0 && ov.y > pv.y) || (pv.y < 0 && pv.y < ov.y));
-    return topCollision || bottomCollision;
-}
-
-void trippin::Engine::setPlatformCollisionType(PlatformCollisionType t) {
-    platformCollisionType = t;
-}
-
-void trippin::Engine::setObjectCollisionType(ObjectCollisionType t) {
-    objectCollisionType = t;
-}
-
-void trippin::Engine::setRestitutionCoefficient(double r) {
-    restitutionCoefficient = r;
+void trippin::Engine::applyObjectCollision(Object &left, Object &right, const Sides &sides) {
+    left.objectCollisions |= sides;
+    right.objectCollisions |= sides.flip();
+    left.onObjectCollision(right, sides);
+    right.onObjectCollision(left, sides.flip());
+    objectCollision->onCollision(left, right, sides);
 }
 
 void trippin::Engine::setTickPeriod(int tp) {
@@ -278,4 +182,12 @@ void trippin::Engine::pause() {
 
 void trippin::Engine::stop() {
     stopped = true;
+}
+
+void trippin::Engine::setPlatformCollision(trippin::Collision *collision) {
+    platformCollision = collision;
+}
+
+void trippin::Engine::setObjectCollision(trippin::Collision *collision) {
+    objectCollision = collision;
 }

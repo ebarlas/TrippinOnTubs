@@ -19,8 +19,6 @@ namespace trippin {
         operator bool() const;
         friend std::ostream &operator<<(std::ostream &out, const Point<T> &p);
     };
-
-    using DoublePoint = Point<double>;
 }
 
 template<class T>

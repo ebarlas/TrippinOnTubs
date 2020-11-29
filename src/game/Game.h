@@ -4,6 +4,8 @@
 #include <string>
 #include <memory>
 #include "SDL.h"
+#include "engine/PlatformCollision.h"
+#include "engine/InelasticCollision.h"
 #include "engine/Engine.h"
 #include "engine/Point.h"
 #include "sprite/SpriteManager.h"
@@ -26,6 +28,8 @@ namespace trippin {
         Engine engine;
         std::vector<std::unique_ptr<SpriteObject>> objects;
         Goggin *goggin;
+        AbsorbentCollision platformCollision;
+        InelasticCollision objectCollision;
         void initRuntime();
         void initWindowSize();
         void initWindow();

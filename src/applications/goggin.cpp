@@ -1,8 +1,10 @@
 #include <sstream>
 #include <iomanip>
-#include <graphics/RenderableObject.h>
-#include "sprite/SpriteManager.h"
 #include "engine/Engine.h"
+#include "engine/InelasticCollision.h"
+#include "engine/ReflectiveCollision.h"
+#include "graphics/RenderableObject.h"
+#include "sprite/SpriteManager.h"
 #include "sprite/Camera.h"
 #include "gameloop.h"
 
@@ -67,6 +69,9 @@ public:
     trippin::Camera camera{};
     Uint32 totalTicks{};
     int remainderClockTicks{};
+    trippin::AbsorbentCollision platformCollision;
+    trippin::InelasticCollision objectCollision;
+    trippin::ReflectiveCollision ballCollision;
 
     void create() {
         auto initFn = [this](const GameState &gs) {
@@ -100,8 +105,8 @@ public:
                             numGroundPlatforms * groundSprite.getSize().x,
                             static_cast<int>(8000 * scale.getMultiplier())});
 
-        engine.setPlatformCollisionType(trippin::PlatformCollisionType::absorbant);
-        engine.setObjectCollisionType(trippin::ObjectCollisionType::inelastic);
+        engine.setPlatformCollision(&platformCollision);
+        engine.setObjectCollision(&objectCollision);
 
         int nextId = 1;
 
@@ -137,7 +142,7 @@ public:
             double y = (4880 * scale.getMultiplier()) - (300 + std::rand() % 100);
             ball->setId(nextId++);
             ball->setPlatform(false);
-            ball->setPlatformCollisionType(trippin::PlatformCollisionType::reflective);
+            ball->setPlatformCollision(&ballCollision);
             ball->setPosition({x, y});
             ball->setFriction({xFrictionBall, 0});
             ball->setAcceleration({0, yAccel});

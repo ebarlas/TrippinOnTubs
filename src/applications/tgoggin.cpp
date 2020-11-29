@@ -1,10 +1,12 @@
 #include <sstream>
 #include <iomanip>
-#include <graphics/RenderableObject.h>
 #include "SDL_thread.h"
-#include "sprite/SpriteManager.h"
 #include "engine/Engine.h"
+#include "engine/InelasticCollision.h"
+#include "engine/ReflectiveCollision.h"
 #include "sprite/Camera.h"
+#include "sprite/SpriteManager.h"
+#include "graphics/RenderableObject.h"
 #include "gameloop.h"
 
 std::string format(double d, int precision = 2) {
@@ -41,6 +43,7 @@ public:
     trippin::Scale *scale{};
     double gameTicksPerSecond{};
     double gameTicksPerSecondSq{};
+    trippin::ReflectiveCollision collision;
 
     void init() {
         auto mul = scale->getMultiplier();
@@ -56,7 +59,7 @@ public:
         acceleration = {0, yAccel};
         friction = {xFriction, 0};
         terminalVelocity = {xTerminal, yTerminal};
-        platformCollisionType.set(trippin::PlatformCollisionType::reflective);
+        platformCollision.set(&collision);
         mass = sprite->getHitBox().area();
 
         SpriteObject::init();
@@ -192,6 +195,8 @@ public:
     std::vector<SpriteObject *> grounds{};
     std::vector<Ball *> balls{};
     trippin::Camera camera{};
+    trippin::AbsorbentCollision platformCollision;
+    trippin::InelasticCollision objectCollision;
 
     void create() {
         auto initFn = [this](const GameState &gs) {
@@ -231,8 +236,8 @@ public:
         auto gameTicksPerSecondSq = gameTicksPerSecond * gameTicksPerSecond;
 
         engine.setTickPeriod(tickPeriod);
-        engine.setPlatformCollisionType(trippin::PlatformCollisionType::absorbant);
-        engine.setObjectCollisionType(trippin::ObjectCollisionType::inelastic);
+        engine.setPlatformCollision(&platformCollision);
+        engine.setObjectCollision(&objectCollision);
 
         int nextId = 1;
 

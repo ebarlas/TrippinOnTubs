@@ -84,8 +84,8 @@ void trippin::Game::initCamera() {
 
 void trippin::Game::initEngine() {
     engine.setTickPeriod(configuration.tickPeriod);
-    engine.setPlatformCollisionType(trippin::PlatformCollisionType::absorbant);
-    engine.setObjectCollisionType(trippin::ObjectCollisionType::inelastic);
+    engine.setPlatformCollision(&platformCollision);
+    engine.setObjectCollision(&objectCollision);
     for (auto &obj : map.objects) {
         if (obj.type == "goggin") {
             auto uptr = std::make_unique<Goggin>();

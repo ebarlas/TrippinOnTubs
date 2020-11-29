@@ -25,7 +25,7 @@ namespace trippin {
         void setMass(double m);
         void setFriction(const Point<double> &f);
         void setGravity(double g);
-        void setPlatformCollisionType(PlatformCollisionType type);
+        void setPlatformCollision(Collision *collision);
         int getId() const;
         Point<double> getPosition() const;
         Point<double> getCenter() const;

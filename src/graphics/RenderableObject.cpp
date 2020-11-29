@@ -122,6 +122,6 @@ int trippin::RenderableObject::getId() const {
     return id;
 }
 
-void trippin::RenderableObject::setPlatformCollisionType(trippin::PlatformCollisionType type) {
-    platformCollisionType.set(type);
+void trippin::RenderableObject::setPlatformCollision(trippin::Collision *collision) {
+    platformCollision.set(collision);
 }
