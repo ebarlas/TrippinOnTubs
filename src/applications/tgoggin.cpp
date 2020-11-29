@@ -22,7 +22,7 @@ public:
     void init() {
         auto hb = sprite->getHitBox();
         size = {hb.w, hb.h};
-        updateRounded();
+        syncPositions();
     }
 
     virtual void render(const GameState &gs, const trippin::Camera &camera) {

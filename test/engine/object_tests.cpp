@@ -3,10 +3,11 @@
 
 TEST_CASE("Object size", "[object]") {
     trippin::Object a;
-    a.setPlatform(true);
-    a.setSize({4, 4});
-    a.setPosition({0, 0});
+    a.platform = true;
+    a.size = {4, 4};
+    a.position = {0.75, 0.25};
+    a.syncPositions();
 
-    REQUIRE(a.getSize().x == 4);
-    REQUIRE(a.getSize().y == 4);
+    REQUIRE(a.roundedBox.x == 1);
+    REQUIRE(a.roundedBox.y == 0);
 }

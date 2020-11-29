@@ -3,10 +3,10 @@
 
 TEST_CASE("Snap queue platform object", "[snap queue]") {
     trippin::Object p{};
-    p.setPlatform(true);
+    p.platform = true;
 
     trippin::Object obj{};
-    obj.setPlatform(false);
+    obj.platform = false;
 
     trippin::SnapQueue q;
     q.push(&obj);
@@ -18,7 +18,7 @@ TEST_CASE("Snap queue platform object", "[snap queue]") {
 
 TEST_CASE("Snap queue duplicate discard add", "[snap queue]") {
     trippin::Object obj{};
-    obj.setPlatform(false);
+    obj.platform = false;
 
     trippin::SnapQueue q;
     q.push(&obj);
@@ -31,10 +31,10 @@ TEST_CASE("Snap queue duplicate discard add", "[snap queue]") {
 
 TEST_CASE("Snap queue duplicate discard queued", "[snap queue]") {
     trippin::Object p{};
-    p.setPlatform(true);
+    p.platform = true;
 
     trippin::Object obj{};
-    obj.setPlatform(false);
+    obj.platform = false;
 
     trippin::SnapQueue q;
     q.push(&p);

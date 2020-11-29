@@ -18,8 +18,6 @@ bool trippin::SnapQueue::Compare::operator()(const std::pair<Object *, Sides> &l
     return left.first->position.y < right.first->position.y;
 }
 
-trippin::SnapQueue::SnapQueue() : q(Compare{}) {}
-
 void trippin::SnapQueue::removeVisited() {
     while (!q.empty() && q.top().first->queueVisited) {
         q.pop();

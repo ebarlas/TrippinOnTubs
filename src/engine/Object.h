@@ -12,19 +12,7 @@ namespace trippin {
     class Collision;
 
     class Object {
-        friend class Engine;
-        friend class Grid;
-        friend class SnapQueue;
-        friend class Collision;
-        friend class PlatformCollision;
-        friend class ObjectCollision;
-        friend class AbsorbentCollision;
-        friend class ReflectiveCollision;
-        friend class ElasticCollision1D;
-        friend class ElasticCollision2D;
-        friend class InelasticCollision;
-
-    protected:
+    public:
         // A unique identifier for this object.
         int id{};
 
@@ -88,7 +76,7 @@ namespace trippin {
         bool expired{};
 
         // Flag used by snap priority queue.
-        bool queueVisited;
+        bool queueVisited{};
 
         // Collision sides use to determine whether movement is allowed in each direction.
         Sides platformCollisions{};
@@ -97,8 +85,7 @@ namespace trippin {
         // Accumulates collision sides over the course of a single round of object snapping
         Sides snapCollisions{};
 
-        void updateRounded();
-    public:
+        void syncPositions();
         void applyMotion();
         virtual void onPlatformCollision(Object &other, const trippin::Sides &collision);
         virtual void onObjectCollision(Object &other, const trippin::Sides &collision);

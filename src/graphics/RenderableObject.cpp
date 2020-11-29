@@ -34,12 +34,12 @@ void trippin::RenderableObject::setPlatform(bool p) {
 
 void trippin::RenderableObject::setSize(const trippin::Point<int> &s) {
     size = s;
-    updateRounded();
+    syncPositions();
 }
 
 void trippin::RenderableObject::setPosition(const trippin::Point<double> &p) {
     position = p;
-    updateRounded();
+    syncPositions();
 }
 
 void trippin::RenderableObject::setVelocity(const trippin::Point<double> &v) {

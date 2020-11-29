@@ -32,5 +32,5 @@ void trippin::SpriteObject::init(
     velocity = (obj.velocity / gameTicksPerSecond) * mul;
     terminalVelocity = (obj.terminalVelocity / gameTicksPerSecond) * mul;
     friction = (obj.friction / gameTicksPerSecondSq) * mul;
-    updateRounded();
+    syncPositions();
 }

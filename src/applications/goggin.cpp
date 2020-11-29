@@ -30,7 +30,7 @@ public:
         auto hb = sprite->getHitBox();
         size = {hb.w, hb.h};
         mass = hb.area();
-        updateRounded();
+        syncPositions();
     }
 
     void clockTimes(int clockTicks) {

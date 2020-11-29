@@ -7,6 +7,7 @@
 #include "engine/Object.h"
 #include "engine/Collision.h"
 #include "engine/AbsorbentCollision.h"
+#include "engine/InelasticCollision.h"
 #include "engine/Clock.h"
 #include "SnapQueue.h"
 
@@ -47,10 +48,13 @@ namespace trippin {
 
         void stop();
     private:
+        AbsorbentCollision defaultPlatformCollision;
+        InelasticCollision defaultObjectCollision;
+
         std::vector<Object *> platforms{};
         std::vector<Object *> objects{};
-        Collision *platformCollision{};
-        Collision *objectCollision{};
+        Collision *platformCollision = &defaultPlatformCollision;
+        Collision *objectCollision = &defaultObjectCollision;
 
         SDL_Thread *thread;
         int tickPeriod;

@@ -16,7 +16,6 @@ namespace trippin {
         std::priority_queue<Pair, std::vector<Pair>, Compare> q;
         void removeVisited();
     public:
-        SnapQueue();
         void push(Object *obj);
         void push(Object *obj, Sides sides);
         Object *pop();

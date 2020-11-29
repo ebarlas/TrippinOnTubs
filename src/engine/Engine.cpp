@@ -55,7 +55,7 @@ void trippin::Engine::snapObjects() {
     while (!snapQueue.empty()) {
         auto plat = snapQueue.pop();
         for (auto kin : objects) {
-            if (plat != kin && !kin->platform) {
+            if (plat != kin && !kin->queueVisited) {
                 auto overlap = kin->roundedBox.intersect(plat->roundedBox);
                 if (overlap) {
                     snapTo(*kin, *plat, overlap, kin->snapCollisions);
@@ -110,7 +110,7 @@ void trippin::Engine::snapTo(Object &obj, const Object &p, const Rect<int> &over
     }
 
     if (updated) {
-        obj.updateRounded();
+        obj.syncPositions();
     }
 }
 

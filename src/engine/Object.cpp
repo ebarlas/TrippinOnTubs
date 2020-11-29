@@ -1,10 +1,8 @@
 #include <cmath>
-#include "engine/Rect.h"
-#include "engine/Point.h"
 #include "engine/Sides.h"
 #include "engine/Object.h"
 
-void trippin::Object::updateRounded() {
+void trippin::Object::syncPositions() {
     center = {position.x + size.x / 2.0, position.y + size.y / 2.0};
     roundedPosition = {static_cast<int>(std::round(position.x)), static_cast<int>(std::round(position.y))};
     roundedCenter = {roundedPosition.x + size.x / 2, roundedPosition.y + size.y / 2};
@@ -42,7 +40,7 @@ void trippin::Object::applyMotion() {
     }
 
     position += velocity;
-    updateRounded();
+    syncPositions();
     platformCollisions = {};
     objectCollisions = {};
 }

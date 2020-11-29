@@ -11,9 +11,7 @@ add_executable(engine_tests
         engine/snap_queue_tests.cpp
         engine/sides_tests.cpp
         engine/rect_tests.cpp
-        engine/point_tests.cpp
-        engine/rect_tests.cpp
-        engine/grid_tests.cpp)
+        engine/point_tests.cpp)
 target_link_libraries(engine_tests PRIVATE Engine catch_main)
 catch_discover_tests(
         engine_tests
