@@ -77,3 +77,7 @@ trippin::Sides trippin::Sides::flip() const {
 bool trippin::Sides::operator==(const trippin::Sides &other) const {
     return sides == other.sides;
 }
+
+std::ostream &trippin::operator<<(std::ostream &os, const trippin::Sides &sides) {
+    return os << sides.sides;
+}

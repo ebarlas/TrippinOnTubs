@@ -17,7 +17,6 @@ namespace trippin {
         T sumOfSquares() const;
         bool operator==(const Point<T> &p) const;
         operator bool() const;
-        friend std::ostream &operator<<(std::ostream &out, const Point<T> &p);
     };
 }
 

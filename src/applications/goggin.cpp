@@ -169,7 +169,7 @@ public:
                 goggin.setAcceleration({0, yAccel});
             }
 
-            engine.tick({0});
+            engine.tick(0);
         }
 
         goggin.clockTimes(gs.ticks);

@@ -1,6 +1,7 @@
 include_directories(./)
 
 add_library(Engine
+        engine/PlasmaPhysics.cpp
         engine/PlatformCollision.cpp
         engine/ObjectCollision.cpp
         engine/AbsorbentCollision.cpp
@@ -62,3 +63,6 @@ target_link_libraries(tgoggin GameLoop Sprite Engine)
 
 add_executable(trippin applications/trippin.cpp)
 target_link_libraries(trippin Sprite Engine Game)
+
+add_executable(collisiondebug applications/collisiondebug.cpp)
+target_link_libraries(collisiondebug Engine)

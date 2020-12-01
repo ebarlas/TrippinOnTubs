@@ -172,7 +172,7 @@ int main() {
         objects[0]->setAcceleration(a);
 
         for (int i = 0; i < ticksPerFrame; i++) {
-            engine.tick({0});
+            engine.tick(0);
         }
     };
 

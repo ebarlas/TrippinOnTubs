@@ -1,6 +1,7 @@
 #ifndef TRIPPIN_SIDES_H
 #define TRIPPIN_SIDES_H
 
+#include <ostream>
 #include <bitset>
 
 namespace trippin {
@@ -15,6 +16,7 @@ namespace trippin {
     public:
         Sides &operator|=(const Sides &c);
         bool operator==(const Sides &c) const;
+        friend std::ostream& operator<<(std::ostream& os, const Sides &sides);
         operator bool() const;
         operator int() const;
         int count() const;

@@ -162,7 +162,7 @@ int main() {
                 }
             }
 
-            engine.tick({0});
+            engine.tick(0);
         }
     };
 
