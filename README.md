@@ -131,4 +131,4 @@ Object-platform collision reactions can be further subdivided:
 Object-object collisions reaction can be further subdivided:
 1. 1D elastic
 2. 2D elastic
-3. 2D inelatic
+3. 2D inelastic
