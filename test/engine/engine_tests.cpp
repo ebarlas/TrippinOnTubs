@@ -1,6 +1,10 @@
+#include <iostream>
+#include <iomanip>
 #include "catch2/catch.hpp"
 #include "engine/Engine.h"
 #include "engine/ElasticCollision1D.h"
+#include "engine/ElasticCollision2D.h"
+#include "engine/ReflectiveCollision.h"
 
 TEST_CASE("Engine object platform collision", "[engine]")
 {
@@ -281,4 +285,49 @@ TEST_CASE("Engine object 1D fractional collision no irrational", "[engine]")
     REQUIRE(b.velocity.y == 0);
     REQUIRE(c.velocity.x == 0);
     REQUIRE(c.velocity.y == -1);
+}
+
+std::ostream& operator<<(std::ostream& os, const trippin::Object& obj) {
+    return os << "obj[id=" << obj.id << ", pos=(" << obj.position << "), vel=(" << obj.velocity << ")]";
+}
+
+// This test demonstrates how the elastic 2D collision physics leads to
+// odd oscillation behavior when boxes collide using center points
+// Update: using the Plasma Physics function seems to have fixed the oscillation problem.
+// Now the objects stick together. Shrug.
+TEST_CASE("Velocity oscillation observed in enclosed demo app", "[engine]")
+{
+    trippin::Engine engine;
+    trippin::ReflectiveCollision platformCollision;
+    trippin::ElasticCollision2D objectCollision;
+    engine.setPlatformCollision(&platformCollision);
+    engine.setObjectCollision(&objectCollision);
+
+    trippin::Object a;
+    a.id = 11;
+    a.mass = 9030;
+    a.platform = false;
+    a.size = {129, 70};
+    a.position = {576.40, 494.87};
+    a.velocity = {1.79, -1.05};
+    a.syncPositions();
+
+    trippin::Object b;
+    b.id = 24;
+    b.mass = 8280;
+    b.platform = false;
+    b.size = {138, 60};
+    b.position = {476.05, 435.11};
+    b.velocity = {-0.33, 1.00};
+    b.syncPositions();
+
+    engine.add(&a);
+    engine.add(&b);
+
+    std::cout << std::setprecision(2) << std::fixed << a << ", " << b << std::endl;
+
+    for (int i=1; i<=5; i++) {
+        engine.tick(i);
+        std::cout << a << ", " << b << std::endl;
+    }
 }
