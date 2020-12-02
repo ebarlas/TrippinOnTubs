@@ -1,3 +1,18 @@
+# Overview
+
+Trippin on Tubs is a 2D endless runner side-scrolling platformer game.
+
+# Timing
+
+Two independent timers drive game progress. First, the render rate is the
+frequency with which game assets are rendered. The render rate is
+synchronized with the display refresh rate, typically 60 Hz. Second, the engine
+tick rate is the frequency with which the physical properties of game objects
+are updated, typically 100 Hz. The frame renderer depends on the physics engine.
+At each frame tick, it queries object position data from the physics engine.
+
+![Frame rate and engine tick rate](docs/game-rate.png)
+
 # Engine
 The `trippin` physics engine handles the movement and interaction of all objects.
 The footprint of an object is represented with an axis aligned bounding box (AABB)
