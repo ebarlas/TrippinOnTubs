@@ -86,6 +86,8 @@ void trippin::Game::initEngine() {
     engine.setTickPeriod(configuration.tickPeriod);
     engine.setPlatformCollision(&platformCollision);
     engine.setObjectCollision(&objectCollision);
+    engine.addListener(&spirit);
+
     for (auto &obj : map.objects) {
         if (obj.type == "goggin") {
             auto uptr = std::make_unique<Goggin>();
@@ -93,10 +95,14 @@ void trippin::Game::initEngine() {
             goggin = &(*uptr);
             objects.push_back(std::move(uptr));
             engine.add(goggin);
+
+            spirit.setPosition(-goggin->terminalVelocity.x * configuration.ticksPerSecond() * 2);
+            spirit.setVelocity(goggin->terminalVelocity.x);
         } else if (obj.type.find_first_of("ground_melt_") == 0 || obj.type.find_first_of("platform") == 0) {
             auto uptr = std::make_unique<Ground>();
             auto ptr = &(*uptr);
-            uptr->init(configuration, obj, spriteManager->get(obj.type));
+            ptr->init(configuration, obj, spriteManager->get(obj.type));
+            ptr->setSpirit(&spirit);
             objects.push_back(std::move(uptr));
             engine.add(ptr);
         } else {

@@ -12,6 +12,7 @@
 #include "Configuration.h"
 #include "Map.h"
 #include "Goggin.h"
+#include "Spirit.h"
 
 namespace trippin {
     class Game {
@@ -30,6 +31,7 @@ namespace trippin {
         Goggin *goggin;
         AbsorbentCollision platformCollision;
         InelasticCollision objectCollision;
+        Spirit spirit;
         void initRuntime();
         void initWindowSize();
         void initWindow();

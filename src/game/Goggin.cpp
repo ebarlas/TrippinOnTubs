@@ -7,15 +7,14 @@ void trippin::Goggin::init(const Configuration &config, const Map::Object &obj, 
     SpriteObject::init(config, obj, spr);
 
     auto mul = spr.getScale().getMultiplier();
-    auto gameTicksPerSecond = 1000.0 / config.tickPeriod;
-    auto gameTicksPerSecondSq = gameTicksPerSecond * gameTicksPerSecond;
+    auto gameTicksPerSecondSq = config.ticksPerSecond() * config.ticksPerSecond();
 
     skipLaunch = true;
     framePeriod = sprite->getDuration() / config.tickPeriod;
     runningAcceleration = (obj.runningAcceleration / gameTicksPerSecondSq) * mul;
     risingAcceleration = (obj.risingAcceleration / gameTicksPerSecondSq) * mul;
-    minJumpVelocity = (obj.minJumpVelocity / gameTicksPerSecond) * mul;
-    maxJumpVelocity = (obj.maxJumpVelocity / gameTicksPerSecond) * mul;
+    minJumpVelocity = (obj.minJumpVelocity / config.ticksPerSecond()) * mul;
+    maxJumpVelocity = (obj.maxJumpVelocity / config.ticksPerSecond()) * mul;
     minJumpChargeTicks = obj.minJumpChargeTime / config.tickPeriod;
     maxJumpChargeTicks = obj.maxJumpChargeTime / config.tickPeriod;
     jumpGracePeriodTicks = obj.jumpGracePeriod / config.tickPeriod;

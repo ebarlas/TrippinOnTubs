@@ -1,8 +1,7 @@
 #include "SimpleObject.h"
 #include "Lock.h"
 
-void trippin::SimpleObject::init(const trippin::Configuration &config, const trippin::Map::Object &obj,
-                                 const trippin::Sprite &spr) {
+void trippin::SimpleObject::init(const Configuration &config, const Map::Object &obj, const Sprite &spr) {
     SpriteObject::init(config, obj, spr);
     channel.roundedPosition = roundedPosition;
 }

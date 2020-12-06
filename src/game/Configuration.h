@@ -15,6 +15,8 @@ namespace trippin {
         std::vector<Scale> scales;
         void load(const std::string &name);
         static std::string getConfigFile(const std::string &name);
+
+        double ticksPerSecond() const;
     };
 
     void from_json(const nlohmann::json &j, Configuration &config);

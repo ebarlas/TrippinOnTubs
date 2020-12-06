@@ -34,7 +34,8 @@ add_library(Game
         game/SimpleObject.cpp
         game/Ground.cpp
         game/Lock.cpp
-        game/Goggin.cpp)
+        game/Goggin.cpp
+        game/Spirit.cpp)
 target_link_libraries(Game CONAN_PKG::nlohmann_json CONAN_PKG::sdl2 CONAN_PKG::sdl2_image)
 
 add_library(Graphics graphics/FontRenderer.cpp graphics/RenderableObject.cpp)

@@ -22,6 +22,9 @@ namespace trippin {
         // Remove an object from the engine.
         void remove(Object *object);
 
+        // Add non-object engine listener.
+        void addListener(Listener *listener);
+
         // Sets the default type of collision between platform and non-platform objects.
         // This collision type can be overridden by individual objects.
         void setPlatformCollision(Collision *collision);
@@ -51,8 +54,9 @@ namespace trippin {
         AbsorbentCollision defaultPlatformCollision;
         InelasticCollision defaultObjectCollision;
 
-        std::vector<Object *> platforms{};
-        std::vector<Object *> objects{};
+        std::vector<Object *> platforms;
+        std::vector<Object *> objects;
+        std::vector<Listener *> listeners;
         Collision *platformCollision = &defaultPlatformCollision;
         Collision *objectCollision = &defaultObjectCollision;
 
@@ -71,8 +75,8 @@ namespace trippin {
         void snapObjects();
         void applyPhysics();
         void forEachObject(std::function<void(Object *)> fn);
+        void forEachListener(std::function<void(Listener *)> fn);
         void snapTo(Object &obj, const Object &p, const trippin::Rect<int> &overlap, const Sides &previousContacts);
-
         void applyPlatformCollision(Object &object, Object &platform, const Sides &sides);
         void applyObjectCollision(Object &left, Object &right, const Sides &sides);
     };

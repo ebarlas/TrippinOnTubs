@@ -18,12 +18,18 @@ void trippin::Engine::forEachObject(std::function<void(Object * )> fn) {
     std::for_each(objects.begin(), objects.end(), fn);
 }
 
+void trippin::Engine::forEachListener(std::function<void(Listener * )> fn) {
+    std::for_each(listeners.begin(), listeners.end(), fn);
+}
+
 void trippin::Engine::beforeTick(Uint32 engineTicks) {
     forEachObject([engineTicks](Object *obj) { obj->beforeTick(engineTicks); });
+    forEachListener([engineTicks](Listener *listener) { listener->beforeTick(engineTicks); });
 }
 
 void trippin::Engine::afterTick(Uint32 engineTicks) {
     forEachObject([engineTicks](Object *obj) { obj->afterTick(engineTicks); });
+    forEachListener([engineTicks](Listener *listener) { listener->afterTick(engineTicks); });
 }
 
 void trippin::Engine::removeExpired() {
@@ -189,4 +195,8 @@ void trippin::Engine::setPlatformCollision(trippin::Collision *collision) {
 
 void trippin::Engine::setObjectCollision(trippin::Collision *collision) {
     objectCollision = collision;
+}
+
+void trippin::Engine::addListener(trippin::Listener *listener) {
+    listeners.push_back(listener);
 }
