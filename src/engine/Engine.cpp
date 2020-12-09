@@ -33,9 +33,10 @@ void trippin::Engine::afterTick(Uint32 engineTicks) {
 }
 
 void trippin::Engine::removeExpired() {
-    auto fn = [](Object *obj) { return obj->expired; };
+    auto fn = [](Listener *obj) { return obj->isExpired(); };
     platforms.erase(std::remove_if(platforms.begin(), platforms.end(), fn), platforms.end());
     objects.erase(std::remove_if(objects.begin(), objects.end(), fn), objects.end());
+    listeners.erase(std::remove_if(listeners.begin(), listeners.end(), fn), listeners.end());
 }
 
 void trippin::Engine::tick(Uint32 engineTicks) {

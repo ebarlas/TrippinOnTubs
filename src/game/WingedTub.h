@@ -1,30 +1,31 @@
-#ifndef TRIPPIN_GROUND_H
-#define TRIPPIN_GROUND_H
+#ifndef TRIPPIN_WINGEDTUB_H
+#define TRIPPIN_WINGEDTUB_H
 
 #include "SpriteObject.h"
 #include "Spirit.h"
+#include "Goggin.h"
 
 namespace trippin {
-    class Ground : public SpriteObject {
+    class WingedTub : public SpriteObject {
     public:
         void init(const Configuration &config, const Map::Object &obj, const Sprite &spr) override;
+        void setGoggin(const Goggin *goggin);
         void afterTick(Uint32 engineTicks) override;
-        void setSpirit(const Spirit *spirit);
     protected:
         Point<int> getPosition() override;
         int getFrame() override;
+        bool isVisible() override;
     private:
         struct Channel {
-            Point<int> roundedPosition;
             int frame;
         };
 
-        bool melting;
-        int meltingTick;
-        int ticks{};
         int framePeriod;
         Channel channel;
-        const Spirit *spirit;
+
+        int hitTicks;
+        bool hitGoggin;
+        const Goggin *goggin;
     };
 }
 

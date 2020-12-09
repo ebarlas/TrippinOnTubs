@@ -20,7 +20,7 @@ sprites = [
     'ground_melt_left',
     'ground_melt_middle',
     'ground_melt_right',
-    'winged-tub'
+    'winged_tub'
 ]
 
 levels = ['map', 'map_ground_melt']

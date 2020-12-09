@@ -92,6 +92,7 @@ namespace trippin {
         virtual void onObjectCollision(Object &other, const trippin::Sides &collision);
         void beforeTick(Uint32 engineTicks) override;
         void afterTick(Uint32 engineTicks) override;
+        bool isExpired() override;
     };
 }
 

@@ -1,6 +1,6 @@
 #include "Game.h"
-#include "SimpleObject.h"
 #include "Ground.h"
+#include "WingedTub.h"
 
 void trippin::Game::init() {
     initRuntime();
@@ -90,12 +90,9 @@ void trippin::Game::initEngine() {
 
     for (auto &obj : map.objects) {
         if (obj.type == "goggin") {
-            auto uptr = std::make_unique<Goggin>();
-            uptr->init(configuration, obj, spriteManager->get(obj.type));
-            goggin = &(*uptr);
-            objects.push_back(std::move(uptr));
-            engine.add(goggin);
-
+            goggin = std::make_unique<Goggin>();
+            goggin->init(configuration, obj, spriteManager->get(obj.type));
+            engine.add(&(*goggin));
             spirit.setPosition(-goggin->terminalVelocity.x * configuration.ticksPerSecond() * 2);
             spirit.setVelocity(goggin->terminalVelocity.x);
         } else if (obj.type.find_first_of("ground_melt_") == 0 || obj.type.find_first_of("platform") == 0) {
@@ -105,8 +102,15 @@ void trippin::Game::initEngine() {
             ptr->setSpirit(&spirit);
             objects.push_back(std::move(uptr));
             engine.add(ptr);
+        } else if (obj.type.find_first_of("winged_tub") == 0) {
+            auto uptr = std::make_unique<WingedTub>();
+            auto ptr = &(*uptr);
+            ptr->init(configuration, obj, spriteManager->get(obj.type));
+            ptr->setGoggin(&(*goggin));
+            objects.push_back(std::move(uptr));
+            engine.addListener(ptr);
         } else {
-            auto uptr = std::make_unique<SimpleObject>();
+            auto uptr = std::make_unique<SpriteObject>();
             auto ptr = &(*uptr);
             uptr->init(configuration, obj, spriteManager->get(obj.type));
             objects.push_back(std::move(uptr));
@@ -155,6 +159,8 @@ void trippin::Game::renderLoop() {
         for (auto &obj : objects) {
             obj->render(renderer, camera);
         }
+
+        goggin->render(renderer, camera);
 
         SDL_RenderPresent(renderer);
     }

@@ -13,10 +13,19 @@ namespace trippin {
         SpriteObject();
         virtual ~SpriteObject();
         virtual void init(const Configuration &config, const Map::Object &obj, const Sprite &spr);
-        virtual void render(SDL_Renderer* renderer, const Camera &camera) = 0;
+        virtual void render(SDL_Renderer* renderer, const Camera &camera);
+        void afterTick(Uint32 engineTicks) override;
     protected:
         const Sprite *sprite{};
         SDL_mutex *mutex{};
+        virtual Point<int> getPosition();
+        virtual int getFrame();
+        virtual bool isVisible();
+    private:
+        struct Channel {
+            Point<int> roundedPosition;
+        };
+        Channel channel;
     };
 }
 

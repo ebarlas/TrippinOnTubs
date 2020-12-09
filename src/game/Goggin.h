@@ -11,10 +11,12 @@ namespace trippin {
         void init(const Configuration &config, const Map::Object &obj, const Sprite &spr) override;
         void beforeTick(Uint32 engineTicks) override;
         void afterTick(Uint32 engineTicks) override;
-        void render(SDL_Renderer *renderer, const Camera &camera) override;
         void center(Camera &camera);
         void onKeyDown();
         void onKeyUp();
+    protected:
+        Point<int> getPosition() override;
+        int getFrame() override;
     private:
         struct Channel {
             Point<int> roundedPosition;
@@ -62,7 +64,6 @@ namespace trippin {
         int ticks{};
         Uint32 lastRunTick{};
 
-        Channel getChannel();
         double findJumpVelocity(int ticks) const;
         void onFalling(Uint32 engineTicks);
         void onLanding(Uint32 engineTicks);

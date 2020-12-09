@@ -331,6 +331,51 @@
         "x": 15040,
         "y": 2240
       }
+    },
+    {
+      "id": 36,
+      "type": "winged_tub",
+      "platform": false,
+      "position": {
+        "x": 2600,
+        "y": 1240
+      }
+    },
+    {
+      "id": 37,
+      "type": "winged_tub",
+      "platform": false,
+      "position": {
+        "x": 5600,
+        "y": 720
+      }
+    },
+    {
+      "id": 38,
+      "type": "winged_tub",
+      "platform": false,
+      "position": {
+        "x": 8680,
+        "y": 80
+      }
+    },
+    {
+      "id": 39,
+      "type": "winged_tub",
+      "platform": false,
+      "position": {
+        "x": 9120,
+        "y": 2080
+      }
+    },
+    {
+      "id": 40,
+      "type": "winged_tub",
+      "platform": false,
+      "position": {
+        "x": 12760,
+        "y": 120
+      }
     }
   ]
 }

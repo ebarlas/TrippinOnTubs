@@ -23,3 +23,7 @@ void trippin::Spirit::beforeTick(Uint32 engineTicks) {
 void trippin::Spirit::afterTick(Uint32 engineTicks) {
 
 }
+
+bool trippin::Spirit::isExpired() {
+    return false;
+}

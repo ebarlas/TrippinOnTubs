@@ -28,7 +28,7 @@ namespace trippin {
         Camera camera;
         Engine engine;
         std::vector<std::unique_ptr<SpriteObject>> objects;
-        Goggin *goggin;
+        std::unique_ptr<Goggin> goggin;
         AbsorbentCollision platformCollision;
         InelasticCollision objectCollision;
         Spirit spirit;

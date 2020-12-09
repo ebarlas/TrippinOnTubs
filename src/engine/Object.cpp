@@ -60,3 +60,7 @@ void trippin::Object::beforeTick(Uint32 engineTicks) {
 void trippin::Object::afterTick(Uint32 engineTicks) {
 
 }
+
+bool trippin::Object::isExpired() {
+    return expired;
+}

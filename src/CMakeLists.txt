@@ -31,8 +31,8 @@ add_library(Game
         game/Map.cpp
         game/Configuration.cpp
         game/SpriteObject.cpp
-        game/SimpleObject.cpp
         game/Ground.cpp
+        game/WingedTub.cpp
         game/Lock.cpp
         game/Goggin.cpp
         game/Spirit.cpp)

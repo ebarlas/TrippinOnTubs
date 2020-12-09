@@ -16,6 +16,7 @@ namespace trippin {
         void updatePosition(double delta);
         void beforeTick(Uint32 engineTicks) override;
         void afterTick(Uint32 engineTicks) override;
+        bool isExpired() override;
     };
 }
 

@@ -68,26 +68,8 @@ void trippin::Goggin::afterTick(Uint32 engineTicks) {
     channel.roundedCenter = roundedCenter;
 }
 
-void trippin::Goggin::render(SDL_Renderer *renderer, const trippin::Camera &camera) {
-    auto hb = sprite->getHitBox();
-    auto size = sprite->getSize();
-    auto viewport = camera.getViewport();
-    auto ch = getChannel();
-    trippin::Rect<int> box{ch.roundedPosition.x - hb.x, ch.roundedPosition.y - hb.y, size.x, size.y};
-    if (box.intersect(viewport)) {
-        Point<int> target = {box.x - viewport.x, box.y - viewport.y};
-        sprite->render(target, ch.frame);
-    }
-}
-
-trippin::Goggin::Channel trippin::Goggin::getChannel() {
-    Lock lock(mutex);
-    return channel;
-}
-
 void trippin::Goggin::center(trippin::Camera &camera) {
-    auto chanel = getChannel();
-    camera.centerOn(chanel.roundedCenter);
+    camera.centerOn(getPosition());
 }
 
 void trippin::Goggin::onFalling(Uint32 engineTicks) {
@@ -183,4 +165,14 @@ double trippin::Goggin::findJumpVelocity(int ticks) const {
     auto range = static_cast<double>(maxJumpChargeTicks - minJumpChargeTicks);
     auto ratio = (std::max(minJumpChargeTicks, std::min(ticks, maxJumpChargeTicks)) - minJumpChargeTicks) / range;
     return minJumpVelocity + ratio * (maxJumpVelocity - minJumpVelocity);
+}
+
+trippin::Point<int> trippin::Goggin::getPosition() {
+    Lock lock(mutex);
+    return channel.roundedPosition;
+}
+
+int trippin::Goggin::getFrame() {
+    Lock lock(mutex);
+    return channel.frame;
 }
