@@ -72,8 +72,8 @@ def find_hit_box(svg_file):
         scale = float(root.attrib['scale'])
 
     for e in root.findall('.//svg:g[@type="hitbox"]/svg:rect', namespace):
-        return int(e.attrib['x']), \
-               int(e.attrib['y']), \
+        return int(round(int(e.attrib['x']) * scale)), \
+               int(round(int(e.attrib['y']) * scale)), \
                int(round(int(e.attrib['width']) * scale)), \
                int(round(int(e.attrib['height']) * scale))
 

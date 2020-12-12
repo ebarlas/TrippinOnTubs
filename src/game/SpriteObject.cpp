@@ -18,8 +18,7 @@ void trippin::SpriteObject::init(
         const trippin::Map::Object &obj,
         const trippin::Sprite &spr) {
     auto mul = spr.getScale().getMultiplier();
-    auto gameTicksPerSecond = 1000.0 / config.tickPeriod;
-    auto gameTicksPerSecondSq = gameTicksPerSecond * gameTicksPerSecond;
+    auto gameTicksPerSecondSq = config.ticksPerSecond() * config.ticksPerSecond();
 
     platform = obj.platform;
     sprite = &spr;
@@ -29,8 +28,8 @@ void trippin::SpriteObject::init(
     auto hb = spr.getHitBox();
     position = {obj.position.x * mul + hb.corner().x, obj.position.y * mul + hb.corner().y};
     size = {hb.w, hb.h};
-    velocity = (obj.velocity / gameTicksPerSecond) * mul;
-    terminalVelocity = (obj.terminalVelocity / gameTicksPerSecond) * mul;
+    velocity = (obj.velocity / config.ticksPerSecond()) * mul;
+    terminalVelocity = (obj.terminalVelocity / config.ticksPerSecond()) * mul;
     friction = (obj.friction / gameTicksPerSecondSq) * mul;
     syncPositions();
 
