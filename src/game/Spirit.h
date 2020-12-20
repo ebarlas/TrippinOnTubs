@@ -11,6 +11,7 @@ namespace trippin {
         double velocity;
     public:
         double getPosition() const;
+        double getVelocity() const;
         void setPosition(double pos);
         void setVelocity(double vel);
         void updatePosition(double delta);

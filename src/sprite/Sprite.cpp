@@ -22,6 +22,15 @@ void trippin::Sprite::render(trippin::Point<int> position, int frame) const {
     sheet.render(&clip, &target);
 }
 
+void trippin::Sprite::render(trippin::Point<int> hitBoxPos, int frame, const trippin::Camera &camera) const {
+    auto viewport = camera.getViewport();
+    trippin::Rect<int> box{hitBoxPos.x - hitBox.x, hitBoxPos.y - hitBox.y, size.x, size.y};
+    if (box.intersect(viewport)) {
+        Point<int> target = {box.x - viewport.x, box.y - viewport.y};
+        render(target, frame);
+    }
+}
+
 trippin::Point<int> trippin::Sprite::getSize() const {
     return size;
 }

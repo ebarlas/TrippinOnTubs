@@ -4,12 +4,14 @@
 #include "SDL.h"
 #include "sprite/SpriteMetadata.h"
 #include "sprite/SpriteSheet.h"
+#include "Camera.h"
 
 namespace trippin {
     class Sprite {
     public:
         Sprite(SDL_Renderer *renderer, const std::string &name, const Scale &scale);
         void render(Point<int> position, int frame) const;
+        void render(Point<int> hitBoxPos, int frame, const Camera &camera) const;
         Point<int> getSize() const;
         Rect<int> getHitBox() const;
         int getDuration() const;

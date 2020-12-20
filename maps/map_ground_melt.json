@@ -376,6 +376,15 @@
         "x": 12760,
         "y": 120
       }
+    },
+    {
+      "id": 41,
+      "type": "clock_timer",
+      "platform": false,
+      "position": {
+        "x": 80,
+        "y": 80
+      }
     }
   ]
 }

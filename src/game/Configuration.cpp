@@ -19,10 +19,15 @@ double trippin::Configuration::ticksPerSecond() const {
     return 1'000.0 / tickPeriod;
 }
 
+double trippin::Configuration::engineTicksPerSpiritClockTick() const {
+    return static_cast<double>(spiritClockTickPeriod) / tickPeriod;
+}
+
 void trippin::from_json(const nlohmann::json &j, Configuration &config) {
     j.at("minPlayerSpan").get_to(config.minPlayerSpan);
     j.at("playerBaseWidth").get_to(config.playerBaseWidth);
     j.at("tickPeriod").get_to(config.tickPeriod);
+    j.at("spiritClockTickPeriod").get_to(config.spiritClockTickPeriod);
     j.at("map").get_to(config.map);
 
     for (auto &elem : j.at("scales")) {

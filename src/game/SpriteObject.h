@@ -4,20 +4,20 @@
 #include "engine/Object.h"
 #include "sprite/Sprite.h"
 #include "sprite/Camera.h"
+#include "Renderable.h"
 #include "Configuration.h"
 #include "Map.h"
+#include "Mutex.h"
 
 namespace trippin {
-    class SpriteObject : public Object {
+    class SpriteObject : public Object, public Renderable {
     public:
-        SpriteObject();
-        virtual ~SpriteObject();
         virtual void init(const Configuration &config, const Map::Object &obj, const Sprite &spr);
-        virtual void render(SDL_Renderer* renderer, const Camera &camera);
+        void render(const Camera &camera) override;
         void afterTick(Uint32 engineTicks) override;
     protected:
         const Sprite *sprite{};
-        SDL_mutex *mutex{};
+        Mutex mutex;
         virtual Point<int> getPosition();
         virtual int getFrame();
         virtual bool isVisible();

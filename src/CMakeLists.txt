@@ -33,8 +33,10 @@ add_library(Game
         game/SpriteObject.cpp
         game/Ground.cpp
         game/WingedTub.cpp
+        game/Mutex.cpp
         game/Lock.cpp
         game/Goggin.cpp
+        game/SpiritClock.cpp
         game/Spirit.cpp)
 target_link_libraries(Game CONAN_PKG::nlohmann_json CONAN_PKG::sdl2 CONAN_PKG::sdl2_image)
 

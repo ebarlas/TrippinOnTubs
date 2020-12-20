@@ -1,18 +1,6 @@
 #include "SpriteObject.h"
 #include "Lock.h"
 
-trippin::SpriteObject::SpriteObject() {
-    mutex = SDL_CreateMutex();
-    if (!mutex) {
-        SDL_Log("Couldn't create mutex");
-        std::terminate();
-    }
-}
-
-trippin::SpriteObject::~SpriteObject() {
-    SDL_DestroyMutex(mutex);
-}
-
 void trippin::SpriteObject::init(
         const Configuration &config,
         const trippin::Map::Object &obj,
@@ -36,17 +24,9 @@ void trippin::SpriteObject::init(
     channel.roundedPosition = roundedPosition;
 }
 
-void trippin::SpriteObject::render(SDL_Renderer *renderer, const trippin::Camera &camera) {
+void trippin::SpriteObject::render(const trippin::Camera &camera) {
     if (isVisible()) {
-        auto hb = sprite->getHitBox();
-        auto size = sprite->getSize();
-        auto viewport = camera.getViewport();
-        auto pos = getPosition();
-        trippin::Rect<int> box{pos.x - hb.x, pos.y - hb.y, size.x, size.y};
-        if (box.intersect(viewport)) {
-            Point<int> target = {box.x - viewport.x, box.y - viewport.y};
-            sprite->render(target, getFrame());
-        }
+        sprite->render(getPosition(), getFrame(), camera);
     }
 }
 

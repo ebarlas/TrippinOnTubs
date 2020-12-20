@@ -1,7 +1,7 @@
 #include <exception>
 #include "Lock.h"
 
-trippin::Lock::Lock(SDL_mutex *mutex) : mutex(mutex) {
+trippin::Lock::Lock(Mutex &m) : mutex(m.get()) {
     if (SDL_LockMutex(mutex)) {
         SDL_Log("Couldn't lock mutex");
         std::terminate();

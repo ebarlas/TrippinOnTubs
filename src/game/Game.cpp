@@ -90,33 +90,36 @@ void trippin::Game::initEngine() {
 
     for (auto &obj : map.objects) {
         if (obj.type == "goggin") {
-            goggin = std::make_unique<Goggin>();
-            goggin->init(configuration, obj, spriteManager->get(obj.type));
-            engine.add(&(*goggin));
-            spirit.setPosition(-goggin->terminalVelocity.x * configuration.ticksPerSecond() * 2);
-            spirit.setVelocity(goggin->terminalVelocity.x);
+            goggin.init(configuration, obj, spriteManager->get(obj.type));
+            engine.add(&goggin);
         } else if (obj.type.find_first_of("ground_melt_") == 0 || obj.type.find_first_of("platform") == 0) {
             auto uptr = std::make_unique<Ground>();
-            auto ptr = &(*uptr);
-            ptr->init(configuration, obj, spriteManager->get(obj.type));
-            ptr->setSpirit(&spirit);
+            uptr->init(configuration, obj, spriteManager->get(obj.type));
+            uptr->setSpirit(&spirit);
+            engine.add(uptr.get());
             objects.push_back(std::move(uptr));
-            engine.add(ptr);
         } else if (obj.type.find_first_of("winged_tub") == 0) {
             auto uptr = std::make_unique<WingedTub>();
-            auto ptr = &(*uptr);
-            ptr->init(configuration, obj, spriteManager->get(obj.type));
-            ptr->setGoggin(&(*goggin));
+            uptr->init(configuration, obj, spriteManager->get(obj.type));
+            uptr->setGoggin(&goggin);
+            engine.addListener(uptr.get());
             objects.push_back(std::move(uptr));
-            engine.addListener(ptr);
+        } else if (obj.type.find_first_of("clock_timer") == 0) {
+            spiritClock.init(configuration, obj, spriteManager->get(obj.type));
+            engine.addListener(&spiritClock);
         } else {
             auto uptr = std::make_unique<SpriteObject>();
-            auto ptr = &(*uptr);
             uptr->init(configuration, obj, spriteManager->get(obj.type));
+            engine.add(uptr.get());
             objects.push_back(std::move(uptr));
-            engine.add(ptr);
         }
     }
+
+    spirit.setPosition(-goggin.terminalVelocity.x * configuration.ticksPerSecond() * 2);
+    spirit.setVelocity(goggin.terminalVelocity.x);
+
+    spiritClock.setGoggin(&goggin);
+    spiritClock.setSpirit(&spirit);
 }
 
 trippin::Game::Game(std::string configName) : configName(std::move(configName)) {
@@ -143,24 +146,25 @@ void trippin::Game::renderLoop() {
                 quit = true;
             } else if (e.type == SDL_KEYDOWN) {
                 if (e.key.keysym.scancode == SDL_SCANCODE_SPACE) {
-                    goggin->onKeyDown();
+                    goggin.onKeyDown();
                 }
             } else if (e.type == SDL_KEYUP) {
                 if (e.key.keysym.scancode == SDL_SCANCODE_SPACE) {
-                    goggin->onKeyUp();
+                    goggin.onKeyUp();
                 }
             }
         }
 
-        SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
+        SDL_SetRenderDrawColor(renderer, 245, 245, 245, 255);
         SDL_RenderClear(renderer);
 
-        goggin->center(camera);
+        goggin.center(camera);
         for (auto &obj : objects) {
-            obj->render(renderer, camera);
+            obj->render(camera);
         }
 
-        goggin->render(renderer, camera);
+        spiritClock.render(camera);
+        goggin.render(camera);
 
         SDL_RenderPresent(renderer);
     }

@@ -2,6 +2,7 @@
   "minPlayerSpan": 9,
   "playerBaseWidth": 480,
   "tickPeriod": 5,
+  "spiritClockTickPeriod": 500,
   "map": "map_ground_melt",
   "scales": [
     {

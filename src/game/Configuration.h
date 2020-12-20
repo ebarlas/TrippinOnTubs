@@ -11,12 +11,14 @@ namespace trippin {
         int minPlayerSpan;
         int playerBaseWidth;
         int tickPeriod;
+        int spiritClockTickPeriod;
         std::string map;
         std::vector<Scale> scales;
         void load(const std::string &name);
         static std::string getConfigFile(const std::string &name);
 
         double ticksPerSecond() const;
+        double engineTicksPerSpiritClockTick() const;
     };
 
     void from_json(const nlohmann::json &j, Configuration &config);

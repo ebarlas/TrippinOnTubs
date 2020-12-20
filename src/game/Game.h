@@ -13,6 +13,7 @@
 #include "Map.h"
 #include "Goggin.h"
 #include "Spirit.h"
+#include "SpiritClock.h"
 
 namespace trippin {
     class Game {
@@ -27,11 +28,12 @@ namespace trippin {
         std::unique_ptr<SpriteManager> spriteManager;
         Camera camera;
         Engine engine;
-        std::vector<std::unique_ptr<SpriteObject>> objects;
-        std::unique_ptr<Goggin> goggin;
+        std::vector<std::unique_ptr<Renderable>> objects;
+        Goggin goggin;
         AbsorbentCollision platformCollision;
         InelasticCollision objectCollision;
         Spirit spirit;
+        SpiritClock spiritClock;
         void initRuntime();
         void initWindowSize();
         void initWindow();

@@ -27,3 +27,7 @@ void trippin::Spirit::afterTick(Uint32 engineTicks) {
 bool trippin::Spirit::isExpired() {
     return false;
 }
+
+double trippin::Spirit::getVelocity() const {
+    return velocity;
+}

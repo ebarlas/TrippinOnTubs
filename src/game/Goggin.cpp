@@ -20,6 +20,7 @@ void trippin::Goggin::init(const Configuration &config, const Map::Object &obj, 
     jumpGracePeriodTicks = obj.jumpGracePeriod / config.tickPeriod;
     state = State::falling;
     channel.frame = 14;
+    channel.charge = false;
 }
 
 void trippin::Goggin::beforeTick(Uint32 engineTicks) {
