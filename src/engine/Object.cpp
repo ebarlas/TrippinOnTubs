@@ -5,7 +5,6 @@
 void trippin::Object::syncPositions() {
     center = {position.x + size.x / 2.0, position.y + size.y / 2.0};
     roundedPosition = {static_cast<int>(std::round(position.x)), static_cast<int>(std::round(position.y))};
-    roundedCenter = {roundedPosition.x + size.x / 2, roundedPosition.y + size.y / 2};
     roundedBox = {roundedPosition.x, roundedPosition.y, size.x, size.y};
 }
 
@@ -50,14 +49,6 @@ void trippin::Object::onPlatformCollision(trippin::Object &other, const trippin:
 }
 
 void trippin::Object::onObjectCollision(trippin::Object &other, const trippin::Sides &collision) {
-
-}
-
-void trippin::Object::beforeTick(Uint32 engineTicks) {
-
-}
-
-void trippin::Object::afterTick(Uint32 engineTicks) {
 
 }
 

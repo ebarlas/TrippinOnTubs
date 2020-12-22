@@ -107,7 +107,7 @@ trippin::Point<double> trippin::RenderableObject::getCenter() const {
 }
 
 trippin::Point<int> trippin::RenderableObject::getRoundedCenter() const {
-    return roundedCenter;
+    return {roundedPosition.x + size.x / 2, roundedPosition.y + size.y / 2};
 }
 
 trippin::Point<double> trippin::RenderableObject::getAcceleration() const {

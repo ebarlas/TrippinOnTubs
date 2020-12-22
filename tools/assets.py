@@ -21,7 +21,8 @@ sprites = [
     'ground_melt_middle',
     'ground_melt_right',
     'winged_tub',
-    'clock_timer'
+    'clock_timer',
+    'winged_foot'
 ]
 
 levels = ['map', 'map_ground_melt']

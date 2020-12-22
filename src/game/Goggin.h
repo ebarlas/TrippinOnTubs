@@ -14,16 +14,16 @@ namespace trippin {
         void center(Camera &camera);
         void onKeyDown();
         void onKeyUp();
+        double getJumpCharge() const;
     protected:
         Point<int> getPosition() override;
         int getFrame() override;
     private:
         struct Channel {
             Point<int> roundedPosition;
-            Point<int> roundedCenter;
             int frame;
-            bool charge;
-            bool jump;
+            bool keyDown;
+            bool keyUp;
         };
 
         constexpr static const int FRAME_LANDING_FIRST = 15;
@@ -50,7 +50,8 @@ namespace trippin {
         int maxJumpChargeTicks;
         int jumpGracePeriodTicks;
 
-        Uint32 chargeTicks{};
+        Uint32 jumpTicks{};
+        double jumpPercent{};
 
         enum State {
             running,
@@ -64,7 +65,7 @@ namespace trippin {
         int ticks{};
         Uint32 lastRunTick{};
 
-        double findJumpVelocity(int ticks) const;
+        double findJumpCharge(int ticks) const;
         void onFalling(Uint32 engineTicks);
         void onLanding(Uint32 engineTicks);
         void onRunning(Uint32 engineTicks);

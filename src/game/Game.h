@@ -14,6 +14,7 @@
 #include "Goggin.h"
 #include "Spirit.h"
 #include "SpiritClock.h"
+#include "JumpMeter.h"
 
 namespace trippin {
     class Game {
@@ -34,6 +35,7 @@ namespace trippin {
         InelasticCollision objectCollision;
         Spirit spirit;
         SpiritClock spiritClock;
+        JumpMeter jumpMeter;
         void initRuntime();
         void initWindowSize();
         void initWindow();

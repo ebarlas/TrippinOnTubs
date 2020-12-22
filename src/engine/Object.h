@@ -62,10 +62,6 @@ namespace trippin {
         // This is a meta property based on position and size.
         Point<double> center{};
 
-        // The rounded center of the object.
-        // This is a meta property based on position and size.
-        Point<int> roundedCenter{};
-
         // The rounded bounding box of the object.
         // This is a meta property based on position and size.
         Rect<int> roundedBox{};
@@ -90,8 +86,6 @@ namespace trippin {
         void applyMotion();
         virtual void onPlatformCollision(Object &other, const trippin::Sides &collision);
         virtual void onObjectCollision(Object &other, const trippin::Sides &collision);
-        void beforeTick(Uint32 engineTicks) override;
-        void afterTick(Uint32 engineTicks) override;
         bool isExpired() override;
     };
 }

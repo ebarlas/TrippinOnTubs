@@ -22,9 +22,9 @@
       "maxJumpVelocity": -3500.0,
       "runningAcceleration": 2000.0,
       "risingAcceleration": 200.0,
-      "minJumpChargeTime": 100,
-      "maxJumpChargeTime": 300,
-      "jumpGracePeriod": 250
+      "minJumpChargeTime": 0,
+      "maxJumpChargeTime": 400,
+      "jumpGracePeriod": 125
     },
     {
       "id": 2,
@@ -383,6 +383,15 @@
       "platform": false,
       "position": {
         "x": 80,
+        "y": 80
+      }
+    },
+    {
+      "id": 42,
+      "type": "winged_foot",
+      "platform": false,
+      "position": {
+        "x": 920,
         "y": 80
       }
     }

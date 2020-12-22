@@ -20,28 +20,38 @@ void trippin::Goggin::init(const Configuration &config, const Map::Object &obj, 
     jumpGracePeriodTicks = obj.jumpGracePeriod / config.tickPeriod;
     state = State::falling;
     channel.frame = 14;
-    channel.charge = false;
+    channel.keyDown = false;
 }
 
 void trippin::Goggin::beforeTick(Uint32 engineTicks) {
     Lock lock(mutex);
-    if (channel.charge && !chargeTicks) {
-        chargeTicks = engineTicks;
+
+    double jumpVel;
+    if (channel.keyDown) {
+        if (!jumpTicks) {
+            jumpTicks = engineTicks;
+        }
+        auto relTicks = static_cast<int>(engineTicks - jumpTicks);
+        auto range = static_cast<double>(maxJumpChargeTicks - minJumpChargeTicks);
+        jumpPercent = (std::max(minJumpChargeTicks, std::min(relTicks, maxJumpChargeTicks)) - minJumpChargeTicks) / range;
+        jumpVel = minJumpVelocity + jumpPercent * (maxJumpVelocity - minJumpVelocity);
+    } else {
+        jumpPercent = 0;
     }
-    if (channel.jump && chargeTicks) {
-        int jumpTicks = engineTicks - chargeTicks;
-        channel.charge = false;
-        channel.jump = false;
-        chargeTicks = 0;
-        if (state == running || (engineTicks > lastRunTick && engineTicks - lastRunTick < jumpGracePeriodTicks)) {
+
+    if (channel.keyUp && jumpTicks) {
+        channel.keyDown = false;
+        channel.keyUp = false;
+        jumpTicks = 0;
+        if (state == running || state == landing || (engineTicks > lastRunTick && engineTicks - lastRunTick < jumpGracePeriodTicks)) {
             if (skipLaunch) {
                 state = State::rising;
                 channel.frame = FRAME_LAUNCHING_LAST;
-                velocity.y = findJumpVelocity(jumpTicks);
+                velocity.y = jumpVel;
             } else {
                 state = State::launching;
                 channel.frame = FRAME_LAUNCHING_FIRST;
-                jumpVelocity = findJumpVelocity(jumpTicks);
+                jumpVelocity = jumpVel;
             }
             acceleration.x = risingAcceleration;
             ticks = 0;
@@ -66,7 +76,6 @@ void trippin::Goggin::afterTick(Uint32 engineTicks) {
     }
 
     channel.roundedPosition = roundedPosition;
-    channel.roundedCenter = roundedCenter;
 }
 
 void trippin::Goggin::center(trippin::Camera &camera) {
@@ -152,20 +161,18 @@ void trippin::Goggin::onRising(Uint32 engineTicks) {
 
 void trippin::Goggin::onKeyDown() {
     Lock lock(mutex);
-    channel.charge = true;
+    channel.keyDown = true;
 }
 
 void trippin::Goggin::onKeyUp() {
     Lock lock(mutex);
-    if (channel.charge) {
-        channel.jump = true;
+    if (channel.keyDown) {
+        channel.keyUp = true;
     }
 }
 
-double trippin::Goggin::findJumpVelocity(int ticks) const {
-    auto range = static_cast<double>(maxJumpChargeTicks - minJumpChargeTicks);
-    auto ratio = (std::max(minJumpChargeTicks, std::min(ticks, maxJumpChargeTicks)) - minJumpChargeTicks) / range;
-    return minJumpVelocity + ratio * (maxJumpVelocity - minJumpVelocity);
+double trippin::Goggin::findJumpCharge(int ticks) const {
+
 }
 
 trippin::Point<int> trippin::Goggin::getPosition() {
@@ -176,4 +183,8 @@ trippin::Point<int> trippin::Goggin::getPosition() {
 int trippin::Goggin::getFrame() {
     Lock lock(mutex);
     return channel.frame;
+}
+
+double trippin::Goggin::getJumpCharge() const {
+    return jumpPercent;
 }

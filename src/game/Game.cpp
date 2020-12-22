@@ -92,21 +92,24 @@ void trippin::Game::initEngine() {
         if (obj.type == "goggin") {
             goggin.init(configuration, obj, spriteManager->get(obj.type));
             engine.add(&goggin);
-        } else if (obj.type.find_first_of("ground_melt_") == 0 || obj.type.find_first_of("platform") == 0) {
+        } else if (obj.type.rfind("ground_melt_", 0) == 0 || obj.type.rfind("platform", 0) == 0) {
             auto uptr = std::make_unique<Ground>();
             uptr->init(configuration, obj, spriteManager->get(obj.type));
             uptr->setSpirit(&spirit);
             engine.add(uptr.get());
             objects.push_back(std::move(uptr));
-        } else if (obj.type.find_first_of("winged_tub") == 0) {
+        } else if (obj.type == "winged_tub") {
             auto uptr = std::make_unique<WingedTub>();
             uptr->init(configuration, obj, spriteManager->get(obj.type));
             uptr->setGoggin(&goggin);
             engine.addListener(uptr.get());
             objects.push_back(std::move(uptr));
-        } else if (obj.type.find_first_of("clock_timer") == 0) {
+        } else if (obj.type == "clock_timer") {
             spiritClock.init(configuration, obj, spriteManager->get(obj.type));
             engine.addListener(&spiritClock);
+        } else if (obj.type == "winged_foot") {
+            jumpMeter.init(configuration, obj, spriteManager->get(obj.type));
+            engine.addListener(&jumpMeter);
         } else {
             auto uptr = std::make_unique<SpriteObject>();
             uptr->init(configuration, obj, spriteManager->get(obj.type));
@@ -120,6 +123,8 @@ void trippin::Game::initEngine() {
 
     spiritClock.setGoggin(&goggin);
     spiritClock.setSpirit(&spirit);
+
+    jumpMeter.setGoggin(&goggin);
 }
 
 trippin::Game::Game(std::string configName) : configName(std::move(configName)) {
@@ -163,8 +168,9 @@ void trippin::Game::renderLoop() {
             obj->render(camera);
         }
 
-        spiritClock.render(camera);
         goggin.render(camera);
+        spiritClock.render(camera);
+        jumpMeter.render(camera);
 
         SDL_RenderPresent(renderer);
     }

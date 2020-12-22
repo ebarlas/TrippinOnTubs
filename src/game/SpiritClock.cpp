@@ -23,10 +23,6 @@ void trippin::SpiritClock::render(const trippin::Camera &camera) {
     sprite->render(position, getFrame());
 }
 
-void trippin::SpiritClock::beforeTick(Uint32 engineTicks) {
-
-}
-
 void trippin::SpiritClock::afterTick(Uint32 engineTicks) {
     Lock lock(mutex);
     auto distanceAway = goggin->position.x - spirit->getPosition();
@@ -35,10 +31,6 @@ void trippin::SpiritClock::afterTick(Uint32 engineTicks) {
     auto barsAway = static_cast<int>(std::round(ticksAway / engineTicksPerClockBar));
     auto barsFilled = std::min(numClockBars, std::max(0, barsAway));
     setFrame(barsFilled);
-}
-
-bool trippin::SpiritClock::isExpired() {
-    return false;
 }
 
 int trippin::SpiritClock::getFrame() {

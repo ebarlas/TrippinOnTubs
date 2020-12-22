@@ -9,6 +9,7 @@ add_library(Engine
         engine/ElasticCollision1D.cpp
         engine/ElasticCollision2D.cpp
         engine/InelasticCollision.cpp
+        engine/Listener.cpp
         engine/Object.cpp
         engine/Sides.cpp
         engine/Engine.cpp
@@ -36,6 +37,7 @@ add_library(Game
         game/Mutex.cpp
         game/Lock.cpp
         game/Goggin.cpp
+        game/JumpMeter.cpp
         game/SpiritClock.cpp
         game/Spirit.cpp)
 target_link_libraries(Game CONAN_PKG::nlohmann_json CONAN_PKG::sdl2 CONAN_PKG::sdl2_image)

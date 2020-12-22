@@ -48,6 +48,6 @@ def cut_frames(gif_file, output_file, frame_step, duration):
 def animate_frames(file_prefix, file_suffix, count, gif_file, duration=80):
     images = []
     for n in range(1, count + 1):
-        images.append(Image.open(f'{file_prefix}{12-n}{file_suffix}'))
+        images.append(Image.open(f'{file_prefix}{n}{file_suffix}'))
 
     images[0].save(gif_file, save_all=True, append_images=images[1:], optimize=False, duration=duration, loop=0)
