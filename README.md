@@ -1,6 +1,13 @@
 # Overview
 
-Trippin on Tubs is a 2D endless runner side-scrolling platformer game.
+Trippin on Tubs is an endless runner side-scrolling platformer.
+
+The game is build upon the [Simple DirectMedia Layer](https://www.libsdl.org/) library,
+that provides graphics and media facilities. 
+
+Game art is developed in Inkscape and rasterized using Inkscape CLI invoked from
+custom Python tools. Sprite sheets are assembled using the [Pillow](https://pillow.readthedocs.io/en/stable/) image processing
+library also via custom Python tools.
 
 # Timing
 
@@ -8,10 +15,14 @@ Two independent timers drive game progress. First, the render rate is the
 frequency with which game assets are rendered. The render rate is
 synchronized with the display refresh rate, typically 60 Hz. Second, the engine
 tick rate is the frequency with which the physical properties of game objects
-are updated, typically 100 Hz. The frame renderer depends on the physics engine.
-At each frame tick, it queries object position data from the physics engine.
+are updated, typically 100 Hz. The frame rendering thread and the physics engine 
+thread communicate via a shared channel. Object position data is communicated from
+the engine thread to the rendering thread. User input is communicated in the opposite
+direction.
 
 ![Frame rate and engine tick rate](docs/game-rate.png)
+
+![Thread communication](docs/thread-communication.png)
 
 # Engine
 The `trippin` physics engine handles the movement and interaction of all objects.
