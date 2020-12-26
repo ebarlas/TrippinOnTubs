@@ -171,10 +171,6 @@ void trippin::Goggin::onKeyUp() {
     }
 }
 
-double trippin::Goggin::findJumpCharge(int ticks) const {
-
-}
-
 trippin::Point<int> trippin::Goggin::getPosition() {
     Lock lock(mutex);
     return channel.roundedPosition;

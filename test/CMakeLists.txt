@@ -1,9 +1,9 @@
 # automatically enable catch2 to generate ctest targets
-include(${CONAN_CATCH2_ROOT}/lib/cmake/Catch2/Catch.cmake)
+find_package(Catch2 REQUIRED)
+include(Catch)
 
-include_directories(../src/)
 add_library(catch_main STATIC catch_main.cpp)
-target_link_libraries(catch_main PUBLIC CONAN_PKG::catch2)
+target_link_libraries(catch_main Catch2::Catch2)
 
 add_executable(engine_tests
         engine/engine_tests.cpp

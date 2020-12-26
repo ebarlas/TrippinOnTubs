@@ -65,7 +65,6 @@ namespace trippin {
         int ticks{};
         Uint32 lastRunTick{};
 
-        double findJumpCharge(int ticks) const;
         void onFalling(Uint32 engineTicks);
         void onLanding(Uint32 engineTicks);
         void onRunning(Uint32 engineTicks);
