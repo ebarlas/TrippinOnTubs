@@ -9,6 +9,8 @@ Game art is developed in Inkscape and rasterized using Inkscape CLI invoked from
 custom Python tools. Sprite sheets are assembled using the [Pillow](https://pillow.readthedocs.io/en/stable/) image processing
 library also via custom Python tools.
 
+![Frame rate and engine tick rate](docs/goggin.gif)
+
 # Dependencies
 
 Building:
