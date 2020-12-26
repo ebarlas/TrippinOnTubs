@@ -9,6 +9,41 @@ Game art is developed in Inkscape and rasterized using Inkscape CLI invoked from
 custom Python tools. Sprite sheets are assembled using the [Pillow](https://pillow.readthedocs.io/en/stable/) image processing
 library also via custom Python tools.
 
+# Dependencies
+
+Building:
+* C++17+
+* CMake
+* SDL2 library
+* SDL2_image library
+* Nlohmann JSON library
+
+Testing:
+* Catch2 library
+* SDL2_tff library
+
+Assets:
+* Inkscape
+* Python 3.7+
+* Pillow image processing Python library
+
+# Building
+
+The CMake build system generator is used for this project.
+
+SDL2 installations include a CMake config file for use with `find_package`. 
+Similarly, installations of the Catch2 testing library include a CMake config file.
+Ensure these config file are locatable by `find_package`.
+
+SDL2_image, SDL2_tff, and nlohmann JSON are referenced by CMake options
+that must be supplied explicitly:
+
+* SDL2_IMAGE_INCLUDE_DIR
+* SDL2_IMAGE_LIB
+* SDL2_TTF_INCLUDE_DIR
+* SDL2_TTF_LIB
+* NLOHMANN_JSON_INCLUDE_DIR
+
 # Timing
 
 Two independent timers drive game progress. First, the render rate is the
