@@ -4,7 +4,7 @@
 #include "SpriteObject.h"
 #include "Spirit.h"
 #include "Goggin.h"
-#include "Mutex.h"
+#include "lock/Mutex.h"
 
 namespace trippin {
     class JumpMeter : public Renderable, public Listener {

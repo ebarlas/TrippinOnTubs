@@ -6,7 +6,7 @@
 #include "Spirit.h"
 #include "Goggin.h"
 #include "Score.h"
-#include "Guarded.h"
+#include "lock/Guarded.h"
 
 namespace trippin {
     class WingedTub : public Renderable, public Listener {

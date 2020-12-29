@@ -1,5 +1,5 @@
 #include "SpiritClock.h"
-#include "Lock.h"
+#include "lock/Lock.h"
 
 void trippin::SpiritClock::init(const Configuration &config, const Map::Object &obj, const Sprite &spr) {
     auto mul = spr.getScale().getMultiplier();

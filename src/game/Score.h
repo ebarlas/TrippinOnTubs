@@ -5,8 +5,8 @@
 #include "Renderable.h"
 #include "Configuration.h"
 #include "Map.h"
-#include "Mutex.h"
-#include "Guarded.h"
+#include "lock/Mutex.h"
+#include "lock/Guarded.h"
 
 namespace trippin {
     class Score : public Renderable {

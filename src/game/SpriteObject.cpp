@@ -1,5 +1,5 @@
 #include "SpriteObject.h"
-#include "Lock.h"
+#include "lock/Lock.h"
 
 void trippin::SpriteObject::init(
         const Configuration &config,

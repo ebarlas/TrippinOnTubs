@@ -1,7 +1,7 @@
 #include <algorithm>
 #include "sprite/Sprite.h"
 #include "Goggin.h"
-#include "Lock.h"
+#include "lock/Lock.h"
 
 void trippin::Goggin::init(const Configuration &config, const Map::Object &obj, const Sprite &spr) {
     SpriteObject::init(config, obj, spr);

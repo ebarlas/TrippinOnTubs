@@ -1,5 +1,5 @@
 #include "WingedTub.h"
-#include "Exchange.h"
+#include "lock/Exchange.h"
 
 void trippin::WingedTub::init(const Configuration &config, const Map::Object &obj, const Sprite &spr) {
     auto mul = spr.getScale().getMultiplier();

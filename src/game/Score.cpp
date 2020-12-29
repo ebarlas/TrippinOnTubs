@@ -1,5 +1,5 @@
 #include "Score.h"
-#include "Exchange.h"
+#include "lock/Exchange.h"
 
 void trippin::Score::init(const Configuration &config, const Sprite &spr) {
     auto mul = spr.getScale().getMultiplier();

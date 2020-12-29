@@ -29,21 +29,10 @@ add_library(Sprite
 target_include_directories(Sprite PUBLIC ${NLOHMANN_JSON_INCLUDE_DIR} ${SDL2_IMAGE_INCLUDE_DIR})
 target_link_libraries(Sprite Engine ${SDL2_IMAGE_LIB})
 
-add_library(Game
-        game/Game.cpp
-        game/Map.cpp
-        game/Configuration.cpp
-        game/SpriteObject.cpp
-        game/Ground.cpp
-        game/WingedTub.cpp
-        game/Mutex.cpp
-        game/Lock.cpp
-        game/Goggin.cpp
-        game/JumpMeter.cpp
-        game/Score.cpp
-        game/SpiritClock.cpp
-        game/Spirit.cpp)
-target_link_libraries(Game Sprite)
+add_library(Lock
+        lock/Lock.cpp
+        lock/Mutex.cpp)
+target_link_libraries(Lock SDL2::SDL2)
 
 add_library(Graphics
         graphics/FontRenderer.cpp
@@ -72,8 +61,20 @@ target_link_libraries(goggin GameLoop Sprite)
 add_executable(tgoggin applications/tgoggin.cpp)
 target_link_libraries(tgoggin GameLoop Sprite)
 
-add_executable(trippin applications/trippin.cpp)
-target_link_libraries(trippin Game)
+add_executable(trippin
+        game/Game.cpp
+        game/Map.cpp
+        game/Configuration.cpp
+        game/SpriteObject.cpp
+        game/Ground.cpp
+        game/WingedTub.cpp
+        game/Goggin.cpp
+        game/JumpMeter.cpp
+        game/Score.cpp
+        game/SpiritClock.cpp
+        game/Spirit.cpp
+        game/trippin.cpp)
+target_link_libraries(trippin Sprite Lock)
 
 add_executable(collisiondebug applications/collisiondebug.cpp)
 target_link_libraries(collisiondebug Engine)

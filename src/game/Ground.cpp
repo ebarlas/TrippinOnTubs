@@ -1,5 +1,5 @@
 #include "Ground.h"
-#include "Lock.h"
+#include "lock/Lock.h"
 
 void trippin::Ground::init(const Configuration &config, const Map::Object &obj, const Sprite &spr) {
     SpriteObject::init(config, obj, spr);

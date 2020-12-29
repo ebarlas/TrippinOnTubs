@@ -4,10 +4,10 @@
 #include "engine/Object.h"
 #include "sprite/Sprite.h"
 #include "sprite/Camera.h"
+#include "lock/Mutex.h"
 #include "Renderable.h"
 #include "Configuration.h"
 #include "Map.h"
-#include "Mutex.h"
 
 namespace trippin {
     class SpriteObject : public Object, public Renderable {
