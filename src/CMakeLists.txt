@@ -40,25 +40,25 @@ add_library(Graphics
 target_include_directories(Graphics PUBLIC Engine ${SDL2_TTF_INCLUDE_DIR})
 target_link_libraries(Graphics Engine ${SDL2_TTF_LIB})
 
-add_library(GameLoop applications/gameloop.cpp)
+add_library(GameLoop demo/gameloop.cpp)
 target_link_libraries(GameLoop Graphics)
 
-add_executable(enclosed applications/enclosed.cpp)
+add_executable(enclosed demo/enclosed.cpp)
 target_link_libraries(enclosed GameLoop Sprite)
 
-add_executable(arena applications/arena.cpp)
+add_executable(arena demo/arena.cpp)
 target_link_libraries(arena GameLoop Sprite)
 
-add_executable(frogs applications/frogs.cpp)
+add_executable(frogs demo/frogs.cpp)
 target_link_libraries(frogs GameLoop Sprite)
 
-add_executable(mice applications/mice.cpp)
+add_executable(mice demo/mice.cpp)
 target_link_libraries(mice GameLoop Sprite)
 
-add_executable(goggin applications/goggin.cpp)
+add_executable(goggin demo/goggin.cpp)
 target_link_libraries(goggin GameLoop Sprite)
 
-add_executable(tgoggin applications/tgoggin.cpp)
+add_executable(tgoggin demo/tgoggin.cpp)
 target_link_libraries(tgoggin GameLoop Sprite)
 
 add_executable(trippin
@@ -76,5 +76,5 @@ add_executable(trippin
         game/trippin.cpp)
 target_link_libraries(trippin Sprite Lock)
 
-add_executable(collisiondebug applications/collisiondebug.cpp)
+add_executable(collisiondebug demo/collisiondebug.cpp)
 target_link_libraries(collisiondebug Engine)
