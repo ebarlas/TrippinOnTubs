@@ -22,7 +22,8 @@ sprites = [
     'ground_melt_right',
     'winged_tub',
     'clock_timer',
-    'winged_foot'
+    'winged_foot',
+    'digits'
 ]
 
 levels = ['map', 'map_ground_melt']

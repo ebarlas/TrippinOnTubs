@@ -1,0 +1,48 @@
+<ns0:svg xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:ns0="http://www.w3.org/2000/svg" xmlns:ns1="http://www.inkscape.org/namespaces/inkscape" xmlns:ns2="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd" xmlns:ns4="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" width="240" height="240" viewBox="0 0 240 240" version="1.1" id="svg4714" ns1:version="1.0beta2 (2b71d25, 2019-12-03)" ns2:docname="digits.svg">
+  <ns0:defs id="defs4708" />
+  <ns2:namedview id="base" pagecolor="#ffffff" bordercolor="#666666" borderopacity="1.0" ns1:pageopacity="0.0" ns1:pageshadow="2" ns1:zoom="1" ns1:cx="648.47477" ns1:cy="217.14286" ns1:document-units="px" ns1:current-layer="svg4714" ns1:document-rotation="0" showgrid="true" units="px" ns1:window-width="1792" ns1:window-height="1004" ns1:window-x="0" ns1:window-y="23" ns1:window-maximized="0">
+    <ns1:grid type="xygrid" id="grid4724" />
+  </ns2:namedview>
+  <ns0:metadata id="metadata4711">
+    <rdf:RDF>
+      <ns4:Work rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title />
+      </ns4:Work>
+    </rdf:RDF>
+  </ns0:metadata>
+  <ns0:g ns1:groupmode="layer" id="layer3" ns1:label="sample" style="display:none" ns2:insensitive="true">
+    <ns0:text xml:space="preserve" style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:40px;line-height:1.25;font-family:Chalkboard;-inkscape-font-specification:'Chalkboard Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#000000;fill-opacity:1;stroke:none" x="25.714285" y="134.28572" id="text7337"><ns0:tspan ns2:role="line" id="tspan7335" x="25.714285" y="134.28572">0123456789</ns0:tspan></ns0:text>
+  </ns0:g>
+  <ns0:g frame="1" type="frame" style="display:none" id="g7256" ns1:groupmode="layer" ns1:label="zero" ns2:insensitive="true">
+    <ns0:text id="text7254" y="215.83759" x="31.378387" style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:290.667px;line-height:1.25;font-family:Chalkboard;-inkscape-font-specification:'Chalkboard Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#434e6d;fill-opacity:1;stroke:#000000;stroke-width:10;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" xml:space="preserve"><ns0:tspan y="215.83759" x="31.378387" id="tspan7252" ns2:role="line">0</ns0:tspan></ns0:text>
+  </ns0:g>
+  <ns0:g ns1:label="one" ns1:groupmode="layer" frame="2" type="frame" id="g7284" style="display:none" ns2:insensitive="true">
+    <ns0:text xml:space="preserve" style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:290.667px;line-height:1.25;font-family:Chalkboard;-inkscape-font-specification:'Chalkboard Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#434e6d;fill-opacity:1;stroke:#000000;stroke-width:10;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" x="59.21611" y="216.08694" id="text7282"><ns0:tspan ns2:role="line" id="tspan7280" x="59.21611" y="216.08694">1</ns0:tspan></ns0:text>
+  </ns0:g>
+  <ns0:g ns1:label="two" ns1:groupmode="layer" frame="3" type="frame" id="g7278" style="display:none" ns2:insensitive="true">
+    <ns0:text xml:space="preserve" style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:290.667px;line-height:1.25;font-family:Chalkboard;-inkscape-font-specification:'Chalkboard Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#434e6d;fill-opacity:1;stroke:#000000;stroke-width:10;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" x="26.799782" y="218.16301" id="text7276"><ns0:tspan ns2:role="line" id="tspan7274" x="26.799782" y="218.16301">2</ns0:tspan></ns0:text>
+  </ns0:g>
+  <ns0:g style="display:none" id="g7294" frame="4" type="frame" ns1:groupmode="layer" ns1:label="three" ns2:insensitive="true">
+    <ns0:text id="text7292" y="214.90311" x="30.702854" style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:290.667px;line-height:1.25;font-family:Chalkboard;-inkscape-font-specification:'Chalkboard Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#434e6d;fill-opacity:1;stroke:#000000;stroke-width:10;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" xml:space="preserve"><ns0:tspan y="214.90311" x="30.702854" id="tspan7290" ns2:role="line">3</ns0:tspan></ns0:text>
+  </ns0:g>
+  <ns0:g ns1:label="four" ns1:groupmode="layer" frame="5" type="frame" id="g7300" style="display:none" ns2:insensitive="true">
+    <ns0:text xml:space="preserve" style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:290.667px;line-height:1.25;font-family:Chalkboard;-inkscape-font-specification:'Chalkboard Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#434e6d;fill-opacity:1;stroke:#000000;stroke-width:10;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" x="28.82799" y="211.22719" id="text7298"><ns0:tspan ns2:role="line" id="tspan7296" x="28.82799" y="211.22719">4</ns0:tspan></ns0:text>
+  </ns0:g>
+  <ns0:g style="display:none" id="g7308" frame="6" type="frame" ns1:groupmode="layer" ns1:label="five" ns2:insensitive="true">
+    <ns0:text id="text7306" y="215.63931" x="26.496765" style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:290.667px;line-height:1.25;font-family:Chalkboard;-inkscape-font-specification:'Chalkboard Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#434e6d;fill-opacity:1;stroke:#000000;stroke-width:10;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" xml:space="preserve"><ns0:tspan y="215.63931" x="26.496765" id="tspan7304" ns2:role="line">5</ns0:tspan></ns0:text>
+  </ns0:g>
+  <ns0:g ns1:label="six" ns1:groupmode="layer" frame="7" type="frame" id="g7314" style="display:none" ns2:insensitive="true">
+    <ns0:text xml:space="preserve" style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:290.667px;line-height:1.25;font-family:Chalkboard;-inkscape-font-specification:'Chalkboard Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#434e6d;fill-opacity:1;stroke:#000000;stroke-width:10;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" x="26.446354" y="221.48653" id="text7312"><ns0:tspan ns2:role="line" id="tspan7310" x="26.446354" y="221.48653">6</ns0:tspan></ns0:text>
+  </ns0:g>
+  <ns0:g style="display:none" id="g7320" frame="8" type="frame" ns1:groupmode="layer" ns1:label="seven" ns2:insensitive="true">
+    <ns0:text id="text7318" y="212.27472" x="33.037861" style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:290.667px;line-height:1.25;font-family:Chalkboard;-inkscape-font-specification:'Chalkboard Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#434e6d;fill-opacity:1;stroke:#000000;stroke-width:10;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" xml:space="preserve"><ns0:tspan y="212.27472" x="33.037861" id="tspan7316" ns2:role="line">7</ns0:tspan></ns0:text>
+  </ns0:g>
+  <ns0:g ns1:label="eight" ns1:groupmode="layer" frame="9" type="frame" id="g7326" style="display:none" ns2:insensitive="true">
+    <ns0:text xml:space="preserve" style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:290.667px;line-height:1.25;font-family:Chalkboard;-inkscape-font-specification:'Chalkboard Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#434e6d;fill-opacity:1;stroke:#000000;stroke-width:10;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" x="26.215733" y="215.70135" id="text7324"><ns0:tspan ns2:role="line" id="tspan7322" x="26.215733" y="215.70135">8</ns0:tspan></ns0:text>
+  </ns0:g>
+  <ns0:g style="display:none" id="g7332" frame="10" type="frame" ns1:groupmode="layer" ns1:label="nine" ns2:insensitive="true">
+    <ns0:text id="text7330" y="212.2041" x="30.976366" style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:290.667px;line-height:1.25;font-family:Chalkboard;-inkscape-font-specification:'Chalkboard Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#434e6d;fill-opacity:1;stroke:#000000;stroke-width:10;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" xml:space="preserve"><ns0:tspan y="212.2041" x="30.976366" id="tspan7328" ns2:role="line">9</ns0:tspan></ns0:text>
+  </ns0:g>
+</ns0:svg>

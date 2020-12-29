@@ -40,6 +40,7 @@ add_library(Game
         game/Lock.cpp
         game/Goggin.cpp
         game/JumpMeter.cpp
+        game/Score.cpp
         game/SpiritClock.cpp
         game/Spirit.cpp)
 target_link_libraries(Game Sprite)

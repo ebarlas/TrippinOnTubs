@@ -161,7 +161,7 @@ due to object snapping.
 
 Another case is a redundant collision. A redundant collision occurs when the reaction
 to an initial collision doesn't create enough distance to avoid a second collision
-in the subsequence tick after grid snapping. The example below demonstrates that
+in the subsequent tick after grid snapping. The example below demonstrates that
 problem.
 
 ![Image of position updates](docs/redundant.png)  

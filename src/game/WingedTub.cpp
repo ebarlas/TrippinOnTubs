@@ -1,21 +1,29 @@
 #include "WingedTub.h"
-#include "Lock.h"
+#include "Exchange.h"
 
 void trippin::WingedTub::init(const Configuration &config, const Map::Object &obj, const Sprite &spr) {
-    SpriteObject::init(config, obj, spr);
-    framePeriod = sprite->getDuration() / config.tickPeriod;
-    channel.frame = 0;
+    auto mul = spr.getScale().getMultiplier();
+    position = {
+            static_cast<int>(std::round(obj.position.x * mul)),
+            static_cast<int>(std::round(obj.position.y * mul))};
+    sprite = &spr;
+    hitBox = spr.getHitBox() + position;
+    framePeriod = spr.getDuration() / config.tickPeriod;
+    expired = false;
+    channel.set({0, true});
     hitGoggin = false;
 }
 
 void trippin::WingedTub::afterTick(Uint32 engineTicks) {
-    Lock lock(mutex);
+    Exchange exchange(channel);
+    auto &ch = exchange.get();
 
     // Case #1: Goggin contact
-    if (!hitGoggin && roundedBox.intersect(goggin->roundedBox)) {
+    if (!hitGoggin && hitBox.intersect(goggin->roundedBox)) {
         hitGoggin = true;
         hitTicks = 0;
-        channel.frame = 10;
+        ch.frame = 10;
+        score->add(100);
         return;
     }
 
@@ -23,34 +31,36 @@ void trippin::WingedTub::afterTick(Uint32 engineTicks) {
     if (hitGoggin) {
         hitTicks++;
         if (hitTicks % framePeriod == 0) {
-            channel.frame++;
+            ch.frame++;
         }
-        if (channel.frame == sprite->getFrames()) {
+        if (ch.frame == sprite->getFrames()) {
             expired = true;
+            ch.visible = false;
         }
         return;
     }
 
     // Case #3: Advance flapping wings cycle
     if (engineTicks % framePeriod == 0) {
-        channel.frame = (channel.frame + 1) % 10;
+        ch.frame = (ch.frame + 1) % 10;
     }
-}
-
-trippin::Point<int> trippin::WingedTub::getPosition() {
-    return roundedPosition;
-}
-
-int trippin::WingedTub::getFrame() {
-    Lock lock(mutex);
-    return channel.frame;
 }
 
 void trippin::WingedTub::setGoggin(const Goggin *g) {
     goggin = g;
 }
 
-bool trippin::WingedTub::isVisible() {
-    Lock lock(mutex);
-    return channel.frame < sprite->getFrames();
+void trippin::WingedTub::setScore(Score *sc) {
+    score = sc;
+}
+
+void trippin::WingedTub::render(const trippin::Camera &camera) {
+    auto ch = channel.get();
+    if (ch.visible) {
+        sprite->render(position, ch.frame, camera);
+    }
+}
+
+bool trippin::WingedTub::isExpired() {
+    return expired;
 }

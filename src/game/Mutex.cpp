@@ -13,6 +13,6 @@ trippin::Mutex::~Mutex() {
     SDL_DestroyMutex(mutex);
 }
 
-SDL_mutex *trippin::Mutex::get() {
+SDL_mutex *trippin::Mutex::get() const {
     return mutex;
 }

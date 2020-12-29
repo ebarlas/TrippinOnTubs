@@ -15,6 +15,7 @@
 #include "Spirit.h"
 #include "SpiritClock.h"
 #include "JumpMeter.h"
+#include "Score.h"
 
 namespace trippin {
     class Game {
@@ -36,6 +37,7 @@ namespace trippin {
         Spirit spirit;
         SpiritClock spiritClock;
         JumpMeter jumpMeter;
+        Score score;
         void initRuntime();
         void initWindowSize();
         void initWindow();

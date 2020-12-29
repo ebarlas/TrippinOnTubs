@@ -77,10 +77,12 @@ def find_hit_box(svg_file):
                int(round(int(e.attrib['width']) * scale)), \
                int(round(int(e.attrib['height']) * scale))
 
+    return 0, 0, int(root.attrib['width']), int(root.attrib['height'])
+
 
 def find_frame_duration(svg_file):
     root = ET.parse(svg_file).getroot()
-    return int(root.attrib['duration'])
+    return int(root.attrib['duration']) if 'duration' in root.attrib else 80
 
 
 def count_frames(svg_file):

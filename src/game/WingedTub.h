@@ -1,31 +1,38 @@
 #ifndef TRIPPIN_WINGEDTUB_H
 #define TRIPPIN_WINGEDTUB_H
 
+#include "engine/Listener.h"
 #include "SpriteObject.h"
 #include "Spirit.h"
 #include "Goggin.h"
+#include "Score.h"
+#include "Guarded.h"
 
 namespace trippin {
-    class WingedTub : public SpriteObject {
+    class WingedTub : public Renderable, public Listener {
     public:
-        void init(const Configuration &config, const Map::Object &obj, const Sprite &spr) override;
+        void init(const Configuration &config, const Map::Object &obj, const Sprite &spr);
         void setGoggin(const Goggin *goggin);
+        void setScore(Score *score);
         void afterTick(Uint32 engineTicks) override;
-    protected:
-        Point<int> getPosition() override;
-        int getFrame() override;
-        bool isVisible() override;
+        void render(const Camera &camera) override;
+        bool isExpired() override;
     private:
-        struct Channel {
-            int frame;
-        };
-
+        const Sprite *sprite;
+        const Goggin *goggin;
+        Score *score;
+        Point<int> position;
+        Rect<int> hitBox;
         int framePeriod;
-        Channel channel;
-
         int hitTicks;
         bool hitGoggin;
-        const Goggin *goggin;
+        bool expired;
+
+        struct Channel {
+            int frame;
+            bool visible;
+        };
+        Guarded<Channel> channel;
     };
 }
 

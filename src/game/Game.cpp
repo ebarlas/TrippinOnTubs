@@ -102,6 +102,7 @@ void trippin::Game::initEngine() {
             auto uptr = std::make_unique<WingedTub>();
             uptr->init(configuration, obj, spriteManager->get(obj.type));
             uptr->setGoggin(&goggin);
+            uptr->setScore(&score);
             engine.addListener(uptr.get());
             objects.push_back(std::move(uptr));
         } else if (obj.type == "clock_timer") {
@@ -117,6 +118,8 @@ void trippin::Game::initEngine() {
             objects.push_back(std::move(uptr));
         }
     }
+
+    score.init(configuration, spriteManager->get("digits"));
 
     spirit.setPosition(-goggin.terminalVelocity.x * configuration.ticksPerSecond() * 2);
     spirit.setVelocity(goggin.terminalVelocity.x);
@@ -171,6 +174,7 @@ void trippin::Game::renderLoop() {
         goggin.render(camera);
         spiritClock.render(camera);
         jumpMeter.render(camera);
+        score.render(camera);
 
         SDL_RenderPresent(renderer);
     }

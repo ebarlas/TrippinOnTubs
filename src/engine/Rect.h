@@ -25,6 +25,7 @@ namespace trippin {
         static Sides collision(const trippin::Rect<T> &a, const trippin::Rect<T> &b);
         Sides collision(const trippin::Rect<T> &b) const;
         bool operator==(const Rect<T> &other) const;
+        Rect<T> operator+(const Point<T> &other);
         Rect<T> operator-(const Point<T> &other);
         Rect<T> operator*(const T &value);
     };
@@ -118,6 +119,11 @@ bool trippin::Rect<T>::operator==(const trippin::Rect<T> &other) const {
 template<class T>
 T trippin::Rect<T>::area() const {
     return w * h;
+}
+
+template<class T>
+trippin::Rect<T> trippin::Rect<T>::operator+(const trippin::Point<T> &other) {
+    return {x + other.x, y + other.y, w, h};
 }
 
 template<class T>

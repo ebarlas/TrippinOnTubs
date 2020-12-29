@@ -6,7 +6,7 @@
 namespace trippin {
     class Lock {
     public:
-        Lock(Mutex &mutex);
+        Lock(const Mutex &mutex);
         ~Lock();
     private:
         SDL_mutex *mutex;

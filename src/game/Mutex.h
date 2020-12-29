@@ -10,7 +10,7 @@ namespace trippin {
     public:
         Mutex();
         ~Mutex();
-        SDL_mutex *get();
+        SDL_mutex *get() const;
     };
 }
 
