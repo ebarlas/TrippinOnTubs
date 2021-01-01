@@ -73,10 +73,11 @@ namespace trippin {
         void removeExpired();
         void applyMotion();
         void snapObjects();
+        void clearSnapCollisions();
+        void prepareSnapQueue();
+        void processSnapQueue();
         void applyPhysics();
-        void forEachObject(std::function<void(Object *)> fn);
-        void forEachListener(std::function<void(Listener *)> fn);
-        void snapTo(Object &obj, const Object &p, const trippin::Rect<int> &overlap, const Sides &previousContacts);
+        void snapTo(Object &obj, const Object &p, const trippin::Rect<int> &overlap);
         void applyPlatformCollision(Object &object, Object &platform, const Sides &sides);
         void applyObjectCollision(Object &left, Object &right, const Sides &sides);
     };

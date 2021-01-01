@@ -13,27 +13,22 @@ void trippin::Engine::remove(Object *obj) {
     vec.erase(std::find(vec.begin(), vec.end(), obj));
 }
 
-void trippin::Engine::forEachObject(std::function<void(Object * )> fn) {
+void trippin::Engine::beforeTick(Uint32 engineTicks) {
+    auto fn = [engineTicks](auto obj) { obj->beforeTick(engineTicks); };
     std::for_each(platforms.begin(), platforms.end(), fn);
     std::for_each(objects.begin(), objects.end(), fn);
-}
-
-void trippin::Engine::forEachListener(std::function<void(Listener * )> fn) {
     std::for_each(listeners.begin(), listeners.end(), fn);
 }
 
-void trippin::Engine::beforeTick(Uint32 engineTicks) {
-    forEachObject([engineTicks](Object *obj) { obj->beforeTick(engineTicks); });
-    forEachListener([engineTicks](Listener *listener) { listener->beforeTick(engineTicks); });
-}
-
 void trippin::Engine::afterTick(Uint32 engineTicks) {
-    forEachObject([engineTicks](Object *obj) { obj->afterTick(engineTicks); });
-    forEachListener([engineTicks](Listener *listener) { listener->afterTick(engineTicks); });
+    auto fn = [engineTicks](auto obj) { obj->afterTick(engineTicks); };
+    std::for_each(platforms.begin(), platforms.end(), fn);
+    std::for_each(objects.begin(), objects.end(), fn);
+    std::for_each(listeners.begin(), listeners.end(), fn);
 }
 
 void trippin::Engine::removeExpired() {
-    auto fn = [](Listener *obj) { return obj->isExpired(); };
+    auto fn = [](Listener *listener) { return listener->isExpired(); };
     platforms.erase(std::remove_if(platforms.begin(), platforms.end(), fn), platforms.end());
     objects.erase(std::remove_if(objects.begin(), objects.end(), fn), objects.end());
     listeners.erase(std::remove_if(listeners.begin(), listeners.end(), fn), listeners.end());
@@ -49,13 +44,28 @@ void trippin::Engine::tick(Uint32 engineTicks) {
 }
 
 void trippin::Engine::applyMotion() {
-    std::for_each(objects.begin(), objects.end(), [](Object *obj) { obj->applyMotion(); });
+    std::for_each(objects.begin(), objects.end(), [](Object *obj) { if (!obj->inactive) obj->applyMotion(); });
 }
 
 void trippin::Engine::snapObjects() {
-    forEachObject([](Object *obj) { obj->snapCollisions.clear(); });
-    forEachObject([this](Object *obj) { snapQueue.push(obj); });
+    clearSnapCollisions();
+    prepareSnapQueue();
+    processSnapQueue();
+}
 
+void trippin::Engine::clearSnapCollisions() {
+    auto fn = [](Object *obj) { if (!obj->inactive) obj->snapCollisions.clear(); };
+    std::for_each(platforms.begin(), platforms.end(), fn);
+    std::for_each(objects.begin(), objects.end(), fn);
+}
+
+void trippin::Engine::prepareSnapQueue() {
+    auto fn = [this](Object *obj) { if (!obj->inactive) snapQueue.push(obj); };
+    std::for_each(platforms.begin(), platforms.end(), fn);
+    std::for_each(objects.begin(), objects.end(), fn);
+}
+
+void trippin::Engine::processSnapQueue() {
     // Traverse objects in priority order where priority is determined by platform contacts.
     // Each object acts like a platform once. All non-platform, overlapping neighbor objects are snapped.
     while (!snapQueue.empty()) {
@@ -64,7 +74,7 @@ void trippin::Engine::snapObjects() {
             if (plat != kin && !kin->queueVisited) {
                 auto overlap = kin->roundedBox.intersect(plat->roundedBox);
                 if (overlap) {
-                    snapTo(*kin, *plat, overlap, kin->snapCollisions);
+                    snapTo(*kin, *plat, overlap);
                 }
                 auto collision = kin->roundedBox.collision(plat->roundedBox);
                 if (collision) {
@@ -76,7 +86,7 @@ void trippin::Engine::snapObjects() {
     }
 }
 
-void trippin::Engine::snapTo(Object &obj, const Object &p, const Rect<int> &overlap, const Sides &previousCollisions) {
+void trippin::Engine::snapTo(Object &obj, const Object &p, const Rect<int> &overlap) {
     auto x = 0.0;
     auto y = 0.0;
 
@@ -103,13 +113,13 @@ void trippin::Engine::snapTo(Object &obj, const Object &p, const Rect<int> &over
     // use smallest displacement
     if (x != 0 && (y == 0 || (std::abs(x) < std::abs(y)))) {
         // dont snap back over previous overlap - oldest snap wins
-        if ((x > 0 && !previousCollisions.testRight()) || (x < 0 && !previousCollisions.testLeft())) {
+        if ((x > 0 && !obj.snapCollisions.testRight()) || (x < 0 && !obj.snapCollisions.testLeft())) {
             obj.position.x += x;
             updated = true;
         }
     } else if (y != 0) {
         // same as above
-        if ((y > 0 && !previousCollisions.testBottom()) || (y < 0 && !previousCollisions.testTop())) {
+        if ((y > 0 && !obj.snapCollisions.testBottom()) || (y < 0 && !obj.snapCollisions.testTop())) {
             obj.position.y += y;
             updated = true;
         }
@@ -122,21 +132,29 @@ void trippin::Engine::snapTo(Object &obj, const Object &p, const Rect<int> &over
 
 void trippin::Engine::applyPhysics() {
     for (auto platform : platforms) {
-        for (auto object : objects) {
-            auto collision = object->roundedBox.collision(platform->roundedBox);
-            if (collision) {
-                applyPlatformCollision(*object, *platform, collision);
+        if (!platform->inactive) {
+            for (auto object : objects) {
+                if (!object->inactive) {
+                    auto collision = object->roundedBox.collision(platform->roundedBox);
+                    if (collision) {
+                        applyPlatformCollision(*object, *platform, collision);
+                    }
+                }
             }
         }
     }
 
     for (int i = 0; i < objects.size(); i++) {
         auto a = objects[i];
-        for (int j = i + 1; j < objects.size(); j++) {
-            auto b = objects[j];
-            auto collision = a->roundedBox.collision(b->roundedBox);
-            if (collision) {
-                applyObjectCollision(*a, *b, collision);
+        if (!a->inactive) {
+            for (int j = i + 1; j < objects.size(); j++) {
+                auto b = objects[j];
+                if (!b->inactive) {
+                    auto collision = a->roundedBox.collision(b->roundedBox);
+                    if (collision) {
+                        applyObjectCollision(*a, *b, collision);
+                    }
+                }
             }
         }
     }
@@ -144,8 +162,8 @@ void trippin::Engine::applyPhysics() {
 
 void trippin::Engine::applyPlatformCollision(Object &object, Object &platform, const Sides &sides) {
     auto collision = object.platformCollision.isPresent()
-                ? object.platformCollision.get()
-                : platformCollision;
+                     ? object.platformCollision.get()
+                     : platformCollision;
     object.onPlatformCollision(platform, sides);
     collision->onCollision(object, platform, sides);
 }

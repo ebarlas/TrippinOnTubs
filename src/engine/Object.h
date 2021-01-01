@@ -72,6 +72,9 @@ namespace trippin {
         // Flag that indicates whether this object has expired and can be removed.
         bool expired{};
 
+        // Flag that indicates whether this object should be not considered for movement and collisions.
+        bool inactive{};
+
         // Flag used by snap priority queue.
         bool queueVisited{};
 
