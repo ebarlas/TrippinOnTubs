@@ -46,6 +46,13 @@ that must be supplied explicitly:
 * SDL2_TTF_LIB
 * NLOHMANN_JSON_INCLUDE_DIR
 
+# Fonts
+
+A custom TrueType font called [Meltdown MF Font](https://www.fontspace.com/meltdown-mf-font-f5817)
+is used in various places within the game. It was obtained from fontspace.com under a freeware license.
+
+![Meltdown MF Font](docs/meltdown.png)
+
 # Timing
 
 Two independent timers drive game progress. First, the render rate is the
@@ -173,7 +180,7 @@ Collision reactions can be divided into two categories:
 2. Object-object
 
 Object-platform collision reactions can be further subdivided:
-1. Absorbant
+1. Absorbent
 2. Reflective
 
 Object-object collisions reaction can be further subdivided:
