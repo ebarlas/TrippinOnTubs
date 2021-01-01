@@ -29,8 +29,7 @@ def map_test():
 
 
 def animate_frames():
-    # gif.animate_frames('../build-sprites/winged_foot_', '_medium.png', 11, 'winged_foot.gif', 80)
-    gif.animate_frames('../build-sprites/clock_timer_', '_medium.png', 11, 'clock_timer.gif', 80)
+    gif.animate_frames('../build-sprites/zombie_', '_medium.png', 12, 'zombie.gif', 80)
 
 
 if __name__ == '__main__':

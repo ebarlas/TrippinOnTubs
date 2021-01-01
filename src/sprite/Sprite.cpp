@@ -2,7 +2,7 @@
 #include "Sprite.h"
 
 trippin::Sprite::Sprite(SDL_Renderer *ren, const std::string &name, const Scale &scale)
-        : scale(scale), sheet(ren, name, scale) {
+        : scale(scale), sheet(ren, name, scale), ren(ren) {
     metadata.load(name);
 
     size = sheet.getSize();
@@ -28,6 +28,11 @@ void trippin::Sprite::render(trippin::Point<int> hitBoxPos, int frame, const tri
     if (box.intersect(viewport)) {
         Point<int> target = {box.x - viewport.x, box.y - viewport.y};
         render(target, frame);
+        /*
+        SDL_SetRenderDrawColor(ren, 0, 0, 255, 255);
+        SDL_Rect r{hitBoxPos.x - viewport.x, hitBoxPos.y - viewport.y, hitBox.w, hitBox.h};
+        SDL_RenderDrawRect(ren, &r);
+        */
     }
 }
 

@@ -23,6 +23,7 @@ namespace trippin {
         Rect<int> hitBox;
         SpriteMetadata metadata;
         SpriteSheet sheet;
+        SDL_Renderer *ren;
     };
 }
 

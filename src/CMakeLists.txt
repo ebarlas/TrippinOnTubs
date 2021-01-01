@@ -73,6 +73,7 @@ add_executable(trippin
         game/Score.cpp
         game/SpiritClock.cpp
         game/Spirit.cpp
+        game/Zombie.cpp
         game/trippin.cpp)
 target_link_libraries(trippin Sprite Lock)
 

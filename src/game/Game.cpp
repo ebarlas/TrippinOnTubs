@@ -1,5 +1,6 @@
 #include "Game.h"
 #include "Ground.h"
+#include "Zombie.h"
 #include "WingedTub.h"
 
 void trippin::Game::init() {
@@ -111,8 +112,8 @@ void trippin::Game::initEngine() {
         } else if (obj.type == "winged_foot") {
             jumpMeter.init(configuration, obj, spriteManager->get(obj.type));
             engine.addListener(&jumpMeter);
-        } else {
-            auto uptr = std::make_unique<SpriteObject>();
+        } else if (obj.type == "zombie") {
+            auto uptr = std::make_unique<Zombie>();
             uptr->init(configuration, obj, spriteManager->get(obj.type));
             engine.add(uptr.get());
             objects.push_back(std::move(uptr));

@@ -1,7 +1,7 @@
 #include <algorithm>
 #include "sprite/Sprite.h"
 #include "Goggin.h"
-#include "lock/Lock.h"
+#include "lock/Exchange.h"
 
 void trippin::Goggin::init(const Configuration &config, const Map::Object &obj, const Sprite &spr) {
     SpriteObject::init(config, obj, spr);
@@ -19,38 +19,40 @@ void trippin::Goggin::init(const Configuration &config, const Map::Object &obj, 
     maxJumpChargeTicks = obj.maxJumpChargeTime / config.tickPeriod;
     jumpGracePeriodTicks = obj.jumpGracePeriod / config.tickPeriod;
     state = State::falling;
-    channel.frame = 14;
-    channel.keyDown = false;
+    channel.ref() = {roundedPosition, 14, false, false};
 }
 
 void trippin::Goggin::beforeTick(Uint32 engineTicks) {
-    Lock lock(mutex);
+    Exchange exchange{channel};
+    auto &ch = exchange.get();
 
     double jumpVel;
-    if (channel.keyDown) {
+    if (ch.keyDown) {
         if (!jumpTicks) {
             jumpTicks = engineTicks;
         }
         auto relTicks = static_cast<int>(engineTicks - jumpTicks);
         auto range = static_cast<double>(maxJumpChargeTicks - minJumpChargeTicks);
-        jumpPercent = (std::max(minJumpChargeTicks, std::min(relTicks, maxJumpChargeTicks)) - minJumpChargeTicks) / range;
+        auto boundedTicks = std::max(minJumpChargeTicks, std::min(relTicks, maxJumpChargeTicks));
+        jumpPercent = (boundedTicks - minJumpChargeTicks) / range;
         jumpVel = minJumpVelocity + jumpPercent * (maxJumpVelocity - minJumpVelocity);
     } else {
         jumpPercent = 0;
     }
 
-    if (channel.keyUp && jumpTicks) {
-        channel.keyDown = false;
-        channel.keyUp = false;
+    if (ch.keyUp && jumpTicks) {
+        ch.keyDown = false;
+        ch.keyUp = false;
         jumpTicks = 0;
-        if (state == running || state == landing || (engineTicks > lastRunTick && engineTicks - lastRunTick < jumpGracePeriodTicks)) {
+        if (state == running || state == landing ||
+            (engineTicks > lastRunTick && engineTicks - lastRunTick < jumpGracePeriodTicks)) {
             if (skipLaunch) {
                 state = State::rising;
-                channel.frame = FRAME_LAUNCHING_LAST;
+                ch.frame = FRAME_LAUNCHING_LAST;
                 velocity.y = jumpVel;
             } else {
                 state = State::launching;
-                channel.frame = FRAME_LAUNCHING_FIRST;
+                ch.frame = FRAME_LAUNCHING_FIRST;
                 jumpVelocity = jumpVel;
             }
             acceleration.x = risingAcceleration;
@@ -60,68 +62,69 @@ void trippin::Goggin::beforeTick(Uint32 engineTicks) {
 }
 
 void trippin::Goggin::afterTick(Uint32 engineTicks) {
-    Lock lock(mutex);
+    Exchange exchange{channel};
+    auto &ch = exchange.get();
     ticks++;
 
     if (state == State::falling) {
-        onFalling(engineTicks);
+        onFalling(engineTicks, ch);
     } else if (state == State::landing) {
-        onLanding(engineTicks);
+        onLanding(engineTicks, ch);
     } else if (state == State::running) {
-        onRunning(engineTicks);
+        onRunning(engineTicks, ch);
     } else if (state == State::launching) {
-        onLaunching(engineTicks);
+        onLaunching(engineTicks, ch);
     } else if (state == State::rising) {
-        onRising(engineTicks);
+        onRising(engineTicks, ch);
     }
 
-    channel.roundedPosition = roundedPosition;
+    ch.roundedPosition = roundedPosition;
 }
 
 void trippin::Goggin::center(trippin::Camera &camera) {
-    camera.centerOn(getPosition());
+    camera.centerOn(channel.get().roundedPosition);
 }
 
-void trippin::Goggin::onFalling(Uint32 engineTicks) {
+void trippin::Goggin::onFalling(Uint32 engineTicks, Channel &ch) {
     if (platformCollisions.testBottom()) {
         state = State::landing;
         ticks = 0;
-        channel.frame = FRAME_LANDING_FIRST;
+        ch.frame = FRAME_LANDING_FIRST;
         return;
     }
 
     if (ticks == framePeriod) {
         ticks = 0;
-        auto frame = channel.frame;
+        auto frame = ch.frame;
         if (frame < FRAME_FALLING_LAST) {
-            channel.frame = frame + 1;
+            ch.frame = frame + 1;
         }
     }
 }
 
-void trippin::Goggin::onLanding(Uint32 engineTicks) {
+void trippin::Goggin::onLanding(Uint32 engineTicks, Channel &ch) {
     if (ticks != framePeriod) {
         return;
     }
 
     ticks = 0;
-    auto frame = channel.frame;
+    auto frame = ch.frame;
     if (frame == FRAME_LANDING_FIRST) {
-        channel.frame = frame + 1;
+        ch.frame = frame + 1;
         return;
     }
 
     state = State::running;
-    channel.frame = FRAME_RUN_AFTER_LAND;
+    ch.frame = FRAME_RUN_AFTER_LAND;
     acceleration.x = runningAcceleration;
 }
 
-void trippin::Goggin::onRunning(Uint32 engineTicks) {
+void trippin::Goggin::onRunning(Uint32 engineTicks, Channel &ch) {
     lastRunTick = engineTicks;
 
     if (!platformCollisions.testBottom()) {
         state = State::falling;
-        channel.frame = FRAME_FALLING_FIRST;
+        ch.frame = FRAME_FALLING_FIRST;
         ticks = 0;
         acceleration.x = 0;
         return;
@@ -129,20 +132,20 @@ void trippin::Goggin::onRunning(Uint32 engineTicks) {
 
     if (ticks == framePeriod) {
         ticks = 0;
-        channel.frame = (channel.frame + 1) % RUNNING_FRAMES;
+        ch.frame = (ch.frame + 1) % RUNNING_FRAMES;
     }
 }
 
-void trippin::Goggin::onLaunching(Uint32 engineTicks) {
+void trippin::Goggin::onLaunching(Uint32 engineTicks, Channel &ch) {
     if (ticks != framePeriod) {
         return;
     }
 
     ticks = 0;
-    auto frame = channel.frame;
+    auto frame = ch.frame;
     if (frame < FRAME_LAUNCHING_LAST) {
         frame++;
-        channel.frame = frame;
+        ch.frame = frame;
         if (frame == FRAME_LAUNCHING_LAST) {
             state = State::rising;
             velocity.y = jumpVelocity;
@@ -150,35 +153,32 @@ void trippin::Goggin::onLaunching(Uint32 engineTicks) {
     }
 }
 
-void trippin::Goggin::onRising(Uint32 engineTicks) {
+void trippin::Goggin::onRising(Uint32 engineTicks, Channel &ch) {
     if (velocity.y >= 0) {
         state = State::falling;
-        channel.frame = FRAME_FALLING_FIRST;
+        ch.frame = FRAME_FALLING_FIRST;
         ticks = 0;
         acceleration.x = 0;
     }
 }
 
+void trippin::Goggin::render(const trippin::Camera &camera) {
+    auto ch = channel.get();
+    sprite->render(ch.roundedPosition, ch.frame, camera);
+}
+
 void trippin::Goggin::onKeyDown() {
-    Lock lock(mutex);
-    channel.keyDown = true;
+    Exchange exchange{channel};
+    auto &ch = exchange.get();
+    ch.keyDown = true;
 }
 
 void trippin::Goggin::onKeyUp() {
-    Lock lock(mutex);
-    if (channel.keyDown) {
-        channel.keyUp = true;
+    Exchange exchange{channel};
+    auto &ch = exchange.get();
+    if (ch.keyDown) {
+        ch.keyUp = true;
     }
-}
-
-trippin::Point<int> trippin::Goggin::getPosition() {
-    Lock lock(mutex);
-    return channel.roundedPosition;
-}
-
-int trippin::Goggin::getFrame() {
-    Lock lock(mutex);
-    return channel.frame;
 }
 
 double trippin::Goggin::getJumpCharge() const {

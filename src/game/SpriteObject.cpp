@@ -14,36 +14,11 @@ void trippin::SpriteObject::init(
     gravity = (obj.gravity / gameTicksPerSecondSq) * mul;
     fallGravity = (obj.fallGravity / gameTicksPerSecondSq) * mul;
     auto hb = spr.getHitBox();
+    mass = obj.mass > 0 ? obj.mass : hb.area();
     position = {obj.position.x * mul + hb.corner().x, obj.position.y * mul + hb.corner().y};
     size = {hb.w, hb.h};
     velocity = (obj.velocity / config.ticksPerSecond()) * mul;
     terminalVelocity = (obj.terminalVelocity / config.ticksPerSecond()) * mul;
     friction = (obj.friction / gameTicksPerSecondSq) * mul;
     syncPositions();
-
-    channel.roundedPosition = roundedPosition;
-}
-
-void trippin::SpriteObject::render(const trippin::Camera &camera) {
-    if (isVisible()) {
-        sprite->render(getPosition(), getFrame(), camera);
-    }
-}
-
-void trippin::SpriteObject::afterTick(Uint32 engineTicks) {
-    Lock lock(mutex);
-    channel.roundedPosition = roundedPosition;
-}
-
-int trippin::SpriteObject::getFrame() {
-    return 0;
-}
-
-trippin::Point<int> trippin::SpriteObject::getPosition() {
-    Lock lock(mutex);
-    return channel.roundedPosition;
-}
-
-bool trippin::SpriteObject::isVisible() {
-    return true;
 }

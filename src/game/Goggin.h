@@ -4,6 +4,7 @@
 #include "engine/Object.h"
 #include "sprite/Sprite.h"
 #include "SpriteObject.h"
+#include "lock/Guarded.h"
 
 namespace trippin {
     class Goggin : public SpriteObject {
@@ -11,13 +12,11 @@ namespace trippin {
         void init(const Configuration &config, const Map::Object &obj, const Sprite &spr) override;
         void beforeTick(Uint32 engineTicks) override;
         void afterTick(Uint32 engineTicks) override;
+        void render(const Camera &camera) override;
         void center(Camera &camera);
         void onKeyDown();
         void onKeyUp();
         double getJumpCharge() const;
-    protected:
-        Point<int> getPosition() override;
-        int getFrame() override;
     private:
         struct Channel {
             Point<int> roundedPosition;
@@ -35,7 +34,7 @@ namespace trippin {
 
         constexpr static const int RUNNING_FRAMES = 8;
 
-        Channel channel;
+        Guarded<Channel> channel;
 
         bool skipLaunch;
         double jumpVelocity;
@@ -65,11 +64,11 @@ namespace trippin {
         int ticks{};
         Uint32 lastRunTick{};
 
-        void onFalling(Uint32 engineTicks);
-        void onLanding(Uint32 engineTicks);
-        void onRunning(Uint32 engineTicks);
-        void onLaunching(Uint32 engineTicks);
-        void onRising(Uint32 engineTicks);
+        void onFalling(Uint32 engineTicks, Channel &ch);
+        void onLanding(Uint32 engineTicks, Channel &ch);
+        void onRunning(Uint32 engineTicks, Channel &ch);
+        void onLaunching(Uint32 engineTicks, Channel &ch);
+        void onRising(Uint32 engineTicks, Channel &ch);
     };
 }
 

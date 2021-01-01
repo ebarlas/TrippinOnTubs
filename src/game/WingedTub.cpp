@@ -10,7 +10,7 @@ void trippin::WingedTub::init(const Configuration &config, const Map::Object &ob
     hitBox = spr.getHitBox() + position;
     framePeriod = spr.getDuration() / config.tickPeriod;
     expired = false;
-    channel.set({0, true});
+    channel.ref() = {0, true};
     hitGoggin = false;
 }
 
@@ -57,7 +57,7 @@ void trippin::WingedTub::setScore(Score *sc) {
 void trippin::WingedTub::render(const trippin::Camera &camera) {
     auto ch = channel.get();
     if (ch.visible) {
-        sprite->render(position, ch.frame, camera);
+        sprite->render(hitBox.corner(), ch.frame, camera);
     }
 }
 
