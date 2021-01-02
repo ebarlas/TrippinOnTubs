@@ -395,6 +395,22 @@
     },
     {
       "id": 42,
+      "type": "zombie",
+      "platform": false,
+      "position": {
+        "x": 10960,
+        "y": 560
+      },
+      "terminalVelocity": {
+        "x": 400.0,
+        "y": 4500.0
+      },
+      "gravity": 4000.0,
+      "fallGravity": 6000.0,
+      "runningAcceleration": -500.0
+    },
+    {
+      "id": 43,
       "type": "clock_timer",
       "platform": false,
       "position": {
@@ -403,7 +419,7 @@
       }
     },
     {
-      "id": 43,
+      "id": 44,
       "type": "winged_foot",
       "platform": false,
       "position": {

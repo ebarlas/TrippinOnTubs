@@ -28,6 +28,7 @@ void trippin::from_json(const nlohmann::json &j, Configuration &config) {
     j.at("playerBaseWidth").get_to(config.playerBaseWidth);
     j.at("tickPeriod").get_to(config.tickPeriod);
     j.at("spiritClockTickPeriod").get_to(config.spiritClockTickPeriod);
+    j.at("activationProximity").get_to(config.activationProximity);
     j.at("map").get_to(config.map);
 
     for (auto &elem : j.at("scales")) {

@@ -12,6 +12,7 @@ namespace trippin {
         int playerBaseWidth;
         int tickPeriod;
         int spiritClockTickPeriod;
+        int activationProximity;
         std::string map;
         std::vector<Scale> scales;
         void load(const std::string &name);

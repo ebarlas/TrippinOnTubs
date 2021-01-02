@@ -16,6 +16,7 @@
 #include "SpiritClock.h"
 #include "JumpMeter.h"
 #include "Score.h"
+#include "Activation.h"
 
 namespace trippin {
     class Game {
@@ -30,6 +31,7 @@ namespace trippin {
         std::unique_ptr<SpriteManager> spriteManager;
         Camera camera;
         Engine engine;
+        Activation activation;
         std::vector<std::unique_ptr<Renderable>> objects;
         Goggin goggin;
         AbsorbentCollision platformCollision;

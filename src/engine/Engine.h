@@ -9,7 +9,6 @@
 #include "engine/AbsorbentCollision.h"
 #include "engine/InelasticCollision.h"
 #include "engine/Clock.h"
-#include "SnapQueue.h"
 
 namespace trippin {
     // Engine handles the movement and interaction of objects.
@@ -65,19 +64,16 @@ namespace trippin {
         bool paused = false;
         bool stopped = false;
 
-        // This data structure is used to prioritize objects during object snapping
-        SnapQueue snapQueue{};
-
         void beforeTick(Uint32 engineTicks);
         void afterTick(Uint32 engineTicks);
         void removeExpired();
         void applyMotion();
         void snapObjects();
-        void clearSnapCollisions();
-        void prepareSnapQueue();
-        void processSnapQueue();
+        Object* nextObjectToSnap();
+        static bool hasHigherSnapPriorityThan(Object *left, Object *right);
+        void snapToPlatform(Object *obj);
         void applyPhysics();
-        void snapTo(Object &obj, const Object &p, const trippin::Rect<int> &overlap);
+        static void snapTo(Object &obj, const Object &p, const trippin::Rect<int> &overlap);
         void applyPlatformCollision(Object &object, Object &platform, const Sides &sides);
         void applyObjectCollision(Object &left, Object &right, const Sides &sides);
     };

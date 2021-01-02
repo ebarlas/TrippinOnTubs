@@ -75,15 +75,16 @@ namespace trippin {
         // Flag that indicates whether this object should be not considered for movement and collisions.
         bool inactive{};
 
-        // Flag used by snap priority queue.
-        bool queueVisited{};
+        // Flag used for object snapping prioritization.
+        bool snappedToMe{};
+
+        // Accumulates collision sides over the course of a single round of object snapping.
+        // Used to determine object snapping priority.
+        Sides snapCollisions{};
 
         // Collision sides use to determine whether movement is allowed in each direction.
         Sides platformCollisions{};
         Sides objectCollisions{};
-
-        // Accumulates collision sides over the course of a single round of object snapping
-        Sides snapCollisions{};
 
         void syncPositions();
         void applyMotion();

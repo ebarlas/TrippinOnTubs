@@ -97,6 +97,7 @@ void trippin::Game::initEngine() {
             auto uptr = std::make_unique<Ground>();
             uptr->init(configuration, obj, spriteManager->get(obj.type));
             uptr->setSpirit(&spirit);
+            uptr->setActivation(&activation);
             engine.add(uptr.get());
             objects.push_back(std::move(uptr));
         } else if (obj.type == "winged_tub") {
@@ -115,6 +116,7 @@ void trippin::Game::initEngine() {
         } else if (obj.type == "zombie") {
             auto uptr = std::make_unique<Zombie>();
             uptr->init(configuration, obj, spriteManager->get(obj.type));
+            uptr->setActivation(&activation);
             engine.add(uptr.get());
             objects.push_back(std::move(uptr));
         }
@@ -129,6 +131,9 @@ void trippin::Game::initEngine() {
     spiritClock.setSpirit(&spirit);
 
     jumpMeter.setGoggin(&goggin);
+
+    activation.setProximity(static_cast<int>(configuration.activationProximity * scale->getMultiplier()));
+    activation.setGoggin(&goggin);
 }
 
 trippin::Game::Game(std::string configName) : configName(std::move(configName)) {

@@ -1,6 +1,5 @@
 #include "SDL.h"
 #include "engine/Engine.h"
-#include "engine/SnapQueue.h"
 #include "engine/Clock.h"
 
 void trippin::Engine::add(Object *obj) {
@@ -48,39 +47,60 @@ void trippin::Engine::applyMotion() {
 }
 
 void trippin::Engine::snapObjects() {
-    clearSnapCollisions();
-    prepareSnapQueue();
-    processSnapQueue();
+    // prepare for snapping
+    for (auto obj : objects) {
+        if (!obj->inactive) {
+            obj->snapCollisions.clear();
+            obj->snappedToMe = false;
+        }
+    }
+
+    // first, snap objects to each platform
+    for (auto plat : platforms) {
+        snapToPlatform(plat);
+    }
+
+    // next, snap objects to each object in priority order
+    Object *it;
+    while ((it = nextObjectToSnap()) != nullptr) {
+        snapToPlatform(it);
+    }
 }
 
-void trippin::Engine::clearSnapCollisions() {
-    auto fn = [](Object *obj) { if (!obj->inactive) obj->snapCollisions.clear(); };
-    std::for_each(platforms.begin(), platforms.end(), fn);
-    std::for_each(objects.begin(), objects.end(), fn);
+trippin::Object *trippin::Engine::nextObjectToSnap() {
+    Object *max = nullptr;
+    for (auto obj : objects) {
+        if (!obj->snappedToMe && (max == nullptr || hasHigherSnapPriorityThan(obj, max))) {
+            max = obj;
+        }
+    }
+    if (max != nullptr) {
+        max->snappedToMe = true;
+    }
+    return max;
 }
 
-void trippin::Engine::prepareSnapQueue() {
-    auto fn = [this](Object *obj) { if (!obj->inactive) snapQueue.push(obj); };
-    std::for_each(platforms.begin(), platforms.end(), fn);
-    std::for_each(objects.begin(), objects.end(), fn);
+bool trippin::Engine::hasHigherSnapPriorityThan(Object *left, Object *right) {
+    // object with most collision sides is highest priority
+    auto lcnt = left->snapCollisions.count();
+    auto rcnt = right->snapCollisions.count();
+    if (lcnt != rcnt)
+        return lcnt > rcnt;
+
+    // object with highest y position (lower on screen) is next highest priority
+    return left->position.y > right->position.y;
 }
 
-void trippin::Engine::processSnapQueue() {
-    // Traverse objects in priority order where priority is determined by platform contacts.
-    // Each object acts like a platform once. All non-platform, overlapping neighbor objects are snapped.
-    while (!snapQueue.empty()) {
-        auto plat = snapQueue.pop();
-        for (auto kin : objects) {
-            if (plat != kin && !kin->queueVisited) {
-                auto overlap = kin->roundedBox.intersect(plat->roundedBox);
-                if (overlap) {
-                    snapTo(*kin, *plat, overlap);
-                }
-                auto collision = kin->roundedBox.collision(plat->roundedBox);
-                if (collision) {
-                    auto c = kin->snapCollisions |= collision;
-                    snapQueue.push(kin, c);
-                }
+void trippin::Engine::snapToPlatform(Object *plat) {
+    for (auto obj : objects) {
+        if (!obj->snappedToMe) {
+            auto overlap = obj->roundedBox.intersect(plat->roundedBox);
+            if (overlap) {
+                snapTo(*obj, *plat, overlap);
+            }
+            auto collision = obj->roundedBox.collision(plat->roundedBox);
+            if (collision) {
+                obj->snapCollisions |= collision;
             }
         }
     }
@@ -91,7 +111,7 @@ void trippin::Engine::snapTo(Object &obj, const Object &p, const Rect<int> &over
     auto y = 0.0;
 
     // examine horizontal overlap - the overlap rect must align with left-right sides of the two objects
-    // this check excludes interior collisions, for example a tally, skinny object that drops vertically in the
+    // this check excludes interior collisions, for example a tall, skinny object that drops vertically in the
     // middle of a wide platform
     if (obj.roundedBox.leftAlignedWith(overlap) && p.roundedBox.rightAlignedWith(overlap)) {
         x = overlap.w;
@@ -100,7 +120,7 @@ void trippin::Engine::snapTo(Object &obj, const Object &p, const Rect<int> &over
     }
 
     // examine vertical overlap - the overlap rect must align with top-bottom sides of the two objects
-    // this check excludes interior collisions, for example a short, wide object that move laterally in the
+    // this check excludes interior collisions, for example a short, wide object that moves laterally in the
     // middle of a tall platform
     if (obj.roundedBox.topAlignedWith(overlap) && p.roundedBox.bottomAlignedWith(overlap)) {
         y = overlap.h;
@@ -108,25 +128,19 @@ void trippin::Engine::snapTo(Object &obj, const Object &p, const Rect<int> &over
         y = -overlap.h;
     }
 
-    bool updated = false;
-
     // use smallest displacement
     if (x != 0 && (y == 0 || (std::abs(x) < std::abs(y)))) {
         // dont snap back over previous overlap - oldest snap wins
         if ((x > 0 && !obj.snapCollisions.testRight()) || (x < 0 && !obj.snapCollisions.testLeft())) {
             obj.position.x += x;
-            updated = true;
+            obj.syncPositions();
         }
     } else if (y != 0) {
         // same as above
         if ((y > 0 && !obj.snapCollisions.testBottom()) || (y < 0 && !obj.snapCollisions.testTop())) {
             obj.position.y += y;
-            updated = true;
+            obj.syncPositions();
         }
-    }
-
-    if (updated) {
-        obj.syncPositions();
     }
 }
 

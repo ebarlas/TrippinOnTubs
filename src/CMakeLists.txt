@@ -13,7 +13,6 @@ add_library(Engine
         engine/Object.cpp
         engine/Sides.cpp
         engine/Engine.cpp
-        engine/SnapQueue.cpp
         engine/Clock.cpp)
 target_include_directories(Engine PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
 target_link_libraries(Engine SDL2::SDL2)
@@ -74,6 +73,7 @@ add_executable(trippin
         game/SpiritClock.cpp
         game/Spirit.cpp
         game/Zombie.cpp
+        game/Activation.cpp
         game/trippin.cpp)
 target_link_libraries(trippin Sprite Lock)
 

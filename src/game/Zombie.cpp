@@ -7,9 +7,16 @@ void trippin::Zombie::init(const Configuration &config, const Map::Object &obj, 
     auto mul = spr.getScale().getMultiplier();
     auto gameTicksPerSecondSq = config.ticksPerSecond() * config.ticksPerSecond();
 
+    inactive = true;
     framePeriod = sprite->getDuration() / config.tickPeriod;
     runningAcceleration = (obj.runningAcceleration / gameTicksPerSecondSq) * mul;
     channel.ref() = {roundedPosition, 0};
+}
+
+void trippin::Zombie::beforeTick(Uint32 engineTicks) {
+    if (inactive && activation->shouldActivate(roundedPosition.x)) {
+        inactive = false;
+    }
 }
 
 void trippin::Zombie::afterTick(Uint32 engineTicks) {
@@ -29,4 +36,8 @@ void trippin::Zombie::afterTick(Uint32 engineTicks) {
 void trippin::Zombie::render(const trippin::Camera &camera) {
     auto ch = channel.get();
     sprite->render(ch.roundedPosition, ch.frame, camera);
+}
+
+void trippin::Zombie::setActivation(const Activation *act) {
+    activation = act;
 }
