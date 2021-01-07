@@ -1,7 +1,7 @@
-#include "Zombie.h"
+#include "PacingObject.h"
 #include "lock/Exchange.h"
 
-void trippin::Zombie::init(const Configuration &config, const Map::Object &obj, const Sprite &spr) {
+void trippin::PacingObject::init(const Configuration &config, const Map::Object &obj, const Sprite &spr) {
     SpriteObject::init(config, obj, spr);
 
     auto mul = spr.getScale().getMultiplier();
@@ -13,31 +13,31 @@ void trippin::Zombie::init(const Configuration &config, const Map::Object &obj, 
     channel.ref() = {roundedPosition, 0};
 }
 
-void trippin::Zombie::beforeTick(Uint32 engineTicks) {
+void trippin::PacingObject::beforeTick(Uint32 engineTicks) {
     if (inactive && activation->shouldActivate(roundedPosition.x)) {
         inactive = false;
     }
 }
 
-void trippin::Zombie::afterTick(Uint32 engineTicks) {
+void trippin::PacingObject::afterTick(Uint32 engineTicks) {
     Exchange ex{channel};
     auto &ch = ex.get();
     ch.roundedPosition = roundedPosition;
-    if (platformCollisions.testBottom()) {
+    if (platformCollisions.testBottom() || objectCollisions.testBottom()) {
         acceleration.x = runningAcceleration;
         if (engineTicks % framePeriod == 0) {
-            ch.frame = (ch.frame + 1) % 10;
+            ch.frame = (ch.frame + 1) % sprite->getFrames();
         }
     } else {
         acceleration.x = 0;
     }
 }
 
-void trippin::Zombie::render(const trippin::Camera &camera) {
+void trippin::PacingObject::render(const trippin::Camera &camera) {
     auto ch = channel.get();
     sprite->render(ch.roundedPosition, ch.frame, camera);
 }
 
-void trippin::Zombie::setActivation(const Activation *act) {
+void trippin::PacingObject::setActivation(const Activation *act) {
     activation = act;
 }

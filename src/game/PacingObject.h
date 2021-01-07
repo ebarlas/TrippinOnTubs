@@ -1,12 +1,12 @@
-#ifndef TRIPPIN_ZOMBIE_H
-#define TRIPPIN_ZOMBIE_H
+#ifndef TRIPPIN_PACINGOBJECT_H
+#define TRIPPIN_PACINGOBJECT_H
 
 #include "SpriteObject.h"
 #include "Activation.h"
 #include "lock/Guarded.h"
 
 namespace trippin {
-    class Zombie : public SpriteObject {
+    class PacingObject : public SpriteObject {
     public:
         void init(const Configuration &config, const Map::Object &obj, const Sprite &spr) override;
         void beforeTick(Uint32 engineTicks) override;

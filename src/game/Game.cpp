@@ -1,6 +1,6 @@
 #include "Game.h"
 #include "Ground.h"
-#include "Zombie.h"
+#include "PacingObject.h"
 #include "WingedTub.h"
 
 void trippin::Game::init() {
@@ -114,7 +114,13 @@ void trippin::Game::initEngine() {
             jumpMeter.init(configuration, obj, spriteManager->get(obj.type));
             engine.addListener(&jumpMeter);
         } else if (obj.type == "zombie") {
-            auto uptr = std::make_unique<Zombie>();
+            auto uptr = std::make_unique<PacingObject>();
+            uptr->init(configuration, obj, spriteManager->get(obj.type));
+            uptr->setActivation(&activation);
+            engine.add(uptr.get());
+            objects.push_back(std::move(uptr));
+        } else if (obj.type == "rat") {
+            auto uptr = std::make_unique<PacingObject>();
             uptr->init(configuration, obj, spriteManager->get(obj.type));
             uptr->setActivation(&activation);
             engine.add(uptr.get());

@@ -411,6 +411,166 @@
     },
     {
       "id": 43,
+      "type": "rat",
+      "platform": false,
+      "position": {
+        "x": 8440,
+        "y": 480
+      },
+      "terminalVelocity": {
+        "x": 400.0,
+        "y": 4500.0
+      },
+      "gravity": 4000.0,
+      "fallGravity": 6000.0,
+      "runningAcceleration": -500.0
+    },
+    {
+      "id": 44,
+      "type": "rat",
+      "platform": false,
+      "position": {
+        "x": 8480,
+        "y": 640
+      },
+      "terminalVelocity": {
+        "x": 800.0,
+        "y": 4500.0
+      },
+      "gravity": 4000.0,
+      "fallGravity": 6000.0,
+      "runningAcceleration": -1000.0
+    },
+    {
+      "id": 45,
+      "type": "rat",
+      "platform": false,
+      "position": {
+        "x": 8400,
+        "y": 400
+      },
+      "terminalVelocity": {
+        "x": 800.0,
+        "y": 4500.0
+      },
+      "gravity": 4000.0,
+      "fallGravity": 6000.0,
+      "runningAcceleration": -1000.0
+    },
+    {
+      "id": 46,
+      "type": "rat",
+      "platform": false,
+      "position": {
+        "x": 8400,
+        "y": 80
+      },
+      "terminalVelocity": {
+        "x": 800.0,
+        "y": 4500.0
+      },
+      "gravity": 4000.0,
+      "fallGravity": 6000.0,
+      "runningAcceleration": -1000.0
+    },
+    {
+      "id": 47,
+      "type": "rat",
+      "platform": false,
+      "position": {
+        "x": 8440,
+        "y": 240
+      },
+      "terminalVelocity": {
+        "x": 800.0,
+        "y": 4500.0
+      },
+      "gravity": 4000.0,
+      "fallGravity": 6000.0,
+      "runningAcceleration": -1000.0
+    },
+    {
+      "id": 48,
+      "type": "rat",
+      "platform": false,
+      "position": {
+        "x": 8720,
+        "y": 480
+      },
+      "terminalVelocity": {
+        "x": 400.0,
+        "y": 4500.0
+      },
+      "gravity": 4000.0,
+      "fallGravity": 6000.0,
+      "runningAcceleration": -500.0
+    },
+    {
+      "id": 49,
+      "type": "rat",
+      "platform": false,
+      "position": {
+        "x": 8760,
+        "y": 640
+      },
+      "terminalVelocity": {
+        "x": 800.0,
+        "y": 4500.0
+      },
+      "gravity": 4000.0,
+      "fallGravity": 6000.0,
+      "runningAcceleration": -1000.0
+    },
+    {
+      "id": 50,
+      "type": "rat",
+      "platform": false,
+      "position": {
+        "x": 8680,
+        "y": 400
+      },
+      "terminalVelocity": {
+        "x": 800.0,
+        "y": 4500.0
+      },
+      "gravity": 4000.0,
+      "fallGravity": 6000.0,
+      "runningAcceleration": -1000.0
+    },
+    {
+      "id": 51,
+      "type": "rat",
+      "platform": false,
+      "position": {
+        "x": 8680,
+        "y": 80
+      },
+      "terminalVelocity": {
+        "x": 800.0,
+        "y": 4500.0
+      },
+      "gravity": 4000.0,
+      "fallGravity": 6000.0,
+      "runningAcceleration": -1000.0
+    },
+    {
+      "id": 52,
+      "type": "rat",
+      "platform": false,
+      "position": {
+        "x": 8720,
+        "y": 240
+      },
+      "terminalVelocity": {
+        "x": 800.0,
+        "y": 4500.0
+      },
+      "gravity": 4000.0,
+      "fallGravity": 6000.0,
+      "runningAcceleration": -1000.0
+    },
+    {
+      "id": 53,
       "type": "clock_timer",
       "platform": false,
       "position": {
@@ -419,7 +579,7 @@
       }
     },
     {
-      "id": 44,
+      "id": 54,
       "type": "winged_foot",
       "platform": false,
       "position": {

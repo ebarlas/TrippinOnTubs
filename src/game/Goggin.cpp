@@ -86,7 +86,7 @@ void trippin::Goggin::center(trippin::Camera &camera) {
 }
 
 void trippin::Goggin::onFalling(Uint32 engineTicks, Channel &ch) {
-    if (platformCollisions.testBottom()) {
+    if (platformCollisions.testBottom() || objectCollisions.testBottom()) {
         state = State::landing;
         ticks = 0;
         ch.frame = FRAME_LANDING_FIRST;
@@ -122,7 +122,7 @@ void trippin::Goggin::onLanding(Uint32 engineTicks, Channel &ch) {
 void trippin::Goggin::onRunning(Uint32 engineTicks, Channel &ch) {
     lastRunTick = engineTicks;
 
-    if (!platformCollisions.testBottom()) {
+    if (!platformCollisions.testBottom() && !objectCollisions.testBottom()) {
         state = State::falling;
         ch.frame = FRAME_FALLING_FIRST;
         ticks = 0;
