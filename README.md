@@ -68,6 +68,17 @@ direction.
 
 ![Thread communication](docs/thread-communication.png)
 
+# Camera
+
+Game elements are arranged in maps that are much larger than displays. A camera models the
+portion of the screen that is currently visible. The camera is anchored to the player
+character. Vertically, the camera is centered on the player with half of the camera area
+above the player and half below. Horizontally, the camera is aimed just to the right of the
+player such that a third of the camera area resides to the left of the player and two thirds
+to the right.
+
+![Camera](docs/camera.png)
+
 # Engine
 The `trippin` physics engine handles the movement and interaction of all objects.
 The footprint of an object is represented with an axis aligned bounding box (AABB)
