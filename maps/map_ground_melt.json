@@ -10,7 +10,7 @@
       "platform": false,
       "position": {
         "x": 0,
-        "y": 0
+        "y": 1200
       },
       "terminalVelocity": {
         "x": 1700.0,
@@ -32,7 +32,7 @@
       "platform": true,
       "position": {
         "x": 0,
-        "y": 2640
+        "y": 3840
       }
     },
     {
@@ -41,7 +41,7 @@
       "platform": true,
       "position": {
         "x": 600,
-        "y": 2640
+        "y": 3840
       }
     },
     {
@@ -50,7 +50,7 @@
       "platform": true,
       "position": {
         "x": 1800,
-        "y": 2640
+        "y": 3840
       }
     },
     {
@@ -59,7 +59,7 @@
       "platform": true,
       "position": {
         "x": 3000,
-        "y": 2640
+        "y": 3840
       }
     },
     {
@@ -68,7 +68,7 @@
       "platform": true,
       "position": {
         "x": 3600,
-        "y": 2640
+        "y": 3840
       }
     },
     {
@@ -77,7 +77,7 @@
       "platform": true,
       "position": {
         "x": 4800,
-        "y": 2640
+        "y": 3840
       }
     },
     {
@@ -86,7 +86,7 @@
       "platform": true,
       "position": {
         "x": 5600,
-        "y": 2240
+        "y": 3240
       }
     },
     {
@@ -95,7 +95,7 @@
       "platform": true,
       "position": {
         "x": 6800,
-        "y": 2240
+        "y": 3240
       }
     },
     {
@@ -104,7 +104,7 @@
       "platform": true,
       "position": {
         "x": 7400,
-        "y": 2240
+        "y": 3240
       }
     },
     {
@@ -113,7 +113,7 @@
       "platform": true,
       "position": {
         "x": 8120,
-        "y": 2880
+        "y": 4080
       }
     },
     {
@@ -122,7 +122,7 @@
       "platform": true,
       "position": {
         "x": 8720,
-        "y": 2880
+        "y": 4080
       }
     },
     {
@@ -131,7 +131,7 @@
       "platform": true,
       "position": {
         "x": 9920,
-        "y": 2880
+        "y": 4080
       }
     },
     {
@@ -140,7 +140,7 @@
       "platform": true,
       "position": {
         "x": 7920,
-        "y": 1160
+        "y": 2360
       }
     },
     {
@@ -149,7 +149,7 @@
       "platform": true,
       "position": {
         "x": 8520,
-        "y": 1160
+        "y": 2360
       }
     },
     {
@@ -158,7 +158,7 @@
       "platform": true,
       "position": {
         "x": 9720,
-        "y": 1160
+        "y": 2360
       }
     },
     {
@@ -167,7 +167,7 @@
       "platform": true,
       "position": {
         "x": 10920,
-        "y": 1160
+        "y": 2360
       }
     },
     {
@@ -176,7 +176,7 @@
       "platform": true,
       "position": {
         "x": 11000,
-        "y": 1920
+        "y": 3120
       }
     },
     {
@@ -185,7 +185,7 @@
       "platform": true,
       "position": {
         "x": 11600,
-        "y": 1920
+        "y": 3120
       }
     },
     {
@@ -194,7 +194,7 @@
       "platform": true,
       "position": {
         "x": 12800,
-        "y": 1920
+        "y": 3120
       }
     },
     {
@@ -203,7 +203,7 @@
       "platform": true,
       "position": {
         "x": 11120,
-        "y": 3400
+        "y": 4600
       }
     },
     {
@@ -212,7 +212,7 @@
       "platform": true,
       "position": {
         "x": 11720,
-        "y": 3400
+        "y": 4600
       }
     },
     {
@@ -221,7 +221,7 @@
       "platform": true,
       "position": {
         "x": 12920,
-        "y": 3400
+        "y": 4600
       }
     },
     {
@@ -230,7 +230,7 @@
       "platform": true,
       "position": {
         "x": 14440,
-        "y": 2240
+        "y": 3440
       }
     },
     {
@@ -239,7 +239,7 @@
       "platform": true,
       "position": {
         "x": 15640,
-        "y": 2240
+        "y": 3440
       }
     },
     {
@@ -248,7 +248,7 @@
       "platform": true,
       "position": {
         "x": 1200,
-        "y": 2640
+        "y": 3840
       }
     },
     {
@@ -257,7 +257,7 @@
       "platform": true,
       "position": {
         "x": 2400,
-        "y": 2640
+        "y": 3840
       }
     },
     {
@@ -266,7 +266,7 @@
       "platform": true,
       "position": {
         "x": 4200,
-        "y": 2640
+        "y": 3840
       }
     },
     {
@@ -275,7 +275,7 @@
       "platform": true,
       "position": {
         "x": 6200,
-        "y": 2240
+        "y": 3240
       }
     },
     {
@@ -284,7 +284,7 @@
       "platform": true,
       "position": {
         "x": 9120,
-        "y": 1160
+        "y": 2360
       }
     },
     {
@@ -293,7 +293,7 @@
       "platform": true,
       "position": {
         "x": 10320,
-        "y": 1160
+        "y": 2360
       }
     },
     {
@@ -302,7 +302,7 @@
       "platform": true,
       "position": {
         "x": 9320,
-        "y": 2880
+        "y": 4080
       }
     },
     {
@@ -311,7 +311,7 @@
       "platform": true,
       "position": {
         "x": 12200,
-        "y": 1920
+        "y": 3120
       }
     },
     {
@@ -320,7 +320,7 @@
       "platform": true,
       "position": {
         "x": 12320,
-        "y": 3400
+        "y": 4600
       }
     },
     {
@@ -329,7 +329,7 @@
       "platform": true,
       "position": {
         "x": 15040,
-        "y": 2240
+        "y": 3440
       }
     },
     {
@@ -338,7 +338,7 @@
       "platform": false,
       "position": {
         "x": 2600,
-        "y": 1240
+        "y": 2440
       }
     },
     {
@@ -347,7 +347,7 @@
       "platform": false,
       "position": {
         "x": 5600,
-        "y": 720
+        "y": 1920
       }
     },
     {
@@ -356,7 +356,7 @@
       "platform": false,
       "position": {
         "x": 8680,
-        "y": 80
+        "y": 1280
       }
     },
     {
@@ -365,7 +365,7 @@
       "platform": false,
       "position": {
         "x": 9120,
-        "y": 2080
+        "y": 3280
       }
     },
     {
@@ -374,7 +374,7 @@
       "platform": false,
       "position": {
         "x": 12760,
-        "y": 120
+        "y": 1320
       }
     },
     {
@@ -383,7 +383,7 @@
       "platform": false,
       "position": {
         "x": 4640,
-        "y": 2000
+        "y": 3200
       },
       "terminalVelocity": {
         "x": 400.0,
@@ -399,7 +399,7 @@
       "platform": false,
       "position": {
         "x": 10960,
-        "y": 560
+        "y": 1760
       },
       "terminalVelocity": {
         "x": 400.0,
@@ -415,7 +415,7 @@
       "platform": false,
       "position": {
         "x": 8440,
-        "y": 480
+        "y": 1680
       },
       "terminalVelocity": {
         "x": 400.0,
@@ -431,7 +431,7 @@
       "platform": false,
       "position": {
         "x": 8480,
-        "y": 640
+        "y": 1840
       },
       "terminalVelocity": {
         "x": 800.0,
@@ -447,7 +447,7 @@
       "platform": false,
       "position": {
         "x": 8400,
-        "y": 400
+        "y": 1600
       },
       "terminalVelocity": {
         "x": 800.0,
@@ -463,7 +463,7 @@
       "platform": false,
       "position": {
         "x": 8400,
-        "y": 80
+        "y": 1280
       },
       "terminalVelocity": {
         "x": 800.0,
@@ -479,7 +479,7 @@
       "platform": false,
       "position": {
         "x": 8440,
-        "y": 240
+        "y": 1440
       },
       "terminalVelocity": {
         "x": 800.0,
@@ -495,7 +495,7 @@
       "platform": false,
       "position": {
         "x": 8720,
-        "y": 480
+        "y": 1680
       },
       "terminalVelocity": {
         "x": 400.0,
@@ -511,7 +511,7 @@
       "platform": false,
       "position": {
         "x": 8760,
-        "y": 640
+        "y": 1840
       },
       "terminalVelocity": {
         "x": 800.0,
@@ -527,7 +527,7 @@
       "platform": false,
       "position": {
         "x": 8680,
-        "y": 400
+        "y": 1600
       },
       "terminalVelocity": {
         "x": 800.0,
@@ -543,7 +543,7 @@
       "platform": false,
       "position": {
         "x": 8680,
-        "y": 80
+        "y": 1280
       },
       "terminalVelocity": {
         "x": 800.0,
@@ -559,7 +559,7 @@
       "platform": false,
       "position": {
         "x": 8720,
-        "y": 240
+        "y": 1440
       },
       "terminalVelocity": {
         "x": 800.0,
@@ -586,6 +586,55 @@
         "x": 920,
         "y": 80
       }
+    }
+  ],
+  "layers": [
+    {
+      "objects": [
+        {
+          "type": "building4",
+          "position": {
+            "x": 1402,
+            "y": 80
+          }
+        },
+        {
+          "type": "building5",
+          "position": {
+            "x": 3202,
+            "y": 80
+          }
+        }
+      ],
+      "width": 5280,
+      "height": 2880
+    },
+    {
+      "objects": [
+        {
+          "type": "building1",
+          "position": {
+            "x": 80,
+            "y": 880
+          }
+        },
+        {
+          "type": "building2",
+          "position": {
+            "x": 2750,
+            "y": 680
+          }
+        },
+        {
+          "type": "building3",
+          "position": {
+            "x": 5420,
+            "y": 2080
+          }
+        }
+      ],
+      "width": 7520,
+      "height": 2880
     }
   ]
 }

@@ -19,6 +19,7 @@ void trippin::from_json(const nlohmann::json& j, Map& map) {
     j.at("universe").at("width").get_to(map.universe.x);
     j.at("universe").at("height").get_to(map.universe.y);
     j.at("objects").get_to(map.objects);
+    j.at("layers").get_to(map.layers);
 }
 
 void trippin::from_json(const nlohmann::json& j, Map::Object& obj) {
@@ -52,4 +53,15 @@ void trippin::from_json(const nlohmann::json& j, Map::Object& obj) {
         j.at("terminalVelocity").get_to(obj.terminalVelocity);
     if (j.contains("friction"))
         j.at("friction").get_to(obj.friction);
+}
+
+void trippin::from_json(const nlohmann::json& j, Map::Layer& layer) {
+    j.at("width").get_to(layer.size.x);
+    j.at("height").get_to(layer.size.y);
+    j.at("objects").get_to(layer.objects);
+}
+
+void trippin::from_json(const nlohmann::json& j, Map::Layer::Object& obj) {
+    j.at("type").get_to(obj.type);
+    j.at("position").get_to(obj.position);
 }

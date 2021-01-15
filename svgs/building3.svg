@@ -1,0 +1,31 @@
+<ns0:svg xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:ns0="http://www.w3.org/2000/svg" xmlns:ns1="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd" xmlns:ns2="http://www.inkscape.org/namespaces/inkscape" xmlns:ns4="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" ns1:docname="building3.svg" ns2:version="1.0beta2 (2b71d25, 2019-12-03)" id="svg8" version="1.1" viewBox="0 0 180 80" scale="10" height="80" width="180">
+  <ns0:defs id="defs2" />
+  <ns1:namedview showguides="false" ns2:window-maximized="0" ns2:window-y="255" ns2:window-x="476" ns2:window-height="1257" ns2:window-width="2683" units="px" showgrid="true" ns2:document-rotation="0" ns2:current-layer="layer2" ns2:document-units="px" ns2:cy="37.917404" ns2:cx="107.74421" ns2:zoom="4" ns2:pageshadow="2" ns2:pageopacity="0.0" borderopacity="1.0" bordercolor="#666666" pagecolor="#ffffff" id="base">
+    <ns2:grid id="grid833" type="xygrid" />
+  </ns1:namedview>
+  <ns0:metadata id="metadata5">
+    <rdf:RDF>
+      <ns4:Work rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title />
+      </ns4:Work>
+    </rdf:RDF>
+  </ns0:metadata>
+  <ns0:g ns1:insensitive="true" style="display:inline;opacity:1" ns2:label="frame" type="frame" frame="1" id="layer2" ns2:groupmode="layer">
+    <ns0:path ns1:nodetypes="ccccccc" ns2:connector-curvature="0" id="path1108" d="M 15,80 V 10 h 24 v 14 h 3 v 56 z" style="fill:#969696;fill-opacity:1;stroke:#737373;stroke-width:0.5px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+    <ns0:path ns2:connector-curvature="0" id="path1110" d="m 39,10 h 128 v 8 h -2 V 80 H 42 V 24 h -3 z" style="fill:#bdbdbd;fill-opacity:1;stroke:#737373;stroke-width:0.5px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+    <ns0:path ns2:connector-curvature="0" id="path1112" d="m 15,26 h 150 v 6 H 15 Z" style="fill:none;stroke:#737373;stroke-width:0.5px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+    <ns0:path ns2:connector-curvature="0" id="path1114" d="m 15,18 h 150 v 2 H 15 Z" style="fill:none;stroke:#737373;stroke-width:0.5px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+    <ns0:path ns2:connector-curvature="0" id="path1116" d="M 47,34 H 85 V 80 H 83 V 36 H 49 v 44 h -2 z" style="fill:#d9d9d9;fill-opacity:1;stroke:#737373;stroke-width:0.5px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+    <ns0:path ns2:connector-curvature="0" id="path1132" d="M 49,36 H 83 V 80 H 49 Z" style="fill:#f0f0f0;fill-opacity:1;stroke:#737373;stroke-width:0.5px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+    <ns0:path ns2:connector-curvature="0" id="path1118" d="m 49,46 h 8 V 36 h 2 V 46 H 71 V 36 h 2 v 10 h 10 v 2 H 73 v 12 h 10 v 2 H 73 v 10 h 10 v 2 H 73 v 6 H 71 V 74 H 59 v 6 h -2 v -6 h -8 v -2 h 8 V 62 h -8 v -2 h 8 V 48 h -8 z" style="fill:#d9d9d9;fill-opacity:1;stroke:#737373;stroke-width:0.5px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+    <ns0:path ns2:connector-curvature="0" id="path1120" d="M 59,48 H 71 V 60 H 59 Z" style="fill:#f0f0f0;fill-opacity:1;stroke:#737373;stroke-width:0.5px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+    <ns0:path ns2:connector-curvature="0" id="path1122" d="M 59,62 H 71 V 72 H 59 Z" style="fill:#f0f0f0;fill-opacity:1;stroke:#737373;stroke-width:0.5px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+    <ns0:path style="fill:#d9d9d9;fill-opacity:1;stroke:#737373;stroke-width:0.5px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" d="m 113,34 h 38 v 46 h -2 V 36 h -34 v 44 h -2 z" id="path1142" ns2:connector-curvature="0" />
+    <ns0:path style="fill:#f0f0f0;fill-opacity:1;stroke:#737373;stroke-width:0.5px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" d="m 115,36 h 34 v 44 h -34 z" id="path1144" ns2:connector-curvature="0" />
+    <ns0:path style="fill:#d9d9d9;fill-opacity:1;stroke:#737373;stroke-width:0.5px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" d="m 115,46 h 8 V 36 h 2 v 10 h 12 V 36 h 2 v 10 h 10 v 2 h -10 v 12 h 10 v 2 h -10 v 10 h 10 v 2 h -10 v 6 h -2 v -6 h -12 v 6 h -2 v -6 h -8 v -2 h 8 V 62 h -8 v -2 h 8 V 48 h -8 z" id="path1146" ns2:connector-curvature="0" />
+    <ns0:path style="fill:#f0f0f0;fill-opacity:1;stroke:#737373;stroke-width:0.5px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" d="m 125,48 h 12 v 12 h -12 z" id="path1148" ns2:connector-curvature="0" />
+    <ns0:path style="fill:#f0f0f0;fill-opacity:1;stroke:#737373;stroke-width:0.5px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" d="m 125,62 h 12 v 10 h -12 z" id="path1150" ns2:connector-curvature="0" />
+  </ns0:g>
+</ns0:svg>

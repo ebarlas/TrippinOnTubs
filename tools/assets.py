@@ -25,10 +25,15 @@ sprites = [
     'winged_foot',
     'digits',
     'zombie',
-    'rat'
+    'rat',
+    'building1',
+    'building2',
+    'building3',
+    'building4',
+    'building5'
 ]
 
-levels = ['map', 'map_ground_melt']
+levels = ['map_ground_melt']
 
 dir_raw = 'raw'
 dir_svgs = 'svgs'

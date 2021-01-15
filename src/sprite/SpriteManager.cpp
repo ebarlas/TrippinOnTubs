@@ -13,3 +13,7 @@ const trippin::Sprite &trippin::SpriteManager::get(const std::string &type) {
         return *it->second;
     }
 }
+
+const trippin::Scale &trippin::SpriteManager::getScale() const {
+    return scale;
+}

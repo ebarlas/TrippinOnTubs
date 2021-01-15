@@ -74,6 +74,7 @@ add_executable(trippin
         game/Spirit.cpp
         game/PacingObject.cpp
         game/Activation.cpp
+        game/Layer.cpp
         game/trippin.cpp)
 target_link_libraries(trippin Sprite Lock)
 

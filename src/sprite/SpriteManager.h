@@ -13,6 +13,7 @@ namespace trippin {
     public:
         SpriteManager(SDL_Renderer *renderer, const Scale &scale);
         const Sprite &get(const std::string &type);
+        const Scale &getScale() const;
     private:
         using SpritePtr = std::unique_ptr<Sprite>;
         const Scale &scale;

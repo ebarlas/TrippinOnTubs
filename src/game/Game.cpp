@@ -2,6 +2,7 @@
 #include "Ground.h"
 #include "PacingObject.h"
 #include "WingedTub.h"
+#include "Layer.h"
 
 void trippin::Game::init() {
     initRuntime();
@@ -79,8 +80,9 @@ void trippin::Game::initSpriteManager() {
 }
 
 void trippin::Game::initCamera() {
+    auto uni = scale->scale(map.universe);
     camera.setViewport({0, 0, windowSize.x, windowSize.y});
-    camera.setUniverse({0, 0, map.universe.x, map.universe.y});
+    camera.setUniverse({0, 0, uni.x, uni.y});
 }
 
 void trippin::Game::initEngine() {
@@ -88,6 +90,12 @@ void trippin::Game::initEngine() {
     engine.setPlatformCollision(&platformCollision);
     engine.setObjectCollision(&objectCollision);
     engine.addListener(&spirit);
+
+    for (auto &layer : map.layers) {
+        auto uptr = std::make_unique<Layer>();
+        uptr->init(*spriteManager, layer);
+        objects.push_back(std::move(uptr));
+    }
 
     for (auto &obj : map.objects) {
         if (obj.type == "goggin") {
@@ -175,7 +183,7 @@ void trippin::Game::renderLoop() {
             }
         }
 
-        SDL_SetRenderDrawColor(renderer, 245, 245, 245, 255);
+        SDL_SetRenderDrawColor(renderer, 255, 247, 251, 255);
         SDL_RenderClear(renderer);
 
         goggin.center(camera);

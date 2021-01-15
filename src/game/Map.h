@@ -28,8 +28,19 @@ namespace trippin {
             Point<double> friction;
         };
 
+        struct Layer {
+            struct Object {
+                Point<int> position;
+                std::string type;
+            };
+
+            Point<int> size;
+            std::vector<Layer::Object> objects;
+        };
+
         Point<int> universe;
         std::vector<Map::Object> objects;
+        std::vector<Map::Layer> layers;
 
         void load(const std::string &name);
         static std::string getMapFile(const std::string& name);
@@ -43,6 +54,8 @@ namespace trippin {
 
     void from_json(const nlohmann::json& j, Map& map);
     void from_json(const nlohmann::json& j, Map::Object& obj);
+    void from_json(const nlohmann::json& j, Map::Layer& layer);
+    void from_json(const nlohmann::json& j, Map::Layer::Object& obj);
 }
 
 #endif
