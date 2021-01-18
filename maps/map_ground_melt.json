@@ -414,8 +414,8 @@
       "type": "rat",
       "platform": false,
       "position": {
-        "x": 8440,
-        "y": 1680
+        "x": 12040,
+        "y": 2240
       },
       "terminalVelocity": {
         "x": 400.0,
@@ -430,8 +430,8 @@
       "type": "rat",
       "platform": false,
       "position": {
-        "x": 8480,
-        "y": 1840
+        "x": 12080,
+        "y": 2400
       },
       "terminalVelocity": {
         "x": 800.0,
@@ -446,8 +446,8 @@
       "type": "rat",
       "platform": false,
       "position": {
-        "x": 8400,
-        "y": 1600
+        "x": 12000,
+        "y": 2160
       },
       "terminalVelocity": {
         "x": 800.0,
@@ -462,8 +462,8 @@
       "type": "rat",
       "platform": false,
       "position": {
-        "x": 8400,
-        "y": 1280
+        "x": 12000,
+        "y": 1840
       },
       "terminalVelocity": {
         "x": 800.0,
@@ -478,8 +478,8 @@
       "type": "rat",
       "platform": false,
       "position": {
-        "x": 8440,
-        "y": 1440
+        "x": 12040,
+        "y": 2000
       },
       "terminalVelocity": {
         "x": 800.0,
@@ -494,8 +494,8 @@
       "type": "rat",
       "platform": false,
       "position": {
-        "x": 8720,
-        "y": 1680
+        "x": 12320,
+        "y": 2240
       },
       "terminalVelocity": {
         "x": 400.0,
@@ -510,8 +510,8 @@
       "type": "rat",
       "platform": false,
       "position": {
-        "x": 8760,
-        "y": 1840
+        "x": 12360,
+        "y": 2400
       },
       "terminalVelocity": {
         "x": 800.0,
@@ -526,8 +526,8 @@
       "type": "rat",
       "platform": false,
       "position": {
-        "x": 8680,
-        "y": 1600
+        "x": 12280,
+        "y": 2160
       },
       "terminalVelocity": {
         "x": 800.0,
@@ -542,8 +542,8 @@
       "type": "rat",
       "platform": false,
       "position": {
-        "x": 8680,
-        "y": 1280
+        "x": 12280,
+        "y": 1840
       },
       "terminalVelocity": {
         "x": 800.0,
@@ -558,8 +558,8 @@
       "type": "rat",
       "platform": false,
       "position": {
-        "x": 8720,
-        "y": 1440
+        "x": 12320,
+        "y": 2000
       },
       "terminalVelocity": {
         "x": 800.0,
@@ -592,44 +592,10 @@
     {
       "objects": [
         {
-          "type": "building4",
+          "type": "phoenix",
           "position": {
-            "x": 1402,
-            "y": 80
-          }
-        },
-        {
-          "type": "building5",
-          "position": {
-            "x": 3202,
-            "y": 80
-          }
-        }
-      ],
-      "width": 5280,
-      "height": 2880
-    },
-    {
-      "objects": [
-        {
-          "type": "building1",
-          "position": {
-            "x": 80,
-            "y": 880
-          }
-        },
-        {
-          "type": "building2",
-          "position": {
-            "x": 2750,
-            "y": 680
-          }
-        },
-        {
-          "type": "building3",
-          "position": {
-            "x": 5420,
-            "y": 2080
+            "x": 160,
+            "y": 280
           }
         }
       ],

@@ -33,7 +33,7 @@ def find_objects(root):
     id_counter = 1
     # an object is an image within a group that does not have attribute type='layer'
     for g in root.findall('.//svg:g', namespace):
-        if g.attrib.get('type') != 'layer':
+        if g.attrib.get('type') not in ['layer', 'development']:
             for node in g.findall('.//svg:image', namespace):
                 obj = {
                     'id': id_counter,

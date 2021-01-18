@@ -1,4 +1,4 @@
-<ns0:svg xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:ns0="http://www.w3.org/2000/svg" xmlns:ns1="http://www.inkscape.org/namespaces/inkscape" xmlns:ns2="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd" xmlns:ns4="http://creativecommons.org/ns#" xmlns:ns6="http://www.w3.org/1999/xlink" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" width="320" height="200" scale="10" viewBox="0 0 320 200" version="1.1" id="svg8" ns1:version="1.0beta2 (2b71d25, 2019-12-03)" ns2:docname="building.svg">
+<ns0:svg xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:ns0="http://www.w3.org/2000/svg" xmlns:ns1="http://www.inkscape.org/namespaces/inkscape" xmlns:ns2="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd" xmlns:ns4="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" width="320" height="200" scale="10" viewBox="0 0 320 200" version="1.1" id="svg8" ns1:version="1.0beta2 (2b71d25, 2019-12-03)" ns2:docname="building.svg">
   <ns0:defs id="defs2" />
   <ns2:namedview id="base" pagecolor="#ffffff" bordercolor="#666666" borderopacity="1.0" ns1:pageopacity="0.0" ns1:pageshadow="2" ns1:zoom="4" ns1:cx="188.87457" ns1:cy="88.65873" ns1:document-units="px" ns1:current-layer="layer2" ns1:document-rotation="0" showgrid="true" units="px" ns1:window-width="2683" ns1:window-height="1257" ns1:window-x="480" ns1:window-y="227" ns1:window-maximized="0" showguides="false">
     <ns1:grid type="xygrid" id="grid833" />
@@ -12,9 +12,6 @@
       </ns4:Work>
     </rdf:RDF>
   </ns0:metadata>
-  <ns0:g style="display:none" ns2:insensitive="true" ns1:label="img2" id="layer3" ns1:groupmode="layer">
-    <ns0:image ns2:absref="/Users/elliotb/Code/CLionProjects/Trippin/raw/cityscape-night-modern-city-skyline.jpg" ns6:href="cityscape-night-modern-city-skyline.jpg" y="24.431549" x="335" width="478.75665" height="290.56845" preserveAspectRatio="none" id="image2395" />
-  </ns0:g>
   <ns0:g ns1:groupmode="layer" id="layer2" frame="1" type="frame" ns1:label="frame" style="display:inline;opacity:1">
     <ns0:path style="fill:#969696;fill-opacity:1;stroke:#737373;stroke-width:1.00157;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" d="m 63,25 v 5 h 5 v 20 h 5 V 200 H 25 V 48 H 21 V 34 h -2 v -4 h -4 v -6 h 48 z" id="path1051" ns1:connector-curvature="0" />
     <ns0:path style="fill:#bdbdbd;fill-opacity:1;stroke:#737373;stroke-width:0.5px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" d="m 63,24 h 18 v -4 h -2 v -2 h 14 v 2 h -2 v 4 h 142 v -4 h -4 v -4 h 2 v -2 h 2 v -2 h 2 v -2 h 2 V 8 h 8 v 2 h 2 v 2 h 2 v 2 h 2 v 2 h 2 v 4 h -4 v 4 h 48 v 6 h -4 v 4 h -2 v 14 h -4 v 2 H 68 V 30 h -5 z" id="path1055" ns1:connector-curvature="0" />

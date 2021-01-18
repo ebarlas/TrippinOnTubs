@@ -27,6 +27,25 @@ def make_sprite_sheet(src_files, output_file):
     sheet.save(output_file)
 
 
+def fade(original, terminal, fade_to):
+    d = terminal - original
+    amount = d * fade_to
+    return int(round(original + amount))
+
+
+def fade_color(original, terminal, fade_to):
+    red = fade(int(original[1:3], 16), terminal, fade_to)
+    green = fade(int(original[3:5], 16), terminal, fade_to)
+    blue = fade(int(original[5:7], 16), terminal, fade_to)
+    return f'#{red:02x}{green:02x}{blue:02x}'
+
+
+def fade_color_attr(attributes, key, terminal, fade_to):
+    val = attributes.get(key)
+    if val and val.startswith('#'):
+        attributes[key] = fade_color(val, terminal, fade_to)
+
+
 def export_pngs(svg_file, tmp_dir, export_dir, scales, name):
     for d in (tmp_dir, export_dir):
         Path(d).mkdir(parents=True, exist_ok=True)
@@ -42,9 +61,18 @@ def export_pngs(svg_file, tmp_dir, export_dir, scales, name):
         img_width = int(round(img_width * scale))
         img_height = int(round(img_height * scale))
 
+    fade_to_white = float(root.attrib['fadeToWhite']) if 'fadeToWhite' in root.attrib else None
+
     num_frames = len(root.findall('.//svg:g[@type="frame"]', namespace))
 
     for n in range(1, num_frames + 1):
+        if fade_to_white:
+            for e in root.findall(f'.//svg:g[@type="frame"]/svg:path', namespace):
+                styles = {s[0]: s[1] for s in [s.split(':') for s in e.attrib['style'].split(';')]}
+                fade_color_attr(styles, 'fill', 255, fade_to_white)
+                fade_color_attr(styles, 'stroke', 255, fade_to_white)
+                style = ';'.join([f'{k}:{styles[k]}' for k in styles.keys()])
+                e.set('style', style)
         for e in root.findall(f'.//svg:g[@type="frame"]', namespace):
             e.set('style', 'display:none')
         for e in root.findall(f'.//svg:g[@type="frame"][@frame="{n}"]', namespace):

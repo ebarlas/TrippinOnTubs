@@ -1,0 +1,99 @@
+<ns0:svg xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:ns0="http://www.w3.org/2000/svg" xmlns:ns1="http://www.inkscape.org/namespaces/inkscape" xmlns:ns2="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd" xmlns:ns4="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" width="220" height="260" scale="10" viewBox="0 0 220 260" version="1.1" id="svg8" ns1:version="1.0beta2 (2b71d25, 2019-12-03)" ns2:docname="building6.svg">
+  <ns0:defs id="defs2" />
+  <ns2:namedview id="base" pagecolor="#ffffff" bordercolor="#666666" borderopacity="1.0" ns1:pageopacity="0.0" ns1:pageshadow="2" ns1:zoom="2.4282407" ns1:cx="85.005903" ns1:cy="119.22937" ns1:document-units="px" ns1:current-layer="layer2" ns1:document-rotation="0" showgrid="true" units="px" ns1:window-width="1792" ns1:window-height="1012" ns1:window-x="0" ns1:window-y="23" ns1:window-maximized="0" showguides="false">
+    <ns1:grid type="xygrid" id="grid833" />
+  </ns2:namedview>
+  <ns0:metadata id="metadata5">
+    <rdf:RDF>
+      <ns4:Work rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title />
+      </ns4:Work>
+    </rdf:RDF>
+  </ns0:metadata>
+  <ns0:g ns2:insensitive="true" ns1:groupmode="layer" id="layer2" frame="1" type="frame" ns1:label="frame" style="display:inline;opacity:1">
+    <ns0:path ns1:connector-curvature="0" id="path1005" d="m 75,80 h 56 64 v 6 h -2 v 18 30 46 l -1,80 H 140 75 Z" style="fill:#d9d9d9;fill-opacity:1;stroke:#969696;stroke-width:0.5px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+    <ns0:path ns1:connector-curvature="0" id="path1007" d="M 75,80 H 25 v 6 h 2 v 174 h 48 z" style="fill:#bdbdbd;fill-opacity:1;stroke:#969696;stroke-width:0.5px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+    <ns0:path ns2:nodetypes="ccccccc" ns1:connector-curvature="0" id="path1009" d="m 111,80 h 2 v 45 135 h -2 v -40 z" style="fill:none;stroke:#969696;stroke-width:0.5px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+    <ns0:path style="fill:none;stroke:#969696;stroke-width:0.5px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" d="m 149,80 h 2 v 45 135 h -2 v -40 z" id="path1011" ns1:connector-curvature="0" ns2:nodetypes="ccccccc" />
+    <ns0:path ns1:connector-curvature="0" id="path1017" d="m 119,90 v 18 h 26 V 90 Z" style="fill:#f0f0f0;fill-opacity:1;stroke:#969696;stroke-width:0.5px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+    <ns0:path ns1:connector-curvature="0" id="path1013" d="m 119,90 v 2 h 12 v 8 h -12 v 2 h 12 v 6 h 2 v -6 h 10 v 6 h 2 V 90 Z" style="fill:none;stroke:#969696;stroke-width:0.5px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+    <ns0:path ns1:connector-curvature="0" id="path1015" d="m 133,92 h 10 v 8 h -10 z" style="fill:none;stroke:#969696;stroke-width:0.5px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+    <ns0:path style="fill:#f0f0f0;fill-opacity:1;stroke:#969696;stroke-width:0.5px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" d="m 157,90 v 18 h 26 V 90 Z" id="path1019" ns1:connector-curvature="0" />
+    <ns0:path style="fill:none;stroke:#969696;stroke-width:0.5px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" d="m 157,90 v 2 h 12 v 8 h -12 v 2 h 12 v 6 h 2 v -6 h 10 v 6 h 2 V 90 Z" id="path1021" ns1:connector-curvature="0" />
+    <ns0:path style="fill:none;stroke:#969696;stroke-width:0.5px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" d="m 171,92 h 10 v 8 h -10 z" id="path1023" ns1:connector-curvature="0" />
+    <ns0:path style="fill:#f0f0f0;fill-opacity:1;stroke:#969696;stroke-width:0.5px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" d="m 81,90 v 18 h 26 V 90 Z" id="path1025" ns1:connector-curvature="0" />
+    <ns0:path style="fill:none;stroke:#969696;stroke-width:0.5px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" d="m 81,90 v 2 h 12 v 8 H 81 v 2 h 12 v 6 h 2 v -6 h 10 v 6 h 2 V 90 Z" id="path1027" ns1:connector-curvature="0" />
+    <ns0:path style="fill:none;stroke:#969696;stroke-width:0.5px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" d="m 95,92 h 10 v 8 H 95 Z" id="path1029" ns1:connector-curvature="0" />
+    <ns0:path style="fill:#f0f0f0;fill-opacity:1;stroke:#969696;stroke-width:0.5px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" d="m 119,126 v 18 h 26 v -18 z" id="path1031" ns1:connector-curvature="0" />
+    <ns0:path style="fill:none;stroke:#969696;stroke-width:0.5px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" d="m 119,126 v 2 h 12 v 8 h -12 v 2 h 12 v 6 h 2 v -6 h 10 v 6 h 2 v -18 z" id="path1033" ns1:connector-curvature="0" />
+    <ns0:path style="fill:none;stroke:#969696;stroke-width:0.5px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" d="m 133,128 h 10 v 8 h -10 z" id="path1035" ns1:connector-curvature="0" />
+    <ns0:path ns1:connector-curvature="0" id="path1037" d="m 157,126 v 18 h 26 v -18 z" style="fill:#f0f0f0;fill-opacity:1;stroke:#969696;stroke-width:0.5px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+    <ns0:path ns1:connector-curvature="0" id="path1039" d="m 157,126 v 2 h 12 v 8 h -12 v 2 h 12 v 6 h 2 v -6 h 10 v 6 h 2 v -18 z" style="fill:none;stroke:#969696;stroke-width:0.5px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+    <ns0:path ns1:connector-curvature="0" id="path1041" d="m 171,128 h 10 v 8 h -10 z" style="fill:none;stroke:#969696;stroke-width:0.5px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+    <ns0:path ns1:connector-curvature="0" id="path1043" d="m 81,126 v 18 h 26 v -18 z" style="fill:#f0f0f0;fill-opacity:1;stroke:#969696;stroke-width:0.5px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+    <ns0:path ns1:connector-curvature="0" id="path1045" d="m 81,126 v 2 h 12 v 8 H 81 v 2 h 12 v 6 h 2 v -6 h 10 v 6 h 2 v -18 z" style="fill:none;stroke:#969696;stroke-width:0.5px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+    <ns0:path ns1:connector-curvature="0" id="path1047" d="m 95,128 h 10 v 8 H 95 Z" style="fill:none;stroke:#969696;stroke-width:0.5px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+    <ns0:path ns1:connector-curvature="0" id="path1049" d="m 119,162 v 18 h 26 v -18 z" style="fill:#f0f0f0;fill-opacity:1;stroke:#969696;stroke-width:0.5px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+    <ns0:path ns1:connector-curvature="0" id="path1051" d="m 119,162 v 2 h 12 v 8 h -12 v 2 h 12 v 6 h 2 v -6 h 10 v 6 h 2 v -18 z" style="fill:none;stroke:#969696;stroke-width:0.5px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+    <ns0:path ns1:connector-curvature="0" id="path1053" d="m 133,164 h 10 v 8 h -10 z" style="fill:none;stroke:#969696;stroke-width:0.5px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+    <ns0:path style="fill:#f0f0f0;fill-opacity:1;stroke:#969696;stroke-width:0.5px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" d="m 157,162 v 18 h 26 v -18 z" id="path1055" ns1:connector-curvature="0" />
+    <ns0:path style="fill:none;stroke:#969696;stroke-width:0.5px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" d="m 157,162 v 2 h 12 v 8 h -12 v 2 h 12 v 6 h 2 v -6 h 10 v 6 h 2 v -18 z" id="path1057" ns1:connector-curvature="0" />
+    <ns0:path style="fill:none;stroke:#969696;stroke-width:0.5px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" d="m 171,164 h 10 v 8 h -10 z" id="path1059" ns1:connector-curvature="0" />
+    <ns0:path style="fill:#f0f0f0;fill-opacity:1;stroke:#969696;stroke-width:0.5px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" d="m 81,162 v 18 h 26 v -18 z" id="path1061" ns1:connector-curvature="0" />
+    <ns0:path style="fill:none;stroke:#969696;stroke-width:0.5px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" d="m 81,162 v 2 h 12 v 8 H 81 v 2 h 12 v 6 h 2 v -6 h 10 v 6 h 2 v -18 z" id="path1063" ns1:connector-curvature="0" />
+    <ns0:path style="fill:none;stroke:#969696;stroke-width:0.5px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" d="m 95,164 h 10 v 8 H 95 Z" id="path1065" ns1:connector-curvature="0" />
+    <ns0:path style="fill:#f0f0f0;fill-opacity:1;stroke:#969696;stroke-width:0.5px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" d="m 119,198 v 18 h 26 v -18 z" id="path1067" ns1:connector-curvature="0" />
+    <ns0:path style="fill:none;stroke:#969696;stroke-width:0.5px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" d="m 119,198 v 2 h 12 v 8 h -12 v 2 h 12 v 6 h 2 v -6 h 10 v 6 h 2 v -18 z" id="path1069" ns1:connector-curvature="0" />
+    <ns0:path style="fill:none;stroke:#969696;stroke-width:0.5px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" d="m 133,200 h 10 v 8 h -10 z" id="path1071" ns1:connector-curvature="0" />
+    <ns0:path ns1:connector-curvature="0" id="path1073" d="m 157,198 v 18 h 26 v -18 z" style="fill:#f0f0f0;fill-opacity:1;stroke:#969696;stroke-width:0.5px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+    <ns0:path ns1:connector-curvature="0" id="path1075" d="m 157,198 v 2 h 12 v 8 h -12 v 2 h 12 v 6 h 2 v -6 h 10 v 6 h 2 v -18 z" style="fill:none;stroke:#969696;stroke-width:0.5px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+    <ns0:path ns1:connector-curvature="0" id="path1077" d="m 171,200 h 10 v 8 h -10 z" style="fill:none;stroke:#969696;stroke-width:0.5px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+    <ns0:path ns1:connector-curvature="0" id="path1079" d="m 81,198 v 18 h 26 v -18 z" style="fill:#f0f0f0;fill-opacity:1;stroke:#969696;stroke-width:0.5px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+    <ns0:path ns1:connector-curvature="0" id="path1081" d="m 81,198 v 2 h 12 v 8 H 81 v 2 h 12 v 6 h 2 v -6 h 10 v 6 h 2 v -18 z" style="fill:none;stroke:#969696;stroke-width:0.5px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+    <ns0:path ns1:connector-curvature="0" id="path1083" d="m 95,200 h 10 v 8 H 95 Z" style="fill:none;stroke:#969696;stroke-width:0.5px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+    <ns0:path ns1:connector-curvature="0" id="path1085" d="m 119,234 v 18 h 26 v -18 z" style="fill:#f0f0f0;fill-opacity:1;stroke:#969696;stroke-width:0.5px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+    <ns0:path ns1:connector-curvature="0" id="path1087" d="m 119,234 v 2 h 12 v 8 h -12 v 2 h 12 v 6 h 2 v -6 h 10 v 6 h 2 v -18 z" style="fill:none;stroke:#969696;stroke-width:0.5px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+    <ns0:path ns1:connector-curvature="0" id="path1089" d="m 133,236 h 10 v 8 h -10 z" style="fill:none;stroke:#969696;stroke-width:0.5px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+    <ns0:path style="fill:#f0f0f0;fill-opacity:1;stroke:#969696;stroke-width:0.5px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" d="m 157,234 v 18 h 26 v -18 z" id="path1091" ns1:connector-curvature="0" />
+    <ns0:path style="fill:none;stroke:#969696;stroke-width:0.5px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" d="m 157,234 v 2 h 12 v 8 h -12 v 2 h 12 v 6 h 2 v -6 h 10 v 6 h 2 v -18 z" id="path1093" ns1:connector-curvature="0" />
+    <ns0:path style="fill:none;stroke:#969696;stroke-width:0.5px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" d="m 171,236 h 10 v 8 h -10 z" id="path1095" ns1:connector-curvature="0" />
+    <ns0:path style="fill:#f0f0f0;fill-opacity:1;stroke:#969696;stroke-width:0.5px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" d="m 81,234 v 18 h 26 v -18 z" id="path1097" ns1:connector-curvature="0" />
+    <ns0:path style="fill:none;stroke:#969696;stroke-width:0.5px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" d="m 81,234 v 2 h 12 v 8 H 81 v 2 h 12 v 6 h 2 v -6 h 10 v 6 h 2 v -18 z" id="path1099" ns1:connector-curvature="0" />
+    <ns0:path style="fill:none;stroke:#969696;stroke-width:0.5px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" d="m 95,236 h 10 v 8 H 95 Z" id="path1101" ns1:connector-curvature="0" />
+    <ns0:path ns1:connector-curvature="0" id="path1103" d="m 63,92 h 4 v 18 h -4 z" style="fill:none;stroke:#969696;stroke-width:0.5px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+    <ns0:path ns1:connector-curvature="0" id="path1105" d="M 57,92 Z" style="fill:none;stroke:#969696;stroke-width:0.5px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+    <ns0:path ns1:connector-curvature="0" id="path1107" d="m 57,92 h 4 v 18 h -4 z" style="fill:none;stroke:#969696;stroke-width:0.5px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+    <ns0:path style="fill:none;stroke:#969696;stroke-width:0.5px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" d="m 43,92 h 4 v 18 h -4 z" id="path1109" ns1:connector-curvature="0" />
+    <ns0:path style="fill:none;stroke:#969696;stroke-width:0.5px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" d="M 37,92 Z" id="path1111" ns1:connector-curvature="0" />
+    <ns0:path style="fill:none;stroke:#969696;stroke-width:0.5px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" d="m 37,92 h 4 v 18 h -4 z" id="path1113" ns1:connector-curvature="0" />
+    <ns0:path style="fill:none;stroke:#969696;stroke-width:0.5px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" d="m 63,128 h 4 v 18 h -4 z" id="path1115" ns1:connector-curvature="0" />
+    <ns0:path style="fill:none;stroke:#969696;stroke-width:0.5px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" d="M 57,128 Z" id="path1117" ns1:connector-curvature="0" />
+    <ns0:path style="fill:none;stroke:#969696;stroke-width:0.5px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" d="m 57,128 h 4 v 18 h -4 z" id="path1119" ns1:connector-curvature="0" />
+    <ns0:path ns1:connector-curvature="0" id="path1121" d="m 43,128 h 4 v 18 h -4 z" style="fill:none;stroke:#969696;stroke-width:0.5px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+    <ns0:path ns1:connector-curvature="0" id="path1123" d="M 37,128 Z" style="fill:none;stroke:#969696;stroke-width:0.5px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+    <ns0:path ns1:connector-curvature="0" id="path1125" d="m 37,128 h 4 v 18 h -4 z" style="fill:none;stroke:#969696;stroke-width:0.5px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+    <ns0:path ns1:connector-curvature="0" id="path1127" d="m 63,164 h 4 v 18 h -4 z" style="fill:none;stroke:#969696;stroke-width:0.5px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+    <ns0:path ns1:connector-curvature="0" id="path1129" d="M 57,164 Z" style="fill:none;stroke:#969696;stroke-width:0.5px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+    <ns0:path ns1:connector-curvature="0" id="path1131" d="m 57,164 h 4 v 18 h -4 z" style="fill:none;stroke:#969696;stroke-width:0.5px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+    <ns0:path style="fill:none;stroke:#969696;stroke-width:0.5px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" d="m 43,164 h 4 v 18 h -4 z" id="path1133" ns1:connector-curvature="0" />
+    <ns0:path style="fill:none;stroke:#969696;stroke-width:0.5px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" d="M 37,164 Z" id="path1135" ns1:connector-curvature="0" />
+    <ns0:path style="fill:none;stroke:#969696;stroke-width:0.5px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" d="m 37,164 h 4 v 18 h -4 z" id="path1137" ns1:connector-curvature="0" />
+    <ns0:path style="fill:none;stroke:#969696;stroke-width:0.5px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" d="m 63,200 h 4 v 18 h -4 z" id="path1139" ns1:connector-curvature="0" />
+    <ns0:path style="fill:none;stroke:#969696;stroke-width:0.5px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" d="M 57,200 Z" id="path1141" ns1:connector-curvature="0" />
+    <ns0:path style="fill:none;stroke:#969696;stroke-width:0.5px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" d="m 57,200 h 4 v 18 h -4 z" id="path1143" ns1:connector-curvature="0" />
+    <ns0:path ns1:connector-curvature="0" id="path1145" d="m 43,200 h 4 v 18 h -4 z" style="fill:none;stroke:#969696;stroke-width:0.5px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+    <ns0:path ns1:connector-curvature="0" id="path1147" d="M 37,200 Z" style="fill:none;stroke:#969696;stroke-width:0.5px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+    <ns0:path ns1:connector-curvature="0" id="path1149" d="m 37,200 h 4 v 18 h -4 z" style="fill:none;stroke:#969696;stroke-width:0.5px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+    <ns0:path ns1:connector-curvature="0" id="path1151" d="m 63,236 h 4 v 18 h -4 z" style="fill:none;stroke:#969696;stroke-width:0.5px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+    <ns0:path ns1:connector-curvature="0" id="path1153" d="M 57,236 Z" style="fill:none;stroke:#969696;stroke-width:0.5px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+    <ns0:path ns1:connector-curvature="0" id="path1155" d="m 57,236 h 4 v 18 h -4 z" style="fill:none;stroke:#969696;stroke-width:0.5px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+    <ns0:path style="fill:none;stroke:#969696;stroke-width:0.5px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" d="m 43,236 h 4 v 18 h -4 z" id="path1157" ns1:connector-curvature="0" />
+    <ns0:path style="fill:none;stroke:#969696;stroke-width:0.5px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" d="M 37,236 Z" id="path1159" ns1:connector-curvature="0" />
+    <ns0:path style="fill:none;stroke:#969696;stroke-width:0.5px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" d="m 37,236 h 4 v 18 h -4 z" id="path1161" ns1:connector-curvature="0" />
+    <ns0:path ns1:connector-curvature="0" id="path1163" d="M 65,80 V 70 h 44 v 10 h -2 v -8 h -2 v 8 h -2 V 72 H 71 v 8 h -2 v -8 h -2 v 8 z" style="fill:#bdbdbd;fill-opacity:1;stroke:#969696;stroke-width:0.5px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+    <ns0:path ns1:connector-curvature="0" id="path1165" d="M 61,70 V 38 h 54 v 32 z" style="fill:#d9d9d9;fill-opacity:1;stroke:#969696;stroke-width:0.5px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+    <ns0:path ns2:nodetypes="ccccc" ns1:connector-curvature="0" id="path1167" d="m 63,40 h 50 V 68 H 63 Z" style="fill:none;stroke:#969696;stroke-width:0.5px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+  </ns0:g>
+</ns0:svg>
