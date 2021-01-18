@@ -2,6 +2,7 @@
 #define TRIPPIN_CLOCK_H
 
 #include "SDL.h"
+#include "Timer.h"
 
 namespace trippin {
     // Engine clock for tracking various time components from the engine perspective
@@ -12,17 +13,7 @@ namespace trippin {
         // With a target tick rate of 100 per second, the tick period would be 10
         Uint32 tickPeriod;
 
-        // The total number of engine ticks elapsed
-        Uint32 totalTicks;
-
-        // The total number of engine seconds elapsed
-        Uint32 secondTicks;
-
-        // The SDL-millis at engine thread start time
-        Uint32 firstMillis;
-
-        // The previous engine second
-        Uint32 lastSecond;
+        Timer timer;
     public:
         Clock(Uint32 tickPeriod);
         void next();

@@ -166,6 +166,7 @@ void trippin::Game::start() {
 }
 
 void trippin::Game::renderLoop() {
+    Timer timer("renderer");
     bool quit = false;
     while (!quit) {
         SDL_Event e;
@@ -197,5 +198,7 @@ void trippin::Game::renderLoop() {
         score.render(camera);
 
         SDL_RenderPresent(renderer);
+
+        timer.next();
     }
 }
