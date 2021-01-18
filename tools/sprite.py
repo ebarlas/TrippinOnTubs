@@ -67,12 +67,13 @@ def export_pngs(svg_file, tmp_dir, export_dir, scales, name):
 
     for n in range(1, num_frames + 1):
         if fade_to_white:
-            for e in root.findall(f'.//svg:g[@type="frame"]/svg:path', namespace):
-                styles = {s[0]: s[1] for s in [s.split(':') for s in e.attrib['style'].split(';')]}
-                fade_color_attr(styles, 'fill', 255, fade_to_white)
-                fade_color_attr(styles, 'stroke', 255, fade_to_white)
-                style = ';'.join([f'{k}:{styles[k]}' for k in styles.keys()])
-                e.set('style', style)
+            for elem in ['path', 'circle', 'text']:
+                for e in root.findall(f'.//svg:g[@type="frame"]/svg:{elem}', namespace):
+                    styles = {s[0]: s[1] for s in [s.split(':') for s in e.attrib['style'].split(';')]}
+                    fade_color_attr(styles, 'fill', 255, fade_to_white)
+                    fade_color_attr(styles, 'stroke', 255, fade_to_white)
+                    style = ';'.join([f'{k}:{styles[k]}' for k in styles.keys()])
+                    e.set('style', style)
         for e in root.findall(f'.//svg:g[@type="frame"]', namespace):
             e.set('style', 'display:none')
         for e in root.findall(f'.//svg:g[@type="frame"][@frame="{n}"]', namespace):
