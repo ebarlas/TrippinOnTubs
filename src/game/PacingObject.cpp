@@ -20,7 +20,7 @@ void trippin::PacingObject::beforeTick(Uint32 engineTicks) {
 }
 
 void trippin::PacingObject::afterTick(Uint32 engineTicks) {
-    Exchange ex{channel};
+    Exchange<Channel> ex{channel};
     auto &ch = ex.get();
     ch.roundedPosition = roundedPosition;
     if (platformCollisions.testBottom() || objectCollisions.testBottom()) {

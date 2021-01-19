@@ -23,7 +23,7 @@ void trippin::Goggin::init(const Configuration &config, const Map::Object &obj, 
 }
 
 void trippin::Goggin::beforeTick(Uint32 engineTicks) {
-    Exchange exchange{channel};
+    Exchange<Channel> exchange{channel};
     auto &ch = exchange.get();
 
     double jumpVel;
@@ -62,7 +62,7 @@ void trippin::Goggin::beforeTick(Uint32 engineTicks) {
 }
 
 void trippin::Goggin::afterTick(Uint32 engineTicks) {
-    Exchange exchange{channel};
+    Exchange<Channel> exchange{channel};
     auto &ch = exchange.get();
     ticks++;
 
@@ -84,7 +84,7 @@ void trippin::Goggin::afterTick(Uint32 engineTicks) {
 void trippin::Goggin::center(trippin::Camera &camera) {
     // record position here for use in subsequent render call to avoid jitter
     // jitter emerges when an engine tick updates the position *between* center and render calls
-    Exchange exchange{channel};
+    Exchange<Channel> exchange{channel};
     auto &ch = exchange.get();
     ch.cameraPosition = ch.roundedPosition;
     camera.centerOn(ch.cameraPosition);
@@ -173,13 +173,13 @@ void trippin::Goggin::render(const trippin::Camera &camera) {
 }
 
 void trippin::Goggin::onKeyDown() {
-    Exchange exchange{channel};
+    Exchange<Channel> exchange{channel};
     auto &ch = exchange.get();
     ch.keyDown = true;
 }
 
 void trippin::Goggin::onKeyUp() {
-    Exchange exchange{channel};
+    Exchange<Channel> exchange{channel};
     auto &ch = exchange.get();
     if (ch.keyDown) {
         ch.keyUp = true;

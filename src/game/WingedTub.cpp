@@ -15,7 +15,7 @@ void trippin::WingedTub::init(const Configuration &config, const Map::Object &ob
 }
 
 void trippin::WingedTub::afterTick(Uint32 engineTicks) {
-    Exchange exchange(channel);
+    Exchange<Channel> exchange(channel);
     auto &ch = exchange.get();
 
     // Case #1: Goggin contact
