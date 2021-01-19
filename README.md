@@ -53,6 +53,12 @@ is used in various places within the game. It was obtained from fontspace.com un
 
 ![Meltdown MF Font](docs/meltdown.png)
 
+# Media
+
+The diagram below outlines the flow of data between media components.
+
+![Media Data Flow](docs/media-data-flow.png)
+
 # Timing
 
 Two independent timers drive game progress. First, the render rate is the
