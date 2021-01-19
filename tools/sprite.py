@@ -106,7 +106,7 @@ def find_hit_box(svg_file):
                int(round(int(e.attrib['width']) * scale)), \
                int(round(int(e.attrib['height']) * scale))
 
-    return 0, 0, int(root.attrib['width']), int(root.attrib['height'])
+    return 0, 0, int(root.attrib['width']) * scale, int(root.attrib['height']) * scale
 
 
 def find_frame_duration(svg_file):
@@ -114,14 +114,16 @@ def find_frame_duration(svg_file):
     return int(root.attrib['duration']) if 'duration' in root.attrib else 80
 
 
-def count_frames(svg_file):
+def count_frames(svg_file, check_attrib=False):
     root = ET.parse(svg_file).getroot()
+    if check_attrib and 'frames' in root.attrib:
+        return int(root.attrib['scale'])
     return len(root.findall('.//svg:g[@type="frame"]', namespace))
 
 
 def make_metadata(svg_file, output_file):
     Path(output_file).parent.mkdir(parents=True, exist_ok=True)
-    num_frames = count_frames(svg_file)
+    num_frames = count_frames(svg_file, True)
     hit_box = find_hit_box(svg_file)
     duration = find_frame_duration(svg_file)
     metadata = {
