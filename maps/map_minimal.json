@@ -1,0 +1,256 @@
+{
+  "universe": {
+    "width": 80000,
+    "height": 20000
+  },
+  "objects": [
+    {
+      "id": 1,
+      "type": "goggin",
+      "platform": false,
+      "position": {
+        "x": 0,
+        "y": 16200
+      },
+      "terminalVelocity": {
+        "x": 1700.0,
+        "y": 4500.0
+      },
+      "gravity": 4000.0,
+      "fallGravity": 6000.0,
+      "minJumpVelocity": -1500.0,
+      "maxJumpVelocity": -3500.0,
+      "runningAcceleration": 2000.0,
+      "risingAcceleration": 200.0,
+      "minJumpChargeTime": 0,
+      "maxJumpChargeTime": 400,
+      "jumpGracePeriod": 125
+    },
+    {
+      "id": 2,
+      "type": "ground_melt_middle",
+      "platform": true,
+      "position": {
+        "x": 0,
+        "y": 18840
+      }
+    },
+    {
+      "id": 3,
+      "type": "ground_melt_middle",
+      "platform": true,
+      "position": {
+        "x": 600,
+        "y": 18840
+      }
+    },
+    {
+      "id": 4,
+      "type": "ground_melt_middle",
+      "platform": true,
+      "position": {
+        "x": 1800,
+        "y": 18840
+      }
+    },
+    {
+      "id": 5,
+      "type": "ground_melt_middle",
+      "platform": true,
+      "position": {
+        "x": 3000,
+        "y": 18840
+      }
+    },
+    {
+      "id": 6,
+      "type": "ground_melt_middle",
+      "platform": true,
+      "position": {
+        "x": 3600,
+        "y": 18840
+      }
+    },
+    {
+      "id": 7,
+      "type": "ground_melt_right",
+      "platform": true,
+      "position": {
+        "x": 4800,
+        "y": 18840
+      }
+    },
+    {
+      "id": 8,
+      "type": "ground_melt_left",
+      "platform": true,
+      "position": {
+        "x": 5600,
+        "y": 18240
+      }
+    },
+    {
+      "id": 9,
+      "type": "ground_melt_middle",
+      "platform": true,
+      "position": {
+        "x": 6800,
+        "y": 18240
+      }
+    },
+    {
+      "id": 10,
+      "type": "ground_melt_right",
+      "platform": true,
+      "position": {
+        "x": 7400,
+        "y": 18240
+      }
+    },
+    {
+      "id": 11,
+      "type": "ground_melt_left",
+      "platform": true,
+      "position": {
+        "x": 7920,
+        "y": 17360
+      }
+    },
+    {
+      "id": 12,
+      "type": "ground_melt_middle",
+      "platform": true,
+      "position": {
+        "x": 8520,
+        "y": 17360
+      }
+    },
+    {
+      "id": 13,
+      "type": "ground_melt_middle",
+      "platform": true,
+      "position": {
+        "x": 9720,
+        "y": 17360
+      }
+    },
+    {
+      "id": 14,
+      "type": "ground_melt_right",
+      "platform": true,
+      "position": {
+        "x": 10920,
+        "y": 17360
+      }
+    },
+    {
+      "id": 15,
+      "type": "ground_melt_left",
+      "platform": true,
+      "position": {
+        "x": 11000,
+        "y": 18120
+      }
+    },
+    {
+      "id": 16,
+      "type": "ground_melt_middle",
+      "platform": true,
+      "position": {
+        "x": 11600,
+        "y": 18120
+      }
+    },
+    {
+      "id": 17,
+      "type": "ground_melt_right",
+      "platform": true,
+      "position": {
+        "x": 12800,
+        "y": 18120
+      }
+    },
+    {
+      "id": 18,
+      "type": "ground_melt_middle",
+      "platform": true,
+      "position": {
+        "x": 1200,
+        "y": 18840
+      }
+    },
+    {
+      "id": 19,
+      "type": "ground_melt_middle",
+      "platform": true,
+      "position": {
+        "x": 2400,
+        "y": 18840
+      }
+    },
+    {
+      "id": 20,
+      "type": "ground_melt_middle",
+      "platform": true,
+      "position": {
+        "x": 4200,
+        "y": 18840
+      }
+    },
+    {
+      "id": 21,
+      "type": "ground_melt_middle",
+      "platform": true,
+      "position": {
+        "x": 6200,
+        "y": 18240
+      }
+    },
+    {
+      "id": 22,
+      "type": "ground_melt_middle",
+      "platform": true,
+      "position": {
+        "x": 9120,
+        "y": 17360
+      }
+    },
+    {
+      "id": 23,
+      "type": "ground_melt_middle",
+      "platform": true,
+      "position": {
+        "x": 10320,
+        "y": 17360
+      }
+    },
+    {
+      "id": 24,
+      "type": "ground_melt_middle",
+      "platform": true,
+      "position": {
+        "x": 12200,
+        "y": 18120
+      }
+    },
+    {
+      "id": 25,
+      "type": "clock_timer",
+      "platform": false,
+      "position": {
+        "x": 80,
+        "y": 80
+      }
+    },
+    {
+      "id": 26,
+      "type": "winged_foot",
+      "platform": false,
+      "position": {
+        "x": 920,
+        "y": 80
+      }
+    }
+  ],
+  "layers": []
+}

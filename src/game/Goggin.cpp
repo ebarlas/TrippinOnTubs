@@ -19,7 +19,7 @@ void trippin::Goggin::init(const Configuration &config, const Map::Object &obj, 
     maxJumpChargeTicks = obj.maxJumpChargeTime / config.tickPeriod;
     jumpGracePeriodTicks = obj.jumpGracePeriod / config.tickPeriod;
     state = State::falling;
-    channel.ref() = {roundedPosition, 14, false, false};
+    channel.ref() = {roundedPosition, roundedPosition, 14, false, false};
 }
 
 void trippin::Goggin::beforeTick(Uint32 engineTicks) {
@@ -82,7 +82,12 @@ void trippin::Goggin::afterTick(Uint32 engineTicks) {
 }
 
 void trippin::Goggin::center(trippin::Camera &camera) {
-    camera.centerOn(channel.get().roundedPosition);
+    // record position here for use in subsequent render call to avoid jitter
+    // jitter emerges when an engine tick updates the position *between* center and render calls
+    Exchange exchange{channel};
+    auto &ch = exchange.get();
+    ch.cameraPosition = ch.roundedPosition;
+    camera.centerOn(ch.cameraPosition);
 }
 
 void trippin::Goggin::onFalling(Uint32 engineTicks, Channel &ch) {
@@ -164,7 +169,7 @@ void trippin::Goggin::onRising(Uint32 engineTicks, Channel &ch) {
 
 void trippin::Goggin::render(const trippin::Camera &camera) {
     auto ch = channel.get();
-    sprite->render(ch.roundedPosition, ch.frame, camera);
+    sprite->render(ch.cameraPosition, ch.frame, camera);
 }
 
 void trippin::Goggin::onKeyDown() {

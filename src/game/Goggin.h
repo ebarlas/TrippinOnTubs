@@ -13,6 +13,9 @@ namespace trippin {
         void beforeTick(Uint32 engineTicks) override;
         void afterTick(Uint32 engineTicks) override;
         void render(const Camera &camera) override;
+        // Anchor the camera on Goggin
+        // This is the first step of a frame update
+        // The position used here ought to be used in the subsequent render call to avoid jitter
         void center(Camera &camera);
         void onKeyDown();
         void onKeyUp();
@@ -20,6 +23,7 @@ namespace trippin {
     private:
         struct Channel {
             Point<int> roundedPosition;
+            Point<int> cameraPosition;
             int frame;
             bool keyDown;
             bool keyUp;

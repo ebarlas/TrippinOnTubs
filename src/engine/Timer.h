@@ -10,7 +10,7 @@ namespace trippin {
         Timer(const char *name);
 
         // Advances the timer by one tick
-        // Returns the number of milliseconds elapsed since last tick
+        // Returns the number of milliseconds elapsed since the timer started
         Uint32 next();
 
         Uint32 getTotalTicks() const;

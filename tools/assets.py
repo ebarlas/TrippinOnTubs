@@ -36,7 +36,7 @@ sprites = [
     'masonic_lodge',
 ]
 
-levels = ['map_ground_melt']
+levels = ['map_ground_melt', 'map_minimal']
 
 dir_raw = 'raw'
 dir_svgs = 'svgs'
