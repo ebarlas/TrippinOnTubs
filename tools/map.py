@@ -61,6 +61,8 @@ def find_layers(root):
         layer = {
             'objects': []
         }
+        if g.attrib.get('anchorTop') == 'true':
+            layer['anchorTop'] = True
         layers.append(layer)
         for e in g.findall('.//svg:rect', namespace):
             layer['width'] = int(e.attrib['width'])

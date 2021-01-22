@@ -34,6 +34,7 @@ namespace trippin {
                 std::string type;
             };
 
+            bool anchorTop{};
             Point<int> size;
             std::vector<Layer::Object> objects;
         };

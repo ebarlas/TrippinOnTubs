@@ -59,6 +59,8 @@ void trippin::from_json(const nlohmann::json& j, Map::Layer& layer) {
     j.at("width").get_to(layer.size.x);
     j.at("height").get_to(layer.size.y);
     j.at("objects").get_to(layer.objects);
+    if (j.contains("anchorTop"))
+        j.at("anchorTop").get_to(layer.anchorTop);
 }
 
 void trippin::from_json(const nlohmann::json& j, Map::Layer::Object& obj) {

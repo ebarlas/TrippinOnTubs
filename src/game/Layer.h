@@ -19,6 +19,7 @@ namespace trippin {
 
         std::vector<Object> objects;
         Point<int> size;
+        bool anchorTop;
     };
 }
 

@@ -184,7 +184,7 @@ void trippin::Game::renderLoop() {
             }
         }
 
-        SDL_SetRenderDrawColor(renderer, 255, 247, 251, 255);
+        SDL_SetRenderDrawColor(renderer, 247, 251, 255, 255);
         SDL_RenderClear(renderer);
 
         goggin.center(camera);

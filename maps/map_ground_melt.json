@@ -8926,22 +8926,50 @@
     {
       "objects": [
         {
+          "type": "hills",
+          "position": {
+            "x": 0,
+            "y": 300
+          }
+        },
+        {
+          "type": "hills",
+          "position": {
+            "x": 4200,
+            "y": 300
+          }
+        },
+        {
+          "type": "hills",
+          "position": {
+            "x": 8400,
+            "y": 300
+          }
+        }
+      ],
+      "anchorTop": true,
+      "width": 12000,
+      "height": 4300
+    },
+    {
+      "objects": [
+        {
           "type": "masonic_lodge",
           "position": {
             "x": 5890,
-            "y": 2000
+            "y": 6000
           }
         },
         {
           "type": "phoenix",
           "position": {
             "x": 0,
-            "y": 3400
+            "y": 7400
           }
         }
       ],
-      "width": 11920,
-      "height": 6000
+      "width": 15000,
+      "height": 10000
     }
   ]
 }

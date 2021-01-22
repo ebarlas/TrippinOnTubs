@@ -34,6 +34,7 @@ sprites = [
     'building6',
     'phoenix',
     'masonic_lodge',
+    'hills',
 ]
 
 levels = ['map_ground_melt', 'map_minimal']
