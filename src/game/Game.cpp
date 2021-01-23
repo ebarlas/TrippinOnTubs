@@ -136,7 +136,7 @@ void trippin::Game::initEngine() {
 
     score.init(configuration, spriteManager->get("digits"));
 
-    spirit.setPosition(-goggin.terminalVelocity.x * configuration.ticksPerSecond() * 2);
+    spirit.setPosition(-goggin.terminalVelocity.x * configuration.ticksPerSecond() * configuration.spiritSecondsBehind);
     spirit.setVelocity(goggin.terminalVelocity.x);
 
     spiritClock.setGoggin(&goggin);

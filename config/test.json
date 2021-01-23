@@ -1,5 +1,6 @@
 {
   "minimumViewportWidth": 4320,
+  "spiritSecondsBehind": 2,
   "tickPeriod": 5,
   "spiritClockTickPeriod": 500,
   "activationProximity": 5000,

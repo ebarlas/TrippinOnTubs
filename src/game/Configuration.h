@@ -9,6 +9,7 @@
 namespace trippin {
     struct Configuration {
         int minimumViewportWidth;
+        int spiritSecondsBehind;
         int tickPeriod;
         int spiritClockTickPeriod;
         int activationProximity;
