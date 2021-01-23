@@ -1,6 +1,5 @@
 {
-  "minPlayerSpan": 9,
-  "playerBaseWidth": 480,
+  "minimumViewportWidth": 4320,
   "tickPeriod": 5,
   "spiritClockTickPeriod": 500,
   "activationProximity": 5000,

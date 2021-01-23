@@ -8,8 +8,7 @@
 
 namespace trippin {
     struct Configuration {
-        int minPlayerSpan;
-        int playerBaseWidth;
+        int minimumViewportWidth;
         int tickPeriod;
         int spiritClockTickPeriod;
         int activationProximity;

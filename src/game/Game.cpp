@@ -66,9 +66,7 @@ void trippin::Game::initScale() {
     auto &cs = configuration.scales;
     scale = &cs[0];
     for (int i = cs.size() - 1; i > 0; i--) {
-        auto mul = cs[i].getMultiplier();
-        auto span = windowSize.x / (configuration.playerBaseWidth * mul);
-        if (span >= configuration.minPlayerSpan) {
+        if (windowSize.x >= configuration.minimumViewportWidth * cs[i].getMultiplier()) {
             scale = &cs[i];
             break;
         }

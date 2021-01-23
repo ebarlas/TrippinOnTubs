@@ -24,8 +24,7 @@ double trippin::Configuration::engineTicksPerSpiritClockTick() const {
 }
 
 void trippin::from_json(const nlohmann::json &j, Configuration &config) {
-    j.at("minPlayerSpan").get_to(config.minPlayerSpan);
-    j.at("playerBaseWidth").get_to(config.playerBaseWidth);
+    j.at("minimumViewportWidth").get_to(config.minimumViewportWidth);
     j.at("tickPeriod").get_to(config.tickPeriod);
     j.at("spiritClockTickPeriod").get_to(config.spiritClockTickPeriod);
     j.at("activationProximity").get_to(config.activationProximity);
