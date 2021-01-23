@@ -53,6 +53,8 @@ void trippin::from_json(const nlohmann::json& j, Map::Object& obj) {
         j.at("terminalVelocity").get_to(obj.terminalVelocity);
     if (j.contains("friction"))
         j.at("friction").get_to(obj.friction);
+    if (j.contains("lane"))
+        j.at("lane").get_to(obj.lane);
 }
 
 void trippin::from_json(const nlohmann::json& j, Map::Layer& layer) {

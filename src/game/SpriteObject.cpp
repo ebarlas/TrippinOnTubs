@@ -11,6 +11,7 @@ void trippin::SpriteObject::init(
     platform = obj.platform;
     sprite = &spr;
     id = obj.id;
+    lane = obj.lane;
     gravity = (obj.gravity / gameTicksPerSecondSq) * mul;
     fallGravity = (obj.fallGravity / gameTicksPerSecondSq) * mul;
     auto hb = spr.getHitBox();

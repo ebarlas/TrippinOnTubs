@@ -69,6 +69,10 @@ namespace trippin {
         // Optional platform collision, which overrides engine default.
         Optional<Collision *> platformCollision{};
 
+        // Objects with a non-zero lane interact with objects in the same lane and objects with a zero lane
+        // Objects with a zero lane interact with all objects
+        int lane;
+
         // Flag that indicates whether this object has expired and can be removed.
         bool expired{};
 

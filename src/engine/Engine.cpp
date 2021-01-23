@@ -94,13 +94,15 @@ bool trippin::Engine::hasHigherSnapPriorityThan(Object *left, Object *right) {
 void trippin::Engine::snapToPlatform(Object *plat) {
     for (auto obj : objects) {
         if (!obj->snappedToMe) {
-            auto overlap = obj->roundedBox.intersect(plat->roundedBox);
-            if (overlap) {
-                snapTo(*obj, *plat, overlap);
-            }
-            auto collision = obj->roundedBox.collision(plat->roundedBox);
-            if (collision) {
-                obj->snapCollisions |= collision;
+            if (!obj->lane || !plat->lane || obj->lane == plat->lane) {
+                auto overlap = obj->roundedBox.intersect(plat->roundedBox);
+                if (overlap) {
+                    snapTo(*obj, *plat, overlap);
+                }
+                auto collision = obj->roundedBox.collision(plat->roundedBox);
+                if (collision) {
+                    obj->snapCollisions |= collision;
+                }
             }
         }
     }
@@ -148,10 +150,12 @@ void trippin::Engine::applyPhysics() {
     for (auto platform : platforms) {
         if (!platform->inactive) {
             for (auto object : objects) {
-                if (!object->inactive) {
-                    auto collision = object->roundedBox.collision(platform->roundedBox);
-                    if (collision) {
-                        applyPlatformCollision(*object, *platform, collision);
+                if (!object->lane || !platform->lane || object->lane == platform->lane) {
+                    if (!object->inactive) {
+                        auto collision = object->roundedBox.collision(platform->roundedBox);
+                        if (collision) {
+                            applyPlatformCollision(*object, *platform, collision);
+                        }
                     }
                 }
             }
@@ -163,10 +167,12 @@ void trippin::Engine::applyPhysics() {
         if (!a->inactive) {
             for (int j = i + 1; j < objects.size(); j++) {
                 auto b = objects[j];
-                if (!b->inactive) {
-                    auto collision = a->roundedBox.collision(b->roundedBox);
-                    if (collision) {
-                        applyObjectCollision(*a, *b, collision);
+                if (!a->lane || !b->lane || a->lane == b->lane) {
+                    if (!b->inactive) {
+                        auto collision = a->roundedBox.collision(b->roundedBox);
+                        if (collision) {
+                            applyObjectCollision(*a, *b, collision);
+                        }
                     }
                 }
             }

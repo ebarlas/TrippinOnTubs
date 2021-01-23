@@ -10,6 +10,7 @@ namespace trippin {
     struct Map {
         struct Object {
             int id{};
+            int lane{};
             std::string type;
             bool platform;
             Point<double> position;
