@@ -12,11 +12,23 @@ void trippin::WingedTub::init(const Configuration &config, const Map::Object &ob
     expired = false;
     channel.ref() = {0, true};
     hitGoggin = false;
+    inactive = true;
+}
+
+void trippin::WingedTub::beforeTick(Uint32 engineTicks) {
+    if (inactive && activation->shouldActivate(hitBox.x)) {
+        inactive = false;
+    }
 }
 
 void trippin::WingedTub::afterTick(Uint32 engineTicks) {
     Exchange<Channel> exchange(channel);
     auto &ch = exchange.get();
+
+    // early exit if not activated yet
+    if (inactive) {
+        return;
+    }
 
     // Case #1: Goggin contact
     if (!hitGoggin && hitBox.intersect(goggin->roundedBox)) {
@@ -52,6 +64,10 @@ void trippin::WingedTub::setGoggin(const Goggin *g) {
 
 void trippin::WingedTub::setScore(Score *sc) {
     score = sc;
+}
+
+void trippin::WingedTub::setActivation(const Activation *act) {
+    activation = act;
 }
 
 void trippin::WingedTub::render(const trippin::Camera &camera) {

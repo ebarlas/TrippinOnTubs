@@ -6,6 +6,7 @@
 #include "Spirit.h"
 #include "Goggin.h"
 #include "Score.h"
+#include "Activation.h"
 #include "lock/Guarded.h"
 
 namespace trippin {
@@ -14,6 +15,8 @@ namespace trippin {
         void init(const Configuration &config, const Map::Object &obj, const Sprite &spr);
         void setGoggin(const Goggin *goggin);
         void setScore(Score *score);
+        void setActivation(const Activation *activation);
+        void beforeTick(Uint32 engineTicks) override;
         void afterTick(Uint32 engineTicks) override;
         void render(const Camera &camera) override;
         bool isExpired() override;
@@ -27,6 +30,8 @@ namespace trippin {
         int hitTicks;
         bool hitGoggin;
         bool expired;
+        bool inactive;
+        const Activation *activation;
 
         struct Channel {
             int frame;

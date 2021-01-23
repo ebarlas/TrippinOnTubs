@@ -111,6 +111,7 @@ void trippin::Game::initEngine() {
             uptr->init(configuration, obj, spriteManager->get(obj.type));
             uptr->setGoggin(&goggin);
             uptr->setScore(&score);
+            uptr->setActivation(&activation);
             engine.addListener(uptr.get());
             objects.push_back(std::move(uptr));
         } else if (obj.type == "clock_timer") {
