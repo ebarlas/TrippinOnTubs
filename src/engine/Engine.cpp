@@ -3,17 +3,13 @@
 #include "engine/Clock.h"
 
 void trippin::Engine::add(Object *obj) {
-    auto &vec = obj->platform ? platforms : objects;
+    auto &vec = obj->inactive ? inactive : (obj->platform ? platforms : objects);
     vec.push_back(obj);
-}
-
-void trippin::Engine::remove(Object *obj) {
-    auto &vec = obj->platform ? platforms : objects;
-    vec.erase(std::find(vec.begin(), vec.end(), obj));
 }
 
 void trippin::Engine::beforeTick(Uint32 engineTicks) {
     auto fn = [engineTicks](auto obj) { obj->beforeTick(engineTicks); };
+    std::for_each(inactive.begin(), inactive.end(), fn);
     std::for_each(platforms.begin(), platforms.end(), fn);
     std::for_each(objects.begin(), objects.end(), fn);
     std::for_each(listeners.begin(), listeners.end(), fn);
@@ -21,13 +17,27 @@ void trippin::Engine::beforeTick(Uint32 engineTicks) {
 
 void trippin::Engine::afterTick(Uint32 engineTicks) {
     auto fn = [engineTicks](auto obj) { obj->afterTick(engineTicks); };
+    std::for_each(inactive.begin(), inactive.end(), fn);
     std::for_each(platforms.begin(), platforms.end(), fn);
     std::for_each(objects.begin(), objects.end(), fn);
     std::for_each(listeners.begin(), listeners.end(), fn);
 }
 
+void trippin::Engine::promoteActive() {
+    std::for_each(inactive.begin(), inactive.end(), [this](Object *obj) {
+        if (!obj->inactive) {
+            auto &vec = obj->platform ? platforms : objects;
+            vec.push_back(obj);
+        }
+    });
+
+    auto it = std::remove_if(inactive.begin(), inactive.end(), [](Object *obj) { return !obj->inactive; });
+    inactive.erase(it, inactive.end());
+}
+
 void trippin::Engine::removeExpired() {
     auto fn = [](Listener *listener) { return listener->isExpired(); };
+    platforms.erase(std::remove_if(inactive.begin(), inactive.end(), fn), inactive.end());
     platforms.erase(std::remove_if(platforms.begin(), platforms.end(), fn), platforms.end());
     objects.erase(std::remove_if(objects.begin(), objects.end(), fn), objects.end());
     listeners.erase(std::remove_if(listeners.begin(), listeners.end(), fn), listeners.end());
@@ -35,6 +45,7 @@ void trippin::Engine::removeExpired() {
 
 void trippin::Engine::tick(Uint32 engineTicks) {
     beforeTick(engineTicks);
+    promoteActive();
     removeExpired();
     applyMotion();
     snapObjects();
@@ -43,16 +54,14 @@ void trippin::Engine::tick(Uint32 engineTicks) {
 }
 
 void trippin::Engine::applyMotion() {
-    std::for_each(objects.begin(), objects.end(), [](Object *obj) { if (!obj->inactive) obj->applyMotion(); });
+    std::for_each(objects.begin(), objects.end(), [](Object *obj) { obj->applyMotion(); });
 }
 
 void trippin::Engine::snapObjects() {
     // prepare for snapping
     for (auto obj : objects) {
-        if (!obj->inactive) {
-            obj->snapCollisions.clear();
-            obj->snappedToMe = false;
-        }
+        obj->snapCollisions.clear();
+        obj->snappedToMe = false;
     }
 
     // first, snap objects to each platform
@@ -148,15 +157,11 @@ void trippin::Engine::snapTo(Object &obj, const Object &p, const Rect<int> &over
 
 void trippin::Engine::applyPhysics() {
     for (auto platform : platforms) {
-        if (!platform->inactive) {
-            for (auto object : objects) {
-                if (!object->lane || !platform->lane || object->lane == platform->lane) {
-                    if (!object->inactive) {
-                        auto collision = object->roundedBox.collision(platform->roundedBox);
-                        if (collision) {
-                            applyPlatformCollision(*object, *platform, collision);
-                        }
-                    }
+        for (auto object : objects) {
+            if (!object->lane || !platform->lane || object->lane == platform->lane) {
+                auto collision = object->roundedBox.collision(platform->roundedBox);
+                if (collision) {
+                    applyPlatformCollision(*object, *platform, collision);
                 }
             }
         }
@@ -164,16 +169,12 @@ void trippin::Engine::applyPhysics() {
 
     for (int i = 0; i < objects.size(); i++) {
         auto a = objects[i];
-        if (!a->inactive) {
-            for (int j = i + 1; j < objects.size(); j++) {
-                auto b = objects[j];
-                if (!a->lane || !b->lane || a->lane == b->lane) {
-                    if (!b->inactive) {
-                        auto collision = a->roundedBox.collision(b->roundedBox);
-                        if (collision) {
-                            applyObjectCollision(*a, *b, collision);
-                        }
-                    }
+        for (int j = i + 1; j < objects.size(); j++) {
+            auto b = objects[j];
+            if (!a->lane || !b->lane || a->lane == b->lane) {
+                auto collision = a->roundedBox.collision(b->roundedBox);
+                if (collision) {
+                    applyObjectCollision(*a, *b, collision);
                 }
             }
         }

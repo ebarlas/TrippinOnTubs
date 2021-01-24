@@ -18,9 +18,6 @@ namespace trippin {
         // The object ought to out-live the engine.
         void add(Object *object);
 
-        // Remove an object from the engine.
-        void remove(Object *object);
-
         // Add non-object engine listener.
         void addListener(Listener *listener);
 
@@ -53,6 +50,7 @@ namespace trippin {
         AbsorbentCollision defaultPlatformCollision;
         InelasticCollision defaultObjectCollision;
 
+        std::vector<Object *> inactive;
         std::vector<Object *> platforms;
         std::vector<Object *> objects;
         std::vector<Listener *> listeners;
@@ -66,6 +64,7 @@ namespace trippin {
 
         void beforeTick(Uint32 engineTicks);
         void afterTick(Uint32 engineTicks);
+        void promoteActive();
         void removeExpired();
         void applyMotion();
         void snapObjects();
