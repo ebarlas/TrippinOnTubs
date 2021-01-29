@@ -97,6 +97,7 @@ void trippin::Game::initEngine() {
 
     for (auto &obj : map.objects) {
         if (obj.type == "goggin") {
+            goggin.setDust(spriteManager->get("dust"));
             goggin.init(configuration, obj, spriteManager->get(obj.type));
             engine.add(&goggin);
         } else if (obj.type.rfind("ground_melt_", 0) == 0 || obj.type.rfind("platform", 0) == 0) {

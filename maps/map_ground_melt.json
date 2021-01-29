@@ -24,7 +24,8 @@
       "risingAcceleration": 200.0,
       "minJumpChargeTime": 0,
       "maxJumpChargeTime": 400,
-      "jumpGracePeriod": 125
+      "jumpGracePeriod": 125,
+      "dustPeriod": 140
     },
     {
       "id": 2,

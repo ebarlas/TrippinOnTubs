@@ -29,7 +29,7 @@ def find_objects(root):
     points = ['velocity', 'terminalVelocity', 'friction']
     floats = ['mass', 'gravity', 'fallGravity', 'minJumpVelocity', 'maxJumpVelocity',
               'runningAcceleration', 'risingAcceleration']
-    ints = ['minJumpChargeTime', 'maxJumpChargeTime', 'jumpGracePeriod', 'lane']
+    ints = ['minJumpChargeTime', 'maxJumpChargeTime', 'jumpGracePeriod', 'lane', 'dustPeriod']
     id_counter = 1
     # an object is an image within a group that does not have attribute type='layer'
     for g in root.findall('.//svg:g', namespace):

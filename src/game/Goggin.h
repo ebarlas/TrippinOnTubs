@@ -10,6 +10,7 @@ namespace trippin {
     class Goggin : public SpriteObject {
     public:
         void init(const Configuration &config, const Map::Object &obj, const Sprite &spr) override;
+        void setDust(const Sprite &spr);
         void beforeTick(Uint32 engineTicks) override;
         void afterTick(Uint32 engineTicks) override;
         void render(const Camera &camera) override;
@@ -21,13 +22,26 @@ namespace trippin {
         void onKeyUp();
         double getJumpCharge() const;
     private:
+        struct Dust {
+            Point<int> position;
+            int frame;
+            int ticks;
+        };
+
         struct Channel {
             Point<int> roundedPosition;
             Point<int> cameraPosition;
             int frame;
             bool keyDown;
             bool keyUp;
+            std::array<Dust, 5> dusts; // circular queue of dust clouds
         };
+
+        const Sprite *dust;
+        Uint32 dustTicks;
+        int nextDustPos;
+        int dustPeriodTicks;
+        int dustFramePeriodTicks;
 
         constexpr static const int FRAME_LANDING_FIRST = 15;
         constexpr static const int FRAME_FALLING_FIRST = 12;

@@ -19,8 +19,19 @@ void trippin::Goggin::init(const Configuration &config, const Map::Object &obj, 
     maxJumpChargeTicks = obj.maxJumpChargeTime / config.tickPeriod;
     jumpGracePeriodTicks = obj.jumpGracePeriod / config.tickPeriod;
     state = State::falling;
-    channel.ref() = {roundedPosition, roundedPosition, 14, false, false};
+
+    channel.ref() = {roundedPosition, roundedPosition, FRAME_FALLING_LAST, false, false};
+    for (auto &d : channel.ref().dusts) {
+        d.frame = dust->getFrames();
+    }
+
+    dustPeriodTicks = obj.dustPeriod / config.tickPeriod;
+    dustFramePeriodTicks = dust->getDuration() / config.tickPeriod;
 }
+
+void trippin::Goggin::setDust(const Sprite &spr) {
+    dust = &spr;
+};
 
 void trippin::Goggin::beforeTick(Uint32 engineTicks) {
     Exchange<Channel> exchange{channel};
@@ -65,6 +76,26 @@ void trippin::Goggin::afterTick(Uint32 engineTicks) {
     Exchange<Channel> exchange{channel};
     auto &ch = exchange.get();
     ticks++;
+
+    // advance dust cloud ticks
+    for (auto &d : ch.dusts) {
+        if (d.frame < dust->getFrames()) {
+            d.ticks++;
+            if (d.ticks == dustFramePeriodTicks) {
+                d.ticks = 0;
+                d.frame++; // may go past last frame, denoting inactive
+            }
+        }
+    }
+
+    // test for creation of new dust cloud
+    if (platformCollisions.testBottom() && engineTicks - dustTicks >= dustPeriodTicks) {
+        dustTicks = engineTicks;
+        auto left = roundedPosition.x - dust->getHitBox().w;
+        auto top = roundedPosition.y + size.y - dust->getHitBox().h;
+        ch.dusts[nextDustPos] = {{left, top}, 0};
+        nextDustPos = (nextDustPos + 1) % ch.dusts.size();
+    }
 
     if (state == State::falling) {
         onFalling(engineTicks, ch);
@@ -170,6 +201,12 @@ void trippin::Goggin::onRising(Uint32 engineTicks, Channel &ch) {
 void trippin::Goggin::render(const trippin::Camera &camera) {
     auto ch = channel.get();
     sprite->render(ch.cameraPosition, ch.frame, camera);
+
+    for (auto &d : ch.dusts) {
+        if (d.frame < dust->getFrames()) {
+            dust->render(d.position, d.frame, camera);
+        }
+    }
 }
 
 void trippin::Goggin::onKeyDown() {
