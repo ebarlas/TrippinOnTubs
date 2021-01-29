@@ -38,7 +38,7 @@ void trippin::Goggin::beforeTick(Uint32 engineTicks) {
     auto &ch = exchange.get();
 
     double jumpVel;
-    if (ch.keyDown) {
+    if (ch.jumpCharge) {
         if (!jumpTicks) {
             jumpTicks = engineTicks;
         }
@@ -51,9 +51,9 @@ void trippin::Goggin::beforeTick(Uint32 engineTicks) {
         jumpPercent = 0;
     }
 
-    if (ch.keyUp && jumpTicks) {
-        ch.keyDown = false;
-        ch.keyUp = false;
+    if (ch.jumpRelease && jumpTicks) {
+        ch.jumpCharge = false;
+        ch.jumpRelease = false;
         jumpTicks = 0;
         if (state == running || state == landing ||
             (engineTicks > lastRunTick && engineTicks - lastRunTick < jumpGracePeriodTicks)) {
@@ -209,17 +209,16 @@ void trippin::Goggin::render(const trippin::Camera &camera) {
     }
 }
 
-void trippin::Goggin::onKeyDown() {
+void trippin::Goggin::onJumpCharge() {
     Exchange<Channel> exchange{channel};
-    auto &ch = exchange.get();
-    ch.keyDown = true;
+    exchange.get().jumpCharge = true;
 }
 
-void trippin::Goggin::onKeyUp() {
+void trippin::Goggin::onJumpRelease() {
     Exchange<Channel> exchange{channel};
     auto &ch = exchange.get();
-    if (ch.keyDown) {
-        ch.keyUp = true;
+    if (ch.jumpCharge) {
+        ch.jumpRelease = true;
     }
 }
 

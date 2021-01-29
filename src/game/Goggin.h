@@ -18,8 +18,8 @@ namespace trippin {
         // This is the first step of a frame update
         // The position used here ought to be used in the subsequent render call to avoid jitter
         void center(Camera &camera);
-        void onKeyDown();
-        void onKeyUp();
+        void onJumpCharge();
+        void onJumpRelease();
         double getJumpCharge() const;
     private:
         struct Dust {
@@ -32,8 +32,8 @@ namespace trippin {
             Point<int> roundedPosition;
             Point<int> cameraPosition;
             int frame;
-            bool keyDown;
-            bool keyUp;
+            bool jumpCharge;
+            bool jumpRelease;
             std::array<Dust, 5> dusts; // circular queue of dust clouds
         };
 

@@ -175,11 +175,11 @@ void trippin::Game::renderLoop() {
                 quit = true;
             } else if (e.type == SDL_KEYDOWN) {
                 if (e.key.keysym.scancode == SDL_SCANCODE_SPACE) {
-                    goggin.onKeyDown();
+                    goggin.onJumpCharge();
                 }
             } else if (e.type == SDL_KEYUP) {
                 if (e.key.keysym.scancode == SDL_SCANCODE_SPACE) {
-                    goggin.onKeyUp();
+                    goggin.onJumpRelease();
                 }
             }
         }
