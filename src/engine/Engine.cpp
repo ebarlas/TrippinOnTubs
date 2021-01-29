@@ -37,7 +37,7 @@ void trippin::Engine::promoteActive() {
 
 void trippin::Engine::removeExpired() {
     auto fn = [](Listener *listener) { return listener->isExpired(); };
-    platforms.erase(std::remove_if(inactive.begin(), inactive.end(), fn), inactive.end());
+    inactive.erase(std::remove_if(inactive.begin(), inactive.end(), fn), inactive.end());
     platforms.erase(std::remove_if(platforms.begin(), platforms.end(), fn), platforms.end());
     objects.erase(std::remove_if(objects.begin(), objects.end(), fn), objects.end());
     listeners.erase(std::remove_if(listeners.begin(), listeners.end(), fn), listeners.end());
