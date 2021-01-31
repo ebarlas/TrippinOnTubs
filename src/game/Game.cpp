@@ -187,9 +187,15 @@ void trippin::Game::renderLoop() {
                 if (e.key.keysym.scancode == SDL_SCANCODE_SPACE) {
                     goggin.onJumpCharge();
                 }
+                if (e.key.keysym.scancode == SDL_SCANCODE_DOWN) {
+                    goggin.onDuckStart();
+                }
             } else if (e.type == SDL_KEYUP) {
                 if (e.key.keysym.scancode == SDL_SCANCODE_SPACE) {
                     goggin.onJumpRelease();
+                }
+                if (e.key.keysym.scancode == SDL_SCANCODE_DOWN) {
+                    goggin.onDuckEnd();
                 }
             }
         }

@@ -69,6 +69,7 @@ void trippin::Map::convert(int tickPeriod) {
         obj.maxJumpChargeTime /= tickPeriod;
         obj.jumpGracePeriod /= tickPeriod;
         obj.dustPeriod /= tickPeriod;
+        obj.duckFriction /= ticksPerSecondSq;
     }
 }
 
@@ -116,6 +117,8 @@ void trippin::from_json(const nlohmann::json& j, Map::Object& obj) {
         j.at("lane").get_to(obj.lane);
     if (j.contains("dustPeriod"))
         j.at("dustPeriod").get_to(obj.dustPeriod);
+    if (j.contains("duckFriction"))
+        j.at("duckFriction").get_to(obj.duckFriction);
 }
 
 void trippin::from_json(const nlohmann::json& j, Map::Layer& layer) {

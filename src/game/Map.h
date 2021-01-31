@@ -29,6 +29,7 @@ namespace trippin {
             Point<double> terminalVelocity;
             Point<double> friction;
             int dustPeriod;
+            double duckFriction;
         };
 
         struct Layer {

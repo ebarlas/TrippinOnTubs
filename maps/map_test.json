@@ -24,6 +24,7 @@
       "maxJumpVelocity": -875.0,
       "runningAcceleration": 500.0,
       "risingAcceleration": 50.0,
+      "duckFriction": 150.0,
       "minJumpChargeTime": 0,
       "maxJumpChargeTime": 400,
       "jumpGracePeriod": 125,

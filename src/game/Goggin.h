@@ -20,12 +20,14 @@ namespace trippin {
         void center(Camera &camera);
         void onJumpCharge();
         void onJumpRelease();
+        void onDuckStart();
+        void onDuckEnd();
         double getJumpCharge() const;
     private:
         struct Dust {
             Point<int> position;
-            int frame;
-            int ticks;
+            char frame;
+            char ticks;
         };
 
         struct Channel {
@@ -34,6 +36,8 @@ namespace trippin {
             int frame;
             bool jumpCharge;
             bool jumpRelease;
+            bool duckStart;
+            bool duckEnd;
             std::array<Dust, 5> dusts; // circular queue of dust clouds
         };
 
@@ -49,6 +53,7 @@ namespace trippin {
         constexpr static const int FRAME_RUN_AFTER_LAND = 3;
         constexpr static const int FRAME_LAUNCHING_FIRST = 8;
         constexpr static const int FRAME_LAUNCHING_LAST = 11;
+        constexpr static const int FRAME_DUCKING = 17;
 
         constexpr static const int RUNNING_FRAMES = 8;
 
@@ -58,6 +63,7 @@ namespace trippin {
         double jumpVelocity;
         double risingAcceleration;
         double runningAcceleration;
+        double duckFriction;
 
         int framePeriod;
 
@@ -75,18 +81,20 @@ namespace trippin {
             launching,
             rising,
             falling,
-            landing
+            landing,
+            ducking
         };
 
         State state{};
         int ticks{};
-        Uint32 lastRunTick{};
+        Uint32 lastRunOrDuckTick{};
 
         void onFalling(Uint32 engineTicks, Channel &ch);
         void onLanding(Uint32 engineTicks, Channel &ch);
         void onRunning(Uint32 engineTicks, Channel &ch);
         void onLaunching(Uint32 engineTicks, Channel &ch);
         void onRising(Uint32 engineTicks, Channel &ch);
+        void onDucking(Uint32 engineTicks, Channel &ch);
     };
 }
 
