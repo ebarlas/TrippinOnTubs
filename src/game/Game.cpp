@@ -81,7 +81,7 @@ void trippin::Game::initScale() {
 }
 
 void trippin::Game::initSpriteManager() {
-    spriteManager = std::make_unique<SpriteManager>(renderer, Scale{scale->name, scale->multiplier});
+    spriteManager = std::make_unique<SpriteManager>(renderer, Scale{scale->name, scale->multiplier}, configuration.tickPeriod);
 }
 
 void trippin::Game::initCamera() {

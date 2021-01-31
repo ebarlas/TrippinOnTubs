@@ -3,7 +3,6 @@
 
 void trippin::Ground::init(const Configuration &config, const Map::Object &obj, const Sprite &spr) {
     SpriteObject::init(config, obj, spr);
-    framePeriod = sprite->getDuration() / config.tickPeriod;
     channel.get() = {roundedPosition, 0, false};
     melting = false;
     inactive = true;
@@ -26,7 +25,7 @@ void trippin::Ground::afterTick(Uint32 engineTicks) {
     }
     if (melting) {
         auto diff = ticks - meltingTick;
-        if (diff % framePeriod == 0 && ch.frame < sprite->getFrames()) {
+        if (diff % sprite->getFramePeriodTicks() == 0 && ch.frame < sprite->getFrames()) {
             ch.frame++;
         }
         if (ch.frame == sprite->getFrames() - 1) {

@@ -45,7 +45,6 @@ namespace trippin {
         Uint32 dustTicks;
         int nextDustPos;
         int dustPeriodTicks;
-        int dustFramePeriodTicks;
 
         constexpr static const int FRAME_LANDING_FIRST = 15;
         constexpr static const int FRAME_FALLING_FIRST = 12;
@@ -64,8 +63,6 @@ namespace trippin {
         double risingAcceleration;
         double runningAcceleration;
         double duckFriction;
-
-        int framePeriod;
 
         double minJumpVelocity;
         double maxJumpVelocity;

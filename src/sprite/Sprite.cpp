@@ -1,8 +1,8 @@
 #include <cmath>
 #include "Sprite.h"
 
-trippin::Sprite::Sprite(SDL_Renderer *ren, const std::string &name, const Scale &scale)
-        : scale(scale), sheet(ren, name, scale), ren(ren) {
+trippin::Sprite::Sprite(SDL_Renderer *ren, const std::string &name, const Scale &scale, int tickPeriod)
+        : sheet(ren, name, scale) {
     metadata.load(name);
 
     size = sheet.getSize();
@@ -14,6 +14,9 @@ trippin::Sprite::Sprite(SDL_Renderer *ren, const std::string &name, const Scale 
               static_cast<int>(std::round(hb.y * mul)),
               static_cast<int>(std::round(hb.w * mul)),
               static_cast<int>(std::round(hb.h * mul))};
+
+    // Duration in (milliseconds) and ticks period (milliseconds per tick)
+    framePeriodTicks = metadata.getDuration() / tickPeriod;
 }
 
 void trippin::Sprite::render(trippin::Point<int> position, int frame) const {
@@ -44,14 +47,10 @@ trippin::Rect<int> trippin::Sprite::getHitBox() const {
     return hitBox;
 }
 
-int trippin::Sprite::getDuration() const {
-    return metadata.getDuration();
-}
-
 int trippin::Sprite::getFrames() const {
     return metadata.getFrames();
 }
 
-const trippin::Scale &trippin::Sprite::getScale() const {
-    return scale;
+int trippin::Sprite::getFramePeriodTicks() const {
+    return framePeriodTicks;
 }

@@ -7,7 +7,6 @@ void trippin::WingedTub::init(const Configuration &config, const Map::Object &ob
             static_cast<int>(std::round(obj.position.y))};
     sprite = &spr;
     hitBox = spr.getHitBox() + position;
-    framePeriod = spr.getDuration() / config.tickPeriod;
     expired = false;
     channel.ref() = {0, true};
     hitGoggin = false;
@@ -41,7 +40,7 @@ void trippin::WingedTub::afterTick(Uint32 engineTicks) {
     // Case #2: Advance dust cloud
     if (hitGoggin) {
         hitTicks++;
-        if (hitTicks % framePeriod == 0) {
+        if (hitTicks % sprite->getFramePeriodTicks() == 0) {
             ch.frame++;
         }
         if (ch.frame == sprite->getFrames()) {
@@ -52,7 +51,7 @@ void trippin::WingedTub::afterTick(Uint32 engineTicks) {
     }
 
     // Case #3: Advance flapping wings cycle
-    if (engineTicks % framePeriod == 0) {
+    if (engineTicks % sprite->getFramePeriodTicks() == 0) {
         ch.frame = (ch.frame + 1) % 10;
     }
 }

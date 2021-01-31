@@ -14,7 +14,6 @@ namespace trippin {
         void render(const Camera &camera) override;
         void setActivation(const Activation *activation);
     private:
-        int framePeriod;
         double runningAcceleration;
         const Activation *activation;
 

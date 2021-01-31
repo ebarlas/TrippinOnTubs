@@ -26,7 +26,6 @@ namespace trippin {
         Score *score;
         Point<int> position;
         Rect<int> hitBox;
-        int framePeriod;
         int hitTicks;
         bool hitGoggin;
         bool expired;

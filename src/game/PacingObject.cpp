@@ -3,9 +3,7 @@
 
 void trippin::PacingObject::init(const Configuration &config, const Map::Object &obj, const Sprite &spr) {
     SpriteObject::init(config, obj, spr);
-
     inactive = true;
-    framePeriod = sprite->getDuration() / config.tickPeriod;
     runningAcceleration = obj.runningAcceleration;
     channel.ref() = {roundedPosition, 0};
 }
@@ -22,7 +20,7 @@ void trippin::PacingObject::afterTick(Uint32 engineTicks) {
     ch.roundedPosition = roundedPosition;
     if (platformCollisions.testBottom() || objectCollisions.testBottom()) {
         acceleration.x = runningAcceleration;
-        if (engineTicks % framePeriod == 0) {
+        if (engineTicks % sprite->getFramePeriodTicks() == 0) {
             ch.frame = (ch.frame + 1) % sprite->getFrames();
         }
     } else {

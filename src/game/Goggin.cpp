@@ -7,7 +7,6 @@ void trippin::Goggin::init(const Configuration &config, const Map::Object &obj, 
     SpriteObject::init(config, obj, spr);
 
     skipLaunch = true;
-    framePeriod = sprite->getDuration() / config.tickPeriod;
     runningAcceleration = obj.runningAcceleration;
     risingAcceleration = obj.risingAcceleration;
     minJumpVelocity = obj.minJumpVelocity;
@@ -24,7 +23,6 @@ void trippin::Goggin::init(const Configuration &config, const Map::Object &obj, 
     }
 
     dustPeriodTicks = obj.dustPeriod;
-    dustFramePeriodTicks = dust->getDuration() / config.tickPeriod;
     nextDustPos = 0;
 }
 
@@ -42,7 +40,7 @@ void trippin::Goggin::beforeTick(Uint32 engineTicks) {
             ticks = 0;
             ch.frame = FRAME_DUCKING;
             acceleration.x = 0;
-            friction.x = runningAcceleration / 2;
+            friction.x = duckFriction;
         }
     }
 
@@ -105,7 +103,7 @@ void trippin::Goggin::afterTick(Uint32 engineTicks) {
     for (auto &d : ch.dusts) {
         if (d.frame < dust->getFrames()) {
             d.ticks++;
-            if (d.ticks == dustFramePeriodTicks) {
+            if (d.ticks == dust->getFramePeriodTicks()) {
                 d.ticks = 0;
                 d.frame++; // may go past last frame, denoting inactive
             }
@@ -155,7 +153,7 @@ void trippin::Goggin::onFalling(Uint32 engineTicks, Channel &ch) {
         return;
     }
 
-    if (ticks == framePeriod) {
+    if (ticks == sprite->getFramePeriodTicks()) {
         ticks = 0;
         auto frame = ch.frame;
         if (frame < FRAME_FALLING_LAST) {
@@ -165,7 +163,7 @@ void trippin::Goggin::onFalling(Uint32 engineTicks, Channel &ch) {
 }
 
 void trippin::Goggin::onLanding(Uint32 engineTicks, Channel &ch) {
-    if (ticks != framePeriod) {
+    if (ticks != sprite->getFramePeriodTicks()) {
         return;
     }
 
@@ -192,14 +190,14 @@ void trippin::Goggin::onRunning(Uint32 engineTicks, Channel &ch) {
         return;
     }
 
-    if (ticks == framePeriod) {
+    if (ticks == sprite->getFramePeriodTicks()) {
         ticks = 0;
         ch.frame = (ch.frame + 1) % RUNNING_FRAMES;
     }
 }
 
 void trippin::Goggin::onLaunching(Uint32 engineTicks, Channel &ch) {
-    if (ticks != framePeriod) {
+    if (ticks != sprite->getFramePeriodTicks()) {
         return;
     }
 

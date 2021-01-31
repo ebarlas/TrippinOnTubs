@@ -26,7 +26,6 @@ namespace trippin {
         bool melting;
         int meltingTick;
         int ticks{};
-        int framePeriod;
         const Spirit *spirit;
         const Activation *activation;
     };
