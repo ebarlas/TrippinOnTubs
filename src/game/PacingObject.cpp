@@ -17,6 +17,12 @@ void trippin::PacingObject::beforeTick(Uint32 engineTicks) {
 void trippin::PacingObject::afterTick(Uint32 engineTicks) {
     Exchange<Channel> ex{channel};
     auto &ch = ex.get();
+
+    if (!universe.intersect(roundedBox)) {
+        expired = true;
+        return;
+    }
+
     ch.roundedPosition = roundedPosition;
     if (platformCollisions.testBottom() || objectCollisions.testBottom()) {
         acceleration.x = runningAcceleration;
@@ -35,4 +41,8 @@ void trippin::PacingObject::render(const trippin::Camera &camera) {
 
 void trippin::PacingObject::setActivation(const Activation *act) {
     activation = act;
+}
+
+void trippin::PacingObject::setUniverse(Point<int> uni) {
+    universe = {0, 0, uni.x, uni.y};
 }

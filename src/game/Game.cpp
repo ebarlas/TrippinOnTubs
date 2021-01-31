@@ -123,14 +123,16 @@ void trippin::Game::initEngine() {
             objects.push_back(std::move(uptr));
         } else if (obj.type == "zombie") {
             auto uptr = std::make_unique<PacingObject>();
-            uptr->init(configuration, obj, spriteManager->get(obj.type));
             uptr->setActivation(&activation);
+            uptr->setUniverse(map.universe);
+            uptr->init(configuration, obj, spriteManager->get(obj.type));
             engine.add(uptr.get());
             objects.push_back(std::move(uptr));
         } else if (obj.type == "rat") {
             auto uptr = std::make_unique<PacingObject>();
-            uptr->init(configuration, obj, spriteManager->get(obj.type));
             uptr->setActivation(&activation);
+            uptr->setUniverse(map.universe);
+            uptr->init(configuration, obj, spriteManager->get(obj.type));
             engine.add(uptr.get());
             objects.push_back(std::move(uptr));
         }
