@@ -4,12 +4,9 @@
 void trippin::PacingObject::init(const Configuration &config, const Map::Object &obj, const Sprite &spr) {
     SpriteObject::init(config, obj, spr);
 
-    auto mul = spr.getScale().getMultiplier();
-    auto gameTicksPerSecondSq = config.ticksPerSecond() * config.ticksPerSecond();
-
     inactive = true;
     framePeriod = sprite->getDuration() / config.tickPeriod;
-    runningAcceleration = (obj.runningAcceleration / gameTicksPerSecondSq) * mul;
+    runningAcceleration = obj.runningAcceleration;
     channel.ref() = {roundedPosition, 0};
 }
 

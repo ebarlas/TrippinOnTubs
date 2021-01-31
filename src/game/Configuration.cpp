@@ -24,7 +24,6 @@ double trippin::Configuration::engineTicksPerSpiritClockTick() const {
 }
 
 void trippin::from_json(const nlohmann::json &j, Configuration &config) {
-    j.at("minimumViewportWidth").get_to(config.minimumViewportWidth);
     j.at("spiritSecondsBehind").get_to(config.spiritSecondsBehind);
     j.at("tickPeriod").get_to(config.tickPeriod);
     j.at("spiritClockTickPeriod").get_to(config.spiritClockTickPeriod);
@@ -34,8 +33,10 @@ void trippin::from_json(const nlohmann::json &j, Configuration &config) {
     for (auto &elem : j.at("scales")) {
         std::string name;
         double multiplier;
+        int minWidth;
         elem.at("name").get_to(name);
         elem.at("multiplier").get_to(multiplier);
-        config.scales.emplace_back(std::move(name), multiplier);
+        elem.at("minWidth").get_to(minWidth);
+        config.scales.push_back({std::move(name), multiplier, minWidth});
     }
 }

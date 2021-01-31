@@ -1,11 +1,16 @@
 #include "Score.h"
 #include "lock/Exchange.h"
 
-void trippin::Score::init(const Configuration &config, const Sprite &spr) {
-    auto mul = spr.getScale().getMultiplier();
-    digits = &spr;
-    topRight = {static_cast<int>(std::round(80 * mul)), static_cast<int>(std::round(80 * mul))};
+void trippin::Score::init() {
     channel.ref().score = 0;
+}
+
+void trippin::Score::setMargin(int mar) {
+    margin = mar;
+}
+
+void trippin::Score::setSprite(const Sprite &spr) {
+    digits = &spr;
 }
 
 void trippin::Score::add(int n) {
@@ -15,11 +20,11 @@ void trippin::Score::add(int n) {
 
 void trippin::Score::render(const trippin::Camera &camera) {
     auto score = channel.get().score;
-    int x = camera.getViewport().w - topRight.x - digits->getSize().x;
+    int x = camera.getViewport().w - margin - digits->getSize().x;
     do {
         auto digit = score % 10;
         score /= 10;
-        Point<int> p{x, topRight.y};
+        Point<int> p{x, margin};
         digits->render(p, digit);
         x -= digits->getSize().x;
     } while (score > 0);

@@ -15,9 +15,68 @@ std::string trippin::Map::getMapFile(const std::string &name) {
     return path.str();
 }
 
+void trippin::Map::rescale(double target) {
+    // if target=0.25 and scale=0.25, divisor=1.0
+    // if target=0.25 and scale=1.0, divisor=4.0
+    double divisor = scale / target;
+
+    universe.x /= divisor;
+    universe.y /= divisor;
+    meterMargin = static_cast<int>(std::round(meterMargin / divisor));
+
+    for (auto &obj : objects) {
+        obj.position.x /= divisor;
+        obj.position.y /= divisor;
+        obj.runningAcceleration /= divisor;
+        obj.risingAcceleration /= divisor;
+        obj.gravity /= divisor;
+        obj.fallGravity /= divisor;
+        obj.velocity.x /= divisor;
+        obj.velocity.y /= divisor;
+        obj.minJumpVelocity /= divisor;
+        obj.maxJumpVelocity /= divisor;
+        obj.terminalVelocity.x /= divisor;
+        obj.terminalVelocity.y /= divisor;
+        obj.friction.x /= divisor;
+        obj.friction.y /= divisor;
+    }
+
+    for (auto &layer : layers) {
+        layer.size.x /= divisor;
+        layer.size.y /= divisor;
+        for (auto &obj : layer.objects) {
+            obj.position.x /= divisor;
+            obj.position.y /= divisor;
+        }
+    }
+}
+
+void trippin::Map::convert(int tickPeriod) {
+    auto ticksPerSecond = 1'000.0 / tickPeriod;
+    auto ticksPerSecondSq = ticksPerSecond * ticksPerSecond;
+
+    for (auto &obj : objects) {
+        obj.gravity /= ticksPerSecondSq;
+        obj.fallGravity /= ticksPerSecondSq;
+        obj.friction /= ticksPerSecondSq;
+        obj.velocity /= ticksPerSecond;
+        obj.terminalVelocity /= ticksPerSecond;
+        obj.runningAcceleration /= ticksPerSecondSq;
+        obj.risingAcceleration /= ticksPerSecondSq;
+        obj.minJumpVelocity /= ticksPerSecond;
+        obj.maxJumpVelocity /= ticksPerSecond;
+        obj.minJumpChargeTime /= tickPeriod;
+        obj.maxJumpChargeTime /= tickPeriod;
+        obj.jumpGracePeriod /= tickPeriod;
+        obj.dustPeriod /= tickPeriod;
+    }
+}
+
 void trippin::from_json(const nlohmann::json& j, Map& map) {
     j.at("universe").at("width").get_to(map.universe.x);
     j.at("universe").at("height").get_to(map.universe.y);
+    j.at("scale").get_to(map.scale);
+    j.at("meterMargin").get_to(map.meterMargin);
     j.at("objects").get_to(map.objects);
     j.at("layers").get_to(map.layers);
 }

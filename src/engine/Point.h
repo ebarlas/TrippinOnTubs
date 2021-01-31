@@ -8,12 +8,13 @@ namespace trippin {
     struct Point {
         T x{};
         T y{};
-        Point &operator+=(const Point<T> &right);
-        Point operator+(const Point<T> &right) const;
-        Point operator-(const Point<T> &right) const;
+        Point<T> &operator+=(const Point<T> &right);
+        Point<T> operator+(const Point<T> &right) const;
+        Point<T> operator-(const Point<T> &right) const;
         T operator*(const Point<T> &right) const;
-        Point operator*(T right) const;
-        Point operator/(T right) const;
+        Point<T> operator*(T right) const;
+        Point<T> operator/(T right) const;
+        Point<T>& operator/=(T right);
         T sumOfSquares() const;
         bool operator==(const Point<T> &p) const;
         operator bool() const;
@@ -66,6 +67,13 @@ bool trippin::Point<T>::operator==(const trippin::Point<T> &p) const {
 template<class T>
 trippin::Point<T> trippin::Point<T>::operator/(T right) const {
     return {x / right, y / right};
+}
+
+template<class T>
+trippin::Point<T> &trippin::Point<T>::operator/=(T right) {
+    x /= right;
+    y /= right;
+    return *this;
 }
 
 template<class T>

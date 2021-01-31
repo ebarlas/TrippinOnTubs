@@ -215,7 +215,7 @@ public:
     }
 
     void init(const GameState &gs) {
-        trippin::Scale scale{"xxsmall", 0.375};
+        trippin::Scale scale{"hdplus", 0.25};
 
         spriteManager = std::make_unique<trippin::SpriteManager>(gs.renderer, scale);
         auto &groundSprite = spriteManager->get("ground");

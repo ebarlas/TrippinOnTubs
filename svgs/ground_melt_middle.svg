@@ -2,7 +2,7 @@
   <ns0:defs id="defs2" />
   <ns1:namedview ns2:snap-bbox="false" ns2:lockguides="true" ns2:window-maximized="0" ns2:window-y="68" ns2:window-x="267" ns2:window-height="1465" ns2:window-width="2737" units="px" showgrid="true" ns2:document-rotation="0" ns2:current-layer="hitbox" ns2:document-units="px" ns2:cy="65.892497" ns2:cx="175.24051" ns2:zoom="5.6" ns2:pageshadow="2" ns2:pageopacity="0.0" borderopacity="1.0" bordercolor="#666666" pagecolor="#ffffff" id="base" ns2:snap-global="true" showguides="true" ns2:guide-bbox="true" ns2:snap-grids="true" ns2:snap-to-guides="true" ns2:object-paths="false" ns2:snap-smooth-nodes="false" ns2:object-nodes="true" ns2:snap-nodes="true">
     <ns2:grid id="grid833" type="xygrid" />
-    <ns1:guide ns2:locked="true" position="240,860" orientation="1,0" id="guide1262" />
+    <ns1:guide ns2:locked="true" topRight="240,860" orientation="1,0" id="guide1262" />
   </ns1:namedview>
   <ns0:metadata id="metadata5">
     <rdf:RDF>

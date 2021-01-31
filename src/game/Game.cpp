@@ -11,6 +11,7 @@ void trippin::Game::init() {
     initRenderer();
     initConfiguration();
     initScale();
+    initMap();
     initSpriteManager();
     initCamera();
     initEngine();
@@ -59,28 +60,33 @@ void trippin::Game::initRenderer() {
 
 void trippin::Game::initConfiguration() {
     configuration.load(configName);
+}
+
+void trippin::Game::initMap() {
     map.load(configuration.map);
+    map.rescale(scale->multiplier);
+    map.convert(configuration.tickPeriod);
 }
 
 void trippin::Game::initScale() {
     auto &cs = configuration.scales;
     scale = &cs[0];
-    for (int i = cs.size() - 1; i > 0; i--) {
-        if (windowSize.x >= configuration.minimumViewportWidth * cs[i].getMultiplier()) {
-            scale = &cs[i];
+    for (auto it = cs.rbegin(); it != cs.rend(); it++) {
+        if (windowSize.x >= it->minWidth) {
+            scale = &(*it);
             break;
         }
     }
+    SDL_Log("width=%d, height=%d, scale=%s", windowSize.x, windowSize.y, scale->name.c_str());
 }
 
 void trippin::Game::initSpriteManager() {
-    spriteManager = std::make_unique<SpriteManager>(renderer, *scale);
+    spriteManager = std::make_unique<SpriteManager>(renderer, Scale{scale->name, scale->multiplier});
 }
 
 void trippin::Game::initCamera() {
-    auto uni = scale->scale(map.universe);
     camera.setViewport({0, 0, windowSize.x, windowSize.y});
-    camera.setUniverse({0, 0, uni.x, uni.y});
+    camera.setUniverse({0, 0, map.universe.x, map.universe.y});
 }
 
 void trippin::Game::initEngine() {
@@ -115,12 +121,6 @@ void trippin::Game::initEngine() {
             uptr->setActivation(&activation);
             engine.addListener(uptr.get());
             objects.push_back(std::move(uptr));
-        } else if (obj.type == "clock_timer") {
-            spiritClock.init(configuration, obj, spriteManager->get(obj.type));
-            engine.addListener(&spiritClock);
-        } else if (obj.type == "winged_foot") {
-            jumpMeter.init(configuration, obj, spriteManager->get(obj.type));
-            engine.addListener(&jumpMeter);
         } else if (obj.type == "zombie") {
             auto uptr = std::make_unique<PacingObject>();
             uptr->init(configuration, obj, spriteManager->get(obj.type));
@@ -136,17 +136,27 @@ void trippin::Game::initEngine() {
         }
     }
 
-    score.init(configuration, spriteManager->get("digits"));
+    score.setSprite(spriteManager->get("digits"));
+    score.setMargin(map.meterMargin);
+    score.init();
 
     spirit.setPosition(-goggin.terminalVelocity.x * configuration.ticksPerSecond() * configuration.spiritSecondsBehind);
     spirit.setVelocity(goggin.terminalVelocity.x);
 
-    spiritClock.setGoggin(&goggin);
-    spiritClock.setSpirit(&spirit);
+    auto &timerSprite = spriteManager->get("clock_timer");
+    spiritClock.setGoggin(goggin);
+    spiritClock.setSpirit(spirit);
+    spiritClock.setPosition({map.meterMargin, map.meterMargin});
+    spiritClock.init(configuration, timerSprite);
+    engine.addListener(&spiritClock);
 
-    jumpMeter.setGoggin(&goggin);
+    jumpMeter.setSprite(spriteManager->get("winged_foot"));
+    jumpMeter.setGoggin(goggin);
+    jumpMeter.setPosition({timerSprite.getSize().x + map.meterMargin * 2, map.meterMargin});
+    jumpMeter.init();
+    engine.addListener(&jumpMeter);
 
-    activation.setProximity(static_cast<int>(configuration.activationProximity * scale->getMultiplier()));
+    activation.setProximity(static_cast<int>(std::round(configuration.activationProximity * scale->multiplier)));
     activation.setGoggin(&goggin);
 }
 

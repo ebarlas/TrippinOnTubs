@@ -90,7 +90,7 @@ public:
     }
 
     void init(const GameState &gs) {
-        trippin::Scale scale{"xsmall", 0.5};
+        trippin::Scale scale{"hdplus", 0.25};
 
         spriteManager = std::make_unique<trippin::SpriteManager>(gs.renderer, scale);
         auto &gogginSprite = spriteManager->get("goggin");

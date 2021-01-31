@@ -11,12 +11,11 @@
 namespace trippin {
     class SpriteManager {
     public:
-        SpriteManager(SDL_Renderer *renderer, const Scale &scale);
+        SpriteManager(SDL_Renderer *renderer, Scale scale);
         const Sprite &get(const std::string &type);
-        const Scale &getScale() const;
     private:
         using SpritePtr = std::unique_ptr<Sprite>;
-        const Scale &scale;
+        const Scale scale;
         SDL_Renderer *renderer;
         std::unordered_map<std::string, SpritePtr> sprites;
     };

@@ -1,25 +1,21 @@
 #include "SpriteObject.h"
-#include "lock/Lock.h"
 
 void trippin::SpriteObject::init(
         const Configuration &config,
         const trippin::Map::Object &obj,
         const trippin::Sprite &spr) {
-    auto mul = spr.getScale().getMultiplier();
-    auto gameTicksPerSecondSq = config.ticksPerSecond() * config.ticksPerSecond();
-
     platform = obj.platform;
     sprite = &spr;
     id = obj.id;
     lane = obj.lane;
-    gravity = (obj.gravity / gameTicksPerSecondSq) * mul;
-    fallGravity = (obj.fallGravity / gameTicksPerSecondSq) * mul;
+    gravity = obj.gravity;
+    fallGravity = obj.fallGravity;
     auto hb = spr.getHitBox();
     mass = obj.mass > 0 ? obj.mass : hb.area();
-    position = {obj.position.x * mul + hb.corner().x, obj.position.y * mul + hb.corner().y};
+    position = {obj.position.x + hb.corner().x, obj.position.y + hb.corner().y};
     size = {hb.w, hb.h};
-    velocity = (obj.velocity / config.ticksPerSecond()) * mul;
-    terminalVelocity = (obj.terminalVelocity / config.ticksPerSecond()) * mul;
-    friction = (obj.friction / gameTicksPerSecondSq) * mul;
+    velocity = obj.velocity;
+    terminalVelocity = obj.terminalVelocity;
+    friction = obj.friction;
     syncPositions();
 }

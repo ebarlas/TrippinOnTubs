@@ -12,7 +12,7 @@ namespace trippin {
     class Score : public Renderable {
     private:
         const Sprite *digits{};
-        Point<int> topRight;
+        int margin;
 
         struct Channel {
             int score;
@@ -23,7 +23,9 @@ namespace trippin {
         void add(int n);
 
         // called from main render thread during initialization
-        void init(const Configuration &config, const Sprite &spr);
+        void setMargin(int margin);
+        void setSprite(const Sprite &spr);
+        void init();
 
         // called from main render thread
         void render(const Camera &camera) override;

@@ -10,7 +10,6 @@ namespace trippin {
         Scale(std::string name, double multiplier);
         const std::string& getName() const;
         double getMultiplier() const;
-        Point<int> scale(const Point<int> &p) const;
     private:
         const std::string name;
         const double multiplier;

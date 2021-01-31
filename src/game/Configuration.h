@@ -4,11 +4,15 @@
 #include <string>
 #include <sstream>
 #include "nlohmann/json.hpp"
-#include "sprite/Scale.h"
 
 namespace trippin {
     struct Configuration {
-        int minimumViewportWidth;
+        struct Scale {
+            std::string name;
+            double multiplier;
+            int minWidth;
+        };
+
         int spiritSecondsBehind;
         int tickPeriod;
         int spiritClockTickPeriod;

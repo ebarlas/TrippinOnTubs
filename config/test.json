@@ -1,26 +1,39 @@
 {
-  "minimumViewportWidth": 4320,
-  "spiritSecondsBehind": 2,
+  "spiritSecondsBehind": 3,
   "tickPeriod": 5,
   "spiritClockTickPeriod": 500,
   "activationProximity": 5000,
-  "map": "map_ground_melt",
+  "map": "map_test",
   "scales": [
     {
-      "name": "xxxsmall",
-      "multiplier": 0.25
+      "name": "qhd",
+      "multiplier": 0.15,
+      "minWidth": 960
     },
     {
-      "name": "xxsmall",
-      "multiplier": 0.375
+      "name": "hd",
+      "multiplier": 0.2,
+      "minWidth": 1280
     },
     {
-      "name": "xsmall",
-      "multiplier": 0.5
+      "name": "hdplus",
+      "multiplier": 0.25,
+      "minWidth": 1600
     },
     {
-      "name": "small",
-      "multiplier": 0.75
+      "name": "fhd",
+      "multiplier": 0.3,
+      "minWidth": 1920
+    },
+    {
+      "name": "uhd",
+      "multiplier": 0.6,
+      "minWidth": 3840
+    },
+    {
+      "name": "ref",
+      "multiplier": 1.0,
+      "minWidth": 6400
     }
   ]
 }

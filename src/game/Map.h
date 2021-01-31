@@ -5,6 +5,7 @@
 #include "nlohmann/json.hpp"
 #include "engine/Point.h"
 #include "engine/Rect.h"
+#include "sprite/Scale.h"
 
 namespace trippin {
     struct Map {
@@ -42,11 +43,16 @@ namespace trippin {
         };
 
         Point<int> universe;
+        double scale;
+        int meterMargin;
         std::vector<Map::Object> objects;
         std::vector<Map::Layer> layers;
 
         void load(const std::string &name);
         static std::string getMapFile(const std::string& name);
+
+        void rescale(double scale);
+        void convert(int tickPeriod);
     };
 
     template<class T>

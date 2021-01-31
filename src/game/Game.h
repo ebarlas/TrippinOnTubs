@@ -27,7 +27,7 @@ namespace trippin {
         Point<int> windowSize;
         Configuration configuration;
         Map map;
-        Scale *scale;
+        Configuration::Scale *scale;
         std::unique_ptr<SpriteManager> spriteManager;
         Camera camera;
         Engine engine;
@@ -45,6 +45,7 @@ namespace trippin {
         void initWindow();
         void initRenderer();
         void initConfiguration();
+        void initMap();
         void initScale();
         void initSpriteManager();
         void initCamera();

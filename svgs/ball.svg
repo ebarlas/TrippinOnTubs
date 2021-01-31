@@ -1,10 +1,10 @@
 <ns0:svg xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:ns0="http://www.w3.org/2000/svg" xmlns:ns1="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd" xmlns:ns2="http://www.inkscape.org/namespaces/inkscape" xmlns:ns4="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" ns1:docname="ball.svg" ns2:version="1.0beta2 (2b71d25, 2019-12-03)" id="svg8" version="1.1" viewBox="0 0 100 100" height="100" width="100" duration="80">
   <ns0:defs id="defs2" />
   <ns1:namedview ns2:window-maximized="0" ns2:window-y="187" ns2:window-x="567" ns2:window-height="880" ns2:window-width="1600" units="px" showgrid="true" ns2:document-rotation="0" ns2:current-layer="svg8" ns2:document-units="px" ns2:cy="51.885836" ns2:cx="37.767123" ns2:zoom="3.959798" ns2:pageshadow="2" ns2:pageopacity="0.0" borderopacity="1.0" bordercolor="#666666" pagecolor="#ffffff" id="base">
-    <ns1:guide id="guide833" orientation="0,100" position="0,100" />
-    <ns1:guide id="guide835" orientation="100,0" position="100,100" />
-    <ns1:guide id="guide837" orientation="0,-100" position="100,0" />
-    <ns1:guide id="guide839" orientation="-100,0" position="0,0" />
+    <ns1:guide id="guide833" orientation="0,100" topRight="0,100" />
+    <ns1:guide id="guide835" orientation="100,0" topRight="100,100" />
+    <ns1:guide id="guide837" orientation="0,-100" topRight="100,0" />
+    <ns1:guide id="guide839" orientation="-100,0" topRight="0,0" />
     <ns2:grid id="grid841" type="xygrid" />
   </ns1:namedview>
   <ns0:metadata id="metadata5">

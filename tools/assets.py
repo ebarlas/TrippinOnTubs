@@ -3,20 +3,13 @@ import map
 import sys
 
 scales = [
-    ('xxxsmall', 0.25),
-    ('xxsmall', 0.375),
-    ('xsmall', 0.5),
-    ('small', 0.75),
-    ('medium', 1)
+    ('hdplus', 0.25)
 ]
 
 sprites = [
     'goggin',
     'ball',
     'ground',
-    'platformmid',
-    'platformleft',
-    'platformright',
     'ground_melt_left',
     'ground_melt_middle',
     'ground_melt_right',
@@ -26,12 +19,6 @@ sprites = [
     'digits',
     'zombie',
     'rat',
-    'building1',
-    'building2',
-    'building3',
-    'building4',
-    'building5',
-    'building6',
     'phoenix',
     'masonic_lodge',
     'hills',
@@ -39,7 +26,7 @@ sprites = [
     'dust'
 ]
 
-levels = ['map_ground_melt', 'map_minimal']
+levels = ['map_ground_melt', 'map_minimal', 'map_test']
 
 dir_raw = 'raw'
 dir_svgs = 'svgs'

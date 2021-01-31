@@ -2,10 +2,9 @@
 #include "lock/Exchange.h"
 
 void trippin::WingedTub::init(const Configuration &config, const Map::Object &obj, const Sprite &spr) {
-    auto mul = spr.getScale().getMultiplier();
     position = {
-            static_cast<int>(std::round(obj.position.x * mul)),
-            static_cast<int>(std::round(obj.position.y * mul))};
+            static_cast<int>(std::round(obj.position.x)),
+            static_cast<int>(std::round(obj.position.y))};
     sprite = &spr;
     hitBox = spr.getHitBox() + position;
     framePeriod = spr.getDuration() / config.tickPeriod;

@@ -1,12 +1,11 @@
 #include "Layer.h"
 
 void trippin::Layer::init(SpriteManager &sm, Map::Layer &layer) {
-    auto &scale = sm.getScale();
     for (auto &obj : layer.objects) {
         auto &sprite = sm.get(obj.type);
-        objects.push_back({scale.scale(obj.position), &sprite});
+        objects.push_back({obj.position, &sprite});
     }
-    size = scale.scale(layer.size);
+    size = layer.size;
     anchorTop = layer.anchorTop;
 }
 

@@ -3,6 +3,8 @@
     "width": 80000,
     "height": 20000
   },
+  "scale": 1.0,
+  "meterMargin": 80.0,
   "objects": [
     {
       "id": 1,

@@ -1,7 +1,9 @@
 #include "SpriteManager.h"
 
-trippin::SpriteManager::SpriteManager(SDL_Renderer *renderer, const Scale &scale)
-        : renderer(renderer), scale(scale) {
+#include <utility>
+
+trippin::SpriteManager::SpriteManager(SDL_Renderer *renderer, Scale scale)
+        : renderer(renderer), scale(std::move(scale)) {
 
 }
 
@@ -12,8 +14,4 @@ const trippin::Sprite &trippin::SpriteManager::get(const std::string &type) {
     } else {
         return *it->second;
     }
-}
-
-const trippin::Scale &trippin::SpriteManager::getScale() const {
-    return scale;
 }

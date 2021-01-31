@@ -23,9 +23,10 @@ namespace trippin {
         void setFrame(int frame);
         int getFrame();
     public:
-        void init(const Configuration &config, const Map::Object &obj, const Sprite &spr);
-        void setSpirit(const Spirit *spirit);
-        void setGoggin(const Goggin *goggin);
+        void init(const Configuration &config, const Sprite &spr);
+        void setSpirit(const Spirit &spirit);
+        void setGoggin(const Goggin &goggin);
+        void setPosition(Point<int> position);
         void afterTick(Uint32 engineTicks) override;
         void render(const Camera &camera) override;
     };

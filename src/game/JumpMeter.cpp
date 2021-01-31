@@ -1,17 +1,20 @@
 #include "JumpMeter.h"
 #include "lock/Lock.h"
 
-void trippin::JumpMeter::init(const Configuration &config, const Map::Object &obj, const Sprite &spr) {
-    auto mul = spr.getScale().getMultiplier();
-    sprite = &spr;
-    position = {
-            static_cast<int>(std::round(obj.position.x * mul)),
-            static_cast<int>(std::round(obj.position.y * mul))};
+void trippin::JumpMeter::init() {
     channel.frame = sprite->getFrames() - 1;
 }
 
-void trippin::JumpMeter::setGoggin(const trippin::Goggin *go) {
-    goggin = go;
+void trippin::JumpMeter::setPosition(Point<int> pos) {
+    position = pos;
+}
+
+void trippin::JumpMeter::setGoggin(const trippin::Goggin &go) {
+    goggin = &go;
+}
+
+void trippin::JumpMeter::setSprite(const trippin::Sprite &spr) {
+    sprite = &spr;
 }
 
 void trippin::JumpMeter::render(const trippin::Camera &camera) {

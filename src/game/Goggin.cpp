@@ -6,18 +6,15 @@
 void trippin::Goggin::init(const Configuration &config, const Map::Object &obj, const Sprite &spr) {
     SpriteObject::init(config, obj, spr);
 
-    auto mul = spr.getScale().getMultiplier();
-    auto gameTicksPerSecondSq = config.ticksPerSecond() * config.ticksPerSecond();
-
     skipLaunch = true;
     framePeriod = sprite->getDuration() / config.tickPeriod;
-    runningAcceleration = (obj.runningAcceleration / gameTicksPerSecondSq) * mul;
-    risingAcceleration = (obj.risingAcceleration / gameTicksPerSecondSq) * mul;
-    minJumpVelocity = (obj.minJumpVelocity / config.ticksPerSecond()) * mul;
-    maxJumpVelocity = (obj.maxJumpVelocity / config.ticksPerSecond()) * mul;
-    minJumpChargeTicks = obj.minJumpChargeTime / config.tickPeriod;
-    maxJumpChargeTicks = obj.maxJumpChargeTime / config.tickPeriod;
-    jumpGracePeriodTicks = obj.jumpGracePeriod / config.tickPeriod;
+    runningAcceleration = obj.runningAcceleration;
+    risingAcceleration = obj.risingAcceleration;
+    minJumpVelocity = obj.minJumpVelocity;
+    maxJumpVelocity = obj.maxJumpVelocity;
+    minJumpChargeTicks = obj.minJumpChargeTime;
+    maxJumpChargeTicks = obj.maxJumpChargeTime;
+    jumpGracePeriodTicks = obj.jumpGracePeriod;
     state = State::falling;
 
     channel.ref() = {roundedPosition, roundedPosition, FRAME_FALLING_LAST, false, false};
@@ -25,8 +22,9 @@ void trippin::Goggin::init(const Configuration &config, const Map::Object &obj, 
         d.frame = dust->getFrames();
     }
 
-    dustPeriodTicks = obj.dustPeriod / config.tickPeriod;
+    dustPeriodTicks = obj.dustPeriod;
     dustFramePeriodTicks = dust->getDuration() / config.tickPeriod;
+    nextDustPos = 0;
 }
 
 void trippin::Goggin::setDust(const Sprite &spr) {

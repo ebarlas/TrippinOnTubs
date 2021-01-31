@@ -87,6 +87,8 @@ def make_model(svg_file):
             'width': int(root.attrib['width']),
             'height': int(root.attrib['height'])
         },
+        'scale': float(root.attrib['scale']),
+        'meterMargin': float(root.attrib['meterMargin']),
         'objects': find_objects(root),
         'layers': find_layers(root)
     }
