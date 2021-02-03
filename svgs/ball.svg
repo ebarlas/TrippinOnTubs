@@ -1,12 +1,12 @@
-<ns0:svg xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:ns0="http://www.w3.org/2000/svg" xmlns:ns1="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd" xmlns:ns2="http://www.inkscape.org/namespaces/inkscape" xmlns:ns4="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" ns1:docname="ball.svg" ns2:version="1.0beta2 (2b71d25, 2019-12-03)" id="svg8" version="1.1" viewBox="0 0 100 100" height="100" width="100" duration="80">
+<ns0:svg xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:ns0="http://www.w3.org/2000/svg" xmlns:ns1="http://www.inkscape.org/namespaces/inkscape" xmlns:ns2="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd" xmlns:ns4="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" duration="80" width="100" height="100" scale="1.5" viewBox="0 0 100 100" version="1.1" id="svg8" ns1:version="1.0beta2 (2b71d25, 2019-12-03)" ns2:docname="ball.svg">
   <ns0:defs id="defs2" />
-  <ns1:namedview ns2:window-maximized="0" ns2:window-y="187" ns2:window-x="567" ns2:window-height="880" ns2:window-width="1600" units="px" showgrid="true" ns2:document-rotation="0" ns2:current-layer="svg8" ns2:document-units="px" ns2:cy="51.885836" ns2:cx="37.767123" ns2:zoom="3.959798" ns2:pageshadow="2" ns2:pageopacity="0.0" borderopacity="1.0" bordercolor="#666666" pagecolor="#ffffff" id="base">
-    <ns1:guide id="guide833" orientation="0,100" topRight="0,100" />
-    <ns1:guide id="guide835" orientation="100,0" topRight="100,100" />
-    <ns1:guide id="guide837" orientation="0,-100" topRight="100,0" />
-    <ns1:guide id="guide839" orientation="-100,0" topRight="0,0" />
-    <ns2:grid id="grid841" type="xygrid" />
-  </ns1:namedview>
+  <ns2:namedview ns1:snap-global="false" ns1:object-paths="true" ns1:snap-to-guides="false" ns1:snap-grids="false" id="base" pagecolor="#ffffff" bordercolor="#666666" borderopacity="1.0" ns1:pageopacity="0.0" ns1:pageshadow="2" ns1:zoom="5.6" ns1:cx="37.767123" ns1:cy="51.885836" ns1:document-units="px" ns1:current-layer="frame1-ball" ns1:document-rotation="0" showgrid="true" units="px" ns1:window-width="2678" ns1:window-height="1245" ns1:window-x="567" ns1:window-y="165" ns1:window-maximized="0">
+    <ns2:guide topRight="0,100" orientation="0,100" id="guide833" />
+    <ns2:guide topRight="100,100" orientation="100,0" id="guide835" />
+    <ns2:guide topRight="100,0" orientation="0,-100" id="guide837" />
+    <ns2:guide topRight="0,0" orientation="-100,0" id="guide839" />
+    <ns1:grid type="xygrid" id="grid841" />
+  </ns2:namedview>
   <ns0:metadata id="metadata5">
     <rdf:RDF>
       <ns4:Work rdf:about="">
@@ -16,10 +16,11 @@
       </ns4:Work>
     </rdf:RDF>
   </ns0:metadata>
-  <ns0:g style="display:none" ns1:insensitive="true" id="frame1-ball" type="frame" frame="1" ns2:groupmode="layer" ns2:label="frame1-ball">
-    <ns0:circle r="50" cy="50" cx="50" id="path861" style="fill:#0000d9;fill-opacity:1;stroke:none;stroke-width:0.5" />
+  <ns0:g ns1:label="frame1-ball" ns1:groupmode="layer" frame="1" type="frame" id="frame1-ball" style="display:inline">
+    <ns0:circle style="fill:#293b80;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-opacity:1;stroke-miterlimit:4;stroke-dasharray:none" id="path861" cx="50" cy="50" r="50" />
+    <ns0:path ns2:nodetypes="ccc" ns1:connector-curvature="0" id="path951" d="M 13.079851,18.561766 C -15.779833,60.39839 18.866864,100.88562 53.564888,98.18866 26.722159,78.117982 8.637539,53.800948 13.079851,18.561766 Z" style="fill:#141e40;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;fill-opacity:1" />
   </ns0:g>
-  <ns0:g ns2:groupmode="layer" id="hitbox" type="hitbox" ns2:label="hitbox" ns1:insensitive="true" style="display:none">
-    <ns0:rect style="fill:none;fill-opacity:1;stroke:#000000;stroke-width:0.5;stroke-opacity:1" id="rect1429" width="100" height="100" x="0" y="0" />
+  <ns0:g style="display:none" ns2:insensitive="true" ns1:label="hitbox" type="hitbox" id="hitbox" ns1:groupmode="layer">
+    <ns0:rect y="0" x="0" height="100" width="100" id="rect1429" style="fill:none;fill-opacity:1;stroke:#000000;stroke-width:0.5;stroke-opacity:1" />
   </ns0:g>
 </ns0:svg>

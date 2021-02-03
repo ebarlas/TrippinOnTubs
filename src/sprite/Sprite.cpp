@@ -54,3 +54,7 @@ int trippin::Sprite::getFrames() const {
 int trippin::Sprite::getFramePeriodTicks() const {
     return framePeriodTicks;
 }
+
+bool trippin::Sprite::intersectsWith(Point<int> hitBoxPos, Rect<int> rect) const {
+    return rect.intersect({hitBoxPos.x - hitBox.x, hitBoxPos.y - hitBox.y, size.x, size.y});
+}

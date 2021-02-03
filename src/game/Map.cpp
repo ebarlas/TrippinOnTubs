@@ -119,6 +119,8 @@ void trippin::from_json(const nlohmann::json& j, Map::Object& obj) {
         j.at("dustPeriod").get_to(obj.dustPeriod);
     if (j.contains("duckFriction"))
         j.at("duckFriction").get_to(obj.duckFriction);
+    if (j.contains("coefficient"))
+        j.at("coefficient").get_to(obj.coefficient);
 }
 
 void trippin::from_json(const nlohmann::json& j, Map::Layer& layer) {

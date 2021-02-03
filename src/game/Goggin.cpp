@@ -113,7 +113,7 @@ void trippin::Goggin::afterTick(Uint32 engineTicks) {
     // test for creation of new dust cloud
     if (platformCollisions.testBottom() && engineTicks - dustTicks >= dustPeriodTicks) {
         dustTicks = engineTicks;
-        auto left = roundedPosition.x - dust->getHitBox().w;
+        auto left = roundedPosition.x;
         auto top = roundedPosition.y + size.y - dust->getHitBox().h;
         ch.dusts[nextDustPos] = {{left, top}, 0};
         nextDustPos = (nextDustPos + 1) % ch.dusts.size();
@@ -240,13 +240,14 @@ void trippin::Goggin::onDucking(Uint32 engineTicks, Channel &ch) {
 
 void trippin::Goggin::render(const trippin::Camera &camera) {
     auto ch = channel.get();
-    sprite->render(ch.cameraPosition, ch.frame, camera);
 
     for (auto &d : ch.dusts) {
         if (d.frame < dust->getFrames()) {
             dust->render(d.position, d.frame, camera);
         }
     }
+
+    sprite->render(ch.cameraPosition, ch.frame, camera);
 }
 
 void trippin::Goggin::onJumpCharge() {

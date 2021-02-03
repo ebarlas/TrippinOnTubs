@@ -31,7 +31,7 @@ public:
         auto size = sprite->getSize();
         trippin::Rect<int> box{roundedPosition.x - hb.x, roundedPosition.y - hb.y, size.x, size.y};
         if (box.intersect(viewport)) {
-            auto frame = (SDL_GetTicks() / sprite->getDuration()) % sprite->getFrames();
+            auto frame = (SDL_GetTicks() / sprite->getFramePeriodTicks()) % sprite->getFrames();
             sprite->render({box.x - viewport.x, box.y - viewport.y}, frame);
         }
     }
@@ -60,7 +60,7 @@ public:
         friction = {xFriction, 0};
         terminalVelocity = {xTerminal, yTerminal};
         platformCollision.set(&collision);
-        mass = sprite->getHitBox().area();
+        mass = sprite->getHitBox().area() / 4;
 
         SpriteObject::init();
     }
@@ -76,7 +76,6 @@ public:
     double gameTicksPerSecond{};
     double gameTicksPerSecondSq{};
     double tickPeriod{};
-    int framePeriod{};
 
     enum State {
         running,
@@ -108,8 +107,6 @@ public:
         terminalVelocity = {xTerminal, yTerminal};
         mass = hb.area();
 
-        framePeriod = static_cast<int>(sprite->getDuration() / tickPeriod);
-
         SpriteObject::init();
     }
 
@@ -132,7 +129,7 @@ public:
                 ticks = 0;
                 frame = 15;
             } else {
-                if (ticks == framePeriod) {
+                if (ticks == sprite->getFramePeriodTicks()) {
                     ticks = 0;
                     if (frame < 14) {
                         frame++;
@@ -140,7 +137,7 @@ public:
                 }
             }
         } else if (state == State::landing) {
-            if (ticks == framePeriod) {
+            if (ticks == sprite->getFramePeriodTicks()) {
                 ticks = 0;
                 if (frame == 15) {
                     frame = 16;
@@ -155,13 +152,13 @@ public:
                 ticks = 0;
                 frame = 8;
             } else {
-                if (ticks == framePeriod) {
+                if (ticks == sprite->getFramePeriodTicks()) {
                     ticks = 0;
                     frame = (frame + 1) % 8;
                 }
             }
         } else if (state == State::launching) {
-            if (ticks == framePeriod) {
+            if (ticks == sprite->getFramePeriodTicks()) {
                 ticks = 0;
                 if (frame < 11) {
                     frame++;
@@ -216,8 +213,9 @@ public:
 
     void init(const GameState &gs) {
         trippin::Scale scale{"hdplus", 0.25};
+        auto tickPeriod = 5;
 
-        spriteManager = std::make_unique<trippin::SpriteManager>(gs.renderer, scale);
+        spriteManager = std::make_unique<trippin::SpriteManager>(gs.renderer, scale, tickPeriod);
         auto &groundSprite = spriteManager->get("ground");
         auto &ballSprite = spriteManager->get("ball");
         auto &gogginSprite = spriteManager->get("goggin");
@@ -231,7 +229,6 @@ public:
                             numGroundPlatforms * groundSprite.getSize().x,
                             static_cast<int>(universeHeight * scale.getMultiplier())});
 
-        auto tickPeriod = 5;
         auto gameTicksPerSecond = 1000.0 / tickPeriod;
         auto gameTicksPerSecondSq = gameTicksPerSecond * gameTicksPerSecond;
 

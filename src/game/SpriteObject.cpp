@@ -17,5 +17,6 @@ void trippin::SpriteObject::init(
     velocity = obj.velocity;
     terminalVelocity = obj.terminalVelocity;
     friction = obj.friction;
+    velocity = obj.velocity;
     syncPositions();
 }

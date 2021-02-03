@@ -2,7 +2,7 @@
   "spiritSecondsBehind": 3,
   "tickPeriod": 5,
   "spiritClockTickPeriod": 500,
-  "activationProximity": 5000,
+  "activationProximity": 6400,
   "map": "map_test",
   "scales": [
     {

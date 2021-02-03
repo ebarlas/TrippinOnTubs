@@ -1,6 +1,7 @@
 #include "Game.h"
 #include "Ground.h"
 #include "PacingObject.h"
+#include "Ball.h"
 #include "WingedTub.h"
 #include "Layer.h"
 
@@ -130,6 +131,13 @@ void trippin::Game::initEngine() {
             objects.push_back(std::move(uptr));
         } else if (obj.type == "rat") {
             auto uptr = std::make_unique<PacingObject>();
+            uptr->setActivation(&activation);
+            uptr->setUniverse(map.universe);
+            uptr->init(configuration, obj, spriteManager->get(obj.type));
+            engine.add(uptr.get());
+            objects.push_back(std::move(uptr));
+        } else if (obj.type == "ball") {
+            auto uptr = std::make_unique<Ball>();
             uptr->setActivation(&activation);
             uptr->setUniverse(map.universe);
             uptr->init(configuration, obj, spriteManager->get(obj.type));
