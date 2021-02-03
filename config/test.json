@@ -3,6 +3,7 @@
   "tickPeriod": 5,
   "spiritClockTickPeriod": 500,
   "activationProximity": 6400,
+  "pointsPerSecond": 10,
   "map": "map_test",
   "scales": [
     {

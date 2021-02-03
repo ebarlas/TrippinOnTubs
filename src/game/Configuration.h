@@ -17,6 +17,7 @@ namespace trippin {
         int tickPeriod;
         int spiritClockTickPeriod;
         int activationProximity;
+        int pointsPerSecond;
         std::string map;
         std::vector<Scale> scales;
         void load(const std::string &name);
@@ -24,6 +25,7 @@ namespace trippin {
 
         double ticksPerSecond() const;
         double engineTicksPerSpiritClockTick() const;
+        double pointsPerTick() const;
     };
 
     void from_json(const nlohmann::json &j, Configuration &config);

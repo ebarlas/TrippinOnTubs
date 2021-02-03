@@ -148,7 +148,9 @@ void trippin::Game::initEngine() {
 
     score.setSprite(spriteManager->get("digits"));
     score.setMargin(map.meterMargin);
+    score.setPointsPerTick(configuration.pointsPerTick());
     score.init();
+    engine.addListener(&score);
 
     spirit.setPosition(-goggin.terminalVelocity.x * configuration.ticksPerSecond() * configuration.spiritSecondsBehind);
     spirit.setVelocity(goggin.terminalVelocity.x);

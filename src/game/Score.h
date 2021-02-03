@@ -1,6 +1,7 @@
 #ifndef TRIPPIN_SCORE_H
 #define TRIPPIN_SCORE_H
 
+#include "engine/Listener.h"
 #include "sprite/Sprite.h"
 #include "Renderable.h"
 #include "Configuration.h"
@@ -9,22 +10,27 @@
 #include "lock/Guarded.h"
 
 namespace trippin {
-    class Score : public Renderable {
+    class Score : public Listener, public Renderable {
     private:
         const Sprite *digits{};
         int margin;
+        double pointsPerTick;
 
         struct Channel {
-            int score;
+            double score;
         };
         Guarded<Channel> channel;
     public:
+        // called from engine thread after tick
+        void afterTick(Uint32 engineTicks) override;
+
         // called from engine thread on scoring collision to increase score
         void add(int n);
 
         // called from main render thread during initialization
         void setMargin(int margin);
         void setSprite(const Sprite &spr);
+        void setPointsPerTick(double ppt);
         void init();
 
         // called from main render thread

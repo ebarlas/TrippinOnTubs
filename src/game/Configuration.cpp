@@ -23,11 +23,16 @@ double trippin::Configuration::engineTicksPerSpiritClockTick() const {
     return static_cast<double>(spiritClockTickPeriod) / tickPeriod;
 }
 
+double trippin::Configuration::pointsPerTick() const {
+    return pointsPerSecond / ticksPerSecond();
+}
+
 void trippin::from_json(const nlohmann::json &j, Configuration &config) {
     j.at("spiritSecondsBehind").get_to(config.spiritSecondsBehind);
     j.at("tickPeriod").get_to(config.tickPeriod);
     j.at("spiritClockTickPeriod").get_to(config.spiritClockTickPeriod);
     j.at("activationProximity").get_to(config.activationProximity);
+    j.at("pointsPerSecond").get_to(config.pointsPerSecond);
     j.at("map").get_to(config.map);
 
     for (auto &elem : j.at("scales")) {
