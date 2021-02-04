@@ -16,11 +16,14 @@ void trippin::Goggin::init(const Configuration &config, const Map::Object &obj, 
     jumpGracePeriodTicks = obj.jumpGracePeriod;
     duckFriction = obj.duckFriction;
     state = State::falling;
+    maxFallingVelocity = 0;
 
-    channel.ref() = {roundedPosition, roundedPosition, FRAME_FALLING_LAST, false, false};
-    for (auto &d : channel.ref().dusts) {
+    auto &ch = channel.ref();
+    ch = {roundedPosition, roundedPosition, FRAME_FALLING_LAST, false, false};
+    for (auto &d : ch.dusts) {
         d.frame = dust->getFrames();
     }
+    ch.blast.frame = dustBlast->getFrames();
 
     dustPeriodTicks = obj.dustPeriod;
     nextDustPos = 0;
@@ -29,6 +32,10 @@ void trippin::Goggin::init(const Configuration &config, const Map::Object &obj, 
 void trippin::Goggin::setDust(const Sprite &spr) {
     dust = &spr;
 };
+
+void trippin::Goggin::setDustBlast(const trippin::Sprite &spr) {
+    dustBlast = &spr;
+}
 
 void trippin::Goggin::beforeTick(Uint32 engineTicks) {
     Exchange<Channel> exchange{channel};
@@ -83,6 +90,9 @@ void trippin::Goggin::beforeTick(Uint32 engineTicks) {
                 state = State::rising;
                 ch.frame = FRAME_LAUNCHING_LAST;
                 velocity.y = jumpVel;
+                if (platformCollisions.testBottom() && jumpPercent >= 0.5) {
+                    resetDustBlast(ch);
+                }
             } else {
                 state = State::launching;
                 ch.frame = FRAME_LAUNCHING_FIRST;
@@ -107,6 +117,15 @@ void trippin::Goggin::afterTick(Uint32 engineTicks) {
                 d.ticks = 0;
                 d.frame++; // may go past last frame, denoting inactive
             }
+        }
+    }
+
+    // advance dust blast
+    if (ch.blast.frame < dustBlast->getFrames()) {
+        ch.blast.ticks++;
+        if (ch.blast.ticks == dustBlast->getFramePeriodTicks()) {
+            ch.blast.ticks = 0;
+            ch.blast.frame++;
         }
     }
 
@@ -146,10 +165,17 @@ void trippin::Goggin::center(trippin::Camera &camera) {
 }
 
 void trippin::Goggin::onFalling(Uint32 engineTicks, Channel &ch) {
+    if (velocity.y > maxFallingVelocity) {
+        maxFallingVelocity = velocity.y;
+    }
+
     if (platformCollisions.testBottom() || objectCollisions.testBottom()) {
         state = State::landing;
         ticks = 0;
         ch.frame = FRAME_LANDING_FIRST;
+        if (platformCollisions.testBottom() && maxFallingVelocity >= terminalVelocity.y / 2.0) {
+            resetDustBlast(ch);
+        }
         return;
     }
 
@@ -187,6 +213,7 @@ void trippin::Goggin::onRunning(Uint32 engineTicks, Channel &ch) {
         ch.frame = FRAME_FALLING_FIRST;
         ticks = 0;
         acceleration.x = 0;
+        maxFallingVelocity = 0;
         return;
     }
 
@@ -219,6 +246,7 @@ void trippin::Goggin::onRising(Uint32 engineTicks, Channel &ch) {
         ch.frame = FRAME_FALLING_FIRST;
         ticks = 0;
         acceleration.x = 0;
+        maxFallingVelocity = 0;
     }
 }
 
@@ -238,6 +266,13 @@ void trippin::Goggin::onDucking(Uint32 engineTicks, Channel &ch) {
     }
 }
 
+void trippin::Goggin::resetDustBlast(Channel &ch) {
+    ch.blast.frame = 0;
+    ch.blast.ticks = 0;
+    ch.blast.position.x = (roundedPosition.x + size.x / 2) - (dustBlast->getHitBox().w / 2);
+    ch.blast.position.y = (roundedPosition.y + size.y) - dustBlast->getHitBox().h;
+}
+
 void trippin::Goggin::render(const trippin::Camera &camera) {
     auto ch = channel.get();
 
@@ -245,6 +280,10 @@ void trippin::Goggin::render(const trippin::Camera &camera) {
         if (d.frame < dust->getFrames()) {
             dust->render(d.position, d.frame, camera);
         }
+    }
+
+    if (ch.blast.frame < dustBlast->getFrames()) {
+        dustBlast->render(ch.blast.position, ch.blast.frame, camera);
     }
 
     sprite->render(ch.cameraPosition, ch.frame, camera);

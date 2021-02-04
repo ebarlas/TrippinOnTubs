@@ -11,6 +11,7 @@ namespace trippin {
     public:
         void init(const Configuration &config, const Map::Object &obj, const Sprite &spr) override;
         void setDust(const Sprite &spr);
+        void setDustBlast(const Sprite &spr);
         void beforeTick(Uint32 engineTicks) override;
         void afterTick(Uint32 engineTicks) override;
         void render(const Camera &camera) override;
@@ -39,12 +40,17 @@ namespace trippin {
             bool duckStart;
             bool duckEnd;
             std::array<Dust, 5> dusts; // circular queue of dust clouds
+            Dust blast;
         };
 
         const Sprite *dust;
         Uint32 dustTicks;
         int nextDustPos;
         int dustPeriodTicks;
+
+        const Sprite *dustBlast;
+
+        double maxFallingVelocity;
 
         constexpr static const int FRAME_LANDING_FIRST = 15;
         constexpr static const int FRAME_FALLING_FIRST = 12;
@@ -92,6 +98,8 @@ namespace trippin {
         void onLaunching(Uint32 engineTicks, Channel &ch);
         void onRising(Uint32 engineTicks, Channel &ch);
         void onDucking(Uint32 engineTicks, Channel &ch);
+
+        void resetDustBlast(Channel &ch);
     };
 }
 

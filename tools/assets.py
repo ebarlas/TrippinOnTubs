@@ -23,7 +23,8 @@ sprites = [
     'masonic_lodge',
     'hills',
     'hotel_petaluma',
-    'dust'
+    'dust',
+    'dust_blast'
 ]
 
 levels = ['map_ground_melt', 'map_minimal', 'map_test']

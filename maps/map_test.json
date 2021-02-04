@@ -710,8 +710,8 @@
       "type": "ball",
       "platform": false,
       "position": {
-        "x": 1075,
-        "y": 4000
+        "x": 2190,
+        "y": 3440
       },
       "velocity": {
         "x": 0.0,
@@ -730,8 +730,8 @@
       "type": "ball",
       "platform": false,
       "position": {
-        "x": 1243,
-        "y": 4083
+        "x": 2365,
+        "y": 3440
       },
       "velocity": {
         "x": 0.0,
@@ -750,8 +750,8 @@
       "type": "ball",
       "platform": false,
       "position": {
-        "x": 980,
-        "y": 4043
+        "x": 2113,
+        "y": 3440
       },
       "velocity": {
         "x": 0.0,
@@ -770,8 +770,8 @@
       "type": "ball",
       "platform": false,
       "position": {
-        "x": 920,
-        "y": 3900
+        "x": 2050,
+        "y": 3440
       },
       "velocity": {
         "x": 0.0,
@@ -790,8 +790,8 @@
       "type": "ball",
       "platform": false,
       "position": {
-        "x": 763,
-        "y": 3920
+        "x": 1930,
+        "y": 3440
       },
       "velocity": {
         "x": 0.0,
@@ -810,8 +810,8 @@
       "type": "ball",
       "platform": false,
       "position": {
-        "x": 1163,
-        "y": 3943
+        "x": 2283,
+        "y": 3440
       },
       "velocity": {
         "x": 0.0,
@@ -830,8 +830,8 @@
       "type": "ball",
       "platform": false,
       "position": {
-        "x": 820,
-        "y": 3863
+        "x": 1993,
+        "y": 3440
       },
       "velocity": {
         "x": 0.0,
@@ -898,8 +898,8 @@
       "type": "rat",
       "platform": false,
       "position": {
-        "x": 2340,
-        "y": 2940
+        "x": 940,
+        "y": 3900
       },
       "velocity": {
         "x": -50.0,
@@ -919,8 +919,8 @@
       "type": "rat",
       "platform": false,
       "position": {
-        "x": 2231,
-        "y": 2912
+        "x": 831,
+        "y": 3872
       },
       "velocity": {
         "x": -50.0,
@@ -940,8 +940,8 @@
       "type": "rat",
       "platform": false,
       "position": {
-        "x": 2320,
-        "y": 2860
+        "x": 920,
+        "y": 3820
       },
       "velocity": {
         "x": -50.0,
@@ -961,8 +961,8 @@
       "type": "rat",
       "platform": false,
       "position": {
-        "x": 2200,
-        "y": 2860
+        "x": 800,
+        "y": 3820
       },
       "velocity": {
         "x": -50.0,
@@ -982,8 +982,8 @@
       "type": "rat",
       "platform": false,
       "position": {
-        "x": 2295,
-        "y": 2805
+        "x": 895,
+        "y": 3765
       },
       "velocity": {
         "x": -50.0,
@@ -1003,8 +1003,8 @@
       "type": "rat",
       "platform": false,
       "position": {
-        "x": 2220,
-        "y": 2800
+        "x": 820,
+        "y": 3760
       },
       "velocity": {
         "x": -50.0,
@@ -1024,8 +1024,8 @@
       "type": "rat",
       "platform": false,
       "position": {
-        "x": 2300,
-        "y": 2740
+        "x": 900,
+        "y": 3700
       },
       "velocity": {
         "x": -50.0,
@@ -1045,8 +1045,8 @@
       "type": "rat",
       "platform": false,
       "position": {
-        "x": 2340,
-        "y": 2900
+        "x": 940,
+        "y": 3860
       },
       "velocity": {
         "x": -50.0,
@@ -1066,8 +1066,8 @@
       "type": "rat",
       "platform": false,
       "position": {
-        "x": 2360,
-        "y": 2820
+        "x": 960,
+        "y": 3780
       },
       "velocity": {
         "x": -50.0,
@@ -1087,8 +1087,8 @@
       "type": "rat",
       "platform": false,
       "position": {
-        "x": 2240,
-        "y": 2760
+        "x": 840,
+        "y": 3720
       },
       "velocity": {
         "x": -50.0,
@@ -1108,8 +1108,8 @@
       "type": "rat",
       "platform": false,
       "position": {
-        "x": 2335,
-        "y": 2768
+        "x": 935,
+        "y": 3728
       },
       "velocity": {
         "x": -50.0,
