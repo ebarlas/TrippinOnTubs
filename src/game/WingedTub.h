@@ -21,6 +21,13 @@ namespace trippin {
         void render(const Camera &camera) override;
         bool isExpired() override;
     private:
+        constexpr static const int FRAME_CLOUD_FIRST = 10;
+        constexpr static const int FRAME_CLOUD_LAST = 19;
+        constexpr static const int FRAME_TUB_FIRST = 0;
+        constexpr static const int FRAME_TUB_LAST = 9;
+        constexpr static const int FRAME_SPARKLE_FIRST = 20;
+        constexpr static const int FRAME_SPARKLE_LAST = 29;
+
         const Sprite *sprite;
         const Goggin *goggin;
         Score *score;
@@ -31,6 +38,10 @@ namespace trippin {
         bool expired;
         bool inactive;
         const Activation *activation;
+
+        int points;
+        int tubFrameFirst;
+        int tubFrameLast;
 
         struct Channel {
             int frame;

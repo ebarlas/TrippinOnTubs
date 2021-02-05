@@ -16,6 +16,11 @@ def extract_int_from_xml(node, name, target):
         target[name] = int(node.attrib[name])
 
 
+def extract_bool_from_xml(node, name, target):
+    if name in node.attrib:
+        target[name] = bool(node.attrib[name])
+
+
 def extract_float_point_from_xml(node, name, target):
     if f'{name}X' in node.attrib and f'{name}Y' in node.attrib:
         target[name] = {
@@ -30,6 +35,7 @@ def find_objects(root):
     floats = ['mass', 'gravity', 'fallGravity', 'minJumpVelocity', 'maxJumpVelocity',
               'runningAcceleration', 'risingAcceleration', 'duckFriction', 'coefficient']
     ints = ['minJumpChargeTime', 'maxJumpChargeTime', 'jumpGracePeriod', 'lane', 'dustPeriod']
+    bools = ['sparkle']
     id_counter = 1
     # an object is an image within a group that does not have attribute type='layer'
     for g in root.findall('.//svg:g', namespace):
@@ -50,6 +56,8 @@ def find_objects(root):
                     extract_float_from_xml(node, s, obj)
                 for s in ints:
                     extract_int_from_xml(node, s, obj)
+                for s in bools:
+                    extract_bool_from_xml(node, s, obj)
                 objects.append(obj)
                 id_counter = id_counter + 1
     return objects

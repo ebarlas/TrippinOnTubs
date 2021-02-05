@@ -26,11 +26,12 @@ namespace trippin {
             int maxJumpChargeTime;
             int jumpGracePeriod;
             Point<double> velocity{};
-            Point<double> terminalVelocity;
-            Point<double> friction;
-            int dustPeriod;
-            double duckFriction;
-            double coefficient;
+            Point<double> terminalVelocity{};
+            Point<double> friction{};
+            int dustPeriod{};
+            double duckFriction{};
+            double coefficient{};
+            bool sparkle{};
         };
 
         struct Layer {

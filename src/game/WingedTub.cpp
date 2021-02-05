@@ -11,6 +11,9 @@ void trippin::WingedTub::init(const Configuration &config, const Map::Object &ob
     channel.ref() = {0, true};
     hitGoggin = false;
     inactive = true;
+    tubFrameFirst = obj.sparkle ? FRAME_SPARKLE_FIRST : FRAME_TUB_FIRST;
+    tubFrameLast = obj.sparkle ? FRAME_SPARKLE_LAST : FRAME_TUB_LAST;
+    points = obj.sparkle ? 200 : 100;
 }
 
 void trippin::WingedTub::beforeTick(Uint32 engineTicks) {
@@ -32,8 +35,8 @@ void trippin::WingedTub::afterTick(Uint32 engineTicks) {
     if (!hitGoggin && hitBox.intersect(goggin->roundedBox)) {
         hitGoggin = true;
         hitTicks = 0;
-        ch.frame = 10;
-        score->add(100);
+        ch.frame = FRAME_CLOUD_FIRST;
+        score->add(points);
         return;
     }
 
@@ -43,7 +46,7 @@ void trippin::WingedTub::afterTick(Uint32 engineTicks) {
         if (hitTicks % sprite->getFramePeriodTicks() == 0) {
             ch.frame++;
         }
-        if (ch.frame == sprite->getFrames()) {
+        if (ch.frame == FRAME_CLOUD_LAST) {
             expired = true;
             ch.visible = false;
         }
@@ -52,7 +55,10 @@ void trippin::WingedTub::afterTick(Uint32 engineTicks) {
 
     // Case #3: Advance flapping wings cycle
     if (engineTicks % sprite->getFramePeriodTicks() == 0) {
-        ch.frame = (ch.frame + 1) % 10;
+        ch.frame++;
+        if (ch.frame == tubFrameLast) {
+            ch.frame = tubFrameFirst;
+        }
     }
 }
 
