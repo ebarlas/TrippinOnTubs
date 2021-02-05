@@ -1,5 +1,6 @@
 #include "nlohmann/json.hpp"
 #include "sprite/Files.h"
+#include "engine/Convert.h"
 #include "Configuration.h"
 
 void trippin::Configuration::load(const std::string &name) {
@@ -20,7 +21,7 @@ double trippin::Configuration::ticksPerSecond() const {
 }
 
 double trippin::Configuration::engineTicksPerSpiritClockTick() const {
-    return static_cast<double>(spiritClockTickPeriod) / tickPeriod;
+    return toDouble(spiritClockTickPeriod) / tickPeriod;
 }
 
 double trippin::Configuration::pointsPerTick() const {

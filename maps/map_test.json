@@ -680,6 +680,24 @@
     },
     {
       "id": 74,
+      "type": "ground_melt_left",
+      "platform": true,
+      "position": {
+        "x": 3860,
+        "y": 3800
+      }
+    },
+    {
+      "id": 75,
+      "type": "ground_melt_right",
+      "platform": true,
+      "position": {
+        "x": 4010,
+        "y": 3800
+      }
+    },
+    {
+      "id": 76,
       "type": "winged_tub",
       "platform": false,
       "position": {
@@ -689,7 +707,7 @@
       "sparkle": true
     },
     {
-      "id": 75,
+      "id": 77,
       "type": "winged_tub",
       "platform": false,
       "position": {
@@ -698,7 +716,7 @@
       }
     },
     {
-      "id": 76,
+      "id": 78,
       "type": "winged_tub",
       "platform": false,
       "position": {
@@ -707,7 +725,7 @@
       }
     },
     {
-      "id": 77,
+      "id": 79,
       "type": "ball",
       "platform": false,
       "position": {
@@ -727,7 +745,7 @@
       "coefficient": 0.9
     },
     {
-      "id": 78,
+      "id": 80,
       "type": "ball",
       "platform": false,
       "position": {
@@ -747,7 +765,7 @@
       "coefficient": 0.9
     },
     {
-      "id": 79,
+      "id": 81,
       "type": "ball",
       "platform": false,
       "position": {
@@ -767,7 +785,7 @@
       "coefficient": 0.9
     },
     {
-      "id": 80,
+      "id": 82,
       "type": "ball",
       "platform": false,
       "position": {
@@ -787,7 +805,7 @@
       "coefficient": 0.9
     },
     {
-      "id": 81,
+      "id": 83,
       "type": "ball",
       "platform": false,
       "position": {
@@ -807,7 +825,7 @@
       "coefficient": 0.9
     },
     {
-      "id": 82,
+      "id": 84,
       "type": "ball",
       "platform": false,
       "position": {
@@ -827,7 +845,7 @@
       "coefficient": 0.9
     },
     {
-      "id": 83,
+      "id": 85,
       "type": "ball",
       "platform": false,
       "position": {
@@ -847,7 +865,7 @@
       "coefficient": 0.9
     },
     {
-      "id": 84,
+      "id": 86,
       "type": "zombie",
       "platform": false,
       "position": {
@@ -863,7 +881,7 @@
       "runningAcceleration": -125.0
     },
     {
-      "id": 85,
+      "id": 87,
       "type": "zombie",
       "platform": false,
       "position": {
@@ -879,7 +897,7 @@
       "runningAcceleration": -125.0
     },
     {
-      "id": 86,
+      "id": 88,
       "type": "zombie",
       "platform": false,
       "position": {
@@ -895,12 +913,12 @@
       "runningAcceleration": -125.0
     },
     {
-      "id": 87,
+      "id": 89,
       "type": "rat",
       "platform": false,
       "position": {
-        "x": 940,
-        "y": 3900
+        "x": 3980,
+        "y": 3180
       },
       "velocity": {
         "x": -50.0,
@@ -916,12 +934,12 @@
       "lane": 1
     },
     {
-      "id": 88,
+      "id": 90,
       "type": "rat",
       "platform": false,
       "position": {
-        "x": 831,
-        "y": 3872
+        "x": 3871,
+        "y": 3152
       },
       "velocity": {
         "x": -50.0,
@@ -937,12 +955,12 @@
       "lane": 2
     },
     {
-      "id": 89,
+      "id": 91,
       "type": "rat",
       "platform": false,
       "position": {
-        "x": 920,
-        "y": 3820
+        "x": 3960,
+        "y": 3100
       },
       "velocity": {
         "x": -50.0,
@@ -958,12 +976,12 @@
       "lane": 3
     },
     {
-      "id": 90,
+      "id": 92,
       "type": "rat",
       "platform": false,
       "position": {
-        "x": 800,
-        "y": 3820
+        "x": 3840,
+        "y": 3100
       },
       "velocity": {
         "x": -50.0,
@@ -979,12 +997,12 @@
       "lane": 1
     },
     {
-      "id": 91,
+      "id": 93,
       "type": "rat",
       "platform": false,
       "position": {
-        "x": 895,
-        "y": 3765
+        "x": 3935,
+        "y": 3045
       },
       "velocity": {
         "x": -50.0,
@@ -1000,12 +1018,12 @@
       "lane": 2
     },
     {
-      "id": 92,
+      "id": 94,
       "type": "rat",
       "platform": false,
       "position": {
-        "x": 820,
-        "y": 3760
+        "x": 3860,
+        "y": 3040
       },
       "velocity": {
         "x": -50.0,
@@ -1021,12 +1039,12 @@
       "lane": 3
     },
     {
-      "id": 93,
+      "id": 95,
       "type": "rat",
       "platform": false,
       "position": {
-        "x": 900,
-        "y": 3700
+        "x": 3940,
+        "y": 2980
       },
       "velocity": {
         "x": -50.0,
@@ -1042,12 +1060,12 @@
       "lane": 1
     },
     {
-      "id": 94,
+      "id": 96,
       "type": "rat",
       "platform": false,
       "position": {
-        "x": 940,
-        "y": 3860
+        "x": 3980,
+        "y": 3140
       },
       "velocity": {
         "x": -50.0,
@@ -1063,12 +1081,12 @@
       "lane": 2
     },
     {
-      "id": 95,
+      "id": 97,
       "type": "rat",
       "platform": false,
       "position": {
-        "x": 960,
-        "y": 3780
+        "x": 4000,
+        "y": 3060
       },
       "velocity": {
         "x": -50.0,
@@ -1084,12 +1102,12 @@
       "lane": 3
     },
     {
-      "id": 96,
+      "id": 98,
       "type": "rat",
       "platform": false,
       "position": {
-        "x": 840,
-        "y": 3720
+        "x": 3880,
+        "y": 3000
       },
       "velocity": {
         "x": -50.0,
@@ -1105,12 +1123,12 @@
       "lane": 1
     },
     {
-      "id": 97,
+      "id": 99,
       "type": "rat",
       "platform": false,
       "position": {
-        "x": 935,
-        "y": 3728
+        "x": 3975,
+        "y": 3008
       },
       "velocity": {
         "x": -50.0,
@@ -1126,7 +1144,7 @@
       "lane": 2
     },
     {
-      "id": 98,
+      "id": 100,
       "type": "clock_timer",
       "platform": false,
       "position": {
@@ -1135,7 +1153,7 @@
       }
     },
     {
-      "id": 99,
+      "id": 101,
       "type": "winged_foot",
       "platform": false,
       "position": {

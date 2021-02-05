@@ -4,6 +4,7 @@
 #include "Ball.h"
 #include "WingedTub.h"
 #include "Layer.h"
+#include "engine/Convert.h"
 
 void trippin::Game::init() {
     initRuntime();
@@ -169,7 +170,7 @@ void trippin::Game::initEngine() {
     jumpMeter.init();
     engine.addListener(&jumpMeter);
 
-    activation.setProximity(static_cast<int>(std::round(configuration.activationProximity * scale->multiplier)));
+    activation.setProximity(toInt(configuration.activationProximity * scale->multiplier));
     activation.setGoggin(&goggin);
 }
 
@@ -216,7 +217,7 @@ void trippin::Game::renderLoop() {
         SDL_SetRenderDrawColor(renderer, 247, 251, 255, 255);
         SDL_RenderClear(renderer);
 
-        goggin.center(camera);
+        goggin.centerCamera(camera);
         for (auto &obj : objects) {
             obj->render(camera);
         }

@@ -18,7 +18,7 @@ namespace trippin {
         // Anchor the camera on Goggin
         // This is the first step of a frame update
         // The position used here ought to be used in the subsequent render call to avoid jitter
-        void center(Camera &camera);
+        void centerCamera(Camera &camera);
         void onJumpCharge();
         void onJumpRelease();
         void onDuckStart();
@@ -32,7 +32,13 @@ namespace trippin {
         };
 
         struct Channel {
-            Point<int> roundedPosition;
+            // goggin top-left corner position, pre-normalized for ducking case
+            Point<int> position;
+
+            // goggin center point, normalized
+            Point<int> center;
+
+            // goggin top-left corner, saved to ensure jitter/drift
             Point<int> cameraPosition;
             int frame;
             bool jumpCharge;
@@ -100,6 +106,10 @@ namespace trippin {
         void onDucking(Uint32 engineTicks, Channel &ch);
 
         void resetDustBlast(Channel &ch);
+
+        void shrinkForDuck();
+        void growForStand();
+        void savePosition(Channel &ch);
     };
 }
 

@@ -1,10 +1,10 @@
-#include <cmath>
 #include "engine/Sides.h"
 #include "engine/Object.h"
+#include "engine/Convert.h"
 
 void trippin::Object::syncPositions() {
     center = {position.x + size.x / 2.0, position.y + size.y / 2.0};
-    roundedPosition = {static_cast<int>(std::round(position.x)), static_cast<int>(std::round(position.y))};
+    roundedPosition = toInt(position);
     roundedBox = {roundedPosition.x, roundedPosition.y, size.x, size.y};
 }
 

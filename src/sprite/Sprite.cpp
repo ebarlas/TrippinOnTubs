@@ -2,7 +2,7 @@
 #include "Sprite.h"
 
 trippin::Sprite::Sprite(SDL_Renderer *ren, const std::string &name, const Scale &scale, int tickPeriod)
-        : sheet(ren, name, scale) {
+        : ren(ren), sheet(ren, name, scale) {
     metadata.load(name);
 
     size = sheet.getSize();

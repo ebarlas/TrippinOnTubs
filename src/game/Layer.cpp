@@ -1,4 +1,5 @@
 #include "Layer.h"
+#include "engine/Convert.h"
 
 void trippin::Layer::init(SpriteManager &sm, Map::Layer &layer) {
     for (auto &obj : layer.objects) {
@@ -14,8 +15,8 @@ void trippin::Layer::render(const trippin::Camera &camera) {
     auto viewport = camera.getViewport();
     Point<int> universeRange{universe.w - viewport.w, universe.h - viewport.h};
     Point<int> layerRange{size.x - viewport.w, size.y - viewport.h};
-    viewport.x *= static_cast<double>(layerRange.x) / universeRange.x;
-    viewport.y *= static_cast<double>(layerRange.y) / universeRange.y;
+    viewport.x *= toDouble(layerRange.x) / universeRange.x;
+    viewport.y *= toDouble(layerRange.y) / universeRange.y;
 
     // anchor camera to the bottom of the layer if the viewport is taller than the layer
     if (layerRange.y < 0) {

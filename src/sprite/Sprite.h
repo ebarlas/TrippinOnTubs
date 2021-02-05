@@ -25,6 +25,7 @@ namespace trippin {
         // Duration of each frame in ticks
         // If frame duration is 80ms and tick period is 10ms, the frame period in ticks is 10
         int framePeriodTicks;
+        SDL_Renderer *ren;
     };
 }
 

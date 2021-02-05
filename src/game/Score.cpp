@@ -1,5 +1,6 @@
 #include "Score.h"
 #include "lock/Exchange.h"
+#include "engine/Convert.h"
 
 void trippin::Score::init() {
     channel.ref().score = 0;
@@ -19,7 +20,7 @@ void trippin::Score::add(int n) {
 }
 
 void trippin::Score::render(const trippin::Camera &camera) {
-    int score = static_cast<int>(std::round(channel.get().score));
+    int score = toInt(channel.get().score);
     int x = camera.getViewport().w - margin - digits->getSize().x;
     do {
         auto digit = score % 10;

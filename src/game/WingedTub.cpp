@@ -1,10 +1,9 @@
 #include "WingedTub.h"
 #include "lock/Exchange.h"
+#include "engine/Convert.h"
 
 void trippin::WingedTub::init(const Configuration &config, const Map::Object &obj, const Sprite &spr) {
-    position = {
-            static_cast<int>(std::round(obj.position.x)),
-            static_cast<int>(std::round(obj.position.y))};
+    position = toInt(obj.position);
     sprite = &spr;
     hitBox = spr.getHitBox() + position;
     expired = false;

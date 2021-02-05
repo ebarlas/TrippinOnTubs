@@ -2,6 +2,7 @@
 #include "sprite/Sprite.h"
 #include "Goggin.h"
 #include "lock/Exchange.h"
+#include "engine/Convert.h"
 
 void trippin::Goggin::init(const Configuration &config, const Map::Object &obj, const Sprite &spr) {
     SpriteObject::init(config, obj, spr);
@@ -48,6 +49,7 @@ void trippin::Goggin::beforeTick(Uint32 engineTicks) {
             ch.frame = FRAME_DUCKING;
             acceleration.x = 0;
             friction.x = duckFriction;
+            shrinkForDuck();
         }
     }
 
@@ -55,6 +57,7 @@ void trippin::Goggin::beforeTick(Uint32 engineTicks) {
         ch.duckStart = ch.duckEnd = false;
         if (state == ducking) {
             ticks = 0;
+            growForStand();
             if (platformCollisions.testBottom() || objectCollisions.testBottom()) {
                 state = running;
                 ch.frame = FRAME_RUN_AFTER_LAND;
@@ -72,7 +75,7 @@ void trippin::Goggin::beforeTick(Uint32 engineTicks) {
             jumpTicks = engineTicks;
         }
         auto relTicks = static_cast<int>(engineTicks - jumpTicks);
-        auto range = static_cast<double>(maxJumpChargeTicks - minJumpChargeTicks);
+        auto range = toDouble(maxJumpChargeTicks - minJumpChargeTicks);
         auto boundedTicks = std::max(minJumpChargeTicks, std::min(relTicks, maxJumpChargeTicks));
         jumpPercent = (boundedTicks - minJumpChargeTicks) / range;
         jumpVel = minJumpVelocity + jumpPercent * (maxJumpVelocity - minJumpVelocity);
@@ -86,6 +89,9 @@ void trippin::Goggin::beforeTick(Uint32 engineTicks) {
         jumpTicks = 0;
         if (state == running || state == landing || state == ducking ||
             (engineTicks > lastRunOrDuckTick && engineTicks - lastRunOrDuckTick < jumpGracePeriodTicks)) {
+            if (state == ducking) {
+                growForStand();
+            }
             if (skipLaunch) {
                 state = State::rising;
                 ch.frame = FRAME_LAUNCHING_LAST;
@@ -152,16 +158,27 @@ void trippin::Goggin::afterTick(Uint32 engineTicks) {
         onDucking(engineTicks, ch);
     }
 
-    ch.roundedPosition = roundedPosition;
+    savePosition(ch);
 }
 
-void trippin::Goggin::center(trippin::Camera &camera) {
+void trippin::Goggin::savePosition(trippin::Goggin::Channel &ch) {
+    if (state == ducking) {
+        // restore y to normal in channel to prepare for rendering
+        ch.position = {roundedPosition.x, toInt(position.y - size.y)};
+        ch.center = {toInt(position.x + size.x / 2.0), toInt(position.y)};
+    } else {
+        ch.position = roundedPosition;
+        ch.center = toInt(center);
+    }
+}
+
+void trippin::Goggin::centerCamera(trippin::Camera &camera) {
     // record position here for use in subsequent render call to avoid jitter
     // jitter emerges when an engine tick updates the position *between* center and render calls
     Exchange<Channel> exchange{channel};
     auto &ch = exchange.get();
-    ch.cameraPosition = ch.roundedPosition;
-    camera.centerOn(ch.cameraPosition);
+    ch.cameraPosition = ch.position;
+    camera.centerOn(ch.center);
 }
 
 void trippin::Goggin::onFalling(Uint32 engineTicks, Channel &ch) {
@@ -263,7 +280,22 @@ void trippin::Goggin::onDucking(Uint32 engineTicks, Channel &ch) {
             state = falling;
             ch.frame = FRAME_FALLING_FIRST;
         }
+        growForStand();
     }
+}
+
+void trippin::Goggin::shrinkForDuck() {
+    // make goggin contact-area half height when ducking
+    size.y /= 2.0;
+    position.y += size.y;
+    syncPositions();
+}
+
+void trippin::Goggin::growForStand() {
+    // restore goggin contact area to full-height
+    position.y -= size.y;
+    size.y *= 2.0;
+    syncPositions();
 }
 
 void trippin::Goggin::resetDustBlast(Channel &ch) {

@@ -1,5 +1,6 @@
 #include "SpiritClock.h"
 #include "lock/Lock.h"
+#include "engine/Convert.h"
 
 void trippin::SpiritClock::init(const Configuration &config, const Sprite &spr) {
     engineTicksPerClockBar = config.engineTicksPerSpiritClockTick();
@@ -28,7 +29,7 @@ void trippin::SpiritClock::afterTick(Uint32 engineTicks) {
     auto distanceAway = goggin->position.x - spirit->getPosition();
     auto ticksAway = distanceAway / spirit->getVelocity();
     auto numClockBars = sprite->getFrames() - 1;
-    auto barsAway = static_cast<int>(std::round(ticksAway / engineTicksPerClockBar));
+    auto barsAway = toInt(ticksAway / engineTicksPerClockBar);
     auto barsFilled = std::min(numClockBars, std::max(0, barsAway));
     setFrame(barsFilled);
 }
