@@ -20,11 +20,15 @@ void trippin::Goggin::init(const Configuration &config, const Map::Object &obj, 
     maxFallingVelocity = 0;
 
     auto &ch = channel.ref();
-    ch = {roundedPosition, roundedPosition, FRAME_FALLING_LAST, false, false};
+    ch.position = roundedPosition;
+    ch.center = toInt(center);
+    ch.frame = FRAME_FALLING_LAST;
+
     for (auto &d : ch.dusts) {
-        d.frame = dust->getFrames();
+        d.frame = dust->getFrames(); // past the end
     }
-    ch.blast.frame = dustBlast->getFrames();
+
+    ch.blast.frame = dustBlast->getFrames(); // past the end
 
     dustPeriodTicks = obj.dustPeriod;
     nextDustPos = 0;
