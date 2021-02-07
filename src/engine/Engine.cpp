@@ -103,7 +103,7 @@ bool trippin::Engine::hasHigherSnapPriorityThan(Object *left, Object *right) {
 void trippin::Engine::snapToPlatform(Object *plat) {
     for (auto obj : objects) {
         if (!obj->snappedToMe) {
-            if (!obj->lane || !plat->lane || obj->lane == plat->lane) {
+            if (sameLane(obj, plat)) {
                 auto overlap = obj->roundedBox.intersect(plat->roundedBox);
                 if (overlap) {
                     snapTo(*obj, *plat, overlap);
@@ -158,7 +158,7 @@ void trippin::Engine::snapTo(Object &obj, const Object &p, const Rect<int> &over
 void trippin::Engine::applyPhysics() {
     for (auto platform : platforms) {
         for (auto object : objects) {
-            if (!object->lane || !platform->lane || object->lane == platform->lane) {
+            if (sameLane(object, platform)) {
                 auto collision = object->roundedBox.collision(platform->roundedBox);
                 if (collision) {
                     applyPlatformCollision(*object, *platform, collision);
@@ -171,7 +171,7 @@ void trippin::Engine::applyPhysics() {
         auto a = objects[i];
         for (int j = i + 1; j < objects.size(); j++) {
             auto b = objects[j];
-            if (!a->lane || !b->lane || a->lane == b->lane) {
+            if (sameLane(a, b)) {
                 auto collision = a->roundedBox.collision(b->roundedBox);
                 if (collision) {
                     applyObjectCollision(*a, *b, collision);

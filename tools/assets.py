@@ -24,7 +24,8 @@ sprites = [
     'hills',
     'hotel_petaluma',
     'dust',
-    'dust_blast'
+    'dust_blast',
+    'running_clock'
 ]
 
 levels = ['map_ground_melt', 'map_minimal', 'map_test']

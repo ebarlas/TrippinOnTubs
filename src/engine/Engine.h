@@ -75,6 +75,22 @@ namespace trippin {
         static void snapTo(Object &obj, const Object &p, const trippin::Rect<int> &overlap);
         void applyPlatformCollision(Object &object, Object &platform, const Sides &sides);
         void applyObjectCollision(Object &left, Object &right, const Sides &sides);
+
+        static bool sameLane(Object* left, Object* right) {
+            if (left->lane == -1 && !right->platform) {
+                return false;
+            }
+
+            if (right->lane == -1 && !left->platform) {
+                return false;
+            }
+
+            if (!left->lane || !right->lane) {
+                return true;
+            }
+
+            return left->lane == right->lane;
+        }
     };
 }
 

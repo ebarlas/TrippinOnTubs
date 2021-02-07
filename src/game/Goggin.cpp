@@ -23,6 +23,10 @@ void trippin::Goggin::init(const Configuration &config, const Map::Object &obj, 
     ch.position = roundedPosition;
     ch.center = toInt(center);
     ch.frame = FRAME_FALLING_LAST;
+    ch.jumpCharge = false;
+    ch.jumpRelease = false;
+    ch.duckStart = false;
+    ch.duckEnd = false;
 
     for (auto &d : ch.dusts) {
         d.frame = dust->getFrames(); // past the end

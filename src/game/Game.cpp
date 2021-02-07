@@ -3,6 +3,7 @@
 #include "PacingObject.h"
 #include "Ball.h"
 #include "WingedTub.h"
+#include "RunningClock.h"
 #include "Layer.h"
 #include "engine/Convert.h"
 
@@ -124,6 +125,15 @@ void trippin::Game::initEngine() {
             uptr->setActivation(&activation);
             engine.addListener(uptr.get());
             objects.push_back(std::move(uptr));
+        } else if (obj.type == "running_clock") {
+            auto uptr = std::make_unique<RunningClock>();
+            uptr->setGoggin(&goggin);
+            uptr->setSpirit(&spirit);
+            uptr->setActivation(&activation);
+            uptr->setUniverse(map.universe);
+            uptr->init(configuration, obj, spriteManager->get(obj.type));
+            engine.add(uptr.get());
+            objects.push_back(std::move(uptr));
         } else if (obj.type == "zombie") {
             auto uptr = std::make_unique<PacingObject>();
             uptr->setActivation(&activation);
@@ -154,8 +164,9 @@ void trippin::Game::initEngine() {
     score.init();
     engine.addListener(&score);
 
-    spirit.setPosition(-goggin.terminalVelocity.x * configuration.ticksPerSecond() * configuration.spiritSecondsBehind);
+    spirit.setTicksPerSecond(configuration.ticksPerSecond());
     spirit.setVelocity(goggin.terminalVelocity.x);
+    spirit.delay(configuration.spiritSecondsBehind);
 
     auto &timerSprite = spriteManager->get("clock_timer");
     spiritClock.setGoggin(goggin);

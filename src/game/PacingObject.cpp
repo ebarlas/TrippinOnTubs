@@ -18,6 +18,11 @@ void trippin::PacingObject::afterTick(Uint32 engineTicks) {
     Exchange<Channel> ex{channel};
     auto &ch = ex.get();
 
+    // early exit if not activated yet
+    if (inactive) {
+        return;
+    }
+
     if (!sprite->intersectsWith(roundedPosition, universe)) {
         expired = true;
         return;

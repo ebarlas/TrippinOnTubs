@@ -1,15 +1,11 @@
 #include "Spirit.h"
 
-void trippin::Spirit::setPosition(double pos) {
-    position = pos;
-}
-
 void trippin::Spirit::setVelocity(double vel) {
     velocity = vel;
 }
 
-void trippin::Spirit::updatePosition(double delta) {
-    position += delta;
+void trippin::Spirit::delay(double seconds) {
+    position -= velocity * ticksPerSecond * seconds;
 }
 
 double trippin::Spirit::getPosition() const {
@@ -30,4 +26,8 @@ bool trippin::Spirit::isExpired() {
 
 double trippin::Spirit::getVelocity() const {
     return velocity;
+}
+
+void trippin::Spirit::setTicksPerSecond(double tps) {
+    ticksPerSecond = tps;
 }

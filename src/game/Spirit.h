@@ -9,12 +9,13 @@ namespace trippin {
     private:
         double position;
         double velocity;
+        double ticksPerSecond;
     public:
         double getPosition() const;
         double getVelocity() const;
-        void setPosition(double pos);
+        void setTicksPerSecond(double tps);
         void setVelocity(double vel);
-        void updatePosition(double delta);
+        void delay(double seconds);
         void beforeTick(Uint32 engineTicks) override;
         void afterTick(Uint32 engineTicks) override;
         bool isExpired() override;
