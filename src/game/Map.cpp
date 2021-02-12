@@ -35,6 +35,7 @@ void trippin::Map::rescale(double target) {
         obj.velocity.y /= divisor;
         obj.minJumpVelocity /= divisor;
         obj.maxJumpVelocity /= divisor;
+        obj.maxDuckJumpVelocity /= divisor;
         obj.terminalVelocity.x /= divisor;
         obj.terminalVelocity.y /= divisor;
         obj.friction.x /= divisor;
@@ -65,6 +66,7 @@ void trippin::Map::convert(int tickPeriod) {
         obj.risingAcceleration /= ticksPerSecondSq;
         obj.minJumpVelocity /= ticksPerSecond;
         obj.maxJumpVelocity /= ticksPerSecond;
+        obj.maxDuckJumpVelocity /= ticksPerSecond;
         obj.minJumpChargeTime /= tickPeriod;
         obj.maxJumpChargeTime /= tickPeriod;
         obj.jumpGracePeriod /= tickPeriod;
@@ -103,6 +105,8 @@ void trippin::from_json(const nlohmann::json& j, Map::Object& obj) {
         j.at("minJumpVelocity").get_to(obj.minJumpVelocity);
     if (j.contains("maxJumpVelocity"))
         j.at("maxJumpVelocity").get_to(obj.maxJumpVelocity);
+    if (j.contains("maxDuckJumpVelocity"))
+        j.at("maxDuckJumpVelocity").get_to(obj.maxDuckJumpVelocity);
     if (j.contains("minJumpChargeTime"))
         j.at("minJumpChargeTime").get_to(obj.minJumpChargeTime);
     if (j.contains("maxJumpChargeTime"))

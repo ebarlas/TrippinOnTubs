@@ -22,6 +22,7 @@
       "fallGravity": 1500.0,
       "minJumpVelocity": -375.0,
       "maxJumpVelocity": -875.0,
+      "maxDuckJumpVelocity": -1100.0,
       "runningAcceleration": 500.0,
       "risingAcceleration": 50.0,
       "duckFriction": 150.0,

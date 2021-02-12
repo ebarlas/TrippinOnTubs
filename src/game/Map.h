@@ -22,6 +22,7 @@ namespace trippin {
             double mass{};
             double minJumpVelocity;
             double maxJumpVelocity;
+            double maxDuckJumpVelocity;
             int minJumpChargeTime;
             int maxJumpChargeTime;
             int jumpGracePeriod;

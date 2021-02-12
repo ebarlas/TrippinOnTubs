@@ -32,7 +32,7 @@ def extract_float_point_from_xml(node, name, target):
 def find_objects(root):
     objects = []
     points = ['velocity', 'terminalVelocity', 'friction']
-    floats = ['mass', 'gravity', 'fallGravity', 'minJumpVelocity', 'maxJumpVelocity',
+    floats = ['mass', 'gravity', 'fallGravity', 'minJumpVelocity', 'maxJumpVelocity', 'maxDuckJumpVelocity',
               'runningAcceleration', 'risingAcceleration', 'duckFriction', 'coefficient']
     ints = ['minJumpChargeTime', 'maxJumpChargeTime', 'jumpGracePeriod', 'lane', 'dustPeriod']
     bools = ['sparkle']

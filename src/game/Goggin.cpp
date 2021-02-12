@@ -12,6 +12,7 @@ void trippin::Goggin::init(const Configuration &config, const Map::Object &obj, 
     risingAcceleration = obj.risingAcceleration;
     minJumpVelocity = obj.minJumpVelocity;
     maxJumpVelocity = obj.maxJumpVelocity;
+    maxDuckJumpVelocity = obj.maxDuckJumpVelocity;
     minJumpChargeTicks = obj.minJumpChargeTime;
     maxJumpChargeTicks = obj.maxJumpChargeTime;
     jumpGracePeriodTicks = obj.jumpGracePeriod;
@@ -85,8 +86,9 @@ void trippin::Goggin::beforeTick(Uint32 engineTicks) {
         auto relTicks = static_cast<int>(engineTicks - jumpTicks);
         auto range = toDouble(maxJumpChargeTicks - minJumpChargeTicks);
         auto boundedTicks = std::max(minJumpChargeTicks, std::min(relTicks, maxJumpChargeTicks));
+        auto maxEffective = state == ducking && boundedTicks == maxJumpChargeTicks ? maxDuckJumpVelocity : maxJumpVelocity;
         jumpPercent = (boundedTicks - minJumpChargeTicks) / range;
-        jumpVel = minJumpVelocity + jumpPercent * (maxJumpVelocity - minJumpVelocity);
+        jumpVel = minJumpVelocity + jumpPercent * (maxEffective - minJumpVelocity);
     } else {
         jumpPercent = 0;
     }
