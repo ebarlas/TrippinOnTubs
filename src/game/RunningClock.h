@@ -3,6 +3,7 @@
 
 #include "SpriteObject.h"
 #include "Activation.h"
+#include "Score.h"
 #include "Spirit.h"
 #include "lock/Guarded.h"
 
@@ -16,7 +17,7 @@ namespace trippin {
         void afterTick(Uint32 engineTicks) override;
         void render(const Camera &camera) override;
         void setActivation(const Activation *activation);
-        void setUniverse(Point<int> universe);
+        void setScore(Score *score);
     private:
         const Goggin *goggin;
         Spirit *spirit;
@@ -25,7 +26,7 @@ namespace trippin {
 
         double runningAcceleration;
         const Activation *activation;
-        Rect<int> universe;
+        Score *score;
 
         struct Channel {
             Point<int> roundedPosition;

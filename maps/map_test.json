@@ -746,6 +746,206 @@
     },
     {
       "id": 79,
+      "type": "bird",
+      "platform": false,
+      "position": {
+        "x": 4280,
+        "y": 3880
+      },
+      "velocity": {
+        "x": -50.0,
+        "y": 0.0
+      },
+      "terminalVelocity": {
+        "x": 125.0,
+        "y": 1125.0
+      },
+      "runningAcceleration": -150.0,
+      "risingAcceleration": 150.0,
+      "lane": 1
+    },
+    {
+      "id": 80,
+      "type": "bird",
+      "platform": false,
+      "position": {
+        "x": 4320,
+        "y": 3755
+      },
+      "velocity": {
+        "x": -50.0,
+        "y": 0.0
+      },
+      "terminalVelocity": {
+        "x": 125.0,
+        "y": 1125.0
+      },
+      "runningAcceleration": -150.0,
+      "risingAcceleration": 150.0,
+      "lane": 1
+    },
+    {
+      "id": 81,
+      "type": "bird",
+      "platform": false,
+      "position": {
+        "x": 4460,
+        "y": 3840
+      },
+      "velocity": {
+        "x": -50.0,
+        "y": 0.0
+      },
+      "terminalVelocity": {
+        "x": 125.0,
+        "y": 1125.0
+      },
+      "runningAcceleration": -150.0,
+      "risingAcceleration": 150.0,
+      "lane": 1
+    },
+    {
+      "id": 82,
+      "type": "bird",
+      "platform": false,
+      "position": {
+        "x": 4540,
+        "y": 3755
+      },
+      "velocity": {
+        "x": -50.0,
+        "y": 0.0
+      },
+      "terminalVelocity": {
+        "x": 125.0,
+        "y": 1125.0
+      },
+      "runningAcceleration": -150.0,
+      "risingAcceleration": 150.0,
+      "lane": 1
+    },
+    {
+      "id": 83,
+      "type": "bird",
+      "platform": false,
+      "position": {
+        "x": 4620,
+        "y": 3900
+      },
+      "velocity": {
+        "x": -50.0,
+        "y": 0.0
+      },
+      "terminalVelocity": {
+        "x": 125.0,
+        "y": 1125.0
+      },
+      "runningAcceleration": -150.0,
+      "risingAcceleration": 150.0,
+      "lane": 1
+    },
+    {
+      "id": 84,
+      "type": "bird",
+      "platform": false,
+      "position": {
+        "x": 800,
+        "y": 4280
+      },
+      "velocity": {
+        "x": -50.0,
+        "y": 0.0
+      },
+      "terminalVelocity": {
+        "x": 125.0,
+        "y": 1125.0
+      },
+      "runningAcceleration": -150.0,
+      "risingAcceleration": 150.0,
+      "lane": 1
+    },
+    {
+      "id": 85,
+      "type": "bird",
+      "platform": false,
+      "position": {
+        "x": 800,
+        "y": 4190
+      },
+      "velocity": {
+        "x": -50.0,
+        "y": 0.0
+      },
+      "terminalVelocity": {
+        "x": 125.0,
+        "y": 1125.0
+      },
+      "runningAcceleration": -150.0,
+      "risingAcceleration": 150.0,
+      "lane": 1
+    },
+    {
+      "id": 86,
+      "type": "bird",
+      "platform": false,
+      "position": {
+        "x": 800,
+        "y": 4090
+      },
+      "velocity": {
+        "x": -50.0,
+        "y": 0.0
+      },
+      "terminalVelocity": {
+        "x": 125.0,
+        "y": 1125.0
+      },
+      "runningAcceleration": -150.0,
+      "risingAcceleration": 150.0,
+      "lane": 1
+    },
+    {
+      "id": 87,
+      "type": "bird",
+      "platform": false,
+      "position": {
+        "x": 810,
+        "y": 4000
+      },
+      "velocity": {
+        "x": -50.0,
+        "y": 0.0
+      },
+      "terminalVelocity": {
+        "x": 125.0,
+        "y": 1125.0
+      },
+      "runningAcceleration": -150.0,
+      "risingAcceleration": 150.0,
+      "lane": 1
+    },
+    {
+      "id": 88,
+      "type": "bird",
+      "platform": false,
+      "position": {
+        "x": 810,
+        "y": 3910
+      },
+      "velocity": {
+        "x": -50.0,
+        "y": 0.0
+      },
+      "terminalVelocity": {
+        "x": 125.0,
+        "y": 1125.0
+      },
+      "runningAcceleration": -150.0,
+      "risingAcceleration": 150.0,
+      "lane": 1
+    },
+    {
+      "id": 89,
       "type": "winged_tub",
       "platform": false,
       "position": {
@@ -755,7 +955,7 @@
       "sparkle": true
     },
     {
-      "id": 80,
+      "id": 90,
       "type": "winged_tub",
       "platform": false,
       "position": {
@@ -764,7 +964,7 @@
       }
     },
     {
-      "id": 81,
+      "id": 91,
       "type": "winged_tub",
       "platform": false,
       "position": {
@@ -773,7 +973,7 @@
       }
     },
     {
-      "id": 82,
+      "id": 92,
       "type": "ball",
       "platform": false,
       "position": {
@@ -793,7 +993,7 @@
       "coefficient": 0.9
     },
     {
-      "id": 83,
+      "id": 93,
       "type": "ball",
       "platform": false,
       "position": {
@@ -813,7 +1013,7 @@
       "coefficient": 0.9
     },
     {
-      "id": 84,
+      "id": 94,
       "type": "ball",
       "platform": false,
       "position": {
@@ -833,7 +1033,7 @@
       "coefficient": 0.9
     },
     {
-      "id": 85,
+      "id": 95,
       "type": "ball",
       "platform": false,
       "position": {
@@ -853,7 +1053,7 @@
       "coefficient": 0.9
     },
     {
-      "id": 86,
+      "id": 96,
       "type": "ball",
       "platform": false,
       "position": {
@@ -873,7 +1073,7 @@
       "coefficient": 0.9
     },
     {
-      "id": 87,
+      "id": 97,
       "type": "ball",
       "platform": false,
       "position": {
@@ -893,7 +1093,7 @@
       "coefficient": 0.9
     },
     {
-      "id": 88,
+      "id": 98,
       "type": "ball",
       "platform": false,
       "position": {
@@ -913,7 +1113,7 @@
       "coefficient": 0.9
     },
     {
-      "id": 89,
+      "id": 99,
       "type": "zombie",
       "platform": false,
       "position": {
@@ -929,7 +1129,7 @@
       "runningAcceleration": -125.0
     },
     {
-      "id": 90,
+      "id": 100,
       "type": "zombie",
       "platform": false,
       "position": {
@@ -945,7 +1145,7 @@
       "runningAcceleration": -125.0
     },
     {
-      "id": 91,
+      "id": 101,
       "type": "zombie",
       "platform": false,
       "position": {
@@ -961,7 +1161,7 @@
       "runningAcceleration": -125.0
     },
     {
-      "id": 92,
+      "id": 102,
       "type": "rat",
       "platform": false,
       "position": {
@@ -982,7 +1182,7 @@
       "lane": 1
     },
     {
-      "id": 93,
+      "id": 103,
       "type": "rat",
       "platform": false,
       "position": {
@@ -1003,7 +1203,7 @@
       "lane": 2
     },
     {
-      "id": 94,
+      "id": 104,
       "type": "rat",
       "platform": false,
       "position": {
@@ -1024,7 +1224,7 @@
       "lane": 3
     },
     {
-      "id": 95,
+      "id": 105,
       "type": "rat",
       "platform": false,
       "position": {
@@ -1045,7 +1245,7 @@
       "lane": 1
     },
     {
-      "id": 96,
+      "id": 106,
       "type": "rat",
       "platform": false,
       "position": {
@@ -1066,7 +1266,7 @@
       "lane": 2
     },
     {
-      "id": 97,
+      "id": 107,
       "type": "rat",
       "platform": false,
       "position": {
@@ -1087,7 +1287,7 @@
       "lane": 3
     },
     {
-      "id": 98,
+      "id": 108,
       "type": "rat",
       "platform": false,
       "position": {
@@ -1108,7 +1308,7 @@
       "lane": 1
     },
     {
-      "id": 99,
+      "id": 109,
       "type": "rat",
       "platform": false,
       "position": {
@@ -1129,7 +1329,7 @@
       "lane": 2
     },
     {
-      "id": 100,
+      "id": 110,
       "type": "rat",
       "platform": false,
       "position": {
@@ -1150,7 +1350,7 @@
       "lane": 3
     },
     {
-      "id": 101,
+      "id": 111,
       "type": "rat",
       "platform": false,
       "position": {
@@ -1171,7 +1371,7 @@
       "lane": 1
     },
     {
-      "id": 102,
+      "id": 112,
       "type": "rat",
       "platform": false,
       "position": {
@@ -1192,7 +1392,7 @@
       "lane": 2
     },
     {
-      "id": 103,
+      "id": 113,
       "type": "clock_timer",
       "platform": false,
       "position": {
@@ -1201,7 +1401,7 @@
       }
     },
     {
-      "id": 104,
+      "id": 114,
       "type": "winged_foot",
       "platform": false,
       "position": {

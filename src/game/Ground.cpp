@@ -9,7 +9,7 @@ void trippin::Ground::init(const Configuration &config, const Map::Object &obj, 
 }
 
 void trippin::Ground::beforeTick(Uint32 engineTicks) {
-    if (inactive && activation->shouldActivate(roundedPosition.x)) {
+    if (inactive && activation->shouldActivate(roundedBox)) {
         inactive = false;
     }
 }

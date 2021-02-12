@@ -17,6 +17,7 @@ namespace trippin {
         int tickPeriod;
         int spiritClockTickPeriod;
         int activationProximity;
+        int deactivationProximity;
         int pointsPerSecond;
         std::string map;
         std::vector<Scale> scales;

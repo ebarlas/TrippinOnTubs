@@ -33,6 +33,7 @@ void trippin::from_json(const nlohmann::json &j, Configuration &config) {
     j.at("tickPeriod").get_to(config.tickPeriod);
     j.at("spiritClockTickPeriod").get_to(config.spiritClockTickPeriod);
     j.at("activationProximity").get_to(config.activationProximity);
+    j.at("deactivationProximity").get_to(config.deactivationProximity);
     j.at("pointsPerSecond").get_to(config.pointsPerSecond);
     j.at("map").get_to(config.map);
 

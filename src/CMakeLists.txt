@@ -76,6 +76,7 @@ add_executable(trippin
         game/Spirit.cpp
         game/PacingObject.cpp
         game/RunningClock.cpp
+        game/Bird.cpp
         game/Ball.cpp
         game/Activation.cpp
         game/Layer.cpp

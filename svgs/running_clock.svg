@@ -1,4 +1,4 @@
-<ns0:svg xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:ns0="http://www.w3.org/2000/svg" xmlns:ns1="http://www.inkscape.org/namespaces/inkscape" xmlns:ns2="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd" xmlns:ns4="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" width="350" height="450" duration="80" scale="1.0" viewBox="0 0 350 450" version="1.1" id="svg10436" ns1:version="1.0beta2 (2b71d25, 2019-12-03)" ns2:docname="running_clock.svg">
+<ns0:svg xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:ns0="http://www.w3.org/2000/svg" xmlns:ns1="http://www.inkscape.org/namespaces/inkscape" xmlns:ns2="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd" xmlns:ns4="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" width="350" height="450" duration="35" scale="1.0" viewBox="0 0 350 450" version="1.1" id="svg10436" ns1:version="1.0beta2 (2b71d25, 2019-12-03)" ns2:docname="running_clock.svg">
   <ns0:defs id="defs10430" />
   <ns2:namedview id="base" pagecolor="#ffffff" bordercolor="#666666" borderopacity="1.0" ns1:pageopacity="0.0" ns1:pageshadow="2" ns1:zoom="1.4" ns1:cx="162.18909" ns1:cy="240.67962" ns1:document-units="px" ns1:current-layer="g3908" ns1:document-rotation="0" showgrid="true" units="px" ns1:window-width="1792" ns1:window-height="1006" ns1:window-x="6" ns1:window-y="23" ns1:window-maximized="0" ns1:snap-global="false">
     <ns1:grid type="xygrid" id="grid10999" />
@@ -16,11 +16,11 @@
     <ns0:rect style="opacity:1;fill:none;fill-opacity:0;stroke:#000000;stroke-width:1;stroke-opacity:1;stop-color:#000000" id="rect13913" width="350" height="360" x="0" y="70" />
   </ns0:g>
   <ns0:g ns2:insensitive="true" style="display:none" ns1:groupmode="layer" id="layer4" ns1:label="bg">
-    <ns0:rect style="opacity:1;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:1;stroke-linecap:butt;stroke-linejoin:bevel;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;stop-color:#000000" id="rect13916" width="350" height="450" x="0" y="0" />
+    <ns0:rect style="opacity:1;fill:#fcfdf5;fill-opacity:1;stroke:none;stroke-width:1;stroke-linecap:butt;stroke-linejoin:bevel;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;stop-color:#000000" id="rect13916" width="350" height="450" x="0" y="0" />
   </ns0:g>
   <ns0:g ns2:insensitive="true" style="display:none" ns1:groupmode="layer" type="frame" frame="1" id="frame1" ns1:label="frame1">
     <ns0:g transform="translate(2.997803)" id="g4576">
-      <ns0:circle r="101.63509" cy="265.02536" cx="172.12456" id="path11115" style="fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:11.212;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;stop-color:#000000" />
+      <ns0:circle r="101.63509" cy="265.02536" cx="172.12456" id="path11115" style="fill:#fcfdf5;fill-opacity:1;stroke:#000000;stroke-width:11.212;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;stop-color:#000000" />
       <ns0:rect y="184.83852" x="166.51874" height="25.025299" width="11.211645" id="rect11117" style="fill:#000000;fill-opacity:1;stroke:none;stroke-width:4.00248;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;stop-color:#000000" />
       <ns0:rect style="fill:#000000;fill-opacity:1;stroke:none;stroke-width:4.00248;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;stop-color:#000000" id="rect11119" width="11.211645" height="25.025299" x="166.51874" y="319.71176" />
       <ns0:rect ns1:transform-centerCamera-y="-13.762167" ns1:transform-centerCamera-x="-11.869292" transform="rotate(90)" y="-117.18194" x="259.27255" height="25.025299" width="11.211644" id="rect11121" style="fill:#000000;fill-opacity:1;stroke:none;stroke-width:4.00248;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;stop-color:#000000" />
@@ -47,7 +47,7 @@
   </ns0:g>
   <ns0:g ns1:label="frame2" id="g2672" frame="2" type="frame" ns1:groupmode="layer" style="display:none" ns2:insensitive="true">
     <ns0:g transform="translate(2.997803)" id="g4599">
-      <ns0:circle style="fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:11.212;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;stop-color:#000000" id="circle2626" cx="172.12456" cy="265.02536" r="101.63509" />
+      <ns0:circle style="fill:#fcfdf5;fill-opacity:1;stroke:#000000;stroke-width:11.212;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;stop-color:#000000" id="circle2626" cx="172.12456" cy="265.02536" r="101.63509" />
       <ns0:rect style="fill:#000000;fill-opacity:1;stroke:none;stroke-width:4.00248;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;stop-color:#000000" id="rect2628" width="11.211645" height="25.025299" x="166.51874" y="184.83852" />
       <ns0:rect y="319.71176" x="166.51874" height="25.025299" width="11.211645" id="rect2630" style="fill:#000000;fill-opacity:1;stroke:none;stroke-width:4.00248;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;stop-color:#000000" />
       <ns0:rect style="fill:#000000;fill-opacity:1;stroke:none;stroke-width:4.00248;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;stop-color:#000000" id="rect2632" width="11.211644" height="25.025299" x="259.27255" y="-117.18194" transform="rotate(90)" ns1:transform-centerCamera-x="-11.869292" ns1:transform-centerCamera-y="-13.762167" />
@@ -74,7 +74,7 @@
   </ns0:g>
   <ns0:g style="display:none" ns1:groupmode="layer" type="frame" frame="3" id="g2732" ns1:label="frame3" ns2:insensitive="true">
     <ns0:g id="g4693" transform="translate(2.997803)">
-      <ns0:circle r="101.63509" cy="265.02536" cx="172.12456" id="circle2686" style="fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:11.212;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;stop-color:#000000" />
+      <ns0:circle r="101.63509" cy="265.02536" cx="172.12456" id="circle2686" style="fill:#fcfdf5;fill-opacity:1;stroke:#000000;stroke-width:11.212;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;stop-color:#000000" />
       <ns0:rect y="184.83852" x="166.51874" height="25.025299" width="11.211645" id="rect2688" style="fill:#000000;fill-opacity:1;stroke:none;stroke-width:4.00248;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;stop-color:#000000" />
       <ns0:rect style="fill:#000000;fill-opacity:1;stroke:none;stroke-width:4.00248;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;stop-color:#000000" id="rect2690" width="11.211645" height="25.025299" x="166.51874" y="319.71176" />
       <ns0:rect ns1:transform-centerCamera-y="-13.762167" ns1:transform-centerCamera-x="-11.869292" transform="rotate(90)" y="-117.18194" x="259.27255" height="25.025299" width="11.211644" id="rect2692" style="fill:#000000;fill-opacity:1;stroke:none;stroke-width:4.00248;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;stop-color:#000000" />
@@ -101,7 +101,7 @@
   </ns0:g>
   <ns0:g ns1:label="frame4" id="g2788" frame="4" type="frame" ns1:groupmode="layer" style="display:none" ns2:insensitive="true">
     <ns0:g id="g4716" transform="translate(2.997803)">
-      <ns0:circle style="fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:11.212;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;stop-color:#000000" id="circle2742" cx="172.12456" cy="265.02536" r="101.63509" />
+      <ns0:circle style="fill:#fcfdf5;fill-opacity:1;stroke:#000000;stroke-width:11.212;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;stop-color:#000000" id="circle2742" cx="172.12456" cy="265.02536" r="101.63509" />
       <ns0:rect style="fill:#000000;fill-opacity:1;stroke:none;stroke-width:4.00248;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;stop-color:#000000" id="rect2744" width="11.211645" height="25.025299" x="166.51874" y="184.83852" />
       <ns0:rect y="319.71176" x="166.51874" height="25.025299" width="11.211645" id="rect2746" style="fill:#000000;fill-opacity:1;stroke:none;stroke-width:4.00248;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;stop-color:#000000" />
       <ns0:rect style="fill:#000000;fill-opacity:1;stroke:none;stroke-width:4.00248;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;stop-color:#000000" id="rect2748" width="11.211644" height="25.025299" x="259.27255" y="-117.18194" transform="rotate(90)" ns1:transform-centerCamera-x="-11.869292" ns1:transform-centerCamera-y="-13.762167" />
@@ -128,7 +128,7 @@
   </ns0:g>
   <ns0:g style="display:none" ns1:groupmode="layer" type="frame" frame="5" id="g2844" ns1:label="frame5" ns2:insensitive="true">
     <ns0:g id="g4739" transform="translate(0.85494448)">
-      <ns0:circle r="101.63509" cy="252.16821" cx="174.26741" id="circle2798" style="fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:11.212;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;stop-color:#000000" />
+      <ns0:circle r="101.63509" cy="252.16821" cx="174.26741" id="circle2798" style="fill:#fcfdf5;fill-opacity:1;stroke:#000000;stroke-width:11.212;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;stop-color:#000000" />
       <ns0:rect y="171.98137" x="168.66159" height="25.025299" width="11.211645" id="rect2800" style="fill:#000000;fill-opacity:1;stroke:none;stroke-width:4.00248;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;stop-color:#000000" />
       <ns0:rect style="fill:#000000;fill-opacity:1;stroke:none;stroke-width:4.00248;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;stop-color:#000000" id="rect2802" width="11.211645" height="25.025299" x="168.66159" y="306.85461" />
       <ns0:rect ns1:transform-centerCamera-y="-13.762167" ns1:transform-centerCamera-x="-11.869292" transform="rotate(90)" y="-119.3248" x="246.41541" height="25.025299" width="11.211644" id="rect2804" style="fill:#000000;fill-opacity:1;stroke:none;stroke-width:4.00248;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;stop-color:#000000" />
@@ -155,7 +155,7 @@
   </ns0:g>
   <ns0:g ns1:label="frame6" id="g2900" frame="6" type="frame" ns1:groupmode="layer" style="display:none" ns2:insensitive="true">
     <ns0:g id="g4762" transform="translate(1.926374)">
-      <ns0:circle style="fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:11.212;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;stop-color:#000000" id="circle2854" cx="173.19598" cy="234.31107" r="101.63509" />
+      <ns0:circle style="fill:#fcfdf5;fill-opacity:1;stroke:#000000;stroke-width:11.212;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;stop-color:#000000" id="circle2854" cx="173.19598" cy="234.31107" r="101.63509" />
       <ns0:rect style="fill:#000000;fill-opacity:1;stroke:none;stroke-width:4.00248;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;stop-color:#000000" id="rect2856" width="11.211645" height="25.025299" x="167.59016" y="154.12422" />
       <ns0:rect y="288.99747" x="167.59016" height="25.025299" width="11.211645" id="rect2858" style="fill:#000000;fill-opacity:1;stroke:none;stroke-width:4.00248;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;stop-color:#000000" />
       <ns0:rect style="fill:#000000;fill-opacity:1;stroke:none;stroke-width:4.00248;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;stop-color:#000000" id="rect2860" width="11.211644" height="25.025299" x="228.55826" y="-118.25337" transform="rotate(90)" ns1:transform-centerCamera-x="-11.869292" ns1:transform-centerCamera-y="-13.762167" />
@@ -182,7 +182,7 @@
   </ns0:g>
   <ns0:g style="display:none" ns1:groupmode="layer" type="frame" frame="7" id="g2956" ns1:label="frame7" ns2:insensitive="true">
     <ns0:g id="g4785" transform="translate(3.3549445)">
-      <ns0:circle r="101.63509" cy="217.88249" cx="171.76741" id="circle2910" style="fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:11.212;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;stop-color:#000000" />
+      <ns0:circle r="101.63509" cy="217.88249" cx="171.76741" id="circle2910" style="fill:#fcfdf5;fill-opacity:1;stroke:#000000;stroke-width:11.212;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;stop-color:#000000" />
       <ns0:rect y="137.69565" x="166.16159" height="25.025299" width="11.211645" id="rect2912" style="fill:#000000;fill-opacity:1;stroke:none;stroke-width:4.00248;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;stop-color:#000000" />
       <ns0:rect style="fill:#000000;fill-opacity:1;stroke:none;stroke-width:4.00248;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;stop-color:#000000" id="rect2914" width="11.211645" height="25.025299" x="166.16159" y="272.56891" />
       <ns0:rect ns1:transform-centerCamera-y="-13.762167" ns1:transform-centerCamera-x="-11.869292" transform="rotate(90)" y="-116.8248" x="212.12968" height="25.025299" width="11.211644" id="rect2916" style="fill:#000000;fill-opacity:1;stroke:none;stroke-width:4.00248;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;stop-color:#000000" />
@@ -209,7 +209,7 @@
   </ns0:g>
   <ns0:g ns1:label="frame8" id="g3012" frame="8" type="frame" ns1:groupmode="layer" style="display:none" ns2:insensitive="true">
     <ns0:g id="g4808" transform="translate(3.712086)">
-      <ns0:circle style="fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:11.212;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;stop-color:#000000" id="circle2966" cx="171.41026" cy="213.95392" r="101.63509" />
+      <ns0:circle style="fill:#fcfdf5;fill-opacity:1;stroke:#000000;stroke-width:11.212;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;stop-color:#000000" id="circle2966" cx="171.41026" cy="213.95392" r="101.63509" />
       <ns0:rect style="fill:#000000;fill-opacity:1;stroke:none;stroke-width:4.00248;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;stop-color:#000000" id="rect2968" width="11.211645" height="25.025299" x="165.80444" y="133.76707" />
       <ns0:rect y="268.64035" x="165.80444" height="25.025299" width="11.211645" id="rect2970" style="fill:#000000;fill-opacity:1;stroke:none;stroke-width:4.00248;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;stop-color:#000000" />
       <ns0:rect style="fill:#000000;fill-opacity:1;stroke:none;stroke-width:4.00248;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;stop-color:#000000" id="rect2972" width="11.211644" height="25.025299" x="208.20111" y="-116.46766" transform="rotate(90)" ns1:transform-centerCamera-x="-11.869292" ns1:transform-centerCamera-y="-13.762167" />
@@ -236,7 +236,7 @@
   </ns0:g>
   <ns0:g style="display:none" ns1:groupmode="layer" type="frame" frame="9" id="g3068" ns1:label="frame9" ns2:insensitive="true">
     <ns0:g id="g4831" transform="translate(3.3549445)">
-      <ns0:circle r="101.63509" cy="209.31107" cx="171.76741" id="circle3022" style="fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:11.212;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;stop-color:#000000" />
+      <ns0:circle r="101.63509" cy="209.31107" cx="171.76741" id="circle3022" style="fill:#fcfdf5;fill-opacity:1;stroke:#000000;stroke-width:11.212;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;stop-color:#000000" />
       <ns0:rect y="129.12422" x="166.16159" height="25.025299" width="11.211645" id="rect3024" style="fill:#000000;fill-opacity:1;stroke:none;stroke-width:4.00248;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;stop-color:#000000" />
       <ns0:rect style="fill:#000000;fill-opacity:1;stroke:none;stroke-width:4.00248;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;stop-color:#000000" id="rect3026" width="11.211645" height="25.025299" x="166.16159" y="263.9975" />
       <ns0:rect ns1:transform-centerCamera-y="-13.762167" ns1:transform-centerCamera-x="-11.869292" transform="rotate(90)" y="-116.8248" x="203.55826" height="25.025299" width="11.211644" id="rect3028" style="fill:#000000;fill-opacity:1;stroke:none;stroke-width:4.00248;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;stop-color:#000000" />
@@ -263,7 +263,7 @@
   </ns0:g>
   <ns0:g ns1:label="frame10" id="g3124" frame="10" type="frame" ns1:groupmode="layer" style="display:none" ns2:insensitive="true">
     <ns0:g id="g4854" transform="translate(3.3549445)">
-      <ns0:circle style="fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:11.212;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;stop-color:#000000" id="circle3078" cx="171.76741" cy="209.31107" r="101.63509" />
+      <ns0:circle style="fill:#fcfdf5;fill-opacity:1;stroke:#000000;stroke-width:11.212;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;stop-color:#000000" id="circle3078" cx="171.76741" cy="209.31107" r="101.63509" />
       <ns0:rect style="fill:#000000;fill-opacity:1;stroke:none;stroke-width:4.00248;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;stop-color:#000000" id="rect3080" width="11.211645" height="25.025299" x="166.16159" y="129.12422" />
       <ns0:rect y="263.9975" x="166.16159" height="25.025299" width="11.211645" id="rect3082" style="fill:#000000;fill-opacity:1;stroke:none;stroke-width:4.00248;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;stop-color:#000000" />
       <ns0:rect style="fill:#000000;fill-opacity:1;stroke:none;stroke-width:4.00248;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;stop-color:#000000" id="rect3084" width="11.211644" height="25.025299" x="203.55826" y="-116.8248" transform="rotate(90)" ns1:transform-centerCamera-x="-11.869292" ns1:transform-centerCamera-y="-13.762167" />
@@ -290,7 +290,7 @@
   </ns0:g>
   <ns0:g style="display:none" ns1:groupmode="layer" type="frame" frame="11" id="g3180" ns1:label="frame11" ns2:insensitive="true">
     <ns0:g id="g4877" transform="translate(3.712086)">
-      <ns0:circle r="101.63509" cy="228.59679" cx="171.41026" id="circle3134" style="fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:11.212;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;stop-color:#000000" />
+      <ns0:circle r="101.63509" cy="228.59679" cx="171.41026" id="circle3134" style="fill:#fcfdf5;fill-opacity:1;stroke:#000000;stroke-width:11.212;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;stop-color:#000000" />
       <ns0:rect y="148.40994" x="165.80444" height="25.025299" width="11.211645" id="rect3136" style="fill:#000000;fill-opacity:1;stroke:none;stroke-width:4.00248;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;stop-color:#000000" />
       <ns0:rect style="fill:#000000;fill-opacity:1;stroke:none;stroke-width:4.00248;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;stop-color:#000000" id="rect3138" width="11.211645" height="25.025299" x="165.80444" y="283.2832" />
       <ns0:rect ns1:transform-centerCamera-y="-13.762167" ns1:transform-centerCamera-x="-11.869292" transform="rotate(90)" y="-116.46766" x="222.84398" height="25.025299" width="11.211644" id="rect3140" style="fill:#000000;fill-opacity:1;stroke:none;stroke-width:4.00248;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;stop-color:#000000" />
@@ -317,7 +317,7 @@
   </ns0:g>
   <ns0:g ns1:label="frame12" id="g3236" frame="12" type="frame" ns1:groupmode="layer" style="display:none" ns2:insensitive="true">
     <ns0:g id="g4900" transform="translate(4.0692275)">
-      <ns0:circle style="fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:11.212;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;stop-color:#000000" id="circle3190" cx="171.05312" cy="247.16821" r="101.63509" />
+      <ns0:circle style="fill:#fcfdf5;fill-opacity:1;stroke:#000000;stroke-width:11.212;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;stop-color:#000000" id="circle3190" cx="171.05312" cy="247.16821" r="101.63509" />
       <ns0:rect style="fill:#000000;fill-opacity:1;stroke:none;stroke-width:4.00248;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;stop-color:#000000" id="rect3192" width="11.211645" height="25.025299" x="165.4473" y="166.98137" />
       <ns0:rect y="301.85464" x="165.4473" height="25.025299" width="11.211645" id="rect3194" style="fill:#000000;fill-opacity:1;stroke:none;stroke-width:4.00248;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;stop-color:#000000" />
       <ns0:rect style="fill:#000000;fill-opacity:1;stroke:none;stroke-width:4.00248;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;stop-color:#000000" id="rect3196" width="11.211644" height="25.025299" x="241.41541" y="-116.11052" transform="rotate(90)" ns1:transform-centerCamera-x="-11.869292" ns1:transform-centerCamera-y="-13.762167" />
@@ -344,7 +344,7 @@
   </ns0:g>
   <ns0:g style="display:none" ns1:groupmode="layer" type="frame" frame="13" id="g3292" ns1:label="frame13" ns2:insensitive="true">
     <ns0:g id="g4923" transform="translate(2.997798)">
-      <ns0:circle r="101.63509" cy="264.31107" cx="172.12454" id="circle3246" style="fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:11.212;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;stop-color:#000000" />
+      <ns0:circle r="101.63509" cy="264.31107" cx="172.12454" id="circle3246" style="fill:#fcfdf5;fill-opacity:1;stroke:#000000;stroke-width:11.212;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;stop-color:#000000" />
       <ns0:rect y="184.12422" x="166.51872" height="25.025299" width="11.211645" id="rect3248" style="fill:#000000;fill-opacity:1;stroke:none;stroke-width:4.00248;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;stop-color:#000000" />
       <ns0:rect style="fill:#000000;fill-opacity:1;stroke:none;stroke-width:4.00248;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;stop-color:#000000" id="rect3250" width="11.211645" height="25.025299" x="166.51872" y="318.9975" />
       <ns0:rect ns1:transform-centerCamera-y="-13.762167" ns1:transform-centerCamera-x="-11.869292" transform="rotate(90)" y="-117.18195" x="258.55826" height="25.025299" width="11.211644" id="rect3252" style="fill:#000000;fill-opacity:1;stroke:none;stroke-width:4.00248;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;stop-color:#000000" />
@@ -371,7 +371,7 @@
   </ns0:g>
   <ns0:g ns2:insensitive="true" ns1:label="frame14" id="g3348" frame="14" type="frame" ns1:groupmode="layer" style="display:none">
     <ns0:g transform="translate(2.997798)" id="g1500">
-      <ns0:circle style="fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:11.212;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;stop-color:#000000" id="circle3302" cx="172.12454" cy="264.31107" r="101.63509" />
+      <ns0:circle style="fill:#fcfdf5;fill-opacity:1;stroke:#000000;stroke-width:11.212;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;stop-color:#000000" id="circle3302" cx="172.12454" cy="264.31107" r="101.63509" />
       <ns0:rect style="fill:#000000;fill-opacity:1;stroke:none;stroke-width:4.00248;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;stop-color:#000000" id="rect3304" width="11.211645" height="25.025299" x="166.51872" y="184.12422" />
       <ns0:rect y="318.9975" x="166.51872" height="25.025299" width="11.211645" id="rect3306" style="fill:#000000;fill-opacity:1;stroke:none;stroke-width:4.00248;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;stop-color:#000000" />
       <ns0:rect style="fill:#000000;fill-opacity:1;stroke:none;stroke-width:4.00248;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;stop-color:#000000" id="rect3308" width="11.211644" height="25.025299" x="258.55826" y="-117.18195" transform="rotate(90)" ns1:transform-centerCamera-x="-11.869292" ns1:transform-centerCamera-y="-13.762167" />
@@ -398,7 +398,7 @@
   </ns0:g>
   <ns0:g ns2:insensitive="true" style="display:none" ns1:groupmode="layer" type="frame" frame="15" id="g3404" ns1:label="frame15">
     <ns0:g transform="translate(2.997798)" id="g1523">
-      <ns0:circle r="101.63509" cy="264.31107" cx="172.12454" id="circle3358" style="fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:11.212;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;stop-color:#000000" />
+      <ns0:circle r="101.63509" cy="264.31107" cx="172.12454" id="circle3358" style="fill:#fcfdf5;fill-opacity:1;stroke:#000000;stroke-width:11.212;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;stop-color:#000000" />
       <ns0:rect y="184.12422" x="166.51872" height="25.025299" width="11.211645" id="rect3360" style="fill:#000000;fill-opacity:1;stroke:none;stroke-width:4.00248;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;stop-color:#000000" />
       <ns0:rect style="fill:#000000;fill-opacity:1;stroke:none;stroke-width:4.00248;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;stop-color:#000000" id="rect3362" width="11.211645" height="25.025299" x="166.51872" y="318.9975" />
       <ns0:rect ns1:transform-centerCamera-y="-13.762167" ns1:transform-centerCamera-x="-11.869292" transform="rotate(90)" y="-117.18195" x="258.55826" height="25.025299" width="11.211644" id="rect3364" style="fill:#000000;fill-opacity:1;stroke:none;stroke-width:4.00248;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;stop-color:#000000" />
@@ -425,7 +425,7 @@
   </ns0:g>
   <ns0:g ns2:insensitive="true" ns1:label="frame16" id="g3460" frame="16" type="frame" ns1:groupmode="layer" style="display:none">
     <ns0:g transform="translate(0.49779798)" id="g1546">
-      <ns0:circle style="fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:11.212;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;stop-color:#000000" id="circle3414" cx="174.62454" cy="263.59677" r="101.63509" />
+      <ns0:circle style="fill:#fcfdf5;fill-opacity:1;stroke:#000000;stroke-width:11.212;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;stop-color:#000000" id="circle3414" cx="174.62454" cy="263.59677" r="101.63509" />
       <ns0:rect style="fill:#000000;fill-opacity:1;stroke:none;stroke-width:4.00248;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;stop-color:#000000" id="rect3416" width="11.211645" height="25.025299" x="169.01872" y="183.40994" />
       <ns0:rect y="318.2832" x="169.01872" height="25.025299" width="11.211645" id="rect3418" style="fill:#000000;fill-opacity:1;stroke:none;stroke-width:4.00248;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;stop-color:#000000" />
       <ns0:rect style="fill:#000000;fill-opacity:1;stroke:none;stroke-width:4.00248;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;stop-color:#000000" id="rect3420" width="11.211644" height="25.025299" x="257.84396" y="-119.68195" transform="rotate(90)" ns1:transform-centerCamera-x="-11.869292" ns1:transform-centerCamera-y="-13.762167" />
@@ -452,7 +452,7 @@
   </ns0:g>
   <ns0:g ns2:insensitive="true" style="display:none" ns1:groupmode="layer" type="frame" frame="17" id="g3516" ns1:label="frame17">
     <ns0:g transform="translate(0.85493948)" id="g1569">
-      <ns0:circle r="101.63509" cy="251.81105" cx="174.2674" id="circle3470" style="fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:11.212;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;stop-color:#000000" />
+      <ns0:circle r="101.63509" cy="251.81105" cx="174.2674" id="circle3470" style="fill:#fcfdf5;fill-opacity:1;stroke:#000000;stroke-width:11.212;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;stop-color:#000000" />
       <ns0:rect y="171.62422" x="168.66158" height="25.025299" width="11.211645" id="rect3472" style="fill:#000000;fill-opacity:1;stroke:none;stroke-width:4.00248;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;stop-color:#000000" />
       <ns0:rect style="fill:#000000;fill-opacity:1;stroke:none;stroke-width:4.00248;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;stop-color:#000000" id="rect3474" width="11.211645" height="25.025299" x="168.66158" y="306.4975" />
       <ns0:rect ns1:transform-centerCamera-y="-13.762167" ns1:transform-centerCamera-x="-11.869292" transform="rotate(90)" y="-119.32481" x="246.05824" height="25.025299" width="11.211644" id="rect3476" style="fill:#000000;fill-opacity:1;stroke:none;stroke-width:4.00248;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;stop-color:#000000" />
@@ -479,7 +479,7 @@
   </ns0:g>
   <ns0:g ns2:insensitive="true" ns1:label="frame18" id="g3736" frame="18" type="frame" ns1:groupmode="layer" style="display:none">
     <ns0:g transform="translate(2.6406515)" id="g1592">
-      <ns0:circle style="fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:11.212;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;stop-color:#000000" id="circle3690" cx="172.48167" cy="236.09677" r="101.63509" />
+      <ns0:circle style="fill:#fcfdf5;fill-opacity:1;stroke:#000000;stroke-width:11.212;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;stop-color:#000000" id="circle3690" cx="172.48167" cy="236.09677" r="101.63509" />
       <ns0:rect style="fill:#000000;fill-opacity:1;stroke:none;stroke-width:4.00248;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;stop-color:#000000" id="rect3692" width="11.211645" height="25.025299" x="166.87585" y="155.90994" />
       <ns0:rect y="290.7832" x="166.87585" height="25.025299" width="11.211645" id="rect3694" style="fill:#000000;fill-opacity:1;stroke:none;stroke-width:4.00248;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;stop-color:#000000" />
       <ns0:rect style="fill:#000000;fill-opacity:1;stroke:none;stroke-width:4.00248;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;stop-color:#000000" id="rect3696" width="11.211644" height="25.025299" x="230.34396" y="-117.53909" transform="rotate(90)" ns1:transform-centerCamera-x="-11.869292" ns1:transform-centerCamera-y="-13.762167" />
@@ -506,7 +506,7 @@
   </ns0:g>
   <ns0:g ns2:insensitive="true" ns1:label="frame19" id="g3572" frame="19" type="frame" ns1:groupmode="layer" style="display:none">
     <ns0:g transform="translate(4.426369)" id="g1615">
-      <ns0:circle style="fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:11.212;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;stop-color:#000000" id="circle3526" cx="170.69597" cy="217.88248" r="101.63509" />
+      <ns0:circle style="fill:#fcfdf5;fill-opacity:1;stroke:#000000;stroke-width:11.212;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;stop-color:#000000" id="circle3526" cx="170.69597" cy="217.88248" r="101.63509" />
       <ns0:rect style="fill:#000000;fill-opacity:1;stroke:none;stroke-width:4.00248;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;stop-color:#000000" id="rect3528" width="11.211645" height="25.025299" x="165.09015" y="137.69565" />
       <ns0:rect y="272.56894" x="165.09015" height="25.025299" width="11.211645" id="rect3530" style="fill:#000000;fill-opacity:1;stroke:none;stroke-width:4.00248;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;stop-color:#000000" />
       <ns0:rect style="fill:#000000;fill-opacity:1;stroke:none;stroke-width:4.00248;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;stop-color:#000000" id="rect3532" width="11.211644" height="25.025299" x="212.12967" y="-115.75338" transform="rotate(90)" ns1:transform-centerCamera-x="-11.869292" ns1:transform-centerCamera-y="-13.762167" />
@@ -533,7 +533,7 @@
   </ns0:g>
   <ns0:g ns2:insensitive="true" style="display:none" ns1:groupmode="layer" type="frame" frame="20" id="g3628" ns1:label="frame20">
     <ns0:g transform="translate(3.712081)" id="g1638">
-      <ns0:circle r="101.63509" cy="214.31105" cx="171.41025" id="circle3582" style="fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:11.212;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;stop-color:#000000" />
+      <ns0:circle r="101.63509" cy="214.31105" cx="171.41025" id="circle3582" style="fill:#fcfdf5;fill-opacity:1;stroke:#000000;stroke-width:11.212;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;stop-color:#000000" />
       <ns0:rect y="134.12422" x="165.80443" height="25.025299" width="11.211645" id="rect3584" style="fill:#000000;fill-opacity:1;stroke:none;stroke-width:4.00248;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;stop-color:#000000" />
       <ns0:rect style="fill:#000000;fill-opacity:1;stroke:none;stroke-width:4.00248;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;stop-color:#000000" id="rect3586" width="11.211645" height="25.025299" x="165.80443" y="268.9975" />
       <ns0:rect ns1:transform-centerCamera-y="-13.762167" ns1:transform-centerCamera-x="-11.869292" transform="rotate(90)" y="-116.46767" x="208.55824" height="25.025299" width="11.211644" id="rect3588" style="fill:#000000;fill-opacity:1;stroke:none;stroke-width:4.00248;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;stop-color:#000000" />
@@ -560,7 +560,7 @@
   </ns0:g>
   <ns0:g ns2:insensitive="true" ns1:label="frame21" id="g3684" frame="21" type="frame" ns1:groupmode="layer" style="display:none">
     <ns0:g transform="translate(3.3549395)" id="g1661">
-      <ns0:circle style="fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:11.212;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;stop-color:#000000" id="circle3638" cx="171.7674" cy="210.02533" r="101.63509" />
+      <ns0:circle style="fill:#fcfdf5;fill-opacity:1;stroke:#000000;stroke-width:11.212;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;stop-color:#000000" id="circle3638" cx="171.7674" cy="210.02533" r="101.63509" />
       <ns0:rect style="fill:#000000;fill-opacity:1;stroke:none;stroke-width:4.00248;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;stop-color:#000000" id="rect3640" width="11.211645" height="25.025299" x="166.16158" y="129.8385" />
       <ns0:rect y="264.71179" x="166.16158" height="25.025299" width="11.211645" id="rect3642" style="fill:#000000;fill-opacity:1;stroke:none;stroke-width:4.00248;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;stop-color:#000000" />
       <ns0:rect style="fill:#000000;fill-opacity:1;stroke:none;stroke-width:4.00248;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;stop-color:#000000" id="rect3644" width="11.211644" height="25.025299" x="204.27252" y="-116.82481" transform="rotate(90)" ns1:transform-centerCamera-x="-11.869292" ns1:transform-centerCamera-y="-13.762167" />
@@ -587,7 +587,7 @@
   </ns0:g>
   <ns0:g ns2:insensitive="true" style="display:none" ns1:groupmode="layer" type="frame" frame="22" id="g3796" ns1:label="frame22">
     <ns0:g transform="translate(3.3549395)" id="g1684">
-      <ns0:circle r="101.63509" cy="210.02533" cx="171.7674" id="circle3750" style="fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:11.212;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;stop-color:#000000" />
+      <ns0:circle r="101.63509" cy="210.02533" cx="171.7674" id="circle3750" style="fill:#fcfdf5;fill-opacity:1;stroke:#000000;stroke-width:11.212;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;stop-color:#000000" />
       <ns0:rect y="129.8385" x="166.16158" height="25.025299" width="11.211645" id="rect3752" style="fill:#000000;fill-opacity:1;stroke:none;stroke-width:4.00248;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;stop-color:#000000" />
       <ns0:rect style="fill:#000000;fill-opacity:1;stroke:none;stroke-width:4.00248;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;stop-color:#000000" id="rect3754" width="11.211645" height="25.025299" x="166.16158" y="264.71179" />
       <ns0:rect ns1:transform-centerCamera-y="-13.762167" ns1:transform-centerCamera-x="-11.869292" transform="rotate(90)" y="-116.82481" x="204.27252" height="25.025299" width="11.211644" id="rect3756" style="fill:#000000;fill-opacity:1;stroke:none;stroke-width:4.00248;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;stop-color:#000000" />
@@ -614,7 +614,7 @@
   </ns0:g>
   <ns0:g ns2:insensitive="true" ns1:label="frame23" id="g3852" frame="23" type="frame" ns1:groupmode="layer" style="display:none">
     <ns0:g transform="translate(2.997798)" id="g1707">
-      <ns0:circle style="fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:11.212;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;stop-color:#000000" id="circle3806" cx="172.12454" cy="227.88248" r="101.63509" />
+      <ns0:circle style="fill:#fcfdf5;fill-opacity:1;stroke:#000000;stroke-width:11.212;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;stop-color:#000000" id="circle3806" cx="172.12454" cy="227.88248" r="101.63509" />
       <ns0:rect style="fill:#000000;fill-opacity:1;stroke:none;stroke-width:4.00248;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;stop-color:#000000" id="rect3808" width="11.211645" height="25.025299" x="166.51872" y="147.69565" />
       <ns0:rect y="282.56894" x="166.51872" height="25.025299" width="11.211645" id="rect3810" style="fill:#000000;fill-opacity:1;stroke:none;stroke-width:4.00248;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;stop-color:#000000" />
       <ns0:rect style="fill:#000000;fill-opacity:1;stroke:none;stroke-width:4.00248;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;stop-color:#000000" id="rect3812" width="11.211644" height="25.025299" x="222.12967" y="-117.18195" transform="rotate(90)" ns1:transform-centerCamera-x="-11.869292" ns1:transform-centerCamera-y="-13.762167" />
@@ -641,7 +641,7 @@
   </ns0:g>
   <ns0:g ns2:insensitive="true" style="display:none" ns1:groupmode="layer" type="frame" frame="24" id="g3908" ns1:label="frame24">
     <ns0:g transform="translate(2.997798)" id="g1730">
-      <ns0:circle r="101.63509" cy="246.81105" cx="172.12454" id="circle3862" style="fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:11.212;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;stop-color:#000000" />
+      <ns0:circle r="101.63509" cy="246.81105" cx="172.12454" id="circle3862" style="fill:#fcfdf5;fill-opacity:1;stroke:#000000;stroke-width:11.212;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;stop-color:#000000" />
       <ns0:rect y="166.62422" x="166.51872" height="25.025299" width="11.211645" id="rect3864" style="fill:#000000;fill-opacity:1;stroke:none;stroke-width:4.00248;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;stop-color:#000000" />
       <ns0:rect style="fill:#000000;fill-opacity:1;stroke:none;stroke-width:4.00248;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;stop-color:#000000" id="rect3866" width="11.211645" height="25.025299" x="166.51872" y="301.4975" />
       <ns0:rect ns1:transform-centerCamera-y="-13.762167" ns1:transform-centerCamera-x="-11.869292" transform="rotate(90)" y="-117.18195" x="241.05824" height="25.025299" width="11.211644" id="rect3868" style="fill:#000000;fill-opacity:1;stroke:none;stroke-width:4.00248;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;stop-color:#000000" />

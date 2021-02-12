@@ -16,7 +16,7 @@ void trippin::WingedTub::init(const Configuration &config, const Map::Object &ob
 }
 
 void trippin::WingedTub::beforeTick(Uint32 engineTicks) {
-    if (inactive && activation->shouldActivate(hitBox.x)) {
+    if (inactive && activation->shouldActivate(hitBox)) {
         inactive = false;
     }
 }
@@ -27,6 +27,11 @@ void trippin::WingedTub::afterTick(Uint32 engineTicks) {
 
     // early exit if not activated yet
     if (inactive) {
+        return;
+    }
+
+    if (activation->shouldDeactivate(hitBox)) {
+        expired = true;
         return;
     }
 

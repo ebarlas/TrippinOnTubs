@@ -1,13 +1,12 @@
-#ifndef TRIPPIN_BALL_H
-#define TRIPPIN_BALL_H
+#ifndef TRIPPIN_BIRD_H
+#define TRIPPIN_BIRD_H
 
 #include "SpriteObject.h"
 #include "Activation.h"
-#include "engine/ReflectiveCollision.h"
 #include "lock/Guarded.h"
 
 namespace trippin {
-    class Ball : public SpriteObject {
+    class Bird : public SpriteObject {
     public:
         void init(const Configuration &config, const Map::Object &obj, const Sprite &spr) override;
         void beforeTick(Uint32 engineTicks) override;
@@ -15,7 +14,6 @@ namespace trippin {
         void render(const Camera &camera) override;
         void setActivation(const Activation *activation);
     private:
-        ReflectiveCollision reflectiveCollision;
         const Activation *activation;
 
         struct Channel {

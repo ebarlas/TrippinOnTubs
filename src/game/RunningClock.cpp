@@ -10,7 +10,7 @@ void trippin::RunningClock::init(const Configuration &config, const Map::Object 
 }
 
 void trippin::RunningClock::beforeTick(Uint32 engineTicks) {
-    if (inactive && activation->shouldActivate(roundedPosition.x)) {
+    if (inactive && activation->shouldActivate(roundedBox)) {
         inactive = false;
     }
 }
@@ -24,7 +24,7 @@ void trippin::RunningClock::afterTick(Uint32 engineTicks) {
         return;
     }
 
-    if (!sprite->intersectsWith(roundedPosition, universe)) {
+    if (activation->shouldDeactivate(roundedBox)) {
         expired = true;
         return;
     }
@@ -35,6 +35,7 @@ void trippin::RunningClock::afterTick(Uint32 engineTicks) {
         hitTicks = 0;
         ch.frame = 24;
         spirit->delay(1);
+        score->add(50);
         return;
     }
 
@@ -81,6 +82,6 @@ void trippin::RunningClock::setActivation(const Activation *act) {
     activation = act;
 }
 
-void trippin::RunningClock::setUniverse(Point<int> uni) {
-    universe = {0, 0, uni.x, uni.y};
+void trippin::RunningClock::setScore(trippin::Score *sc) {
+    score = sc;
 }

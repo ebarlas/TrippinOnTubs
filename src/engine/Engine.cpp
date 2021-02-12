@@ -44,6 +44,7 @@ void trippin::Engine::removeExpired() {
 }
 
 void trippin::Engine::tick(Uint32 engineTicks) {
+    // SDL_Log("inactive=%d, platforms=%d, objects=%d", inactive.size(), platforms.size(), objects.size());
     beforeTick(engineTicks);
     promoteActive();
     removeExpired();

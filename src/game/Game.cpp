@@ -1,6 +1,7 @@
 #include "Game.h"
 #include "Ground.h"
 #include "PacingObject.h"
+#include "Bird.h"
 #include "Ball.h"
 #include "WingedTub.h"
 #include "RunningClock.h"
@@ -130,28 +131,31 @@ void trippin::Game::initEngine() {
             uptr->setGoggin(&goggin);
             uptr->setSpirit(&spirit);
             uptr->setActivation(&activation);
-            uptr->setUniverse(map.universe);
+            uptr->setScore(&score);
             uptr->init(configuration, obj, spriteManager->get(obj.type));
             engine.add(uptr.get());
             objects.push_back(std::move(uptr));
         } else if (obj.type == "zombie") {
             auto uptr = std::make_unique<PacingObject>();
             uptr->setActivation(&activation);
-            uptr->setUniverse(map.universe);
             uptr->init(configuration, obj, spriteManager->get(obj.type));
             engine.add(uptr.get());
             objects.push_back(std::move(uptr));
         } else if (obj.type == "rat") {
             auto uptr = std::make_unique<PacingObject>();
             uptr->setActivation(&activation);
-            uptr->setUniverse(map.universe);
+            uptr->init(configuration, obj, spriteManager->get(obj.type));
+            engine.add(uptr.get());
+            objects.push_back(std::move(uptr));
+        } else if (obj.type == "bird") {
+            auto uptr = std::make_unique<Bird>();
+            uptr->setActivation(&activation);
             uptr->init(configuration, obj, spriteManager->get(obj.type));
             engine.add(uptr.get());
             objects.push_back(std::move(uptr));
         } else if (obj.type == "ball") {
             auto uptr = std::make_unique<Ball>();
             uptr->setActivation(&activation);
-            uptr->setUniverse(map.universe);
             uptr->init(configuration, obj, spriteManager->get(obj.type));
             engine.add(uptr.get());
             objects.push_back(std::move(uptr));
@@ -181,7 +185,9 @@ void trippin::Game::initEngine() {
     jumpMeter.init();
     engine.addListener(&jumpMeter);
 
-    activation.setProximity(toInt(configuration.activationProximity * scale->multiplier));
+    activation.setUniverse(map.universe);
+    activation.setActivationProximity(toInt(configuration.activationProximity * scale->multiplier));
+    activation.setDeactivationProximity(toInt(configuration.deactivationProximity * scale->multiplier));
     activation.setGoggin(&goggin);
 }
 

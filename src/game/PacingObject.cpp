@@ -9,7 +9,7 @@ void trippin::PacingObject::init(const Configuration &config, const Map::Object 
 }
 
 void trippin::PacingObject::beforeTick(Uint32 engineTicks) {
-    if (inactive && activation->shouldActivate(roundedPosition.x)) {
+    if (inactive && activation->shouldActivate(roundedBox)) {
         inactive = false;
     }
 }
@@ -23,7 +23,7 @@ void trippin::PacingObject::afterTick(Uint32 engineTicks) {
         return;
     }
 
-    if (!sprite->intersectsWith(roundedPosition, universe)) {
+    if (activation->shouldDeactivate(roundedBox)) {
         expired = true;
         return;
     }
@@ -46,8 +46,4 @@ void trippin::PacingObject::render(const trippin::Camera &camera) {
 
 void trippin::PacingObject::setActivation(const Activation *act) {
     activation = act;
-}
-
-void trippin::PacingObject::setUniverse(Point<int> uni) {
-    universe = {0, 0, uni.x, uni.y};
 }
