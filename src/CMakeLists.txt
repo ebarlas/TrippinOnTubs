@@ -1,5 +1,4 @@
 find_package(SDL2)
-find_package(SDL2)
 
 add_library(Engine
         engine/PlasmaPhysics.cpp
