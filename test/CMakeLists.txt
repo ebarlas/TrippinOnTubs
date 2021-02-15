@@ -8,7 +8,6 @@ target_link_libraries(catch_main Catch2::Catch2)
 add_executable(engine_tests
         engine/engine_tests.cpp
         engine/object_tests.cpp
-        engine/snap_queue_tests.cpp
         engine/sides_tests.cpp
         engine/rect_tests.cpp
         engine/point_tests.cpp)
@@ -37,12 +36,14 @@ catch_discover_tests(
         --reporter=xml
         --out=tests.xml)
 
-add_executable(game_tests2
+add_executable(game_tests
+        ../src/game/Map.cpp
+        ../src/game/Configuration.cpp
         game/map_tests.cpp
         game/configuration_tests.cpp)
-target_link_libraries(game_tests2 PRIVATE Game Sprite Engine catch_main)
+target_link_libraries(game_tests PRIVATE Sprite Engine catch_main)
 catch_discover_tests(
-        game_tests2
+        game_tests
         TEST_PREFIX
         "unittests."
         EXTRA_ARGS

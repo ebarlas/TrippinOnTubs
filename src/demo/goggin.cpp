@@ -43,7 +43,7 @@ public:
         auto size = sprite->getSize();
         trippin::Rect<int> box{roundedPosition.x - hb.x, roundedPosition.y - hb.y, size.x, size.y};
         if (box.intersect(viewport)) {
-            auto frame = (ticks / sprite->getDuration()) % 8;
+            auto frame = (ticks / 80) % 8;
             sprite->render({box.x - viewport.x, box.y - viewport.y}, frame);
             if (displayLabel) {
                 auto posLabel = format(position.x) + ", " + format(position.y);
@@ -92,7 +92,7 @@ public:
     void init(const GameState &gs) {
         trippin::Scale scale{"hdplus", 0.25};
 
-        spriteManager = std::make_unique<trippin::SpriteManager>(gs.renderer, scale);
+        spriteManager = std::make_unique<trippin::SpriteManager>(gs.renderer, scale, 1);
         auto &gogginSprite = spriteManager->get("goggin");
         auto &groundSprite = spriteManager->get("ground");
         auto &ballSprite = spriteManager->get("ball");

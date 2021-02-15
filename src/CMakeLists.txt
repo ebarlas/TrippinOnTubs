@@ -79,6 +79,7 @@ add_executable(trippin
         game/Ball.cpp
         game/Activation.cpp
         game/Layer.cpp
+        game/Level.cpp
         game/trippin.cpp)
 target_link_libraries(trippin Sprite Lock)
 

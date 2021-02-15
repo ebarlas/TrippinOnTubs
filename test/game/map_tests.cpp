@@ -4,7 +4,7 @@
 TEST_CASE("Load test map", "[map]")
 {
     trippin::Map map{};
-    map.load("test");
+    map.load("map_test");
     REQUIRE(map.objects.size() > 0);
     REQUIRE(map.universe.x > 0);
     REQUIRE(map.universe.y > 0);
