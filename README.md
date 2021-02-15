@@ -85,6 +85,13 @@ to the right.
 
 ![Camera](docs/camera.png)
 
+# Parallax
+
+A parallax scrolling effect is achieved by mapping the camera viewport on to
+corresponding regions of different layers of graphics. 
+
+![Parallax](docs/parallax.png)
+
 # Engine
 The `trippin` physics engine handles the movement and interaction of all objects.
 The footprint of an object is represented with an axis aligned bounding box (AABB)
