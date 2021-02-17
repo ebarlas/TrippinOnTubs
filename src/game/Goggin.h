@@ -1,10 +1,12 @@
 #ifndef TRIPPIN_GOGGIN_H
 #define TRIPPIN_GOGGIN_H
 
+#include <SDL_mixer.h>
 #include "engine/Object.h"
 #include "sprite/Sprite.h"
 #include "SpriteObject.h"
 #include "lock/Guarded.h"
+#include "SoundManager.h"
 
 namespace trippin {
     class Goggin : public SpriteObject {
@@ -12,6 +14,7 @@ namespace trippin {
         void init(const Configuration &config, const Map::Object &obj, const Sprite &spr) override;
         void setDust(const Sprite &spr);
         void setDustBlast(const Sprite &spr);
+        void setSoundManager(SoundManager &sm);
         void beforeTick(Uint32 engineTicks) override;
         void afterTick(Uint32 engineTicks) override;
         void render(const Camera &camera) override;
@@ -38,8 +41,6 @@ namespace trippin {
             // goggin center point, normalized
             Point<int> center;
 
-            // goggin top-left corner, saved to ensure jitter/drift
-            Point<int> cameraPosition;
             int frame;
             bool jumpCharge;
             bool jumpRelease;
@@ -48,6 +49,14 @@ namespace trippin {
             std::array<Dust, 5> dusts; // circular queue of dust clouds
             Dust blast;
         };
+
+        struct SoundChannel {
+            bool playJumpSound;
+        };
+
+        // goggin top-left corner, saved to ensure jitter/drift
+        // accessed exclusively by render/main thread
+        Point<int> cameraPosition;
 
         const Sprite *dust;
         Uint32 dustTicks;
@@ -69,6 +78,7 @@ namespace trippin {
         constexpr static const int RUNNING_FRAMES = 8;
 
         Guarded<Channel> channel;
+        Guarded<SoundChannel> soundChannel;
 
         bool skipLaunch;
         double jumpVelocity;
@@ -99,6 +109,11 @@ namespace trippin {
         int ticks{};
         Uint32 lastRunOrDuckTick{};
 
+        SoundManager *soundManager;
+        Mix_Chunk *jumpSound;
+        int jumpSoundTimeoutTicks;
+        Uint32 lastJumpTicks;
+
         void onFalling(Uint32 engineTicks, Channel &ch);
         void onLanding(Uint32 engineTicks, Channel &ch);
         void onRunning(Uint32 engineTicks, Channel &ch);
@@ -111,6 +126,8 @@ namespace trippin {
         void shrinkForDuck();
         void growForStand();
         void savePosition(Channel &ch);
+
+        void enqueueJumpSound(Uint32 engineTicks);
     };
 }
 

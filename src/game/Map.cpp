@@ -70,6 +70,7 @@ void trippin::Map::convert(int tickPeriod) {
         obj.minJumpChargeTime /= tickPeriod;
         obj.maxJumpChargeTime /= tickPeriod;
         obj.jumpGracePeriod /= tickPeriod;
+        obj.jumpSoundTimeout /= tickPeriod;
         obj.dustPeriod /= tickPeriod;
         obj.duckFriction /= ticksPerSecondSq;
     }
@@ -80,6 +81,7 @@ void trippin::from_json(const nlohmann::json& j, Map& map) {
     j.at("universe").at("height").get_to(map.universe.y);
     j.at("scale").get_to(map.scale);
     j.at("meterMargin").get_to(map.meterMargin);
+    j.at("music").get_to(map.music);
     j.at("objects").get_to(map.objects);
     j.at("layers").get_to(map.layers);
 }
@@ -113,6 +115,8 @@ void trippin::from_json(const nlohmann::json& j, Map::Object& obj) {
         j.at("maxJumpChargeTime").get_to(obj.maxJumpChargeTime);
     if (j.contains("jumpGracePeriod"))
         j.at("jumpGracePeriod").get_to(obj.jumpGracePeriod);
+    if (j.contains("jumpSoundTimeout"))
+        j.at("jumpSoundTimeout").get_to(obj.jumpSoundTimeout);
     if (j.contains("terminalVelocity"))
         j.at("terminalVelocity").get_to(obj.terminalVelocity);
     if (j.contains("friction"))

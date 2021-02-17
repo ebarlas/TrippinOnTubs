@@ -19,11 +19,13 @@ namespace trippin {
         Configuration configuration;
         Configuration::Scale *scale;
         std::unique_ptr<SpriteManager> spriteManager;
+        SoundManager soundManager;
         Level level;
         void initRuntime();
         void initWindowSize();
         void initWindow();
         void initRenderer();
+        void initMixer();
         void initConfiguration();
         void initScale();
         void initSpriteManager();

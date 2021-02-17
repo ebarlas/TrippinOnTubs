@@ -16,6 +16,7 @@ namespace trippin {
         void setGoggin(const Goggin *goggin);
         void setScore(Score *score);
         void setActivation(const Activation *activation);
+        void setSoundManager(SoundManager &soundManager);
         void beforeTick(Uint32 engineTicks) override;
         void afterTick(Uint32 engineTicks) override;
         void render(const Camera &camera) override;
@@ -38,15 +39,20 @@ namespace trippin {
         bool expired;
         bool inactive;
         const Activation *activation;
+        SoundManager *soundManager;
 
         int points;
         int tubFrameFirst;
         int tubFrameLast;
 
+        Mix_Chunk *sound;
+        bool playedSound;
+
         struct Channel {
             int frame;
             bool visible;
         };
+
         Guarded<Channel> channel;
     };
 }

@@ -26,6 +26,7 @@ namespace trippin {
             int minJumpChargeTime;
             int maxJumpChargeTime;
             int jumpGracePeriod;
+            int jumpSoundTimeout;
             Point<double> velocity{};
             Point<double> terminalVelocity{};
             Point<double> friction{};
@@ -49,6 +50,7 @@ namespace trippin {
         Point<int> universe;
         double scale;
         int meterMargin;
+        std::string music;
         std::vector<Map::Object> objects;
         std::vector<Map::Layer> layers;
 

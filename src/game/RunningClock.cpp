@@ -7,6 +7,8 @@ void trippin::RunningClock::init(const Configuration &config, const Map::Object 
     inactive = true;
     runningAcceleration = obj.runningAcceleration;
     channel.ref() = {roundedPosition, 0};
+    playedSound = false;
+    sound = soundManager->getEffect("chime1");
 }
 
 void trippin::RunningClock::beforeTick(Uint32 engineTicks) {
@@ -33,7 +35,7 @@ void trippin::RunningClock::afterTick(Uint32 engineTicks) {
     if (!hitGoggin && roundedBox.intersect(goggin->roundedBox)) {
         hitGoggin = true;
         hitTicks = 0;
-        ch.frame = 24;
+        ch.frame = FRAME_CLOUD_FIRST;
         spirit->delay(1);
         score->add(50);
         return;
@@ -56,7 +58,7 @@ void trippin::RunningClock::afterTick(Uint32 engineTicks) {
     if (platformCollisions.testBottom() || objectCollisions.testBottom()) {
         acceleration.x = runningAcceleration;
         if (engineTicks % sprite->getFramePeriodTicks() == 0) {
-            ch.frame = (ch.frame + 1) % 24;
+            ch.frame = (ch.frame + 1) % FRAME_CLOUD_FIRST;
         }
     } else {
         acceleration.x = 0;
@@ -72,9 +74,14 @@ void trippin::RunningClock::setSpirit(Spirit *sp) {
 }
 
 void trippin::RunningClock::render(const trippin::Camera &camera) {
-    auto ch = channel.get();
+    Exchange<Channel> ex{channel};
+    auto &ch = ex.get();
     if (ch.frame < sprite->getFrames()) {
         sprite->render(ch.roundedPosition, ch.frame, camera);
+        if (ch.frame == FRAME_CLOUD_FIRST && !playedSound) {
+            Mix_PlayChannel( -1, sound, 0 );
+            playedSound = true;
+        }
     }
 }
 
@@ -84,4 +91,8 @@ void trippin::RunningClock::setActivation(const Activation *act) {
 
 void trippin::RunningClock::setScore(trippin::Score *sc) {
     score = sc;
+}
+
+void trippin::RunningClock::setSoundManager(trippin::SoundManager &sm) {
+    soundManager = &sm;
 }

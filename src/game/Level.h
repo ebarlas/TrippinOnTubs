@@ -1,6 +1,7 @@
 #ifndef TRIPPIN_LEVEL_H
 #define TRIPPIN_LEVEL_H
 
+#include <SDL_mixer.h>
 #include "engine/Engine.h"
 #include "sprite/SpriteManager.h"
 #include "Configuration.h"
@@ -19,6 +20,7 @@ namespace trippin {
         Configuration *configuration;
         Configuration::Scale *scale;
         SpriteManager *spriteManager;
+        SoundManager *soundManager;
         Map map;
         Camera camera;
         Engine engine;
@@ -46,6 +48,7 @@ namespace trippin {
         void setConfiguration(Configuration *configuration);
         void setScale(Configuration::Scale *scale);
         void setSpriteManager(SpriteManager *spriteManager);
+        void setSoundManager(SoundManager *soundManager);
         void init();
         void render(Input input);
         void start();

@@ -37,11 +37,10 @@ catch_discover_tests(
         --out=tests.xml)
 
 add_executable(game_tests
-        ../src/game/Map.cpp
-        ../src/game/Configuration.cpp
         game/map_tests.cpp
+        game/sound_manager_tests.cpp
         game/configuration_tests.cpp)
-target_link_libraries(game_tests PRIVATE Sprite Engine catch_main)
+target_link_libraries(game_tests PRIVATE Game catch_main)
 catch_discover_tests(
         game_tests
         TEST_PREFIX

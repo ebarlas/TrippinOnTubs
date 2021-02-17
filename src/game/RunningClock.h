@@ -18,7 +18,10 @@ namespace trippin {
         void render(const Camera &camera) override;
         void setActivation(const Activation *activation);
         void setScore(Score *score);
+        void setSoundManager(SoundManager &soundManager);
     private:
+        constexpr static const int FRAME_CLOUD_FIRST = 24;
+
         const Goggin *goggin;
         Spirit *spirit;
         int hitTicks;
@@ -27,6 +30,10 @@ namespace trippin {
         double runningAcceleration;
         const Activation *activation;
         Score *score;
+        SoundManager *soundManager;
+
+        Mix_Chunk *sound;
+        bool playedSound;
 
         struct Channel {
             Point<int> roundedPosition;

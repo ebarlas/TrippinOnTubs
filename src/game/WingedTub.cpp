@@ -7,12 +7,14 @@ void trippin::WingedTub::init(const Configuration &config, const Map::Object &ob
     sprite = &spr;
     hitBox = spr.getHitBox() + position;
     expired = false;
-    channel.ref() = {0, true};
     hitGoggin = false;
     inactive = true;
     tubFrameFirst = obj.sparkle ? FRAME_SPARKLE_FIRST : FRAME_TUB_FIRST;
     tubFrameLast = obj.sparkle ? FRAME_SPARKLE_LAST : FRAME_TUB_LAST;
+    channel.ref() = {tubFrameFirst, true};
     points = obj.sparkle ? 200 : 100;
+    playedSound = false;
+    sound = obj.sparkle ? soundManager->getEffect("chime3") : soundManager->getEffect("chime2");
 }
 
 void trippin::WingedTub::beforeTick(Uint32 engineTicks) {
@@ -82,9 +84,17 @@ void trippin::WingedTub::render(const trippin::Camera &camera) {
     auto ch = channel.get();
     if (ch.visible) {
         sprite->render(hitBox.corner(), ch.frame, camera);
+        if (ch.frame == FRAME_CLOUD_FIRST && !playedSound) {
+            Mix_PlayChannel( -1, sound, 0 );
+            playedSound = true;
+        }
     }
 }
 
 bool trippin::WingedTub::isExpired() {
     return expired;
+}
+
+void trippin::WingedTub::setSoundManager(trippin::SoundManager &sm) {
+    soundManager = &sm;
 }

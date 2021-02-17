@@ -61,7 +61,7 @@ target_link_libraries(goggin GameLoop Sprite)
 add_executable(tgoggin demo/tgoggin.cpp)
 target_link_libraries(tgoggin GameLoop Sprite)
 
-add_executable(trippin
+add_library(Game
         game/Game.cpp
         game/Map.cpp
         game/Configuration.cpp
@@ -80,8 +80,12 @@ add_executable(trippin
         game/Activation.cpp
         game/Layer.cpp
         game/Level.cpp
-        game/trippin.cpp)
-target_link_libraries(trippin Sprite Lock)
+        game/SoundManager.cpp)
+target_include_directories(Game PUBLIC ${SDL2_MIXER_INCLUDE_DIR})
+target_link_libraries(Game Sprite Lock ${SDL2_MIXER_LIB})
+
+add_executable(trippin game/trippin.cpp)
+target_link_libraries(trippin Game)
 
 add_executable(collisiondebug demo/collisiondebug.cpp)
 target_link_libraries(collisiondebug Engine)

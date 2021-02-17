@@ -3,8 +3,6 @@
 
 #include <unordered_map>
 #include <string>
-#include <vector>
-#include <unordered_map>
 #include "sprite/Sprite.h"
 #include "sprite/SpriteType.h"
 

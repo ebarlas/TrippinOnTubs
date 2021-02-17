@@ -1,10 +1,12 @@
 #include "Game.h"
+#include <SDL_mixer.h>
 
 void trippin::Game::init() {
     initRuntime();
     initWindowSize();
     initWindow();
     initRenderer();
+    initMixer();
     initConfiguration();
     initScale();
     initSpriteManager();
@@ -12,8 +14,8 @@ void trippin::Game::init() {
 }
 
 void trippin::Game::initRuntime() {
-    if (SDL_Init(SDL_INIT_VIDEO) < 0) {
-        SDL_Log("SDL could not initialize. SDL Error: %s", SDL_GetError());
+    if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO) < 0) {
+        SDL_Log("SDL could not initialize. SDL error: %s", SDL_GetError());
         std::terminate();
     }
 }
@@ -36,7 +38,7 @@ void trippin::Game::initWindow() {
             windowSize.y,
             SDL_WINDOW_SHOWN);
     if (window == nullptr) {
-        SDL_Log("Window could not be created. SDL Error: %s", SDL_GetError());
+        SDL_Log("Window could not be created. SDL error: %s", SDL_GetError());
         std::terminate();
     }
 }
@@ -47,7 +49,20 @@ void trippin::Game::initRenderer() {
             -1,
             SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
     if (renderer == nullptr) {
-        SDL_Log("Renderer could not be created. SDL Error: %s", SDL_GetError());
+        SDL_Log("Renderer could not be created. SDL error: %s", SDL_GetError());
+        std::terminate();
+    }
+}
+
+void trippin::Game::initMixer() {
+    auto flags = MIX_INIT_MP3;
+    if (Mix_Init(flags) != flags) {
+        SDL_Log("Mixer could not be initialized. Mixer error: %s", Mix_GetError());
+        std::terminate();
+    }
+
+    if (Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 2048) == -1) {
+        SDL_Log("Mixer open-audio failed. Mixer error: %s", Mix_GetError());
         std::terminate();
     }
 }
@@ -69,7 +84,8 @@ void trippin::Game::initScale() {
 }
 
 void trippin::Game::initSpriteManager() {
-    spriteManager = std::make_unique<SpriteManager>(renderer, Scale{scale->name, scale->multiplier}, configuration.tickPeriod);
+    auto sc = Scale{scale->name, scale->multiplier};
+    spriteManager = std::make_unique<SpriteManager>(renderer, sc, configuration.tickPeriod);
 }
 
 void trippin::Game::initLevel() {
@@ -77,6 +93,7 @@ void trippin::Game::initLevel() {
     level.setConfiguration(&configuration);
     level.setScale(scale);
     level.setSpriteManager(spriteManager.get());
+    level.setSoundManager(&soundManager);
     level.init();
 }
 
@@ -85,6 +102,8 @@ trippin::Game::Game(std::string configName) : configName(std::move(configName)) 
 }
 
 trippin::Game::~Game() {
+    Mix_CloseAudio();
+    Mix_Quit();
     SDL_DestroyRenderer(renderer);
     SDL_DestroyWindow(window);
     SDL_Quit();

@@ -16,6 +16,7 @@ void trippin::Goggin::init(const Configuration &config, const Map::Object &obj, 
     minJumpChargeTicks = obj.minJumpChargeTime;
     maxJumpChargeTicks = obj.maxJumpChargeTime;
     jumpGracePeriodTicks = obj.jumpGracePeriod;
+    jumpSoundTimeoutTicks = obj.jumpSoundTimeout;
     duckFriction = obj.duckFriction;
     state = State::falling;
     maxFallingVelocity = 0;
@@ -37,6 +38,8 @@ void trippin::Goggin::init(const Configuration &config, const Map::Object &obj, 
 
     dustPeriodTicks = obj.dustPeriod;
     nextDustPos = 0;
+
+    jumpSound = soundManager->getEffect("thud");
 }
 
 void trippin::Goggin::setDust(const Sprite &spr) {
@@ -45,6 +48,10 @@ void trippin::Goggin::setDust(const Sprite &spr) {
 
 void trippin::Goggin::setDustBlast(const trippin::Sprite &spr) {
     dustBlast = &spr;
+}
+
+void trippin::Goggin::setSoundManager(trippin::SoundManager &sm) {
+    soundManager = &sm;
 }
 
 void trippin::Goggin::beforeTick(Uint32 engineTicks) {
@@ -86,7 +93,9 @@ void trippin::Goggin::beforeTick(Uint32 engineTicks) {
         auto relTicks = static_cast<int>(engineTicks - jumpTicks);
         auto range = toDouble(maxJumpChargeTicks - minJumpChargeTicks);
         auto boundedTicks = std::max(minJumpChargeTicks, std::min(relTicks, maxJumpChargeTicks));
-        auto maxEffective = state == ducking && boundedTicks == maxJumpChargeTicks ? maxDuckJumpVelocity : maxJumpVelocity;
+        auto maxEffective = state == ducking && boundedTicks == maxJumpChargeTicks
+                ? maxDuckJumpVelocity
+                : maxJumpVelocity;
         jumpPercent = (boundedTicks - minJumpChargeTicks) / range;
         jumpVel = minJumpVelocity + jumpPercent * (maxEffective - minJumpVelocity);
     } else {
@@ -114,6 +123,7 @@ void trippin::Goggin::beforeTick(Uint32 engineTicks) {
                 ch.frame = FRAME_LAUNCHING_FIRST;
                 jumpVelocity = jumpVel;
             }
+            enqueueJumpSound(engineTicks);
             acceleration.x = risingAcceleration;
             ticks = 0;
         }
@@ -187,7 +197,7 @@ void trippin::Goggin::centerCamera(trippin::Camera &camera) {
     // jitter emerges when an engine tick updates the position *between* center and render calls
     Exchange<Channel> exchange{channel};
     auto &ch = exchange.get();
-    ch.cameraPosition = ch.position;
+    cameraPosition = ch.position;
     camera.centerOn(ch.center);
 }
 
@@ -203,6 +213,7 @@ void trippin::Goggin::onFalling(Uint32 engineTicks, Channel &ch) {
         if (platformCollisions.testBottom() && maxFallingVelocity >= terminalVelocity.y / 2.0) {
             resetDustBlast(ch);
         }
+        enqueueJumpSound(engineTicks);
         return;
     }
 
@@ -328,7 +339,14 @@ void trippin::Goggin::render(const trippin::Camera &camera) {
         dustBlast->render(ch.blast.position, ch.blast.frame, camera);
     }
 
-    sprite->render(ch.cameraPosition, ch.frame, camera);
+    sprite->render(cameraPosition, ch.frame, camera);
+
+    Exchange<SoundChannel> soundEx{soundChannel};
+    auto &soundCh = soundEx.get();
+    if (soundCh.playJumpSound) {
+        Mix_PlayChannel(-1, jumpSound, 0);
+        soundCh.playJumpSound = false;
+    }
 }
 
 void trippin::Goggin::onJumpCharge() {
@@ -358,5 +376,13 @@ void trippin::Goggin::onDuckEnd() {
     auto &ch = exchange.get();
     if (ch.duckStart) {
         ch.duckEnd = true;
+    }
+}
+
+void trippin::Goggin::enqueueJumpSound(Uint32 engineTicks) {
+    if (engineTicks - lastJumpTicks >= jumpSoundTimeoutTicks) {
+        Exchange<SoundChannel> soundEx{soundChannel};
+        soundEx.get().playJumpSound = true;
+        lastJumpTicks = engineTicks;
     }
 }

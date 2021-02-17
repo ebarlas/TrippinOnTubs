@@ -24,6 +24,10 @@ void trippin::Level::setSpriteManager(trippin::SpriteManager *sm) {
     spriteManager = sm;
 }
 
+void trippin::Level::setSoundManager(trippin::SoundManager *sm) {
+    soundManager = sm;
+}
+
 void trippin::Level::initMap() {
     map.load(configuration->map);
     map.rescale(scale->multiplier);
@@ -51,6 +55,7 @@ void trippin::Level::initEngine() {
         if (obj.type == "goggin") {
             goggin.setDust(spriteManager->get("dust"));
             goggin.setDustBlast(spriteManager->get("dust_blast"));
+            goggin.setSoundManager(*soundManager);
             goggin.init(*configuration, obj, spriteManager->get(obj.type));
             engine.add(&goggin);
         } else if (obj.type.rfind("ground_melt_", 0) == 0 || obj.type.rfind("platform", 0) == 0) {
@@ -62,10 +67,11 @@ void trippin::Level::initEngine() {
             objects.push_back(std::move(uptr));
         } else if (obj.type == "winged_tub") {
             auto uptr = std::make_unique<WingedTub>();
-            uptr->init(*configuration, obj, spriteManager->get(obj.type));
             uptr->setGoggin(&goggin);
             uptr->setScore(&score);
             uptr->setActivation(&activation);
+            uptr->setSoundManager(*soundManager);
+            uptr->init(*configuration, obj, spriteManager->get(obj.type));
             engine.addListener(uptr.get());
             objects.push_back(std::move(uptr));
         } else if (obj.type == "running_clock") {
@@ -74,6 +80,7 @@ void trippin::Level::initEngine() {
             uptr->setSpirit(&spirit);
             uptr->setActivation(&activation);
             uptr->setScore(&score);
+            uptr->setSoundManager(*soundManager);
             uptr->init(*configuration, obj, spriteManager->get(obj.type));
             engine.add(uptr.get());
             objects.push_back(std::move(uptr));
@@ -160,6 +167,6 @@ void trippin::Level::render(Input input) {
 
 void trippin::Level::start() {
     engine.start();
+    Mix_FadeInMusic(soundManager->getMusic(map.music), -1, 2'000);
 }
-
 
