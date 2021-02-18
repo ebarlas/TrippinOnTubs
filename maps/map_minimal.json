@@ -5,6 +5,7 @@
   },
   "scale": 1.0,
   "meterMargin": 80.0,
+  "music": "streetsound",
   "objects": [
     {
       "id": 1,

@@ -5,6 +5,7 @@
   },
   "scale": 0.25,
   "meterMargin": 20.0,
+  "music": "track1",
   "objects": [
     {
       "id": 1,
@@ -29,6 +30,7 @@
       "minJumpChargeTime": 0,
       "maxJumpChargeTime": 400,
       "jumpGracePeriod": 125,
+      "jumpSoundTimeout": 250,
       "dustPeriod": 140
     },
     {

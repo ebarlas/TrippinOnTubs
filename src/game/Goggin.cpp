@@ -386,3 +386,7 @@ void trippin::Goggin::enqueueJumpSound(Uint32 engineTicks) {
         lastJumpTicks = engineTicks;
     }
 }
+
+bool trippin::Goggin::inUniverse(const trippin::Rect<int> &universe) const {
+    return universe.intersect(roundedBox);
+}

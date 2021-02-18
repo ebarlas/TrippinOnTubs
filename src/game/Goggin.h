@@ -22,6 +22,7 @@ namespace trippin {
         // This is the first step of a frame update
         // The position used here ought to be used in the subsequent render call to avoid jitter
         void centerCamera(Camera &camera);
+        bool inUniverse(const Rect<int> &universe) const;
         void onJumpCharge();
         void onJumpRelease();
         void onDuckStart();

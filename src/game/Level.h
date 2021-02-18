@@ -50,8 +50,10 @@ namespace trippin {
         void setSpriteManager(SpriteManager *spriteManager);
         void setSoundManager(SoundManager *soundManager);
         void init();
+        bool ended();
         void render(Input input);
         void start();
+        void stop();
     };
 }
 

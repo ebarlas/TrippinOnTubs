@@ -34,7 +34,7 @@ def find_objects(root):
     points = ['velocity', 'terminalVelocity', 'friction']
     floats = ['mass', 'gravity', 'fallGravity', 'minJumpVelocity', 'maxJumpVelocity', 'maxDuckJumpVelocity',
               'runningAcceleration', 'risingAcceleration', 'duckFriction', 'coefficient']
-    ints = ['minJumpChargeTime', 'maxJumpChargeTime', 'jumpGracePeriod', 'lane', 'dustPeriod']
+    ints = ['minJumpChargeTime', 'maxJumpChargeTime', 'jumpGracePeriod', 'jumpSoundTimeout', 'lane', 'dustPeriod']
     bools = ['sparkle']
     id_counter = 1
     # an object is an image within a group that does not have attribute type='layer'
@@ -97,6 +97,7 @@ def make_model(svg_file):
         },
         'scale': float(root.attrib['scale']),
         'meterMargin': float(root.attrib['meterMargin']),
+        'music': root.attrib['music'],
         'objects': find_objects(root),
         'layers': find_layers(root)
     }

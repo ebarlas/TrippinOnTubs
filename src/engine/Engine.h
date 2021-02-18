@@ -42,10 +42,9 @@ namespace trippin {
         void runEngineLoop();
 
         void start();
-
         void pause();
-
         void stop();
+        void join();
     private:
         AbsorbentCollision defaultPlatformCollision;
         InelasticCollision defaultObjectCollision;
@@ -59,8 +58,8 @@ namespace trippin {
 
         SDL_Thread *thread;
         int tickPeriod;
-        bool paused = false;
-        bool stopped = false;
+        SDL_atomic_t paused{};
+        SDL_atomic_t stopped{};
 
         void beforeTick(Uint32 engineTicks);
         void afterTick(Uint32 engineTicks);
@@ -76,21 +75,7 @@ namespace trippin {
         void applyPlatformCollision(Object &object, Object &platform, const Sides &sides);
         void applyObjectCollision(Object &left, Object &right, const Sides &sides);
 
-        static bool sameLane(Object* left, Object* right) {
-            if (left->lane == -1 && !right->platform) {
-                return false;
-            }
-
-            if (right->lane == -1 && !left->platform) {
-                return false;
-            }
-
-            if (!left->lane || !right->lane) {
-                return true;
-            }
-
-            return left->lane == right->lane;
-        }
+        static bool sameLane(Object* left, Object* right);
     };
 }
 

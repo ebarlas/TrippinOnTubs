@@ -209,13 +209,15 @@ int run(void *data) {
 }
 
 void trippin::Engine::runEngineLoop() {
+    SDL_Log("starting engine");
     Clock clock{static_cast<Uint32>(tickPeriod)};
-    while (!stopped) {
-        if (!paused) {
+    while (!SDL_AtomicGet(&stopped)) {
+        if (!SDL_AtomicGet(&paused)) {
             tick(clock.getTicks());
         }
         clock.next();
     }
+    SDL_Log("stopping engine");
 }
 
 void trippin::Engine::start() {
@@ -223,11 +225,15 @@ void trippin::Engine::start() {
 }
 
 void trippin::Engine::pause() {
-    paused = true;
+    SDL_AtomicSet(&paused, 1);
 }
 
 void trippin::Engine::stop() {
-    stopped = true;
+    SDL_AtomicSet(&stopped, 1);
+}
+
+void trippin::Engine::join() {
+    SDL_WaitThread(thread, nullptr);
 }
 
 void trippin::Engine::setPlatformCollision(trippin::Collision *collision) {
@@ -240,4 +246,20 @@ void trippin::Engine::setObjectCollision(trippin::Collision *collision) {
 
 void trippin::Engine::addListener(trippin::Listener *listener) {
     listeners.push_back(listener);
+}
+
+bool trippin::Engine::sameLane(Object* left, Object* right) {
+    if (left->lane == -1 && !right->platform) {
+        return false;
+    }
+
+    if (right->lane == -1 && !left->platform) {
+        return false;
+    }
+
+    if (!left->lane || !right->lane) {
+        return true;
+    }
+
+    return left->lane == right->lane;
 }

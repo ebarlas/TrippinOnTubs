@@ -170,3 +170,13 @@ void trippin::Level::start() {
     Mix_FadeInMusic(soundManager->getMusic(map.music), -1, 2'000);
 }
 
+bool trippin::Level::ended() {
+    return !goggin.inUniverse(Rect<int>{0, 0, map.universe.x, map.universe.y});
+}
+
+void trippin::Level::stop() {
+    engine.stop();
+    engine.join();
+    Mix_FadeOutMusic(2'000);
+}
+

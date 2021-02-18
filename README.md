@@ -18,6 +18,7 @@ Building:
 * CMake
 * SDL2 library
 * SDL2_image library
+* SDL2_mixer library
 * Nlohmann JSON library
 
 Testing:
@@ -44,6 +45,8 @@ that must be supplied explicitly:
 * SDL2_IMAGE_LIB
 * SDL2_TTF_INCLUDE_DIR
 * SDL2_TTF_LIB
+* SDL2_MIXER_INCLUDE_DIR
+* SDL2_MIXER_LIB
 * NLOHMANN_JSON_INCLUDE_DIR
 
 # Fonts

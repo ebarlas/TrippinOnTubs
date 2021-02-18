@@ -89,12 +89,13 @@ void trippin::Game::initSpriteManager() {
 }
 
 void trippin::Game::initLevel() {
-    level.setWindowSize(windowSize);
-    level.setConfiguration(&configuration);
-    level.setScale(scale);
-    level.setSpriteManager(spriteManager.get());
-    level.setSoundManager(&soundManager);
-    level.init();
+    level = std::make_unique<Level>();
+    level->setWindowSize(windowSize);
+    level->setConfiguration(&configuration);
+    level->setScale(scale);
+    level->setSpriteManager(spriteManager.get());
+    level->setSoundManager(&soundManager);
+    level->init();
 }
 
 trippin::Game::Game(std::string configName) : configName(std::move(configName)) {
@@ -110,7 +111,7 @@ trippin::Game::~Game() {
 }
 
 void trippin::Game::start() {
-    level.start();
+    level->start();
     renderLoop();
 }
 
@@ -142,7 +143,16 @@ void trippin::Game::renderLoop() {
 
         SDL_SetRenderDrawColor(renderer, 247, 251, 255, 255);
         SDL_RenderClear(renderer);
-        level.render(input);
+
+        if (level) {
+            if (level->ended()) {
+                level->stop();
+                level.reset();
+            } else {
+                level->render(input);
+            }
+        }
+
         SDL_RenderPresent(renderer);
         timer.next();
     }
