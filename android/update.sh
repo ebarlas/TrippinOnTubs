@@ -10,5 +10,6 @@ cp -R ../../src/* android-project/app/jni/src/
 cp -R ../../config android-project/app/src/main/assets/
 cp -R ../../maps android-project/app/src/main/assets/
 cp -R ../../sprites android-project/app/src/main/assets/
+cp -R ../../sounds android-project/app/src/main/assets/
 
 popd
