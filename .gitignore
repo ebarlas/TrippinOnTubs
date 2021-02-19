@@ -8,7 +8,7 @@ Trippin
 *.cmake
 CMakeCache.txt
 build/
-android/work/
+android/work*/
 raw/
 .python-version
 build-sprites

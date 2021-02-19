@@ -1,4 +1,6 @@
-WORK_DIR="work"
+d=`date "+%Y%m%d_%H%M"`
+
+WORK_DIR="work_${d}"
 
 rm -rf "${WORK_DIR}"
 mkdir "${WORK_DIR}"
@@ -17,8 +19,10 @@ mv json* android-project/app/jni/
 
 mkdir android-project/app/src/main/assets
 cp -R ../../src/* android-project/app/jni/src/
-cp -R ../../fonts android-project/app/src/main/assets/
 cp -R ../../sprites android-project/app/src/main/assets/
+cp -R ../../config android-project/app/src/main/assets/
+cp -R ../../maps android-project/app/src/main/assets/
+cp -R ../../sounds android-project/app/src/main/assets/
 cp ../Android.mk android-project/app/jni/src/
 cp ../Application.mk android-project/app/jni/
 cp ../nlohmann_Android.mk android-project/app/jni/json-3.8.0/Android.mk

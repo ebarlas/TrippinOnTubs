@@ -1,6 +1,9 @@
-WORK_DIR="work"
+if [ "$#" -ne 1 ]; then
+    echo "1 arguments required: [work dir]"
+    exit
+fi
 
-pushd "${WORK_DIR}"
+pushd "${1}"
 
 rm -rf android-project/app/src/main/assets/*
 rm -rf android-project/app/jni/src/*
