@@ -12,6 +12,7 @@
 #include "JumpMeter.h"
 #include "Score.h"
 #include "Activation.h"
+#include "UserInput.h"
 
 namespace trippin {
     class Level {
@@ -37,13 +38,6 @@ namespace trippin {
         void initCamera();
         void initEngine();
     public:
-        struct Input {
-            bool spaceKeyDown;
-            bool spaceKeyUp;
-            bool downKeyDown;
-            bool downKeyUp;
-        };
-
         void setWindowSize(Point<int> windowSize);
         void setConfiguration(Configuration *configuration);
         void setScale(Configuration::Scale *scale);
@@ -51,7 +45,7 @@ namespace trippin {
         void setSoundManager(SoundManager *soundManager);
         void init();
         bool ended();
-        void render(Input input);
+        void render(UserInput input);
         void start();
         void stop();
     };

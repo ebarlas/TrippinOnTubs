@@ -50,6 +50,12 @@ void trippin::Goggin::setSoundManager(trippin::SoundManager &sm) {
     soundManager = &sm;
 }
 
+void trippin::Goggin::setAutoPlay(std::vector<UserInputTick> &ap) {
+    for (auto &uit : ap) {
+        autoPlay[uit.tick] = {uit.jumpCharge, uit.jumpRelease, uit.duckStart, uit.duckEnd};
+    }
+}
+
 void trippin::Goggin::beforeTick(Uint32 engineTicks) {
     Exchange<Channel> exchange{channel};
     auto &ch = exchange.get();
@@ -99,9 +105,6 @@ void trippin::Goggin::handleJumpCharge(Uint32 engineTicks, Channel &ch) {
         auto relTicks = static_cast<int>(engineTicks - jumpTicks);
         auto range = toDouble(maxJumpChargeTicks - minJumpChargeTicks);
         auto boundedTicks = std::max(minJumpChargeTicks, std::min(relTicks, maxJumpChargeTicks));
-        auto maxEffective = state == ducking && boundedTicks == maxJumpChargeTicks
-                            ? maxDuckJumpVelocity
-                            : maxJumpVelocity;
         jumpPercent = (boundedTicks - minJumpChargeTicks) / range;
     } else {
         jumpPercent = 0;
@@ -358,28 +361,13 @@ void trippin::Goggin::render(const trippin::Camera &camera) {
     }
 }
 
-void trippin::Goggin::onJumpCharge() {
-    Exchange<InputChannel> exchange{inputChannel};
-    exchange.get().jumpCharge = true;
-}
-
-void trippin::Goggin::onJumpRelease() {
-    Exchange<InputChannel> exchange{inputChannel};
-    exchange.get().jumpRelease = true;
+void trippin::Goggin::onUserInput(const trippin::UserInput &in) {
+    Exchange<UserInput> exchange{inputChannel};
+    exchange.get() = in;
 }
 
 double trippin::Goggin::getJumpCharge() const {
     return jumpPercent;
-}
-
-void trippin::Goggin::onDuckStart() {
-    Exchange<InputChannel> exchange{inputChannel};
-    exchange.get().duckStart = true;
-}
-
-void trippin::Goggin::onDuckEnd() {
-    Exchange<InputChannel> exchange{inputChannel};
-    auto &ch = exchange.get().duckEnd = true;
 }
 
 void trippin::Goggin::enqueueJumpSound(Uint32 engineTicks) {
@@ -395,7 +383,15 @@ bool trippin::Goggin::inUniverse(const trippin::Rect<int> &universe) const {
 }
 
 void trippin::Goggin::transferInput(Uint32 engineTicks) {
-    Exchange<InputChannel> exchange{inputChannel};
+    if (!autoPlay.empty()) {
+        auto it = autoPlay.find(engineTicks);
+        if (it != autoPlay.end()) {
+            input = it->second;
+        }
+        return;
+    }
+
+    Exchange<UserInput> exchange{inputChannel};
     auto &ch = exchange.get();
     bool any = false;
     if (ch.duckStart && !input.duckStart) {

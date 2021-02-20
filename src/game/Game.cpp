@@ -1,5 +1,5 @@
+#include "SDL_mixer.h"
 #include "Game.h"
-#include <SDL_mixer.h>
 
 void trippin::Game::init() {
     initRuntime();
@@ -120,23 +120,23 @@ void trippin::Game::renderLoop() {
     bool quit = false;
     while (!quit) {
         SDL_Event e;
-        Level::Input input{};
+        UserInput input{};
         while (SDL_PollEvent(&e) != 0) {
             if (e.type == SDL_QUIT) {
                 quit = true;
             } else if (e.type == SDL_KEYDOWN) {
                 if (e.key.keysym.scancode == SDL_SCANCODE_SPACE) {
-                    input.spaceKeyDown = true;
+                    input.jumpCharge = true;
                 }
                 if (e.key.keysym.scancode == SDL_SCANCODE_DOWN) {
-                    input.downKeyDown = true;
+                    input.duckStart = true;
                 }
             } else if (e.type == SDL_KEYUP) {
                 if (e.key.keysym.scancode == SDL_SCANCODE_SPACE) {
-                    input.spaceKeyUp = true;
+                    input.jumpRelease = true;
                 }
                 if (e.key.keysym.scancode == SDL_SCANCODE_DOWN) {
-                    input.downKeyUp = true;
+                    input.duckEnd = true;
                 }
             }
         }

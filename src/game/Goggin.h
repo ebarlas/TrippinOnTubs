@@ -1,12 +1,16 @@
 #ifndef TRIPPIN_GOGGIN_H
 #define TRIPPIN_GOGGIN_H
 
-#include <SDL_mixer.h>
+#include <vector>
+#include <unordered_map>
+#include "SDL_mixer.h"
 #include "engine/Object.h"
 #include "sprite/Sprite.h"
 #include "SpriteObject.h"
 #include "lock/Guarded.h"
 #include "SoundManager.h"
+#include "UserInput.h"
+#include "UserInputTick.h"
 
 namespace trippin {
     class Goggin : public SpriteObject {
@@ -15,6 +19,7 @@ namespace trippin {
         void setDust(const Sprite &spr);
         void setDustBlast(const Sprite &spr);
         void setSoundManager(SoundManager &sm);
+        void setAutoPlay(std::vector<UserInputTick> &autoPlay);
         void beforeTick(Uint32 engineTicks) override;
         void afterTick(Uint32 engineTicks) override;
         void render(const Camera &camera) override;
@@ -23,10 +28,7 @@ namespace trippin {
         // The position used here ought to be used in the subsequent render call to avoid jitter
         void centerCamera(Camera &camera);
         bool inUniverse(const Rect<int> &universe) const;
-        void onJumpCharge();
-        void onJumpRelease();
-        void onDuckStart();
-        void onDuckEnd();
+        void onUserInput(const UserInput &input);
         double getJumpCharge() const;
     private:
         struct Dust {
@@ -54,14 +56,6 @@ namespace trippin {
             bool playJumpSound;
         };
 
-        // user input data that flows from render thread to engine thread
-        struct InputChannel {
-            bool jumpCharge{};
-            bool jumpRelease{};
-            bool duckStart{};
-            bool duckEnd{};
-        };
-
         // goggin top-left corner, saved to ensure jitter/drift
         // accessed exclusively by render/main thread
         Point<int> cameraPosition;
@@ -87,9 +81,10 @@ namespace trippin {
 
         Guarded<Channel> channel;
         Guarded<SoundChannel> soundChannel;
-        Guarded<InputChannel> inputChannel;
+        Guarded<UserInput> inputChannel;
 
-        InputChannel input;
+        UserInput input;
+        std::unordered_map<Uint32, UserInput> autoPlay;
 
         bool skipLaunch;
         double jumpVelocity;

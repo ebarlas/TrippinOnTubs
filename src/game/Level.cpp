@@ -140,20 +140,8 @@ void trippin::Level::init() {
     initEngine();
 }
 
-void trippin::Level::render(Input input) {
-    if (input.spaceKeyDown) {
-        goggin.onJumpCharge();
-    }
-    if (input.spaceKeyUp) {
-        goggin.onJumpRelease();
-    }
-    if (input.downKeyDown) {
-        goggin.onDuckStart();
-    }
-    if (input.downKeyUp) {
-        goggin.onDuckEnd();
-    }
-
+void trippin::Level::render(UserInput input) {
+    goggin.onUserInput(input);
     goggin.centerCamera(camera);
     for (auto &obj : objects) {
         obj->render(camera);
