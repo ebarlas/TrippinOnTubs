@@ -25,10 +25,6 @@ void trippin::Goggin::init(const Configuration &config, const Map::Object &obj, 
     ch.position = roundedPosition;
     ch.center = toInt(center);
     ch.frame = FRAME_FALLING_LAST;
-    ch.jumpCharge = false;
-    ch.jumpRelease = false;
-    ch.duckStart = false;
-    ch.duckEnd = false;
 
     for (auto &d : ch.dusts) {
         d.frame = dust->getFrames(); // past the end
@@ -57,8 +53,15 @@ void trippin::Goggin::setSoundManager(trippin::SoundManager &sm) {
 void trippin::Goggin::beforeTick(Uint32 engineTicks) {
     Exchange<Channel> exchange{channel};
     auto &ch = exchange.get();
+    transferInput(engineTicks);
+    handleDuckStart(ch);
+    handleDuckEnd(ch);
+    handleJumpCharge(engineTicks, ch);
+    handleJumpRelease(engineTicks, ch);
+}
 
-    if (ch.duckStart) {
+void trippin::Goggin::handleDuckStart(Channel &ch) {
+    if (input.duckStart) {
         if (state == running && platformCollisions.testBottom()) {
             state = ducking;
             ticks = 0;
@@ -68,9 +71,11 @@ void trippin::Goggin::beforeTick(Uint32 engineTicks) {
             shrinkForDuck();
         }
     }
+}
 
-    if (ch.duckEnd) {
-        ch.duckStart = ch.duckEnd = false;
+void trippin::Goggin::handleDuckEnd(Channel &ch) {
+    if (input.duckEnd) {
+        input.duckStart = input.duckEnd = false;
         if (state == ducking) {
             ticks = 0;
             growForStand();
@@ -84,9 +89,10 @@ void trippin::Goggin::beforeTick(Uint32 engineTicks) {
             }
         }
     }
+}
 
-    double jumpVel;
-    if (ch.jumpCharge) {
+void trippin::Goggin::handleJumpCharge(Uint32 engineTicks, Channel &ch) {
+    if (input.jumpCharge) {
         if (!jumpTicks) {
             jumpTicks = engineTicks;
         }
@@ -94,17 +100,20 @@ void trippin::Goggin::beforeTick(Uint32 engineTicks) {
         auto range = toDouble(maxJumpChargeTicks - minJumpChargeTicks);
         auto boundedTicks = std::max(minJumpChargeTicks, std::min(relTicks, maxJumpChargeTicks));
         auto maxEffective = state == ducking && boundedTicks == maxJumpChargeTicks
-                ? maxDuckJumpVelocity
-                : maxJumpVelocity;
+                            ? maxDuckJumpVelocity
+                            : maxJumpVelocity;
         jumpPercent = (boundedTicks - minJumpChargeTicks) / range;
-        jumpVel = minJumpVelocity + jumpPercent * (maxEffective - minJumpVelocity);
     } else {
         jumpPercent = 0;
     }
+}
 
-    if (ch.jumpRelease && jumpTicks) {
-        ch.jumpCharge = false;
-        ch.jumpRelease = false;
+void trippin::Goggin::handleJumpRelease(Uint32 engineTicks, Channel &ch) {
+    if (input.jumpRelease && jumpTicks) {
+        auto maxEffective = state == ducking && jumpPercent == 1.0 ? maxDuckJumpVelocity : maxJumpVelocity;
+        double jumpVel = minJumpVelocity + jumpPercent * (maxEffective - minJumpVelocity);
+        input.jumpCharge = false;
+        input.jumpRelease = false;
         jumpTicks = 0;
         if (state == running || state == landing || state == ducking ||
             (engineTicks > lastRunOrDuckTick && engineTicks - lastRunOrDuckTick < jumpGracePeriodTicks)) {
@@ -350,16 +359,13 @@ void trippin::Goggin::render(const trippin::Camera &camera) {
 }
 
 void trippin::Goggin::onJumpCharge() {
-    Exchange<Channel> exchange{channel};
+    Exchange<InputChannel> exchange{inputChannel};
     exchange.get().jumpCharge = true;
 }
 
 void trippin::Goggin::onJumpRelease() {
-    Exchange<Channel> exchange{channel};
-    auto &ch = exchange.get();
-    if (ch.jumpCharge) {
-        ch.jumpRelease = true;
-    }
+    Exchange<InputChannel> exchange{inputChannel};
+    exchange.get().jumpRelease = true;
 }
 
 double trippin::Goggin::getJumpCharge() const {
@@ -367,16 +373,13 @@ double trippin::Goggin::getJumpCharge() const {
 }
 
 void trippin::Goggin::onDuckStart() {
-    Exchange<Channel> exchange{channel};
+    Exchange<InputChannel> exchange{inputChannel};
     exchange.get().duckStart = true;
 }
 
 void trippin::Goggin::onDuckEnd() {
-    Exchange<Channel> exchange{channel};
-    auto &ch = exchange.get();
-    if (ch.duckStart) {
-        ch.duckEnd = true;
-    }
+    Exchange<InputChannel> exchange{inputChannel};
+    auto &ch = exchange.get().duckEnd = true;
 }
 
 void trippin::Goggin::enqueueJumpSound(Uint32 engineTicks) {
@@ -389,4 +392,27 @@ void trippin::Goggin::enqueueJumpSound(Uint32 engineTicks) {
 
 bool trippin::Goggin::inUniverse(const trippin::Rect<int> &universe) const {
     return universe.intersect(roundedBox);
+}
+
+void trippin::Goggin::transferInput(Uint32 engineTicks) {
+    Exchange<InputChannel> exchange{inputChannel};
+    auto &ch = exchange.get();
+    bool any = false;
+    if (ch.duckStart && !input.duckStart) {
+        any = input.duckStart = true;
+    }
+    if (ch.duckEnd && !input.duckEnd) {
+        any = input.duckEnd = true;
+    }
+    if (ch.jumpCharge && !input.jumpCharge) {
+        any = input.jumpCharge = true;
+    }
+    if (ch.jumpRelease && !input.jumpRelease) {
+        any = input.jumpRelease = true;
+    }
+    if (any) {
+        SDL_Log("input event, ticks=%d, duckStart=%d, duckEnd=%d, jumpCharge=%d, jumpRelease=%d",
+                engineTicks, ch.duckStart, ch.duckEnd, ch.jumpCharge, ch.jumpRelease);
+    }
+    ch = {false, false, false, false};
 }

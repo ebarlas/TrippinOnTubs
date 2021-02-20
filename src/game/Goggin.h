@@ -35,6 +35,7 @@ namespace trippin {
             char ticks;
         };
 
+        // position data that flows from engine thread to render thread
         struct Channel {
             // goggin top-left corner position, pre-normalized for ducking case
             Point<int> position;
@@ -43,16 +44,22 @@ namespace trippin {
             Point<int> center;
 
             int frame;
-            bool jumpCharge;
-            bool jumpRelease;
-            bool duckStart;
-            bool duckEnd;
+
             std::array<Dust, 5> dusts; // circular queue of dust clouds
             Dust blast;
         };
 
+        // sound data that flows from engine thread to render thread
         struct SoundChannel {
             bool playJumpSound;
+        };
+
+        // user input data that flows from render thread to engine thread
+        struct InputChannel {
+            bool jumpCharge{};
+            bool jumpRelease{};
+            bool duckStart{};
+            bool duckEnd{};
         };
 
         // goggin top-left corner, saved to ensure jitter/drift
@@ -80,6 +87,9 @@ namespace trippin {
 
         Guarded<Channel> channel;
         Guarded<SoundChannel> soundChannel;
+        Guarded<InputChannel> inputChannel;
+
+        InputChannel input;
 
         bool skipLaunch;
         double jumpVelocity;
@@ -129,6 +139,12 @@ namespace trippin {
         void savePosition(Channel &ch);
 
         void enqueueJumpSound(Uint32 engineTicks);
+        void transferInput(Uint32 engineTicks);
+
+        void handleDuckStart(Channel &ch);
+        void handleDuckEnd(Channel &ch);
+        void handleJumpCharge(Uint32 engineTicks, Channel &ch);
+        void handleJumpRelease(Uint32 engineTicks, Channel &ch);
     };
 }
 
