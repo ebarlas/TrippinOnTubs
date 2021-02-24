@@ -4,7 +4,6 @@
 #include "SpriteObject.h"
 #include "Spirit.h"
 #include "Goggin.h"
-#include "lock/Mutex.h"
 
 namespace trippin {
     class SpiritClock : public Renderable, public Listener {
@@ -15,13 +14,11 @@ namespace trippin {
         Point<int> position;
         double engineTicksPerClockBar;
 
-        Mutex mutex;
         struct Channel {
             int frame;
         };
-        Channel channel;
-        void setFrame(int frame);
-        int getFrame();
+
+        Guarded <Channel> gChannel;
     public:
         void init(const Configuration &config, const Sprite &spr);
         void setSpirit(const Spirit &spirit);

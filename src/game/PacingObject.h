@@ -21,7 +21,8 @@ namespace trippin {
             Point<int> roundedPosition;
             int frame;
         };
-        Guarded<Channel> channel;
+        Channel channel;
+        Guarded<Channel> gChannel;
     };
 }
 

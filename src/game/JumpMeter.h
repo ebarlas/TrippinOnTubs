@@ -4,7 +4,7 @@
 #include "SpriteObject.h"
 #include "Spirit.h"
 #include "Goggin.h"
-#include "lock/Mutex.h"
+#include "lock/Guarded.h"
 
 namespace trippin {
     class JumpMeter : public Renderable, public Listener {
@@ -13,13 +13,10 @@ namespace trippin {
         const Goggin *goggin{};
         Point<int> position;
 
-        Mutex mutex;
         struct Channel {
             int frame;
         };
-        Channel channel;
-        void setFrame(int frame);
-        int getFrame();
+        Guarded<Channel> gChannel;
     public:
         void init();
         void setPosition(Point<int> position);

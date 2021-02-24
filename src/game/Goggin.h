@@ -79,9 +79,11 @@ namespace trippin {
 
         constexpr static const int RUNNING_FRAMES = 8;
 
-        Guarded<Channel> channel;
-        Guarded<SoundChannel> soundChannel;
-        Guarded<UserInput> inputChannel;
+        Channel channel;
+
+        Guarded<Channel> gChannel;
+        Guarded<SoundChannel> gSoundChannel;
+        Guarded<UserInput> gInputChannel;
 
         UserInput input;
         std::unordered_map<Uint32, UserInput> autoPlay;
@@ -120,26 +122,26 @@ namespace trippin {
         int jumpSoundTimeoutTicks;
         Uint32 lastJumpTicks;
 
-        void onFalling(Uint32 engineTicks, Channel &ch);
-        void onLanding(Uint32 engineTicks, Channel &ch);
-        void onRunning(Uint32 engineTicks, Channel &ch);
-        void onLaunching(Uint32 engineTicks, Channel &ch);
-        void onRising(Uint32 engineTicks, Channel &ch);
-        void onDucking(Uint32 engineTicks, Channel &ch);
+        void onFalling(Uint32 engineTicks);
+        void onLanding(Uint32 engineTicks);
+        void onRunning(Uint32 engineTicks);
+        void onLaunching(Uint32 engineTicks);
+        void onRising(Uint32 engineTicks);
+        void onDucking(Uint32 engineTicks);
 
-        void resetDustBlast(Channel &ch);
+        void resetDustBlast();
 
         void shrinkForDuck();
         void growForStand();
-        void savePosition(Channel &ch);
+        void savePosition();
 
         void enqueueJumpSound(Uint32 engineTicks);
         void transferInput(Uint32 engineTicks);
 
-        void handleDuckStart(Channel &ch);
-        void handleDuckEnd(Channel &ch);
-        void handleJumpCharge(Uint32 engineTicks, Channel &ch);
-        void handleJumpRelease(Uint32 engineTicks, Channel &ch);
+        void handleDuckStart();
+        void handleDuckEnd();
+        void handleJumpCharge(Uint32 engineTicks);
+        void handleJumpRelease(Uint32 engineTicks);
     };
 }
 

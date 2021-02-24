@@ -1,7 +1,7 @@
 #include <algorithm>
 #include "sprite/Sprite.h"
 #include "Goggin.h"
-#include "lock/Exchange.h"
+#include "lock/AutoGuard.h"
 #include "engine/Convert.h"
 
 void trippin::Goggin::init(const Configuration &config, const Map::Object &obj, const Sprite &spr) {
@@ -21,16 +21,17 @@ void trippin::Goggin::init(const Configuration &config, const Map::Object &obj, 
     state = State::falling;
     maxFallingVelocity = 0;
 
-    auto &ch = channel.ref();
-    ch.position = roundedPosition;
-    ch.center = toInt(center);
-    ch.frame = FRAME_FALLING_LAST;
+    channel.position = roundedPosition;
+    channel.center = toInt(center);
+    channel.frame = FRAME_FALLING_LAST;
 
-    for (auto &d : ch.dusts) {
+    for (auto &d : channel.dusts) {
         d.frame = dust->getFrames(); // past the end
     }
 
-    ch.blast.frame = dustBlast->getFrames(); // past the end
+    channel.blast.frame = dustBlast->getFrames(); // past the end
+    gChannel.set(channel);
+    gSoundChannel.set({false});
 
     dustPeriodTicks = obj.dustPeriod;
     nextDustPos = 0;
@@ -57,21 +58,20 @@ void trippin::Goggin::setAutoPlay(std::vector<UserInputTick> &ap) {
 }
 
 void trippin::Goggin::beforeTick(Uint32 engineTicks) {
-    Exchange<Channel> exchange{channel};
-    auto &ch = exchange.get();
+    AutoGuard<Channel> ag{channel, gChannel};
     transferInput(engineTicks);
-    handleDuckStart(ch);
-    handleDuckEnd(ch);
-    handleJumpCharge(engineTicks, ch);
-    handleJumpRelease(engineTicks, ch);
+    handleDuckStart();
+    handleDuckEnd();
+    handleJumpCharge(engineTicks);
+    handleJumpRelease(engineTicks);
 }
 
-void trippin::Goggin::handleDuckStart(Channel &ch) {
+void trippin::Goggin::handleDuckStart() {
     if (input.duckStart) {
         if (state == running && platformCollisions.testBottom()) {
             state = ducking;
             ticks = 0;
-            ch.frame = FRAME_DUCKING;
+            channel.frame = FRAME_DUCKING;
             acceleration.x = 0;
             friction.x = duckFriction;
             shrinkForDuck();
@@ -79,7 +79,7 @@ void trippin::Goggin::handleDuckStart(Channel &ch) {
     }
 }
 
-void trippin::Goggin::handleDuckEnd(Channel &ch) {
+void trippin::Goggin::handleDuckEnd() {
     if (input.duckEnd) {
         input.duckStart = input.duckEnd = false;
         if (state == ducking) {
@@ -87,17 +87,17 @@ void trippin::Goggin::handleDuckEnd(Channel &ch) {
             growForStand();
             if (platformCollisions.testBottom() || objectCollisions.testBottom()) {
                 state = running;
-                ch.frame = FRAME_RUN_AFTER_LAND;
+                channel.frame = FRAME_RUN_AFTER_LAND;
                 acceleration.x = runningAcceleration;
             } else {
                 state = falling;
-                ch.frame = FRAME_FALLING_FIRST;
+                channel.frame = FRAME_FALLING_FIRST;
             }
         }
     }
 }
 
-void trippin::Goggin::handleJumpCharge(Uint32 engineTicks, Channel &ch) {
+void trippin::Goggin::handleJumpCharge(Uint32 engineTicks) {
     if (input.jumpCharge) {
         if (!jumpTicks) {
             jumpTicks = engineTicks;
@@ -111,7 +111,7 @@ void trippin::Goggin::handleJumpCharge(Uint32 engineTicks, Channel &ch) {
     }
 }
 
-void trippin::Goggin::handleJumpRelease(Uint32 engineTicks, Channel &ch) {
+void trippin::Goggin::handleJumpRelease(Uint32 engineTicks) {
     if (input.jumpRelease && jumpTicks) {
         auto maxEffective = state == ducking && jumpPercent == 1.0 ? maxDuckJumpVelocity : maxJumpVelocity;
         double jumpVel = minJumpVelocity + jumpPercent * (maxEffective - minJumpVelocity);
@@ -125,14 +125,14 @@ void trippin::Goggin::handleJumpRelease(Uint32 engineTicks, Channel &ch) {
             }
             if (skipLaunch) {
                 state = State::rising;
-                ch.frame = FRAME_LAUNCHING_LAST;
+                channel.frame = FRAME_LAUNCHING_LAST;
                 velocity.y = jumpVel;
                 if (platformCollisions.testBottom() && jumpPercent >= 0.5) {
-                    resetDustBlast(ch);
+                    resetDustBlast();
                 }
             } else {
                 state = State::launching;
-                ch.frame = FRAME_LAUNCHING_FIRST;
+                channel.frame = FRAME_LAUNCHING_FIRST;
                 jumpVelocity = jumpVel;
             }
             enqueueJumpSound(engineTicks);
@@ -143,12 +143,12 @@ void trippin::Goggin::handleJumpRelease(Uint32 engineTicks, Channel &ch) {
 }
 
 void trippin::Goggin::afterTick(Uint32 engineTicks) {
-    Exchange<Channel> exchange{channel};
-    auto &ch = exchange.get();
+    AutoGuard<Channel> ag{channel, gChannel};
+
     ticks++;
 
     // advance dust cloud ticks
-    for (auto &d : ch.dusts) {
+    for (auto &d : channel.dusts) {
         if (d.frame < dust->getFrames()) {
             d.ticks++;
             if (d.ticks == dust->getFramePeriodTicks()) {
@@ -159,11 +159,11 @@ void trippin::Goggin::afterTick(Uint32 engineTicks) {
     }
 
     // advance dust blast
-    if (ch.blast.frame < dustBlast->getFrames()) {
-        ch.blast.ticks++;
-        if (ch.blast.ticks == dustBlast->getFramePeriodTicks()) {
-            ch.blast.ticks = 0;
-            ch.blast.frame++;
+    if (channel.blast.frame < dustBlast->getFrames()) {
+        channel.blast.ticks++;
+        if (channel.blast.ticks == dustBlast->getFramePeriodTicks()) {
+            channel.blast.ticks = 0;
+            channel.blast.frame++;
         }
     }
 
@@ -172,48 +172,47 @@ void trippin::Goggin::afterTick(Uint32 engineTicks) {
         dustTicks = engineTicks;
         auto left = roundedPosition.x;
         auto top = roundedPosition.y + size.y - dust->getHitBox().h;
-        ch.dusts[nextDustPos] = {{left, top}, 0};
-        nextDustPos = (nextDustPos + 1) % ch.dusts.size();
+        channel.dusts[nextDustPos] = {{left, top}, 0};
+        nextDustPos = (nextDustPos + 1) % channel.dusts.size();
     }
 
     if (state == State::falling) {
-        onFalling(engineTicks, ch);
+        onFalling(engineTicks);
     } else if (state == State::landing) {
-        onLanding(engineTicks, ch);
+        onLanding(engineTicks);
     } else if (state == State::running) {
-        onRunning(engineTicks, ch);
+        onRunning(engineTicks);
     } else if (state == State::launching) {
-        onLaunching(engineTicks, ch);
+        onLaunching(engineTicks);
     } else if (state == State::rising) {
-        onRising(engineTicks, ch);
+        onRising(engineTicks);
     } else if (state == State::ducking) {
-        onDucking(engineTicks, ch);
+        onDucking(engineTicks);
     }
 
-    savePosition(ch);
+    savePosition();
 }
 
-void trippin::Goggin::savePosition(trippin::Goggin::Channel &ch) {
+void trippin::Goggin::savePosition() {
     if (state == ducking) {
         // restore y to normal in channel to prepare for rendering
-        ch.position = {roundedPosition.x, toInt(position.y - size.y)};
-        ch.center = {toInt(position.x + size.x / 2.0), toInt(position.y)};
+        channel.position = {roundedPosition.x, toInt(position.y - size.y)};
+        channel.center = {toInt(position.x + size.x / 2.0), toInt(position.y)};
     } else {
-        ch.position = roundedPosition;
-        ch.center = toInt(center);
+        channel.position = roundedPosition;
+        channel.center = toInt(center);
     }
 }
 
 void trippin::Goggin::centerCamera(trippin::Camera &camera) {
     // record position here for use in subsequent render call to avoid jitter
     // jitter emerges when an engine tick updates the position *between* center and render calls
-    Exchange<Channel> exchange{channel};
-    auto &ch = exchange.get();
+    auto ch = gChannel.get();
     cameraPosition = ch.position;
     camera.centerOn(ch.center);
 }
 
-void trippin::Goggin::onFalling(Uint32 engineTicks, Channel &ch) {
+void trippin::Goggin::onFalling(Uint32 engineTicks) {
     if (velocity.y > maxFallingVelocity) {
         maxFallingVelocity = velocity.y;
     }
@@ -221,9 +220,9 @@ void trippin::Goggin::onFalling(Uint32 engineTicks, Channel &ch) {
     if (platformCollisions.testBottom() || objectCollisions.testBottom()) {
         state = State::landing;
         ticks = 0;
-        ch.frame = FRAME_LANDING_FIRST;
+        channel.frame = FRAME_LANDING_FIRST;
         if (platformCollisions.testBottom() && maxFallingVelocity >= terminalVelocity.y / 2.0) {
-            resetDustBlast(ch);
+            resetDustBlast();
         }
         enqueueJumpSound(engineTicks);
         return;
@@ -231,36 +230,36 @@ void trippin::Goggin::onFalling(Uint32 engineTicks, Channel &ch) {
 
     if (ticks == sprite->getFramePeriodTicks()) {
         ticks = 0;
-        auto frame = ch.frame;
+        auto frame = channel.frame;
         if (frame < FRAME_FALLING_LAST) {
-            ch.frame = frame + 1;
+            channel.frame = frame + 1;
         }
     }
 }
 
-void trippin::Goggin::onLanding(Uint32 engineTicks, Channel &ch) {
+void trippin::Goggin::onLanding(Uint32 engineTicks) {
     if (ticks != sprite->getFramePeriodTicks()) {
         return;
     }
 
     ticks = 0;
-    auto frame = ch.frame;
+    auto frame = channel.frame;
     if (frame == FRAME_LANDING_FIRST) {
-        ch.frame = frame + 1;
+        channel.frame = frame + 1;
         return;
     }
 
     state = running;
-    ch.frame = FRAME_RUN_AFTER_LAND;
+    channel.frame = FRAME_RUN_AFTER_LAND;
     acceleration.x = runningAcceleration;
 }
 
-void trippin::Goggin::onRunning(Uint32 engineTicks, Channel &ch) {
+void trippin::Goggin::onRunning(Uint32 engineTicks) {
     lastRunOrDuckTick = engineTicks;
 
     if (!platformCollisions.testBottom() && !objectCollisions.testBottom()) {
         state = State::falling;
-        ch.frame = FRAME_FALLING_FIRST;
+        channel.frame = FRAME_FALLING_FIRST;
         ticks = 0;
         acceleration.x = 0;
         maxFallingVelocity = 0;
@@ -269,20 +268,20 @@ void trippin::Goggin::onRunning(Uint32 engineTicks, Channel &ch) {
 
     if (ticks == sprite->getFramePeriodTicks()) {
         ticks = 0;
-        ch.frame = (ch.frame + 1) % RUNNING_FRAMES;
+        channel.frame = (channel.frame + 1) % RUNNING_FRAMES;
     }
 }
 
-void trippin::Goggin::onLaunching(Uint32 engineTicks, Channel &ch) {
+void trippin::Goggin::onLaunching(Uint32 engineTicks) {
     if (ticks != sprite->getFramePeriodTicks()) {
         return;
     }
 
     ticks = 0;
-    auto frame = ch.frame;
+    auto frame = channel.frame;
     if (frame < FRAME_LAUNCHING_LAST) {
         frame++;
-        ch.frame = frame;
+        channel.frame = frame;
         if (frame == FRAME_LAUNCHING_LAST) {
             state = State::rising;
             velocity.y = jumpVelocity;
@@ -290,28 +289,28 @@ void trippin::Goggin::onLaunching(Uint32 engineTicks, Channel &ch) {
     }
 }
 
-void trippin::Goggin::onRising(Uint32 engineTicks, Channel &ch) {
+void trippin::Goggin::onRising(Uint32 engineTicks) {
     if (velocity.y >= 0) {
         state = State::falling;
-        ch.frame = FRAME_FALLING_FIRST;
+        channel.frame = FRAME_FALLING_FIRST;
         ticks = 0;
         acceleration.x = 0;
         maxFallingVelocity = 0;
     }
 }
 
-void trippin::Goggin::onDucking(Uint32 engineTicks, Channel &ch) {
+void trippin::Goggin::onDucking(Uint32 engineTicks) {
     lastRunOrDuckTick = engineTicks;
 
     if (!platformCollisions.testBottom()) {
         ticks = 0;
         if (objectCollisions.testBottom()) {
             state = running;
-            ch.frame = FRAME_RUN_AFTER_LAND;
+            channel.frame = FRAME_RUN_AFTER_LAND;
             acceleration.x = runningAcceleration;
         } else {
             state = falling;
-            ch.frame = FRAME_FALLING_FIRST;
+            channel.frame = FRAME_FALLING_FIRST;
         }
         growForStand();
     }
@@ -331,15 +330,15 @@ void trippin::Goggin::growForStand() {
     syncPositions();
 }
 
-void trippin::Goggin::resetDustBlast(Channel &ch) {
-    ch.blast.frame = 0;
-    ch.blast.ticks = 0;
-    ch.blast.position.x = (roundedPosition.x + size.x / 2) - (dustBlast->getHitBox().w / 2);
-    ch.blast.position.y = (roundedPosition.y + size.y) - dustBlast->getHitBox().h;
+void trippin::Goggin::resetDustBlast() {
+    channel.blast.frame = 0;
+    channel.blast.ticks = 0;
+    channel.blast.position.x = (roundedPosition.x + size.x / 2) - (dustBlast->getHitBox().w / 2);
+    channel.blast.position.y = (roundedPosition.y + size.y) - dustBlast->getHitBox().h;
 }
 
 void trippin::Goggin::render(const trippin::Camera &camera) {
-    auto ch = channel.get();
+    auto ch = gChannel.get();
 
     for (auto &d : ch.dusts) {
         if (d.frame < dust->getFrames()) {
@@ -353,17 +352,15 @@ void trippin::Goggin::render(const trippin::Camera &camera) {
 
     sprite->render(cameraPosition, ch.frame, camera);
 
-    Exchange<SoundChannel> soundEx{soundChannel};
-    auto &soundCh = soundEx.get();
+    auto soundCh = gSoundChannel.get();
     if (soundCh.playJumpSound) {
         Mix_PlayChannel(-1, jumpSound, 0);
-        soundCh.playJumpSound = false;
+        gSoundChannel.set({false});
     }
 }
 
 void trippin::Goggin::onUserInput(const trippin::UserInput &in) {
-    Exchange<UserInput> exchange{inputChannel};
-    exchange.get() = in;
+    gInputChannel.set(in);
 }
 
 double trippin::Goggin::getJumpCharge() const {
@@ -372,8 +369,7 @@ double trippin::Goggin::getJumpCharge() const {
 
 void trippin::Goggin::enqueueJumpSound(Uint32 engineTicks) {
     if (engineTicks - lastJumpTicks >= jumpSoundTimeoutTicks) {
-        Exchange<SoundChannel> soundEx{soundChannel};
-        soundEx.get().playJumpSound = true;
+        gSoundChannel.set({true});
         lastJumpTicks = engineTicks;
     }
 }
@@ -391,8 +387,9 @@ void trippin::Goggin::transferInput(Uint32 engineTicks) {
         return;
     }
 
-    Exchange<UserInput> exchange{inputChannel};
-    auto &ch = exchange.get();
+    auto ch = gInputChannel.get();
+    gInputChannel.set({false, false, false, false});
+
     bool any = false;
     if (ch.duckStart && !input.duckStart) {
         any = input.duckStart = true;
@@ -410,5 +407,4 @@ void trippin::Goggin::transferInput(Uint32 engineTicks) {
         SDL_Log("input event, ticks=%d, duckStart=%d, duckEnd=%d, jumpCharge=%d, jumpRelease=%d",
                 engineTicks, ch.duckStart, ch.duckEnd, ch.jumpCharge, ch.jumpRelease);
     }
-    ch = {false, false, false, false};
 }

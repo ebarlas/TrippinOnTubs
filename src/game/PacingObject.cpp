@@ -1,11 +1,12 @@
 #include "PacingObject.h"
-#include "lock/Exchange.h"
+#include "lock/AutoGuard.h"
 
 void trippin::PacingObject::init(const Configuration &config, const Map::Object &obj, const Sprite &spr) {
     SpriteObject::init(config, obj, spr);
     inactive = true;
     runningAcceleration = obj.runningAcceleration;
-    channel.ref() = {roundedPosition, 0};
+    channel = {roundedPosition, 0};
+    gChannel.set(channel);
 }
 
 void trippin::PacingObject::beforeTick(Uint32 engineTicks) {
@@ -15,9 +16,6 @@ void trippin::PacingObject::beforeTick(Uint32 engineTicks) {
 }
 
 void trippin::PacingObject::afterTick(Uint32 engineTicks) {
-    Exchange<Channel> ex{channel};
-    auto &ch = ex.get();
-
     // early exit if not activated yet
     if (inactive) {
         return;
@@ -28,11 +26,13 @@ void trippin::PacingObject::afterTick(Uint32 engineTicks) {
         return;
     }
 
-    ch.roundedPosition = roundedPosition;
+    AutoGuard<Channel> ex{channel, gChannel};
+
+    channel.roundedPosition = roundedPosition;
     if (platformCollisions.testBottom() || objectCollisions.testBottom()) {
         acceleration.x = runningAcceleration;
         if (engineTicks % sprite->getFramePeriodTicks() == 0) {
-            ch.frame = (ch.frame + 1) % sprite->getFrames();
+            channel.frame = (channel.frame + 1) % sprite->getFrames();
         }
     } else {
         acceleration.x = 0;
@@ -40,7 +40,7 @@ void trippin::PacingObject::afterTick(Uint32 engineTicks) {
 }
 
 void trippin::PacingObject::render(const trippin::Camera &camera) {
-    auto ch = channel.get();
+    auto ch = gChannel.get();
     sprite->render(ch.roundedPosition, ch.frame, camera);
 }
 

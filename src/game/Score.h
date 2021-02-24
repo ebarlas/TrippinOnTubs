@@ -19,7 +19,8 @@ namespace trippin {
         struct Channel {
             double score;
         };
-        Guarded<Channel> channel;
+        Channel channel;
+        Guarded<Channel> gChannel;
     public:
         // called from engine thread after tick
         void afterTick(Uint32 engineTicks) override;

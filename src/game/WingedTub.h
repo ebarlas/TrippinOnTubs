@@ -53,7 +53,8 @@ namespace trippin {
             bool visible;
         };
 
-        Guarded<Channel> channel;
+        Channel channel;
+        Guarded<Channel> gChannel;
     };
 }
 

@@ -21,7 +21,8 @@ namespace trippin {
             int frame;
             bool expired;
         };
-        Guarded<Channel> channel;
+        Channel channel;
+        Guarded<Channel> gChannel;
 
         bool melting;
         int meltingTick;

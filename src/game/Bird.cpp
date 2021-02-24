@@ -1,11 +1,11 @@
 #include "Bird.h"
-#include "lock/Exchange.h"
+#include "lock/AutoGuard.h"
 
 void trippin::Bird::init(const Configuration &config, const Map::Object &obj, const Sprite &spr) {
     SpriteObject::init(config, obj, spr);
     inactive = true;
     acceleration.x = obj.runningAcceleration;
-    channel.ref() = {roundedPosition, 0};
+    gChannel.set({roundedPosition, 0});
 }
 
 void trippin::Bird::beforeTick(Uint32 engineTicks) {
@@ -15,9 +15,6 @@ void trippin::Bird::beforeTick(Uint32 engineTicks) {
 }
 
 void trippin::Bird::afterTick(Uint32 engineTicks) {
-    Exchange<Channel> ex{channel};
-    auto &ch = ex.get();
-
     // early exit if not activated yet
     if (inactive) {
         return;
@@ -28,15 +25,15 @@ void trippin::Bird::afterTick(Uint32 engineTicks) {
         return;
     }
 
-    ch.roundedPosition = roundedPosition;
-
+    AutoGuard<Channel> ag(channel, gChannel);
+    channel.roundedPosition = roundedPosition;
     if (engineTicks % sprite->getFramePeriodTicks() == 0) {
-        ch.frame = (ch.frame + 1) % sprite->getFrames();
+        channel.frame = (channel.frame + 1) % sprite->getFrames();
     }
 }
 
 void trippin::Bird::render(const trippin::Camera &camera) {
-    auto ch = channel.get();
+    auto ch = gChannel.get();
     sprite->render(ch.roundedPosition, ch.frame, camera);
 }
 
