@@ -16,7 +16,7 @@ namespace trippin {
         struct Channel {
             int frame;
         };
-        Guarded<Channel> gChannel;
+        Guarded<Channel> channel;
     public:
         void init();
         void setPosition(Point<int> position);

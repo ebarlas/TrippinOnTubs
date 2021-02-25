@@ -1,11 +1,11 @@
 #include "Bird.h"
-#include "lock/AutoGuard.h"
 
 void trippin::Bird::init(const Configuration &config, const Map::Object &obj, const Sprite &spr) {
     SpriteObject::init(config, obj, spr);
     inactive = true;
     acceleration.x = obj.runningAcceleration;
-    gChannel.set({roundedPosition, 0});
+    frame = 0;
+    channel.set({roundedPosition, frame});
 }
 
 void trippin::Bird::beforeTick(Uint32 engineTicks) {
@@ -25,15 +25,15 @@ void trippin::Bird::afterTick(Uint32 engineTicks) {
         return;
     }
 
-    AutoGuard<Channel> ag(channel, gChannel);
-    channel.roundedPosition = roundedPosition;
     if (engineTicks % sprite->getFramePeriodTicks() == 0) {
-        channel.frame = (channel.frame + 1) % sprite->getFrames();
+        frame = (frame + 1) % sprite->getFrames();
     }
+
+    channel.set({roundedPosition, frame});
 }
 
 void trippin::Bird::render(const trippin::Camera &camera) {
-    auto ch = gChannel.get();
+    auto ch = channel.get();
     sprite->render(ch.roundedPosition, ch.frame, camera);
 }
 

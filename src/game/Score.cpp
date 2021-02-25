@@ -1,10 +1,9 @@
 #include "Score.h"
-#include "lock/AutoGuard.h"
 #include "engine/Convert.h"
 
 void trippin::Score::init() {
-    channel.score = 0;
-    gChannel.set({channel});
+    score = 0;
+    channel.set(score);
 }
 
 void trippin::Score::setMargin(int mar) {
@@ -16,12 +15,12 @@ void trippin::Score::setSprite(const Sprite &spr) {
 }
 
 void trippin::Score::add(int n) {
-    AutoGuard<Channel> ag(channel, gChannel);
-    channel.score += n;
+    score += n;
+    channel.set(score);
 }
 
 void trippin::Score::render(const trippin::Camera &camera) {
-    int sc = toInt(gChannel.get().score);
+    int sc = toInt(channel.get());
     int x = camera.getViewport().w - margin - digits->getSize().x;
     do {
         auto digit = sc % 10;
@@ -33,8 +32,8 @@ void trippin::Score::render(const trippin::Camera &camera) {
 }
 
 void trippin::Score::afterTick(Uint32 engineTicks) {
-    AutoGuard<Channel> ag(channel, gChannel);
-    channel.score += pointsPerTick;
+    score += pointsPerTick;
+    channel.set(score);
 }
 
 void trippin::Score::setPointsPerTick(double ppt) {

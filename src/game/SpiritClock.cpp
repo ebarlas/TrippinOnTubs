@@ -1,11 +1,10 @@
 #include "SpiritClock.h"
-#include "lock/AutoGuard.h"
 #include "engine/Convert.h"
 
 void trippin::SpiritClock::init(const Configuration &config, const Sprite &spr) {
     engineTicksPerClockBar = config.engineTicksPerSpiritClockTick();
     sprite = &spr;
-    gChannel.set({sprite->getFrames() - 1});
+    channel.set({sprite->getFrames() - 1});
 }
 
 void trippin::SpiritClock::setSpirit(const trippin::Spirit &sp) {
@@ -21,7 +20,7 @@ void trippin::SpiritClock::setPosition(trippin::Point<int> pos) {
 }
 
 void trippin::SpiritClock::render(const trippin::Camera &camera) {
-    sprite->render(position, gChannel.get().frame);
+    sprite->render(position, channel.get().frame);
 }
 
 void trippin::SpiritClock::afterTick(Uint32 engineTicks) {
@@ -29,5 +28,5 @@ void trippin::SpiritClock::afterTick(Uint32 engineTicks) {
     auto ticksAway = distanceAway / spirit->getVelocity();
     auto numClockBars = sprite->getFrames() - 1;
     auto barsAway = toInt(ticksAway / engineTicksPerClockBar);
-    gChannel.set({std::min(numClockBars, std::max(0, barsAway))});
+    channel.set({std::min(numClockBars, std::max(0, barsAway))});
 }

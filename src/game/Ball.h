@@ -16,14 +16,14 @@ namespace trippin {
         void setActivation(const Activation *activation);
     private:
         ReflectiveCollision reflectiveCollision;
-        const Activation *activation;
+        const Activation *activation{};
+        int frame{};
 
         struct Channel {
             Point<int> roundedPosition;
             int frame;
         };
-        Channel channel;
-        Guarded<Channel> gChannel;
+        Guarded<Channel> channel;
     };
 }
 

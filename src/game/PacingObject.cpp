@@ -1,12 +1,11 @@
 #include "PacingObject.h"
-#include "lock/AutoGuard.h"
 
 void trippin::PacingObject::init(const Configuration &config, const Map::Object &obj, const Sprite &spr) {
     SpriteObject::init(config, obj, spr);
     inactive = true;
     runningAcceleration = obj.runningAcceleration;
-    channel = {roundedPosition, 0};
-    gChannel.set(channel);
+    frame = 0;
+    channel.set({roundedPosition, frame});
 }
 
 void trippin::PacingObject::beforeTick(Uint32 engineTicks) {
@@ -26,21 +25,20 @@ void trippin::PacingObject::afterTick(Uint32 engineTicks) {
         return;
     }
 
-    AutoGuard<Channel> ex{channel, gChannel};
-
-    channel.roundedPosition = roundedPosition;
     if (platformCollisions.testBottom() || objectCollisions.testBottom()) {
         acceleration.x = runningAcceleration;
         if (engineTicks % sprite->getFramePeriodTicks() == 0) {
-            channel.frame = (channel.frame + 1) % sprite->getFrames();
+            frame = (frame + 1) % sprite->getFrames();
         }
     } else {
         acceleration.x = 0;
     }
+
+    channel.set({roundedPosition, frame});
 }
 
 void trippin::PacingObject::render(const trippin::Camera &camera) {
-    auto ch = gChannel.get();
+    auto ch = channel.get();
     sprite->render(ch.roundedPosition, ch.frame, camera);
 }
 

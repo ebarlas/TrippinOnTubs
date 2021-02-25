@@ -16,13 +16,13 @@ namespace trippin {
     private:
         double runningAcceleration;
         const Activation *activation;
+        int frame;
 
         struct Channel {
             Point<int> roundedPosition;
             int frame;
         };
-        Channel channel;
-        Guarded<Channel> gChannel;
+        Guarded<Channel> channel;
     };
 }
 

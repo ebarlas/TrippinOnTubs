@@ -31,6 +31,7 @@ namespace trippin {
         const Activation *activation;
         Score *score;
         SoundManager *soundManager;
+        int frame;
 
         Mix_Chunk *sound;
         bool playedSound;
@@ -39,8 +40,7 @@ namespace trippin {
             Point<int> roundedPosition;
             int frame;
         };
-        Channel channel;
-        Guarded<Channel> gChannel;
+        Guarded<Channel> channel;
     };
 }
 

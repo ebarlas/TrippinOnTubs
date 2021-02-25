@@ -1,12 +1,12 @@
 #include "RunningClock.h"
-#include "lock/AutoGuard.h"
 
 void trippin::RunningClock::init(const Configuration &config, const Map::Object &obj, const Sprite &spr) {
     SpriteObject::init(config, obj, spr);
     lane = -1;
     inactive = true;
     runningAcceleration = obj.runningAcceleration;
-    channel = {roundedPosition, 0};
+    frame = 0;
+    channel.set({roundedPosition, frame});
     playedSound = false;
     sound = soundManager->getEffect("chime1");
 }
@@ -28,40 +28,37 @@ void trippin::RunningClock::afterTick(Uint32 engineTicks) {
         return;
     }
 
-    AutoGuard<Channel> ag{channel, gChannel};
-
     // Case #1: Goggin contact
     if (!hitGoggin && roundedBox.intersect(goggin->roundedBox)) {
         hitGoggin = true;
         hitTicks = 0;
-        channel.frame = FRAME_CLOUD_FIRST;
+        frame = FRAME_CLOUD_FIRST;
         spirit->delay(1);
         score->add(50);
-        return;
     }
 
     // Case #2: Advance dust cloud
-    if (hitGoggin) {
+    else if (hitGoggin) {
         hitTicks++;
         if (hitTicks % (sprite->getFramePeriodTicks() * 2) == 0) {
-            channel.frame++;
+            frame++;
         }
-        if (channel.frame == sprite->getFrames()) {
+        if (frame == sprite->getFrames()) {
             expired = true;
         }
-        return;
     }
 
     // Case #3: Advance flapping wings cycle
-    channel.roundedPosition = roundedPosition;
-    if (platformCollisions.testBottom() || objectCollisions.testBottom()) {
+    else if (platformCollisions.testBottom() || objectCollisions.testBottom()) {
         acceleration.x = runningAcceleration;
         if (engineTicks % sprite->getFramePeriodTicks() == 0) {
-            channel.frame = (channel.frame + 1) % FRAME_CLOUD_FIRST;
+            frame = (frame + 1) % FRAME_CLOUD_FIRST;
         }
     } else {
         acceleration.x = 0;
     }
+
+    channel.set({roundedPosition, frame});
 }
 
 void trippin::RunningClock::setGoggin(const Goggin *g) {
@@ -73,7 +70,7 @@ void trippin::RunningClock::setSpirit(Spirit *sp) {
 }
 
 void trippin::RunningClock::render(const trippin::Camera &camera) {
-    auto ch = gChannel.get();
+    auto ch = channel.get();
     if (ch.frame < sprite->getFrames()) {
         sprite->render(ch.roundedPosition, ch.frame, camera);
         if (ch.frame == FRAME_CLOUD_FIRST && !playedSound) {

@@ -1,5 +1,4 @@
 #include "WingedTub.h"
-#include "lock/AutoGuard.h"
 #include "engine/Convert.h"
 
 void trippin::WingedTub::init(const Configuration &config, const Map::Object &obj, const Sprite &spr) {
@@ -11,8 +10,8 @@ void trippin::WingedTub::init(const Configuration &config, const Map::Object &ob
     inactive = true;
     tubFrameFirst = obj.sparkle ? FRAME_SPARKLE_FIRST : FRAME_TUB_FIRST;
     tubFrameLast = obj.sparkle ? FRAME_SPARKLE_LAST : FRAME_TUB_LAST;
-    channel = {tubFrameFirst, true};
-    gChannel.set(channel);
+    frame = tubFrameFirst;
+    channel.set({frame, true});
     points = obj.sparkle ? 200 : 100;
     playedSound = false;
     sound = obj.sparkle ? soundManager->getEffect("chime3") : soundManager->getEffect("chime2");
@@ -35,37 +34,34 @@ void trippin::WingedTub::afterTick(Uint32 engineTicks) {
         return;
     }
 
-    AutoGuard<Channel> ag(channel, gChannel);
-
     // Case #1: Goggin contact
     if (!hitGoggin && hitBox.intersect(goggin->roundedBox)) {
         hitGoggin = true;
         hitTicks = 0;
-        channel.frame = FRAME_CLOUD_FIRST;
+        frame = FRAME_CLOUD_FIRST;
         score->add(points);
-        return;
     }
 
     // Case #2: Advance dust cloud
-    if (hitGoggin) {
+    else if (hitGoggin) {
         hitTicks++;
         if (hitTicks % sprite->getFramePeriodTicks() == 0) {
-            channel.frame++;
+            frame++;
         }
-        if (channel.frame == FRAME_CLOUD_LAST) {
+        if (frame == FRAME_CLOUD_LAST) {
             expired = true;
-            channel.visible = false;
         }
-        return;
     }
 
     // Case #3: Advance flapping wings cycle
-    if (engineTicks % sprite->getFramePeriodTicks() == 0) {
-        channel.frame++;
-        if (channel.frame == tubFrameLast) {
-            channel.frame = tubFrameFirst;
+    else if (engineTicks % sprite->getFramePeriodTicks() == 0) {
+        frame++;
+        if (frame == tubFrameLast) {
+            frame = tubFrameFirst;
         }
     }
+
+    channel.set({frame, !expired});
 }
 
 void trippin::WingedTub::setGoggin(const Goggin *g) {
@@ -81,7 +77,7 @@ void trippin::WingedTub::setActivation(const Activation *act) {
 }
 
 void trippin::WingedTub::render(const trippin::Camera &camera) {
-    auto ch = gChannel.get();
+    auto ch = channel.get();
     if (ch.visible) {
         sprite->render(hitBox.corner(), ch.frame, camera);
         if (ch.frame == FRAME_CLOUD_FIRST && !playedSound) {

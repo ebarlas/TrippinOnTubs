@@ -18,7 +18,7 @@ namespace trippin {
             int frame;
         };
 
-        Guarded <Channel> gChannel;
+        Guarded <Channel> channel;
     public:
         void init(const Configuration &config, const Sprite &spr);
         void setSpirit(const Spirit &spirit);

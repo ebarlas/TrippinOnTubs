@@ -15,12 +15,9 @@ namespace trippin {
         const Sprite *digits{};
         int margin;
         double pointsPerTick;
+        double score;
 
-        struct Channel {
-            double score;
-        };
-        Channel channel;
-        Guarded<Channel> gChannel;
+        Guarded<double> channel;
     public:
         // called from engine thread after tick
         void afterTick(Uint32 engineTicks) override;

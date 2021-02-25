@@ -44,6 +44,7 @@ namespace trippin {
         int points;
         int tubFrameFirst;
         int tubFrameLast;
+        int frame;
 
         Mix_Chunk *sound;
         bool playedSound;
@@ -53,8 +54,7 @@ namespace trippin {
             bool visible;
         };
 
-        Channel channel;
-        Guarded<Channel> gChannel;
+        Guarded<Channel> channel;
     };
 }
 

@@ -21,12 +21,12 @@ namespace trippin {
             int frame;
             bool expired;
         };
-        Channel channel;
-        Guarded<Channel> gChannel;
+        Guarded<Channel> channel;
 
         bool melting;
         int meltingTick;
         int ticks{};
+        int frame;
         const Spirit *spirit;
         const Activation *activation;
     };
