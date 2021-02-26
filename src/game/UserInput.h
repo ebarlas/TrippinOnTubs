@@ -7,6 +7,21 @@ namespace trippin {
         bool jumpRelease{};
         bool duckStart{};
         bool duckEnd{};
+
+        bool operator!=(const UserInput &ui) const {
+            return jumpCharge != ui.jumpCharge
+                   || jumpRelease != ui.jumpRelease
+                   || duckStart != ui.duckStart
+                   || duckEnd != ui.duckEnd;
+        }
+
+        UserInput &operator|=(const UserInput &ui) {
+            jumpCharge |= ui.jumpCharge;
+            jumpRelease |= ui.jumpRelease;
+            duckStart |= ui.duckStart;
+            duckEnd |= ui.duckEnd;
+            return *this;
+        }
     };
 }
 

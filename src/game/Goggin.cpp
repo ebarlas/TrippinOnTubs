@@ -365,28 +365,15 @@ void trippin::Goggin::transferInput(Uint32 engineTicks) {
     if (!autoPlay.empty()) {
         auto it = autoPlay.find(engineTicks);
         if (it != autoPlay.end()) {
-            input = it->second;
+            input |= it->second;
         }
         return;
     }
 
-    auto ch = inputChannel.get();
-    inputChannel.set({false, false, false, false});
-
-    bool any = false;
-    if (ch.duckStart && !input.duckStart) {
-        any = input.duckStart = true;
-    }
-    if (ch.duckEnd && !input.duckEnd) {
-        any = input.duckEnd = true;
-    }
-    if (ch.jumpCharge && !input.jumpCharge) {
-        any = input.jumpCharge = true;
-    }
-    if (ch.jumpRelease && !input.jumpRelease) {
-        any = input.jumpRelease = true;
-    }
-    if (any) {
+    auto ch = inputChannel.getAndSet({false, false, false, false});
+    auto prev = input;
+    input |= ch;
+    if (input != prev) {
         SDL_Log("input event, ticks=%d, duckStart=%d, duckEnd=%d, jumpCharge=%d, jumpRelease=%d",
                 engineTicks, ch.duckStart, ch.duckEnd, ch.jumpCharge, ch.jumpRelease);
     }

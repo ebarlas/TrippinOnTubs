@@ -16,6 +16,7 @@ namespace trippin {
     public:
         void set(const T &value);
         T get() const;
+        T getAndSet(const T &value);
         T& ref();
     };
 }
@@ -30,6 +31,14 @@ template<class T>
 T trippin::Guarded<T>::get() const {
     Lock lock(mutex);
     return value;
+}
+
+template<class T>
+T trippin::Guarded<T>::getAndSet(const T &val) {
+    Lock lock(mutex);
+    T prev = value;
+    value = val;
+    return prev;
 }
 
 template<class T>
