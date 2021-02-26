@@ -11,10 +11,10 @@ void trippin::WingedTub::init(const Configuration &config, const Map::Object &ob
     tubFrameFirst = obj.sparkle ? FRAME_SPARKLE_FIRST : FRAME_TUB_FIRST;
     tubFrameLast = obj.sparkle ? FRAME_SPARKLE_LAST : FRAME_TUB_LAST;
     frame = tubFrameFirst;
-    channel.set({frame, true});
     points = obj.sparkle ? 200 : 100;
     playedSound = false;
     sound = obj.sparkle ? soundManager->getEffect("chime3") : soundManager->getEffect("chime2");
+    syncChannel();
 }
 
 void trippin::WingedTub::beforeTick(Uint32 engineTicks) {
@@ -24,13 +24,13 @@ void trippin::WingedTub::beforeTick(Uint32 engineTicks) {
 }
 
 void trippin::WingedTub::afterTick(Uint32 engineTicks) {
-    // early exit if not activated yet
     if (inactive) {
         return;
     }
 
     if (activation->shouldDeactivate(hitBox)) {
         expired = true;
+        syncChannel();
         return;
     }
 
@@ -61,7 +61,7 @@ void trippin::WingedTub::afterTick(Uint32 engineTicks) {
         }
     }
 
-    channel.set({frame, !expired});
+    syncChannel();
 }
 
 void trippin::WingedTub::setGoggin(const Goggin *g) {
@@ -93,4 +93,8 @@ bool trippin::WingedTub::isExpired() {
 
 void trippin::WingedTub::setSoundManager(trippin::SoundManager &sm) {
     soundManager = &sm;
+}
+
+void trippin::WingedTub::syncChannel() {
+    channel.set({frame, !inactive && !expired});
 }

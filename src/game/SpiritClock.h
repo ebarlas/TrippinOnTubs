@@ -13,12 +13,7 @@ namespace trippin {
         const Goggin *goggin{};
         Point<int> position;
         double engineTicksPerClockBar;
-
-        struct Channel {
-            int frame;
-        };
-
-        Guarded <Channel> channel;
+        Guarded <int> channel;
     public:
         void init(const Configuration &config, const Sprite &spr);
         void setSpirit(const Spirit &spirit);

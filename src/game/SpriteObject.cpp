@@ -11,7 +11,7 @@ void trippin::SpriteObject::init(
     gravity = obj.gravity;
     fallGravity = obj.fallGravity;
     auto hb = spr.getHitBox();
-    mass = obj.mass > 0 ? obj.mass : hb.area();
+    mass = obj.mass > 0 ? obj.mass : (obj.massFactor > 0 ? hb.area() * obj.massFactor : hb.area());
     position = {obj.position.x + hb.corner().x, obj.position.y + hb.corner().y};
     size = {hb.w, hb.h};
     velocity = obj.velocity;

@@ -2,7 +2,7 @@
 #include "engine/Convert.h"
 
 void trippin::JumpMeter::init() {
-    channel.set({sprite->getFrames() - 1});
+    channel.set(sprite->getFrames() - 1);
 }
 
 void trippin::JumpMeter::setPosition(Point<int> pos) {
@@ -18,11 +18,11 @@ void trippin::JumpMeter::setSprite(const trippin::Sprite &spr) {
 }
 
 void trippin::JumpMeter::render(const trippin::Camera &camera) {
-    sprite->render(position, channel.get().frame);
+    sprite->render(position, channel.get());
 }
 
 void trippin::JumpMeter::afterTick(Uint32 engineTicks) {
     auto jumpCharge = goggin->getJumpCharge();
     auto numJumpBars = sprite->getFrames() - 1;
-    channel.set({toInt(jumpCharge * numJumpBars)});
+    channel.set(toInt(jumpCharge * numJumpBars));
 }

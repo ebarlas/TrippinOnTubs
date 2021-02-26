@@ -20,6 +20,7 @@ namespace trippin {
             double gravity{};
             double fallGravity{};
             double mass{};
+            double massFactor{};
             double minJumpVelocity;
             double maxJumpVelocity;
             double maxDuckJumpVelocity;

@@ -37,6 +37,12 @@ namespace trippin {
             char ticks;
         };
 
+        struct Frames {
+            int frame;
+            std::array<Dust, 5> dusts; // circular queue of dust clouds
+            Dust blast;
+        };
+
         // position data that flows from engine thread to render thread
         struct Channel {
             // goggin top-left corner position, pre-normalized for ducking case
@@ -45,10 +51,7 @@ namespace trippin {
             // goggin center point, normalized
             Point<int> center;
 
-            int frame;
-
-            std::array<Dust, 5> dusts; // circular queue of dust clouds
-            Dust blast;
+            Frames frames;
         };
 
         // sound data that flows from engine thread to render thread
@@ -79,11 +82,12 @@ namespace trippin {
 
         constexpr static const int RUNNING_FRAMES = 8;
 
-        Channel channel;
+        Frames frames;
 
-        Guarded<Channel> gChannel;
-        Guarded<SoundChannel> gSoundChannel;
-        Guarded<UserInput> gInputChannel;
+        Guarded<Channel> channel;
+        Guarded<SoundChannel> soundChannel;
+        Guarded<UserInput> inputChannel;
+        void syncChannel();
 
         UserInput input;
         std::unordered_map<Uint32, UserInput> autoPlay;
@@ -133,7 +137,6 @@ namespace trippin {
 
         void shrinkForDuck();
         void growForStand();
-        void savePosition();
 
         void enqueueJumpSound(Uint32 engineTicks);
         void transferInput(Uint32 engineTicks);

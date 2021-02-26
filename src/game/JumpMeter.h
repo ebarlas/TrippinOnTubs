@@ -12,11 +12,7 @@ namespace trippin {
         const Sprite *sprite{};
         const Goggin *goggin{};
         Point<int> position;
-
-        struct Channel {
-            int frame;
-        };
-        Guarded<Channel> channel;
+        Guarded<int> channel;
     public:
         void init();
         void setPosition(Point<int> position);

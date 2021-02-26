@@ -5,7 +5,7 @@ void trippin::Bird::init(const Configuration &config, const Map::Object &obj, co
     inactive = true;
     acceleration.x = obj.runningAcceleration;
     frame = 0;
-    channel.set({roundedPosition, frame});
+    syncChannel();
 }
 
 void trippin::Bird::beforeTick(Uint32 engineTicks) {
@@ -15,13 +15,13 @@ void trippin::Bird::beforeTick(Uint32 engineTicks) {
 }
 
 void trippin::Bird::afterTick(Uint32 engineTicks) {
-    // early exit if not activated yet
     if (inactive) {
         return;
     }
 
     if (activation->shouldDeactivate(roundedBox)) {
         expired = true;
+        syncChannel();
         return;
     }
 
@@ -29,7 +29,7 @@ void trippin::Bird::afterTick(Uint32 engineTicks) {
         frame = (frame + 1) % sprite->getFrames();
     }
 
-    channel.set({roundedPosition, frame});
+    syncChannel();
 }
 
 void trippin::Bird::render(const trippin::Camera &camera) {
@@ -39,4 +39,8 @@ void trippin::Bird::render(const trippin::Camera &camera) {
 
 void trippin::Bird::setActivation(const Activation *act) {
     activation = act;
+}
+
+void trippin::Bird::syncChannel() {
+    channel.set({roundedPosition, frame, !inactive && !expired});
 }

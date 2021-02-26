@@ -144,14 +144,14 @@ void trippin::Game::renderLoop() {
         SDL_SetRenderDrawColor(renderer, 247, 251, 255, 255);
         SDL_RenderClear(renderer);
 
-        if (level) {
-            if (level->ended()) {
-                level->stop();
-                level.reset();
-            } else {
+        //if (level) {
+            //if (level->ended()) {
+                //level->stop();
+                //level.reset();
+            //} else {
                 level->render(input);
-            }
-        }
+            //}
+        //}
 
         SDL_RenderPresent(renderer);
         timer.next();

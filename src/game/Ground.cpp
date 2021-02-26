@@ -3,9 +3,9 @@
 void trippin::Ground::init(const Configuration &config, const Map::Object &obj, const Sprite &spr) {
     SpriteObject::init(config, obj, spr);
     frame = 0;
-    channel.set({roundedPosition, frame, false});
     melting = false;
     inactive = true;
+    syncChannel();
 }
 
 void trippin::Ground::beforeTick(Uint32 engineTicks) {
@@ -15,6 +15,10 @@ void trippin::Ground::beforeTick(Uint32 engineTicks) {
 }
 
 void trippin::Ground::afterTick(Uint32 engineTicks) {
+    if (inactive) {
+        return;
+    }
+
     ticks++;
     if (!melting && position.x <= spirit->getPosition()) {
         melting = true;
@@ -29,12 +33,13 @@ void trippin::Ground::afterTick(Uint32 engineTicks) {
             expired = true;
         }
     }
-    channel.set({roundedPosition, frame, expired});
+
+    syncChannel();
 }
 
 void trippin::Ground::render(const trippin::Camera &camera) {
     auto ch = channel.get();
-    if (!ch.expired) {
+    if (ch.visible) {
         sprite->render(ch.roundedPosition, ch.frame, camera);
     }
 }
@@ -45,4 +50,8 @@ void trippin::Ground::setSpirit(const trippin::Spirit *sp) {
 
 void trippin::Ground::setActivation(const Activation *act) {
     activation = act;
+}
+
+void trippin::Ground::syncChannel() {
+    channel.set({roundedPosition, frame, !inactive && !expired});
 }

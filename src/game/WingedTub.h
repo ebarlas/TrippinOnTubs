@@ -55,6 +55,7 @@ namespace trippin {
         };
 
         Guarded<Channel> channel;
+        void syncChannel();
     };
 }
 

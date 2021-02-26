@@ -16,19 +16,20 @@ namespace trippin {
         void setSpirit(const Spirit *spirit);
         void setActivation(const Activation *activation);
     private:
-        struct Channel {
-            Point<int> roundedPosition;
-            int frame;
-            bool expired;
-        };
-        Guarded<Channel> channel;
-
         bool melting;
         int meltingTick;
         int ticks{};
         int frame;
         const Spirit *spirit;
         const Activation *activation;
+
+        struct Channel {
+            Point<int> roundedPosition;
+            int frame;
+            bool visible;
+        };
+        Guarded<Channel> channel;
+        void syncChannel();
     };
 }
 

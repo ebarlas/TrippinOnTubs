@@ -101,6 +101,8 @@ void trippin::from_json(const nlohmann::json& j, Map::Object& obj) {
         j.at("fallGravity").get_to(obj.fallGravity);
     if (j.contains("mass"))
         j.at("mass").get_to(obj.mass);
+    if (j.contains("massFactor"))
+        j.at("massFactor").get_to(obj.massFactor);
     if (j.contains("velocity"))
         j.at("velocity").get_to(obj.velocity);
     if (j.contains("minJumpVelocity"))

@@ -4,7 +4,7 @@ void trippin::Ball::init(const Configuration &config, const Map::Object &obj, co
     SpriteObject::init(config, obj, spr);
     inactive = true;
     frame = 0;
-    channel.set({roundedPosition, frame});
+    syncChannel();
     reflectiveCollision.setCoefficient(obj.coefficient);
     platformCollision.set(&reflectiveCollision);
 }
@@ -16,13 +16,13 @@ void trippin::Ball::beforeTick(Uint32 engineTicks) {
 }
 
 void trippin::Ball::afterTick(Uint32 engineTicks) {
-    // early exit if not activated yet
     if (inactive) {
         return;
     }
 
     if (activation->shouldDeactivate(roundedBox)) {
         expired = true;
+        syncChannel();
         return;
     }
 
@@ -30,14 +30,20 @@ void trippin::Ball::afterTick(Uint32 engineTicks) {
         frame = (frame + 1) % sprite->getFrames();
     }
 
-    channel.set({roundedPosition, frame});
+    syncChannel();
 }
 
 void trippin::Ball::render(const trippin::Camera &camera) {
     auto ch = channel.get();
-    sprite->render(ch.roundedPosition, ch.frame, camera);
+    if (ch.visible) {
+        sprite->render(ch.roundedPosition, ch.frame, camera);
+    }
 }
 
 void trippin::Ball::setActivation(const Activation *act) {
     activation = act;
+}
+
+void trippin::Ball::syncChannel() {
+    channel.set({roundedPosition, frame, !inactive && !expired});
 }

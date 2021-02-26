@@ -20,8 +20,10 @@ namespace trippin {
         struct Channel {
             Point<int> roundedPosition;
             int frame;
+            bool visible;
         };
         Guarded<Channel> channel;
+        void syncChannel();
     };
 }
 

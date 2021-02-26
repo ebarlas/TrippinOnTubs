@@ -6,9 +6,9 @@ void trippin::RunningClock::init(const Configuration &config, const Map::Object 
     inactive = true;
     runningAcceleration = obj.runningAcceleration;
     frame = 0;
-    channel.set({roundedPosition, frame});
     playedSound = false;
     sound = soundManager->getEffect("chime1");
+    syncChannel();
 }
 
 void trippin::RunningClock::beforeTick(Uint32 engineTicks) {
@@ -25,6 +25,7 @@ void trippin::RunningClock::afterTick(Uint32 engineTicks) {
 
     if (activation->shouldDeactivate(roundedBox)) {
         expired = true;
+        syncChannel();
         return;
     }
 
@@ -58,7 +59,7 @@ void trippin::RunningClock::afterTick(Uint32 engineTicks) {
         acceleration.x = 0;
     }
 
-    channel.set({roundedPosition, frame});
+    syncChannel();
 }
 
 void trippin::RunningClock::setGoggin(const Goggin *g) {
@@ -90,4 +91,8 @@ void trippin::RunningClock::setScore(trippin::Score *sc) {
 
 void trippin::RunningClock::setSoundManager(trippin::SoundManager &sm) {
     soundManager = &sm;
+}
+
+void trippin::RunningClock::syncChannel() {
+    channel.set({roundedPosition, frame, !inactive && !expired});
 }
