@@ -80,6 +80,7 @@ add_library(Game
         game/Activation.cpp
         game/Layer.cpp
         game/Level.cpp
+        game/AutoPlay.cpp
         game/SoundManager.cpp)
 target_include_directories(Game PUBLIC ${SDL2_MIXER_INCLUDE_DIR})
 target_link_libraries(Game Sprite Lock ${SDL2_MIXER_LIB})

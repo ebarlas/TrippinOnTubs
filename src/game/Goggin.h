@@ -16,10 +16,11 @@ namespace trippin {
     class Goggin : public SpriteObject {
     public:
         void init(const Configuration &config, const Map::Object &obj, const Sprite &spr) override;
+        void setUniverse(const Point<int> &universe);
         void setDust(const Sprite &spr);
         void setDustBlast(const Sprite &spr);
         void setSoundManager(SoundManager &sm);
-        void setAutoPlay(std::vector<UserInputTick> &autoPlay);
+        void setAutoPlay(const std::vector<UserInputTick> &autoPlay);
         void beforeTick(Uint32 engineTicks) override;
         void afterTick(Uint32 engineTicks) override;
         void render(const Camera &camera) override;
@@ -27,7 +28,7 @@ namespace trippin {
         // This is the first step of a frame update
         // The position used here ought to be used in the subsequent render call to avoid jitter
         void centerCamera(Camera &camera);
-        bool inUniverse(const Rect<int> &universe) const;
+        bool inUniverse() const;
         void onUserInput(const UserInput &input);
         double getJumpCharge() const;
     private:
@@ -52,6 +53,7 @@ namespace trippin {
             Point<int> center;
 
             Frames frames;
+            bool expired;
         };
 
         // sound data that flows from engine thread to render thread
@@ -71,6 +73,7 @@ namespace trippin {
         const Sprite *dustBlast;
 
         double maxFallingVelocity;
+        Rect<int> universe;
 
         constexpr static const int FRAME_LANDING_FIRST = 15;
         constexpr static const int FRAME_FALLING_FIRST = 12;
@@ -91,6 +94,7 @@ namespace trippin {
 
         UserInput input;
         std::unordered_map<Uint32, UserInput> autoPlay;
+        bool autoPlayEnabled;
 
         bool skipLaunch;
         double jumpVelocity;

@@ -1,0 +1,12 @@
+{
+  "events": [
+    {
+      "tick": 1578,
+      "jumpCharge": true
+    },
+    {
+      "tick": 1668,
+      "jumpRelease": true
+    }
+  ]
+}

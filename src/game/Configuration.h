@@ -20,6 +20,8 @@ namespace trippin {
         int deactivationProximity;
         int pointsPerSecond;
         std::string map;
+        std::string loadMap;
+        std::string loadAutoPlay;
         std::vector<Scale> scales;
         void load(const std::string &name);
         static std::string getConfigFile(const std::string &name);

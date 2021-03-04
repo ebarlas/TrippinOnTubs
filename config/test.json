@@ -6,6 +6,8 @@
   "deactivationProximity": 8000,
   "pointsPerSecond": 10,
   "map": "map_test",
+  "loadMap": "map_load",
+  "loadAutoPlay": "test",
   "scales": [
     {
       "name": "qhd",

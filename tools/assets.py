@@ -26,10 +26,11 @@ sprites = [
     'dust',
     'dust_blast',
     'running_clock',
-    'bird'
+    'bird',
+    'trippin'
 ]
 
-levels = ['map_ground_melt', 'map_minimal', 'map_test']
+levels = ['map_ground_melt', 'map_minimal', 'map_test', 'map_load']
 
 dir_raw = 'raw'
 dir_svgs = 'svgs'

@@ -36,6 +36,8 @@ void trippin::from_json(const nlohmann::json &j, Configuration &config) {
     j.at("deactivationProximity").get_to(config.deactivationProximity);
     j.at("pointsPerSecond").get_to(config.pointsPerSecond);
     j.at("map").get_to(config.map);
+    j.at("loadMap").get_to(config.loadMap);
+    j.at("loadAutoPlay").get_to(config.loadAutoPlay);
 
     for (auto &elem : j.at("scales")) {
         std::string name;

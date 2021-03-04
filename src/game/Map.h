@@ -35,6 +35,7 @@ namespace trippin {
             double duckFriction{};
             double coefficient{};
             bool sparkle{};
+            int frame{};
         };
 
         struct Layer {

@@ -4,7 +4,6 @@ CMakeFiles
 cmake-build-debug
 *.cbp
 Makefile
-Trippin
 *.cmake
 CMakeCache.txt
 build/

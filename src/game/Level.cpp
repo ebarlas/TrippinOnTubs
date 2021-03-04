@@ -28,8 +28,16 @@ void trippin::Level::setSoundManager(trippin::SoundManager *sm) {
     soundManager = sm;
 }
 
+void trippin::Level::setAutoPlay(const std::vector<UserInputTick> &autoPlay) {
+    goggin.setAutoPlay(autoPlay);
+}
+
+void trippin::Level::setMapName(const std::string &name) {
+    mapName = &name;
+}
+
 void trippin::Level::initMap() {
-    map.load(configuration->map);
+    map.load(*mapName);
     map.rescale(scale->multiplier);
     map.convert(configuration->tickPeriod);
 }
@@ -53,6 +61,7 @@ void trippin::Level::initEngine() {
 
     for (auto &obj : map.objects) {
         if (obj.type == "goggin") {
+            goggin.setUniverse(map.universe);
             goggin.setDust(spriteManager->get("dust"));
             goggin.setDustBlast(spriteManager->get("dust_blast"));
             goggin.setSoundManager(*soundManager);
@@ -159,7 +168,7 @@ void trippin::Level::start() {
 }
 
 bool trippin::Level::ended() {
-    return !goggin.inUniverse(Rect<int>{0, 0, map.universe.x, map.universe.y});
+    return !goggin.inUniverse();
 }
 
 void trippin::Level::stop() {

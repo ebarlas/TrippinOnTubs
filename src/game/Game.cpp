@@ -10,6 +10,7 @@ void trippin::Game::init() {
     initConfiguration();
     initScale();
     initSpriteManager();
+    initAutoPlay();
     initLevel();
 }
 
@@ -88,14 +89,30 @@ void trippin::Game::initSpriteManager() {
     spriteManager = std::make_unique<SpriteManager>(renderer, sc, configuration.tickPeriod);
 }
 
+void trippin::Game::initAutoPlay() {
+    autoPlay.load(configuration.loadAutoPlay);
+}
+
 void trippin::Game::initLevel() {
-    level = std::make_unique<Level>();
-    level->setWindowSize(windowSize);
-    level->setConfiguration(&configuration);
-    level->setScale(scale);
-    level->setSpriteManager(spriteManager.get());
-    level->setSoundManager(&soundManager);
-    level->init();
+    loadLevel = true;
+    level = nextLevel();
+}
+
+std::unique_ptr<trippin::Level> trippin::Game::nextLevel() {
+    auto lvl = std::make_unique<Level>();
+    lvl->setWindowSize(windowSize);
+    lvl->setConfiguration(&configuration);
+    lvl->setScale(scale);
+    lvl->setSpriteManager(spriteManager.get());
+    lvl->setSoundManager(&soundManager);
+    if (loadLevel) {
+        lvl->setMapName(configuration.loadMap);
+        lvl->setAutoPlay(autoPlay.events);
+    } else {
+        lvl->setMapName(configuration.map);
+    }
+    lvl->init();
+    return lvl;
 }
 
 trippin::Game::Game(std::string configName) : configName(std::move(configName)) {
@@ -116,6 +133,12 @@ void trippin::Game::start() {
 }
 
 void trippin::Game::renderLoop() {
+    auto overlay = spriteManager->get("trippin");
+
+    Point<int> overlayPos;
+    overlayPos.x = (windowSize.x - overlay.getSize().x) / 2;
+    overlayPos.y = (windowSize.y - overlay.getSize().y) / 2;
+
     Timer timer("renderer");
     bool quit = false;
     while (!quit) {
@@ -144,14 +167,20 @@ void trippin::Game::renderLoop() {
         SDL_SetRenderDrawColor(renderer, 247, 251, 255, 255);
         SDL_RenderClear(renderer);
 
-        //if (level) {
-            //if (level->ended()) {
-                //level->stop();
-                //level.reset();
-            //} else {
+        if (loadLevel) {
+            if (input.jumpRelease) {
+                level->stop();
+                level.reset();
+                loadLevel = false;
+                level = nextLevel();
+                level->start();
+            } else {
                 level->render(input);
-            //}
-        //}
+                overlay.render(overlayPos, 0);
+            }
+        } else {
+            level->render(input);
+        }
 
         SDL_RenderPresent(renderer);
         timer.next();

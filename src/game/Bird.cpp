@@ -4,7 +4,7 @@ void trippin::Bird::init(const Configuration &config, const Map::Object &obj, co
     SpriteObject::init(config, obj, spr);
     inactive = true;
     acceleration.x = obj.runningAcceleration;
-    frame = 0;
+    frame = obj.frame;
     syncChannel();
 }
 

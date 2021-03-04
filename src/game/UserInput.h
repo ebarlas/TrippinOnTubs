@@ -15,6 +15,10 @@ namespace trippin {
                    || duckEnd != ui.duckEnd;
         }
 
+        operator bool() const {
+            return jumpCharge || jumpRelease || duckStart || duckEnd;
+        }
+
         UserInput &operator|=(const UserInput &ui) {
             jumpCharge |= ui.jumpCharge;
             jumpRelease |= ui.jumpRelease;

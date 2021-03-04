@@ -8,6 +8,7 @@
 #include "Configuration.h"
 #include "Map.h"
 #include "Level.h"
+#include "AutoPlay.h"
 
 namespace trippin {
     class Game {
@@ -17,10 +18,12 @@ namespace trippin {
         SDL_Renderer *renderer;
         Point<int> windowSize;
         Configuration configuration;
+        AutoPlay autoPlay;
         Configuration::Scale *scale;
         std::unique_ptr<SpriteManager> spriteManager;
         SoundManager soundManager;
         std::unique_ptr<Level> level;
+        bool loadLevel;
         void initRuntime();
         void initWindowSize();
         void initWindow();
@@ -29,8 +32,10 @@ namespace trippin {
         void initConfiguration();
         void initScale();
         void initSpriteManager();
+        void initAutoPlay();
         void initLevel();
         void renderLoop();
+        std::unique_ptr<Level> nextLevel();
 
     public:
         Game(std::string configName);

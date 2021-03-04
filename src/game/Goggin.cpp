@@ -36,6 +36,10 @@ void trippin::Goggin::init(const Configuration &config, const Map::Object &obj, 
     syncChannel();
 }
 
+void trippin::Goggin::setUniverse(const trippin::Point<int> &uni) {
+    universe = {0, 0, uni.x, uni.y};
+}
+
 void trippin::Goggin::setDust(const Sprite &spr) {
     dust = &spr;
 };
@@ -48,10 +52,11 @@ void trippin::Goggin::setSoundManager(trippin::SoundManager &sm) {
     soundManager = &sm;
 }
 
-void trippin::Goggin::setAutoPlay(std::vector<UserInputTick> &ap) {
+void trippin::Goggin::setAutoPlay(const std::vector<UserInputTick> &ap) {
     for (auto &uit : ap) {
         autoPlay[uit.tick] = {uit.jumpCharge, uit.jumpRelease, uit.duckStart, uit.duckEnd};
     }
+    autoPlayEnabled = true;
 }
 
 void trippin::Goggin::beforeTick(Uint32 engineTicks) {
@@ -182,6 +187,10 @@ void trippin::Goggin::afterTick(Uint32 engineTicks) {
         onRising(engineTicks);
     } else if (state == State::ducking) {
         onDucking(engineTicks);
+    }
+
+    if (!universe.intersect(roundedBox)) {
+        expired = true;
     }
 
     syncChannel();
@@ -322,6 +331,9 @@ void trippin::Goggin::resetDustBlast() {
 
 void trippin::Goggin::render(const trippin::Camera &camera) {
     auto ch = channel.get();
+    if (ch.expired) {
+        return;
+    }
 
     for (auto &d : ch.frames.dusts) {
         if (d.frame < dust->getFrames()) {
@@ -357,12 +369,12 @@ void trippin::Goggin::enqueueJumpSound(Uint32 engineTicks) {
     }
 }
 
-bool trippin::Goggin::inUniverse(const trippin::Rect<int> &universe) const {
-    return universe.intersect(roundedBox);
+bool trippin::Goggin::inUniverse() const {
+    return !channel.get().expired;
 }
 
 void trippin::Goggin::transferInput(Uint32 engineTicks) {
-    if (!autoPlay.empty()) {
+    if (autoPlayEnabled) {
         auto it = autoPlay.find(engineTicks);
         if (it != autoPlay.end()) {
             input |= it->second;
@@ -390,5 +402,6 @@ void trippin::Goggin::syncChannel() {
         ch.center = toInt(center);
     }
     ch.frames = frames;
+    ch.expired = expired;
     channel.set(ch);
 }
