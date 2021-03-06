@@ -17,6 +17,7 @@ namespace trippin {
         Point<T> corner() const;
         T area() const;
         trippin::Rect<T> intersect(const trippin::Rect<T> &b) const;
+        bool contains(const Point<T> &p) const;
         bool leftAlignedWith(const trippin::Rect<T> &other) const;
         bool rightAlignedWith(const trippin::Rect<T> &other) const;
         bool topAlignedWith(const trippin::Rect<T> &other) const;
@@ -54,6 +55,11 @@ trippin::Rect<T> trippin::Rect<T>::intersect(const trippin::Rect<T> &a, const tr
         h = std::min(b.h, a.y + a.h - b.y);
     }
     return {x, y, w, h};
+}
+
+template<class T>
+bool trippin::Rect<T>::contains(const trippin::Point<T> &p) const {
+    return valueInRange(p.x, x, x + w) && valueInRange(p.y, y, y + h);
 }
 
 template<class T>

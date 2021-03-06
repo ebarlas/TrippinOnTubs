@@ -28,7 +28,7 @@ void trippin::Level::setSoundManager(trippin::SoundManager *sm) {
     soundManager = sm;
 }
 
-void trippin::Level::setAutoPlay(const std::vector<UserInputTick> &autoPlay) {
+void trippin::Level::setAutoPlay(const std::vector<GogginInputTick> &autoPlay) {
     goggin.setAutoPlay(autoPlay);
 }
 
@@ -149,7 +149,7 @@ void trippin::Level::init() {
     initEngine();
 }
 
-void trippin::Level::render(UserInput input) {
+void trippin::Level::render(GogginInput input) {
     goggin.onUserInput(input);
     goggin.centerCamera(camera);
     for (auto &obj : objects) {

@@ -18,7 +18,7 @@ void trippin::from_json(const nlohmann::json& j, AutoPlay& ap) {
     j.at("events").get_to(ap.events);
 }
 
-void trippin::from_json(const nlohmann::json& j, UserInputTick& uit) {
+void trippin::from_json(const nlohmann::json& j, GogginInputTick& uit) {
     j.at("tick").get_to(uit.tick);
     if (j.contains("jumpCharge"))
         j.at("jumpCharge").get_to(uit.jumpCharge);

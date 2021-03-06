@@ -27,7 +27,9 @@ sprites = [
     'dust_blast',
     'running_clock',
     'bird',
-    'trippin'
+    'trippin',
+    'start',
+    'high_score'
 ]
 
 levels = ['map_ground_melt', 'map_minimal', 'map_test', 'map_load']

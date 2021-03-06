@@ -3,17 +3,17 @@
 
 #include <vector>
 #include "nlohmann/json.hpp"
-#include "UserInputTick.h"
+#include "GogginInputTick.h"
 
 namespace trippin {
     struct AutoPlay {
-        std::vector<UserInputTick> events;
+        std::vector<GogginInputTick> events;
         void load(const std::string &name);
         static std::string getMapFile(const std::string& name);
     };
 
     void from_json(const nlohmann::json& j, AutoPlay& ap);
-    void from_json(const nlohmann::json& j, UserInputTick& uit);
+    void from_json(const nlohmann::json& j, GogginInputTick& uit);
 }
 
 #endif

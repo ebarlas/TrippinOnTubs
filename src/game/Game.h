@@ -37,6 +37,19 @@ namespace trippin {
         void renderLoop();
         std::unique_ptr<Level> nextLevel();
 
+        struct UserInput {
+            bool quit;
+            bool spaceKeyDown;
+            bool downKeyDown;
+            bool spaceKeyUp;
+            bool downKeyUp;
+            bool mouseButtonDown;
+            Point<int> mouseButton;
+        };
+
+        static UserInput pollEvents();
+        static GogginInput getGogginInput(const UserInput &userInput);
+
     public:
         Game(std::string configName);
         ~Game();

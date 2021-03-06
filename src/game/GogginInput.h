@@ -1,14 +1,14 @@
-#ifndef TRIPPIN_USERINPUT_H
-#define TRIPPIN_USERINPUT_H
+#ifndef TRIPPIN_GOGGININPUT_H
+#define TRIPPIN_GOGGININPUT_H
 
 namespace trippin {
-    struct UserInput {
+    struct GogginInput {
         bool jumpCharge{};
         bool jumpRelease{};
         bool duckStart{};
         bool duckEnd{};
 
-        bool operator!=(const UserInput &ui) const {
+        bool operator!=(const GogginInput &ui) const {
             return jumpCharge != ui.jumpCharge
                    || jumpRelease != ui.jumpRelease
                    || duckStart != ui.duckStart
@@ -19,7 +19,7 @@ namespace trippin {
             return jumpCharge || jumpRelease || duckStart || duckEnd;
         }
 
-        UserInput &operator|=(const UserInput &ui) {
+        GogginInput &operator|=(const GogginInput &ui) {
             jumpCharge |= ui.jumpCharge;
             jumpRelease |= ui.jumpRelease;
             duckStart |= ui.duckStart;

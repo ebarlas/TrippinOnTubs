@@ -9,8 +9,8 @@
 #include "SpriteObject.h"
 #include "lock/Guarded.h"
 #include "SoundManager.h"
-#include "UserInput.h"
-#include "UserInputTick.h"
+#include "GogginInput.h"
+#include "GogginInputTick.h"
 
 namespace trippin {
     class Goggin : public SpriteObject {
@@ -20,7 +20,7 @@ namespace trippin {
         void setDust(const Sprite &spr);
         void setDustBlast(const Sprite &spr);
         void setSoundManager(SoundManager &sm);
-        void setAutoPlay(const std::vector<UserInputTick> &autoPlay);
+        void setAutoPlay(const std::vector<GogginInputTick> &autoPlay);
         void beforeTick(Uint32 engineTicks) override;
         void afterTick(Uint32 engineTicks) override;
         void render(const Camera &camera) override;
@@ -29,7 +29,7 @@ namespace trippin {
         // The position used here ought to be used in the subsequent render call to avoid jitter
         void centerCamera(Camera &camera);
         bool inUniverse() const;
-        void onUserInput(const UserInput &input);
+        void onUserInput(const GogginInput &input);
         double getJumpCharge() const;
     private:
         struct Dust {
@@ -89,11 +89,11 @@ namespace trippin {
 
         Guarded<Channel> channel;
         Guarded<SoundChannel> soundChannel;
-        Guarded<UserInput> inputChannel;
+        Guarded<GogginInput> inputChannel;
         void syncChannel();
 
-        UserInput input;
-        std::unordered_map<Uint32, UserInput> autoPlay;
+        GogginInput input;
+        std::unordered_map<Uint32, GogginInput> autoPlay;
         bool autoPlayEnabled;
 
         bool skipLaunch;

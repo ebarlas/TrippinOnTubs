@@ -133,56 +133,96 @@ void trippin::Game::start() {
 }
 
 void trippin::Game::renderLoop() {
-    auto overlay = spriteManager->get("trippin");
+    auto title = spriteManager->get("trippin");
+    auto start = spriteManager->get("start");
+    auto highScore = spriteManager->get("high_score");
 
     Point<int> overlayPos;
-    overlayPos.x = (windowSize.x - overlay.getSize().x) / 2;
-    overlayPos.y = (windowSize.y - overlay.getSize().y) / 2;
+    overlayPos.x = (windowSize.x - title.getSize().x) / 2;
+    overlayPos.y = (windowSize.y - title.getSize().y) / 2;
+
+    Point<int> startPos;
+    startPos.x = (windowSize.x - start.getSize().x) / 2;
+    startPos.y = (windowSize.y - (start.getSize().y + highScore.getSize().y)) / 2;
+
+    Point<int> highScorePos;
+    highScorePos.x = (windowSize.x - highScore.getSize().x) / 2;
+    highScorePos.y = (windowSize.y - (start.getSize().y + highScore.getSize().y)) / 2 + start.getSize().y;
+
+    Rect<int> startRect{startPos.x, startPos.y, start.getSize().x, start.getSize().y};
+
+    bool titleShown = true;
 
     Timer timer("renderer");
-    bool quit = false;
-    while (!quit) {
-        SDL_Event e;
-        UserInput input{};
-        while (SDL_PollEvent(&e) != 0) {
-            if (e.type == SDL_QUIT) {
-                quit = true;
-            } else if (e.type == SDL_KEYDOWN) {
-                if (e.key.keysym.scancode == SDL_SCANCODE_SPACE) {
-                    input.jumpCharge = true;
-                }
-                if (e.key.keysym.scancode == SDL_SCANCODE_DOWN) {
-                    input.duckStart = true;
-                }
-            } else if (e.type == SDL_KEYUP) {
-                if (e.key.keysym.scancode == SDL_SCANCODE_SPACE) {
-                    input.jumpRelease = true;
-                }
-                if (e.key.keysym.scancode == SDL_SCANCODE_DOWN) {
-                    input.duckEnd = true;
-                }
-            }
-        }
+    UserInput ui{};
+    while (!ui.quit) {
+        ui = pollEvents();
 
         SDL_SetRenderDrawColor(renderer, 247, 251, 255, 255);
         SDL_RenderClear(renderer);
 
         if (loadLevel) {
-            if (input.jumpRelease) {
-                level->stop();
-                level.reset();
-                loadLevel = false;
-                level = nextLevel();
-                level->start();
+            level->render({});
+            if (titleShown) {
+                if (ui.spaceKeyUp) {
+                    titleShown = false;
+                } else {
+                    title.render(overlayPos, 0);
+                }
             } else {
-                level->render(input);
-                overlay.render(overlayPos, 0);
+                if (ui.mouseButtonDown && startRect.contains(ui.mouseButton)) {
+                    level->stop();
+                    level.reset();
+                    loadLevel = false;
+                    level = nextLevel();
+                    level->start();
+                } else {
+                    start.render(startPos, 0);
+                    highScore.render(highScorePos, 0);
+                }
             }
         } else {
-            level->render(input);
+            level->render(getGogginInput(ui));
         }
 
         SDL_RenderPresent(renderer);
         timer.next();
     }
+}
+
+trippin::Game::UserInput trippin::Game::pollEvents() {
+    SDL_Event e;
+    UserInput ui;
+    while (SDL_PollEvent(&e) != 0) {
+        if (e.type == SDL_QUIT) {
+            ui.quit = true;
+        } else if (e.type == SDL_KEYDOWN) {
+            if (e.key.keysym.scancode == SDL_SCANCODE_SPACE) {
+                ui.spaceKeyDown = true;
+            }
+            if (e.key.keysym.scancode == SDL_SCANCODE_DOWN) {
+                ui.downKeyDown = true;
+            }
+        } else if (e.type == SDL_KEYUP) {
+            if (e.key.keysym.scancode == SDL_SCANCODE_SPACE) {
+                ui.spaceKeyUp = true;
+            }
+            if (e.key.keysym.scancode == SDL_SCANCODE_DOWN) {
+                ui.downKeyUp = true;
+            }
+        } else if (e.type == SDL_MOUSEBUTTONDOWN) {
+            ui.mouseButtonDown = true;
+            ui.mouseButton = {e.button.x, e.button.y};
+        }
+    }
+    return ui;
+}
+
+trippin::GogginInput trippin::Game::getGogginInput(const UserInput &ui) {
+    GogginInput gi;
+    gi.jumpCharge = ui.spaceKeyDown;
+    gi.jumpRelease = ui.spaceKeyUp;
+    gi.duckStart = ui.downKeyDown;
+    gi.duckEnd = ui.downKeyUp;
+    return gi;
 }

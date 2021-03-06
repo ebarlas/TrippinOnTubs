@@ -72,12 +72,8 @@
       "type": "goggin",
       "platform": false,
       "position": {
-        "x": 160,
-        "y": 480
-      },
-      "velocity": {
-        "x": 50.0,
-        "y": 0.0
+        "x": 200,
+        "y": 640
       },
       "terminalVelocity": {
         "x": 425.0,
@@ -1455,6 +1451,78 @@
       "position": {
         "x": 1280,
         "y": 3600
+      }
+    },
+    {
+      "id": 156,
+      "type": "ground_melt_left",
+      "platform": true,
+      "position": {
+        "x": 610,
+        "y": 760
+      }
+    },
+    {
+      "id": 157,
+      "type": "ground_melt_middle",
+      "platform": true,
+      "position": {
+        "x": 760,
+        "y": 760
+      }
+    },
+    {
+      "id": 158,
+      "type": "ground_melt_middle",
+      "platform": true,
+      "position": {
+        "x": 910,
+        "y": 760
+      }
+    },
+    {
+      "id": 159,
+      "type": "ground_melt_right",
+      "platform": true,
+      "position": {
+        "x": 1060,
+        "y": 760
+      }
+    },
+    {
+      "id": 160,
+      "type": "ground_melt_left",
+      "platform": true,
+      "position": {
+        "x": 850,
+        "y": 1520
+      }
+    },
+    {
+      "id": 161,
+      "type": "ground_melt_middle",
+      "platform": true,
+      "position": {
+        "x": 1000,
+        "y": 1520
+      }
+    },
+    {
+      "id": 162,
+      "type": "ground_melt_middle",
+      "platform": true,
+      "position": {
+        "x": 1150,
+        "y": 1520
+      }
+    },
+    {
+      "id": 163,
+      "type": "ground_melt_right",
+      "platform": true,
+      "position": {
+        "x": 1300,
+        "y": 1520
       }
     }
   ],

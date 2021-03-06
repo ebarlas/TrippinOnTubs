@@ -12,7 +12,7 @@
 #include "JumpMeter.h"
 #include "Score.h"
 #include "Activation.h"
-#include "UserInput.h"
+#include "GogginInput.h"
 
 namespace trippin {
     class Level {
@@ -44,11 +44,11 @@ namespace trippin {
         void setScale(Configuration::Scale *scale);
         void setSpriteManager(SpriteManager *spriteManager);
         void setSoundManager(SoundManager *soundManager);
-        void setAutoPlay(const std::vector<UserInputTick> &autoPlay);
+        void setAutoPlay(const std::vector<GogginInputTick> &autoPlay);
         void setMapName(const std::string &name);
         void init();
         bool ended();
-        void render(UserInput input);
+        void render(GogginInput input);
         void start();
         void stop();
     };
