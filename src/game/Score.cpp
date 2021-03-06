@@ -32,10 +32,16 @@ void trippin::Score::render(const trippin::Camera &camera) {
 }
 
 void trippin::Score::afterTick(Uint32 engineTicks) {
-    score += pointsPerTick;
-    channel.set(score);
+    if (!goggin->expired) {
+        score += pointsPerTick;
+        channel.set(score);
+    }
 }
 
 void trippin::Score::setPointsPerTick(double ppt) {
     pointsPerTick = ppt;
+}
+
+void trippin::Score::setGoggin(const Goggin *g) {
+    goggin = g;
 }

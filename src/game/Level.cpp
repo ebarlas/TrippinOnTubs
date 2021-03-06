@@ -117,6 +117,7 @@ void trippin::Level::initEngine() {
     score.setSprite(spriteManager->get("digits"));
     score.setMargin(map.meterMargin);
     score.setPointsPerTick(configuration->pointsPerTick());
+    score.setGoggin(&goggin);
     score.init();
     engine.addListener(&score);
 

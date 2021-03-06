@@ -8,6 +8,7 @@
 #include "Map.h"
 #include "lock/Mutex.h"
 #include "lock/Guarded.h"
+#include "Goggin.h"
 
 namespace trippin {
     class Score : public Listener, public Renderable {
@@ -16,6 +17,7 @@ namespace trippin {
         int margin;
         double pointsPerTick;
         double score;
+        const Goggin *goggin;
 
         Guarded<double> channel;
     public:
@@ -29,6 +31,7 @@ namespace trippin {
         void setMargin(int margin);
         void setSprite(const Sprite &spr);
         void setPointsPerTick(double ppt);
+        void setGoggin(const Goggin *goggin);
         void init();
 
         // called from main render thread
