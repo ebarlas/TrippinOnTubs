@@ -192,7 +192,7 @@ void trippin::Game::renderLoop() {
 
 trippin::Game::UserInput trippin::Game::pollEvents() {
     SDL_Event e;
-    UserInput ui;
+    UserInput ui{};
     while (SDL_PollEvent(&e) != 0) {
         if (e.type == SDL_QUIT) {
             ui.quit = true;
