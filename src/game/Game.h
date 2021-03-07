@@ -9,6 +9,8 @@
 #include "Map.h"
 #include "Level.h"
 #include "AutoPlay.h"
+#include "TitleOverlay.h"
+#include "MenuOverlay.h"
 
 namespace trippin {
     class Game {
@@ -24,6 +26,8 @@ namespace trippin {
         SoundManager soundManager;
         std::unique_ptr<Level> level;
         bool loadLevel;
+        TitleOverlay titleOverlay;
+        MenuOverlay menuOverlay;
         void initRuntime();
         void initWindowSize();
         void initWindow();
@@ -33,6 +37,7 @@ namespace trippin {
         void initScale();
         void initSpriteManager();
         void initAutoPlay();
+        void initOverlays();
         void initLevel();
         void renderLoop();
         std::unique_ptr<Level> nextLevel();

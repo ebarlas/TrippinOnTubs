@@ -11,6 +11,7 @@ void trippin::Game::init() {
     initScale();
     initSpriteManager();
     initAutoPlay();
+    initOverlays();
     initLevel();
 }
 
@@ -98,6 +99,11 @@ void trippin::Game::initLevel() {
     level = nextLevel();
 }
 
+void trippin::Game::initOverlays() {
+    titleOverlay.init(windowSize, *spriteManager);
+    menuOverlay.init(windowSize, *spriteManager);
+}
+
 std::unique_ptr<trippin::Level> trippin::Game::nextLevel() {
     auto lvl = std::make_unique<Level>();
     lvl->setWindowSize(windowSize);
@@ -133,24 +139,6 @@ void trippin::Game::start() {
 }
 
 void trippin::Game::renderLoop() {
-    auto title = spriteManager->get("trippin");
-    auto start = spriteManager->get("start");
-    auto highScore = spriteManager->get("high_score");
-
-    Point<int> overlayPos;
-    overlayPos.x = (windowSize.x - title.getSize().x) / 2;
-    overlayPos.y = (windowSize.y - title.getSize().y) / 2;
-
-    Point<int> startPos;
-    startPos.x = (windowSize.x - start.getSize().x) / 2;
-    startPos.y = (windowSize.y - (start.getSize().y + highScore.getSize().y)) / 2;
-
-    Point<int> highScorePos;
-    highScorePos.x = (windowSize.x - highScore.getSize().x) / 2;
-    highScorePos.y = (windowSize.y - (start.getSize().y + highScore.getSize().y)) / 2 + start.getSize().y;
-
-    Rect<int> startRect{startPos.x, startPos.y, start.getSize().x, start.getSize().y};
-
     bool titleShown = true;
 
     Timer timer("renderer");
@@ -167,18 +155,17 @@ void trippin::Game::renderLoop() {
                 if (ui.spaceKeyUp) {
                     titleShown = false;
                 } else {
-                    title.render(overlayPos, 0);
+                    titleOverlay.render();
                 }
             } else {
-                if (ui.mouseButtonDown && startRect.contains(ui.mouseButton)) {
+                if (ui.mouseButtonDown && menuOverlay.startClicked(ui.mouseButton)) {
                     level->stop();
                     level.reset();
                     loadLevel = false;
                     level = nextLevel();
                     level->start();
                 } else {
-                    start.render(startPos, 0);
-                    highScore.render(highScorePos, 0);
+                    menuOverlay.render();
                 }
             }
         } else {
