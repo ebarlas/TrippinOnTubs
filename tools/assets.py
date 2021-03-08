@@ -29,7 +29,9 @@ sprites = [
     'bird',
     'trippin',
     'start',
-    'high_score'
+    'high_score',
+    'save_score',
+    'exit'
 ]
 
 levels = ['map_ground_melt', 'map_minimal', 'map_test', 'map_load']

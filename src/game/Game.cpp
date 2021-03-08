@@ -102,6 +102,7 @@ void trippin::Game::initLevel() {
 void trippin::Game::initOverlays() {
     titleOverlay.init(windowSize, *spriteManager);
     menuOverlay.init(windowSize, *spriteManager);
+    endMenuOverlay.init(windowSize, *spriteManager);
 }
 
 std::unique_ptr<trippin::Level> trippin::Game::nextLevel() {
@@ -139,7 +140,14 @@ void trippin::Game::start() {
 }
 
 void trippin::Game::renderLoop() {
-    bool titleShown = true;
+    enum State {
+        TITLE,
+        START_MENU,
+        PLAYING,
+        END_MENU
+    };
+
+    int state = TITLE;
 
     Timer timer("renderer");
     UserInput ui{};
@@ -149,27 +157,34 @@ void trippin::Game::renderLoop() {
         SDL_SetRenderDrawColor(renderer, 247, 251, 255, 255);
         SDL_RenderClear(renderer);
 
-        if (loadLevel) {
-            level->render({});
-            if (titleShown) {
-                if (ui.spaceKeyUp) {
-                    titleShown = false;
-                } else {
-                    titleOverlay.render();
-                }
-            } else {
-                if (ui.mouseButtonDown && menuOverlay.startClicked(ui.mouseButton)) {
-                    level->stop();
-                    level.reset();
-                    loadLevel = false;
-                    level = nextLevel();
-                    level->start();
-                } else {
-                    menuOverlay.render();
-                }
+        level->render(getGogginInput(ui));
+
+        if (state == TITLE) {
+            titleOverlay.render();
+            if (ui.spaceKeyUp) {
+                state = START_MENU;
+            }
+        } else if (state == START_MENU) {
+            menuOverlay.render();
+            if (ui.mouseButtonDown && menuOverlay.startClicked(ui.mouseButton)) {
+                loadLevel = false;
+                level->stop();
+                level.reset();
+                level = nextLevel();
+                level->start();
+                state = PLAYING;
+            } else if (ui.mouseButtonDown && menuOverlay.exitClicked(ui.mouseButton)) {
+                break;
+            }
+        } else if (state == PLAYING) {
+            if (level->ended()) {
+                state = END_MENU;
             }
         } else {
-            level->render(getGogginInput(ui));
+            endMenuOverlay.render();
+            if (ui.mouseButtonDown && endMenuOverlay.exitClicked(ui.mouseButton)) {
+                state = START_MENU;
+            }
         }
 
         SDL_RenderPresent(renderer);

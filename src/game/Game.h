@@ -11,6 +11,7 @@
 #include "AutoPlay.h"
 #include "TitleOverlay.h"
 #include "MenuOverlay.h"
+#include "EndMenuOverlay.h"
 
 namespace trippin {
     class Game {
@@ -28,6 +29,7 @@ namespace trippin {
         bool loadLevel;
         TitleOverlay titleOverlay;
         MenuOverlay menuOverlay;
+        EndMenuOverlay endMenuOverlay;
         void initRuntime();
         void initWindowSize();
         void initWindow();
