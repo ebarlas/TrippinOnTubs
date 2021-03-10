@@ -17,6 +17,7 @@ sprites = [
     'clock_timer',
     'winged_foot',
     'digits',
+    'alpha',
     'zombie',
     'rat',
     'phoenix',

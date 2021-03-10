@@ -22,6 +22,7 @@ void trippin::PacingObject::afterTick(Uint32 engineTicks) {
 
     if (activation->shouldDeactivate(roundedBox)) {
         expired = true;
+        syncChannel();
         return;
     }
 
@@ -34,14 +35,20 @@ void trippin::PacingObject::afterTick(Uint32 engineTicks) {
         acceleration.x = 0;
     }
 
-    channel.set({roundedPosition, frame});
+    syncChannel();
 }
 
 void trippin::PacingObject::render(const trippin::Camera &camera) {
     auto ch = channel.get();
-    sprite->render(ch.roundedPosition, ch.frame, camera);
+    if (ch.visible) {
+        sprite->render(ch.roundedPosition, ch.frame, camera);
+    }
 }
 
 void trippin::PacingObject::setActivation(const Activation *act) {
     activation = act;
+}
+
+void trippin::PacingObject::syncChannel() {
+    channel.set({roundedPosition, frame, !inactive && !expired});
 }

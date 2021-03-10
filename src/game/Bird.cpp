@@ -34,7 +34,9 @@ void trippin::Bird::afterTick(Uint32 engineTicks) {
 
 void trippin::Bird::render(const trippin::Camera &camera) {
     auto ch = channel.get();
-    sprite->render(ch.roundedPosition, ch.frame, camera);
+    if (ch.visible) {
+        sprite->render(ch.roundedPosition, ch.frame, camera);
+    }
 }
 
 void trippin::Bird::setActivation(const Activation *act) {

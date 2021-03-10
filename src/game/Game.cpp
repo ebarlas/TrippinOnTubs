@@ -103,6 +103,7 @@ void trippin::Game::initOverlays() {
     titleOverlay.init(windowSize, *spriteManager);
     menuOverlay.init(windowSize, *spriteManager);
     endMenuOverlay.init(windowSize, *spriteManager);
+    nameFormOverlay.init(windowSize, *spriteManager);
 }
 
 std::unique_ptr<trippin::Level> trippin::Game::nextLevel() {
@@ -144,7 +145,8 @@ void trippin::Game::renderLoop() {
         TITLE,
         START_MENU,
         PLAYING,
-        END_MENU
+        END_MENU,
+        NAME_FORM
     };
 
     int state = TITLE;
@@ -180,10 +182,21 @@ void trippin::Game::renderLoop() {
             if (level->ended()) {
                 state = END_MENU;
             }
-        } else {
+        } else if (state == END_MENU) {
             endMenuOverlay.render();
             if (ui.mouseButtonDown && endMenuOverlay.exitClicked(ui.mouseButton)) {
                 state = START_MENU;
+            } else if (ui.mouseButtonDown && endMenuOverlay.saveClicked(ui.mouseButton)) {
+                state = NAME_FORM;
+            }
+        } else {
+            nameFormOverlay.render();
+            if (ui.mouseButtonDown) {
+                nameFormOverlay.onClick(ui.mouseButton);
+                if (nameFormOverlay.nameEntered()) {
+                    std::string name = nameFormOverlay.name();
+                    state = START_MENU;
+                }
             }
         }
 

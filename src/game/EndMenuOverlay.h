@@ -9,6 +9,7 @@ namespace trippin {
         void init(const Point<int> &windowSize, SpriteManager &spriteManager);
         void render();
         bool exitClicked(const Point<int> &coords) const;
+        bool saveClicked(const Point<int> &coords) const;
     private:
         const Sprite *saveSprite;
         const Sprite *exitSprite;

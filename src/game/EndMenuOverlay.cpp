@@ -27,3 +27,9 @@ bool trippin::EndMenuOverlay::exitClicked(const trippin::Point<int> &coords) con
     Rect<int> rect{exitPos.x, exitPos.y, size.x, size.y};
     return rect.contains(coords);
 }
+
+bool trippin::EndMenuOverlay::saveClicked(const trippin::Point<int> &coords) const {
+    auto size = saveSprite->getSize();
+    Rect<int> rect{savePos.x, savePos.y, size.x, size.y};
+    return rect.contains(coords);
+}

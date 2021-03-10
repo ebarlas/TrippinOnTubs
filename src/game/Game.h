@@ -12,6 +12,7 @@
 #include "TitleOverlay.h"
 #include "MenuOverlay.h"
 #include "EndMenuOverlay.h"
+#include "NameFormOverlay.h"
 
 namespace trippin {
     class Game {
@@ -30,6 +31,7 @@ namespace trippin {
         TitleOverlay titleOverlay;
         MenuOverlay menuOverlay;
         EndMenuOverlay endMenuOverlay;
+        NameFormOverlay nameFormOverlay;
         void initRuntime();
         void initWindowSize();
         void initWindow();
