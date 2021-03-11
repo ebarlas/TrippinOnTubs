@@ -164,6 +164,7 @@ void trippin::Game::renderLoop() {
         if (state == TITLE) {
             titleOverlay.render();
             if (ui.spaceKeyUp) {
+                menuOverlay.reset();
                 state = START_MENU;
             }
         } else if (state == START_MENU) {
@@ -185,6 +186,7 @@ void trippin::Game::renderLoop() {
         } else if (state == END_MENU) {
             endMenuOverlay.render();
             if (ui.mouseButtonDown && endMenuOverlay.exitClicked(ui.mouseButton)) {
+                menuOverlay.reset();
                 state = START_MENU;
             } else if (ui.mouseButtonDown && endMenuOverlay.saveClicked(ui.mouseButton)) {
                 state = NAME_FORM;

@@ -21,12 +21,19 @@ void trippin::MenuOverlay::init(const Point<int> &windowSize, SpriteManager &spr
     startSprite = &start;
     highScoreSprite = &highScore;
     exitSprite = &exit;
+
+    interpolator.init(2'000, highScorePos.x + highScoreSize.x);
+}
+
+void trippin::MenuOverlay::reset() {
+    interpolator.reset();
 }
 
 void trippin::MenuOverlay::render() {
-    startSprite->render(startPos, 0);
-    highScoreSprite->render(highScorePos, 0);
-    exitSprite->render(exitPos, 0);
+    int x = -highScoreSprite->getSize().x + interpolator.interpolate();
+    startSprite->render(Point<int>{x + (startPos.x - highScorePos.x), startPos.y}, 0);
+    highScoreSprite->render(Point<int>{x, highScorePos.y}, 0);
+    exitSprite->render(Point<int>{x + (exitPos.x - highScorePos.x), exitPos.y}, 0);
 }
 
 bool trippin::MenuOverlay::startClicked(const Point<int> &coords) const {

@@ -2,6 +2,7 @@
 #define TRIPPIN_TITLEOVERLAY_H
 
 #include "sprite/SpriteManager.h"
+#include "Interpolator.h"
 
 namespace trippin {
     class TitleOverlay {
@@ -11,6 +12,7 @@ namespace trippin {
     private:
         const Sprite *sprite;
         Point<int> position;
+        Interpolator interpolator{};
     };
 }
 
