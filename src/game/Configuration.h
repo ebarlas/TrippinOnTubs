@@ -19,6 +19,9 @@ namespace trippin {
         int activationProximity;
         int deactivationProximity;
         int pointsPerSecond;
+        int shakeDuration;
+        int shakeHertz;
+        int shakeAmplitude;
         std::string map;
         std::string loadMap;
         std::string loadAutoPlay;

@@ -86,6 +86,7 @@ add_library(Game
         game/EndMenuOverlay.cpp
         game/NameFormOverlay.cpp
         game/Interpolator.cpp
+        game/Shake.cpp
         game/SoundManager.cpp)
 target_include_directories(Game PUBLIC ${SDL2_MIXER_INCLUDE_DIR})
 target_link_libraries(Game Sprite Lock ${SDL2_MIXER_LIB})

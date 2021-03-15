@@ -22,7 +22,7 @@ void trippin::MenuOverlay::init(const Point<int> &windowSize, SpriteManager &spr
     highScoreSprite = &highScore;
     exitSprite = &exit;
 
-    interpolator.init(2'000, highScorePos.x + highScoreSize.x);
+    interpolator.init(1'000, highScorePos.x + highScoreSize.x);
 }
 
 void trippin::MenuOverlay::reset() {

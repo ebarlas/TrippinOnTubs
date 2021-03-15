@@ -1,8 +1,8 @@
 #include <cmath>
 #include "Sprite.h"
 
-trippin::Sprite::Sprite(SDL_Renderer *ren, const std::string &name, const Scale &scale, int tickPeriod)
-        : ren(ren), sheet(ren, name, scale) {
+trippin::Sprite::Sprite(SDL_Renderer *ren, const std::string &name, const Scale &sc, int tickPeriod)
+        : scale(sc), ren(ren), sheet(ren, name, scale) {
     metadata.load(name);
 
     size = sheet.getSize();
@@ -53,6 +53,10 @@ int trippin::Sprite::getFrames() const {
 
 int trippin::Sprite::getFramePeriodTicks() const {
     return framePeriodTicks;
+}
+
+const trippin::Scale &trippin::Sprite::getScale() const {
+    return scale;
 }
 
 bool trippin::Sprite::intersectsWith(Point<int> hitBoxPos, Rect<int> rect) const {

@@ -35,6 +35,9 @@ void trippin::from_json(const nlohmann::json &j, Configuration &config) {
     j.at("activationProximity").get_to(config.activationProximity);
     j.at("deactivationProximity").get_to(config.deactivationProximity);
     j.at("pointsPerSecond").get_to(config.pointsPerSecond);
+    j.at("shakeDuration").get_to(config.shakeDuration);
+    j.at("shakeHertz").get_to(config.shakeHertz);
+    j.at("shakeAmplitude").get_to(config.shakeAmplitude);
     j.at("map").get_to(config.map);
     j.at("loadMap").get_to(config.loadMap);
     j.at("loadAutoPlay").get_to(config.loadAutoPlay);

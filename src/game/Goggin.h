@@ -11,6 +11,7 @@
 #include "SoundManager.h"
 #include "GogginInput.h"
 #include "GogginInputTick.h"
+#include "Shake.h"
 
 namespace trippin {
     class Goggin : public SpriteObject {
@@ -108,6 +109,10 @@ namespace trippin {
         int minJumpChargeTicks;
         int maxJumpChargeTicks;
         int jumpGracePeriodTicks;
+
+        double shakeAmplitude;
+        Shake xShake;
+        Shake yShake;
 
         Uint32 jumpTicks{};
         double jumpPercent{};

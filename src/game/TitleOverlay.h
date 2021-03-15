@@ -12,7 +12,6 @@ namespace trippin {
     private:
         const Sprite *sprite;
         Point<int> position;
-        Interpolator interpolator{};
     };
 }
 

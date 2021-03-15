@@ -38,6 +38,7 @@ catch_discover_tests(
 
 add_executable(game_tests
         game/map_tests.cpp
+        game/shake_tests.cpp
         game/sound_manager_tests.cpp
         game/configuration_tests.cpp)
 target_link_libraries(game_tests PRIVATE Game catch_main)

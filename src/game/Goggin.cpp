@@ -20,6 +20,14 @@ void trippin::Goggin::init(const Configuration &config, const Map::Object &obj, 
     state = State::falling;
     maxFallingVelocity = 0;
 
+    shakeAmplitude = config.shakeAmplitude * sprite->getScale().getMultiplier();
+
+    // tick/ms * ms/s * s/shake = tick/shake
+    auto shakePeriod = (1.0 / config.tickPeriod) * (1000.0 / config.shakeHertz);
+    auto shakeDuration = config.shakeDuration / config.tickPeriod;
+    xShake.init(toInt(shakePeriod), toInt(shakeDuration));
+    yShake.init(toInt(shakePeriod), toInt(shakeDuration));
+
     for (auto &d : frames.dusts) {
         d.frame = dust->getFrames(); // past the end
     }
@@ -146,6 +154,9 @@ void trippin::Goggin::handleJumpRelease(Uint32 engineTicks) {
 void trippin::Goggin::afterTick(Uint32 engineTicks) {
     ticks++;
 
+    xShake.update(engineTicks);
+    yShake.update(engineTicks);
+
     // advance dust cloud ticks
     for (auto &d : frames.dusts) {
         if (d.frame < dust->getFrames()) {
@@ -215,6 +226,8 @@ void trippin::Goggin::onFalling(Uint32 engineTicks) {
         frames.frame = FRAME_LANDING_FIRST;
         if (platformCollisions.testBottom() && maxFallingVelocity >= terminalVelocity.y / 2.0) {
             resetDustBlast();
+            xShake.start(engineTicks);
+            yShake.start(engineTicks);
         }
         enqueueJumpSound(engineTicks);
         return;
@@ -393,13 +406,14 @@ void trippin::Goggin::transferInput(Uint32 engineTicks) {
 
 void trippin::Goggin::syncChannel() {
     Channel ch;
+    Point<int> shake{toInt(xShake.amplitude() * shakeAmplitude), toInt(yShake.amplitude() * shakeAmplitude)};
     if (state == ducking) {
         // restore y to normal in channel to prepare for rendering
         ch.position = {roundedPosition.x, toInt(position.y - size.y)};
-        ch.center = {toInt(position.x + size.x / 2.0), toInt(position.y)};
+        ch.center = Point<int>({toInt(position.x + size.x / 2.0), toInt(position.y)}) + shake;
     } else {
         ch.position = roundedPosition;
-        ch.center = toInt(center);
+        ch.center = toInt(center) + shake;
     }
     ch.frames = frames;
     ch.expired = expired;

@@ -7,12 +7,8 @@ void trippin::TitleOverlay::init(const Point<int> &windowSize, SpriteManager &sp
     position.y = (windowSize.y - title.getSize().y) / 2;
 
     sprite = &title;
-
-    interpolator.init(2'000, position.x + title.getSize().x);
-    interpolator.reset();
 }
 
 void trippin::TitleOverlay::render() {
-    Point<int> pos{-sprite->getSize().x + interpolator.interpolate(), position.y};
-    sprite->render(pos, 0);
+    sprite->render(position, 0);
 }
