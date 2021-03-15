@@ -15,11 +15,18 @@ void trippin::EndMenuOverlay::init(const Point<int> &windowSize, SpriteManager &
 
     saveSprite = &save;
     exitSprite = &exit;
+
+    interpolator.init(1'000, savePos.x + saveSize.x);
+}
+
+void trippin::EndMenuOverlay::reset() {
+    interpolator.reset();
 }
 
 void trippin::EndMenuOverlay::render() {
-    saveSprite->render(savePos, 0);
-    exitSprite->render(exitPos, 0);
+    int x = -saveSprite->getSize().x + interpolator.interpolate();
+    exitSprite->render(Point<int>{x + (exitPos.x - savePos.x), exitPos.y}, 0);
+    saveSprite->render(Point<int>{x, savePos.y}, 0);
 }
 
 bool trippin::EndMenuOverlay::exitClicked(const trippin::Point<int> &coords) const {

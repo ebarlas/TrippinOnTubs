@@ -182,6 +182,7 @@ void trippin::Game::renderLoop() {
         } else if (state == PLAYING) {
             if (level->ended()) {
                 state = END_MENU;
+                endMenuOverlay.reset();
             }
         } else if (state == END_MENU) {
             endMenuOverlay.render();
@@ -198,6 +199,7 @@ void trippin::Game::renderLoop() {
                 if (nameFormOverlay.nameEntered()) {
                     std::string name = nameFormOverlay.name();
                     state = START_MENU;
+                    menuOverlay.reset();
                 }
             }
         }
