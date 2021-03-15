@@ -7,7 +7,7 @@ void trippin::Shake::init(int pd, int dur) {
     duration = dur;
     started = false;
     auto count = dur / pd;
-    for (int i = 0; i <= count; i++) {
+    for (int i = 0; i <= count + 1; i++) {
         samples.push_back(std::rand() * 2.0 / RAND_MAX - 1);
     }
 }
@@ -31,10 +31,7 @@ float trippin::Shake::amplitude() {
     auto s0 = (int) std::floor(s);
     auto s1 = s0 + 1;
     auto k = decay();
-    auto amp = (samples[s0] + (s - s0) * (samples[s1] - samples[s0])) * k;
-    // SDL_Log("period=%d, duration=%d, t=%d, s=%f, s0=%d, s1=%d, samples[s0]=%f, samples[s1]=%f, k=%f, amp=%f",
-    //        period, duration, t, s, s0, s1, samples[s0], samples[s1], k, amp);
-    return amp;
+    return (samples[s0] + (s - s0) * (samples[s1] - samples[s0])) * k;
 }
 
 float trippin::Shake::decay() {
