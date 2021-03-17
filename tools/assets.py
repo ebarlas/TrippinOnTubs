@@ -32,7 +32,9 @@ sprites = [
     'start',
     'high_score',
     'save_score',
-    'exit'
+    'exit',
+    'all_time',
+    'today'
 ]
 
 levels = ['map_ground_melt', 'map_minimal', 'map_test', 'map_load']

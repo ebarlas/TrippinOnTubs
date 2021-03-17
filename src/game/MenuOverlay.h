@@ -2,7 +2,7 @@
 #define TRIPPIN_MENUOVERLAY_H
 
 #include "sprite/SpriteManager.h"
-#include "Interpolator.h"
+#include "MenuLayout.h"
 
 namespace trippin {
     class MenuOverlay {
@@ -12,14 +12,9 @@ namespace trippin {
         void render();
         bool startClicked(const Point<int> &coords) const;
         bool exitClicked(const Point<int> &coords) const;
+        bool highScoreClicked(const Point<int> &coords) const;
     private:
-        const Sprite *startSprite;
-        const Sprite *highScoreSprite;
-        const Sprite *exitSprite;
-        Point<int> startPos;
-        Point<int> highScorePos;
-        Point<int> exitPos;
-        Interpolator interpolator;
+        MenuLayout<3> menuLayout;
     };
 }
 
