@@ -4,7 +4,7 @@ void trippin::MenuOverlay::init(const Point<int> &windowSize, SpriteManager &spr
     menuLayout.setSprite(0, &spriteManager.get("start"));
     menuLayout.setSprite(1, &spriteManager.get("high_score"));
     menuLayout.setSprite(2, &spriteManager.get("exit"));
-    menuLayout.init(windowSize, 1'000);
+    menuLayout.init(windowSize, 750);
 }
 
 void trippin::MenuOverlay::reset() {

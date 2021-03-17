@@ -186,6 +186,10 @@ void trippin::Game::renderLoop() {
             }
         } else if (state == SCORE_MENU) {
             scoreMenuOverlay.render();
+            if (ui.mouseButtonDown && scoreMenuOverlay.exitClicked(ui.mouseButton)) {
+                menuOverlay.reset();
+                state = START_MENU;
+            }
         } else if (state == PLAYING) {
             if (level->ended()) {
                 state = END_MENU;

@@ -12,13 +12,9 @@ namespace trippin {
         void render();
         bool allTimeClicked(const Point<int> &coords) const;
         bool todayClicked(const Point<int> &coords) const;
+        bool exitClicked(const Point<int> &coords) const;
     private:
-        MenuLayout<2> menuLayout;
-//        const Sprite *allTimeSprite;
-//        const Sprite *todaySprite;
-//        Point<int> allTimePos;
-//        Point<int> todayPos;
-//        Interpolator interpolator;
+        MenuLayout<3> menuLayout;
     };
 }
 
