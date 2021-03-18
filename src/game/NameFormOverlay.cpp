@@ -6,6 +6,10 @@ void trippin::NameFormOverlay::init(const Point<int> &ws, SpriteManager &spriteM
     cursor = 0;
 }
 
+void trippin::NameFormOverlay::reset() {
+    cursor = 0;
+}
+
 void trippin::NameFormOverlay::render() {
     Point<int> size = sprite->getSize();
     int width = windowSize.x - (size.x * columns);
@@ -15,7 +19,7 @@ void trippin::NameFormOverlay::render() {
             int digit = r * columns + c;
             if (digit < chars) {
                 Point<int> pos{width / 2 + c * size.x, height / 2 + r * size.y};
-                sprite->render(pos, digit);
+                sprite->render(pos, digit + 10);
             }
         }
     }
@@ -26,7 +30,7 @@ void trippin::NameFormOverlay::render() {
         Point<int> pos{width / 2 + c * size.x + c * margin, height / 2 + rows * size.y};
         if (c < cursor) {
             sprite->render(pos, 37);
-            sprite->render(pos, digits[c]);
+            sprite->render(pos, name[c] + 10);
         } else if (c == cursor) {
             sprite->render(pos, 36);
         } else {
@@ -46,7 +50,7 @@ void trippin::NameFormOverlay::onClick(const Point<int> &coords) {
     int col = offset.x / size.x;
     if (row >= 0 && row < rows && col >= 0 && col < columns) {
         int digit = row * columns + col;
-        digits[cursor] = digit;
+        name[cursor] = digit;
         cursor++;
     }
 }
@@ -55,10 +59,6 @@ bool trippin::NameFormOverlay::nameEntered() const {
     return cursor == nameLength;
 }
 
-std::string trippin::NameFormOverlay::name() const {
-    std::string name;
-    for (int digit : digits) {
-        name += alphabet[digit];
-    }
+const trippin::Name &trippin::NameFormOverlay::getName() const {
     return name;
 }

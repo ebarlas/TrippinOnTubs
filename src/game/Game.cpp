@@ -202,13 +202,14 @@ void trippin::Game::renderLoop() {
                 state = START_MENU;
             } else if (ui.mouseButtonDown && endMenuOverlay.saveClicked(ui.mouseButton)) {
                 state = NAME_FORM;
+                nameFormOverlay.reset();
             }
         } else {
             nameFormOverlay.render();
             if (ui.mouseButtonDown) {
                 nameFormOverlay.onClick(ui.mouseButton);
                 if (nameFormOverlay.nameEntered()) {
-                    std::string name = nameFormOverlay.name();
+                    auto &name = nameFormOverlay.getName();
                     state = START_MENU;
                     menuOverlay.reset();
                 }
