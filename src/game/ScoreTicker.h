@@ -1,5 +1,5 @@
-#ifndef TRIPPIN_SCORE_H
-#define TRIPPIN_SCORE_H
+#ifndef TRIPPIN_SCORETICKER_H
+#define TRIPPIN_SCORETICKER_H
 
 #include "engine/Listener.h"
 #include "sprite/Sprite.h"
@@ -11,7 +11,7 @@
 #include "Goggin.h"
 
 namespace trippin {
-    class Score : public Listener, public Renderable {
+    class ScoreTicker : public Listener, public Renderable {
     private:
         const Sprite *digits{};
         int margin;

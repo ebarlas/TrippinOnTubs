@@ -1,25 +1,25 @@
-#include "Score.h"
+#include "ScoreTicker.h"
 #include "engine/Convert.h"
 
-void trippin::Score::init() {
+void trippin::ScoreTicker::init() {
     score = 0;
     channel.set(score);
 }
 
-void trippin::Score::setMargin(int mar) {
+void trippin::ScoreTicker::setMargin(int mar) {
     margin = mar;
 }
 
-void trippin::Score::setSprite(const Sprite &spr) {
+void trippin::ScoreTicker::setSprite(const Sprite &spr) {
     digits = &spr;
 }
 
-void trippin::Score::add(int n) {
+void trippin::ScoreTicker::add(int n) {
     score += n;
     channel.set(score);
 }
 
-void trippin::Score::render(const trippin::Camera &camera) {
+void trippin::ScoreTicker::render(const trippin::Camera &camera) {
     int sc = toInt(channel.get());
     int x = camera.getViewport().w - margin - digits->getSize().x;
     do {
@@ -31,17 +31,17 @@ void trippin::Score::render(const trippin::Camera &camera) {
     } while (sc > 0);
 }
 
-void trippin::Score::afterTick(Uint32 engineTicks) {
+void trippin::ScoreTicker::afterTick(Uint32 engineTicks) {
     if (!goggin->expired) {
         score += pointsPerTick;
         channel.set(score);
     }
 }
 
-void trippin::Score::setPointsPerTick(double ppt) {
+void trippin::ScoreTicker::setPointsPerTick(double ppt) {
     pointsPerTick = ppt;
 }
 
-void trippin::Score::setGoggin(const Goggin *g) {
+void trippin::ScoreTicker::setGoggin(const Goggin *g) {
     goggin = g;
 }

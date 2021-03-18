@@ -10,7 +10,7 @@
 #include "Spirit.h"
 #include "SpiritClock.h"
 #include "JumpMeter.h"
-#include "Score.h"
+#include "ScoreTicker.h"
 #include "Activation.h"
 #include "GogginInput.h"
 
@@ -34,7 +34,7 @@ namespace trippin {
         Spirit spirit;
         SpiritClock spiritClock;
         JumpMeter jumpMeter;
-        Score score;
+        ScoreTicker scoreTicker;
         void initMap();
         void initCamera();
         void initEngine();

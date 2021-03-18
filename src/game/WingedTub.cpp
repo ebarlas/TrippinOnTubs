@@ -39,7 +39,7 @@ void trippin::WingedTub::afterTick(Uint32 engineTicks) {
         hitGoggin = true;
         hitTicks = 0;
         frame = FRAME_CLOUD_FIRST;
-        score->add(points);
+        scoreTicker->add(points);
     }
 
     // Case #2: Advance dust cloud
@@ -68,8 +68,8 @@ void trippin::WingedTub::setGoggin(const Goggin *g) {
     goggin = g;
 }
 
-void trippin::WingedTub::setScore(Score *sc) {
-    score = sc;
+void trippin::WingedTub::setScoreTicker(ScoreTicker *scoreTicker) {
+    scoreTicker = scoreTicker;
 }
 
 void trippin::WingedTub::setActivation(const Activation *act) {

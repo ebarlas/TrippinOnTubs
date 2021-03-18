@@ -77,7 +77,7 @@ void trippin::Level::initEngine() {
         } else if (obj.type == "winged_tub") {
             auto uptr = std::make_unique<WingedTub>();
             uptr->setGoggin(&goggin);
-            uptr->setScore(&score);
+            uptr->setScoreTicker(&scoreTicker);
             uptr->setActivation(&activation);
             uptr->setSoundManager(*soundManager);
             uptr->init(*configuration, obj, spriteManager->get(obj.type));
@@ -88,7 +88,7 @@ void trippin::Level::initEngine() {
             uptr->setGoggin(&goggin);
             uptr->setSpirit(&spirit);
             uptr->setActivation(&activation);
-            uptr->setScore(&score);
+            uptr->setScoreTicker(&scoreTicker);
             uptr->setSoundManager(*soundManager);
             uptr->init(*configuration, obj, spriteManager->get(obj.type));
             engine.add(uptr.get());
@@ -114,12 +114,12 @@ void trippin::Level::initEngine() {
         }
     }
 
-    score.setSprite(spriteManager->get("digits"));
-    score.setMargin(map.meterMargin);
-    score.setPointsPerTick(configuration->pointsPerTick());
-    score.setGoggin(&goggin);
-    score.init();
-    engine.addListener(&score);
+    scoreTicker.setSprite(spriteManager->get("digits"));
+    scoreTicker.setMargin(map.meterMargin);
+    scoreTicker.setPointsPerTick(configuration->pointsPerTick());
+    scoreTicker.setGoggin(&goggin);
+    scoreTicker.init();
+    engine.addListener(&scoreTicker);
 
     spirit.setTicksPerSecond(configuration->ticksPerSecond());
     spirit.setVelocity(goggin.terminalVelocity.x);
@@ -160,7 +160,7 @@ void trippin::Level::render(GogginInput input) {
     goggin.render(camera);
     spiritClock.render(camera);
     jumpMeter.render(camera);
-    score.render(camera);
+    scoreTicker.render(camera);
 }
 
 void trippin::Level::start() {

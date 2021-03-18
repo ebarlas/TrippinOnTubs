@@ -5,7 +5,7 @@
 #include "SpriteObject.h"
 #include "Spirit.h"
 #include "Goggin.h"
-#include "Score.h"
+#include "ScoreTicker.h"
 #include "Activation.h"
 #include "lock/Guarded.h"
 
@@ -14,7 +14,7 @@ namespace trippin {
     public:
         void init(const Configuration &config, const Map::Object &obj, const Sprite &spr);
         void setGoggin(const Goggin *goggin);
-        void setScore(Score *score);
+        void setScoreTicker(ScoreTicker *scoreTicker);
         void setActivation(const Activation *activation);
         void setSoundManager(SoundManager &soundManager);
         void beforeTick(Uint32 engineTicks) override;
@@ -31,7 +31,7 @@ namespace trippin {
 
         const Sprite *sprite;
         const Goggin *goggin;
-        Score *score;
+        ScoreTicker *scoreTicker;
         Point<int> position;
         Rect<int> hitBox;
         int hitTicks;

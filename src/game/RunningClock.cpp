@@ -35,7 +35,7 @@ void trippin::RunningClock::afterTick(Uint32 engineTicks) {
         hitTicks = 0;
         frame = FRAME_CLOUD_FIRST;
         spirit->delay(1);
-        score->add(50);
+        scoreTicker->add(50);
     }
 
     // Case #2: Advance dust cloud
@@ -85,8 +85,8 @@ void trippin::RunningClock::setActivation(const Activation *act) {
     activation = act;
 }
 
-void trippin::RunningClock::setScore(trippin::Score *sc) {
-    score = sc;
+void trippin::RunningClock::setScoreTicker(trippin::ScoreTicker *score) {
+    score = score;
 }
 
 void trippin::RunningClock::setSoundManager(trippin::SoundManager &sm) {

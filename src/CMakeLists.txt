@@ -70,7 +70,7 @@ add_library(Game
         game/WingedTub.cpp
         game/Goggin.cpp
         game/JumpMeter.cpp
-        game/Score.cpp
+        game/ScoreTicker.cpp
         game/SpiritClock.cpp
         game/Spirit.cpp
         game/PacingObject.cpp

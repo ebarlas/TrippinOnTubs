@@ -3,7 +3,7 @@
 
 #include "SpriteObject.h"
 #include "Activation.h"
-#include "Score.h"
+#include "ScoreTicker.h"
 #include "Spirit.h"
 #include "lock/Guarded.h"
 
@@ -17,7 +17,7 @@ namespace trippin {
         void afterTick(Uint32 engineTicks) override;
         void render(const Camera &camera) override;
         void setActivation(const Activation *activation);
-        void setScore(Score *score);
+        void setScoreTicker(ScoreTicker *score);
         void setSoundManager(SoundManager &soundManager);
     private:
         constexpr static const int FRAME_CLOUD_FIRST = 24;
@@ -29,7 +29,7 @@ namespace trippin {
 
         double runningAcceleration;
         const Activation *activation;
-        Score *score;
+        ScoreTicker *scoreTicker;
         SoundManager *soundManager;
         int frame;
 
