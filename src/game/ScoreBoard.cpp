@@ -16,12 +16,20 @@ void trippin::ScoreBoard::init(const trippin::Point<int> &ws, trippin::SpriteMan
 void trippin::ScoreBoard::render() {
     int digitWidth = sprite->getSize().x;
     int digitHeight = sprite->getSize().y;
-    int leftMargin = (windowSize.x - digitWidth * 14) / 2;
+
+    auto fn = [](const Score &score) {return score.rank >= 10;};
+    bool narrow = std::find_if(scores.begin(), scores.end(), fn) == scores.end();
+
+    int leftMargin = (windowSize.x - digitWidth * (narrow ? 13 : 14)) / 2;
+    int rankLeft = leftMargin + (narrow ? 0 : digitWidth);
+    int nameLeft = leftMargin + digitWidth * (narrow ? 2 : 3);
+    int scoreLeft = windowSize.x - leftMargin - digitWidth;
+
     int y = top;
     for (auto &score : scores) {
-        renderNumber(leftMargin + digitWidth, y, score.rank);
-        renderName(leftMargin + digitWidth * 3, y, score.name);
-        renderNumber(windowSize.x - leftMargin - digitWidth, y, score.score);
+        renderNumber(rankLeft, y, score.rank);
+        renderName(nameLeft, y, score.name);
+        renderNumber(scoreLeft, y, score.score);
         y += digitHeight;
     }
 }

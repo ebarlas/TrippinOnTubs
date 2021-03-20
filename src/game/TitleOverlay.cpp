@@ -73,5 +73,7 @@ void trippin::TitleOverlay::setTitlePause(int pause) {
 
 bool trippin::TitleOverlay::inView(int top, int h) const {
     int bottom = top + h;
-    return (top >= 0 && top <= windowSize.y) || (bottom >= 0 && bottom <= windowSize.y);
+    return (top >= 0 && top <= windowSize.y)
+           || (bottom >= 0 && bottom <= windowSize.y)
+           || (top <= 0 && bottom >= windowSize.y);
 }
