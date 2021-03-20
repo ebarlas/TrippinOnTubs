@@ -14,6 +14,7 @@
 #include "EndMenuOverlay.h"
 #include "NameFormOverlay.h"
 #include "ScoreMenuOverlay.h"
+#include "ScrollingScoreBoard.h"
 
 namespace trippin {
     class Game {
@@ -34,6 +35,8 @@ namespace trippin {
         EndMenuOverlay endMenuOverlay;
         NameFormOverlay nameFormOverlay;
         ScoreMenuOverlay scoreMenuOverlay;
+        ScrollingScoreBoard allTimeScores;
+        ScrollingScoreBoard todayScores;
         void initRuntime();
         void initWindowSize();
         void initWindow();
