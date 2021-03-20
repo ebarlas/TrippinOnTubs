@@ -68,8 +68,8 @@ void trippin::WingedTub::setGoggin(const Goggin *g) {
     goggin = g;
 }
 
-void trippin::WingedTub::setScoreTicker(ScoreTicker *scoreTicker) {
-    scoreTicker = scoreTicker;
+void trippin::WingedTub::setScoreTicker(ScoreTicker *st) {
+    scoreTicker = st;
 }
 
 void trippin::WingedTub::setActivation(const Activation *act) {

@@ -2,7 +2,6 @@
 #define TRIPPIN_NAMEFORMOVERLAY_H
 
 #include "sprite/SpriteManager.h"
-#include "Name.h"
 
 namespace trippin {
     class NameFormOverlay {
@@ -12,13 +11,13 @@ namespace trippin {
         void reset();
         void onClick(const Point<int> &coords);
         bool nameEntered() const;
-        const Name& getName() const;
+        const std::string& getName() const;
     private:
         static constexpr const int chars = 26;
         static constexpr const int columns = 10;
         static constexpr const int rows = 3;
-        static const int nameLength = 5;
-        Name name;
+        static constexpr const int nameLength = 5;
+        std::string name;
         const Sprite *sprite;
         Point<int> windowSize;
         int cursor;

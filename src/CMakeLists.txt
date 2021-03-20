@@ -86,7 +86,7 @@ add_library(Game
         game/EndMenuOverlay.cpp
         game/NameFormOverlay.cpp
         game/ScoreMenuOverlay.cpp
-        game/Name.cpp
+        game/ScoreBoard.cpp
         game/Interpolator.cpp
         game/Shake.cpp
         game/SoundManager.cpp)

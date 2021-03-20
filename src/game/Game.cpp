@@ -100,6 +100,14 @@ void trippin::Game::initLevel() {
 }
 
 void trippin::Game::initOverlays() {
+    std::vector<Score> scores{
+            {1, 563, "ELBAR"},
+            {2, 12739, "JOSHY"},
+            {3, 99999, "MAXBA"}};
+    titleOverlay.setAllTimeScores(scores);
+    titleOverlay.setTodayScores(scores);
+    titleOverlay.setTitlePause(3'000);
+    titleOverlay.setScrollRate(-0.25);
     titleOverlay.init(windowSize, *spriteManager);
     menuOverlay.init(windowSize, *spriteManager);
     endMenuOverlay.init(windowSize, *spriteManager);
@@ -210,6 +218,7 @@ void trippin::Game::renderLoop() {
                 nameFormOverlay.onClick(ui.mouseButton);
                 if (nameFormOverlay.nameEntered()) {
                     auto &name = nameFormOverlay.getName();
+                    SDL_Log("name=%s", name.c_str());
                     state = START_MENU;
                     menuOverlay.reset();
                 }

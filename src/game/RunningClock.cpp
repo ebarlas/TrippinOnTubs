@@ -86,7 +86,7 @@ void trippin::RunningClock::setActivation(const Activation *act) {
 }
 
 void trippin::RunningClock::setScoreTicker(trippin::ScoreTicker *score) {
-    score = score;
+    scoreTicker = score;
 }
 
 void trippin::RunningClock::setSoundManager(trippin::SoundManager &sm) {
