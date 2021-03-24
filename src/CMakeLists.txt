@@ -73,10 +73,8 @@ add_library(Game
         game/ScoreTicker.cpp
         game/SpiritClock.cpp
         game/Spirit.cpp
-        game/PacingObject.cpp
+        game/GameObject.cpp
         game/RunningClock.cpp
-        game/Bird.cpp
-        game/Ball.cpp
         game/Activation.cpp
         game/Layer.cpp
         game/Level.cpp

@@ -1,6 +1,7 @@
 import xml.etree.ElementTree as ET
 import subprocess
 import json
+import re
 from pathlib import Path
 from PIL import Image
 
@@ -46,6 +47,11 @@ def fade_color_attr(attributes, key, terminal, fade_to):
         attributes[key] = fade_color(val, terminal, fade_to)
 
 
+def replace_display(style, display):
+    p = r'display:[a-zA-Z]+'
+    return re.sub(p, display, style) if style and re.search(p, style) else display
+
+
 def export_pngs(svg_file, tmp_dir, export_dir, scales, name):
     for d in (tmp_dir, export_dir):
         Path(d).mkdir(parents=True, exist_ok=True)
@@ -75,9 +81,9 @@ def export_pngs(svg_file, tmp_dir, export_dir, scales, name):
                     style = ';'.join([f'{k}:{styles[k]}' for k in styles.keys()])
                     e.set('style', style)
         for e in root.findall(f'.//svg:g[@type="frame"]', namespace):
-            e.set('style', 'display:none')
+            e.set('style', replace_display(e.get('style'), 'display:none'))
         for e in root.findall(f'.//svg:g[@type="frame"][@frame="{n}"]', namespace):
-            e.set('style', 'display:inline')
+            e.set('style', replace_display(e.get('style'), 'display:inline'))
         tree.write(f'{tmp_dir}/tmp.svg')
         for scale in scales:
             subprocess.run([

@@ -1,7 +1,7 @@
 #ifndef TRIPPIN_OBJECT_H
 #define TRIPPIN_OBJECT_H
 
-#include <vector>
+#include <array>
 #include "engine/Listener.h"
 #include "engine/Rect.h"
 #include "engine/Point.h"
@@ -90,6 +90,10 @@ namespace trippin {
         // Collision sides use to determine whether movement is allowed in each direction.
         Sides platformCollisions{};
         Sides objectCollisions{};
+
+        // ids of object collisions
+        int collisionTestId;
+        bool collisionTest;
 
         void syncPositions();
         void applyMotion();

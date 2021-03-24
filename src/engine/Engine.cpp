@@ -59,12 +59,6 @@ void trippin::Engine::applyMotion() {
 }
 
 void trippin::Engine::snapObjects() {
-    // prepare for snapping
-    for (auto obj : objects) {
-        obj->snapCollisions.clear();
-        obj->snappedToMe = false;
-    }
-
     // first, snap objects to each platform
     for (auto plat : platforms) {
         snapToPlatform(plat);
@@ -191,6 +185,8 @@ void trippin::Engine::applyPlatformCollision(Object &object, Object &platform, c
 }
 
 void trippin::Engine::applyObjectCollision(Object &left, Object &right, const Sides &sides) {
+    left.collisionTest |= left.collisionTestId == right.id;
+    right.collisionTest |= right.collisionTestId == left.id;
     left.objectCollisions |= sides;
     right.objectCollisions |= sides.flip();
     left.onObjectCollision(right, sides);

@@ -1,8 +1,6 @@
 #include "Level.h"
 #include "Ground.h"
-#include "PacingObject.h"
-#include "Bird.h"
-#include "Ball.h"
+#include "GameObject.h"
 #include "WingedTub.h"
 #include "RunningClock.h"
 #include "Layer.h"
@@ -93,20 +91,8 @@ void trippin::Level::initEngine() {
             uptr->init(*configuration, obj, spriteManager->get(obj.type));
             engine.add(uptr.get());
             objects.push_back(std::move(uptr));
-        } else if (obj.type == "zombie" || obj.type == "rat") {
-            auto uptr = std::make_unique<PacingObject>();
-            uptr->setActivation(&activation);
-            uptr->init(*configuration, obj, spriteManager->get(obj.type));
-            engine.add(uptr.get());
-            objects.push_back(std::move(uptr));
-        } else if (obj.type == "bird") {
-            auto uptr = std::make_unique<Bird>();
-            uptr->setActivation(&activation);
-            uptr->init(*configuration, obj, spriteManager->get(obj.type));
-            engine.add(uptr.get());
-            objects.push_back(std::move(uptr));
-        } else if (obj.type == "ball") {
-            auto uptr = std::make_unique<Ball>();
+        } else if (obj.type == "zombie" || obj.type == "rat" || obj.type == "bird" || obj.type == "ball") {
+            auto uptr = std::make_unique<GameObject>();
             uptr->setActivation(&activation);
             uptr->init(*configuration, obj, spriteManager->get(obj.type));
             engine.add(uptr.get());

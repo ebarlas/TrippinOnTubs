@@ -36,6 +36,7 @@ namespace trippin {
             double coefficient{};
             bool sparkle{};
             int frame{};
+            bool accelerateWhenGrounded{};
         };
 
         struct Layer {
