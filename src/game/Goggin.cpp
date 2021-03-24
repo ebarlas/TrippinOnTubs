@@ -224,6 +224,7 @@ void trippin::Goggin::onFalling(Uint32 engineTicks) {
         state = State::landing;
         ticks = 0;
         frames.frame = FRAME_LANDING_FIRST;
+        acceleration.x = runningAcceleration;
         if (platformCollisions.testBottom() && maxFallingVelocity >= terminalVelocity.y / 2.0) {
             resetDustBlast();
             xShake.start(engineTicks);
