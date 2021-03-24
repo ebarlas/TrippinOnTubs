@@ -115,6 +115,7 @@ void trippin::Level::initEngine() {
     spiritClock.setGoggin(goggin);
     spiritClock.setSpirit(spirit);
     spiritClock.setPosition({map.meterMargin, map.meterMargin});
+    spiritClock.setPadding(spriteManager->get("ground_melt_left").getSize().x);
     spiritClock.init(*configuration, timerSprite);
     engine.addListener(&spiritClock);
 
