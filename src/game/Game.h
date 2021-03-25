@@ -2,6 +2,7 @@
 #define TRIPPIN_GAME_H
 
 #include <string>
+#include <vector>
 #include "SDL.h"
 #include "engine/Point.h"
 #include "sprite/SpriteManager.h"
@@ -14,7 +15,7 @@
 #include "EndMenuOverlay.h"
 #include "NameFormOverlay.h"
 #include "ScoreMenuOverlay.h"
-#include "ScrollingScoreBoard.h"
+#include "ScrollingScoreBoardOverlay.h"
 
 namespace trippin {
     class Game {
@@ -35,8 +36,10 @@ namespace trippin {
         EndMenuOverlay endMenuOverlay;
         NameFormOverlay nameFormOverlay;
         ScoreMenuOverlay scoreMenuOverlay;
-        ScrollingScoreBoard allTimeScores;
-        ScrollingScoreBoard todayScores;
+        ScrollingScoreBoardOverlay allTimeScoresOverlay;
+        ScrollingScoreBoardOverlay todayScoresOverlay;
+        std::vector<Score> todayScores;
+        std::vector<Score> allTimeScores;
         void initRuntime();
         void initWindowSize();
         void initWindow();
@@ -50,6 +53,7 @@ namespace trippin {
         void initLevel();
         void renderLoop();
         std::unique_ptr<Level> nextLevel();
+        void addScore(const std::string &name, int score);
 
         struct UserInput {
             bool quit;

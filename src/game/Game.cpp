@@ -100,12 +100,13 @@ void trippin::Game::initLevel() {
 }
 
 void trippin::Game::initOverlays() {
-    std::vector<Score> scores{
-            {1, 563, "ELBAR"},
-            {2, 12739, "JOSHY"},
-            {3, 99999, "MAXBA"}};
-    titleOverlay.setAllTimeScores(scores);
-    titleOverlay.setTodayScores(scores);
+    todayScores = {
+            {99999, "AAAAA"},
+            {88888, "BBBBB"},
+            {77777, "CCCCC"}};
+    allTimeScores = todayScores;
+    titleOverlay.setAllTimeScores(allTimeScores);
+    titleOverlay.setTodayScores(todayScores);
     titleOverlay.setTitlePause(3'000);
     titleOverlay.setScrollRate(-0.25);
     titleOverlay.init(windowSize, *spriteManager);
@@ -113,12 +114,12 @@ void trippin::Game::initOverlays() {
     endMenuOverlay.init(windowSize, *spriteManager);
     nameFormOverlay.init(windowSize, *spriteManager);
     scoreMenuOverlay.init(windowSize, *spriteManager);
-    allTimeScores.setScores(scores);
-    allTimeScores.setScrollRate(-0.25);
-    allTimeScores.init(windowSize, *spriteManager);
-    todayScores.setScores(scores);
-    todayScores.setScrollRate(-0.25);
-    todayScores.init(windowSize, *spriteManager);
+    allTimeScoresOverlay.setScores(allTimeScores);
+    allTimeScoresOverlay.setScrollRate(-0.25);
+    allTimeScoresOverlay.init(windowSize, *spriteManager);
+    todayScoresOverlay.setScores(todayScores);
+    todayScoresOverlay.setScrollRate(-0.25);
+    todayScoresOverlay.init(windowSize, *spriteManager);
 }
 
 std::unique_ptr<trippin::Level> trippin::Game::nextLevel() {
@@ -168,6 +169,7 @@ void trippin::Game::renderLoop() {
     };
 
     int state = TITLE;
+    int score;
 
     Timer timer("renderer");
     UserInput ui{};
@@ -207,25 +209,26 @@ void trippin::Game::renderLoop() {
                 state = START_MENU;
             } else if (ui.mouseButtonDown && scoreMenuOverlay.allTimeClicked(ui.mouseButton)) {
                 state = ALL_TIME_SCORES;
-                allTimeScores.reset();
+                allTimeScoresOverlay.reset();
             } else if (ui.mouseButtonDown && scoreMenuOverlay.todayClicked(ui.mouseButton)) {
                 state = TODAY_SCORES;
-                todayScores.reset();
+                todayScoresOverlay.reset();
             }
-        } else if(state == ALL_TIME_SCORES) {
-            allTimeScores.render();
+        } else if (state == ALL_TIME_SCORES) {
+            allTimeScoresOverlay.render();
             if (ui.spaceKeyUp) {
                 menuOverlay.reset();
                 state = START_MENU;
             }
-        } else if(state == TODAY_SCORES) {
-            todayScores.render();
+        } else if (state == TODAY_SCORES) {
+            todayScoresOverlay.render();
             if (ui.spaceKeyUp) {
                 menuOverlay.reset();
                 state = START_MENU;
             }
         } else if (state == PLAYING) {
             if (level->ended()) {
+                score = level->getScore();
                 state = END_MENU;
                 endMenuOverlay.reset();
             }
@@ -243,8 +246,7 @@ void trippin::Game::renderLoop() {
             if (ui.mouseButtonDown) {
                 nameFormOverlay.onClick(ui.mouseButton);
                 if (nameFormOverlay.nameEntered()) {
-                    auto &name = nameFormOverlay.getName();
-                    SDL_Log("name=%s", name.c_str());
+                    addScore(nameFormOverlay.getName(), score);
                     state = START_MENU;
                     menuOverlay.reset();
                 }
@@ -291,4 +293,20 @@ trippin::GogginInput trippin::Game::getGogginInput(const UserInput &ui) {
     gi.duckStart = ui.downKeyDown;
     gi.duckEnd = ui.downKeyUp;
     return gi;
+}
+
+void trippin::Game::addScore(const std::string &name, int score) {
+    Score sc{score, name};
+
+    auto fn = [](const Score &left, const Score &right) {
+        return left.score > right.score;
+    };
+
+    todayScores.insert(std::upper_bound(todayScores.begin(), todayScores.end(), sc, fn), sc);
+    titleOverlay.setTodayScores(todayScores);
+    todayScoresOverlay.setScores(todayScores);
+
+    allTimeScores.insert(std::upper_bound(allTimeScores.begin(), allTimeScores.end(), sc, fn), sc);
+    titleOverlay.setAllTimeScores(allTimeScores);
+    allTimeScoresOverlay.setScores(allTimeScores);
 }

@@ -36,6 +36,8 @@ namespace trippin {
 
         // called from main render thread
         void render(const Camera &camera) override;
+
+        int getScore() const;
     };
 }
 

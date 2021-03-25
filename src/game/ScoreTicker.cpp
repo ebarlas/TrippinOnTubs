@@ -45,3 +45,7 @@ void trippin::ScoreTicker::setPointsPerTick(double ppt) {
 void trippin::ScoreTicker::setGoggin(const Goggin *g) {
     goggin = g;
 }
+
+int trippin::ScoreTicker::getScore() const {
+    return toInt(channel.get());
+}

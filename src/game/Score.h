@@ -5,7 +5,6 @@
 
 namespace trippin {
     struct Score {
-        int rank;
         int score;
         std::string name;
     };

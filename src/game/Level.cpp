@@ -165,3 +165,7 @@ void trippin::Level::stop() {
     Mix_FadeOutMusic(2'000);
 }
 
+int trippin::Level::getScore() const {
+    return scoreTicker.getScore();
+}
+

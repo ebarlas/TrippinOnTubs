@@ -4,7 +4,7 @@
 #include "sprite/SpriteManager.h"
 #include "Interpolator.h"
 #include "Score.h"
-#include "ScoreBoard.h"
+#include "ScoreBoardOverlay.h"
 
 namespace trippin {
     class TitleOverlay {
@@ -23,8 +23,8 @@ namespace trippin {
         Point<int> todayPosition;
         Point<int> allTimePosition;
         Point<int> windowSize;
-        ScoreBoard todayScoreBoard;
-        ScoreBoard allTimeScoreBoard;
+        ScoreBoardOverlay todayScoreBoard;
+        ScoreBoardOverlay allTimeScoreBoard;
 
         double scrollRate;
         Uint32 startTime;

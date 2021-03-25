@@ -1,13 +1,13 @@
-#ifndef TRIPPIN_SCROLLINGSCOREBOARD_H
-#define TRIPPIN_SCROLLINGSCOREBOARD_H
+#ifndef TRIPPIN_SCROLLINGSCOREBOARDOVERLAY_H
+#define TRIPPIN_SCROLLINGSCOREBOARDOVERLAY_H
 
 #include <vector>
 #include "sprite/SpriteManager.h"
 #include "Score.h"
-#include "ScoreBoard.h"
+#include "ScoreBoardOverlay.h"
 
 namespace trippin {
-    class ScrollingScoreBoard {
+    class ScrollingScoreBoardOverlay {
     public:
         void setScores(std::vector<Score> scores);
         void setScrollRate(double scrollRate);
@@ -16,7 +16,7 @@ namespace trippin {
         void render();
     private:
         Point<int> windowSize;
-        ScoreBoard scoreBoard;
+        ScoreBoardOverlay scoreBoard;
 
         double scrollRate;
         Uint32 startTime;

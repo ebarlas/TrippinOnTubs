@@ -1,12 +1,12 @@
-#ifndef TRIPPIN_SCOREBOARD_H
-#define TRIPPIN_SCOREBOARD_H
+#ifndef TRIPPIN_SCOREBOARDOVERLAY_H
+#define TRIPPIN_SCOREBOARDOVERLAY_H
 
 #include <vector>
 #include "sprite/SpriteManager.h"
 #include "Score.h"
 
 namespace trippin {
-    class ScoreBoard {
+    class ScoreBoardOverlay {
     public:
         void setScores(std::vector<Score> scores);
         void setTop(int y);
