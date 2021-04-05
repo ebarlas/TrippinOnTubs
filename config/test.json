@@ -11,6 +11,10 @@
   "map": "map_test",
   "loadMap": "map_load",
   "loadAutoPlay": "test",
+  "db": {
+    "host": "trippin-alb-71634371.us-west-2.elb.amazonaws.com",
+    "port": 80
+  },
   "scales": [
     {
       "name": "qhd",

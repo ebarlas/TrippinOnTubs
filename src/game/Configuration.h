@@ -13,6 +13,11 @@ namespace trippin {
             int minWidth;
         };
 
+        struct Db {
+            std::string host;
+            int port;
+        };
+
         int spiritSecondsBehind;
         int tickPeriod;
         int spiritClockTickPeriod;
@@ -26,6 +31,7 @@ namespace trippin {
         std::string loadMap;
         std::string loadAutoPlay;
         std::vector<Scale> scales;
+        Db db;
         void load(const std::string &name);
         static std::string getConfigFile(const std::string &name);
 

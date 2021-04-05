@@ -3,18 +3,18 @@
 
 #include "sprite/SpriteManager.h"
 #include "Interpolator.h"
-#include "Score.h"
+#include "net/Score.h"
 #include "ScoreBoardOverlay.h"
 
 namespace trippin {
     class TitleOverlay {
     public:
-        void setTodayScores(std::vector<Score> scores);
-        void setAllTimeScores(std::vector<Score> scores);
+        void setScores(std::vector<Score> today, std::vector<Score> top);
         void setScrollRate(double scrollRate);
         void setTitlePause(int duration);
         void init(const Point<int> &windowSize, SpriteManager &spriteManager);
         void render();
+        bool hasScores() const;
     private:
         const Sprite *titleSprite;
         const Sprite *allTimeSprite;
@@ -26,10 +26,11 @@ namespace trippin {
         ScoreBoardOverlay todayScoreBoard;
         ScoreBoardOverlay allTimeScoreBoard;
 
+        bool scoresSet;
+        Uint32 scoresSetTicks;
+
         double scrollRate;
-        Uint32 startTime;
         int titlePause;
-        int height;
 
         void scroll();
         void applyScroll(int delta);

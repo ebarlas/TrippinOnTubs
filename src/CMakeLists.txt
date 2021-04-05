@@ -40,6 +40,14 @@ add_library(Graphics
 target_include_directories(Graphics PUBLIC Engine ${SDL2_TTF_INCLUDE_DIR})
 target_link_libraries(Graphics Engine ${SDL2_TTF_LIB})
 
+add_library(Net
+        net/Tcp.cpp
+        net/Transport.cpp
+        net/DbSynchronizer.cpp
+        net/StagingArea.cpp)
+target_include_directories(Net PUBLIC ${NLOHMANN_JSON_INCLUDE_DIR} ${SDL2_NET_INCLUDE_DIR} ${CMAKE_CURRENT_SOURCE_DIR})
+target_link_libraries(Net Lock ${SDL2_NET_LIB})
+
 add_library(GameLoop demo/gameloop.cpp)
 target_link_libraries(GameLoop Graphics)
 
@@ -90,7 +98,7 @@ add_library(Game
         game/Shake.cpp
         game/SoundManager.cpp)
 target_include_directories(Game PUBLIC ${SDL2_MIXER_INCLUDE_DIR})
-target_link_libraries(Game Sprite Lock ${SDL2_MIXER_LIB})
+target_link_libraries(Game Sprite Lock Net ${SDL2_MIXER_LIB})
 
 add_executable(trippin game/trippin.cpp)
 target_link_libraries(trippin Game)

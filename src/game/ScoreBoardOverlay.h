@@ -3,7 +3,7 @@
 
 #include <vector>
 #include "sprite/SpriteManager.h"
-#include "Score.h"
+#include "net/Score.h"
 
 namespace trippin {
     class ScoreBoardOverlay {

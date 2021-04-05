@@ -41,6 +41,8 @@ void trippin::from_json(const nlohmann::json &j, Configuration &config) {
     j.at("map").get_to(config.map);
     j.at("loadMap").get_to(config.loadMap);
     j.at("loadAutoPlay").get_to(config.loadAutoPlay);
+    j.at("db").at("host").get_to(config.db.host);
+    j.at("db").at("port").get_to(config.db.port);
 
     for (auto &elem : j.at("scales")) {
         std::string name;

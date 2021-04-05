@@ -14,13 +14,6 @@ void trippin::TitleOverlay::init(const Point<int> &ws, SpriteManager &spriteMana
     allTimePosition.x = (ws.x - allTimeSprite->getSize().x) / 2;
 
     windowSize = ws;
-
-    startTime = SDL_GetTicks();
-
-    height = windowSize.y * 3
-             + todaySprite->getSize().y + allTimeSprite->getSize().y
-             + todayScoreBoard.getHeight() + allTimeScoreBoard.getHeight();
-
     applyScroll(0);
 }
 
@@ -38,12 +31,11 @@ void trippin::TitleOverlay::render() {
         allTimeScoreBoard.render();
 }
 
-void trippin::TitleOverlay::setTodayScores(std::vector<Score> scores) {
-    todayScoreBoard.setScores(std::move(scores));
-}
-
-void trippin::TitleOverlay::setAllTimeScores(std::vector<Score> scores) {
-    allTimeScoreBoard.setScores(std::move(scores));
+void trippin::TitleOverlay::setScores(std::vector<Score> today, std::vector<Score> top) {
+    todayScoreBoard.setScores(std::move(today));
+    allTimeScoreBoard.setScores(std::move(top));
+    scoresSet = true;
+    scoresSetTicks = SDL_GetTicks();
 }
 
 void trippin::TitleOverlay::setScrollRate(double sr) {
@@ -51,13 +43,18 @@ void trippin::TitleOverlay::setScrollRate(double sr) {
 }
 
 void trippin::TitleOverlay::scroll() {
-    int delta = static_cast<int>(SDL_GetTicks() - startTime) - titlePause;
-    if (delta > 0) {
-        applyScroll(toInt(delta * scrollRate));
+    if (scoresSet) {
+        int delta = static_cast<int>(SDL_GetTicks() - scoresSetTicks) - titlePause;
+        if (delta > 0) {
+            applyScroll(toInt(delta * scrollRate));
+        }
     }
 }
 
 void trippin::TitleOverlay::applyScroll(int scrollTop) {
+    int height = windowSize.y * 3
+                 + todaySprite->getSize().y + allTimeSprite->getSize().y
+                 + todayScoreBoard.getHeight() + allTimeScoreBoard.getHeight();
     int scrollWrap = scrollTop % height;
     int todayHeight = todaySprite->getSize().y + todayScoreBoard.getHeight();
     titlePosition.y = scrollTop + (windowSize.y - titleSprite->getSize().y) / 2;
@@ -76,4 +73,8 @@ bool trippin::TitleOverlay::inView(int top, int h) const {
     return (top >= 0 && top <= windowSize.y)
            || (bottom >= 0 && bottom <= windowSize.y)
            || (top <= 0 && bottom >= windowSize.y);
+}
+
+bool trippin::TitleOverlay::hasScores() const {
+    return scoresSet;
 }

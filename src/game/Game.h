@@ -3,6 +3,7 @@
 
 #include <string>
 #include <vector>
+#include <net/Transport.h>
 #include "SDL.h"
 #include "engine/Point.h"
 #include "sprite/SpriteManager.h"
@@ -16,6 +17,7 @@
 #include "NameFormOverlay.h"
 #include "ScoreMenuOverlay.h"
 #include "ScrollingScoreBoardOverlay.h"
+#include "net/StagingArea.h"
 
 namespace trippin {
     class Game {
@@ -38,14 +40,15 @@ namespace trippin {
         ScoreMenuOverlay scoreMenuOverlay;
         ScrollingScoreBoardOverlay allTimeScoresOverlay;
         ScrollingScoreBoardOverlay todayScoresOverlay;
-        std::vector<Score> todayScores;
-        std::vector<Score> allTimeScores;
+        StagingArea* stagingArea;
         void initRuntime();
         void initWindowSize();
         void initWindow();
         void initRenderer();
         void initMixer();
+        void initRand();
         void initConfiguration();
+        void initDbSychronizer();
         void initScale();
         void initSpriteManager();
         void initAutoPlay();
@@ -53,7 +56,6 @@ namespace trippin {
         void initLevel();
         void renderLoop();
         std::unique_ptr<Level> nextLevel();
-        void addScore(const std::string &name, int score);
 
         struct UserInput {
             bool quit;

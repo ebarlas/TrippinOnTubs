@@ -50,3 +50,15 @@ catch_discover_tests(
         -s
         --reporter=xml
         --out=tests.xml)
+
+add_executable(net_tests
+        net/staging_area_tests.cpp)
+target_link_libraries(net_tests PRIVATE Net catch_main)
+catch_discover_tests(
+        net_tests
+        TEST_PREFIX
+        "unittests."
+        EXTRA_ARGS
+        -s
+        --reporter=xml
+        --out=tests.xml)

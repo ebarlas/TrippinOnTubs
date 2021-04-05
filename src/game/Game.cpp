@@ -1,5 +1,9 @@
+#include <cstdlib>
+#include <iostream>
+#include <ctime>
 #include "SDL_mixer.h"
 #include "Game.h"
+#include "net/DbSynchronizer.h"
 
 void trippin::Game::init() {
     initRuntime();
@@ -7,7 +11,9 @@ void trippin::Game::init() {
     initWindow();
     initRenderer();
     initMixer();
+    initRand();
     initConfiguration();
+    initDbSychronizer();
     initScale();
     initSpriteManager();
     initAutoPlay();
@@ -69,6 +75,21 @@ void trippin::Game::initMixer() {
     }
 }
 
+void trippin::Game::initRand() {
+    std::srand(std::time(0));
+    SDL_Log("seeded random number generator, RAND_MAX=%d", RAND_MAX);
+}
+
+void trippin::Game::initDbSychronizer() {
+    // intentional use of new operator
+    // object duration is now until termination
+    // these objects are accessed by detached background threads
+    stagingArea = new StagingArea;
+    auto transport = new Transport(configuration.db.host, configuration.db.port);
+    auto sync = new DbSynchronizer(*transport, *stagingArea);
+    sync->start();
+}
+
 void trippin::Game::initConfiguration() {
     configuration.load(configName);
 }
@@ -100,13 +121,6 @@ void trippin::Game::initLevel() {
 }
 
 void trippin::Game::initOverlays() {
-    todayScores = {
-            {99999, "AAAAA"},
-            {88888, "BBBBB"},
-            {77777, "CCCCC"}};
-    allTimeScores = todayScores;
-    titleOverlay.setAllTimeScores(allTimeScores);
-    titleOverlay.setTodayScores(todayScores);
     titleOverlay.setTitlePause(3'000);
     titleOverlay.setScrollRate(-0.25);
     titleOverlay.init(windowSize, *spriteManager);
@@ -114,10 +128,8 @@ void trippin::Game::initOverlays() {
     endMenuOverlay.init(windowSize, *spriteManager);
     nameFormOverlay.init(windowSize, *spriteManager);
     scoreMenuOverlay.init(windowSize, *spriteManager);
-    allTimeScoresOverlay.setScores(allTimeScores);
     allTimeScoresOverlay.setScrollRate(-0.25);
     allTimeScoresOverlay.init(windowSize, *spriteManager);
-    todayScoresOverlay.setScores(todayScores);
     todayScoresOverlay.setScrollRate(-0.25);
     todayScoresOverlay.init(windowSize, *spriteManager);
 }
@@ -182,6 +194,9 @@ void trippin::Game::renderLoop() {
         level->render(getGogginInput(ui));
 
         if (state == TITLE) {
+            if (!titleOverlay.hasScores() && stagingArea->bothSet()) {
+                titleOverlay.setScores(stagingArea->getTodayScores(15), stagingArea->getTopScores(15));
+            }
             titleOverlay.render();
             if (ui.spaceKeyUp) {
                 menuOverlay.reset();
@@ -197,6 +212,7 @@ void trippin::Game::renderLoop() {
                 level->start();
                 state = PLAYING;
             } else if (ui.mouseButtonDown && menuOverlay.exitClicked(ui.mouseButton)) {
+                level->stop();
                 break;
             } else if (ui.mouseButtonDown && menuOverlay.highScoreClicked(ui.mouseButton)) {
                 state = SCORE_MENU;
@@ -210,9 +226,11 @@ void trippin::Game::renderLoop() {
             } else if (ui.mouseButtonDown && scoreMenuOverlay.allTimeClicked(ui.mouseButton)) {
                 state = ALL_TIME_SCORES;
                 allTimeScoresOverlay.reset();
+                allTimeScoresOverlay.setScores(stagingArea->getTopScores(25));
             } else if (ui.mouseButtonDown && scoreMenuOverlay.todayClicked(ui.mouseButton)) {
                 state = TODAY_SCORES;
                 todayScoresOverlay.reset();
+                todayScoresOverlay.setScores(stagingArea->getTodayScores(25));
             }
         } else if (state == ALL_TIME_SCORES) {
             allTimeScoresOverlay.render();
@@ -246,7 +264,7 @@ void trippin::Game::renderLoop() {
             if (ui.mouseButtonDown) {
                 nameFormOverlay.onClick(ui.mouseButton);
                 if (nameFormOverlay.nameEntered()) {
-                    addScore(nameFormOverlay.getName(), score);
+                    stagingArea->addScore({score, nameFormOverlay.getName(), std::to_string(rand())});
                     state = START_MENU;
                     menuOverlay.reset();
                 }
@@ -293,20 +311,4 @@ trippin::GogginInput trippin::Game::getGogginInput(const UserInput &ui) {
     gi.duckStart = ui.downKeyDown;
     gi.duckEnd = ui.downKeyUp;
     return gi;
-}
-
-void trippin::Game::addScore(const std::string &name, int score) {
-    Score sc{score, name};
-
-    auto fn = [](const Score &left, const Score &right) {
-        return left.score > right.score;
-    };
-
-    todayScores.insert(std::upper_bound(todayScores.begin(), todayScores.end(), sc, fn), sc);
-    titleOverlay.setTodayScores(todayScores);
-    todayScoresOverlay.setScores(todayScores);
-
-    allTimeScores.insert(std::upper_bound(allTimeScores.begin(), allTimeScores.end(), sc, fn), sc);
-    titleOverlay.setAllTimeScores(allTimeScores);
-    allTimeScoresOverlay.setScores(allTimeScores);
 }
