@@ -79,8 +79,8 @@ def find_layers(root):
             obj = {
                 'type': node.attrib['type'],
                 'position': {
-                    'x': int(node.attrib['x']),
-                    'y': int(node.attrib['y'])
+                    'x': round(float(node.attrib['x'])),
+                    'y': round(float(node.attrib['y']))
                 }
             }
             layer['objects'].append(obj)

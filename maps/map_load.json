@@ -84,7 +84,7 @@
       "minJumpVelocity": -375.0,
       "maxJumpVelocity": -875.0,
       "maxDuckJumpVelocity": -1100.0,
-      "runningAcceleration": 500.0,
+      "runningAcceleration": 1000.0,
       "risingAcceleration": 50.0,
       "duckFriction": 150.0,
       "minJumpChargeTime": 0,
@@ -1581,6 +1581,89 @@
       ],
       "width": 4100,
       "height": 2500
+    },
+    {
+      "objects": [
+        {
+          "type": "street_light",
+          "position": {
+            "x": 50,
+            "y": 2240
+          }
+        },
+        {
+          "type": "street_light",
+          "position": {
+            "x": 830,
+            "y": 2240
+          }
+        },
+        {
+          "type": "street_light",
+          "position": {
+            "x": 1610,
+            "y": 2240
+          }
+        },
+        {
+          "type": "street_light",
+          "position": {
+            "x": 2390,
+            "y": 2240
+          }
+        },
+        {
+          "type": "street_light",
+          "position": {
+            "x": 3170,
+            "y": 2240
+          }
+        },
+        {
+          "type": "street_light",
+          "position": {
+            "x": 3950,
+            "y": 2240
+          }
+        },
+        {
+          "type": "street_light",
+          "position": {
+            "x": 4730,
+            "y": 2240
+          }
+        },
+        {
+          "type": "street_light",
+          "position": {
+            "x": 5510,
+            "y": 2240
+          }
+        },
+        {
+          "type": "street_light",
+          "position": {
+            "x": 6290,
+            "y": 2240
+          }
+        },
+        {
+          "type": "street_light",
+          "position": {
+            "x": 7070,
+            "y": 2240
+          }
+        },
+        {
+          "type": "street_light",
+          "position": {
+            "x": 7850,
+            "y": 2240
+          }
+        }
+      ],
+      "width": 8160,
+      "height": 2480
     }
   ]
 }

@@ -1,0 +1,21 @@
+<ns0:svg xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:ns0="http://www.w3.org/2000/svg" xmlns:ns1="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd" xmlns:ns2="http://www.inkscape.org/namespaces/inkscape" xmlns:ns4="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" ns1:docname="street_light.svg" ns2:version="1.0beta2 (2b71d25, 2019-12-03)" id="svg8" scale="6" fadeToWhite="0.25" version="1.1" viewBox="0 0 100 160.00001" height="160" width="100">
+  <ns0:defs id="defs2" />
+  <ns1:namedview ns2:snap-global="true" ns2:window-maximized="0" ns2:window-y="157" ns2:window-x="524" ns2:window-height="1481" ns2:window-width="2784" units="px" showgrid="true" ns2:document-rotation="0" ns2:current-layer="layer2" ns2:document-units="px" ns2:cy="25.131124" ns2:cx="-5.2408394" ns2:zoom="8.1279294" ns2:pageshadow="2" ns2:pageopacity="0.0" borderopacity="1.0" bordercolor="#666666" pagecolor="#ffffff" id="base">
+    <ns2:grid id="grid833" type="xygrid" />
+  </ns1:namedview>
+  <ns0:metadata id="metadata5">
+    <rdf:RDF>
+      <ns4:Work rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title />
+      </ns4:Work>
+    </rdf:RDF>
+  </ns0:metadata>
+  <ns0:g ns2:label="frame 1" id="layer2" type="frame" frame="1" ns2:groupmode="layer" style="display:inline">
+    <ns0:path ns2:connector-curvature="0" id="path967" d="M 79,160 V 16 h 2 v -2 h 2 v -2 h -4 v -2 h 2 V 6 H 79 V 4 h -8 v 2 h -2 v 4 h 2 v 2 H 65 L 39,6 H 17 l -6,6 v 8 h 34 v -8 l 20,4 h 6 v 144 z" style="fill:#3a2418;fill-opacity:1;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" ns1:nodetypes="ccccccccccccccccccccccccccccc" />
+    <ns0:path ns1:nodetypes="ccccccc" ns2:connector-curvature="0" id="path969" d="m 17,20 v 3 l 4,3 h 14 l 4,-3 v -3 z" style="fill:#f6c34c;fill-opacity:1;stroke:#000000;stroke-width:0.5;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;stroke-miterlimit:4;stroke-dasharray:none" />
+    <ns0:path style="fill:#3a2418;stroke:none;stroke-width:1.0015748;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;fill-opacity:1;stroke-miterlimit:4;stroke-dasharray:none" d="m 11,20 v -8 l 6,-6 h 8 l -7,6 v 8 z" id="path843" ns2:connector-curvature="0" />
+    <ns0:path style="fill:#744830;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;fill-opacity:1" d="m 18,20 v -8 l 7,-6 h 14 l 6,6 v 8 z" id="path845" ns2:connector-curvature="0" />
+  </ns0:g>
+</ns0:svg>
