@@ -35,7 +35,8 @@ sprites = [
     'exit',
     'all_time',
     'today',
-    'street_light'
+    'street_light',
+    'cloud'
 ]
 
 levels = ['map_ground_melt', 'map_minimal', 'map_test', 'map_load']

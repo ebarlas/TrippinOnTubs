@@ -1737,6 +1737,75 @@
     {
       "objects": [
         {
+          "type": "cloud",
+          "position": {
+            "x": 460,
+            "y": 660
+          }
+        },
+        {
+          "type": "cloud",
+          "position": {
+            "x": 2660,
+            "y": 600
+          }
+        },
+        {
+          "type": "cloud",
+          "position": {
+            "x": 1700,
+            "y": 80
+          }
+        },
+        {
+          "type": "cloud",
+          "position": {
+            "x": 240,
+            "y": 240
+          }
+        },
+        {
+          "type": "cloud",
+          "position": {
+            "x": 1580,
+            "y": 520
+          }
+        },
+        {
+          "type": "cloud",
+          "position": {
+            "x": 3020,
+            "y": 80
+          }
+        },
+        {
+          "type": "cloud",
+          "position": {
+            "x": 180,
+            "y": 1220
+          }
+        },
+        {
+          "type": "cloud",
+          "position": {
+            "x": 1660,
+            "y": 1300
+          }
+        },
+        {
+          "type": "cloud",
+          "position": {
+            "x": 2980,
+            "y": 1140
+          }
+        }
+      ],
+      "width": 3540,
+      "height": 1620
+    },
+    {
+      "objects": [
+        {
           "type": "hotel_petaluma",
           "position": {
             "x": 2600,
