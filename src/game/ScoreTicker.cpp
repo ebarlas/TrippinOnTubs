@@ -1,5 +1,6 @@
 #include "ScoreTicker.h"
 #include "engine/Convert.h"
+#include "DigitLayout.h"
 
 void trippin::ScoreTicker::init() {
     score = 0;
@@ -20,15 +21,8 @@ void trippin::ScoreTicker::add(int n) {
 }
 
 void trippin::ScoreTicker::render(const trippin::Camera &camera) {
-    int sc = toInt(channel.get());
-    int x = camera.getViewport().w - margin - digits->getSize().x;
-    do {
-        auto digit = sc % 10;
-        sc /= 10;
-        Point<int> p{x, margin};
-        digits->render(p, digit);
-        x -= digits->getSize().x;
-    } while (sc > 0);
+    Point<int> p{camera.getViewport().w - margin - digits->getSize().x, margin};
+    DigitLayout::renderDigits(*digits, p, getScore());
 }
 
 void trippin::ScoreTicker::afterTick(Uint32 engineTicks) {

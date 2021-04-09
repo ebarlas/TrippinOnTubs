@@ -6,7 +6,6 @@
 #include "Renderable.h"
 #include "Configuration.h"
 #include "Map.h"
-#include "lock/Mutex.h"
 #include "lock/Guarded.h"
 #include "Goggin.h"
 

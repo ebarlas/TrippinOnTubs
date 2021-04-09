@@ -72,6 +72,7 @@ namespace trippin {
         // Objects with a non-zero lane interact with objects in the same lane and objects with a zero lane
         // Objects with a zero lane interact with all objects
         // Lane -1 indicates platform contacts only
+        // Lane -2 indicates no contacts
         int lane;
 
         // Flag that indicates whether this object has expired and can be removed.
@@ -90,10 +91,6 @@ namespace trippin {
         // Collision sides use to determine whether movement is allowed in each direction.
         Sides platformCollisions{};
         Sides objectCollisions{};
-
-        // ids of object collisions
-        int collisionTestId;
-        bool collisionTest;
 
         void syncPositions();
         void applyMotion();

@@ -11,7 +11,7 @@ void trippin::WingedTub::init(const Configuration &config, const Map::Object &ob
     tubFrameFirst = obj.sparkle ? FRAME_SPARKLE_FIRST : FRAME_TUB_FIRST;
     tubFrameLast = obj.sparkle ? FRAME_SPARKLE_LAST : FRAME_TUB_LAST;
     frame = tubFrameFirst;
-    points = obj.sparkle ? 200 : 100;
+    points = obj.points;
     playedSound = false;
     sound = obj.sparkle ? soundManager->getEffect("chime3") : soundManager->getEffect("chime2");
     syncChannel();
@@ -40,6 +40,7 @@ void trippin::WingedTub::afterTick(Uint32 engineTicks) {
         hitTicks = 0;
         frame = FRAME_CLOUD_FIRST;
         scoreTicker->add(points);
+        goggin->addPointCloud(points, engineTicks);
     }
 
     // Case #2: Advance dust cloud
@@ -64,7 +65,7 @@ void trippin::WingedTub::afterTick(Uint32 engineTicks) {
     syncChannel();
 }
 
-void trippin::WingedTub::setGoggin(const Goggin *g) {
+void trippin::WingedTub::setGoggin(Goggin *g) {
     goggin = g;
 }
 

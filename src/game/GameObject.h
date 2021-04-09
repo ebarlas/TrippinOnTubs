@@ -4,6 +4,7 @@
 #include "engine/ReflectiveCollision.h"
 #include "SpriteObject.h"
 #include "Activation.h"
+#include "ScoreTicker.h"
 #include "lock/Guarded.h"
 
 namespace trippin {
@@ -14,11 +15,18 @@ namespace trippin {
         void afterTick(Uint32 engineTicks) override;
         void render(const Camera &camera) override;
         void setActivation(const Activation *activation);
+        void setGoggin(Goggin &goggin);
+        void setScoreTicker(ScoreTicker &st);
     private:
         double runningAcceleration;
         const Activation *activation;
         int frame;
         bool accelerateWhenGrounded;
+        bool stompable;
+        bool stomped;
+        int stompPoints;
+        Goggin *goggin;
+        ScoreTicker *scoreTicker;
 
         ReflectiveCollision reflectiveCollision;
 

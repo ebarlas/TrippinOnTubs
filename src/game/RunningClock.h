@@ -11,7 +11,7 @@ namespace trippin {
     class RunningClock : public SpriteObject {
     public:
         void init(const Configuration &config, const Map::Object &obj, const Sprite &spr) override;
-        void setGoggin(const Goggin *goggin);
+        void setGoggin(Goggin *goggin);
         void setSpirit(Spirit *spirit);
         void beforeTick(Uint32 engineTicks) override;
         void afterTick(Uint32 engineTicks) override;
@@ -22,10 +22,11 @@ namespace trippin {
     private:
         constexpr static const int FRAME_CLOUD_FIRST = 24;
 
-        const Goggin *goggin;
+        Goggin *goggin;
         Spirit *spirit;
         int hitTicks;
         bool hitGoggin;
+        int points;
 
         double runningAcceleration;
         const Activation *activation;

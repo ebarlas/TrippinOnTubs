@@ -185,8 +185,6 @@ void trippin::Engine::applyPlatformCollision(Object &object, Object &platform, c
 }
 
 void trippin::Engine::applyObjectCollision(Object &left, Object &right, const Sides &sides) {
-    left.collisionTest |= left.collisionTestId == right.id;
-    right.collisionTest |= right.collisionTestId == left.id;
     left.objectCollisions |= sides;
     right.objectCollisions |= sides.flip();
     left.onObjectCollision(right, sides);
@@ -244,7 +242,11 @@ void trippin::Engine::addListener(trippin::Listener *listener) {
     listeners.push_back(listener);
 }
 
-bool trippin::Engine::sameLane(Object* left, Object* right) {
+bool trippin::Engine::sameLane(Object *left, Object *right) {
+    if (left->lane == -2 || right->lane == -2) {
+        return false;
+    }
+
     if (left->lane == -1 && !right->platform) {
         return false;
     }

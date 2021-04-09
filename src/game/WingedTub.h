@@ -2,7 +2,6 @@
 #define TRIPPIN_WINGEDTUB_H
 
 #include "engine/Listener.h"
-#include "SpriteObject.h"
 #include "Spirit.h"
 #include "Goggin.h"
 #include "ScoreTicker.h"
@@ -13,7 +12,7 @@ namespace trippin {
     class WingedTub : public Renderable, public Listener {
     public:
         void init(const Configuration &config, const Map::Object &obj, const Sprite &spr);
-        void setGoggin(const Goggin *goggin);
+        void setGoggin(Goggin *goggin);
         void setScoreTicker(ScoreTicker *scoreTicker);
         void setActivation(const Activation *activation);
         void setSoundManager(SoundManager &soundManager);
@@ -30,7 +29,7 @@ namespace trippin {
         constexpr static const int FRAME_SPARKLE_LAST = 29;
 
         const Sprite *sprite;
-        const Goggin *goggin;
+        Goggin *goggin;
         ScoreTicker *scoreTicker;
         Point<int> position;
         Rect<int> hitBox;

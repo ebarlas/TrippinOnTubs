@@ -20,6 +20,7 @@ namespace trippin {
         void setUniverse(const Point<int> &universe);
         void setDust(const Sprite &spr);
         void setDustBlast(const Sprite &spr);
+        void setDigits(const Sprite &spr);
         void setSoundManager(SoundManager &sm);
         void setAutoPlay(const std::vector<GogginInputTick> &autoPlay);
         void beforeTick(Uint32 engineTicks) override;
@@ -32,6 +33,8 @@ namespace trippin {
         bool inUniverse() const;
         void onUserInput(const GogginInput &input);
         double getJumpCharge() const;
+        bool maxFallingVelocityAbove(double percent);
+        void addPointCloud(int points, Uint32 ticks);
     private:
         struct Dust {
             Point<int> position;
@@ -45,6 +48,14 @@ namespace trippin {
             Dust blast;
         };
 
+        struct PointCloud {
+            Point<int> posStart;
+            Point<int> posNow;
+            Point<int> distance;
+            int points{};
+            Uint32 ticks;
+        };
+
         // position data that flows from engine thread to render thread
         struct Channel {
             // goggin top-left corner position, pre-normalized for ducking case
@@ -52,6 +63,8 @@ namespace trippin {
 
             // goggin center point, normalized
             Point<int> center;
+
+            std::array<PointCloud, 5> pointClouds;
 
             Frames frames;
             bool expired;
@@ -65,6 +78,13 @@ namespace trippin {
         // goggin top-left corner, saved to ensure jitter/drift
         // accessed exclusively by render/main thread
         Point<int> cameraPosition;
+
+        Point<int> pointCloudDistanceMin;
+        Point<int> pointCloudDistanceMax;
+        int pointCloudTicks;
+        const Sprite *digits;
+        std::array<PointCloud, 5> pointClouds; // circular buffer
+        int nextPointCloudPos;
 
         const Sprite *dust;
         Uint32 dustTicks;
@@ -154,6 +174,8 @@ namespace trippin {
         void handleDuckEnd();
         void handleJumpCharge(Uint32 engineTicks);
         void handleJumpRelease(Uint32 engineTicks);
+
+        static float decelInterpolation(float input);
     };
 }
 

@@ -5,6 +5,7 @@ void trippin::RunningClock::init(const Configuration &config, const Map::Object 
     lane = -1;
     inactive = true;
     runningAcceleration = obj.runningAcceleration;
+    points = obj.points;
     frame = 0;
     playedSound = false;
     sound = soundManager->getEffect("chime1");
@@ -35,7 +36,8 @@ void trippin::RunningClock::afterTick(Uint32 engineTicks) {
         hitTicks = 0;
         frame = FRAME_CLOUD_FIRST;
         spirit->delay(1);
-        scoreTicker->add(50);
+        scoreTicker->add(points);
+        goggin->addPointCloud(points, engineTicks);
     }
 
     // Case #2: Advance dust cloud
@@ -62,7 +64,7 @@ void trippin::RunningClock::afterTick(Uint32 engineTicks) {
     syncChannel();
 }
 
-void trippin::RunningClock::setGoggin(const Goggin *g) {
+void trippin::RunningClock::setGoggin(Goggin *g) {
     goggin = g;
 }
 
@@ -72,7 +74,7 @@ void trippin::RunningClock::setSpirit(Spirit *sp) {
 
 void trippin::RunningClock::render(const trippin::Camera &camera) {
     auto ch = channel.get();
-    if (ch.frame < sprite->getFrames()) {
+    if (ch.visible) {
         sprite->render(ch.roundedPosition, ch.frame, camera);
         if (ch.frame == FRAME_CLOUD_FIRST && !playedSound) {
             Mix_PlayChannel( -1, sound, 0 );

@@ -137,6 +137,10 @@ void trippin::from_json(const nlohmann::json& j, Map::Object& obj) {
         j.at("frame").get_to(obj.frame);
     if (j.contains("accelerateWhenGrounded"))
         j.at("accelerateWhenGrounded").get_to(obj.accelerateWhenGrounded);
+    if (j.contains("stompable"))
+        j.at("stompable").get_to(obj.stompable);
+    if (j.contains("points"))
+        j.at("points").get_to(obj.points);
 }
 
 void trippin::from_json(const nlohmann::json& j, Map::Layer& layer) {

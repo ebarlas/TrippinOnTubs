@@ -34,8 +34,9 @@ def find_objects(root):
     points = ['velocity', 'terminalVelocity', 'friction']
     floats = ['mass', 'massFactor', 'gravity', 'fallGravity', 'minJumpVelocity', 'maxJumpVelocity', 'maxDuckJumpVelocity',
               'runningAcceleration', 'risingAcceleration', 'duckFriction', 'coefficient']
-    ints = ['minJumpChargeTime', 'maxJumpChargeTime', 'jumpGracePeriod', 'jumpSoundTimeout', 'lane', 'dustPeriod']
-    bools = ['sparkle', 'accelerateWhenGrounded']
+    ints = ['minJumpChargeTime', 'maxJumpChargeTime', 'jumpGracePeriod', 'jumpSoundTimeout',
+            'lane', 'dustPeriod', 'points']
+    bools = ['sparkle', 'accelerateWhenGrounded', 'stompable']
     id_counter = 1
     # an object is an image within a group that does not have attribute type='layer'
     for g in root.findall('.//svg:g', namespace):

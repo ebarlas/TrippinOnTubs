@@ -1,4 +1,5 @@
 #include "ScoreBoardOverlay.h"
+#include "DigitLayout.h"
 
 void trippin::ScoreBoardOverlay::setScores(std::vector<Score> sc) {
     scores = std::move(sc);
@@ -35,13 +36,7 @@ void trippin::ScoreBoardOverlay::render() {
 }
 
 void trippin::ScoreBoardOverlay::renderNumber(int x, int y, int value) {
-    do {
-        auto digit = value % 10;
-        value /= 10;
-        Point<int> p{x, y};
-        sprite->render(p, digit);
-        x -= sprite->getSize().x;
-    } while (value > 0);
+    DigitLayout::renderDigits(*sprite, {x, y}, value);
 }
 
 void trippin::ScoreBoardOverlay::renderName(int x, int y, const std::string &name) {

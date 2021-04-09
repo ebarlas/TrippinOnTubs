@@ -45,7 +45,6 @@ void trippin::Object::applyMotion() {
     objectCollisions = {};
     snapCollisions.clear();
     snappedToMe = false;
-    collisionTest = false;
 }
 
 void trippin::Object::onPlatformCollision(trippin::Object &other, const trippin::Sides &collision) {

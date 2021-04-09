@@ -1,8 +1,15 @@
 #include "GameObject.h"
 
+void trippin::GameObject::setGoggin(Goggin &g) {
+    goggin = &g;
+}
+
+void trippin::GameObject::setScoreTicker(ScoreTicker &st) {
+    scoreTicker = &st;
+}
+
 void trippin::GameObject::init(const Configuration &config, const Map::Object &obj, const Sprite &spr) {
     SpriteObject::init(config, obj, spr);
-    collisionTestId = 1;
     inactive = true;
     accelerateWhenGrounded = obj.accelerateWhenGrounded;
     if (accelerateWhenGrounded) {
@@ -10,8 +17,11 @@ void trippin::GameObject::init(const Configuration &config, const Map::Object &o
     } else {
         acceleration.x = obj.runningAcceleration;
     }
+    stompable = obj.stompable;
+    stompPoints = obj.points;
+    stomped = false;
     frame = obj.frame;
-    collisionDuration = config.ticksPerSecond() * (250.0 / 1000);
+    collisionDuration = config.ticksPerSecond() * 0.25;
     collisionTicks = 0;
     flashCycle = 0;
     if (obj.coefficient) {
@@ -50,8 +60,16 @@ void trippin::GameObject::afterTick(Uint32 engineTicks) {
         advanceFrame(engineTicks);
     }
 
-    if (collisionTest) {
+    auto collision = roundedBox.collision(goggin->roundedBox);
+    if (collision) {
         collisionTicks = engineTicks + collisionDuration;
+        if (stompable && !stomped && collision.testTop() && goggin->maxFallingVelocityAbove(0.15)) {
+            stomped = true;
+            lane = -2; // no-collision plane
+            velocity.y = -terminalVelocity.y / 3; // upward jolt
+            scoreTicker->add(stompPoints);
+            goggin->addPointCloud(stompPoints, engineTicks);
+        }
     }
 
     syncChannel(engineTicks);

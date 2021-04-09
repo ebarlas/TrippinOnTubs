@@ -62,6 +62,7 @@ void trippin::Level::initEngine() {
             goggin.setUniverse(map.universe);
             goggin.setDust(spriteManager->get("dust"));
             goggin.setDustBlast(spriteManager->get("dust_blast"));
+            goggin.setDigits(spriteManager->get("digits"));
             goggin.setSoundManager(*soundManager);
             goggin.init(*configuration, obj, spriteManager->get(obj.type));
             engine.add(&goggin);
@@ -94,6 +95,8 @@ void trippin::Level::initEngine() {
         } else if (obj.type == "zombie" || obj.type == "rat" || obj.type == "bird" || obj.type == "ball") {
             auto uptr = std::make_unique<GameObject>();
             uptr->setActivation(&activation);
+            uptr->setGoggin(goggin);
+            uptr->setScoreTicker(scoreTicker);
             uptr->init(*configuration, obj, spriteManager->get(obj.type));
             engine.add(uptr.get());
             objects.push_back(std::move(uptr));

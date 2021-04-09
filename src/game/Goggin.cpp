@@ -2,6 +2,7 @@
 #include "sprite/Sprite.h"
 #include "Goggin.h"
 #include "engine/Convert.h"
+#include "DigitLayout.h"
 
 void trippin::Goggin::init(const Configuration &config, const Map::Object &obj, const Sprite &spr) {
     SpriteObject::init(config, obj, spr);
@@ -19,6 +20,9 @@ void trippin::Goggin::init(const Configuration &config, const Map::Object &obj, 
     duckFriction = obj.duckFriction;
     state = State::falling;
     maxFallingVelocity = 0;
+    pointCloudDistanceMin = {size.x, size.y};
+    pointCloudDistanceMax = pointCloudDistanceMin * 2;
+    pointCloudTicks = config.ticksPerSecond() * 2;
 
     shakeAmplitude = config.shakeAmplitude * sprite->getScale().getMultiplier();
 
@@ -52,11 +56,15 @@ void trippin::Goggin::setDust(const Sprite &spr) {
     dust = &spr;
 };
 
-void trippin::Goggin::setDustBlast(const trippin::Sprite &spr) {
+void trippin::Goggin::setDustBlast(const Sprite &spr) {
     dustBlast = &spr;
 }
 
-void trippin::Goggin::setSoundManager(trippin::SoundManager &sm) {
+void trippin::Goggin::setDigits(const Sprite &spr) {
+    digits = &spr;
+}
+
+void trippin::Goggin::setSoundManager(SoundManager &sm) {
     soundManager = &sm;
 }
 
@@ -133,6 +141,7 @@ void trippin::Goggin::handleJumpRelease(Uint32 engineTicks) {
                 growForStand();
             }
             if (skipLaunch) {
+                maxFallingVelocity = 0;
                 state = State::rising;
                 frames.frame = FRAME_LAUNCHING_LAST;
                 velocity.y = jumpVel;
@@ -140,6 +149,7 @@ void trippin::Goggin::handleJumpRelease(Uint32 engineTicks) {
                     resetDustBlast();
                 }
             } else {
+                maxFallingVelocity = 0;
                 state = State::launching;
                 frames.frame = FRAME_LAUNCHING_FIRST;
                 jumpVelocity = jumpVel;
@@ -184,6 +194,18 @@ void trippin::Goggin::afterTick(Uint32 engineTicks) {
         auto top = roundedPosition.y + size.y - dust->getHitBox().h;
         frames.dusts[nextDustPos] = {{left, top}, 0};
         nextDustPos = (nextDustPos + 1) % frames.dusts.size();
+    }
+
+    // advance point clouds
+    for (auto &pc : pointClouds) {
+        auto elapsed = engineTicks - pc.ticks;
+        float di = decelInterpolation(std::min(1.0f, elapsed / (float) pointCloudTicks));
+        if (di == 1.0) {
+            pc.points = 0; // cancel display
+        } else {
+            pc.posNow.x = pc.posStart.x + toInt(di * pc.distance.x); // x diff may be pos (right) or neg (left)
+            pc.posNow.y = pc.posStart.y - toInt(di * pc.distance.y); // y diff is always negative (up)
+        }
     }
 
     if (state == State::falling) {
@@ -343,7 +365,7 @@ void trippin::Goggin::resetDustBlast() {
     frames.blast.position.y = (roundedPosition.y + size.y) - dustBlast->getHitBox().h;
 }
 
-void trippin::Goggin::render(const trippin::Camera &camera) {
+void trippin::Goggin::render(const Camera &camera) {
     auto ch = channel.get();
     if (ch.expired) {
         return;
@@ -360,6 +382,14 @@ void trippin::Goggin::render(const trippin::Camera &camera) {
     }
 
     sprite->render(cameraPosition, ch.frames.frame, camera);
+
+    auto size = sprite->getSize();
+    for (auto &pc : ch.pointClouds) {
+        if (pc.points) {
+            Point<int> p{pc.posNow.x - size.x / 2, pc.posNow.y - size.y};
+            DigitLayout::renderDigits(*digits, p, pc.points, &camera);
+        }
+    }
 
     auto soundCh = soundChannel.get();
     if (soundCh.playJumpSound) {
@@ -418,5 +448,28 @@ void trippin::Goggin::syncChannel() {
     }
     ch.frames = frames;
     ch.expired = expired;
+    ch.pointClouds = pointClouds;
     channel.set(ch);
+}
+
+float trippin::Goggin::decelInterpolation(float input) {
+    return (float) (1.0f - (1.0f - input) * (1.0f - input));;
+}
+
+void trippin::Goggin::addPointCloud(int points, Uint32 ticks) {
+    int numDigits = DigitLayout::countDigits(*digits, points);
+    int x = roundedBox.x + roundedBox.w / 2 + (numDigits * digits->getSize().x) / 2; // goggin horiz. midpoint
+    int y = roundedBox.y;
+    int xRange = pointCloudDistanceMax.x - pointCloudDistanceMin.x;
+    int yRange = pointCloudDistanceMax.y - pointCloudDistanceMin.y;
+    double xRand = ((std::rand() * 2.0) / RAND_MAX - 1.0); // [-1.0, 1.0]
+    double yRand = (std::rand() * 1.0) / RAND_MAX; // [0.0, 1.0]
+    auto xDist = pointCloudDistanceMin.x + toInt(xRand * xRange);
+    auto yDist = pointCloudDistanceMin.y + toInt(yRand * yRange);
+    pointClouds[nextPointCloudPos] = {{x, y}, {x, y}, {xDist, yDist}, points, ticks};
+    nextPointCloudPos = (nextPointCloudPos + 1) % pointClouds.size();
+}
+
+bool trippin::Goggin::maxFallingVelocityAbove(double percent) {
+    return (maxFallingVelocity / terminalVelocity.y) > percent;
 }
