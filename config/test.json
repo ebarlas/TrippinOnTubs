@@ -2,8 +2,8 @@
   "spiritSecondsBehind": 3,
   "tickPeriod": 5,
   "spiritClockTickPeriod": 500,
-  "activationProximity": 6400,
-  "deactivationProximity": 8000,
+  "activationProximity": 8600,
+  "deactivationProximity": 10000,
   "pointsPerSecond": 10,
   "shakeDuration": 250,
   "shakeHertz": 60,
@@ -17,34 +17,34 @@
   },
   "scales": [
     {
-      "name": "qhd",
-      "multiplier": 0.15,
-      "minWidth": 960
+      "name": "svga",
+      "multiplier": 0.09375,
+      "minWidth": 800
     },
     {
-      "name": "hd",
-      "multiplier": 0.2,
+      "name": "sxga",
+      "multiplier": 0.15,
       "minWidth": 1280
     },
     {
       "name": "hdplus",
-      "multiplier": 0.25,
+      "multiplier": 0.1875,
       "minWidth": 1600
     },
     {
       "name": "fhd",
-      "multiplier": 0.3,
+      "multiplier": 0.225,
       "minWidth": 1920
     },
     {
-      "name": "uhd",
-      "multiplier": 0.6,
-      "minWidth": 3840
+      "name": "qhd",
+      "multiplier": 0.3,
+      "minWidth": 2560
     },
     {
-      "name": "ref",
-      "multiplier": 1.0,
-      "minWidth": 6400
+      "name": "uhd",
+      "multiplier": 0.45,
+      "minWidth": 3840
     }
   ]
 }

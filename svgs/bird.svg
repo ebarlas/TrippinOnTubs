@@ -1,6 +1,6 @@
 <ns0:svg xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:ns0="http://www.w3.org/2000/svg" xmlns:ns1="http://www.inkscape.org/namespaces/inkscape" xmlns:ns2="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd" xmlns:ns4="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" width="160" height="90" viewBox="0 0 160 90" version="1.1" scale="6.0" id="svg8" ns1:version="1.0beta2 (2b71d25, 2019-12-03)" ns2:docname="bird.svg">
   <ns0:defs id="defs2" />
-  <ns2:namedview showguides="true" id="base" pagecolor="#ffffff" bordercolor="#666666" borderopacity="1.0" ns1:pageopacity="0.0" ns1:pageshadow="2" ns1:zoom="11.2" ns1:cx="94.483133" ns1:cy="42.735264" ns1:document-units="px" ns1:current-layer="g3106" ns1:document-rotation="0" showgrid="true" units="px" ns1:window-width="2949" ns1:window-height="1491" ns1:window-x="322" ns1:window-y="137" ns1:window-maximized="0" ns1:snap-global="true" ns1:snap-grids="true" ns1:snap-to-guides="true" ns1:object-paths="false">
+  <ns2:namedview showguides="true" id="base" pagecolor="#ffffff" bordercolor="#666666" borderopacity="1.0" ns1:pageopacity="0.0" ns1:pageshadow="2" ns1:zoom="11.2" ns1:cx="94.483133" ns1:cy="42.735264" ns1:document-units="px" ns1:current-layer="layer10" ns1:document-rotation="0" showgrid="true" units="px" ns1:window-width="1792" ns1:window-height="1009" ns1:window-x="24" ns1:window-y="23" ns1:window-maximized="0" ns1:snap-global="true" ns1:snap-grids="true" ns1:snap-to-guides="true" ns1:object-paths="false">
     <ns1:grid type="xygrid" id="grid833" />
   </ns2:namedview>
   <ns0:metadata id="metadata5">
@@ -12,7 +12,7 @@
       </ns4:Work>
     </rdf:RDF>
   </ns0:metadata>
-  <ns0:g ns1:label="bg" id="layer10" ns1:groupmode="layer" ns2:insensitive="true" style="display:none">
+  <ns0:g ns2:insensitive="true" ns1:label="bg" id="layer10" ns1:groupmode="layer" style="display:none">
     <ns0:rect y="0" x="0" height="90" width="160" id="rect931" style="fill:#ffffff;stroke:none;stroke-width:0.25;stroke-linecap:round;stroke-linejoin:round;paint-order:stroke fill markers;stop-color:#000000" />
   </ns0:g>
   <ns0:g style="display:none" ns1:label="hitbox" type="hitbox" id="layer12" ns1:groupmode="layer" ns2:insensitive="true">

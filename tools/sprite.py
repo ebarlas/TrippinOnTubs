@@ -2,6 +2,7 @@ import xml.etree.ElementTree as ET
 import subprocess
 import json
 import re
+import math
 from pathlib import Path
 from PIL import Image
 
@@ -64,8 +65,8 @@ def export_pngs(svg_file, tmp_dir, export_dir, scales, name):
 
     if 'scale' in root.attrib:
         scale = float(root.attrib['scale'])
-        img_width = int(round(img_width * scale))
-        img_height = int(round(img_height * scale))
+        img_width *= scale
+        img_height *= scale
 
     fade_to_white = float(root.attrib['fadeToWhite']) if 'fadeToWhite' in root.attrib else None
 
@@ -84,17 +85,19 @@ def export_pngs(svg_file, tmp_dir, export_dir, scales, name):
             e.set('style', replace_display(e.get('style'), 'display:none'))
         for e in root.findall(f'.//svg:g[@type="frame"][@frame="{n}"]', namespace):
             e.set('style', replace_display(e.get('style'), 'display:inline'))
-        tree.write(f'{tmp_dir}/tmp.svg')
+        tree.write(f'{tmp_dir}/{name}_tmp.svg')
         for scale in scales:
             subprocess.run([
                 'inkscape',
                 '--export-type=png',
-                f'--export-width={int(img_width * scale[1])}',
-                f'--export-height={int(img_height * scale[1])}',
-                f'{tmp_dir}/tmp.svg'])
+                # ceil in lines below reflects preference to grow slightly rather than to shrink
+                # prior to this change, touching ground tiles had small slivers of space between then at some scales
+                f'--export-width={int(math.ceil(img_width * scale[1]))}',
+                f'--export-height={int(math.ceil(img_height * scale[1]))}',
+                f'{tmp_dir}/{name}_tmp.svg'])
             subprocess.run([
                 'mv',
-                f'{tmp_dir}/tmp.png',
+                f'{tmp_dir}/{name}_tmp.png',
                 f'{export_dir}/{name}_{n}_{scale[0]}.png'])
 
 

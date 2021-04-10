@@ -1,9 +1,10 @@
 import sprite
 import map
 import sys
+import concurrent.futures
 
 scales = [
-    ('hdplus', 0.25)
+    ('map', 0.25), ('svga', 0.09375), ('sxga', 0.15), ('hdplus', 0.1875), ('fhd', 0.225), ('qhd', 0.3), ('uhd', 0.45)
 ]
 
 sprites = [
@@ -23,6 +24,7 @@ sprites = [
     'phoenix',
     'masonic_lodge',
     'hills',
+    'hills_base',
     'hotel_petaluma',
     'dust',
     'dust_blast',
@@ -54,7 +56,7 @@ def sprite_assets(proj_home):
     build_dir = f'{proj_home}/{dir_build}'
     sprites_dir = f'{proj_home}/{dir_sprites}'
 
-    for spr in sprites:
+    def process_sprite(spr):
         raw_file = f'{raw_dir}/{spr}.svg'
         svg_file = f'{src_dir}/{spr}.svg'
         meta_file = f'{sprites_dir}/{spr}/{spr}.json'
@@ -68,6 +70,10 @@ def sprite_assets(proj_home):
             src_files = [f'{build_dir}/{spr}_{n + 1}_{scale[0]}.png' for n in range(num_frames)]
             output_file = f'{sprites_dir}/{spr}/{spr}_{scale[0]}.png'
             sprite.make_sprite_sheet(src_files, output_file)
+
+    with concurrent.futures.ThreadPoolExecutor(max_workers=15) as executor:
+        for spr in sprites:
+            executor.submit(process_sprite, spr)
 
 
 def level_assets(proj_home):
@@ -87,7 +93,7 @@ def main():
         proj_home = sys.argv[1]
 
     sprite_assets(proj_home)
-    level_assets(proj_home)
+    # level_assets(proj_home)
 
 
 if __name__ == '__main__':

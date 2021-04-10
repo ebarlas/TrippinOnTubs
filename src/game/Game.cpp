@@ -188,7 +188,7 @@ void trippin::Game::renderLoop() {
     while (!ui.quit) {
         ui = pollEvents();
 
-        SDL_SetRenderDrawColor(renderer, 247, 251, 255, 255);
+        SDL_SetRenderDrawColor(renderer, 244, 251, 255, 255);
         SDL_RenderClear(renderer);
 
         level->render(getGogginInput(ui));

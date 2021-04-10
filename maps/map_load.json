@@ -1549,11 +1549,32 @@
             "x": 2100,
             "y": 75
           }
+        },
+        {
+          "type": "hills_base",
+          "position": {
+            "x": 0,
+            "y": 1075
+          }
+        },
+        {
+          "type": "hills_base",
+          "position": {
+            "x": 1050,
+            "y": 1075
+          }
+        },
+        {
+          "type": "hills_base",
+          "position": {
+            "x": 2100,
+            "y": 1075
+          }
         }
       ],
       "anchorTop": true,
       "width": 3000,
-      "height": 1075
+      "height": 1400
     },
     {
       "objects": [
