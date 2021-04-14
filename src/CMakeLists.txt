@@ -70,7 +70,9 @@ add_executable(tgoggin demo/tgoggin.cpp)
 target_link_libraries(tgoggin GameLoop Sprite)
 
 add_library(Game
+        game/SdlSystem.cpp
         game/Game.cpp
+        game/UserInput.cpp
         game/Map.cpp
         game/Configuration.cpp
         game/SpriteObject.cpp

@@ -98,7 +98,6 @@ void trippin::Goggin::handleDuckStart() {
 
 void trippin::Goggin::handleDuckEnd() {
     if (input.duckEnd) {
-        input.duckStart = input.duckEnd = false;
         if (state == ducking) {
             ticks = 0;
             growForStand();
@@ -116,15 +115,13 @@ void trippin::Goggin::handleDuckEnd() {
 
 void trippin::Goggin::handleJumpCharge(Uint32 engineTicks) {
     if (input.jumpCharge) {
-        if (!jumpTicks) {
-            jumpTicks = engineTicks;
-        }
+        jumpTicks = engineTicks;
+    }
+    if (jumpTicks) {
         auto relTicks = static_cast<int>(engineTicks - jumpTicks);
         auto range = toDouble(maxJumpChargeTicks - minJumpChargeTicks);
         auto boundedTicks = std::max(minJumpChargeTicks, std::min(relTicks, maxJumpChargeTicks));
         jumpPercent = (boundedTicks - minJumpChargeTicks) / range;
-    } else {
-        jumpPercent = 0;
     }
 }
 
@@ -132,9 +129,8 @@ void trippin::Goggin::handleJumpRelease(Uint32 engineTicks) {
     if (input.jumpRelease && jumpTicks) {
         auto maxEffective = state == ducking && jumpPercent == 1.0 ? maxDuckJumpVelocity : maxJumpVelocity;
         double jumpVel = minJumpVelocity + jumpPercent * (maxEffective - minJumpVelocity);
-        input.jumpCharge = false;
-        input.jumpRelease = false;
         jumpTicks = 0;
+        jumpPercent = 0;
         if (state == running || state == landing || state == ducking ||
             (engineTicks > lastRunOrDuckTick && engineTicks - lastRunOrDuckTick < jumpGracePeriodTicks)) {
             if (state == ducking) {
@@ -346,15 +342,22 @@ void trippin::Goggin::onDucking(Uint32 engineTicks) {
 
 void trippin::Goggin::shrinkForDuck() {
     // make goggin contact-area half height when ducking
-    size.y /= 2.0;
+    int bottom = roundedPosition.y + size.y;
+    size.y /= 2;
     position.y += size.y;
+
+    // halving the height and shifting down might not result in ground contact
+    // fill any gap remaining
+    int delta = bottom - toInt(size.y + position.y);
+    position.y += delta;
+
     syncPositions();
 }
 
 void trippin::Goggin::growForStand() {
-    // restore goggin contact area to full-height
+    // restore goggin contact area to full-height using original sprite height
     position.y -= size.y;
-    size.y *= 2.0;
+    size.y = sprite->getHitBox().h;
     syncPositions();
 }
 
@@ -399,7 +402,7 @@ void trippin::Goggin::render(const Camera &camera) {
 }
 
 void trippin::Goggin::onUserInput(const trippin::GogginInput &in) {
-    inputChannel.set(in);
+    inputChannel.apply([&in](GogginInput &gi) { gi |= in; });
 }
 
 double trippin::Goggin::getJumpCharge() const {
@@ -421,17 +424,17 @@ void trippin::Goggin::transferInput(Uint32 engineTicks) {
     if (autoPlayEnabled) {
         auto it = autoPlay.find(engineTicks);
         if (it != autoPlay.end()) {
-            input |= it->second;
+            input = it->second;
+        } else {
+            input = {};
         }
         return;
     }
 
-    auto ch = inputChannel.getAndSet({false, false, false, false});
-    auto prev = input;
-    input |= ch;
-    if (input != prev) {
+    input = inputChannel.getAndSet({});
+    if (input) {
         SDL_Log("input event, ticks=%d, duckStart=%d, duckEnd=%d, jumpCharge=%d, jumpRelease=%d",
-                engineTicks, ch.duckStart, ch.duckEnd, ch.jumpCharge, ch.jumpRelease);
+                engineTicks, input.duckStart, input.duckEnd, input.jumpCharge, input.jumpRelease);
     }
 }
 

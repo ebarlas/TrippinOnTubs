@@ -15,9 +15,10 @@ namespace trippin {
         Mutex mutex;
     public:
         void set(const T &value);
+        void apply(std::function<void(T &val)>);
         T get() const;
         T getAndSet(const T &value);
-        T& ref();
+        T &ref();
     };
 }
 
@@ -25,6 +26,12 @@ template<class T>
 void trippin::Guarded<T>::set(const T &val) {
     Lock lock(mutex);
     value = val;
+}
+
+template<class T>
+void trippin::Guarded<T>::apply(std::function<void(T &val)> fn) {
+    Lock lock(mutex);
+    fn(value);
 }
 
 template<class T>

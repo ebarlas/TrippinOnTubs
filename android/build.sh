@@ -28,5 +28,6 @@ cp ../Android.mk android-project/app/jni/src/
 cp ../Application.mk android-project/app/jni/
 cp ../nlohmann_Android.mk android-project/app/jni/json-3.8.0/Android.mk
 sed -i.bak 's/\(.*<activity.*\)/\1 android:screenOrientation="landscape"/g' android-project/app/src/main/AndroidManifest.xml
+sed -i.bak 's/\(.*<application .*\)/\<uses-permission android:name="android.permission.INTERNET" \/\> \1/g' android-project/app/src/main/AndroidManifest.xml
 
 popd

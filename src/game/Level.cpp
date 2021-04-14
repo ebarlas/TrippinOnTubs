@@ -165,7 +165,7 @@ bool trippin::Level::ended() {
 void trippin::Level::stop() {
     engine.stop();
     engine.join();
-    Mix_FadeOutMusic(2'000);
+    Mix_HaltMusic();
 }
 
 int trippin::Level::getScore() const {

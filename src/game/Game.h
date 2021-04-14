@@ -18,13 +18,13 @@
 #include "ScoreMenuOverlay.h"
 #include "ScrollingScoreBoardOverlay.h"
 #include "net/StagingArea.h"
+#include "SdlSystem.h"
 
 namespace trippin {
     class Game {
     private:
         std::string configName;
-        SDL_Window *window;
-        SDL_Renderer *renderer;
+        std::unique_ptr<SdlSystem> sdlSystem;
         Point<int> windowSize;
         Configuration configuration;
         AutoPlay autoPlay;
@@ -41,11 +41,7 @@ namespace trippin {
         ScrollingScoreBoardOverlay allTimeScoresOverlay;
         ScrollingScoreBoardOverlay todayScoresOverlay;
         StagingArea* stagingArea;
-        void initRuntime();
-        void initWindowSize();
-        void initWindow();
-        void initRenderer();
-        void initMixer();
+        void initSdl();
         void initRand();
         void initConfiguration();
         void initDbSychronizer();
@@ -56,23 +52,8 @@ namespace trippin {
         void initLevel();
         void renderLoop();
         std::unique_ptr<Level> nextLevel();
-
-        struct UserInput {
-            bool quit;
-            bool spaceKeyDown;
-            bool downKeyDown;
-            bool spaceKeyUp;
-            bool downKeyUp;
-            bool mouseButtonDown;
-            Point<int> mouseButton;
-        };
-
-        static UserInput pollEvents();
-        static GogginInput getGogginInput(const UserInput &userInput);
-
     public:
         Game(std::string configName);
-        ~Game();
         void init();
         void start();
     };

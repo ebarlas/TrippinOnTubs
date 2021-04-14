@@ -4,13 +4,11 @@
 #include "SDL_mixer.h"
 #include "Game.h"
 #include "net/DbSynchronizer.h"
+#include "engine/Convert.h"
+#include "UserInput.h"
 
 void trippin::Game::init() {
-    initRuntime();
-    initWindowSize();
-    initWindow();
-    initRenderer();
-    initMixer();
+    initSdl();
     initRand();
     initConfiguration();
     initDbSychronizer();
@@ -21,58 +19,10 @@ void trippin::Game::init() {
     initLevel();
 }
 
-void trippin::Game::initRuntime() {
-    if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO) < 0) {
-        SDL_Log("SDL could not initialize. SDL error: %s", SDL_GetError());
-        std::terminate();
-    }
-}
-
-void trippin::Game::initWindowSize() {
-    /*
-    SDL_DisplayMode displayMode;
-    SDL_GetCurrentDisplayMode(0, &displayMode);
-    windowSize = {displayMode.w, displayMode.h};
-    */
-    windowSize = {1600, 900};
-}
-
-void trippin::Game::initWindow() {
-    window = SDL_CreateWindow(
-            "Trippin on Tubs",
-            SDL_WINDOWPOS_UNDEFINED,
-            SDL_WINDOWPOS_UNDEFINED,
-            windowSize.x,
-            windowSize.y,
-            SDL_WINDOW_SHOWN);
-    if (window == nullptr) {
-        SDL_Log("Window could not be created. SDL error: %s", SDL_GetError());
-        std::terminate();
-    }
-}
-
-void trippin::Game::initRenderer() {
-    renderer = SDL_CreateRenderer(
-            window,
-            -1,
-            SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
-    if (renderer == nullptr) {
-        SDL_Log("Renderer could not be created. SDL error: %s", SDL_GetError());
-        std::terminate();
-    }
-}
-
-void trippin::Game::initMixer() {
-    auto flags = MIX_INIT_MP3;
-    if (Mix_Init(flags) != flags) {
-        SDL_Log("Mixer could not be initialized. Mixer error: %s", Mix_GetError());
-        std::terminate();
-    }
-
-    if (Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 2048) == -1) {
-        SDL_Log("Mixer open-audio failed. Mixer error: %s", Mix_GetError());
-        std::terminate();
-    }
+void trippin::Game::initSdl() {
+    sdlSystem = std::make_unique<SdlSystem>();
+    auto ws = sdlSystem->getWindowSize();
+    windowSize = {ws.x, ws.y};
 }
 
 void trippin::Game::initRand() {
@@ -108,7 +58,7 @@ void trippin::Game::initScale() {
 
 void trippin::Game::initSpriteManager() {
     auto sc = Scale{scale->name, scale->multiplier};
-    spriteManager = std::make_unique<SpriteManager>(renderer, sc, configuration.tickPeriod);
+    spriteManager = std::make_unique<SpriteManager>(sdlSystem->getRenderer(), sc, configuration.tickPeriod);
 }
 
 void trippin::Game::initAutoPlay() {
@@ -155,14 +105,6 @@ trippin::Game::Game(std::string configName) : configName(std::move(configName)) 
 
 }
 
-trippin::Game::~Game() {
-    Mix_CloseAudio();
-    Mix_Quit();
-    SDL_DestroyRenderer(renderer);
-    SDL_DestroyWindow(window);
-    SDL_Quit();
-}
-
 void trippin::Game::start() {
     level->start();
     renderLoop();
@@ -184,63 +126,63 @@ void trippin::Game::renderLoop() {
     int score;
 
     Timer timer("renderer");
-    UserInput ui{};
-    while (!ui.quit) {
-        ui = pollEvents();
+    UserInput ui(windowSize);
+    while (!ui.quitPressed()) {
+        ui.pollEvents();
 
-        SDL_SetRenderDrawColor(renderer, 244, 251, 255, 255);
-        SDL_RenderClear(renderer);
+        SDL_SetRenderDrawColor(sdlSystem->getRenderer(), 244, 251, 255, 255);
+        SDL_RenderClear(sdlSystem->getRenderer());
 
-        level->render(getGogginInput(ui));
+        level->render(ui.asGogginInput());
 
         if (state == TITLE) {
             if (!titleOverlay.hasScores() && stagingArea->bothSet()) {
                 titleOverlay.setScores(stagingArea->getTodayScores(15), stagingArea->getTopScores(15));
             }
             titleOverlay.render();
-            if (ui.spaceKeyUp) {
+            if (ui.anythingPressed()) {
                 menuOverlay.reset();
                 state = START_MENU;
             }
         } else if (state == START_MENU) {
             menuOverlay.render();
-            if (ui.mouseButtonDown && menuOverlay.startClicked(ui.mouseButton)) {
+            if (menuOverlay.startClicked(ui.getLastPress())) {
                 loadLevel = false;
                 level->stop();
                 level.reset();
                 level = nextLevel();
                 level->start();
                 state = PLAYING;
-            } else if (ui.mouseButtonDown && menuOverlay.exitClicked(ui.mouseButton)) {
+            } else if (menuOverlay.exitClicked(ui.getLastPress())) {
                 level->stop();
                 break;
-            } else if (ui.mouseButtonDown && menuOverlay.highScoreClicked(ui.mouseButton)) {
+            } else if (menuOverlay.highScoreClicked(ui.getLastPress())) {
                 state = SCORE_MENU;
                 scoreMenuOverlay.reset();
             }
         } else if (state == SCORE_MENU) {
             scoreMenuOverlay.render();
-            if (ui.mouseButtonDown && scoreMenuOverlay.exitClicked(ui.mouseButton)) {
+            if (scoreMenuOverlay.exitClicked(ui.getLastPress())) {
                 menuOverlay.reset();
                 state = START_MENU;
-            } else if (ui.mouseButtonDown && scoreMenuOverlay.allTimeClicked(ui.mouseButton)) {
+            } else if (scoreMenuOverlay.allTimeClicked(ui.getLastPress())) {
                 state = ALL_TIME_SCORES;
                 allTimeScoresOverlay.reset();
                 allTimeScoresOverlay.setScores(stagingArea->getTopScores(25));
-            } else if (ui.mouseButtonDown && scoreMenuOverlay.todayClicked(ui.mouseButton)) {
+            } else if (scoreMenuOverlay.todayClicked(ui.getLastPress())) {
                 state = TODAY_SCORES;
                 todayScoresOverlay.reset();
                 todayScoresOverlay.setScores(stagingArea->getTodayScores(25));
             }
         } else if (state == ALL_TIME_SCORES) {
             allTimeScoresOverlay.render();
-            if (ui.spaceKeyUp) {
+            if (ui.anythingPressed()) {
                 menuOverlay.reset();
                 state = START_MENU;
             }
         } else if (state == TODAY_SCORES) {
             todayScoresOverlay.render();
-            if (ui.spaceKeyUp) {
+            if (ui.anythingPressed()) {
                 menuOverlay.reset();
                 state = START_MENU;
             }
@@ -252,63 +194,25 @@ void trippin::Game::renderLoop() {
             }
         } else if (state == END_MENU) {
             endMenuOverlay.render();
-            if (ui.mouseButtonDown && endMenuOverlay.exitClicked(ui.mouseButton)) {
+            if (endMenuOverlay.exitClicked(ui.getLastPress())) {
                 menuOverlay.reset();
                 state = START_MENU;
-            } else if (ui.mouseButtonDown && endMenuOverlay.saveClicked(ui.mouseButton)) {
+            } else if (endMenuOverlay.saveClicked(ui.getLastPress())) {
                 state = NAME_FORM;
                 nameFormOverlay.reset();
             }
         } else {
             nameFormOverlay.render();
-            if (ui.mouseButtonDown) {
-                nameFormOverlay.onClick(ui.mouseButton);
-                if (nameFormOverlay.nameEntered()) {
-                    stagingArea->addScore({score, nameFormOverlay.getName(), std::to_string(rand())});
-                    state = START_MENU;
-                    menuOverlay.reset();
-                }
+            nameFormOverlay.onClick(ui.getLastPress());
+            if (nameFormOverlay.nameEntered()) {
+                stagingArea->addScore({score, nameFormOverlay.getName(), std::to_string(rand())});
+                state = START_MENU;
+                menuOverlay.reset();
             }
         }
 
-        SDL_RenderPresent(renderer);
+        SDL_RenderPresent(sdlSystem->getRenderer());
         timer.next();
+        ui.reset();
     }
-}
-
-trippin::Game::UserInput trippin::Game::pollEvents() {
-    SDL_Event e;
-    UserInput ui{};
-    while (SDL_PollEvent(&e) != 0) {
-        if (e.type == SDL_QUIT) {
-            ui.quit = true;
-        } else if (e.type == SDL_KEYDOWN) {
-            if (e.key.keysym.scancode == SDL_SCANCODE_SPACE) {
-                ui.spaceKeyDown = true;
-            }
-            if (e.key.keysym.scancode == SDL_SCANCODE_DOWN) {
-                ui.downKeyDown = true;
-            }
-        } else if (e.type == SDL_KEYUP) {
-            if (e.key.keysym.scancode == SDL_SCANCODE_SPACE) {
-                ui.spaceKeyUp = true;
-            }
-            if (e.key.keysym.scancode == SDL_SCANCODE_DOWN) {
-                ui.downKeyUp = true;
-            }
-        } else if (e.type == SDL_MOUSEBUTTONDOWN) {
-            ui.mouseButtonDown = true;
-            ui.mouseButton = {e.button.x, e.button.y};
-        }
-    }
-    return ui;
-}
-
-trippin::GogginInput trippin::Game::getGogginInput(const UserInput &ui) {
-    GogginInput gi;
-    gi.jumpCharge = ui.spaceKeyDown;
-    gi.jumpRelease = ui.spaceKeyUp;
-    gi.duckStart = ui.downKeyDown;
-    gi.duckEnd = ui.downKeyUp;
-    return gi;
 }
