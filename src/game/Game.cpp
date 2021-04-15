@@ -4,7 +4,6 @@
 #include "SDL_mixer.h"
 #include "Game.h"
 #include "net/DbSynchronizer.h"
-#include "engine/Convert.h"
 #include "UserInput.h"
 
 void trippin::Game::init() {
@@ -31,13 +30,10 @@ void trippin::Game::initRand() {
 }
 
 void trippin::Game::initDbSychronizer() {
-    // intentional use of new operator
-    // object duration is now until termination
-    // these objects are accessed by detached background threads
-    stagingArea = new StagingArea;
-    auto transport = new Transport(configuration.db.host, configuration.db.port);
-    auto sync = new DbSynchronizer(*transport, *stagingArea);
-    sync->start();
+    stagingArea = std::make_shared<StagingArea>();
+    Transport transport(configuration.db.host, configuration.db.port);
+    DbSynchronizer::startAddScoresThread(transport, stagingArea);
+    DbSynchronizer::startQueryScoresThread(std::move(transport), stagingArea);
 }
 
 void trippin::Game::initConfiguration() {

@@ -8,14 +8,8 @@
 namespace trippin {
     class DbSynchronizer {
     public:
-        DbSynchronizer(const Transport &transport, StagingArea &stagingArea);
-        void runAddScoreLoop();
-        void runQueryScoresLoop();
-        void start();
-    private:
-        const Transport &transport;
-        StagingArea &stagingArea;
-        void addScore(const Score &score) const;
+        static void startAddScoresThread(Transport transport, std::weak_ptr<StagingArea> stagingArea);
+        static void startQueryScoresThread(Transport transport, std::weak_ptr<StagingArea> stagingArea);
     };
 }
 

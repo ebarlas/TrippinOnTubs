@@ -40,7 +40,7 @@ namespace trippin {
         ScoreMenuOverlay scoreMenuOverlay;
         ScrollingScoreBoardOverlay allTimeScoresOverlay;
         ScrollingScoreBoardOverlay todayScoresOverlay;
-        StagingArea* stagingArea;
+        std::shared_ptr<StagingArea> stagingArea;
         void initSdl();
         void initRand();
         void initConfiguration();
