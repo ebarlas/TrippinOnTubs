@@ -201,7 +201,7 @@ void trippin::Game::renderLoop() {
             nameFormOverlay.render();
             nameFormOverlay.onClick(ui.getLastPress());
             if (nameFormOverlay.nameEntered()) {
-                stagingArea->addScore({score, nameFormOverlay.getName(), std::to_string(rand())});
+                stagingArea->addScore({score, rand(), nameFormOverlay.getName()});
                 state = START_MENU;
                 menuOverlay.reset();
             }

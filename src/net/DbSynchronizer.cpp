@@ -21,7 +21,7 @@ int runAddScoresLoop(void *data) {
 
         for (auto &score : scores) {
             ctx->transport.addScore(score);
-            SDL_Log("added score, name=%s, score=%d, id=%s", score.name.c_str(), score.score, score.id.c_str());
+            SDL_Log("added score, name=%s, score=%d, id=%d", score.name.c_str(), score.score, score.id);
         }
 
         SDL_Delay(5'000);

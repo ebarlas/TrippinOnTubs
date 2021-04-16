@@ -1,3 +1,4 @@
+#include <sstream>
 #include "Transport.h"
 #include "Tcp.h"
 #include "SDL_net.h"
@@ -64,11 +65,13 @@ bool trippin::Transport::addScore(const Score &score) const {
     j["name"] = score.name;
     j["score"] = score.score;
 
-    // TODO: generate hash digest here or elsewhere
+    std::stringstream hash;
+    hash << std::hex << score.score << score.id;
 
     auto json = j.dump();
 
-    std::string msg = "POST /scores";
+    std::string msg = "POST /scores?h=";
+    msg += hash.str();
     msg += " HTTP/1.0\r\n";
     msg += "Host: ";
     msg += host;
