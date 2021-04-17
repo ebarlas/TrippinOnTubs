@@ -23,19 +23,31 @@ void trippin::Object::applyMotion() {
 
     if (fallGravity > 0 && velocity.y > 0) {
         if ((!pc.testTop() && fallGravity < 0) || (!pc.testBottom() && fallGravity > 0)) {
-            velocity.y = std::max(std::min(velocity.y + fallGravity, terminalVelocity.y), -terminalVelocity.y);
+            velocity.y = velocity.y + fallGravity;
         }
     } else {
         if ((!pc.testTop() && gravity < 0) || (!pc.testBottom() && gravity > 0)) {
-            velocity.y = std::max(std::min(velocity.y + gravity, terminalVelocity.y), -terminalVelocity.y);
+            velocity.y = velocity.y + gravity;
         }
     }
 
     if ((!pc.testLeft() && acceleration.x < 0) || (!pc.testRight() && acceleration.x > 0)) {
-        velocity.x = std::max(std::min(velocity.x + acceleration.x, terminalVelocity.x), -terminalVelocity.x);
+        velocity.x = velocity.x + acceleration.x;
     }
     if ((!pc.testTop() && acceleration.y < 0) || (!pc.testBottom() && acceleration.y > 0)) {
-        velocity.y = std::max(std::min(velocity.y + acceleration.y, terminalVelocity.y), -terminalVelocity.y);
+        velocity.y = velocity.y + acceleration.y;
+    }
+
+    if (velocity.y < -terminalVelocity.y) {
+        velocity.y = -terminalVelocity.y;
+    } else if (velocity.y > terminalVelocity.y) {
+        velocity.y = terminalVelocity.y;
+    }
+
+    if (velocity.x < -terminalVelocity.x) {
+        velocity.x = -terminalVelocity.x;
+    } else if (velocity.x > terminalVelocity.x) {
+        velocity.x = terminalVelocity.x;
     }
 
     position += velocity;
