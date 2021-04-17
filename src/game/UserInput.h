@@ -8,9 +8,10 @@
 namespace trippin {
     class UserInput {
     public:
-        UserInput(Point<int> windowSize);
         bool quitPressed() const;
         bool anythingPressed() const;
+        bool pPressed() const;
+        bool rPressed() const;
         Point<int> getLastPress() const;
         GogginInput asGogginInput() const;
 
@@ -21,20 +22,21 @@ namespace trippin {
             bool touchDownEvent{};
             bool touchUpEvent{};
             bool touchHeldDown{};
-            SDL_FingerID fingerId;
+            SDL_FingerID fingerId{};
         };
 
-        Point<int> windowSize;
+        struct Key {
+            bool keyDownEvent{};
+            bool keyUpEvent{};
+            bool keyHeldDown{};
+        };
 
         bool quit{};
 
-        bool spaceKeyDownEvent{};
-        bool spaceKeyUpEvent{};
-        bool spaceKeyHeldDown{};
-
-        bool downKeyDownEvent{};
-        bool downKeyUpEvent{};
-        bool downKeyHeldDown{};
+        Key spaceKey;
+        Key downKey;
+        Key pKey;
+        Key rKey;
 
         bool mouseButtonDownEvent{};
         Point<int> mouseButtonCoords{};
@@ -42,17 +44,15 @@ namespace trippin {
         Touch leftTouch;
         Touch rightTouch;
 
-        void onQuit();
-        void onSpaceKeyDown();
-        void onSpaceKeyUp();
-        void onDownKeyDown();
-        void onDownKeyUp();
         void onMouseButtonDown(int x, int y);
         void onFingerDown(const SDL_TouchFingerEvent &event);
         void onFingerUp(const SDL_TouchFingerEvent &event);
 
-        void handleTouchDown(const SDL_TouchFingerEvent &e, Touch &touch);
-        void handleTouchUp(const SDL_TouchFingerEvent &e, Touch &touch);
+        static void handleTouchDown(const SDL_TouchFingerEvent &e, Touch &touch);
+        static void handleTouchUp(const SDL_TouchFingerEvent &e, Touch &touch);
+
+        static void handleKeyDown(Key &key);
+        static void handleKeyUp(Key &key);
     };
 }
 

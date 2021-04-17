@@ -43,6 +43,7 @@ namespace trippin {
 
         void start();
         void pause();
+        void resume();
         void stop();
         void join();
     private:
@@ -60,6 +61,8 @@ namespace trippin {
         int tickPeriod;
         SDL_atomic_t paused{};
         SDL_atomic_t stopped{};
+        Uint32 pauseTicks{};
+        Uint32 pauseTime{};
 
         void beforeTick(Uint32 engineTicks);
         void afterTick(Uint32 engineTicks);

@@ -206,8 +206,17 @@ void trippin::Engine::runEngineLoop() {
     SDL_Log("starting engine");
     Clock clock{static_cast<Uint32>(tickPeriod)};
     while (!SDL_AtomicGet(&stopped)) {
-        if (!SDL_AtomicGet(&paused)) {
-            tick(clock.getTicks());
+        if (SDL_AtomicGet(&paused)) {
+            if (!pauseTicks) {
+                pauseTicks = clock.getTicks();
+            }
+        } else {
+            auto clockTicks = clock.getTicks();
+            if (pauseTicks) {
+                pauseTime += (clockTicks - pauseTicks);
+                pauseTicks = 0;
+            }
+            tick(clockTicks - pauseTime);
         }
         clock.next();
     }
@@ -220,6 +229,10 @@ void trippin::Engine::start() {
 
 void trippin::Engine::pause() {
     SDL_AtomicSet(&paused, 1);
+}
+
+void trippin::Engine::resume() {
+    SDL_AtomicSet(&paused, 0);
 }
 
 void trippin::Engine::stop() {

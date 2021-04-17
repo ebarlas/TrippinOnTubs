@@ -172,3 +172,11 @@ int trippin::Level::getScore() const {
     return scoreTicker.getScore();
 }
 
+void trippin::Level::pause() {
+    engine.pause();
+}
+
+void trippin::Level::resume() {
+    engine.resume();
+}
+

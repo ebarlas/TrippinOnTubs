@@ -51,6 +51,8 @@ namespace trippin {
         void render(GogginInput input);
         void start();
         void stop();
+        void pause();
+        void resume();
         int getScore() const;
     };
 }

@@ -122,12 +122,19 @@ void trippin::Game::renderLoop() {
     int score;
 
     Timer timer("renderer");
-    UserInput ui(windowSize);
+    UserInput ui;
     while (!ui.quitPressed()) {
         ui.pollEvents();
 
         SDL_SetRenderDrawColor(sdlSystem->getRenderer(), 244, 251, 255, 255);
         SDL_RenderClear(sdlSystem->getRenderer());
+
+        if (ui.pPressed()) {
+            level->pause();
+        }
+        if (ui.rPressed()) {
+            level->resume();
+        }
 
         level->render(ui.asGogginInput());
 
