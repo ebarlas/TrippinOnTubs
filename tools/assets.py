@@ -38,7 +38,8 @@ sprites = [
     'all_time',
     'today',
     'street_light',
-    'cloud'
+    'cloud',
+    'brick'
 ]
 
 levels = ['map_ground_melt', 'map_minimal', 'map_test', 'map_load']
@@ -93,7 +94,7 @@ def main():
         proj_home = sys.argv[1]
 
     sprite_assets(proj_home)
-    # level_assets(proj_home)
+    level_assets(proj_home)
 
 
 if __name__ == '__main__':

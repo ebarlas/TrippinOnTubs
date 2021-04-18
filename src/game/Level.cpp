@@ -92,7 +92,7 @@ void trippin::Level::initEngine() {
             uptr->init(*configuration, obj, spriteManager->get(obj.type));
             engine.add(uptr.get());
             objects.push_back(std::move(uptr));
-        } else if (obj.type == "zombie" || obj.type == "rat" || obj.type == "bird" || obj.type == "ball") {
+        } else if (obj.type == "zombie" || obj.type == "rat" || obj.type == "bird" || obj.type == "ball" || obj.type == "brick") {
             auto uptr = std::make_unique<GameObject>();
             uptr->setActivation(&activation);
             uptr->setGoggin(goggin);

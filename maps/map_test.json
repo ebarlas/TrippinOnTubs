@@ -1213,6 +1213,214 @@
     },
     {
       "id": 118,
+      "type": "brick",
+      "platform": false,
+      "position": {
+        "x": 1980,
+        "y": 3960
+      },
+      "terminalVelocity": {
+        "x": 0.0,
+        "y": 1125.0
+      },
+      "gravity": 1000.0,
+      "fallGravity": 1500.0,
+      "lane": 1
+    },
+    {
+      "id": 119,
+      "type": "brick",
+      "platform": false,
+      "position": {
+        "x": 1980,
+        "y": 3870
+      },
+      "terminalVelocity": {
+        "x": 0.0,
+        "y": 1125.0
+      },
+      "gravity": 1000.0,
+      "fallGravity": 1500.0,
+      "lane": 1
+    },
+    {
+      "id": 120,
+      "type": "brick",
+      "platform": false,
+      "position": {
+        "x": 1980,
+        "y": 3790
+      },
+      "terminalVelocity": {
+        "x": 0.0,
+        "y": 1125.0
+      },
+      "gravity": 1000.0,
+      "fallGravity": 1500.0,
+      "lane": 1
+    },
+    {
+      "id": 121,
+      "type": "brick",
+      "platform": false,
+      "position": {
+        "x": 1980,
+        "y": 3590
+      },
+      "terminalVelocity": {
+        "x": 0.0,
+        "y": 1125.0
+      },
+      "gravity": 1000.0,
+      "fallGravity": 1500.0,
+      "lane": 1
+    },
+    {
+      "id": 122,
+      "type": "brick",
+      "platform": false,
+      "position": {
+        "x": 1980,
+        "y": 3380
+      },
+      "terminalVelocity": {
+        "x": 0.0,
+        "y": 1125.0
+      },
+      "gravity": 1000.0,
+      "fallGravity": 1500.0,
+      "lane": 1
+    },
+    {
+      "id": 123,
+      "type": "brick",
+      "platform": false,
+      "position": {
+        "x": 2030,
+        "y": 3790
+      },
+      "terminalVelocity": {
+        "x": 0.0,
+        "y": 1125.0
+      },
+      "gravity": 1000.0,
+      "fallGravity": 1500.0,
+      "lane": 2
+    },
+    {
+      "id": 124,
+      "type": "brick",
+      "platform": false,
+      "position": {
+        "x": 2030,
+        "y": 3730
+      },
+      "terminalVelocity": {
+        "x": 0.0,
+        "y": 1125.0
+      },
+      "gravity": 1000.0,
+      "fallGravity": 1500.0,
+      "lane": 2
+    },
+    {
+      "id": 125,
+      "type": "brick",
+      "platform": false,
+      "position": {
+        "x": 2030,
+        "y": 3685
+      },
+      "terminalVelocity": {
+        "x": 0.0,
+        "y": 1125.0
+      },
+      "gravity": 1000.0,
+      "fallGravity": 1500.0,
+      "lane": 2
+    },
+    {
+      "id": 126,
+      "type": "brick",
+      "platform": false,
+      "position": {
+        "x": 2080,
+        "y": 3640
+      },
+      "terminalVelocity": {
+        "x": 0.0,
+        "y": 1125.0
+      },
+      "gravity": 1000.0,
+      "fallGravity": 1500.0,
+      "lane": 1
+    },
+    {
+      "id": 127,
+      "type": "brick",
+      "platform": false,
+      "position": {
+        "x": 2080,
+        "y": 3580
+      },
+      "terminalVelocity": {
+        "x": 0.0,
+        "y": 1125.0
+      },
+      "gravity": 1000.0,
+      "fallGravity": 1500.0,
+      "lane": 1
+    },
+    {
+      "id": 128,
+      "type": "brick",
+      "platform": false,
+      "position": {
+        "x": 2080,
+        "y": 3485
+      },
+      "terminalVelocity": {
+        "x": 0.0,
+        "y": 1125.0
+      },
+      "gravity": 1000.0,
+      "fallGravity": 1500.0,
+      "lane": 1
+    },
+    {
+      "id": 129,
+      "type": "brick",
+      "platform": false,
+      "position": {
+        "x": 2080,
+        "y": 3415
+      },
+      "terminalVelocity": {
+        "x": 0.0,
+        "y": 1125.0
+      },
+      "gravity": 1000.0,
+      "fallGravity": 1500.0,
+      "lane": 1
+    },
+    {
+      "id": 130,
+      "type": "brick",
+      "platform": false,
+      "position": {
+        "x": 2080,
+        "y": 3330
+      },
+      "terminalVelocity": {
+        "x": 0.0,
+        "y": 1125.0
+      },
+      "gravity": 1000.0,
+      "fallGravity": 1500.0,
+      "lane": 1
+    },
+    {
+      "id": 131,
       "type": "winged_tub",
       "platform": false,
       "position": {
@@ -1223,7 +1431,7 @@
       "sparkle": true
     },
     {
-      "id": 119,
+      "id": 132,
       "type": "winged_tub",
       "platform": false,
       "position": {
@@ -1233,7 +1441,7 @@
       "points": 100
     },
     {
-      "id": 120,
+      "id": 133,
       "type": "winged_tub",
       "platform": false,
       "position": {
@@ -1243,7 +1451,7 @@
       "points": 100
     },
     {
-      "id": 121,
+      "id": 134,
       "type": "ball",
       "platform": false,
       "position": {
@@ -1263,7 +1471,7 @@
       "coefficient": 0.9
     },
     {
-      "id": 122,
+      "id": 135,
       "type": "ball",
       "platform": false,
       "position": {
@@ -1283,7 +1491,7 @@
       "coefficient": 0.9
     },
     {
-      "id": 123,
+      "id": 136,
       "type": "ball",
       "platform": false,
       "position": {
@@ -1303,7 +1511,7 @@
       "coefficient": 0.9
     },
     {
-      "id": 124,
+      "id": 137,
       "type": "ball",
       "platform": false,
       "position": {
@@ -1323,7 +1531,7 @@
       "coefficient": 0.9
     },
     {
-      "id": 125,
+      "id": 138,
       "type": "ball",
       "platform": false,
       "position": {
@@ -1343,7 +1551,7 @@
       "coefficient": 0.9
     },
     {
-      "id": 126,
+      "id": 139,
       "type": "ball",
       "platform": false,
       "position": {
@@ -1363,7 +1571,7 @@
       "coefficient": 0.9
     },
     {
-      "id": 127,
+      "id": 140,
       "type": "ball",
       "platform": false,
       "position": {
@@ -1383,7 +1591,7 @@
       "coefficient": 0.9
     },
     {
-      "id": 128,
+      "id": 141,
       "type": "zombie",
       "platform": false,
       "position": {
@@ -1402,7 +1610,7 @@
       "stompable": true
     },
     {
-      "id": 129,
+      "id": 142,
       "type": "zombie",
       "platform": false,
       "position": {
@@ -1421,7 +1629,7 @@
       "stompable": true
     },
     {
-      "id": 130,
+      "id": 143,
       "type": "zombie",
       "platform": false,
       "position": {
@@ -1440,7 +1648,7 @@
       "stompable": true
     },
     {
-      "id": 131,
+      "id": 144,
       "type": "zombie",
       "platform": false,
       "position": {
@@ -1459,7 +1667,7 @@
       "stompable": true
     },
     {
-      "id": 132,
+      "id": 145,
       "type": "rat",
       "platform": false,
       "position": {
@@ -1483,7 +1691,7 @@
       "stompable": true
     },
     {
-      "id": 133,
+      "id": 146,
       "type": "rat",
       "platform": false,
       "position": {
@@ -1507,7 +1715,7 @@
       "stompable": true
     },
     {
-      "id": 134,
+      "id": 147,
       "type": "rat",
       "platform": false,
       "position": {
@@ -1531,7 +1739,7 @@
       "stompable": true
     },
     {
-      "id": 135,
+      "id": 148,
       "type": "rat",
       "platform": false,
       "position": {
@@ -1555,7 +1763,7 @@
       "stompable": true
     },
     {
-      "id": 136,
+      "id": 149,
       "type": "rat",
       "platform": false,
       "position": {
@@ -1579,7 +1787,7 @@
       "stompable": true
     },
     {
-      "id": 137,
+      "id": 150,
       "type": "rat",
       "platform": false,
       "position": {
@@ -1603,7 +1811,7 @@
       "stompable": true
     },
     {
-      "id": 138,
+      "id": 151,
       "type": "rat",
       "platform": false,
       "position": {
@@ -1627,7 +1835,7 @@
       "stompable": true
     },
     {
-      "id": 139,
+      "id": 152,
       "type": "rat",
       "platform": false,
       "position": {
@@ -1651,7 +1859,7 @@
       "stompable": true
     },
     {
-      "id": 140,
+      "id": 153,
       "type": "rat",
       "platform": false,
       "position": {
@@ -1675,7 +1883,7 @@
       "stompable": true
     },
     {
-      "id": 141,
+      "id": 154,
       "type": "rat",
       "platform": false,
       "position": {
@@ -1699,7 +1907,7 @@
       "stompable": true
     },
     {
-      "id": 142,
+      "id": 155,
       "type": "rat",
       "platform": false,
       "position": {
@@ -1723,7 +1931,7 @@
       "stompable": true
     },
     {
-      "id": 143,
+      "id": 156,
       "type": "rat",
       "platform": false,
       "position": {
@@ -1747,7 +1955,7 @@
       "stompable": true
     },
     {
-      "id": 144,
+      "id": 157,
       "type": "rat",
       "platform": false,
       "position": {
@@ -1771,7 +1979,7 @@
       "stompable": true
     },
     {
-      "id": 145,
+      "id": 158,
       "type": "rat",
       "platform": false,
       "position": {
@@ -1795,7 +2003,7 @@
       "stompable": true
     },
     {
-      "id": 146,
+      "id": 159,
       "type": "rat",
       "platform": false,
       "position": {
@@ -1819,7 +2027,7 @@
       "stompable": true
     },
     {
-      "id": 147,
+      "id": 160,
       "type": "rat",
       "platform": false,
       "position": {
@@ -1843,7 +2051,7 @@
       "stompable": true
     },
     {
-      "id": 148,
+      "id": 161,
       "type": "rat",
       "platform": false,
       "position": {
@@ -1867,7 +2075,7 @@
       "stompable": true
     },
     {
-      "id": 149,
+      "id": 162,
       "type": "rat",
       "platform": false,
       "position": {
@@ -1891,7 +2099,7 @@
       "stompable": true
     },
     {
-      "id": 150,
+      "id": 163,
       "type": "rat",
       "platform": false,
       "position": {
@@ -1915,7 +2123,7 @@
       "stompable": true
     },
     {
-      "id": 151,
+      "id": 164,
       "type": "rat",
       "platform": false,
       "position": {
@@ -1939,7 +2147,7 @@
       "stompable": true
     },
     {
-      "id": 152,
+      "id": 165,
       "type": "rat",
       "platform": false,
       "position": {
@@ -1963,7 +2171,7 @@
       "stompable": true
     },
     {
-      "id": 153,
+      "id": 166,
       "type": "rat",
       "platform": false,
       "position": {
@@ -1987,7 +2195,7 @@
       "stompable": true
     },
     {
-      "id": 154,
+      "id": 167,
       "type": "clock_timer",
       "platform": false,
       "position": {
@@ -1996,7 +2204,7 @@
       }
     },
     {
-      "id": 155,
+      "id": 168,
       "type": "winged_foot",
       "platform": false,
       "position": {

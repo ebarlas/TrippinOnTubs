@@ -14,3 +14,4 @@ build-sprites
 __pycache__
 scratch/
 *qhd.png
+*map.png
