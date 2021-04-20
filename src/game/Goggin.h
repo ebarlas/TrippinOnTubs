@@ -64,7 +64,7 @@ namespace trippin {
             // goggin center point, normalized
             Point<int> center;
 
-            std::array<PointCloud, 5> pointClouds;
+            std::array<PointCloud, 8> pointClouds;
 
             Frames frames;
             bool expired;
@@ -83,7 +83,7 @@ namespace trippin {
         Point<int> pointCloudDistanceMax;
         int pointCloudTicks;
         const Sprite *digits;
-        std::array<PointCloud, 5> pointClouds; // circular buffer
+        std::array<PointCloud, 8> pointClouds; // circular buffer
         int nextPointCloudPos;
 
         const Sprite *dust;
@@ -114,6 +114,7 @@ namespace trippin {
         void syncChannel();
 
         GogginInput input;
+        bool rememberDuckStart;
         std::unordered_map<Uint32, GogginInput> autoPlay;
         bool autoPlayEnabled;
 

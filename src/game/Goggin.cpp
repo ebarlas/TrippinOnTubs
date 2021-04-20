@@ -21,7 +21,7 @@ void trippin::Goggin::init(const Configuration &config, const Map::Object &obj, 
     state = State::falling;
     maxFallingVelocity = 0;
     pointCloudDistanceMin = {size.x, size.y};
-    pointCloudDistanceMax = pointCloudDistanceMin * 2;
+    pointCloudDistanceMax = pointCloudDistanceMin * 3;
     pointCloudTicks = config.ticksPerSecond() * 2;
 
     shakeAmplitude = config.shakeAmplitude * sprite->getScale().getMultiplier();
@@ -85,7 +85,11 @@ void trippin::Goggin::beforeTick(Uint32 engineTicks) {
 
 void trippin::Goggin::handleDuckStart() {
     if (input.duckStart) {
-        if (state == running && platformCollisions.testBottom()) {
+        rememberDuckStart = true;
+    }
+    if (rememberDuckStart) {
+        if ((state == running || state == landing) && platformCollisions.testBottom()) {
+            rememberDuckStart = false;
             state = ducking;
             ticks = 0;
             frames.frame = FRAME_DUCKING;
@@ -98,6 +102,7 @@ void trippin::Goggin::handleDuckStart() {
 
 void trippin::Goggin::handleDuckEnd() {
     if (input.duckEnd) {
+        rememberDuckStart = false;
         if (state == ducking) {
             ticks = 0;
             growForStand();

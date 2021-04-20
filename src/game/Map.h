@@ -39,6 +39,8 @@ namespace trippin {
             bool accelerateWhenGrounded{};
             bool stompable{};
             int points{};
+            double rightOf{};
+            double rightMultiple{};
         };
 
         struct Layer {

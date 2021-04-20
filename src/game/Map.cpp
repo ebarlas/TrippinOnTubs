@@ -40,6 +40,7 @@ void trippin::Map::rescale(double target) {
         obj.terminalVelocity.y /= divisor;
         obj.friction.x /= divisor;
         obj.friction.y /= divisor;
+        obj.rightOf /= divisor;
     }
 
     for (auto &layer : layers) {
@@ -141,6 +142,10 @@ void trippin::from_json(const nlohmann::json& j, Map::Object& obj) {
         j.at("stompable").get_to(obj.stompable);
     if (j.contains("points"))
         j.at("points").get_to(obj.points);
+    if (j.contains("rightOf"))
+        j.at("rightOf").get_to(obj.rightOf);
+    if (j.contains("rightMultiple"))
+        j.at("rightMultiple").get_to(obj.rightMultiple);
 }
 
 void trippin::from_json(const nlohmann::json& j, Map::Layer& layer) {

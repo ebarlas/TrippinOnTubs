@@ -12,7 +12,8 @@ void trippin::SpriteObject::init(
     fallGravity = obj.fallGravity;
     auto hb = spr.getHitBox();
     mass = obj.mass > 0 ? obj.mass : (obj.massFactor > 0 ? hb.area() * obj.massFactor : hb.area());
-    position = {obj.position.x + hb.corner().x, obj.position.y + hb.corner().y};
+    auto objPosX = obj.rightOf != 0 ? obj.rightOf + sprite->getSize().x * obj.rightMultiple : obj.position.x;
+    position = {objPosX + hb.corner().x, obj.position.y + hb.corner().y};
     size = {hb.w, hb.h};
     velocity = obj.velocity;
     terminalVelocity = obj.terminalVelocity;

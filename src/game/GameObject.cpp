@@ -1,4 +1,5 @@
 #include "GameObject.h"
+#include "engine/Convert.h"
 
 void trippin::GameObject::setGoggin(Goggin &g) {
     goggin = &g;

@@ -10,12 +10,13 @@ void trippin::Object::syncPositions() {
 
 void trippin::Object::applyMotion() {
     auto &pc = platformCollisions;
-    if (pc.testBottom() || pc.testTop()) {
+    auto &oc = objectCollisions;
+    if (pc.testBottom() || pc.testTop() || oc.testBottom() || oc.testTop()) {
         velocity.x = velocity.x > 0
                      ? std::max(velocity.x - friction.x, 0.0)
                      : std::min(velocity.x + friction.x, 0.0);
     }
-    if (pc.testLeft() || pc.testRight()) {
+    if (pc.testLeft() || pc.testRight() || oc.testLeft() || oc.testRight()) {
         velocity.y = velocity.y > 0
                      ? std::max(velocity.y - friction.y, 0.0)
                      : std::min(velocity.y + friction.y, 0.0);

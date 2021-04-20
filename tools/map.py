@@ -33,7 +33,7 @@ def find_objects(root):
     objects = []
     points = ['velocity', 'terminalVelocity', 'friction']
     floats = ['mass', 'massFactor', 'gravity', 'fallGravity', 'minJumpVelocity', 'maxJumpVelocity', 'maxDuckJumpVelocity',
-              'runningAcceleration', 'risingAcceleration', 'duckFriction', 'coefficient']
+              'runningAcceleration', 'risingAcceleration', 'duckFriction', 'coefficient', 'rightOf', 'rightMultiple']
     ints = ['minJumpChargeTime', 'maxJumpChargeTime', 'jumpGracePeriod', 'jumpSoundTimeout',
             'lane', 'dustPeriod', 'points']
     bools = ['sparkle', 'accelerateWhenGrounded', 'stompable']
