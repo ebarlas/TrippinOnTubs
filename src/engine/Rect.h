@@ -25,6 +25,7 @@ namespace trippin {
         operator bool() const;
         static Sides collision(const trippin::Rect<T> &a, const trippin::Rect<T> &b);
         Sides collision(const trippin::Rect<T> &b) const;
+        inline bool hasCollision(const trippin::Rect<T> &b) const;
         bool operator==(const Rect<T> &other) const;
         Rect<T> operator+(const Point<T> &other);
         Rect<T> operator-(const Point<T> &other);
@@ -115,6 +116,11 @@ trippin::Sides trippin::Rect<T>::collision(const trippin::Rect<T> &a, const trip
 template<class T>
 trippin::Sides trippin::Rect<T>::collision(const trippin::Rect<T> &b) const {
     return collision(*this, b);
+}
+
+template<class T>
+bool trippin::Rect<T>::hasCollision(const trippin::Rect<T> &b) const {
+    return !(b.x > x + w || b.x + b.w < x || b.y > y + h || b.y + b.h < y);
 }
 
 template<class T>

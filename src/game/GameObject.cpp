@@ -21,7 +21,11 @@ void trippin::GameObject::init(const Configuration &config, const Map::Object &o
     stompable = obj.stompable;
     stompPoints = obj.points;
     stomped = false;
-    frame = obj.frame;
+    if (obj.randFrame) {
+        frame = std::rand() % spr.getFrames() / 2;
+    } else {
+        frame = obj.frame;
+    }
     collisionDuration = config.ticksPerSecond() * 0.25;
     collisionTicks = 0;
     flashCycle = 0;

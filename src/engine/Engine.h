@@ -78,7 +78,7 @@ namespace trippin {
         void applyPlatformCollision(Object &object, Object &platform, const Sides &sides);
         void applyObjectCollision(Object &left, Object &right, const Sides &sides);
 
-        static bool sameLane(Object* left, Object* right);
+        inline static bool sameLane(Object* left, Object* right);
     };
 }
 

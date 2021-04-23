@@ -146,6 +146,8 @@ void trippin::from_json(const nlohmann::json& j, Map::Object& obj) {
         j.at("rightOf").get_to(obj.rightOf);
     if (j.contains("rightMultiple"))
         j.at("rightMultiple").get_to(obj.rightMultiple);
+    if (j.contains("randFrame"))
+        j.at("randFrame").get_to(obj.randFrame);
 }
 
 void trippin::from_json(const nlohmann::json& j, Map::Layer& layer) {

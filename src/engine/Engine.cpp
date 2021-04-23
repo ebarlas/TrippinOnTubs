@@ -154,8 +154,8 @@ void trippin::Engine::applyPhysics() {
     for (auto platform : platforms) {
         for (auto object : objects) {
             if (sameLane(object, platform)) {
-                auto collision = object->roundedBox.collision(platform->roundedBox);
-                if (collision) {
+                if (object->roundedBox.hasCollision(platform->roundedBox)) {
+                    auto collision = object->roundedBox.collision(platform->roundedBox);
                     applyPlatformCollision(*object, *platform, collision);
                 }
             }
@@ -167,8 +167,8 @@ void trippin::Engine::applyPhysics() {
         for (int j = i + 1; j < objects.size(); j++) {
             auto b = objects[j];
             if (sameLane(a, b)) {
-                auto collision = a->roundedBox.collision(b->roundedBox);
-                if (collision) {
+                if (a->roundedBox.hasCollision(b->roundedBox)) {
+                    auto collision = a->roundedBox.collision(b->roundedBox);
                     applyObjectCollision(*a, *b, collision);
                 }
             }
