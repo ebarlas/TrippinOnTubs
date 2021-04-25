@@ -41,6 +41,7 @@ void trippin::Map::rescale(double target) {
         obj.friction.x /= divisor;
         obj.friction.y /= divisor;
         obj.rightOf /= divisor;
+        obj.activation /= divisor;
     }
 
     for (auto &layer : layers) {
@@ -148,6 +149,8 @@ void trippin::from_json(const nlohmann::json& j, Map::Object& obj) {
         j.at("rightMultiple").get_to(obj.rightMultiple);
     if (j.contains("randFrame"))
         j.at("randFrame").get_to(obj.randFrame);
+    if (j.contains("activation"))
+        j.at("activation").get_to(obj.activation);
 }
 
 void trippin::from_json(const nlohmann::json& j, Map::Layer& layer) {

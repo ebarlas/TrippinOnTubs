@@ -20,6 +20,7 @@ void trippin::GameObject::init(const Configuration &config, const Map::Object &o
     }
     stompable = obj.stompable;
     stompPoints = obj.points;
+    objectActivation = obj.activation;
     stomped = false;
     if (obj.randFrame) {
         frame = std::rand() % spr.getFrames() / 2;
@@ -37,8 +38,16 @@ void trippin::GameObject::init(const Configuration &config, const Map::Object &o
 }
 
 void trippin::GameObject::beforeTick(Uint32 engineTicks) {
-    if (inactive && activation->shouldActivate(roundedBox)) {
-        inactive = false;
+    if (inactive) {
+        if (objectActivation > 0) {
+            if (goggin->position.x >= position.x - objectActivation) {
+                inactive = false;
+            }
+        } else {
+            if (activation->shouldActivate(roundedBox)) {
+                inactive = false;
+            }
+        }
     }
 }
 
@@ -82,11 +91,9 @@ void trippin::GameObject::afterTick(Uint32 engineTicks) {
 
 void trippin::GameObject::render(const trippin::Camera &camera) {
     auto ch = channel.get();
-    if (ch.visible) {
-        flashCycle = (flashCycle + 1) % 2;
-        auto fr = ch.flash && flashCycle == 0 ? ch.frame + (sprite->getFrames() / 2) : ch.frame;
-        sprite->render(ch.roundedPosition, fr, camera);
-    }
+    flashCycle = (flashCycle + 1) % 2;
+    auto fr = ch.flash && flashCycle == 0 ? ch.frame + (sprite->getFrames() / 2) : ch.frame;
+    sprite->render(ch.roundedPosition, fr, camera);
 }
 
 void trippin::GameObject::setActivation(const Activation *act) {
@@ -94,9 +101,8 @@ void trippin::GameObject::setActivation(const Activation *act) {
 }
 
 void trippin::GameObject::syncChannel(Uint32 engineTicks) {
-    auto visible = !inactive && !expired;
     auto flash = collisionTicks > engineTicks;
-    channel.set({roundedPosition, frame, visible, flash});
+    channel.set({roundedPosition, frame, flash});
 }
 
 void trippin::GameObject::advanceFrame(Uint32 engineTicks) {

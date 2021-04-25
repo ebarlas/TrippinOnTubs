@@ -17,9 +17,9 @@ void trippin::Activation::setUniverse(const trippin::Point<int> &uni) {
 }
 
 bool trippin::Activation::shouldActivate(const Rect<int> &rect) const {
-    return std::abs(goggin->roundedPosition.x - rect.x) <= activationProximity;
+    return goggin->roundedPosition.x >= rect.x - activationProximity;
 }
 
 bool trippin::Activation::shouldDeactivate(const Rect<int> &rect) const {
-    return std::abs(goggin->roundedPosition.x - rect.x) > deactivationProximity || !universe.intersect(rect);
+    return goggin->roundedPosition.x >= rect.x + deactivationProximity || !universe.intersect(rect);
 }

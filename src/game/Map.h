@@ -42,6 +42,7 @@ namespace trippin {
             double rightOf{};
             double rightMultiple{};
             bool randFrame{};
+            double activation{};
         };
 
         struct Layer {

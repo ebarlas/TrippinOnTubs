@@ -28,7 +28,7 @@ void trippin::Sprite::render(trippin::Point<int> position, int frame) const {
 void trippin::Sprite::render(trippin::Point<int> hitBoxPos, int frame, const trippin::Camera &camera) const {
     auto viewport = camera.getViewport();
     trippin::Rect<int> box{hitBoxPos.x - hitBox.x, hitBoxPos.y - hitBox.y, size.x, size.y};
-    if (box.intersect(viewport)) {
+    if (box.hasCollision(viewport)) {
         Point<int> target = {box.x - viewport.x, box.y - viewport.y};
         render(target, frame);
         /*

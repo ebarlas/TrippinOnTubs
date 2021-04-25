@@ -25,6 +25,7 @@ namespace trippin {
         bool stompable;
         bool stomped;
         int stompPoints;
+        double objectActivation;
         Goggin *goggin;
         ScoreTicker *scoreTicker;
 
@@ -36,7 +37,6 @@ namespace trippin {
         struct Channel {
             Point<int> roundedPosition;
             int frame;
-            bool visible;
             bool flash;
         };
         int flashCycle;
