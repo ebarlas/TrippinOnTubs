@@ -16,7 +16,7 @@
 #include "EndMenuOverlay.h"
 #include "NameFormOverlay.h"
 #include "ScoreMenuOverlay.h"
-#include "ScrollingScoreBoardOverlay.h"
+#include "ui/ScrollingScoreBoard.h"
 #include "net/StagingArea.h"
 #include "SdlSystem.h"
 
@@ -33,13 +33,13 @@ namespace trippin {
         SoundManager soundManager;
         std::unique_ptr<Level> level;
         bool loadLevel;
-        TitleOverlay titleOverlay;
+        std::unique_ptr<TitleOverlay> titleOverlay;
         MenuOverlay menuOverlay;
         EndMenuOverlay endMenuOverlay;
         NameFormOverlay nameFormOverlay;
         ScoreMenuOverlay scoreMenuOverlay;
-        ScrollingScoreBoardOverlay allTimeScoresOverlay;
-        ScrollingScoreBoardOverlay todayScoresOverlay;
+        std::unique_ptr<ScrollingScoreBoard> allTimeScoresOverlay;
+        std::unique_ptr<ScrollingScoreBoard> todayScoresOverlay;
         std::shared_ptr<StagingArea> stagingArea;
         void initSdl();
         void initRand();

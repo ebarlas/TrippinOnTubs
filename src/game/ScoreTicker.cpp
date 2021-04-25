@@ -1,6 +1,6 @@
 #include "ScoreTicker.h"
 #include "engine/Convert.h"
-#include "DigitLayout.h"
+#include "ui/DigitLayout.h"
 
 void trippin::ScoreTicker::init() {
     score = 0;

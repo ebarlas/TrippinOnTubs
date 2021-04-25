@@ -2,7 +2,7 @@
 #include "sprite/Sprite.h"
 #include "Goggin.h"
 #include "engine/Convert.h"
-#include "DigitLayout.h"
+#include "ui/DigitLayout.h"
 
 void trippin::Goggin::init(const Configuration &config, const Map::Object &obj, const Sprite &spr) {
     SpriteObject::init(config, obj, spr);

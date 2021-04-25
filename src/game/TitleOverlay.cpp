@@ -1,34 +1,53 @@
 #include "TitleOverlay.h"
 #include "engine/Convert.h"
 
-void trippin::TitleOverlay::init(const Point<int> &ws, SpriteManager &spriteManager) {
-    todayScoreBoard.init(ws, spriteManager);
-    allTimeScoreBoard.init(ws, spriteManager);
+trippin::TitleOverlay::TitleOverlay(const Point<int> &windowSize, Options options, SpriteManager &spriteManager) :
+        windowSize(windowSize),
+        options(options),
+        titleSprite(spriteManager.get("trippin")),
+        todaySprite(spriteManager.get("today")),
+        allTimeSprite(spriteManager.get("all_time")),
+        todayScoreBoard(spriteManager.get("alpha")),
+        allTimeScoreBoard(spriteManager.get("alpha")),
+        scoresSet(false) {
 
-    titleSprite = &spriteManager.get("trippin");
-    todaySprite = &spriteManager.get("today");
-    allTimeSprite = &spriteManager.get("all_time");
-
-    titlePosition.x = (ws.x - titleSprite->getSize().x) / 2;
-    todayPosition.x = (ws.x - todaySprite->getSize().x) / 2;
-    allTimePosition.x = (ws.x - allTimeSprite->getSize().x) / 2;
-
-    windowSize = ws;
-    applyScroll(0);
 }
 
 void trippin::TitleOverlay::render() {
-    scroll();
-    if (inView(titlePosition.y, titleSprite->getSize().y))
-        titleSprite->render(titlePosition, 0);
-    if (inView(todayPosition.y, todaySprite->getSize().y))
-        todaySprite->render(todayPosition, 0);
-    if (inView(todayScoreBoard.getTop(), todayScoreBoard.getHeight()))
-        todayScoreBoard.render();
-    if (inView(allTimePosition.y, allTimeSprite->getSize().y))
-        allTimeSprite->render(allTimePosition, 0);
-    if (inView(allTimeScoreBoard.getTop(), allTimeScoreBoard.getHeight()))
-        allTimeScoreBoard.render();
+    int scrollTop = getScrollTop();
+
+    int height = windowSize.y * 3
+                 + todaySprite.getSize().y
+                 + todayScoreBoard.getHeight()
+                 + allTimeSprite.getSize().y
+                 + allTimeScoreBoard.getHeight();
+    int scrollWrap = scrollTop % height;
+
+    Point<int> titlePosition;
+    titlePosition.x = (windowSize.x - titleSprite.getSize().x) / 2;
+    titlePosition.y = scrollTop + (windowSize.y - titleSprite.getSize().y) / 2;
+    titleSprite.render(titlePosition, 0);
+
+    Point<int> todayPosition;
+    todayPosition.x = (windowSize.x - todaySprite.getSize().x) / 2;
+    todayPosition.y = scrollWrap + windowSize.y * 2;
+    todaySprite.render(todayPosition, 0);
+    int todayHeight = todaySprite.getSize().y + todayScoreBoard.getHeight();
+
+    Point<int> todayScorePosition;
+    todayScorePosition.x = (windowSize.x - todayScoreBoard.getWidth()) / 2;;
+    todayScorePosition.y = scrollWrap + windowSize.y * 2 + todaySprite.getSize().y;
+    todayScoreBoard.render(todayScorePosition);
+
+    Point<int> allTimePosition;
+    allTimePosition.x = (windowSize.x - allTimeSprite.getSize().x) / 2;
+    allTimePosition.y = scrollWrap + windowSize.y * 3 + todayHeight;
+    allTimeSprite.render(allTimePosition, 0);
+
+    Point<int> allTimeScorePosition;
+    allTimeScorePosition.x = (windowSize.x - allTimeScoreBoard.getWidth()) / 2;
+    allTimeScorePosition.y = scrollWrap + windowSize.y * 3 + todayHeight + allTimeSprite.getSize().y;
+    allTimeScoreBoard.render(allTimeScorePosition);
 }
 
 void trippin::TitleOverlay::setScores(std::vector<Score> today, std::vector<Score> top) {
@@ -38,41 +57,14 @@ void trippin::TitleOverlay::setScores(std::vector<Score> today, std::vector<Scor
     scoresSetTicks = SDL_GetTicks();
 }
 
-void trippin::TitleOverlay::setScrollRate(double sr) {
-    scrollRate = sr;
-}
-
-void trippin::TitleOverlay::scroll() {
+int trippin::TitleOverlay::getScrollTop() const {
     if (scoresSet) {
-        int delta = static_cast<int>(SDL_GetTicks() - scoresSetTicks) - titlePause;
+        int delta = static_cast<int>(SDL_GetTicks() - scoresSetTicks) - options.titlePause;
         if (delta > 0) {
-            applyScroll(toInt(delta * scrollRate));
+            return toInt(delta * options.scrollRate);
         }
     }
-}
-
-void trippin::TitleOverlay::applyScroll(int scrollTop) {
-    int height = windowSize.y * 3
-                 + todaySprite->getSize().y + allTimeSprite->getSize().y
-                 + todayScoreBoard.getHeight() + allTimeScoreBoard.getHeight();
-    int scrollWrap = scrollTop % height;
-    int todayHeight = todaySprite->getSize().y + todayScoreBoard.getHeight();
-    titlePosition.y = scrollTop + (windowSize.y - titleSprite->getSize().y) / 2;
-    todayPosition.y = scrollWrap + windowSize.y * 2;
-    todayScoreBoard.setTop(scrollWrap + windowSize.y * 2 + todaySprite->getSize().y);
-    allTimePosition.y = scrollWrap + windowSize.y * 3 + todayHeight;
-    allTimeScoreBoard.setTop(scrollWrap + windowSize.y * 3 + todayHeight + allTimeSprite->getSize().y);
-}
-
-void trippin::TitleOverlay::setTitlePause(int pause) {
-    titlePause = pause;
-}
-
-bool trippin::TitleOverlay::inView(int top, int h) const {
-    int bottom = top + h;
-    return (top >= 0 && top <= windowSize.y)
-           || (bottom >= 0 && bottom <= windowSize.y)
-           || (top <= 0 && bottom >= windowSize.y);
+    return 0;
 }
 
 bool trippin::TitleOverlay::hasScores() const {

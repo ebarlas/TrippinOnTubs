@@ -48,6 +48,11 @@ add_library(Net
 target_include_directories(Net PUBLIC ${NLOHMANN_JSON_INCLUDE_DIR} ${SDL2_NET_INCLUDE_DIR} ${CMAKE_CURRENT_SOURCE_DIR})
 target_link_libraries(Net Lock ${SDL2_NET_LIB})
 
+add_library(Ui
+        ui/ScoreBoard.cpp
+        ui/ScrollingScoreBoard.cpp)
+target_link_libraries(Ui Net)
+
 add_library(GameLoop demo/gameloop.cpp)
 target_link_libraries(GameLoop Graphics)
 
@@ -94,13 +99,11 @@ add_library(Game
         game/EndMenuOverlay.cpp
         game/NameFormOverlay.cpp
         game/ScoreMenuOverlay.cpp
-        game/ScoreBoardOverlay.cpp
-        game/ScrollingScoreBoardOverlay.cpp
         game/Interpolator.cpp
         game/Shake.cpp
         game/SoundManager.cpp)
 target_include_directories(Game PUBLIC ${SDL2_MIXER_INCLUDE_DIR})
-target_link_libraries(Game Sprite Lock Net ${SDL2_MIXER_LIB})
+target_link_libraries(Game Sprite Lock Net Ui ${SDL2_MIXER_LIB})
 
 add_executable(trippin game/trippin.cpp)
 target_link_libraries(trippin Game)

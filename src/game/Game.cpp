@@ -67,17 +67,14 @@ void trippin::Game::initLevel() {
 }
 
 void trippin::Game::initOverlays() {
-    titleOverlay.setTitlePause(3'000);
-    titleOverlay.setScrollRate(-0.25);
-    titleOverlay.init(windowSize, *spriteManager);
+    TitleOverlay::Options titleOptions{-0.25, 3'000};
+    titleOverlay = std::make_unique<TitleOverlay>(windowSize, titleOptions, *spriteManager);
     menuOverlay.init(windowSize, *spriteManager);
     endMenuOverlay.init(windowSize, *spriteManager);
     nameFormOverlay.init(windowSize, *spriteManager);
     scoreMenuOverlay.init(windowSize, *spriteManager);
-    allTimeScoresOverlay.setScrollRate(-0.25);
-    allTimeScoresOverlay.init(windowSize, *spriteManager);
-    todayScoresOverlay.setScrollRate(-0.25);
-    todayScoresOverlay.init(windowSize, *spriteManager);
+    allTimeScoresOverlay = std::make_unique<ScrollingScoreBoard>(windowSize, -0.25, *spriteManager);
+    todayScoresOverlay = std::make_unique<ScrollingScoreBoard>(windowSize, -0.25, *spriteManager);
 }
 
 std::unique_ptr<trippin::Level> trippin::Game::nextLevel() {
@@ -139,10 +136,10 @@ void trippin::Game::renderLoop() {
         level->render(ui.asGogginInput());
 
         if (state == TITLE) {
-            if (!titleOverlay.hasScores() && stagingArea->bothSet()) {
-                titleOverlay.setScores(stagingArea->getTodayScores(15), stagingArea->getTopScores(15));
+            if (!titleOverlay->hasScores() && stagingArea->bothSet()) {
+                titleOverlay->setScores(stagingArea->getTodayScores(15), stagingArea->getTopScores(15));
             }
-            titleOverlay.render();
+            titleOverlay->render();
             if (ui.anythingPressed()) {
                 menuOverlay.reset();
                 state = START_MENU;
@@ -170,21 +167,21 @@ void trippin::Game::renderLoop() {
                 state = START_MENU;
             } else if (scoreMenuOverlay.allTimeClicked(ui.getLastPress())) {
                 state = ALL_TIME_SCORES;
-                allTimeScoresOverlay.reset();
-                allTimeScoresOverlay.setScores(stagingArea->getTopScores(25));
+                allTimeScoresOverlay->reset();
+                allTimeScoresOverlay->setScores(stagingArea->getTopScores(25));
             } else if (scoreMenuOverlay.todayClicked(ui.getLastPress())) {
                 state = TODAY_SCORES;
-                todayScoresOverlay.reset();
-                todayScoresOverlay.setScores(stagingArea->getTodayScores(25));
+                todayScoresOverlay->reset();
+                todayScoresOverlay->setScores(stagingArea->getTodayScores(25));
             }
         } else if (state == ALL_TIME_SCORES) {
-            allTimeScoresOverlay.render();
+            allTimeScoresOverlay->render();
             if (ui.anythingPressed()) {
                 menuOverlay.reset();
                 state = START_MENU;
             }
         } else if (state == TODAY_SCORES) {
-            todayScoresOverlay.render();
+            todayScoresOverlay->render();
             if (ui.anythingPressed()) {
                 menuOverlay.reset();
                 state = START_MENU;
