@@ -6,7 +6,7 @@
 namespace trippin {
     class Interpolator {
     public:
-        void init(Uint32 duration, int magnitude);
+        Interpolator(Uint32 duration, int magnitude);
         void reset();
         int interpolate() const;
     private:

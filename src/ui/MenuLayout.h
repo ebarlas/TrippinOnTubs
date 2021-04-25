@@ -22,7 +22,7 @@ namespace trippin {
             Point<int> position;
         };
         std::array<Item, N> items;
-        Interpolator interpolator;
+        std::unique_ptr<Interpolator> interpolator;
         const Item& maxItem() const;
     };
 }
@@ -47,18 +47,18 @@ void trippin::MenuLayout<N>::init(const Point<int> &windowSize, Uint32 duration)
     }
 
     auto &max = maxItem();
-    interpolator.init(duration, max.position.x + max.sprite->getSize().x);
+    interpolator = std::make_unique<Interpolator>(duration, max.position.x + max.sprite->getSize().x);
 }
 
 template<std::size_t N>
 void trippin::MenuLayout<N>::reset() {
-    interpolator.reset();
+    interpolator->reset();
 }
 
 template<std::size_t N>
 void trippin::MenuLayout<N>::render() {
     auto &max = maxItem();
-    int x = interpolator.interpolate() - max.sprite->getSize().x;
+    int x = interpolator->interpolate() - max.sprite->getSize().x;
     for (auto &item : items) {
         Point<int> p{x + item.position.x - max.position.x, item.position.y};
         item.sprite->render(p, 0);

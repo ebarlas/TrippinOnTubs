@@ -50,7 +50,9 @@ target_link_libraries(Net Lock ${SDL2_NET_LIB})
 
 add_library(Ui
         ui/ScoreBoard.cpp
-        ui/ScrollingScoreBoard.cpp)
+        ui/ScrollingScoreBoard.cpp
+        ui/Interpolator.cpp
+        ui/TitleMenu.cpp)
 target_link_libraries(Ui Net)
 
 add_library(GameLoop demo/gameloop.cpp)
@@ -95,11 +97,9 @@ add_library(Game
         game/Level.cpp
         game/AutoPlay.cpp
         game/TitleOverlay.cpp
-        game/MenuOverlay.cpp
         game/EndMenuOverlay.cpp
         game/NameFormOverlay.cpp
         game/ScoreMenuOverlay.cpp
-        game/Interpolator.cpp
         game/Shake.cpp
         game/SoundManager.cpp)
 target_include_directories(Game PUBLIC ${SDL2_MIXER_INCLUDE_DIR})

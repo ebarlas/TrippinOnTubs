@@ -1,9 +1,8 @@
 #include "Interpolator.h"
 
-void trippin::Interpolator::init(Uint32 dur, int mag) {
-    firstTick = -1;
-    duration = dur;
-    magnitude = mag;
+trippin::Interpolator::Interpolator(Uint32 duration, int magnitude)
+        : firstTick(-1), duration(duration), magnitude(magnitude) {
+
 }
 
 void trippin::Interpolator::reset() {

@@ -2,7 +2,7 @@
 #define TRIPPIN_TITLEOVERLAY_H
 
 #include "sprite/SpriteManager.h"
-#include "Interpolator.h"
+#include "ui/Interpolator.h"
 #include "net/Score.h"
 #include "ui/ScoreBoard.h"
 

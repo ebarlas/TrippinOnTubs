@@ -12,7 +12,7 @@
 #include "Level.h"
 #include "AutoPlay.h"
 #include "TitleOverlay.h"
-#include "MenuOverlay.h"
+#include "ui/TitleMenu.h"
 #include "EndMenuOverlay.h"
 #include "NameFormOverlay.h"
 #include "ScoreMenuOverlay.h"
@@ -34,7 +34,7 @@ namespace trippin {
         std::unique_ptr<Level> level;
         bool loadLevel;
         std::unique_ptr<TitleOverlay> titleOverlay;
-        MenuOverlay menuOverlay;
+        std::unique_ptr<TitleMenu> titleMenu;
         EndMenuOverlay endMenuOverlay;
         NameFormOverlay nameFormOverlay;
         ScoreMenuOverlay scoreMenuOverlay;

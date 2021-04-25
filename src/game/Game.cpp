@@ -69,7 +69,7 @@ void trippin::Game::initLevel() {
 void trippin::Game::initOverlays() {
     TitleOverlay::Options titleOptions{-0.25, 3'000};
     titleOverlay = std::make_unique<TitleOverlay>(windowSize, titleOptions, *spriteManager);
-    menuOverlay.init(windowSize, *spriteManager);
+    titleMenu = std::make_unique<TitleMenu>(windowSize, *spriteManager);
     endMenuOverlay.init(windowSize, *spriteManager);
     nameFormOverlay.init(windowSize, *spriteManager);
     scoreMenuOverlay.init(windowSize, *spriteManager);
@@ -141,29 +141,29 @@ void trippin::Game::renderLoop() {
             }
             titleOverlay->render();
             if (ui.anythingPressed()) {
-                menuOverlay.reset();
+                titleMenu->reset();
                 state = START_MENU;
             }
         } else if (state == START_MENU) {
-            menuOverlay.render();
-            if (menuOverlay.startClicked(ui.getLastPress())) {
+            titleMenu->render();
+            if (titleMenu->startClicked(ui.getLastPress())) {
                 loadLevel = false;
                 level->stop();
                 level.reset();
                 level = nextLevel();
                 level->start();
                 state = PLAYING;
-            } else if (menuOverlay.exitClicked(ui.getLastPress())) {
+            } else if (titleMenu->exitClicked(ui.getLastPress())) {
                 level->stop();
                 break;
-            } else if (menuOverlay.highScoreClicked(ui.getLastPress())) {
+            } else if (titleMenu->highScoreClicked(ui.getLastPress())) {
                 state = SCORE_MENU;
                 scoreMenuOverlay.reset();
             }
         } else if (state == SCORE_MENU) {
             scoreMenuOverlay.render();
             if (scoreMenuOverlay.exitClicked(ui.getLastPress())) {
-                menuOverlay.reset();
+                titleMenu->reset();
                 state = START_MENU;
             } else if (scoreMenuOverlay.allTimeClicked(ui.getLastPress())) {
                 state = ALL_TIME_SCORES;
@@ -177,13 +177,13 @@ void trippin::Game::renderLoop() {
         } else if (state == ALL_TIME_SCORES) {
             allTimeScoresOverlay->render();
             if (ui.anythingPressed()) {
-                menuOverlay.reset();
+                titleMenu->reset();
                 state = START_MENU;
             }
         } else if (state == TODAY_SCORES) {
             todayScoresOverlay->render();
             if (ui.anythingPressed()) {
-                menuOverlay.reset();
+                titleMenu->reset();
                 state = START_MENU;
             }
         } else if (state == PLAYING) {
@@ -195,7 +195,7 @@ void trippin::Game::renderLoop() {
         } else if (state == END_MENU) {
             endMenuOverlay.render();
             if (endMenuOverlay.exitClicked(ui.getLastPress())) {
-                menuOverlay.reset();
+                titleMenu->reset();
                 state = START_MENU;
             } else if (endMenuOverlay.saveClicked(ui.getLastPress())) {
                 state = NAME_FORM;
@@ -207,7 +207,7 @@ void trippin::Game::renderLoop() {
             if (nameFormOverlay.nameEntered()) {
                 stagingArea->addScore({score, rand(), nameFormOverlay.getName()});
                 state = START_MENU;
-                menuOverlay.reset();
+                titleMenu->reset();
             }
         }
 

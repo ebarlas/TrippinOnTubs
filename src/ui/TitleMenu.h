@@ -1,13 +1,13 @@
-#ifndef TRIPPIN_MENUOVERLAY_H
-#define TRIPPIN_MENUOVERLAY_H
+#ifndef TRIPPIN_TITLEMENU_H
+#define TRIPPIN_TITLEMENU_H
 
 #include "sprite/SpriteManager.h"
-#include "MenuLayout.h"
+#include "ui/MenuLayout.h"
 
 namespace trippin {
-    class MenuOverlay {
+    class TitleMenu {
     public:
-        void init(const Point<int> &windowSize, SpriteManager &spriteManager);
+        TitleMenu(const Point<int> &windowSize, SpriteManager &spriteManager);
         void reset();
         void render();
         bool startClicked(const Point<int> &coords) const;

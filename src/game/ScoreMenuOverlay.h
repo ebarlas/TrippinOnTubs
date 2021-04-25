@@ -2,7 +2,7 @@
 #define TRIPPIN_SCOREMENUOVERLAY_H
 
 #include "sprite/SpriteManager.h"
-#include "MenuLayout.h"
+#include "ui/MenuLayout.h"
 
 namespace trippin {
     class ScoreMenuOverlay {
