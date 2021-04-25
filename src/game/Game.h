@@ -11,7 +11,7 @@
 #include "Map.h"
 #include "Level.h"
 #include "AutoPlay.h"
-#include "TitleOverlay.h"
+#include "ui/TitleOverlay.h"
 #include "ui/TitleMenu.h"
 #include "EndMenuOverlay.h"
 #include "NameFormOverlay.h"
