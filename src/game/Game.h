@@ -13,7 +13,7 @@
 #include "AutoPlay.h"
 #include "ui/TitleOverlay.h"
 #include "ui/TitleMenu.h"
-#include "EndMenuOverlay.h"
+#include "ui/EndMenu.h"
 #include "NameFormOverlay.h"
 #include "ScoreMenuOverlay.h"
 #include "ui/ScrollingScoreBoard.h"
@@ -35,11 +35,11 @@ namespace trippin {
         bool loadLevel;
         std::unique_ptr<TitleOverlay> titleOverlay;
         std::unique_ptr<TitleMenu> titleMenu;
-        EndMenuOverlay endMenuOverlay;
+        std::unique_ptr<EndMenu> endMenu;
         NameFormOverlay nameFormOverlay;
         ScoreMenuOverlay scoreMenuOverlay;
-        std::unique_ptr<ScrollingScoreBoard> allTimeScoresOverlay;
-        std::unique_ptr<ScrollingScoreBoard> todayScoresOverlay;
+        std::unique_ptr<ScrollingScoreBoard> topScoreBoard;
+        std::unique_ptr<ScrollingScoreBoard> todayScoreBoard;
         std::shared_ptr<StagingArea> stagingArea;
         void initSdl();
         void initRand();

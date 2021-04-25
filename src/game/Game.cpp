@@ -70,11 +70,11 @@ void trippin::Game::initOverlays() {
     TitleOverlay::Options titleOptions{-0.25, 3'000};
     titleOverlay = std::make_unique<TitleOverlay>(windowSize, titleOptions, *spriteManager);
     titleMenu = std::make_unique<TitleMenu>(windowSize, *spriteManager);
-    endMenuOverlay.init(windowSize, *spriteManager);
+    endMenu = std::make_unique<EndMenu>(windowSize, *spriteManager);
     nameFormOverlay.init(windowSize, *spriteManager);
     scoreMenuOverlay.init(windowSize, *spriteManager);
-    allTimeScoresOverlay = std::make_unique<ScrollingScoreBoard>(windowSize, -0.25, *spriteManager);
-    todayScoresOverlay = std::make_unique<ScrollingScoreBoard>(windowSize, -0.25, *spriteManager);
+    topScoreBoard = std::make_unique<ScrollingScoreBoard>(windowSize, -0.25, *spriteManager);
+    todayScoreBoard = std::make_unique<ScrollingScoreBoard>(windowSize, -0.25, *spriteManager);
 }
 
 std::unique_ptr<trippin::Level> trippin::Game::nextLevel() {
@@ -167,21 +167,21 @@ void trippin::Game::renderLoop() {
                 state = START_MENU;
             } else if (scoreMenuOverlay.allTimeClicked(ui.getLastPress())) {
                 state = ALL_TIME_SCORES;
-                allTimeScoresOverlay->reset();
-                allTimeScoresOverlay->setScores(stagingArea->getTopScores(25));
+                topScoreBoard->reset();
+                topScoreBoard->setScores(stagingArea->getTopScores(25));
             } else if (scoreMenuOverlay.todayClicked(ui.getLastPress())) {
                 state = TODAY_SCORES;
-                todayScoresOverlay->reset();
-                todayScoresOverlay->setScores(stagingArea->getTodayScores(25));
+                todayScoreBoard->reset();
+                todayScoreBoard->setScores(stagingArea->getTodayScores(25));
             }
         } else if (state == ALL_TIME_SCORES) {
-            allTimeScoresOverlay->render();
+            topScoreBoard->render();
             if (ui.anythingPressed()) {
                 titleMenu->reset();
                 state = START_MENU;
             }
         } else if (state == TODAY_SCORES) {
-            todayScoresOverlay->render();
+            todayScoreBoard->render();
             if (ui.anythingPressed()) {
                 titleMenu->reset();
                 state = START_MENU;
@@ -190,14 +190,14 @@ void trippin::Game::renderLoop() {
             if (level->ended()) {
                 score = level->getScore();
                 state = END_MENU;
-                endMenuOverlay.reset();
+                endMenu->reset();
             }
         } else if (state == END_MENU) {
-            endMenuOverlay.render();
-            if (endMenuOverlay.exitClicked(ui.getLastPress())) {
+            endMenu->render();
+            if (endMenu->exitClicked(ui.getLastPress())) {
                 titleMenu->reset();
                 state = START_MENU;
-            } else if (endMenuOverlay.saveClicked(ui.getLastPress())) {
+            } else if (endMenu->saveClicked(ui.getLastPress())) {
                 state = NAME_FORM;
                 nameFormOverlay.reset();
             }

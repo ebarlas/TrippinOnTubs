@@ -1,13 +1,13 @@
-#ifndef TRIPPIN_ENDMENUOVERLAY_H
-#define TRIPPIN_ENDMENUOVERLAY_H
+#ifndef TRIPPIN_ENDMENU_H
+#define TRIPPIN_ENDMENU_H
 
 #include "sprite/SpriteManager.h"
 #include "ui/MenuLayout.h"
 
 namespace trippin {
-    class EndMenuOverlay {
+    class EndMenu {
     public:
-        void init(const Point<int> &windowSize, SpriteManager &spriteManager);
+        EndMenu(const Point<int> &windowSize, SpriteManager &spriteManager);
         void reset();
         void render();
         bool exitClicked(const Point<int> &coords) const;

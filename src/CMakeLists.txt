@@ -53,7 +53,8 @@ add_library(Ui
         ui/ScrollingScoreBoard.cpp
         ui/Interpolator.cpp
         ui/TitleMenu.cpp
-        ui/TitleOverlay.cpp)
+        ui/TitleOverlay.cpp
+        ui/EndMenu.cpp)
 target_link_libraries(Ui Net)
 
 add_library(GameLoop demo/gameloop.cpp)
@@ -97,7 +98,6 @@ add_library(Game
         game/Layer.cpp
         game/Level.cpp
         game/AutoPlay.cpp
-        game/EndMenuOverlay.cpp
         game/NameFormOverlay.cpp
         game/ScoreMenuOverlay.cpp
         game/Shake.cpp
