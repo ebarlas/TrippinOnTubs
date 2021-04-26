@@ -27,7 +27,7 @@ namespace trippin {
         int shakeDuration;
         int shakeHertz;
         int shakeAmplitude;
-        std::string map;
+        std::vector<std::string> maps;
         std::string loadMap;
         std::string loadAutoPlay;
         std::vector<Scale> scales;

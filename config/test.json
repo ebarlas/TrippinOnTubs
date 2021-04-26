@@ -8,9 +8,12 @@
   "shakeDuration": 250,
   "shakeHertz": 60,
   "shakeAmplitude": 64,
-  "map": "map_test",
   "loadMap": "map_load",
   "loadAutoPlay": "test",
+  "maps": [
+    "map_test",
+    "map_test"
+  ],
   "db": {
     "host": "trippin-alb-71634371.us-west-2.elb.amazonaws.com",
     "port": 80

@@ -32,6 +32,7 @@ namespace trippin {
         std::unique_ptr<SpriteManager> spriteManager;
         SoundManager soundManager;
         std::unique_ptr<Level> level;
+        int levelIndex;
         bool loadLevel;
         std::unique_ptr<TitleOverlay> titleOverlay;
         std::unique_ptr<TitleMenu> titleMenu;

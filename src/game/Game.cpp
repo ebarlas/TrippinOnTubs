@@ -62,6 +62,7 @@ void trippin::Game::initAutoPlay() {
 }
 
 void trippin::Game::initLevel() {
+    levelIndex = 0;
     loadLevel = true;
     level = nextLevel();
 }
@@ -88,7 +89,7 @@ std::unique_ptr<trippin::Level> trippin::Game::nextLevel() {
         lvl->setMapName(configuration.loadMap);
         lvl->setAutoPlay(autoPlay.events);
     } else {
-        lvl->setMapName(configuration.map);
+        lvl->setMapName(configuration.maps[levelIndex]);
     }
     lvl->init();
     return lvl;
@@ -109,6 +110,7 @@ void trippin::Game::renderLoop() {
         START_MENU,
         SCORE_MENU,
         PLAYING,
+        LEVEL_TRANSITION,
         END_MENU,
         NAME_FORM,
         ALL_TIME_SCORES,
@@ -117,6 +119,7 @@ void trippin::Game::renderLoop() {
 
     int state = TITLE;
     int score;
+    Uint32 levelTransitionStart;
 
     Timer timer("renderer");
     UserInput ui;
@@ -189,8 +192,23 @@ void trippin::Game::renderLoop() {
         } else if (state == PLAYING) {
             if (level->ended()) {
                 score = level->getScore();
-                state = END_MENU;
-                endMenu->reset();
+                if (level->completed() && levelIndex < configuration.maps.size() - 1) {
+                    state = LEVEL_TRANSITION;
+                    levelTransitionStart = SDL_GetTicks();
+                } else {
+                    state = END_MENU;
+                    endMenu->reset();
+                }
+            }
+        } else if (state == LEVEL_TRANSITION) {
+            if (SDL_GetTicks() - levelTransitionStart > 3'000) {
+                levelIndex++;
+                level->stop();
+                level.reset();
+                level = nextLevel();
+                level->setScore(score);
+                level->start();
+                state = PLAYING;
             }
         } else if (state == END_MENU) {
             endMenu->render();

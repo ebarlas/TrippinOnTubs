@@ -34,6 +34,10 @@ void trippin::Level::setMapName(const std::string &name) {
     mapName = &name;
 }
 
+void trippin::Level::setScore(int score) {
+    scoreTicker.setScore(score);
+}
+
 void trippin::Level::initMap() {
     map.load(*mapName);
     map.rescale(scale->multiplier);
@@ -160,6 +164,10 @@ void trippin::Level::start() {
 
 bool trippin::Level::ended() {
     return !goggin.inUniverse();
+}
+
+bool trippin::Level::completed() {
+    return goggin.rightOfUniverse();
 }
 
 void trippin::Level::stop() {

@@ -43,3 +43,7 @@ void trippin::ScoreTicker::setGoggin(const Goggin *g) {
 int trippin::ScoreTicker::getScore() const {
     return toInt(channel.get());
 }
+
+void trippin::ScoreTicker::setScore(int sc) {
+    score = sc;
+}

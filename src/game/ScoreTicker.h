@@ -31,6 +31,7 @@ namespace trippin {
         void setSprite(const Sprite &spr);
         void setPointsPerTick(double ppt);
         void setGoggin(const Goggin *goggin);
+        void setScore(int score);
         void init();
 
         // called from main render thread

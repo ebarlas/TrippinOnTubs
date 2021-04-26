@@ -38,7 +38,7 @@ void trippin::from_json(const nlohmann::json &j, Configuration &config) {
     j.at("shakeDuration").get_to(config.shakeDuration);
     j.at("shakeHertz").get_to(config.shakeHertz);
     j.at("shakeAmplitude").get_to(config.shakeAmplitude);
-    j.at("map").get_to(config.map);
+    j.at("maps").get_to(config.maps);
     j.at("loadMap").get_to(config.loadMap);
     j.at("loadAutoPlay").get_to(config.loadAutoPlay);
     j.at("db").at("host").get_to(config.db.host);

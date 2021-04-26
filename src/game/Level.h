@@ -47,8 +47,10 @@ namespace trippin {
         void setSoundManager(SoundManager *soundManager);
         void setAutoPlay(const std::vector<GogginInputTick> &autoPlay);
         void setMapName(const std::string &name);
+        void setScore(int score);
         void init();
         bool ended();
+        bool completed();
         void render(GogginInput input);
         void start();
         void stop();

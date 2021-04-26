@@ -31,6 +31,7 @@ namespace trippin {
         // The position used here ought to be used in the subsequent render call to avoid jitter
         void centerCamera(Camera &camera);
         bool inUniverse() const;
+        bool rightOfUniverse() const;
         void onUserInput(const GogginInput &input);
         double getJumpCharge() const;
         bool maxFallingVelocityAbove(double percent);

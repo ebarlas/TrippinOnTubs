@@ -425,6 +425,10 @@ bool trippin::Goggin::inUniverse() const {
     return !channel.get().expired;
 }
 
+bool trippin::Goggin::rightOfUniverse() const {
+    return channel.get().position.x >= universe.w;
+}
+
 void trippin::Goggin::transferInput(Uint32 engineTicks) {
     if (autoPlayEnabled) {
         auto it = autoPlay.find(engineTicks);
