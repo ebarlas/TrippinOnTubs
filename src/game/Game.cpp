@@ -72,7 +72,7 @@ void trippin::Game::initOverlays() {
     titleMenu = std::make_unique<TitleMenu>(windowSize, *spriteManager);
     endMenu = std::make_unique<EndMenu>(windowSize, *spriteManager);
     nameForm = std::make_unique<NameForm>(windowSize, *spriteManager);
-    scoreMenuOverlay.init(windowSize, *spriteManager);
+    scoreMenu = std::make_unique<ScoreMenu>(windowSize, *spriteManager);
     topScoreBoard = std::make_unique<ScrollingScoreBoard>(windowSize, -0.25, *spriteManager);
     todayScoreBoard = std::make_unique<ScrollingScoreBoard>(windowSize, -0.25, *spriteManager);
 }
@@ -158,18 +158,18 @@ void trippin::Game::renderLoop() {
                 break;
             } else if (titleMenu->highScoreClicked(ui.getLastPress())) {
                 state = SCORE_MENU;
-                scoreMenuOverlay.reset();
+                scoreMenu->reset();
             }
         } else if (state == SCORE_MENU) {
-            scoreMenuOverlay.render();
-            if (scoreMenuOverlay.exitClicked(ui.getLastPress())) {
+            scoreMenu->render();
+            if (scoreMenu->exitClicked(ui.getLastPress())) {
                 titleMenu->reset();
                 state = START_MENU;
-            } else if (scoreMenuOverlay.allTimeClicked(ui.getLastPress())) {
+            } else if (scoreMenu->allTimeClicked(ui.getLastPress())) {
                 state = ALL_TIME_SCORES;
                 topScoreBoard->reset();
                 topScoreBoard->setScores(stagingArea->getTopScores(25));
-            } else if (scoreMenuOverlay.todayClicked(ui.getLastPress())) {
+            } else if (scoreMenu->todayClicked(ui.getLastPress())) {
                 state = TODAY_SCORES;
                 todayScoreBoard->reset();
                 todayScoreBoard->setScores(stagingArea->getTodayScores(25));

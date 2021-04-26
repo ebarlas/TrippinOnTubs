@@ -15,7 +15,7 @@
 #include "ui/TitleMenu.h"
 #include "ui/EndMenu.h"
 #include "ui/NameForm.h"
-#include "ScoreMenuOverlay.h"
+#include "ui/ScoreMenu.h"
 #include "ui/ScrollingScoreBoard.h"
 #include "net/StagingArea.h"
 #include "SdlSystem.h"
@@ -37,7 +37,7 @@ namespace trippin {
         std::unique_ptr<TitleMenu> titleMenu;
         std::unique_ptr<EndMenu> endMenu;
         std::unique_ptr<NameForm> nameForm;
-        ScoreMenuOverlay scoreMenuOverlay;
+        std::unique_ptr<ScoreMenu> scoreMenu;
         std::unique_ptr<ScrollingScoreBoard> topScoreBoard;
         std::unique_ptr<ScrollingScoreBoard> todayScoreBoard;
         std::shared_ptr<StagingArea> stagingArea;

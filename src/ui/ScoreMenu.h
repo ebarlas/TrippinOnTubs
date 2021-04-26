@@ -1,13 +1,13 @@
-#ifndef TRIPPIN_SCOREMENUOVERLAY_H
-#define TRIPPIN_SCOREMENUOVERLAY_H
+#ifndef TRIPPIN_SCOREMENU_H
+#define TRIPPIN_SCOREMENU_H
 
 #include "sprite/SpriteManager.h"
 #include "ui/MenuLayout.h"
 
 namespace trippin {
-    class ScoreMenuOverlay {
+    class ScoreMenu {
     public:
-        void init(const Point<int> &windowSize, SpriteManager &spriteManager);
+        ScoreMenu(const Point<int> &windowSize, SpriteManager &spriteManager);
         void reset();
         void render();
         bool allTimeClicked(const Point<int> &coords) const;

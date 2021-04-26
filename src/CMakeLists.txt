@@ -55,7 +55,8 @@ add_library(Ui
         ui/TitleMenu.cpp
         ui/TitleOverlay.cpp
         ui/EndMenu.cpp
-        ui/NameForm.cpp)
+        ui/NameForm.cpp
+        ui/ScoreMenu.cpp)
 target_link_libraries(Ui Net)
 
 add_library(GameLoop demo/gameloop.cpp)
@@ -99,7 +100,6 @@ add_library(Game
         game/Layer.cpp
         game/Level.cpp
         game/AutoPlay.cpp
-        game/ScoreMenuOverlay.cpp
         game/Shake.cpp
         game/SoundManager.cpp)
 target_include_directories(Game PUBLIC ${SDL2_MIXER_INCLUDE_DIR})
