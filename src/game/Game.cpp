@@ -76,6 +76,7 @@ void trippin::Game::initOverlays() {
     scoreMenu = std::make_unique<ScoreMenu>(windowSize, *spriteManager);
     topScoreBoard = std::make_unique<ScrollingScoreBoard>(windowSize, -0.25, *spriteManager);
     todayScoreBoard = std::make_unique<ScrollingScoreBoard>(windowSize, -0.25, *spriteManager);
+    levelOverlay = std::make_unique<LevelOverlay>(windowSize, *spriteManager);
 }
 
 std::unique_ptr<trippin::Level> trippin::Game::nextLevel() {
@@ -119,7 +120,6 @@ void trippin::Game::renderLoop() {
 
     int state = TITLE;
     int score;
-    Uint32 levelTransitionStart;
 
     Timer timer("renderer");
     UserInput ui;
@@ -192,23 +192,29 @@ void trippin::Game::renderLoop() {
         } else if (state == PLAYING) {
             if (level->ended()) {
                 score = level->getScore();
-                if (level->completed() && levelIndex < configuration.maps.size() - 1) {
+                if (level->completed()) {
                     state = LEVEL_TRANSITION;
-                    levelTransitionStart = SDL_GetTicks();
+                    levelOverlay->setLevel(levelIndex);
                 } else {
                     state = END_MENU;
                     endMenu->reset();
                 }
             }
         } else if (state == LEVEL_TRANSITION) {
-            if (SDL_GetTicks() - levelTransitionStart > 3'000) {
-                levelIndex++;
-                level->stop();
-                level.reset();
-                level = nextLevel();
-                level->setScore(score);
-                level->start();
-                state = PLAYING;
+            levelOverlay->render();
+            if (ui.anythingPressed()) {
+                if (levelIndex < configuration.maps.size() - 1) {
+                    levelIndex++;
+                    level->stop();
+                    level.reset();
+                    level = nextLevel();
+                    level->setScore(score);
+                    level->start();
+                    state = PLAYING;
+                } else {
+                    state = END_MENU;
+                    endMenu->reset();
+                }
             }
         } else if (state == END_MENU) {
             endMenu->render();

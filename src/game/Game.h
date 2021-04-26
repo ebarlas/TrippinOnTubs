@@ -17,6 +17,7 @@
 #include "ui/NameForm.h"
 #include "ui/ScoreMenu.h"
 #include "ui/ScrollingScoreBoard.h"
+#include "ui/LevelOverlay.h"
 #include "net/StagingArea.h"
 #include "SdlSystem.h"
 
@@ -41,6 +42,7 @@ namespace trippin {
         std::unique_ptr<ScoreMenu> scoreMenu;
         std::unique_ptr<ScrollingScoreBoard> topScoreBoard;
         std::unique_ptr<ScrollingScoreBoard> todayScoreBoard;
+        std::unique_ptr<LevelOverlay> levelOverlay;
         std::shared_ptr<StagingArea> stagingArea;
         void initSdl();
         void initRand();

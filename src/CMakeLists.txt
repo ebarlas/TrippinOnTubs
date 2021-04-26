@@ -56,7 +56,8 @@ add_library(Ui
         ui/TitleOverlay.cpp
         ui/EndMenu.cpp
         ui/NameForm.cpp
-        ui/ScoreMenu.cpp)
+        ui/ScoreMenu.cpp
+        ui/LevelOverlay.cpp)
 target_link_libraries(Ui Net)
 
 add_library(GameLoop demo/gameloop.cpp)
