@@ -71,7 +71,7 @@ void trippin::Game::initOverlays() {
     titleOverlay = std::make_unique<TitleOverlay>(windowSize, titleOptions, *spriteManager);
     titleMenu = std::make_unique<TitleMenu>(windowSize, *spriteManager);
     endMenu = std::make_unique<EndMenu>(windowSize, *spriteManager);
-    nameFormOverlay.init(windowSize, *spriteManager);
+    nameForm = std::make_unique<NameForm>(windowSize, *spriteManager);
     scoreMenuOverlay.init(windowSize, *spriteManager);
     topScoreBoard = std::make_unique<ScrollingScoreBoard>(windowSize, -0.25, *spriteManager);
     todayScoreBoard = std::make_unique<ScrollingScoreBoard>(windowSize, -0.25, *spriteManager);
@@ -199,13 +199,13 @@ void trippin::Game::renderLoop() {
                 state = START_MENU;
             } else if (endMenu->saveClicked(ui.getLastPress())) {
                 state = NAME_FORM;
-                nameFormOverlay.reset();
+                nameForm->reset();
             }
         } else {
-            nameFormOverlay.render();
-            nameFormOverlay.onClick(ui.getLastPress());
-            if (nameFormOverlay.nameEntered()) {
-                stagingArea->addScore({score, rand(), nameFormOverlay.getName()});
+            nameForm->render();
+            nameForm->onClick(ui.getLastPress());
+            if (nameForm->nameEntered()) {
+                stagingArea->addScore({score, rand(), nameForm->getName()});
                 state = START_MENU;
                 titleMenu->reset();
             }

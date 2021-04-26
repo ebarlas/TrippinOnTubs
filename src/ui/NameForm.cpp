@@ -1,18 +1,16 @@
-#include "NameFormOverlay.h"
+#include "NameForm.h"
 
-void trippin::NameFormOverlay::init(const Point<int> &ws, SpriteManager &spriteManager) {
-    sprite = &spriteManager.get("alpha");
-    windowSize = ws;
-    cursor = 0;
+trippin::NameForm::NameForm(const Point<int> &windowSize, SpriteManager &spriteManager) :
+        windowSize(windowSize), sprite(spriteManager.get("alpha")), cursor(0) {
     name.resize(5);
 }
 
-void trippin::NameFormOverlay::reset() {
+void trippin::NameForm::reset() {
     cursor = 0;
 }
 
-void trippin::NameFormOverlay::render() {
-    Point<int> size = sprite->getSize();
+void trippin::NameForm::render() {
+    auto size = sprite.getSize();
     int width = windowSize.x - (size.x * columns);
     int height = windowSize.y - (size.y * (rows + 1));
     for (int r = 0; r < rows; r++) {
@@ -20,7 +18,7 @@ void trippin::NameFormOverlay::render() {
             int digit = r * columns + c;
             if (digit < chars) {
                 Point<int> pos{width / 2 + c * size.x, height / 2 + r * size.y};
-                sprite->render(pos, digit + 10);
+                sprite.render(pos, digit + 10);
             }
         }
     }
@@ -30,18 +28,18 @@ void trippin::NameFormOverlay::render() {
     for (int c = 0; c < nameLength; c++) {
         Point<int> pos{width / 2 + c * size.x + c * margin, height / 2 + rows * size.y};
         if (c < cursor) {
-            sprite->render(pos, 37);
-            sprite->render(pos, name[c] - 'A' + 10);
+            sprite.render(pos, 37);
+            sprite.render(pos, name[c] - 'A' + 10);
         } else if (c == cursor) {
-            sprite->render(pos, 36);
+            sprite.render(pos, 36);
         } else {
-            sprite->render(pos, 37);
+            sprite.render(pos, 37);
         }
     }
 }
 
-void trippin::NameFormOverlay::onClick(const Point<int> &coords) {
-    Point<int> size = sprite->getSize();
+void trippin::NameForm::onClick(const Point<int> &coords) {
+    Point<int> size = sprite.getSize();
     int width = windowSize.x - (size.x * columns);
     int height = windowSize.y - (size.y * (rows + 1));
 
@@ -56,10 +54,10 @@ void trippin::NameFormOverlay::onClick(const Point<int> &coords) {
     }
 }
 
-bool trippin::NameFormOverlay::nameEntered() const {
+bool trippin::NameForm::nameEntered() const {
     return cursor == nameLength;
 }
 
-const std::string &trippin::NameFormOverlay::getName() const {
+const std::string &trippin::NameForm::getName() const {
     return name;
 }

@@ -1,12 +1,12 @@
-#ifndef TRIPPIN_NAMEFORMOVERLAY_H
-#define TRIPPIN_NAMEFORMOVERLAY_H
+#ifndef TRIPPIN_NAMEFORM_H
+#define TRIPPIN_NAMEFORM_H
 
 #include "sprite/SpriteManager.h"
 
 namespace trippin {
-    class NameFormOverlay {
+    class NameForm {
     public:
-        void init(const Point<int> &windowSize, SpriteManager &spriteManager);
+        NameForm(const Point<int> &windowSize, SpriteManager &spriteManager);
         void render();
         void reset();
         void onClick(const Point<int> &coords);
@@ -18,7 +18,7 @@ namespace trippin {
         static constexpr const int rows = 3;
         static constexpr const int nameLength = 5;
         std::string name;
-        const Sprite *sprite;
+        const Sprite &sprite;
         Point<int> windowSize;
         int cursor;
     };
