@@ -14,6 +14,7 @@ build-sprites
 __pycache__
 scratch/
 *qhd.png
+*qhdplus.png
 *map.png
 *fhd.png
 *svga.png

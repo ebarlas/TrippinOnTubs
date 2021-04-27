@@ -11,7 +11,7 @@
   "loadMap": "map_load",
   "loadAutoPlay": "test",
   "maps": [
-    "map_test",
+    "map_training",
     "map_test"
   ],
   "db": {
@@ -43,6 +43,11 @@
       "name": "qhd",
       "multiplier": 0.3,
       "minWidth": 2560
+    },
+    {
+      "name": "qhdplus",
+      "multiplier": 0.346875,
+      "minWidth": 2960
     },
     {
       "name": "uhd",

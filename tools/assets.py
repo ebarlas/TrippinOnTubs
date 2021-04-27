@@ -4,7 +4,7 @@ import sys
 import concurrent.futures
 
 scales = [
-    ('map', 0.25), ('svga', 0.09375), ('sxga', 0.15), ('hdplus', 0.1875), ('fhd', 0.225), ('qhd', 0.3), ('uhd', 0.45)
+    ('map', 0.25), ('svga', 0.09375), ('sxga', 0.15), ('hdplus', 0.1875), ('fhd', 0.225), ('qhd', 0.3), ('qhdplus', 0.346875), ('uhd', 0.45)
 ]
 
 sprites = [
@@ -43,7 +43,7 @@ sprites = [
     'level'
 ]
 
-levels = ['map_ground_melt', 'map_minimal', 'map_test', 'map_load']
+levels = ['map_ground_melt', 'map_minimal', 'map_test', 'map_load', 'map_training']
 
 dir_raw = 'raw'
 dir_svgs = 'svgs'
