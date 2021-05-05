@@ -15,6 +15,7 @@ namespace trippin {
         Point<int> getSize() const;
         Rect<int> getHitBox() const;
         int getFramePeriodTicks() const;
+        int getFrameDuration() const;
         int getFrames() const;
         bool intersectsWith(Point<int> hitBoxPos, Rect<int> rect) const;
         const Scale& getScale() const;

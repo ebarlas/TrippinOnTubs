@@ -85,6 +85,9 @@ def find_layers(root):
                     'y': round(float(node.attrib['y']))
                 }
             }
+            extract_float_point_from_xml(node, 'velocity', obj)
+            extract_bool_from_xml(node, 'animated', obj)
+            extract_bool_from_xml(node, 'randFrame', obj)
             layer['objects'].append(obj)
     return layers
 

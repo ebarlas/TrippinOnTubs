@@ -15,11 +15,20 @@ namespace trippin {
         struct Object {
             Point<int> position;
             const Sprite *sprite{};
+            bool animated{};
+            int frame{};
+            Uint32 frameTime{};
+            Uint32 lastTime{};
+            double x{};
+            double velocityX{};
         };
 
         std::vector<Object> objects;
         Point<int> size;
         bool anchorTop;
+
+        void updateAnimatedObject(const Rect<int> &viewport, Object &obj, Uint32 now) const;
+        void updateStaticObject(const Rect<int> &viewport, const Object &obj) const;
     };
 }
 

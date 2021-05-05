@@ -50,6 +50,8 @@ void trippin::Map::rescale(double target) {
         for (auto &obj : layer.objects) {
             obj.position.x /= divisor;
             obj.position.y /= divisor;
+            obj.velocity.x /= divisor;
+            obj.velocity.y /= divisor;
         }
     }
 }
@@ -164,4 +166,10 @@ void trippin::from_json(const nlohmann::json& j, Map::Layer& layer) {
 void trippin::from_json(const nlohmann::json& j, Map::Layer::Object& obj) {
     j.at("type").get_to(obj.type);
     j.at("position").get_to(obj.position);
+    if (j.contains("animated"))
+        j.at("animated").get_to(obj.animated);
+    if (j.contains("randFrame"))
+        j.at("randFrame").get_to(obj.randFrame);
+    if (j.contains("velocity"))
+        j.at("velocity").get_to(obj.velocity);
 }

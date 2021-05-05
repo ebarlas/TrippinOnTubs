@@ -55,6 +55,10 @@ int trippin::Sprite::getFramePeriodTicks() const {
     return framePeriodTicks;
 }
 
+int trippin::Sprite::getFrameDuration() const {
+    return metadata.getDuration();
+}
+
 const trippin::Scale &trippin::Sprite::getScale() const {
     return scale;
 }

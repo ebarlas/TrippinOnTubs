@@ -49,6 +49,9 @@ namespace trippin {
             struct Object {
                 Point<int> position;
                 std::string type;
+                bool animated{};
+                bool randFrame{};
+                Point<double> velocity{};
             };
 
             bool anchorTop{};

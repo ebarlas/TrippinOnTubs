@@ -48,6 +48,14 @@ def fade_color_attr(attributes, key, terminal, fade_to):
         attributes[key] = fade_color(val, terminal, fade_to)
 
 
+def fade_style(e, fade_to_white):
+    styles = {s[0]: s[1] for s in [s.split(':') for s in e.attrib['style'].split(';')]}
+    fade_color_attr(styles, 'fill', 255, fade_to_white)
+    fade_color_attr(styles, 'stroke', 255, fade_to_white)
+    style = ';'.join([f'{k}:{styles[k]}' for k in styles.keys()])
+    e.set('style', style)
+
+
 def replace_display(style, display):
     p = r'display:[a-zA-Z]+'
     return re.sub(p, display, style) if style and re.search(p, style) else display
@@ -72,15 +80,14 @@ def export_pngs(svg_file, tmp_dir, export_dir, scales, name):
 
     num_frames = len(root.findall('.//svg:g[@type="frame"]', namespace))
 
+    if fade_to_white:
+        for elem in ['path', 'circle', 'text']:
+            for e in root.findall(f'.//svg:g[@type="frame"]/svg:{elem}', namespace):
+                fade_style(e, fade_to_white)
+            for e in root.findall(f'.//svg:g[@type="frame"]/svg:g/svg:{elem}', namespace):
+                fade_style(e, fade_to_white)
+
     for n in range(1, num_frames + 1):
-        if fade_to_white:
-            for elem in ['path', 'circle', 'text']:
-                for e in root.findall(f'.//svg:g[@type="frame"]/svg:{elem}', namespace):
-                    styles = {s[0]: s[1] for s in [s.split(':') for s in e.attrib['style'].split(';')]}
-                    fade_color_attr(styles, 'fill', 255, fade_to_white)
-                    fade_color_attr(styles, 'stroke', 255, fade_to_white)
-                    style = ';'.join([f'{k}:{styles[k]}' for k in styles.keys()])
-                    e.set('style', style)
         for e in root.findall(f'.//svg:g[@type="frame"]', namespace):
             e.set('style', replace_display(e.get('style'), 'display:none'))
         for e in root.findall(f'.//svg:g[@type="frame"][@frame="{n}"]', namespace):
