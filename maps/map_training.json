@@ -4865,7 +4865,7 @@
         {
           "type": "walking_tub",
           "position": {
-            "x": 380,
+            "x": 1080,
             "y": 1930
           },
           "velocity": {
@@ -4876,9 +4876,22 @@
           "randFrame": true
         },
         {
-          "type": "walking_tub",
+          "type": "walking_tub_green",
           "position": {
-            "x": 1500,
+            "x": 2680,
+            "y": 1930
+          },
+          "velocity": {
+            "x": -100.0,
+            "y": 0.0
+          },
+          "animated": true,
+          "randFrame": true
+        },
+        {
+          "type": "walking_tub_yellow",
+          "position": {
+            "x": 4480,
             "y": 1930
           },
           "velocity": {

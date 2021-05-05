@@ -41,7 +41,9 @@ sprites = [
     'cloud',
     'brick',
     'level',
-    'walking_tub'
+    'walking_tub',
+    'walking_tub_green',
+    'walking_tub_yellow'
 ]
 
 levels = ['map_ground_melt', 'map_minimal', 'map_test', 'map_load', 'map_training']
