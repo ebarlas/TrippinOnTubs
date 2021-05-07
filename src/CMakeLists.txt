@@ -28,8 +28,8 @@ add_library(Lock
 target_link_libraries(Lock SDL2::SDL2)
 
 add_library(Graphics
-        graphics/FontRenderer.cpp
-        graphics/RenderableObject.cpp)
+        demo/FontRenderer.cpp
+        demo/RenderableObject.cpp)
 target_include_directories(Graphics PUBLIC Engine ${SDL2_TTF_INCLUDE_DIR})
 target_link_libraries(Graphics Engine ${SDL2_TTF_LIB})
 

@@ -122,6 +122,6 @@ int trippin::RenderableObject::getId() const {
     return id;
 }
 
-void trippin::RenderableObject::setPlatformCollision(trippin::Collision *collision) {
+void trippin::RenderableObject::setPlatformCollision(std::function<void(Object&, Object&, const Sides&)> collision) {
     platformCollision.set(collision);
 }

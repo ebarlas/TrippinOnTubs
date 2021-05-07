@@ -2,13 +2,13 @@
 #define TRIPPIN_RENDERABLEOBJECT_H
 
 #include <string>
-#include "graphics/FontRenderer.h"
+#include "FontRenderer.h"
 #include "engine/Object.h"
 
 namespace trippin {
     class RenderableObject : public trippin::Object {
     public:
-        trippin::FontRenderer *fontRenderer{};
+        FontRenderer *fontRenderer{};
         SDL_Color color{};
         SDL_Color fontColor{};
         bool displayLabel{};
@@ -25,7 +25,7 @@ namespace trippin {
         void setMass(double m);
         void setFriction(const Point<double> &f);
         void setGravity(double g);
-        void setPlatformCollision(Collision *collision);
+        void setPlatformCollision(std::function<void(Object&, Object&, const Sides&)> collision);
         int getId() const;
         Point<double> getPosition() const;
         Point<double> getCenter() const;

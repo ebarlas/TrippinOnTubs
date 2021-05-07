@@ -2,7 +2,7 @@
 #define TRIPPIN_GAMELOOP_H
 
 #include "SDL.h"
-#include "graphics/FontRenderer.h"
+#include "FontRenderer.h"
 
 struct GameState {
     SDL_Renderer *renderer{};

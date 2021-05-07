@@ -1,7 +1,6 @@
 #include "engine/Engine.h"
-#include "engine/ReflectiveCollision.h"
-#include "engine/ElasticCollision1D.h"
-#include "graphics/RenderableObject.h"
+#include "engine/Collisions.h"
+#include "RenderableObject.h"
 #include "gameloop.h"
 
 void init(int ticksPerFrame, std::vector<trippin::Object *> &objects, const GameState &gs) {
@@ -85,10 +84,8 @@ void init(int ticksPerFrame, std::vector<trippin::Object *> &objects, const Game
 
 int main() {
     trippin::Engine engine;
-    trippin::ReflectiveCollision platformCollision;
-    trippin::ElasticCollision1D objectCollision;
-    engine.setPlatformCollision(&platformCollision);
-    engine.setObjectCollision(&objectCollision);
+    engine.setPlatformCollision(trippin::onReflectiveCollisionDefault);
+    engine.setObjectCollision(trippin::onElasticCollision1D);
 
     int ticksPerFrame = 10;
 

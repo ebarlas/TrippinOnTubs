@@ -2,8 +2,7 @@
 #include <vector>
 #include <cmath>
 #include "engine/Engine.h"
-#include "engine/ReflectiveCollision.h"
-#include "engine/ElasticCollision2D.h"
+#include "engine/Collisions.h"
 
 std::ostream &operator<<(std::ostream &os, const trippin::Object &obj) {
     return os << "obj[id=" << obj.id << ", pos=(" << obj.position << "), vel=(" << obj.velocity << ")]";
@@ -44,6 +43,7 @@ int main() {
     objects[0].mass = 10;
     objects[0].position = {15, 10};
     objects[0].velocity = {0.2, 0.2};
+    objects[0].terminalVelocity = {1000, 1000}; // arbitrary high ceiling
     objects[0].size = {10, 10};
 
     objects[1].id = 2;
@@ -51,15 +51,14 @@ int main() {
     objects[1].mass = 10;
     objects[1].position = {30, 30};
     objects[1].velocity = {-0.2, -0.2};
+    objects[1].terminalVelocity = {1000, 1000}; // arbitrary high ceiling
     objects[1].size = {10, 10};
 
     std::cout << objects[0] << ", " << objects[1] << std::endl;
 
     trippin::Engine engine;
-    trippin::ReflectiveCollision platformCollision;
-    trippin::ElasticCollision2D objectCollision;
-    engine.setPlatformCollision(&platformCollision);
-    engine.setObjectCollision(&objectCollision);
+    engine.setPlatformCollision(trippin::onReflectiveCollisionDefault);
+    engine.setObjectCollision(trippin::onElasticCollision2D);
     engine.add(&objects[0]);
     engine.add(&objects[1]);
 

@@ -1,7 +1,6 @@
 #include "engine/Engine.h"
-#include "engine/AbsorbentCollision.h"
-#include "engine/InelasticCollision.h"
-#include "graphics/RenderableObject.h"
+#include "engine/Collisions.h"
+#include "RenderableObject.h"
 #include "gameloop.h"
 
 void init(int ticksPerFrame, std::vector<trippin::RenderableObject *> &objects, const GameState &gs) {
@@ -84,10 +83,8 @@ void init(int ticksPerFrame, std::vector<trippin::RenderableObject *> &objects, 
 
 int main() {
     trippin::Engine engine;
-    trippin::AbsorbentCollision platformCollision;
-    trippin::InelasticCollision objectCollision;
-    engine.setPlatformCollision(&platformCollision);
-    engine.setObjectCollision(&objectCollision);
+    engine.setPlatformCollision(trippin::onAbsorbentCollision);
+    engine.setObjectCollision(trippin::onInelasticCollisionDefault);
 
     int ticksPerFrame = 10;
     int ticksSquaredPerFrame = ticksPerFrame * ticksPerFrame;
