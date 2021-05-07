@@ -123,8 +123,13 @@ void trippin::Game::renderLoop() {
 
     Timer timer("renderer");
     UserInput ui;
-    while (!ui.quitPressed()) {
+    while (true) {
         ui.pollEvents();
+
+        if (ui.quitPressed()) {
+            level->stop();
+            break;
+        }
 
         SDL_SetRenderDrawColor(sdlSystem->getRenderer(), 244, 251, 255, 255);
         SDL_RenderClear(sdlSystem->getRenderer());
