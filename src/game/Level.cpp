@@ -5,6 +5,7 @@
 #include "RunningClock.h"
 #include "Layer.h"
 #include "engine/Convert.h"
+#include "engine/Collisions.h"
 
 void trippin::Level::setWindowSize(trippin::Point<int> ws) {
     windowSize = ws;
@@ -51,8 +52,8 @@ void trippin::Level::initCamera() {
 
 void trippin::Level::initEngine() {
     engine.setTickPeriod(configuration->tickPeriod);
-    engine.setPlatformCollision(&platformCollision);
-    engine.setObjectCollision(&objectCollision);
+    engine.setPlatformCollision(onAbsorbentCollision);
+    engine.setObjectCollision(onElasticCollision1D);
     engine.addListener(&spirit);
 
     for (auto &layer : map.layers) {

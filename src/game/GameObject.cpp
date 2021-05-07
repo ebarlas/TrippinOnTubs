@@ -1,5 +1,6 @@
 #include "GameObject.h"
 #include "engine/Convert.h"
+#include "engine/Collisions.h"
 
 void trippin::GameObject::setGoggin(Goggin &g) {
     goggin = &g;
@@ -30,9 +31,14 @@ void trippin::GameObject::init(const Configuration &config, const Map::Object &o
     collisionDuration = config.ticksPerSecond() * 0.25;
     collisionTicks = 0;
     flashCycle = 0;
-    if (obj.coefficient) {
-        reflectiveCollision.setCoefficient(obj.coefficient);
-        platformCollision.set(&reflectiveCollision);
+    if (obj.coefficient > 0) {
+        auto coefficient = obj.coefficient;
+        platformCollision.set([coefficient](Object &left, Object &right, const Sides &sides) {
+            onReflectiveCollision(left, right, sides, coefficient);
+        });
+    }
+    if (obj.elasticObjectCollisions) {
+        objectCollision.set(onElasticCollision2D);
     }
     syncChannel(0);
 }

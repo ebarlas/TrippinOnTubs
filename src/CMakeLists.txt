@@ -2,13 +2,6 @@ find_package(SDL2)
 
 add_library(Engine
         engine/PlasmaPhysics.cpp
-        engine/PlatformCollision.cpp
-        engine/ObjectCollision.cpp
-        engine/AbsorbentCollision.cpp
-        engine/ReflectiveCollision.cpp
-        engine/ElasticCollision1D.cpp
-        engine/ElasticCollision2D.cpp
-        engine/InelasticCollision.cpp
         engine/Listener.cpp
         engine/Object.cpp
         engine/Sides.cpp

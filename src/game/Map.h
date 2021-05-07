@@ -43,6 +43,7 @@ namespace trippin {
             double rightMultiple{};
             bool randFrame{};
             double activation{};
+            bool elasticObjectCollisions{};
         };
 
         struct Layer {

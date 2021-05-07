@@ -1,7 +1,6 @@
 #ifndef TRIPPIN_OBJECT_H
 #define TRIPPIN_OBJECT_H
 
-#include <array>
 #include "engine/Listener.h"
 #include "engine/Rect.h"
 #include "engine/Point.h"
@@ -10,8 +9,6 @@
 #include "engine/Clock.h"
 
 namespace trippin {
-    class Collision;
-
     class Object : public Listener {
     public:
         // A unique identifier for this object.
@@ -67,7 +64,9 @@ namespace trippin {
         Rect<int> roundedBox{};
 
         // Optional platform collision, which overrides engine default.
-        Optional<Collision *> platformCollision{};
+        // Optional platform collision, which overrides engine default.
+        Optional<std::function<void(Object&, Object&, const Sides&)>> platformCollision;
+        Optional<std::function<void(Object&, Object&, const Sides&)>> objectCollision;
 
         // Objects with a non-zero lane interact with objects in the same lane and objects with a zero lane
         // Objects with a zero lane interact with all objects

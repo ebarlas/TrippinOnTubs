@@ -2935,7 +2935,8 @@
       },
       "gravity": 1000.0,
       "fallGravity": 1000.0,
-      "coefficient": 0.9
+      "coefficient": 0.9,
+      "elasticObjectCollisions": true
     },
     {
       "id": 278,
@@ -2955,7 +2956,8 @@
       },
       "gravity": 1000.0,
       "fallGravity": 1000.0,
-      "coefficient": 0.9
+      "coefficient": 0.9,
+      "elasticObjectCollisions": true
     },
     {
       "id": 279,
@@ -2975,7 +2977,8 @@
       },
       "gravity": 1000.0,
       "fallGravity": 1000.0,
-      "coefficient": 0.9
+      "coefficient": 0.9,
+      "elasticObjectCollisions": true
     },
     {
       "id": 280,
@@ -2995,7 +2998,8 @@
       },
       "gravity": 1000.0,
       "fallGravity": 1000.0,
-      "coefficient": 0.9
+      "coefficient": 0.9,
+      "elasticObjectCollisions": true
     },
     {
       "id": 281,
@@ -3015,7 +3019,8 @@
       },
       "gravity": 1000.0,
       "fallGravity": 1000.0,
-      "coefficient": 0.9
+      "coefficient": 0.9,
+      "elasticObjectCollisions": true
     },
     {
       "id": 282,
@@ -3035,7 +3040,8 @@
       },
       "gravity": 1000.0,
       "fallGravity": 1000.0,
-      "coefficient": 0.9
+      "coefficient": 0.9,
+      "elasticObjectCollisions": true
     },
     {
       "id": 283,
@@ -3055,7 +3061,8 @@
       },
       "gravity": 1000.0,
       "fallGravity": 1000.0,
-      "coefficient": 0.9
+      "coefficient": 0.9,
+      "elasticObjectCollisions": true
     },
     {
       "id": 284,

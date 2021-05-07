@@ -181,15 +181,19 @@ void trippin::Engine::applyPlatformCollision(Object &object, Object &platform, c
                      ? object.platformCollision.get()
                      : platformCollision;
     object.onPlatformCollision(platform, sides);
-    collision->onCollision(object, platform, sides);
+    collision(object, platform, sides);
 }
 
 void trippin::Engine::applyObjectCollision(Object &left, Object &right, const Sides &sides) {
+    // this is a strange policy, but it supports object-level object-collision overrides
+    auto collision = left.objectCollision.isPresent() && right.objectCollision.isPresent()
+            ? left.objectCollision.get()
+            : objectCollision;
     left.objectCollisions |= sides;
     right.objectCollisions |= sides.flip();
     left.onObjectCollision(right, sides);
     right.onObjectCollision(left, sides.flip());
-    objectCollision->onCollision(left, right, sides);
+    collision(left, right, sides);
 }
 
 void trippin::Engine::setTickPeriod(int tp) {
@@ -243,12 +247,12 @@ void trippin::Engine::join() {
     SDL_WaitThread(thread, nullptr);
 }
 
-void trippin::Engine::setPlatformCollision(trippin::Collision *collision) {
-    platformCollision = collision;
+void trippin::Engine::setPlatformCollision(std::function<void(Object&, Object&, const Sides&)> collision) {
+    platformCollision = std::move(collision);
 }
 
-void trippin::Engine::setObjectCollision(trippin::Collision *collision) {
-    objectCollision = collision;
+void trippin::Engine::setObjectCollision(std::function<void(Object&, Object&, const Sides&)> collision) {
+    objectCollision = std::move(collision);
 }
 
 void trippin::Engine::addListener(trippin::Listener *listener) {

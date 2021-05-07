@@ -1,7 +1,6 @@
 #ifndef TRIPPIN_GAMEOBJECT_H
 #define TRIPPIN_GAMEOBJECT_H
 
-#include "engine/ReflectiveCollision.h"
 #include "SpriteObject.h"
 #include "Activation.h"
 #include "ScoreTicker.h"
@@ -28,8 +27,6 @@ namespace trippin {
         double objectActivation;
         Goggin *goggin;
         ScoreTicker *scoreTicker;
-
-        ReflectiveCollision reflectiveCollision;
 
         int collisionDuration;
         Uint32 collisionTicks;

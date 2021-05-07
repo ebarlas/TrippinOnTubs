@@ -3,7 +3,6 @@
 
 #include <SDL_mixer.h>
 #include "engine/Engine.h"
-#include "engine/ElasticCollision1D.h"
 #include "sprite/SpriteManager.h"
 #include "Configuration.h"
 #include "Map.h"
@@ -30,8 +29,6 @@ namespace trippin {
         Activation activation;
         std::vector<std::unique_ptr<Renderable>> objects;
         Goggin goggin;
-        AbsorbentCollision platformCollision;
-        ElasticCollision1D objectCollision;
         Spirit spirit;
         SpiritClock spiritClock;
         JumpMeter jumpMeter;

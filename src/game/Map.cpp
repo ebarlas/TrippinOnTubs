@@ -153,6 +153,8 @@ void trippin::from_json(const nlohmann::json& j, Map::Object& obj) {
         j.at("randFrame").get_to(obj.randFrame);
     if (j.contains("activation"))
         j.at("activation").get_to(obj.activation);
+    if (j.contains("elasticObjectCollisions"))
+        j.at("elasticObjectCollisions").get_to(obj.elasticObjectCollisions);
 }
 
 void trippin::from_json(const nlohmann::json& j, Map::Layer& layer) {

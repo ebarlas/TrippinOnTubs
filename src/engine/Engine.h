@@ -5,10 +5,8 @@
 #include <functional>
 #include "SDL.h"
 #include "engine/Object.h"
-#include "engine/Collision.h"
-#include "engine/AbsorbentCollision.h"
-#include "engine/InelasticCollision.h"
 #include "engine/Clock.h"
+#include "engine/Collisions.h"
 
 namespace trippin {
     // Engine handles the movement and interaction of objects.
@@ -23,11 +21,11 @@ namespace trippin {
 
         // Sets the default type of collision between platform and non-platform objects.
         // This collision type can be overridden by individual objects.
-        void setPlatformCollision(Collision *collision);
+        void setPlatformCollision(std::function<void(Object&, Object&, const Sides&)> collision);
 
         // Sets the default type of collision between objects.
         // This collision type can be overridden by individual objects.
-        void setObjectCollision(Collision *collision);
+        void setObjectCollision(std::function<void(Object&, Object&, const Sides&)> collision);
 
         // Set the target engine tick period. Ticks per second are 1000 / tick-period.
         // A tick period of 10 results in 100 tps.
@@ -47,15 +45,13 @@ namespace trippin {
         void stop();
         void join();
     private:
-        AbsorbentCollision defaultPlatformCollision;
-        InelasticCollision defaultObjectCollision;
-
         std::vector<Object *> inactive;
         std::vector<Object *> platforms;
         std::vector<Object *> objects;
         std::vector<Listener *> listeners;
-        Collision *platformCollision = &defaultPlatformCollision;
-        Collision *objectCollision = &defaultObjectCollision;
+
+        std::function<void(Object&, Object&, const Sides&)> platformCollision = onAbsorbentCollision;
+        std::function<void(Object &, Object &, const Sides &)> objectCollision = onInelasticCollisionDefault;
 
         SDL_Thread *thread;
         int tickPeriod;
