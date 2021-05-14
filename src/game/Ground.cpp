@@ -19,13 +19,13 @@ void trippin::Ground::afterTick(Uint32 engineTicks) {
         return;
     }
 
-    ticks++;
     if (!melting && position.x <= spirit->getPosition()) {
         melting = true;
-        meltingTick = ticks;
+        meltingTick = engineTicks;
     }
+
     if (melting) {
-        auto diff = ticks - meltingTick;
+        auto diff = engineTicks - meltingTick;
         if (diff % sprite->getFramePeriodTicks() == 0 && frame < sprite->getFrames()) {
             frame++;
         }
@@ -40,7 +40,7 @@ void trippin::Ground::afterTick(Uint32 engineTicks) {
 void trippin::Ground::render(const trippin::Camera &camera) {
     auto ch = channel.get();
     if (ch.visible) {
-        sprite->render(ch.roundedPosition, ch.frame, camera);
+        sprite->render(roundedPosition, ch.frame, camera);
     }
 }
 
@@ -53,5 +53,5 @@ void trippin::Ground::setActivation(const Activation *act) {
 }
 
 void trippin::Ground::syncChannel() {
-    channel.set({roundedPosition, frame, !inactive && !expired});
+    channel.set({frame, !inactive && !expired});
 }

@@ -64,5 +64,5 @@ const trippin::Scale &trippin::Sprite::getScale() const {
 }
 
 bool trippin::Sprite::intersectsWith(Point<int> hitBoxPos, Rect<int> rect) const {
-    return rect.intersect({hitBoxPos.x - hitBox.x, hitBoxPos.y - hitBox.y, size.x, size.y});
+    return rect.hasCollision({hitBoxPos.x - hitBox.x, hitBoxPos.y - hitBox.y, size.x, size.y});
 }

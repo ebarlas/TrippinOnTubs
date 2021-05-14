@@ -17,14 +17,12 @@ namespace trippin {
         void setActivation(const Activation *activation);
     private:
         bool melting;
-        int meltingTick;
-        int ticks{};
+        Uint32 meltingTick;
         int frame;
         const Spirit *spirit;
         const Activation *activation;
 
         struct Channel {
-            Point<int> roundedPosition;
             int frame;
             bool visible;
         };
