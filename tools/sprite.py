@@ -81,7 +81,7 @@ def export_pngs(svg_file, tmp_dir, export_dir, scales, name):
     num_frames = len(root.findall('.//svg:g[@type="frame"]', namespace))
 
     if fade_to_white:
-        for elem in ['path', 'circle', 'text']:
+        for elem in ['path', 'circle', 'text', 'rect']:
             for e in root.findall(f'.//svg:g[@type="frame"]/svg:{elem}', namespace):
                 fade_style(e, fade_to_white)
             for e in root.findall(f'.//svg:g[@type="frame"]/svg:g/svg:{elem}', namespace):

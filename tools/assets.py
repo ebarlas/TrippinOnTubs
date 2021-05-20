@@ -43,7 +43,8 @@ sprites = [
     'level',
     'walking_tub',
     'walking_tub_green',
-    'walking_tub_yellow'
+    'walking_tub_yellow',
+    'mystic_theatre'
 ]
 
 levels = ['map_ground_melt', 'map_minimal', 'map_test', 'map_load', 'map_training']
