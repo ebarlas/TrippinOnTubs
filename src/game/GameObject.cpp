@@ -81,15 +81,16 @@ void trippin::GameObject::afterTick(Uint32 engineTicks) {
     }
 
     auto collision = roundedBox.collision(goggin->roundedBox);
-    if (collision) {
+    if (collision && !stomped) {
         collisionTicks = engineTicks + collisionDuration;
-        if (stompable && !stomped && collision.testTop() && goggin->maxFallingVelocityAbove(0.15)) {
-            stomped = true;
-            lane = -2; // no-collision plane
-            velocity.y = -terminalVelocity.y / 3; // upward jolt
-            scoreTicker->add(stompPoints);
-            goggin->addPointCloud(stompPoints, engineTicks);
-        }
+    }
+
+    if (collision && stompable && !stomped) {
+        stomped = true;
+        lane = -2; // no-collision plane
+        velocity.y = -terminalVelocity.y / 2; // upward jolt
+        scoreTicker->add(stompPoints);
+        goggin->addPointCloud(stompPoints, engineTicks);
     }
 
     syncChannel(engineTicks);

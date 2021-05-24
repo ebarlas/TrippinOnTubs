@@ -19,6 +19,7 @@
         "x": 425.0,
         "y": 1500.0
       },
+      "massFactor": 2.0,
       "gravity": 1000.0,
       "fallGravity": 1700.0,
       "minJumpVelocity": -375.0,
