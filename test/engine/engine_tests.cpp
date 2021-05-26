@@ -2,9 +2,7 @@
 #include <iomanip>
 #include "catch2/catch.hpp"
 #include "engine/Engine.h"
-#include "engine/ElasticCollision1D.h"
-#include "engine/ElasticCollision2D.h"
-#include "engine/ReflectiveCollision.h"
+#include "engine/Collisions.h"
 
 TEST_CASE("Engine object platform collision", "[engine]")
 {
@@ -36,8 +34,7 @@ TEST_CASE("Engine object platform collision", "[engine]")
 TEST_CASE("Engine object platform interior", "[engine]")
 {
     trippin::Engine engine;
-    trippin::ElasticCollision1D collision;
-    engine.setObjectCollision(&collision);
+    engine.setObjectCollision(trippin::onElasticCollision1D);
 
     trippin::Object a;
     a.platform = true;
@@ -63,8 +60,7 @@ TEST_CASE("Engine object platform interior", "[engine]")
 TEST_CASE("Engine object snap reaction", "[engine]")
 {
     trippin::Engine engine;
-    trippin::ElasticCollision1D collision;
-    engine.setObjectCollision(&collision);
+    engine.setObjectCollision(trippin::onElasticCollision1D);
 
     trippin::Object a;
     a.platform = true;
@@ -101,8 +97,7 @@ TEST_CASE("Engine object snap reaction", "[engine]")
 TEST_CASE("Engine object snap reaction circle", "[engine]")
 {
     trippin::Engine engine;
-    trippin::ElasticCollision1D collision;
-    engine.setObjectCollision(&collision);
+    engine.setObjectCollision(trippin::onElasticCollision1D);
 
     trippin::Object a;
     a.id = 1;
@@ -157,8 +152,7 @@ TEST_CASE("Engine object snap reaction circle", "[engine]")
 TEST_CASE("Engine object 1D collision", "[engine]")
 {
     trippin::Engine engine;
-    trippin::ElasticCollision1D collision;
-    engine.setObjectCollision(&collision);
+    engine.setObjectCollision(trippin::onElasticCollision1D);
 
     trippin::Object a;
     a.platform = false;
@@ -197,8 +191,7 @@ TEST_CASE("Engine object 1D collision", "[engine]")
 TEST_CASE("Engine object 1D fractional collision no oscillation", "[engine]")
 {
     trippin::Engine engine;
-    trippin::ElasticCollision1D collision;
-    engine.setObjectCollision(&collision);
+    engine.setObjectCollision(trippin::onElasticCollision1D);
 
     trippin::Object a;
     a.platform = false;
@@ -244,8 +237,7 @@ TEST_CASE("Engine object 1D fractional collision no oscillation", "[engine]")
 TEST_CASE("Engine object 1D fractional collision no irrational", "[engine]")
 {
     trippin::Engine engine;
-    trippin::ElasticCollision1D collision;
-    engine.setObjectCollision(&collision);
+    engine.setObjectCollision(trippin::onElasticCollision1D);
 
     trippin::Object a;
     a.platform = true;
@@ -298,10 +290,8 @@ std::ostream& operator<<(std::ostream& os, const trippin::Object& obj) {
 TEST_CASE("Velocity oscillation observed in enclosed demo app", "[engine]")
 {
     trippin::Engine engine;
-    trippin::ReflectiveCollision platformCollision;
-    trippin::ElasticCollision2D objectCollision;
-    engine.setPlatformCollision(&platformCollision);
-    engine.setObjectCollision(&objectCollision);
+    engine.setPlatformCollision(trippin::onReflectiveCollisionDefault);
+    engine.setObjectCollision(trippin::onElasticCollision2D);
 
     trippin::Object a;
     a.id = 11;
