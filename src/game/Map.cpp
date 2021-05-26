@@ -143,8 +143,6 @@ void trippin::from_json(const nlohmann::json& j, Map::Object& obj) {
         j.at("accelerateWhenGrounded").get_to(obj.accelerateWhenGrounded);
     if (j.contains("stompable"))
         j.at("stompable").get_to(obj.stompable);
-    if (j.contains("points"))
-        j.at("points").get_to(obj.points);
     if (j.contains("rightOf"))
         j.at("rightOf").get_to(obj.rightOf);
     if (j.contains("rightMultiple"))
@@ -155,6 +153,8 @@ void trippin::from_json(const nlohmann::json& j, Map::Object& obj) {
         j.at("activation").get_to(obj.activation);
     if (j.contains("elasticObjectCollisions"))
         j.at("elasticObjectCollisions").get_to(obj.elasticObjectCollisions);
+    if (j.contains("hitPoints"))
+        j.at("hitPoints").get_to(obj.hitPoints);
 }
 
 void trippin::from_json(const nlohmann::json& j, Map::Layer& layer) {

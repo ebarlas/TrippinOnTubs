@@ -36,7 +36,7 @@ def find_objects(root):
               'runningAcceleration', 'risingAcceleration', 'duckFriction', 'coefficient', 'rightOf', 'rightMultiple',
               'activation']
     ints = ['minJumpChargeTime', 'maxJumpChargeTime', 'jumpGracePeriod', 'jumpSoundTimeout',
-            'lane', 'dustPeriod', 'points']
+            'lane', 'dustPeriod', 'hitPoints']
     bools = ['sparkle', 'accelerateWhenGrounded', 'stompable', 'randFrame', 'elasticObjectCollisions']
     id_counter = 1
     # an object is an image within a group that does not have attribute type='layer'

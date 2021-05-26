@@ -469,8 +469,7 @@ float trippin::Goggin::decelInterpolation(float input) {
 }
 
 void trippin::Goggin::addPointCloud(int points, Uint32 ticks) {
-    int numDigits = DigitLayout::countDigits(*digits, points);
-    int x = roundedBox.x + roundedBox.w / 2 + (numDigits * digits->getSize().x) / 2; // goggin horiz. midpoint
+    int x = roundedBox.x + roundedBox.w / 2 + DigitLayout::measureWidth(*digits, points) / 2; // goggin horiz. midpoint
     int y = roundedBox.y;
     int xRange = pointCloudDistanceMax.x - pointCloudDistanceMin.x;
     int yRange = pointCloudDistanceMax.y - pointCloudDistanceMin.y;
@@ -480,8 +479,4 @@ void trippin::Goggin::addPointCloud(int points, Uint32 ticks) {
     auto yDist = pointCloudDistanceMin.y + toInt(yRand * yRange);
     pointClouds[nextPointCloudPos] = {{x, y}, {x, y}, {xDist, yDist}, points, ticks};
     nextPointCloudPos = (nextPointCloudPos + 1) % pointClouds.size();
-}
-
-bool trippin::Goggin::maxFallingVelocityAbove(double percent) {
-    return (maxFallingVelocity / terminalVelocity.y) > percent;
 }

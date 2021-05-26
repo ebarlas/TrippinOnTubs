@@ -16,6 +16,7 @@ namespace trippin {
         void setActivation(const Activation *activation);
         void setGoggin(Goggin &goggin);
         void setScoreTicker(ScoreTicker &st);
+        void setSoundManager(SoundManager &sm);
     private:
         double runningAcceleration;
         const Activation *activation;
@@ -23,23 +24,35 @@ namespace trippin {
         bool accelerateWhenGrounded;
         bool stompable;
         bool stomped;
-        int stompPoints;
         double objectActivation;
         Goggin *goggin;
         ScoreTicker *scoreTicker;
 
+        int availableHitPoints;
+        int hitPoints;
+
+        SoundManager *soundManager;
+        Mix_Chunk *stompSound;
+
         int collisionDuration;
         Uint32 collisionTicks;
+        Uint32 coolDownTicks;
 
         struct Channel {
             Point<int> roundedPosition;
             int frame;
             bool flash;
+            bool collision;
+            bool visible;
+            int hitPoints;
         };
         int flashCycle;
+        bool playedSound;
         Guarded<Channel> channel;
         void syncChannel(Uint32 engineTicks);
         void advanceFrame(Uint32 engineTicks);
+
+        void drawHealthBar(const trippin::Camera &camera, int hp);
     };
 }
 

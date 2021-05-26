@@ -23,13 +23,17 @@ namespace trippin {
             } while (value > 0);
         }
 
-        inline static int countDigits(const Sprite &digits, int value) {
+        inline static int countDigits(int value) {
             int numDigits = 0;
             do {
                 value /= 10;
                 numDigits++;
             } while (value > 0);
             return numDigits;
+        }
+
+        inline static int measureWidth(const Sprite &digits, int value) {
+            return countDigits(value) * digits.getSize().x;
         }
     };
 }

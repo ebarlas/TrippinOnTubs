@@ -10,26 +10,21 @@
 #include "Goggin.h"
 
 namespace trippin {
-    class ScoreTicker : public Listener, public Renderable {
+    class ScoreTicker : public Renderable {
     private:
         const Sprite *digits{};
         int margin;
-        double pointsPerTick;
         double score;
         const Goggin *goggin;
 
         Guarded<double> channel;
     public:
-        // called from engine thread after tick
-        void afterTick(Uint32 engineTicks) override;
-
         // called from engine thread on scoring collision to increase score
         void add(int n);
 
         // called from main render thread during initialization
         void setMargin(int margin);
         void setSprite(const Sprite &spr);
-        void setPointsPerTick(double ppt);
         void setGoggin(const Goggin *goggin);
         void setScore(int score);
         void init();

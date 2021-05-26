@@ -102,6 +102,7 @@ void trippin::Level::initEngine() {
             uptr->setActivation(&activation);
             uptr->setGoggin(goggin);
             uptr->setScoreTicker(scoreTicker);
+            uptr->setSoundManager(*soundManager);
             uptr->init(*configuration, obj, spriteManager->get(obj.type));
             engine.add(uptr.get());
             objects.push_back(std::move(uptr));
@@ -110,10 +111,8 @@ void trippin::Level::initEngine() {
 
     scoreTicker.setSprite(spriteManager->get("digits"));
     scoreTicker.setMargin(map.meterMargin);
-    scoreTicker.setPointsPerTick(configuration->pointsPerTick());
     scoreTicker.setGoggin(&goggin);
     scoreTicker.init();
-    engine.addListener(&scoreTicker);
 
     spirit.setTicksPerSecond(configuration->ticksPerSecond());
     spirit.setVelocity(goggin.terminalVelocity.x);
@@ -129,7 +128,7 @@ void trippin::Level::initEngine() {
 
     jumpMeter.setSprite(spriteManager->get("winged_foot"));
     jumpMeter.setGoggin(goggin);
-    jumpMeter.setPosition({timerSprite.getSize().x + map.meterMargin * 2, map.meterMargin});
+    jumpMeter.setPosition({map.meterMargin, map.meterMargin + timerSprite.getSize().y});
     jumpMeter.init();
     engine.addListener(&jumpMeter);
 

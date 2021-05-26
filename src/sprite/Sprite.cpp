@@ -63,6 +63,10 @@ const trippin::Scale &trippin::Sprite::getScale() const {
     return scale;
 }
 
+SDL_Renderer *trippin::Sprite::getRenderer() const {
+    return ren;
+}
+
 bool trippin::Sprite::intersectsWith(Point<int> hitBoxPos, Rect<int> rect) const {
     return rect.hasCollision({hitBoxPos.x - hitBox.x, hitBoxPos.y - hitBox.y, size.x, size.y});
 }

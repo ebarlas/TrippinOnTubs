@@ -4,7 +4,6 @@
   "spiritClockTickPeriod": 500,
   "activationProximity": 8600,
   "deactivationProximity": 4300,
-  "pointsPerSecond": 10,
   "shakeDuration": 250,
   "shakeHertz": 60,
   "shakeAmplitude": 64,

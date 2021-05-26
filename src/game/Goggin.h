@@ -34,7 +34,6 @@ namespace trippin {
         bool rightOfUniverse() const;
         void onUserInput(const GogginInput &input);
         double getJumpCharge() const;
-        bool maxFallingVelocityAbove(double percent);
         void addPointCloud(int points, Uint32 ticks);
     private:
         struct Dust {

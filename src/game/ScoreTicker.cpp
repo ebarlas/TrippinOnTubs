@@ -21,19 +21,9 @@ void trippin::ScoreTicker::add(int n) {
 }
 
 void trippin::ScoreTicker::render(const trippin::Camera &camera) {
-    Point<int> p{camera.getViewport().w - margin - digits->getSize().x, margin};
+    int textWidth = DigitLayout::measureWidth(*digits, getScore());
+    Point<int> p{camera.getViewport().w / 2 + textWidth / 2, margin};
     DigitLayout::renderDigits(*digits, p, getScore());
-}
-
-void trippin::ScoreTicker::afterTick(Uint32 engineTicks) {
-    if (!goggin->expired) {
-        score += pointsPerTick;
-        channel.set(score);
-    }
-}
-
-void trippin::ScoreTicker::setPointsPerTick(double ppt) {
-    pointsPerTick = ppt;
 }
 
 void trippin::ScoreTicker::setGoggin(const Goggin *g) {

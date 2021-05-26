@@ -23,7 +23,6 @@ namespace trippin {
         int spiritClockTickPeriod;
         int activationProximity;
         int deactivationProximity;
-        int pointsPerSecond;
         int shakeDuration;
         int shakeHertz;
         int shakeAmplitude;
@@ -37,7 +36,6 @@ namespace trippin {
 
         double ticksPerSecond() const;
         double engineTicksPerSpiritClockTick() const;
-        double pointsPerTick() const;
     };
 
     void from_json(const nlohmann::json &j, Configuration &config);

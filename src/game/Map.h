@@ -38,12 +38,12 @@ namespace trippin {
             int frame{};
             bool accelerateWhenGrounded{};
             bool stompable{};
-            int points{};
             double rightOf{};
             double rightMultiple{};
             bool randFrame{};
             double activation{};
             bool elasticObjectCollisions{};
+            int hitPoints{};
         };
 
         struct Layer {

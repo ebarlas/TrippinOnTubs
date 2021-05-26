@@ -5,7 +5,7 @@ void trippin::RunningClock::init(const Configuration &config, const Map::Object 
     lane = -1;
     inactive = true;
     runningAcceleration = obj.runningAcceleration;
-    points = obj.points;
+    points = 50;
     frame = 0;
     playedSound = false;
     sound = soundManager->getEffect("chime1");

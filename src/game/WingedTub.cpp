@@ -11,7 +11,7 @@ void trippin::WingedTub::init(const Configuration &config, const Map::Object &ob
     tubFrameFirst = obj.sparkle ? FRAME_SPARKLE_FIRST : FRAME_TUB_FIRST;
     tubFrameLast = obj.sparkle ? FRAME_SPARKLE_LAST : FRAME_TUB_LAST;
     frame = tubFrameFirst;
-    points = obj.points;
+    points =  obj.sparkle ? 200 : 100;
     playedSound = false;
     sound = obj.sparkle ? soundManager->getEffect("chime3") : soundManager->getEffect("chime2");
     syncChannel();

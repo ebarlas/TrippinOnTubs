@@ -17,6 +17,7 @@ namespace trippin {
         int getFramePeriodTicks() const;
         int getFrameDuration() const;
         int getFrames() const;
+        SDL_Renderer* getRenderer() const;
         bool intersectsWith(Point<int> hitBoxPos, Rect<int> rect) const;
         const Scale& getScale() const;
     private:
