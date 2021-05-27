@@ -35,22 +35,15 @@ Assets:
 
 The CMake build system generator is used for this project.
 
-SDL2 installations include a CMake config file for use with `find_package`. 
-Similarly, installations of the Catch2 testing library include a CMake config file.
-Ensure these config file are locatable by `find_package`.
+SDL2, Catch2, and nlohmann_json rely on CMake modules that are locatable by the CMake `find_package()`. See the CMake [find_package documentation](https://cmake.org/cmake/help/latest/command/find_package.html) for details.
 
-SDL2_image, SDL2_tff, and nlohmann JSON are referenced by CMake options
-that must be supplied explicitly:
+SDL2_image, SDL2_tff, SDL2_net, and SDL2_mixer ship with `pkg-config` files and rely on the CMake [FindPkgConfig](https://cmake.org/cmake/help/latest/module/FindPkgConfig.html) module.
 
-* `SDL2_IMAGE_INCLUDE_DIR`
-* `SDL2_IMAGE_LIB`
-* `SDL2_TTF_INCLUDE_DIR`
-* `SDL2_TTF_LIB`
-* `SDL2_MIXER_INCLUDE_DIR`
-* `SDL2_MIXER_LIB`
-* `SDL2_NET_INCLUDE_DIR`
-* `SDL2_NET_LIB`
-* `NLOHMANN_JSON_INCLUDE_DIR`
+Note that this [homebrew](https://brew.sh/) packages provide the necessary `.cmake` or `.pc` for these dependencies.
+
+The project should successfully build with the following shell command when run from the project root directory:
+
+    $ mkdir build && cd build && cmake ../ && make
 
 # Fonts
 
