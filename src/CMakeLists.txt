@@ -1,4 +1,12 @@
-find_package(SDL2)
+find_package(SDL2 REQUIRED)
+find_package(nlohmann_json REQUIRED)
+
+find_package(PkgConfig REQUIRED)
+
+pkg_check_modules(SDL2_MIXER REQUIRED IMPORTED_TARGET sdl2_mixer)
+pkg_check_modules(SDL2_IMAGE REQUIRED IMPORTED_TARGET sdl2_image)
+pkg_check_modules(SDL2_TTF REQUIRED IMPORTED_TARGET sdl2_ttf)
+pkg_check_modules(SDL2_NET REQUIRED IMPORTED_TARGET sdl2_net)
 
 add_library(Engine
         engine/PlasmaPhysics.cpp
@@ -19,8 +27,8 @@ add_library(Sprite
         sprite/SpriteManager.cpp
         sprite/Files.cpp
         sprite/Camera.cpp)
-target_include_directories(Sprite PUBLIC ${NLOHMANN_JSON_INCLUDE_DIR} ${SDL2_IMAGE_INCLUDE_DIR})
-target_link_libraries(Sprite Engine ${SDL2_IMAGE_LIB})
+target_include_directories(Sprite PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
+target_link_libraries(Sprite Engine nlohmann_json::nlohmann_json PkgConfig::SDL2_IMAGE)
 
 add_library(Lock
         lock/Lock.cpp
@@ -30,16 +38,16 @@ target_link_libraries(Lock SDL2::SDL2)
 add_library(Graphics
         demo/FontRenderer.cpp
         demo/RenderableObject.cpp)
-target_include_directories(Graphics PUBLIC Engine ${SDL2_TTF_INCLUDE_DIR})
-target_link_libraries(Graphics Engine ${SDL2_TTF_LIB})
+target_include_directories(Graphics PUBLIC Engine)
+target_link_libraries(Graphics Engine PkgConfig::SDL2_TTF)
 
 add_library(Net
         net/Tcp.cpp
         net/Transport.cpp
         net/DbSynchronizer.cpp
         net/StagingArea.cpp)
-target_include_directories(Net PUBLIC ${NLOHMANN_JSON_INCLUDE_DIR} ${SDL2_NET_INCLUDE_DIR} ${CMAKE_CURRENT_SOURCE_DIR})
-target_link_libraries(Net Lock ${SDL2_NET_LIB})
+target_include_directories(Net PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
+target_link_libraries(Net Lock PkgConfig::SDL2_NET nlohmann_json::nlohmann_json)
 
 add_library(Ui
         ui/ScoreBoard.cpp
@@ -96,8 +104,7 @@ add_library(Game
         game/AutoPlay.cpp
         game/Shake.cpp
         game/SoundManager.cpp)
-target_include_directories(Game PUBLIC ${SDL2_MIXER_INCLUDE_DIR})
-target_link_libraries(Game Sprite Lock Net Ui ${SDL2_MIXER_LIB})
+target_link_libraries(Game Sprite Lock Net Ui PkgConfig::SDL2_MIXER)
 
 add_executable(trippin game/trippin.cpp)
 target_link_libraries(trippin Game)
