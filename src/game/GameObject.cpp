@@ -46,6 +46,10 @@ void trippin::GameObject::init(const Configuration &config, const Map::Object &o
     }
     stompSound = soundManager->getEffect("chime0");
     availableHitPoints = hitPoints = obj.hitPoints;
+    healthBarSize = {
+            toInt(config.healthBarSize.x * sprite->getScale().getMultiplier()),
+            toInt(config.healthBarSize.y * sprite->getScale().getMultiplier())
+    };
     syncChannel(0);
 }
 
@@ -149,10 +153,15 @@ void trippin::GameObject::advanceFrame(Uint32 engineTicks) {
 void trippin::GameObject::drawHealthBar(const trippin::Camera &camera, int hp) {
     auto vp = camera.getViewport();
     auto ren = sprite->getRenderer();
-    SDL_SetRenderDrawColor(ren, 25, 25, 25, 100);
+    auto percent = (double) hp / availableHitPoints;
+    auto margin = healthBarSize.y * 3;
+    auto x = roundedPosition.x - vp.x;
+    auto y = roundedPosition.y - vp.y - margin;
+    SDL_Rect outline{x, y, healthBarSize.x, healthBarSize.y};
+    SDL_Rect fill{x, y, (int) (percent * healthBarSize.x), healthBarSize.y};
     SDL_SetRenderDrawBlendMode(ren, SDL_BLENDMODE_BLEND);
-    SDL_Rect r1{roundedPosition.x - vp.x, roundedPosition.y - vp.y - 25, 100, 10};
-    SDL_RenderDrawRect(ren, &r1);
-    SDL_Rect r2{roundedPosition.x - vp.x, roundedPosition.y - vp.y - 25, (int) ((hp * 100.0) / availableHitPoints), 10};
-    SDL_RenderFillRect(ren, &r2);
+    SDL_SetRenderDrawColor(ren, 237, 76, 92, 100);
+    SDL_RenderFillRect(ren, &fill);
+    SDL_SetRenderDrawColor(ren, 0, 0, 0, 100);
+    SDL_RenderDrawRect(ren, &outline);
 }

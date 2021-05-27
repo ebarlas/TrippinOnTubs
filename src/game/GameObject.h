@@ -30,6 +30,7 @@ namespace trippin {
 
         int availableHitPoints;
         int hitPoints;
+        Point<int> healthBarSize;
 
         SoundManager *soundManager;
         Mix_Chunk *stompSound;

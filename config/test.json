@@ -4,6 +4,10 @@
   "spiritClockTickPeriod": 500,
   "activationProximity": 8600,
   "deactivationProximity": 4300,
+  "healthBarSize": {
+    "x": 533,
+    "y": 53
+  },
   "shakeDuration": 250,
   "shakeHertz": 60,
   "shakeAmplitude": 64,
