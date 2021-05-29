@@ -23,6 +23,7 @@ void trippin::Goggin::init(const Configuration &config, const Map::Object &obj, 
     pointCloudDistanceMin = {size.x, size.y};
     pointCloudDistanceMax = pointCloudDistanceMin * 3;
     pointCloudTicks = config.ticksPerSecond() * 2;
+    consecutiveJumps = 0;
 
     shakeAmplitude = config.shakeAmplitude * sprite->getScale().getMultiplier();
 
@@ -58,6 +59,10 @@ void trippin::Goggin::setDust(const Sprite &spr) {
 
 void trippin::Goggin::setDustBlast(const Sprite &spr) {
     dustBlast = &spr;
+}
+
+void trippin::Goggin::setWhiteDustBlast(const Sprite &spr) {
+    whiteDustBlast = &spr;
 }
 
 void trippin::Goggin::setDigits(const Sprite &spr) {
@@ -134,31 +139,33 @@ void trippin::Goggin::handleJumpRelease(Uint32 engineTicks) {
     if (input.jumpRelease && jumpTicks) {
         auto maxEffective = state == ducking && jumpPercent == 1.0 ? maxDuckJumpVelocity : maxJumpVelocity;
         double jumpVel = minJumpVelocity + jumpPercent * (maxEffective - minJumpVelocity);
-        jumpTicks = 0;
-        jumpPercent = 0;
         if (state == running || state == landing || state == ducking ||
+            ((state == falling || state == rising) && consecutiveJumps < 2) ||
             (engineTicks > lastRunOrDuckTick && engineTicks - lastRunOrDuckTick < jumpGracePeriodTicks)) {
             if (state == ducking) {
                 growForStand();
             }
             if (skipLaunch) {
+                if ((platformCollisions.testBottom() && jumpPercent >= 0.5) || ((state == falling || state == rising) && consecutiveJumps < 2)) {
+                    resetDustBlast(state == falling || state == rising);
+                }
                 maxFallingVelocity = 0;
                 state = State::rising;
                 frames.frame = FRAME_LAUNCHING_LAST;
                 velocity.y = jumpVel;
-                if (platformCollisions.testBottom() && jumpPercent >= 0.5) {
-                    resetDustBlast();
-                }
             } else {
                 maxFallingVelocity = 0;
                 state = State::launching;
                 frames.frame = FRAME_LAUNCHING_FIRST;
                 jumpVelocity = jumpVel;
             }
+            consecutiveJumps++;
             enqueueJumpSound(engineTicks);
             acceleration.x = risingAcceleration;
             ticks = 0;
         }
+        jumpTicks = 0;
+        jumpPercent = 0;
     }
 }
 
@@ -209,6 +216,10 @@ void trippin::Goggin::afterTick(Uint32 engineTicks) {
         }
     }
 
+    if (platformCollisions.testBottom()) {
+        consecutiveJumps = 0;
+    }
+
     if (state == State::falling) {
         onFalling(engineTicks);
     } else if (state == State::landing) {
@@ -249,7 +260,7 @@ void trippin::Goggin::onFalling(Uint32 engineTicks) {
         frames.frame = FRAME_LANDING_FIRST;
         acceleration.x = runningAcceleration;
         if (platformCollisions.testBottom() && maxFallingVelocity >= terminalVelocity.y / 2.0) {
-            resetDustBlast();
+            resetDustBlast(false);
             xShake.start(engineTicks);
             yShake.start(engineTicks);
         }
@@ -366,7 +377,8 @@ void trippin::Goggin::growForStand() {
     syncPositions();
 }
 
-void trippin::Goggin::resetDustBlast() {
+void trippin::Goggin::resetDustBlast(bool white) {
+    frames.blast.white = white;
     frames.blast.frame = 0;
     frames.blast.ticks = 0;
     frames.blast.position.x = (roundedPosition.x + size.x / 2) - (dustBlast->getHitBox().w / 2);
@@ -386,7 +398,8 @@ void trippin::Goggin::render(const Camera &camera) {
     }
 
     if (ch.frames.blast.frame < dustBlast->getFrames()) {
-        dustBlast->render(ch.frames.blast.position, ch.frames.blast.frame, camera);
+        auto spr = ch.frames.blast.white ? whiteDustBlast : dustBlast;
+        spr->render(ch.frames.blast.position, ch.frames.blast.frame, camera);
     }
 
     sprite->render(cameraPosition, ch.frames.frame, camera);

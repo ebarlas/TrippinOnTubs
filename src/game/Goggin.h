@@ -20,6 +20,7 @@ namespace trippin {
         void setUniverse(const Point<int> &universe);
         void setDust(const Sprite &spr);
         void setDustBlast(const Sprite &spr);
+        void setWhiteDustBlast(const Sprite &spr);
         void setDigits(const Sprite &spr);
         void setSoundManager(SoundManager &sm);
         void setAutoPlay(const std::vector<GogginInputTick> &autoPlay);
@@ -40,6 +41,7 @@ namespace trippin {
             Point<int> position;
             char frame;
             char ticks;
+            bool white;
         };
 
         struct Frames {
@@ -91,7 +93,10 @@ namespace trippin {
         int nextDustPos;
         int dustPeriodTicks;
 
+        int consecutiveJumps;
+
         const Sprite *dustBlast;
+        const Sprite *whiteDustBlast;
 
         double maxFallingVelocity;
         Rect<int> universe;
@@ -163,7 +168,7 @@ namespace trippin {
         void onRising(Uint32 engineTicks);
         void onDucking(Uint32 engineTicks);
 
-        void resetDustBlast();
+        void resetDustBlast(bool white);
 
         void shrinkForDuck();
         void growForStand();

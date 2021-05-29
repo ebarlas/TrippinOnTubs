@@ -28,6 +28,7 @@ sprites = [
     'hotel_petaluma',
     'dust',
     'dust_blast',
+    'dust_blast_white',
     'running_clock',
     'bird',
     'trippin',

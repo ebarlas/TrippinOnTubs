@@ -3,6 +3,7 @@
 
 #include <string>
 #include <sstream>
+#include "engine/Point.h"
 #include "nlohmann/json.hpp"
 
 namespace trippin {

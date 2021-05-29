@@ -67,6 +67,7 @@ void trippin::Level::initEngine() {
             goggin.setUniverse(map.universe);
             goggin.setDust(spriteManager->get("dust"));
             goggin.setDustBlast(spriteManager->get("dust_blast"));
+            goggin.setWhiteDustBlast(spriteManager->get("dust_blast_white"));
             goggin.setDigits(spriteManager->get("digits"));
             goggin.setSoundManager(*soundManager);
             goggin.init(*configuration, obj, spriteManager->get(obj.type));
