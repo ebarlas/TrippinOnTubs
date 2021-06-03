@@ -55,6 +55,7 @@ namespace trippin {
         void initLevel();
         void renderLoop();
         std::unique_ptr<Level> nextLevel();
+        void advanceLevel(int score, int extraLives);
     public:
         Game(std::string configName);
         void init();

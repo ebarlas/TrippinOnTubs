@@ -434,12 +434,12 @@ void trippin::Goggin::enqueueJumpSound(Uint32 engineTicks) {
     }
 }
 
-bool trippin::Goggin::inUniverse() const {
-    return !channel.get().expired;
-}
-
 bool trippin::Goggin::rightOfUniverse() const {
     return channel.get().position.x >= universe.w;
+}
+
+bool trippin::Goggin::belowUniverse() const {
+    return channel.get().position.y >= universe.h;
 }
 
 void trippin::Goggin::transferInput(Uint32 engineTicks) {

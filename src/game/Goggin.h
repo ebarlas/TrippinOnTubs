@@ -31,8 +31,8 @@ namespace trippin {
         // This is the first step of a frame update
         // The position used here ought to be used in the subsequent render call to avoid jitter
         void centerCamera(Camera &camera);
-        bool inUniverse() const;
         bool rightOfUniverse() const;
+        bool belowUniverse() const;
         void onUserInput(const GogginInput &input);
         double getJumpCharge() const;
         void addPointCloud(int points, Uint32 ticks);

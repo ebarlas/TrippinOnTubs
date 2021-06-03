@@ -110,6 +110,9 @@ void trippin::Level::initEngine() {
         }
     }
 
+    lifeMeter = std::make_unique<LifeMeter>(map.meterMargin, spriteManager->get("goggin_head"));
+    lifeMeter->setExtraLives(3);
+
     scoreTicker.setSprite(spriteManager->get("digits"));
     scoreTicker.setMargin(map.meterMargin);
     scoreTicker.setGoggin(&goggin);
@@ -156,6 +159,7 @@ void trippin::Level::render(GogginInput input) {
     spiritClock.render(camera);
     jumpMeter.render(camera);
     scoreTicker.render(camera);
+    lifeMeter->render(camera);
 }
 
 void trippin::Level::start() {
@@ -164,7 +168,7 @@ void trippin::Level::start() {
 }
 
 bool trippin::Level::ended() {
-    return !goggin.inUniverse();
+    return goggin.belowUniverse();
 }
 
 bool trippin::Level::completed() {
@@ -179,6 +183,10 @@ void trippin::Level::stop() {
 
 int trippin::Level::getScore() const {
     return scoreTicker.getScore();
+}
+
+void trippin::Level::setExtraLives(int extraLives) {
+    lifeMeter->setExtraLives(extraLives);
 }
 
 void trippin::Level::pause() {

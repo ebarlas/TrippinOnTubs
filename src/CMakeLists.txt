@@ -93,6 +93,7 @@ add_library(Game
         game/WingedTub.cpp
         game/Goggin.cpp
         game/JumpMeter.cpp
+        game/LifeMeter.cpp
         game/ScoreTicker.cpp
         game/SpiritClock.cpp
         game/Spirit.cpp

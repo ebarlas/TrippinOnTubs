@@ -96,6 +96,15 @@ std::unique_ptr<trippin::Level> trippin::Game::nextLevel() {
     return lvl;
 }
 
+void trippin::Game::advanceLevel(int score, int extraLives) {
+    level->stop();
+    level.reset();
+    level = nextLevel();
+    level->setScore(score);
+    level->setExtraLives(extraLives);
+    level->start();
+}
+
 trippin::Game::Game(std::string configName) : configName(std::move(configName)) {
 
 }
@@ -120,6 +129,7 @@ void trippin::Game::renderLoop() {
 
     int state = TITLE;
     int score;
+    int extraLives = 3;
 
     Timer timer("renderer");
     UserInput ui;
@@ -156,10 +166,8 @@ void trippin::Game::renderLoop() {
             titleMenu->render();
             if (titleMenu->startClicked(ui.getLastPress())) {
                 loadLevel = false;
-                level->stop();
-                level.reset();
-                level = nextLevel();
-                level->start();
+                score = 0;
+                advanceLevel(score, extraLives);
                 state = PLAYING;
             } else if (titleMenu->exitClicked(ui.getLastPress())) {
                 level->stop();
@@ -201,8 +209,13 @@ void trippin::Game::renderLoop() {
                     state = LEVEL_TRANSITION;
                     levelOverlay->setLevel(levelIndex);
                 } else {
-                    state = END_MENU;
-                    endMenu->reset();
+                    if (extraLives > 0) {
+                        extraLives--;
+                        advanceLevel(score, extraLives);
+                    } else {
+                        state = END_MENU;
+                        endMenu->reset();
+                    }
                 }
             }
         } else if (state == LEVEL_TRANSITION) {
@@ -210,11 +223,7 @@ void trippin::Game::renderLoop() {
             if (ui.anythingPressed()) {
                 if (levelIndex < configuration.maps.size() - 1) {
                     levelIndex++;
-                    level->stop();
-                    level.reset();
-                    level = nextLevel();
-                    level->setScore(score);
-                    level->start();
+                    advanceLevel(score, extraLives);
                     state = PLAYING;
                 } else {
                     state = END_MENU;

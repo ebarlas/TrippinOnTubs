@@ -3,8 +3,7 @@
 #include "ui/DigitLayout.h"
 
 void trippin::ScoreTicker::init() {
-    score = 0;
-    channel.set(score);
+    setScore(0);
 }
 
 void trippin::ScoreTicker::setMargin(int mar) {
@@ -36,4 +35,5 @@ int trippin::ScoreTicker::getScore() const {
 
 void trippin::ScoreTicker::setScore(int sc) {
     score = sc;
+    channel.set(score);
 }

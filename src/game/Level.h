@@ -13,6 +13,7 @@
 #include "ScoreTicker.h"
 #include "Activation.h"
 #include "GogginInput.h"
+#include "LifeMeter.h"
 
 namespace trippin {
     class Level {
@@ -33,6 +34,7 @@ namespace trippin {
         SpiritClock spiritClock;
         JumpMeter jumpMeter;
         ScoreTicker scoreTicker;
+        std::unique_ptr<LifeMeter> lifeMeter;
         void initMap();
         void initCamera();
         void initEngine();
@@ -45,6 +47,7 @@ namespace trippin {
         void setAutoPlay(const std::vector<GogginInputTick> &autoPlay);
         void setMapName(const std::string &name);
         void setScore(int score);
+        void setExtraLives(int extraLives);
         void init();
         bool ended();
         bool completed();
