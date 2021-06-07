@@ -35,6 +35,7 @@ namespace trippin {
         std::unique_ptr<Level> level;
         int levelIndex;
         bool loadLevel;
+        bool trainLevel;
         std::unique_ptr<TitleOverlay> titleOverlay;
         std::unique_ptr<TitleMenu> titleMenu;
         std::unique_ptr<EndMenu> endMenu;

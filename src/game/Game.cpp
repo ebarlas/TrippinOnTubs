@@ -64,6 +64,7 @@ void trippin::Game::initAutoPlay() {
 void trippin::Game::initLevel() {
     levelIndex = 0;
     loadLevel = true;
+    trainLevel = false;
     level = nextLevel();
 }
 
@@ -89,6 +90,9 @@ std::unique_ptr<trippin::Level> trippin::Game::nextLevel() {
     if (loadLevel) {
         lvl->setMapName(configuration.loadMap);
         lvl->setAutoPlay(autoPlay.events);
+    } else if(trainLevel) {
+        lvl->setMapName(configuration.trainMap);
+        lvl->setTraining(true);
     } else {
         lvl->setMapName(configuration.maps[levelIndex]);
     }
@@ -119,6 +123,7 @@ void trippin::Game::renderLoop() {
         TITLE,
         START_MENU,
         SCORE_MENU,
+        TRAINING,
         PLAYING,
         LEVEL_TRANSITION,
         END_MENU,
@@ -129,7 +134,7 @@ void trippin::Game::renderLoop() {
 
     int state = TITLE;
     int score;
-    int extraLives = 3;
+    int extraLives = 1;
 
     Timer timer("renderer");
     UserInput ui;
@@ -166,9 +171,16 @@ void trippin::Game::renderLoop() {
             titleMenu->render();
             if (titleMenu->startClicked(ui.getLastPress())) {
                 loadLevel = false;
+                trainLevel = false;
                 score = 0;
                 advanceLevel(score, extraLives);
                 state = PLAYING;
+            } else if (titleMenu->trainClicked(ui.getLastPress())) {
+                loadLevel = false;
+                trainLevel = true;
+                score = 0;
+                advanceLevel(score, extraLives);
+                state = TRAINING;
             } else if (titleMenu->exitClicked(ui.getLastPress())) {
                 level->stop();
                 break;
@@ -217,6 +229,14 @@ void trippin::Game::renderLoop() {
                         endMenu->reset();
                     }
                 }
+            }
+        } else if (state == TRAINING) {
+            if (level->completed()) {
+                loadLevel = true;
+                trainLevel = false;
+                score = 0;
+                advanceLevel(score, extraLives);
+                state = START_MENU;
             }
         } else if (state == LEVEL_TRANSITION) {
             levelOverlay->render();

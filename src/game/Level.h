@@ -14,6 +14,7 @@
 #include "Activation.h"
 #include "GogginInput.h"
 #include "LifeMeter.h"
+#include "TrainingProgram.h"
 
 namespace trippin {
     class Level {
@@ -35,6 +36,8 @@ namespace trippin {
         JumpMeter jumpMeter;
         ScoreTicker scoreTicker;
         std::unique_ptr<LifeMeter> lifeMeter;
+        bool training;
+        std::unique_ptr<TrainingProgram> trainingProgram;
         void initMap();
         void initCamera();
         void initEngine();
@@ -48,6 +51,7 @@ namespace trippin {
         void setMapName(const std::string &name);
         void setScore(int score);
         void setExtraLives(int extraLives);
+        void setTraining(bool training);
         void init();
         bool ended();
         bool completed();

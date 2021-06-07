@@ -46,6 +46,13 @@ void trippin::Goggin::init(const Configuration &config, const Map::Object &obj, 
 
     jumpSound = soundManager->getEffect("thud");
 
+    lastJumpTicks = 0;
+    lastDuckTicks = 0;
+    lastChargedJumpTicks = 0;
+    lastDuckJumpTicks = 0;
+    lastDoubleJumpTicks = 0;
+    lastJumpSoundTicks = 0;
+
     syncChannel();
 }
 
@@ -82,13 +89,13 @@ void trippin::Goggin::setAutoPlay(const std::vector<GogginInputTick> &ap) {
 
 void trippin::Goggin::beforeTick(Uint32 engineTicks) {
     transferInput(engineTicks);
-    handleDuckStart();
+    handleDuckStart(engineTicks);
     handleDuckEnd();
     handleJumpCharge(engineTicks);
     handleJumpRelease(engineTicks);
 }
 
-void trippin::Goggin::handleDuckStart() {
+void trippin::Goggin::handleDuckStart(Uint32 engineTicks) {
     if (input.duckStart) {
         rememberDuckStart = true;
     }
@@ -96,6 +103,7 @@ void trippin::Goggin::handleDuckStart() {
         if ((state == running || state == landing) && platformCollisions.testBottom()) {
             rememberDuckStart = false;
             state = ducking;
+            lastDuckTicks = engineTicks;
             ticks = 0;
             frames.frame = FRAME_DUCKING;
             acceleration.x = 0;
@@ -160,6 +168,17 @@ void trippin::Goggin::handleJumpRelease(Uint32 engineTicks) {
                 jumpVelocity = jumpVel;
             }
             consecutiveJumps++;
+            if (consecutiveJumps == 2) {
+                lastDoubleJumpTicks = engineTicks;
+            }
+            lastJumpTicks = engineTicks;
+            if (jumpPercent == 1.0) {
+                if (maxEffective == maxDuckJumpVelocity) {
+                    lastDuckJumpTicks = engineTicks;
+                } else {
+                    lastChargedJumpTicks = engineTicks;
+                }
+            }
             enqueueJumpSound(engineTicks);
             acceleration.x = risingAcceleration;
             ticks = 0;
@@ -428,9 +447,9 @@ double trippin::Goggin::getJumpCharge() const {
 }
 
 void trippin::Goggin::enqueueJumpSound(Uint32 engineTicks) {
-    if (engineTicks - lastJumpTicks >= jumpSoundTimeoutTicks) {
+    if (engineTicks - lastJumpSoundTicks >= jumpSoundTimeoutTicks) {
         soundChannel.set({true});
-        lastJumpTicks = engineTicks;
+        lastJumpSoundTicks = engineTicks;
     }
 }
 
@@ -492,4 +511,24 @@ void trippin::Goggin::addPointCloud(int points, Uint32 ticks) {
     auto yDist = pointCloudDistanceMin.y + toInt(yRand * yRange);
     pointClouds[nextPointCloudPos] = {{x, y}, {x, y}, {xDist, yDist}, points, ticks};
     nextPointCloudPos = (nextPointCloudPos + 1) % pointClouds.size();
+}
+
+Uint32 trippin::Goggin::getLastJumpTicks() const {
+    return lastJumpTicks;
+}
+
+Uint32 trippin::Goggin::getLastDuckTicks() const {
+    return lastDuckTicks;
+}
+
+Uint32 trippin::Goggin::getLastChargedJumpTicks() const {
+    return lastChargedJumpTicks;
+}
+
+Uint32 trippin::Goggin::getLastDuckJumpTicks() const {
+    return lastDuckJumpTicks;
+}
+
+Uint32 trippin::Goggin::getLastDoubleJumpTicks() const {
+    return lastDoubleJumpTicks;
 }

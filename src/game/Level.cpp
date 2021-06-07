@@ -39,6 +39,10 @@ void trippin::Level::setScore(int score) {
     scoreTicker.setScore(score);
 }
 
+void trippin::Level::setTraining(bool b) {
+    training = b;
+}
+
 void trippin::Level::initMap() {
     map.load(*mapName);
     map.rescale(scale->multiplier);
@@ -54,7 +58,9 @@ void trippin::Level::initEngine() {
     engine.setTickPeriod(configuration->tickPeriod);
     engine.setPlatformCollision(onAbsorbentCollision);
     engine.setObjectCollision(onElasticCollision1D);
-    engine.addListener(&spirit);
+    if (!training) {
+        engine.addListener(&spirit);
+    }
 
     for (auto &layer : map.layers) {
         auto uptr = std::make_unique<Layer>();
@@ -98,7 +104,8 @@ void trippin::Level::initEngine() {
             uptr->init(*configuration, obj, spriteManager->get(obj.type));
             engine.add(uptr.get());
             objects.push_back(std::move(uptr));
-        } else if (obj.type == "zombie" || obj.type == "rat" || obj.type == "bird" || obj.type == "ball" || obj.type == "brick") {
+        } else if (obj.type == "zombie" || obj.type == "rat" || obj.type == "bird" || obj.type == "ball" ||
+                   obj.type == "brick") {
             auto uptr = std::make_unique<GameObject>();
             uptr->setActivation(&activation);
             uptr->setGoggin(goggin);
@@ -122,24 +129,31 @@ void trippin::Level::initEngine() {
     spirit.setVelocity(goggin.terminalVelocity.x);
     spirit.delay(configuration->spiritSecondsBehind);
 
+    auto &jumpMeterSprite = spriteManager->get("winged_foot");
+    jumpMeter.setSprite(jumpMeterSprite);
+    jumpMeter.setGoggin(goggin);
+    jumpMeter.setPosition({map.meterMargin, map.meterMargin});
+    jumpMeter.init();
+    engine.addListener(&jumpMeter);
+
     auto &timerSprite = spriteManager->get("clock_timer");
     spiritClock.setGoggin(goggin);
     spiritClock.setSpirit(spirit);
-    spiritClock.setPosition({map.meterMargin, map.meterMargin});
+    spiritClock.setPosition({map.meterMargin, map.meterMargin + jumpMeterSprite.getSize().y});
     spiritClock.setPadding(spriteManager->get("ground_melt_left").getSize().x);
     spiritClock.init(*configuration, timerSprite);
     engine.addListener(&spiritClock);
-
-    jumpMeter.setSprite(spriteManager->get("winged_foot"));
-    jumpMeter.setGoggin(goggin);
-    jumpMeter.setPosition({map.meterMargin, map.meterMargin + timerSprite.getSize().y});
-    jumpMeter.init();
-    engine.addListener(&jumpMeter);
 
     activation.setUniverse(map.universe);
     activation.setActivationProximity(toInt(configuration->activationProximity * scale->multiplier));
     activation.setDeactivationProximity(toInt(configuration->deactivationProximity * scale->multiplier));
     activation.setGoggin(&goggin);
+
+    if (training) {
+        trainingProgram = std::make_unique<TrainingProgram>(
+                windowSize, *configuration, *spriteManager, *soundManager, goggin);
+        engine.addListener(trainingProgram.get());
+    }
 }
 
 void trippin::Level::init() {
@@ -154,12 +168,16 @@ void trippin::Level::render(GogginInput input) {
     for (auto &obj : objects) {
         obj->render(camera);
     }
-
     goggin.render(camera);
-    spiritClock.render(camera);
+    if (!training) {
+        spiritClock.render(camera);
+        scoreTicker.render(camera);
+        lifeMeter->render(camera);
+    }
     jumpMeter.render(camera);
-    scoreTicker.render(camera);
-    lifeMeter->render(camera);
+    if (training) {
+        trainingProgram->render();
+    }
 }
 
 void trippin::Level::start() {
@@ -172,7 +190,9 @@ bool trippin::Level::ended() {
 }
 
 bool trippin::Level::completed() {
-    return goggin.rightOfUniverse();
+    return training
+           ? goggin.rightOfUniverse() || trainingProgram->completed()
+           : goggin.rightOfUniverse();
 }
 
 void trippin::Level::stop() {
@@ -196,4 +216,3 @@ void trippin::Level::pause() {
 void trippin::Level::resume() {
     engine.resume();
 }
-

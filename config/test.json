@@ -12,6 +12,7 @@
   "shakeHertz": 60,
   "shakeAmplitude": 64,
   "loadMap": "map_load",
+  "trainMap": "map_train",
   "loadAutoPlay": "test",
   "maps": [
     "map_training",

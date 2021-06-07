@@ -33,6 +33,12 @@ sprites = [
     'bird',
     'trippin',
     'start',
+    'train',
+    'jump',
+    'duck',
+    'charged_jump',
+    'charged_duck_jump',
+    'double_jump',
     'high_score',
     'save_score',
     'exit',
@@ -49,7 +55,7 @@ sprites = [
     'goggin_head'
 ]
 
-levels = ['map_ground_melt', 'map_minimal', 'map_test', 'map_load', 'map_training']
+levels = ['map_ground_melt', 'map_minimal', 'map_test', 'map_load', 'map_training', 'map_train']
 
 dir_raw = 'raw'
 dir_svgs = 'svgs'

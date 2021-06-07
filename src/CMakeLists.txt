@@ -98,6 +98,7 @@ add_library(Game
         game/SpiritClock.cpp
         game/Spirit.cpp
         game/GameObject.cpp
+        game/TrainingProgram.cpp
         game/RunningClock.cpp
         game/Activation.cpp
         game/Layer.cpp

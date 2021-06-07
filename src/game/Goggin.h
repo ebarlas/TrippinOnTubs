@@ -36,6 +36,11 @@ namespace trippin {
         void onUserInput(const GogginInput &input);
         double getJumpCharge() const;
         void addPointCloud(int points, Uint32 ticks);
+        Uint32 getLastJumpTicks() const;
+        Uint32 getLastDuckTicks() const;
+        Uint32 getLastChargedJumpTicks() const;
+        Uint32 getLastDuckJumpTicks() const;
+        Uint32 getLastDoubleJumpTicks() const;
     private:
         struct Dust {
             Point<int> position;
@@ -159,7 +164,13 @@ namespace trippin {
         SoundManager *soundManager;
         Mix_Chunk *jumpSound;
         int jumpSoundTimeoutTicks;
+        Uint32 lastJumpSoundTicks;
+
         Uint32 lastJumpTicks;
+        Uint32 lastChargedJumpTicks;
+        Uint32 lastDuckJumpTicks;
+        Uint32 lastDuckTicks;
+        Uint32 lastDoubleJumpTicks;
 
         void onFalling(Uint32 engineTicks);
         void onLanding(Uint32 engineTicks);
@@ -176,7 +187,7 @@ namespace trippin {
         void enqueueJumpSound(Uint32 engineTicks);
         void transferInput(Uint32 engineTicks);
 
-        void handleDuckStart();
+        void handleDuckStart(Uint32 engineTicks);
         void handleDuckEnd();
         void handleJumpCharge(Uint32 engineTicks);
         void handleJumpRelease(Uint32 engineTicks);

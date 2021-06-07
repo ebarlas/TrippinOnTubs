@@ -5,6 +5,14 @@ trippin::Interpolator::Interpolator(Uint32 duration, int magnitude)
 
 }
 
+void trippin::Interpolator::setDuration(Uint32 dur) {
+    duration = dur;
+}
+
+void trippin::Interpolator::setMagnitude(int mag) {
+    magnitude = mag;
+}
+
 void trippin::Interpolator::reset() {
     firstTick = SDL_GetTicks();
 }

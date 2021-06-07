@@ -30,6 +30,7 @@ namespace trippin {
         Point<int> healthBarSize;
         std::vector<std::string> maps;
         std::string loadMap;
+        std::string trainMap;
         std::string loadAutoPlay;
         std::vector<Scale> scales;
         Db db;

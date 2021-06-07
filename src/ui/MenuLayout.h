@@ -11,8 +11,9 @@ namespace trippin {
     template<std::size_t N>
     class MenuLayout {
     public:
+        MenuLayout(Point<int> windowSize, Uint32 duration);
         void setSprite(int index, const Sprite *sprite);
-        void init(const Point<int> &windowSize, Uint32 duration);
+        void init();
         void reset();
         void render();
         bool contains(int index, Point<int> point) const;
@@ -21,10 +22,17 @@ namespace trippin {
             const Sprite *sprite;
             Point<int> position;
         };
+        Point<int> windowSize;
         std::array<Item, N> items;
-        std::unique_ptr<Interpolator> interpolator;
-        const Item& maxItem() const;
+        Interpolator interpolator;
+        const Item &maxItem() const;
     };
+}
+
+template<std::size_t N>
+trippin::MenuLayout<N>::MenuLayout(Point<int> windowSize, Uint32 duration)
+        : windowSize(windowSize), interpolator(duration) {
+
 }
 
 template<std::size_t N>
@@ -33,7 +41,7 @@ void trippin::MenuLayout<N>::setSprite(int index, const Sprite *sprite) {
 }
 
 template<std::size_t N>
-void trippin::MenuLayout<N>::init(const Point<int> &windowSize, Uint32 duration) {
+void trippin::MenuLayout<N>::init() {
     int menuHeight = 0;
     for (auto &item : items) {
         menuHeight += item.sprite->getSize().y;
@@ -47,18 +55,18 @@ void trippin::MenuLayout<N>::init(const Point<int> &windowSize, Uint32 duration)
     }
 
     auto &max = maxItem();
-    interpolator = std::make_unique<Interpolator>(duration, max.position.x + max.sprite->getSize().x);
+    interpolator.setMagnitude(max.position.x + max.sprite->getSize().x);
 }
 
 template<std::size_t N>
 void trippin::MenuLayout<N>::reset() {
-    interpolator->reset();
+    interpolator.reset();
 }
 
 template<std::size_t N>
 void trippin::MenuLayout<N>::render() {
     auto &max = maxItem();
-    int x = interpolator->interpolate() - max.sprite->getSize().x;
+    int x = interpolator.interpolate() - max.sprite->getSize().x;
     for (auto &item : items) {
         Point<int> p{x + item.position.x - max.position.x, item.position.y};
         item.sprite->render(p, 0);
