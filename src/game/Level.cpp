@@ -186,7 +186,7 @@ void trippin::Level::start() {
 }
 
 bool trippin::Level::ended() {
-    return goggin.belowUniverse();
+    return goggin.belowUniverse() || goggin.rightOfUniverse();
 }
 
 bool trippin::Level::completed() {
