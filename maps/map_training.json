@@ -2611,6 +2611,78 @@
     },
     {
       "id": 256,
+      "type": "bird",
+      "platform": false,
+      "position": {
+        "x": 2560,
+        "y": 4080
+      },
+      "velocity": {
+        "x": -50.0,
+        "y": 0.0
+      },
+      "terminalVelocity": {
+        "x": 125.0,
+        "y": 1125.0
+      },
+      "runningAcceleration": -150.0,
+      "risingAcceleration": 150.0,
+      "lane": 2,
+      "hitPoints": 2,
+      "stompable": true,
+      "bottomStompable": true,
+      "randFrame": true
+    },
+    {
+      "id": 257,
+      "type": "bird",
+      "platform": false,
+      "position": {
+        "x": 2680,
+        "y": 4040
+      },
+      "velocity": {
+        "x": -50.0,
+        "y": 0.0
+      },
+      "terminalVelocity": {
+        "x": 125.0,
+        "y": 1125.0
+      },
+      "runningAcceleration": -150.0,
+      "risingAcceleration": 150.0,
+      "lane": 2,
+      "hitPoints": 2,
+      "stompable": true,
+      "bottomStompable": true,
+      "randFrame": true
+    },
+    {
+      "id": 258,
+      "type": "bird",
+      "platform": false,
+      "position": {
+        "x": 2800,
+        "y": 4140
+      },
+      "velocity": {
+        "x": -50.0,
+        "y": 0.0
+      },
+      "terminalVelocity": {
+        "x": 125.0,
+        "y": 1125.0
+      },
+      "runningAcceleration": -150.0,
+      "risingAcceleration": 150.0,
+      "lane": 2,
+      "hitPoints": 2,
+      "stompable": true,
+      "bottomStompable": true,
+      "randFrame": true
+    },
+    {
+      "id": 259,
       "type": "brick",
       "platform": false,
       "position": {
@@ -2631,7 +2703,7 @@
       "stompable": true
     },
     {
-      "id": 257,
+      "id": 260,
       "type": "brick",
       "platform": false,
       "position": {
@@ -2653,7 +2725,7 @@
       "stompable": true
     },
     {
-      "id": 258,
+      "id": 261,
       "type": "brick",
       "platform": false,
       "position": {
@@ -2674,7 +2746,7 @@
       "stompable": true
     },
     {
-      "id": 259,
+      "id": 262,
       "type": "brick",
       "platform": false,
       "position": {
@@ -2697,7 +2769,7 @@
       "stompable": true
     },
     {
-      "id": 260,
+      "id": 263,
       "type": "brick",
       "platform": false,
       "position": {
@@ -2718,7 +2790,7 @@
       "stompable": true
     },
     {
-      "id": 261,
+      "id": 264,
       "type": "brick",
       "platform": false,
       "position": {
@@ -2739,7 +2811,7 @@
       "stompable": true
     },
     {
-      "id": 262,
+      "id": 265,
       "type": "brick",
       "platform": false,
       "position": {
@@ -2760,7 +2832,7 @@
       "stompable": true
     },
     {
-      "id": 263,
+      "id": 266,
       "type": "brick",
       "platform": false,
       "position": {
@@ -2783,7 +2855,7 @@
       "stompable": true
     },
     {
-      "id": 264,
+      "id": 267,
       "type": "brick",
       "platform": false,
       "position": {
@@ -2806,7 +2878,7 @@
       "stompable": true
     },
     {
-      "id": 265,
+      "id": 268,
       "type": "brick",
       "platform": false,
       "position": {
@@ -2829,7 +2901,7 @@
       "stompable": true
     },
     {
-      "id": 266,
+      "id": 269,
       "type": "brick",
       "platform": false,
       "position": {
@@ -2852,7 +2924,7 @@
       "stompable": true
     },
     {
-      "id": 267,
+      "id": 270,
       "type": "brick",
       "platform": false,
       "position": {
@@ -2875,7 +2947,7 @@
       "stompable": true
     },
     {
-      "id": 268,
+      "id": 271,
       "type": "brick",
       "platform": false,
       "position": {
@@ -2898,7 +2970,7 @@
       "stompable": true
     },
     {
-      "id": 269,
+      "id": 272,
       "type": "brick",
       "platform": false,
       "position": {
@@ -2921,7 +2993,7 @@
       "stompable": true
     },
     {
-      "id": 270,
+      "id": 273,
       "type": "brick",
       "platform": false,
       "position": {
@@ -2944,7 +3016,7 @@
       "stompable": true
     },
     {
-      "id": 271,
+      "id": 274,
       "type": "brick",
       "platform": false,
       "position": {
@@ -2966,7 +3038,7 @@
       "stompable": true
     },
     {
-      "id": 272,
+      "id": 275,
       "type": "brick",
       "platform": false,
       "position": {
@@ -2988,7 +3060,7 @@
       "stompable": true
     },
     {
-      "id": 273,
+      "id": 276,
       "type": "brick",
       "platform": false,
       "position": {
@@ -3010,7 +3082,7 @@
       "stompable": true
     },
     {
-      "id": 274,
+      "id": 277,
       "type": "brick",
       "platform": false,
       "position": {
@@ -3032,7 +3104,7 @@
       "stompable": true
     },
     {
-      "id": 275,
+      "id": 278,
       "type": "brick",
       "platform": false,
       "position": {
@@ -3054,7 +3126,7 @@
       "stompable": true
     },
     {
-      "id": 276,
+      "id": 279,
       "type": "winged_tub",
       "platform": false,
       "position": {
@@ -3064,7 +3136,7 @@
       "sparkle": true
     },
     {
-      "id": 277,
+      "id": 280,
       "type": "winged_tub",
       "platform": false,
       "position": {
@@ -3073,7 +3145,7 @@
       }
     },
     {
-      "id": 278,
+      "id": 281,
       "type": "winged_tub",
       "platform": false,
       "position": {
@@ -3082,7 +3154,7 @@
       }
     },
     {
-      "id": 279,
+      "id": 282,
       "type": "winged_tub",
       "platform": false,
       "position": {
@@ -3092,7 +3164,7 @@
       "sparkle": true
     },
     {
-      "id": 280,
+      "id": 283,
       "type": "winged_tub",
       "platform": false,
       "position": {
@@ -3101,7 +3173,7 @@
       }
     },
     {
-      "id": 281,
+      "id": 284,
       "type": "winged_tub",
       "platform": false,
       "position": {
@@ -3110,7 +3182,7 @@
       }
     },
     {
-      "id": 282,
+      "id": 285,
       "type": "winged_tub",
       "platform": false,
       "position": {
@@ -3119,80 +3191,11 @@
       }
     },
     {
-      "id": 283,
-      "type": "ball",
-      "platform": false,
-      "position": {
-        "x": 4277,
-        "y": 4243
-      },
-      "velocity": {
-        "x": 0.0,
-        "y": 0.0
-      },
-      "terminalVelocity": {
-        "x": 800.0,
-        "y": 800.0
-      },
-      "gravity": 1000.0,
-      "fallGravity": 1000.0,
-      "coefficient": 0.9,
-      "hitPoints": 3,
-      "stompable": true,
-      "elasticObjectCollisions": true
-    },
-    {
-      "id": 284,
-      "type": "ball",
-      "platform": false,
-      "position": {
-        "x": 4452,
-        "y": 4243
-      },
-      "velocity": {
-        "x": 0.0,
-        "y": 0.0
-      },
-      "terminalVelocity": {
-        "x": 800.0,
-        "y": 800.0
-      },
-      "gravity": 1000.0,
-      "fallGravity": 1000.0,
-      "coefficient": 0.9,
-      "hitPoints": 3,
-      "stompable": true,
-      "elasticObjectCollisions": true
-    },
-    {
-      "id": 285,
-      "type": "ball",
-      "platform": false,
-      "position": {
-        "x": 4200,
-        "y": 4243
-      },
-      "velocity": {
-        "x": 0.0,
-        "y": 0.0
-      },
-      "terminalVelocity": {
-        "x": 800.0,
-        "y": 800.0
-      },
-      "gravity": 1000.0,
-      "fallGravity": 1000.0,
-      "coefficient": 0.9,
-      "hitPoints": 3,
-      "stompable": true,
-      "elasticObjectCollisions": true
-    },
-    {
       "id": 286,
       "type": "ball",
       "platform": false,
       "position": {
-        "x": 4137,
+        "x": 4275,
         "y": 4243
       },
       "velocity": {
@@ -3215,7 +3218,7 @@
       "type": "ball",
       "platform": false,
       "position": {
-        "x": 4017,
+        "x": 4405,
         "y": 4243
       },
       "velocity": {
@@ -3238,7 +3241,7 @@
       "type": "ball",
       "platform": false,
       "position": {
-        "x": 4370,
+        "x": 4210,
         "y": 4243
       },
       "velocity": {
@@ -3261,7 +3264,7 @@
       "type": "ball",
       "platform": false,
       "position": {
-        "x": 4080,
+        "x": 4145,
         "y": 4243
       },
       "velocity": {
@@ -3281,6 +3284,75 @@
     },
     {
       "id": 290,
+      "type": "ball",
+      "platform": false,
+      "position": {
+        "x": 4015,
+        "y": 4243
+      },
+      "velocity": {
+        "x": 0.0,
+        "y": 0.0
+      },
+      "terminalVelocity": {
+        "x": 800.0,
+        "y": 800.0
+      },
+      "gravity": 1000.0,
+      "fallGravity": 1000.0,
+      "coefficient": 0.9,
+      "hitPoints": 3,
+      "stompable": true,
+      "elasticObjectCollisions": true
+    },
+    {
+      "id": 291,
+      "type": "ball",
+      "platform": false,
+      "position": {
+        "x": 4340,
+        "y": 4243
+      },
+      "velocity": {
+        "x": 0.0,
+        "y": 0.0
+      },
+      "terminalVelocity": {
+        "x": 800.0,
+        "y": 800.0
+      },
+      "gravity": 1000.0,
+      "fallGravity": 1000.0,
+      "coefficient": 0.9,
+      "hitPoints": 3,
+      "stompable": true,
+      "elasticObjectCollisions": true
+    },
+    {
+      "id": 292,
+      "type": "ball",
+      "platform": false,
+      "position": {
+        "x": 4080,
+        "y": 4243
+      },
+      "velocity": {
+        "x": 0.0,
+        "y": 0.0
+      },
+      "terminalVelocity": {
+        "x": 800.0,
+        "y": 800.0
+      },
+      "gravity": 1000.0,
+      "fallGravity": 1000.0,
+      "coefficient": 0.9,
+      "hitPoints": 3,
+      "stompable": true,
+      "elasticObjectCollisions": true
+    },
+    {
+      "id": 293,
       "type": "zombie",
       "platform": false,
       "position": {
@@ -3301,7 +3373,7 @@
       "topStompable": true
     },
     {
-      "id": 291,
+      "id": 294,
       "type": "zombie",
       "platform": false,
       "position": {
@@ -3322,7 +3394,7 @@
       "topStompable": true
     },
     {
-      "id": 292,
+      "id": 295,
       "type": "zombie",
       "platform": false,
       "position": {
@@ -3343,7 +3415,7 @@
       "topStompable": true
     },
     {
-      "id": 293,
+      "id": 296,
       "type": "rat",
       "platform": false,
       "position": {
@@ -3369,7 +3441,7 @@
       "topStompable": true
     },
     {
-      "id": 294,
+      "id": 297,
       "type": "rat",
       "platform": false,
       "position": {
@@ -3395,7 +3467,7 @@
       "topStompable": true
     },
     {
-      "id": 295,
+      "id": 298,
       "type": "rat",
       "platform": false,
       "position": {
@@ -3421,7 +3493,7 @@
       "topStompable": true
     },
     {
-      "id": 296,
+      "id": 299,
       "type": "rat",
       "platform": false,
       "position": {
@@ -3447,7 +3519,7 @@
       "topStompable": true
     },
     {
-      "id": 297,
+      "id": 300,
       "type": "rat",
       "platform": false,
       "position": {
@@ -3473,7 +3545,7 @@
       "topStompable": true
     },
     {
-      "id": 298,
+      "id": 301,
       "type": "rat",
       "platform": false,
       "position": {
@@ -3499,7 +3571,7 @@
       "topStompable": true
     },
     {
-      "id": 299,
+      "id": 302,
       "type": "rat",
       "platform": false,
       "position": {
@@ -3525,7 +3597,7 @@
       "topStompable": true
     },
     {
-      "id": 300,
+      "id": 303,
       "type": "rat",
       "platform": false,
       "position": {
@@ -3551,7 +3623,7 @@
       "topStompable": true
     },
     {
-      "id": 301,
+      "id": 304,
       "type": "rat",
       "platform": false,
       "position": {
@@ -3577,7 +3649,7 @@
       "topStompable": true
     },
     {
-      "id": 302,
+      "id": 305,
       "type": "rat",
       "platform": false,
       "position": {
@@ -3603,7 +3675,7 @@
       "topStompable": true
     },
     {
-      "id": 303,
+      "id": 306,
       "type": "rat",
       "platform": false,
       "position": {
@@ -3629,7 +3701,7 @@
       "topStompable": true
     },
     {
-      "id": 304,
+      "id": 307,
       "type": "rat",
       "platform": false,
       "position": {
@@ -3655,7 +3727,7 @@
       "topStompable": true
     },
     {
-      "id": 305,
+      "id": 308,
       "type": "rat",
       "platform": false,
       "position": {
@@ -3681,7 +3753,7 @@
       "topStompable": true
     },
     {
-      "id": 306,
+      "id": 309,
       "type": "rat",
       "platform": false,
       "position": {
@@ -3707,7 +3779,7 @@
       "topStompable": true
     },
     {
-      "id": 307,
+      "id": 310,
       "type": "rat",
       "platform": false,
       "position": {
@@ -3733,7 +3805,7 @@
       "topStompable": true
     },
     {
-      "id": 308,
+      "id": 311,
       "type": "rat",
       "platform": false,
       "position": {
@@ -3759,7 +3831,7 @@
       "topStompable": true
     },
     {
-      "id": 309,
+      "id": 312,
       "type": "rat",
       "platform": false,
       "position": {
@@ -3785,7 +3857,7 @@
       "topStompable": true
     },
     {
-      "id": 310,
+      "id": 313,
       "type": "rat",
       "platform": false,
       "position": {
@@ -3811,7 +3883,7 @@
       "topStompable": true
     },
     {
-      "id": 311,
+      "id": 314,
       "type": "rat",
       "platform": false,
       "position": {
@@ -3837,7 +3909,7 @@
       "topStompable": true
     },
     {
-      "id": 312,
+      "id": 315,
       "type": "rat",
       "platform": false,
       "position": {
@@ -3863,7 +3935,7 @@
       "topStompable": true
     },
     {
-      "id": 313,
+      "id": 316,
       "type": "rat",
       "platform": false,
       "position": {
@@ -3889,7 +3961,7 @@
       "topStompable": true
     },
     {
-      "id": 314,
+      "id": 317,
       "type": "rat",
       "platform": false,
       "position": {
@@ -3915,7 +3987,7 @@
       "topStompable": true
     },
     {
-      "id": 315,
+      "id": 318,
       "type": "rat",
       "platform": false,
       "position": {
@@ -3941,7 +4013,7 @@
       "topStompable": true
     },
     {
-      "id": 316,
+      "id": 319,
       "type": "rat",
       "platform": false,
       "position": {
@@ -3967,7 +4039,7 @@
       "topStompable": true
     },
     {
-      "id": 317,
+      "id": 320,
       "type": "rat",
       "platform": false,
       "position": {
@@ -3993,7 +4065,7 @@
       "topStompable": true
     },
     {
-      "id": 318,
+      "id": 321,
       "type": "rat",
       "platform": false,
       "position": {
@@ -4019,7 +4091,7 @@
       "topStompable": true
     },
     {
-      "id": 319,
+      "id": 322,
       "type": "rat",
       "platform": false,
       "position": {
@@ -4045,7 +4117,7 @@
       "topStompable": true
     },
     {
-      "id": 320,
+      "id": 323,
       "type": "rat",
       "platform": false,
       "position": {
@@ -4071,7 +4143,7 @@
       "topStompable": true
     },
     {
-      "id": 321,
+      "id": 324,
       "type": "rat",
       "platform": false,
       "position": {
@@ -4097,7 +4169,7 @@
       "topStompable": true
     },
     {
-      "id": 322,
+      "id": 325,
       "type": "rat",
       "platform": false,
       "position": {
@@ -4123,7 +4195,7 @@
       "topStompable": true
     },
     {
-      "id": 323,
+      "id": 326,
       "type": "rat",
       "platform": false,
       "position": {
@@ -4149,7 +4221,7 @@
       "topStompable": true
     },
     {
-      "id": 324,
+      "id": 327,
       "type": "rat",
       "platform": false,
       "position": {
@@ -4175,7 +4247,7 @@
       "topStompable": true
     },
     {
-      "id": 325,
+      "id": 328,
       "type": "rat",
       "platform": false,
       "position": {
@@ -4201,7 +4273,7 @@
       "topStompable": true
     },
     {
-      "id": 326,
+      "id": 329,
       "type": "rat",
       "platform": false,
       "position": {
@@ -4227,7 +4299,7 @@
       "topStompable": true
     },
     {
-      "id": 327,
+      "id": 330,
       "type": "rat",
       "platform": false,
       "position": {
@@ -4253,7 +4325,7 @@
       "topStompable": true
     },
     {
-      "id": 328,
+      "id": 331,
       "type": "rat",
       "platform": false,
       "position": {
@@ -4279,7 +4351,7 @@
       "topStompable": true
     },
     {
-      "id": 329,
+      "id": 332,
       "type": "rat",
       "platform": false,
       "position": {
@@ -4305,7 +4377,7 @@
       "topStompable": true
     },
     {
-      "id": 330,
+      "id": 333,
       "type": "rat",
       "platform": false,
       "position": {
@@ -4331,7 +4403,7 @@
       "topStompable": true
     },
     {
-      "id": 331,
+      "id": 334,
       "type": "rat",
       "platform": false,
       "position": {
@@ -4357,7 +4429,7 @@
       "topStompable": true
     },
     {
-      "id": 332,
+      "id": 335,
       "type": "rat",
       "platform": false,
       "position": {
@@ -4383,7 +4455,7 @@
       "topStompable": true
     },
     {
-      "id": 333,
+      "id": 336,
       "type": "rat",
       "platform": false,
       "position": {
@@ -4409,7 +4481,7 @@
       "topStompable": true
     },
     {
-      "id": 334,
+      "id": 337,
       "type": "rat",
       "platform": false,
       "position": {
@@ -4435,7 +4507,7 @@
       "topStompable": true
     },
     {
-      "id": 335,
+      "id": 338,
       "type": "rat",
       "platform": false,
       "position": {
@@ -4461,7 +4533,7 @@
       "topStompable": true
     },
     {
-      "id": 336,
+      "id": 339,
       "type": "rat",
       "platform": false,
       "position": {
@@ -4487,7 +4559,7 @@
       "topStompable": true
     },
     {
-      "id": 337,
+      "id": 340,
       "type": "rat",
       "platform": false,
       "position": {
@@ -4513,7 +4585,7 @@
       "topStompable": true
     },
     {
-      "id": 338,
+      "id": 341,
       "type": "rat",
       "platform": false,
       "position": {
@@ -4539,7 +4611,7 @@
       "topStompable": true
     },
     {
-      "id": 339,
+      "id": 342,
       "type": "rat",
       "platform": false,
       "position": {
@@ -4565,7 +4637,7 @@
       "topStompable": true
     },
     {
-      "id": 340,
+      "id": 343,
       "type": "rat",
       "platform": false,
       "position": {
@@ -4591,7 +4663,7 @@
       "topStompable": true
     },
     {
-      "id": 341,
+      "id": 344,
       "type": "rat",
       "platform": false,
       "position": {
@@ -4617,7 +4689,7 @@
       "topStompable": true
     },
     {
-      "id": 342,
+      "id": 345,
       "type": "rat",
       "platform": false,
       "position": {
@@ -4643,7 +4715,7 @@
       "topStompable": true
     },
     {
-      "id": 343,
+      "id": 346,
       "type": "rat",
       "platform": false,
       "position": {
@@ -4669,7 +4741,7 @@
       "topStompable": true
     },
     {
-      "id": 344,
+      "id": 347,
       "type": "rat",
       "platform": false,
       "position": {
@@ -4695,7 +4767,7 @@
       "topStompable": true
     },
     {
-      "id": 345,
+      "id": 348,
       "type": "rat",
       "platform": false,
       "position": {
@@ -4721,7 +4793,7 @@
       "topStompable": true
     },
     {
-      "id": 346,
+      "id": 349,
       "type": "rat",
       "platform": false,
       "position": {
@@ -4747,7 +4819,7 @@
       "topStompable": true
     },
     {
-      "id": 347,
+      "id": 350,
       "type": "rat",
       "platform": false,
       "position": {
@@ -4773,7 +4845,7 @@
       "topStompable": true
     },
     {
-      "id": 348,
+      "id": 351,
       "type": "rat",
       "platform": false,
       "position": {
@@ -4799,7 +4871,7 @@
       "topStompable": true
     },
     {
-      "id": 349,
+      "id": 352,
       "type": "rat",
       "platform": false,
       "position": {
@@ -4825,7 +4897,7 @@
       "topStompable": true
     },
     {
-      "id": 350,
+      "id": 353,
       "type": "rat",
       "platform": false,
       "position": {
@@ -4851,7 +4923,7 @@
       "topStompable": true
     },
     {
-      "id": 351,
+      "id": 354,
       "type": "rat",
       "platform": false,
       "position": {
@@ -4877,7 +4949,7 @@
       "topStompable": true
     },
     {
-      "id": 352,
+      "id": 355,
       "type": "rat",
       "platform": false,
       "position": {
@@ -4903,7 +4975,7 @@
       "topStompable": true
     },
     {
-      "id": 353,
+      "id": 356,
       "type": "rat",
       "platform": false,
       "position": {
@@ -4929,7 +5001,7 @@
       "topStompable": true
     },
     {
-      "id": 354,
+      "id": 357,
       "type": "rat",
       "platform": false,
       "position": {
@@ -4955,7 +5027,7 @@
       "topStompable": true
     },
     {
-      "id": 355,
+      "id": 358,
       "type": "rat",
       "platform": false,
       "position": {
@@ -4981,7 +5053,7 @@
       "topStompable": true
     },
     {
-      "id": 356,
+      "id": 359,
       "type": "rat",
       "platform": false,
       "position": {
@@ -5007,7 +5079,7 @@
       "topStompable": true
     },
     {
-      "id": 357,
+      "id": 360,
       "type": "rat",
       "platform": false,
       "position": {
@@ -5033,7 +5105,7 @@
       "topStompable": true
     },
     {
-      "id": 358,
+      "id": 361,
       "type": "rat",
       "platform": false,
       "position": {
@@ -5059,7 +5131,7 @@
       "topStompable": true
     },
     {
-      "id": 359,
+      "id": 362,
       "type": "rat",
       "platform": false,
       "position": {
@@ -5085,7 +5157,7 @@
       "topStompable": true
     },
     {
-      "id": 360,
+      "id": 363,
       "type": "rat",
       "platform": false,
       "position": {
@@ -5111,7 +5183,7 @@
       "topStompable": true
     },
     {
-      "id": 361,
+      "id": 364,
       "type": "rat",
       "platform": false,
       "position": {
@@ -5137,7 +5209,7 @@
       "topStompable": true
     },
     {
-      "id": 362,
+      "id": 365,
       "type": "rat",
       "platform": false,
       "position": {
@@ -5163,7 +5235,7 @@
       "topStompable": true
     },
     {
-      "id": 363,
+      "id": 366,
       "type": "rat",
       "platform": false,
       "position": {
@@ -5189,7 +5261,7 @@
       "topStompable": true
     },
     {
-      "id": 364,
+      "id": 367,
       "type": "rat",
       "platform": false,
       "position": {
@@ -5215,7 +5287,7 @@
       "topStompable": true
     },
     {
-      "id": 365,
+      "id": 368,
       "type": "rat",
       "platform": false,
       "position": {
@@ -5241,7 +5313,7 @@
       "topStompable": true
     },
     {
-      "id": 366,
+      "id": 369,
       "type": "rat",
       "platform": false,
       "position": {
@@ -5267,7 +5339,7 @@
       "topStompable": true
     },
     {
-      "id": 367,
+      "id": 370,
       "type": "rat",
       "platform": false,
       "position": {
@@ -5293,7 +5365,7 @@
       "topStompable": true
     },
     {
-      "id": 368,
+      "id": 371,
       "type": "rat",
       "platform": false,
       "position": {
@@ -5319,7 +5391,7 @@
       "topStompable": true
     },
     {
-      "id": 369,
+      "id": 372,
       "type": "rat",
       "platform": false,
       "position": {
@@ -5345,7 +5417,85 @@
       "topStompable": true
     },
     {
-      "id": 370,
+      "id": 373,
+      "type": "rat",
+      "platform": false,
+      "position": {
+        "x": 1750,
+        "y": 4130
+      },
+      "velocity": {
+        "x": -50.0,
+        "y": 0.0
+      },
+      "terminalVelocity": {
+        "x": 155.0,
+        "y": 1125.0
+      },
+      "massFactor": 0.75,
+      "gravity": 1000.0,
+      "fallGravity": 1500.0,
+      "runningAcceleration": -150.0,
+      "lane": 4,
+      "hitPoints": 3,
+      "accelerateWhenGrounded": true,
+      "stompable": true,
+      "topStompable": true
+    },
+    {
+      "id": 374,
+      "type": "rat",
+      "platform": false,
+      "position": {
+        "x": 1770,
+        "y": 4190
+      },
+      "velocity": {
+        "x": -50.0,
+        "y": 0.0
+      },
+      "terminalVelocity": {
+        "x": 155.0,
+        "y": 1125.0
+      },
+      "massFactor": 0.75,
+      "gravity": 1000.0,
+      "fallGravity": 1500.0,
+      "runningAcceleration": -150.0,
+      "lane": 4,
+      "hitPoints": 3,
+      "accelerateWhenGrounded": true,
+      "stompable": true,
+      "topStompable": true
+    },
+    {
+      "id": 375,
+      "type": "rat",
+      "platform": false,
+      "position": {
+        "x": 1770,
+        "y": 4010
+      },
+      "velocity": {
+        "x": -50.0,
+        "y": 0.0
+      },
+      "terminalVelocity": {
+        "x": 155.0,
+        "y": 1125.0
+      },
+      "massFactor": 0.75,
+      "gravity": 1000.0,
+      "fallGravity": 1500.0,
+      "runningAcceleration": -150.0,
+      "lane": 4,
+      "hitPoints": 3,
+      "accelerateWhenGrounded": true,
+      "stompable": true,
+      "topStompable": true
+    },
+    {
+      "id": 376,
       "type": "clock_timer",
       "platform": false,
       "position": {
@@ -5354,7 +5504,7 @@
       }
     },
     {
-      "id": 371,
+      "id": 377,
       "type": "winged_foot",
       "platform": false,
       "position": {
