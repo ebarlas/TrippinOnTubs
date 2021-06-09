@@ -38,6 +38,8 @@ namespace trippin {
             int frame{};
             bool accelerateWhenGrounded{};
             bool stompable{};
+            bool topStompable{};
+            bool bottomStompable{};
             double rightOf{};
             double rightMultiple{};
             bool randFrame{};

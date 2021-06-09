@@ -23,6 +23,8 @@ namespace trippin {
         int frame;
         bool accelerateWhenGrounded;
         bool stompable;
+        bool topStompable;
+        bool bottomStompable;
         bool stomped;
         double objectActivation;
         Goggin *goggin;

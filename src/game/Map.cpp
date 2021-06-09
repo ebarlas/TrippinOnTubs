@@ -143,6 +143,10 @@ void trippin::from_json(const nlohmann::json& j, Map::Object& obj) {
         j.at("accelerateWhenGrounded").get_to(obj.accelerateWhenGrounded);
     if (j.contains("stompable"))
         j.at("stompable").get_to(obj.stompable);
+    if (j.contains("topStompable"))
+        j.at("topStompable").get_to(obj.topStompable);
+    if (j.contains("bottomStompable"))
+        j.at("bottomStompable").get_to(obj.bottomStompable);
     if (j.contains("rightOf"))
         j.at("rightOf").get_to(obj.rightOf);
     if (j.contains("rightMultiple"))

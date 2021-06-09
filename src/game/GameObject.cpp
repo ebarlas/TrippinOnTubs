@@ -24,6 +24,8 @@ void trippin::GameObject::init(const Configuration &config, const Map::Object &o
         acceleration.x = obj.runningAcceleration;
     }
     stompable = obj.stompable;
+    topStompable = obj.topStompable;
+    bottomStompable = obj.bottomStompable;
     objectActivation = obj.activation;
     stomped = false;
     if (obj.randFrame) {
@@ -93,7 +95,7 @@ void trippin::GameObject::afterTick(Uint32 engineTicks) {
     if (stompable && !stomped && (engineTicks >= collisionTicks + coolDownTicks)) {
         auto collision = roundedBox.collision(goggin->roundedBox);
         if (collision) {
-            if (collision.testTop()) {
+            if ((topStompable && collision.testTop()) || (bottomStompable && collision.testBottom())) {
                 hitPoints = 0;
             } else {
                 hitPoints -= 1;

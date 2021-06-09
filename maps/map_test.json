@@ -1228,6 +1228,7 @@
       "lane": 1,
       "hitPoints": 2,
       "stompable": true,
+      "bottomStompable": true,
       "randFrame": true
     },
     {
@@ -1251,6 +1252,7 @@
       "lane": 1,
       "hitPoints": 2,
       "stompable": true,
+      "bottomStompable": true,
       "randFrame": true
     },
     {
@@ -1274,6 +1276,7 @@
       "lane": 1,
       "hitPoints": 2,
       "stompable": true,
+      "bottomStompable": true,
       "randFrame": true
     },
     {
@@ -1297,6 +1300,7 @@
       "lane": 1,
       "hitPoints": 2,
       "stompable": true,
+      "bottomStompable": true,
       "randFrame": true
     },
     {
@@ -1320,6 +1324,7 @@
       "lane": 1,
       "hitPoints": 2,
       "stompable": true,
+      "bottomStompable": true,
       "randFrame": true
     },
     {
@@ -1343,6 +1348,7 @@
       "lane": 1,
       "hitPoints": 2,
       "stompable": true,
+      "bottomStompable": true,
       "randFrame": true
     },
     {
@@ -1366,6 +1372,7 @@
       "lane": 1,
       "hitPoints": 2,
       "stompable": true,
+      "bottomStompable": true,
       "randFrame": true
     },
     {
@@ -1389,6 +1396,7 @@
       "lane": 1,
       "hitPoints": 2,
       "stompable": true,
+      "bottomStompable": true,
       "randFrame": true
     },
     {
@@ -1412,6 +1420,7 @@
       "lane": 1,
       "hitPoints": 2,
       "stompable": true,
+      "bottomStompable": true,
       "randFrame": true
     },
     {
@@ -1435,6 +1444,7 @@
       "lane": 1,
       "hitPoints": 2,
       "stompable": true,
+      "bottomStompable": true,
       "randFrame": true
     },
     {
@@ -1458,6 +1468,7 @@
       "lane": 2,
       "hitPoints": 2,
       "stompable": true,
+      "bottomStompable": true,
       "randFrame": true
     },
     {
@@ -1481,6 +1492,7 @@
       "lane": 1,
       "hitPoints": 2,
       "stompable": true,
+      "bottomStompable": true,
       "randFrame": true
     },
     {
@@ -1504,6 +1516,7 @@
       "lane": 3,
       "hitPoints": 2,
       "stompable": true,
+      "bottomStompable": true,
       "randFrame": true
     },
     {
@@ -1527,6 +1540,7 @@
       "lane": 4,
       "hitPoints": 2,
       "stompable": true,
+      "bottomStompable": true,
       "randFrame": true
     },
     {
@@ -1550,6 +1564,7 @@
       "lane": 5,
       "hitPoints": 2,
       "stompable": true,
+      "bottomStompable": true,
       "randFrame": true
     },
     {
@@ -1573,6 +1588,7 @@
       "lane": 6,
       "hitPoints": 2,
       "stompable": true,
+      "bottomStompable": true,
       "randFrame": true
     },
     {
@@ -1596,6 +1612,7 @@
       "lane": 2,
       "hitPoints": 2,
       "stompable": true,
+      "bottomStompable": true,
       "randFrame": true
     },
     {
@@ -1619,6 +1636,7 @@
       "lane": 1,
       "hitPoints": 2,
       "stompable": true,
+      "bottomStompable": true,
       "randFrame": true
     },
     {
@@ -1642,6 +1660,7 @@
       "lane": 3,
       "hitPoints": 2,
       "stompable": true,
+      "bottomStompable": true,
       "randFrame": true
     },
     {
@@ -1665,6 +1684,7 @@
       "lane": 4,
       "hitPoints": 2,
       "stompable": true,
+      "bottomStompable": true,
       "randFrame": true
     },
     {
@@ -1688,6 +1708,7 @@
       "lane": 5,
       "hitPoints": 2,
       "stompable": true,
+      "bottomStompable": true,
       "randFrame": true
     },
     {
@@ -1711,6 +1732,7 @@
       "lane": 6,
       "hitPoints": 2,
       "stompable": true,
+      "bottomStompable": true,
       "randFrame": true
     },
     {
@@ -1734,6 +1756,7 @@
       "lane": 2,
       "hitPoints": 2,
       "stompable": true,
+      "bottomStompable": true,
       "randFrame": true
     },
     {
@@ -1757,6 +1780,7 @@
       "lane": 1,
       "hitPoints": 2,
       "stompable": true,
+      "bottomStompable": true,
       "randFrame": true
     },
     {
@@ -1780,6 +1804,7 @@
       "lane": 3,
       "hitPoints": 2,
       "stompable": true,
+      "bottomStompable": true,
       "randFrame": true
     },
     {
@@ -1803,6 +1828,7 @@
       "lane": 4,
       "hitPoints": 2,
       "stompable": true,
+      "bottomStompable": true,
       "randFrame": true
     },
     {
@@ -1826,6 +1852,7 @@
       "lane": 5,
       "hitPoints": 2,
       "stompable": true,
+      "bottomStompable": true,
       "randFrame": true
     },
     {
@@ -1849,6 +1876,7 @@
       "lane": 6,
       "hitPoints": 2,
       "stompable": true,
+      "bottomStompable": true,
       "randFrame": true
     },
     {
@@ -1872,6 +1900,7 @@
       "lane": 2,
       "hitPoints": 2,
       "stompable": true,
+      "bottomStompable": true,
       "randFrame": true
     },
     {
@@ -1895,6 +1924,7 @@
       "lane": 1,
       "hitPoints": 2,
       "stompable": true,
+      "bottomStompable": true,
       "randFrame": true
     },
     {
@@ -1918,6 +1948,7 @@
       "lane": 3,
       "hitPoints": 2,
       "stompable": true,
+      "bottomStompable": true,
       "randFrame": true
     },
     {
@@ -1941,6 +1972,7 @@
       "lane": 4,
       "hitPoints": 2,
       "stompable": true,
+      "bottomStompable": true,
       "randFrame": true
     },
     {
@@ -1964,6 +1996,7 @@
       "lane": 5,
       "hitPoints": 2,
       "stompable": true,
+      "bottomStompable": true,
       "randFrame": true
     },
     {
@@ -1987,6 +2020,7 @@
       "lane": 6,
       "hitPoints": 2,
       "stompable": true,
+      "bottomStompable": true,
       "randFrame": true
     },
     {
@@ -2010,6 +2044,7 @@
       "lane": 2,
       "hitPoints": 2,
       "stompable": true,
+      "bottomStompable": true,
       "randFrame": true
     },
     {
@@ -2033,6 +2068,7 @@
       "lane": 1,
       "hitPoints": 2,
       "stompable": true,
+      "bottomStompable": true,
       "randFrame": true
     },
     {
@@ -2056,6 +2092,7 @@
       "lane": 3,
       "hitPoints": 2,
       "stompable": true,
+      "bottomStompable": true,
       "randFrame": true
     },
     {
@@ -2079,6 +2116,7 @@
       "lane": 4,
       "hitPoints": 2,
       "stompable": true,
+      "bottomStompable": true,
       "randFrame": true
     },
     {
@@ -2102,6 +2140,7 @@
       "lane": 5,
       "hitPoints": 2,
       "stompable": true,
+      "bottomStompable": true,
       "randFrame": true
     },
     {
@@ -2125,6 +2164,7 @@
       "lane": 6,
       "hitPoints": 2,
       "stompable": true,
+      "bottomStompable": true,
       "randFrame": true
     },
     {
@@ -2144,7 +2184,9 @@
         "y": 0.0
       },
       "gravity": 1000.0,
-      "fallGravity": 1500.0
+      "fallGravity": 1500.0,
+      "hitPoints": 8,
+      "stompable": true
     },
     {
       "id": 171,
@@ -2163,7 +2205,9 @@
         "y": 0.0
       },
       "gravity": 1000.0,
-      "fallGravity": 1500.0
+      "fallGravity": 1500.0,
+      "hitPoints": 8,
+      "stompable": true
     },
     {
       "id": 172,
@@ -2182,7 +2226,9 @@
         "y": 0.0
       },
       "gravity": 1000.0,
-      "fallGravity": 1500.0
+      "fallGravity": 1500.0,
+      "hitPoints": 8,
+      "stompable": true
     },
     {
       "id": 173,
@@ -2203,7 +2249,9 @@
       "gravity": 1000.0,
       "fallGravity": 1500.0,
       "rightOf": 800.0,
-      "rightMultiple": 1.0
+      "rightMultiple": 1.0,
+      "hitPoints": 8,
+      "stompable": true
     },
     {
       "id": 174,
@@ -2222,7 +2270,9 @@
         "y": 0.0
       },
       "gravity": 1000.0,
-      "fallGravity": 1500.0
+      "fallGravity": 1500.0,
+      "hitPoints": 8,
+      "stompable": true
     },
     {
       "id": 175,
@@ -2241,7 +2291,9 @@
         "y": 0.0
       },
       "gravity": 1000.0,
-      "fallGravity": 1500.0
+      "fallGravity": 1500.0,
+      "hitPoints": 8,
+      "stompable": true
     },
     {
       "id": 176,
@@ -2260,7 +2312,9 @@
         "y": 0.0
       },
       "gravity": 1000.0,
-      "fallGravity": 1500.0
+      "fallGravity": 1500.0,
+      "hitPoints": 8,
+      "stompable": true
     },
     {
       "id": 177,
@@ -2281,7 +2335,9 @@
       "gravity": 1000.0,
       "fallGravity": 1500.0,
       "rightOf": 800.0,
-      "rightMultiple": 1.0
+      "rightMultiple": 1.0,
+      "hitPoints": 8,
+      "stompable": true
     },
     {
       "id": 178,
@@ -2302,7 +2358,9 @@
       "gravity": 1000.0,
       "fallGravity": 1500.0,
       "rightOf": 800.0,
-      "rightMultiple": 1.0
+      "rightMultiple": 1.0,
+      "hitPoints": 8,
+      "stompable": true
     },
     {
       "id": 179,
@@ -2323,7 +2381,9 @@
       "gravity": 1000.0,
       "fallGravity": 1500.0,
       "rightOf": 800.0,
-      "rightMultiple": 1.0
+      "rightMultiple": 1.0,
+      "hitPoints": 8,
+      "stompable": true
     },
     {
       "id": 180,
@@ -2344,7 +2404,9 @@
       "gravity": 1000.0,
       "fallGravity": 1500.0,
       "rightOf": 800.0,
-      "rightMultiple": 2.0
+      "rightMultiple": 2.0,
+      "hitPoints": 8,
+      "stompable": true
     },
     {
       "id": 181,
@@ -2365,7 +2427,9 @@
       "gravity": 1000.0,
       "fallGravity": 1500.0,
       "rightOf": 800.0,
-      "rightMultiple": 2.0
+      "rightMultiple": 2.0,
+      "hitPoints": 8,
+      "stompable": true
     },
     {
       "id": 182,
@@ -2386,7 +2450,9 @@
       "gravity": 1000.0,
       "fallGravity": 1500.0,
       "rightOf": 800.0,
-      "rightMultiple": 2.0
+      "rightMultiple": 2.0,
+      "hitPoints": 8,
+      "stompable": true
     },
     {
       "id": 183,
@@ -2407,7 +2473,9 @@
       "gravity": 1000.0,
       "fallGravity": 1500.0,
       "rightOf": 800.0,
-      "rightMultiple": 2.0
+      "rightMultiple": 2.0,
+      "hitPoints": 8,
+      "stompable": true
     },
     {
       "id": 184,
@@ -2428,7 +2496,9 @@
       "gravity": 1000.0,
       "fallGravity": 1500.0,
       "rightOf": 800.0,
-      "rightMultiple": 2.0
+      "rightMultiple": 2.0,
+      "hitPoints": 8,
+      "stompable": true
     },
     {
       "id": 185,
@@ -2448,7 +2518,9 @@
       },
       "gravity": 1000.0,
       "fallGravity": 1500.0,
-      "activation": 300.0
+      "activation": 300.0,
+      "hitPoints": 8,
+      "stompable": true
     },
     {
       "id": 186,
@@ -2468,7 +2540,9 @@
       },
       "gravity": 1000.0,
       "fallGravity": 1500.0,
-      "activation": 300.0
+      "activation": 300.0,
+      "hitPoints": 8,
+      "stompable": true
     },
     {
       "id": 187,
@@ -2488,7 +2562,9 @@
       },
       "gravity": 1000.0,
       "fallGravity": 1500.0,
-      "activation": 300.0
+      "activation": 300.0,
+      "hitPoints": 8,
+      "stompable": true
     },
     {
       "id": 188,
@@ -2508,7 +2584,9 @@
       },
       "gravity": 1000.0,
       "fallGravity": 1500.0,
-      "activation": 300.0
+      "activation": 300.0,
+      "hitPoints": 8,
+      "stompable": true
     },
     {
       "id": 189,
@@ -2528,7 +2606,9 @@
       },
       "gravity": 1000.0,
       "fallGravity": 1500.0,
-      "activation": 300.0
+      "activation": 300.0,
+      "hitPoints": 8,
+      "stompable": true
     },
     {
       "id": 190,
@@ -2737,7 +2817,8 @@
       "runningAcceleration": -125.0,
       "hitPoints": 4,
       "accelerateWhenGrounded": true,
-      "stompable": true
+      "stompable": true,
+      "topStompable": true
     },
     {
       "id": 201,
@@ -2757,7 +2838,8 @@
       "runningAcceleration": -125.0,
       "hitPoints": 4,
       "accelerateWhenGrounded": true,
-      "stompable": true
+      "stompable": true,
+      "topStompable": true
     },
     {
       "id": 202,
@@ -2777,7 +2859,8 @@
       "runningAcceleration": -125.0,
       "hitPoints": 4,
       "accelerateWhenGrounded": true,
-      "stompable": true
+      "stompable": true,
+      "topStompable": true
     },
     {
       "id": 203,
@@ -2802,7 +2885,8 @@
       "lane": 1,
       "hitPoints": 3,
       "accelerateWhenGrounded": true,
-      "stompable": true
+      "stompable": true,
+      "topStompable": true
     },
     {
       "id": 204,
@@ -2827,7 +2911,8 @@
       "lane": 2,
       "hitPoints": 3,
       "accelerateWhenGrounded": true,
-      "stompable": true
+      "stompable": true,
+      "topStompable": true
     },
     {
       "id": 205,
@@ -2852,7 +2937,8 @@
       "lane": 3,
       "hitPoints": 3,
       "accelerateWhenGrounded": true,
-      "stompable": true
+      "stompable": true,
+      "topStompable": true
     },
     {
       "id": 206,
@@ -2877,7 +2963,8 @@
       "lane": 1,
       "hitPoints": 3,
       "accelerateWhenGrounded": true,
-      "stompable": true
+      "stompable": true,
+      "topStompable": true
     },
     {
       "id": 207,
@@ -2902,7 +2989,8 @@
       "lane": 2,
       "hitPoints": 3,
       "accelerateWhenGrounded": true,
-      "stompable": true
+      "stompable": true,
+      "topStompable": true
     },
     {
       "id": 208,
@@ -2927,7 +3015,8 @@
       "lane": 3,
       "hitPoints": 3,
       "accelerateWhenGrounded": true,
-      "stompable": true
+      "stompable": true,
+      "topStompable": true
     },
     {
       "id": 209,
@@ -2952,7 +3041,8 @@
       "lane": 1,
       "hitPoints": 3,
       "accelerateWhenGrounded": true,
-      "stompable": true
+      "stompable": true,
+      "topStompable": true
     },
     {
       "id": 210,
@@ -2977,7 +3067,8 @@
       "lane": 2,
       "hitPoints": 3,
       "accelerateWhenGrounded": true,
-      "stompable": true
+      "stompable": true,
+      "topStompable": true
     },
     {
       "id": 211,
@@ -3002,7 +3093,8 @@
       "lane": 3,
       "hitPoints": 3,
       "accelerateWhenGrounded": true,
-      "stompable": true
+      "stompable": true,
+      "topStompable": true
     },
     {
       "id": 212,
@@ -3027,7 +3119,8 @@
       "lane": 1,
       "hitPoints": 3,
       "accelerateWhenGrounded": true,
-      "stompable": true
+      "stompable": true,
+      "topStompable": true
     },
     {
       "id": 213,
@@ -3052,7 +3145,8 @@
       "lane": 2,
       "hitPoints": 3,
       "accelerateWhenGrounded": true,
-      "stompable": true
+      "stompable": true,
+      "topStompable": true
     },
     {
       "id": 214,
@@ -3077,7 +3171,8 @@
       "lane": 1,
       "hitPoints": 3,
       "accelerateWhenGrounded": true,
-      "stompable": true
+      "stompable": true,
+      "topStompable": true
     },
     {
       "id": 215,
@@ -3102,7 +3197,8 @@
       "lane": 2,
       "hitPoints": 3,
       "accelerateWhenGrounded": true,
-      "stompable": true
+      "stompable": true,
+      "topStompable": true
     },
     {
       "id": 216,
@@ -3127,7 +3223,8 @@
       "lane": 3,
       "hitPoints": 3,
       "accelerateWhenGrounded": true,
-      "stompable": true
+      "stompable": true,
+      "topStompable": true
     },
     {
       "id": 217,
@@ -3152,7 +3249,8 @@
       "lane": 1,
       "hitPoints": 3,
       "accelerateWhenGrounded": true,
-      "stompable": true
+      "stompable": true,
+      "topStompable": true
     },
     {
       "id": 218,
@@ -3177,7 +3275,8 @@
       "lane": 2,
       "hitPoints": 3,
       "accelerateWhenGrounded": true,
-      "stompable": true
+      "stompable": true,
+      "topStompable": true
     },
     {
       "id": 219,
@@ -3202,7 +3301,8 @@
       "lane": 3,
       "hitPoints": 3,
       "accelerateWhenGrounded": true,
-      "stompable": true
+      "stompable": true,
+      "topStompable": true
     },
     {
       "id": 220,
@@ -3227,7 +3327,8 @@
       "lane": 1,
       "hitPoints": 3,
       "accelerateWhenGrounded": true,
-      "stompable": true
+      "stompable": true,
+      "topStompable": true
     },
     {
       "id": 221,
@@ -3252,7 +3353,8 @@
       "lane": 2,
       "hitPoints": 3,
       "accelerateWhenGrounded": true,
-      "stompable": true
+      "stompable": true,
+      "topStompable": true
     },
     {
       "id": 222,
@@ -3277,7 +3379,8 @@
       "lane": 3,
       "hitPoints": 3,
       "accelerateWhenGrounded": true,
-      "stompable": true
+      "stompable": true,
+      "topStompable": true
     },
     {
       "id": 223,
@@ -3302,7 +3405,8 @@
       "lane": 1,
       "hitPoints": 3,
       "accelerateWhenGrounded": true,
-      "stompable": true
+      "stompable": true,
+      "topStompable": true
     },
     {
       "id": 224,
@@ -3327,7 +3431,8 @@
       "lane": 2,
       "hitPoints": 3,
       "accelerateWhenGrounded": true,
-      "stompable": true
+      "stompable": true,
+      "topStompable": true
     },
     {
       "id": 225,
@@ -3352,7 +3457,8 @@
       "lane": 1,
       "hitPoints": 3,
       "accelerateWhenGrounded": true,
-      "stompable": true
+      "stompable": true,
+      "topStompable": true
     },
     {
       "id": 226,
@@ -3377,7 +3483,8 @@
       "lane": 2,
       "hitPoints": 3,
       "accelerateWhenGrounded": true,
-      "stompable": true
+      "stompable": true,
+      "topStompable": true
     },
     {
       "id": 227,
@@ -3402,7 +3509,8 @@
       "lane": 3,
       "hitPoints": 3,
       "accelerateWhenGrounded": true,
-      "stompable": true
+      "stompable": true,
+      "topStompable": true
     },
     {
       "id": 228,
@@ -3427,7 +3535,8 @@
       "lane": 1,
       "hitPoints": 3,
       "accelerateWhenGrounded": true,
-      "stompable": true
+      "stompable": true,
+      "topStompable": true
     },
     {
       "id": 229,
@@ -3452,7 +3561,8 @@
       "lane": 2,
       "hitPoints": 3,
       "accelerateWhenGrounded": true,
-      "stompable": true
+      "stompable": true,
+      "topStompable": true
     },
     {
       "id": 230,
@@ -3477,7 +3587,8 @@
       "lane": 3,
       "hitPoints": 3,
       "accelerateWhenGrounded": true,
-      "stompable": true
+      "stompable": true,
+      "topStompable": true
     },
     {
       "id": 231,
@@ -3502,7 +3613,8 @@
       "lane": 1,
       "hitPoints": 3,
       "accelerateWhenGrounded": true,
-      "stompable": true
+      "stompable": true,
+      "topStompable": true
     },
     {
       "id": 232,
@@ -3527,7 +3639,8 @@
       "lane": 2,
       "hitPoints": 3,
       "accelerateWhenGrounded": true,
-      "stompable": true
+      "stompable": true,
+      "topStompable": true
     },
     {
       "id": 233,
@@ -3552,7 +3665,8 @@
       "lane": 3,
       "hitPoints": 3,
       "accelerateWhenGrounded": true,
-      "stompable": true
+      "stompable": true,
+      "topStompable": true
     },
     {
       "id": 234,
@@ -3577,7 +3691,8 @@
       "lane": 1,
       "hitPoints": 3,
       "accelerateWhenGrounded": true,
-      "stompable": true
+      "stompable": true,
+      "topStompable": true
     },
     {
       "id": 235,
@@ -3602,7 +3717,8 @@
       "lane": 2,
       "hitPoints": 3,
       "accelerateWhenGrounded": true,
-      "stompable": true
+      "stompable": true,
+      "topStompable": true
     },
     {
       "id": 236,
