@@ -8,9 +8,9 @@
     "x": 533,
     "y": 53
   },
-  "shakeDuration": 250,
+  "shakeDuration": 350,
   "shakeHertz": 60,
-  "shakeAmplitude": 64,
+  "shakeAmplitude": 92,
   "loadMap": "map_load",
   "trainMap": "map_train",
   "loadAutoPlay": "test",

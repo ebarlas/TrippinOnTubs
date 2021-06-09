@@ -77,13 +77,14 @@
       },
       "terminalVelocity": {
         "x": 425.0,
-        "y": 1125.0
+        "y": 1500.0
       },
-      "gravity": 1000.0,
-      "fallGravity": 1500.0,
+      "massFactor": 2.0,
+      "gravity": 1250.0,
+      "fallGravity": 1890.0,
       "minJumpVelocity": -375.0,
-      "maxJumpVelocity": -875.0,
-      "maxDuckJumpVelocity": -1100.0,
+      "maxJumpVelocity": -1100.0,
+      "maxDuckJumpVelocity": -1370.0,
       "runningAcceleration": 1000.0,
       "risingAcceleration": 50.0,
       "duckFriction": 150.0,
