@@ -27,10 +27,13 @@ namespace trippin {
         std::string configName;
         std::unique_ptr<SdlSystem> sdlSystem;
         Point<int> windowSize;
+        Point<int> rendererSize;
         Configuration configuration;
         AutoPlay autoPlay;
         Configuration::Scale *scale;
         std::unique_ptr<SpriteManager> spriteManager;
+        std::unique_ptr<SpriteLoader> spriteLoader;
+        std::unique_ptr<SpriteLoadTask> spriteLoadTask;
         SoundManager soundManager;
         std::unique_ptr<Level> level;
         int levelIndex;
@@ -57,6 +60,7 @@ namespace trippin {
         void renderLoop();
         std::unique_ptr<Level> nextLevel();
         void advanceLevel(int score, int extraLives);
+        void transferSurfaces();
     public:
         Game(std::string configName);
         void init();

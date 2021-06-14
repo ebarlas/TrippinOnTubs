@@ -25,6 +25,8 @@ add_library(Sprite
         sprite/SpriteSheet.cpp
         sprite/Sprite.cpp
         sprite/SpriteManager.cpp
+        sprite/SpriteLoader.cpp
+        sprite/SpriteLoadTask.cpp
         sprite/Files.cpp
         sprite/Camera.cpp)
 target_include_directories(Sprite PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})

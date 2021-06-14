@@ -1,8 +1,17 @@
 #include <cmath>
 #include "Sprite.h"
 
-trippin::Sprite::Sprite(SDL_Renderer *ren, const std::string &name, const Scale &sc, int tickPeriod)
-        : scale(sc), ren(ren), sheet(ren, name, scale) {
+trippin::Sprite::Sprite(SDL_Renderer *renderer, const std::string &name, const SpriteLoader &loader, int tickPeriod)
+        : scale(loader.getScale()), ren(renderer), sheet(renderer, name, loader) {
+    init(name, tickPeriod);
+}
+
+trippin::Sprite::Sprite(SDL_Renderer *ren, const std::string &name, const Scale &sc, int tickPeriod, SDL_Surface *sur)
+        : scale(sc), ren(ren), sheet(ren, sur) {
+    init(name, tickPeriod);
+}
+
+void trippin::Sprite::init(const std::string &name, int tickPeriod) {
     metadata.load(name);
 
     size = sheet.getSize();

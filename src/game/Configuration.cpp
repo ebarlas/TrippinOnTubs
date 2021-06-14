@@ -39,6 +39,7 @@ void trippin::from_json(const nlohmann::json &j, Configuration &config) {
     j.at("loadMap").get_to(config.loadMap);
     j.at("trainMap").get_to(config.trainMap);
     j.at("loadAutoPlay").get_to(config.loadAutoPlay);
+    j.at("prefetchSprites").get_to(config.prefetchSprites);
     j.at("db").at("host").get_to(config.db.host);
     j.at("db").at("port").get_to(config.db.port);
 

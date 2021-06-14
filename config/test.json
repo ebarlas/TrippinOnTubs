@@ -14,6 +14,7 @@
   "loadMap": "map_load",
   "trainMap": "map_train",
   "loadAutoPlay": "test",
+  "prefetchSprites": ["walking_tub", "walking_tub_yellow", "walking_tub_green", "zombie"],
   "maps": [
     "map_training",
     "map_test"

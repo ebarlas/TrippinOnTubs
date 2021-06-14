@@ -14,6 +14,7 @@ trippin::SdlSystem::SdlSystem() {
     windowSize = {displayMode.w, displayMode.h};
     */
     windowSize = {1600, 900};
+    SDL_Log("window size w=%d, h=%d", windowSize.x, windowSize.y);
 
     window = SDL_CreateWindow(
             "Trippin on Tubs",
@@ -35,6 +36,9 @@ trippin::SdlSystem::SdlSystem() {
         SDL_Log("Renderer could not be created. SDL error: %s", SDL_GetError());
         std::terminate();
     }
+
+    SDL_GetRendererOutputSize(renderer, &rendererSize.x, &rendererSize.y);
+    SDL_Log("renderer size w=%d, h=%d", rendererSize.x, rendererSize.y);
 
     auto flags = MIX_INIT_MP3;
     if (Mix_Init(flags) != flags) {

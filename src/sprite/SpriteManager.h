@@ -4,19 +4,23 @@
 #include <unordered_map>
 #include <string>
 #include "sprite/Sprite.h"
-#include "sprite/SpriteType.h"
+#include "SpriteLoadTask.h"
 
 namespace trippin {
     class SpriteManager {
     public:
-        SpriteManager(SDL_Renderer *renderer, Scale scale, int tickPeriod);
+        SpriteManager(SDL_Renderer *renderer, SpriteLoader &spriteLoader, int tickPeriod);
         const Sprite &get(const std::string &type);
+        void setSurfaces(std::unique_ptr<std::unordered_map<std::string, SDL_Surface *>> surfaces);
     private:
         using SpritePtr = std::unique_ptr<Sprite>;
-        const Scale scale;
         const int tickPeriod;
         SDL_Renderer *renderer;
+        SpriteLoader &spriteLoader;
         std::unordered_map<std::string, SpritePtr> sprites;
+        std::unique_ptr<std::unordered_map<std::string, SDL_Surface *>> surfaces;
+
+        SpritePtr newSprite(const std::string &type);
     };
 }
 

@@ -22,6 +22,8 @@ void trippin::Game::initSdl() {
     sdlSystem = std::make_unique<SdlSystem>();
     auto ws = sdlSystem->getWindowSize();
     windowSize = {ws.x, ws.y};
+    auto rs = sdlSystem->getRendererSize();
+    rendererSize = {rs.x, rs.y};
 }
 
 void trippin::Game::initRand() {
@@ -53,8 +55,9 @@ void trippin::Game::initScale() {
 }
 
 void trippin::Game::initSpriteManager() {
-    auto sc = Scale{scale->name, scale->multiplier};
-    spriteManager = std::make_unique<SpriteManager>(sdlSystem->getRenderer(), sc, configuration.tickPeriod);
+    spriteLoader = std::make_unique<SpriteLoader>(Scale{scale->name, scale->multiplier});
+    spriteLoadTask = std::make_unique<SpriteLoadTask>(*spriteLoader, configuration.prefetchSprites);
+    spriteManager = std::make_unique<SpriteManager>(sdlSystem->getRenderer(), *spriteLoader, configuration.tickPeriod);
 }
 
 void trippin::Game::initAutoPlay() {
@@ -66,23 +69,24 @@ void trippin::Game::initLevel() {
     loadLevel = true;
     trainLevel = false;
     level = nextLevel();
+    spriteLoadTask->start();
 }
 
 void trippin::Game::initOverlays() {
     TitleOverlay::Options titleOptions{-0.25, 3'000};
-    titleOverlay = std::make_unique<TitleOverlay>(windowSize, titleOptions, *spriteManager);
-    titleMenu = std::make_unique<TitleMenu>(windowSize, *spriteManager);
-    endMenu = std::make_unique<EndMenu>(windowSize, *spriteManager);
-    nameForm = std::make_unique<NameForm>(windowSize, *spriteManager);
-    scoreMenu = std::make_unique<ScoreMenu>(windowSize, *spriteManager);
-    topScoreBoard = std::make_unique<ScrollingScoreBoard>(windowSize, -0.25, *spriteManager);
-    todayScoreBoard = std::make_unique<ScrollingScoreBoard>(windowSize, -0.25, *spriteManager);
-    levelOverlay = std::make_unique<LevelOverlay>(windowSize, *spriteManager);
+    titleOverlay = std::make_unique<TitleOverlay>(rendererSize, titleOptions, *spriteManager);
+    titleMenu = std::make_unique<TitleMenu>(rendererSize, *spriteManager);
+    endMenu = std::make_unique<EndMenu>(rendererSize, *spriteManager);
+    nameForm = std::make_unique<NameForm>(rendererSize, *spriteManager);
+    scoreMenu = std::make_unique<ScoreMenu>(rendererSize, *spriteManager);
+    topScoreBoard = std::make_unique<ScrollingScoreBoard>(rendererSize, -0.25, *spriteManager);
+    todayScoreBoard = std::make_unique<ScrollingScoreBoard>(rendererSize, -0.25, *spriteManager);
+    levelOverlay = std::make_unique<LevelOverlay>(rendererSize, *spriteManager);
 }
 
 std::unique_ptr<trippin::Level> trippin::Game::nextLevel() {
     auto lvl = std::make_unique<Level>();
-    lvl->setWindowSize(windowSize);
+    lvl->setWindowSize(rendererSize);
     lvl->setConfiguration(&configuration);
     lvl->setScale(scale);
     lvl->setSpriteManager(spriteManager.get());
@@ -90,11 +94,12 @@ std::unique_ptr<trippin::Level> trippin::Game::nextLevel() {
     if (loadLevel) {
         lvl->setMapName(configuration.loadMap);
         lvl->setAutoPlay(autoPlay.events);
-    } else if(trainLevel) {
+    } else if (trainLevel) {
         lvl->setMapName(configuration.trainMap);
         lvl->setTraining(true);
     } else {
         lvl->setMapName(configuration.maps[levelIndex]);
+        transferSurfaces();
     }
     lvl->init();
     return lvl;
@@ -107,6 +112,13 @@ void trippin::Game::advanceLevel(int score, int extraLives) {
     level->setScore(score);
     level->setExtraLives(extraLives);
     level->start();
+}
+
+void trippin::Game::transferSurfaces() {
+    if (spriteLoadTask->started() && !spriteLoadTask->joined()) {
+        spriteLoadTask->join();
+        spriteManager->setSurfaces(spriteLoadTask->take());
+    }
 }
 
 trippin::Game::Game(std::string configName) : configName(std::move(configName)) {

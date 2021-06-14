@@ -17,10 +17,14 @@ namespace trippin {
         SDL_Point getWindowSize() {
             return windowSize;
         }
+        SDL_Point getRendererSize() {
+            return rendererSize;
+        }
     private:
         SDL_Window *window;
         SDL_Renderer *renderer;
         SDL_Point windowSize;
+        SDL_Point rendererSize;
     };
 }
 

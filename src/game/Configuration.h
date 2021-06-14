@@ -33,6 +33,7 @@ namespace trippin {
         std::string trainMap;
         std::string loadAutoPlay;
         std::vector<Scale> scales;
+        std::vector<std::string> prefetchSprites;
         Db db;
         void load(const std::string &name);
         static std::string getConfigFile(const std::string &name);
