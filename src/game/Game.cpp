@@ -182,6 +182,7 @@ void trippin::Game::renderLoop() {
         } else if (state == START_MENU) {
             titleMenu->render();
             if (titleMenu->startClicked(ui.getLastPress())) {
+                extraLives = 1;
                 loadLevel = false;
                 trainLevel = false;
                 score = 0;
