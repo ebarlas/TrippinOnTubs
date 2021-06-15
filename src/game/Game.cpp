@@ -137,6 +137,7 @@ void trippin::Game::renderLoop() {
         SCORE_MENU,
         TRAINING,
         PLAYING,
+        EXTRA_LIFE_DELAY,
         LEVEL_TRANSITION,
         END_MENU,
         NAME_FORM,
@@ -147,6 +148,7 @@ void trippin::Game::renderLoop() {
     int state = TITLE;
     int score;
     int extraLives = 1;
+    Uint32 extraLifeTime;
 
     Timer timer("renderer");
     UserInput ui;
@@ -236,12 +238,18 @@ void trippin::Game::renderLoop() {
                 } else {
                     if (extraLives > 0) {
                         extraLives--;
-                        advanceLevel(score, extraLives);
+                        state = EXTRA_LIFE_DELAY;
+                        extraLifeTime = SDL_GetTicks();
                     } else {
                         state = END_MENU;
                         endMenu->reset();
                     }
                 }
+            }
+        } else if (state == EXTRA_LIFE_DELAY) {
+            if (SDL_GetTicks() - extraLifeTime >= 1'000) {
+                advanceLevel(score, extraLives);
+                state = PLAYING;
             }
         } else if (state == TRAINING) {
             if (level->completed()) {
