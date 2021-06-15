@@ -17,6 +17,7 @@ namespace trippin {
         static constexpr const int columns = 10;
         static constexpr const int rows = 3;
         static constexpr const int nameLength = 5;
+        static constexpr const int paddingDivisor = 16;
         std::string name;
         const Sprite &sprite;
         Point<int> windowSize;
