@@ -64,7 +64,7 @@ void trippin::Level::initEngine() {
 
     for (auto &layer : map.layers) {
         auto uptr = std::make_unique<Layer>();
-        uptr->init(*spriteManager, layer);
+        uptr->init(*spriteManager, layer, renderClock);
         objects.push_back(std::move(uptr));
     }
 
@@ -163,6 +163,7 @@ void trippin::Level::init() {
 }
 
 void trippin::Level::render(GogginInput input) {
+    renderClock.update();
     goggin.onUserInput(input);
     goggin.centerCamera(camera);
     for (auto &obj : objects) {
@@ -181,6 +182,7 @@ void trippin::Level::render(GogginInput input) {
 }
 
 void trippin::Level::start() {
+    renderClock.init();
     engine.start();
     Mix_FadeInMusic(soundManager->getMusic(map.music), -1, 2'000);
 }
@@ -198,6 +200,7 @@ bool trippin::Level::completed() {
 void trippin::Level::stop() {
     engine.stop();
     engine.join();
+    Mix_HaltChannel(-1);
     Mix_HaltMusic();
 }
 
@@ -211,8 +214,14 @@ void trippin::Level::setExtraLives(int extraLives) {
 
 void trippin::Level::pause() {
     engine.pause();
+    renderClock.pause();
+    Mix_Pause(-1);
+    Mix_PauseMusic();
 }
 
 void trippin::Level::resume() {
     engine.resume();
+    renderClock.resume();
+    Mix_Resume(-1);
+    Mix_ResumeMusic();
 }

@@ -15,6 +15,7 @@
 #include "GogginInput.h"
 #include "LifeMeter.h"
 #include "TrainingProgram.h"
+#include "RenderClock.h"
 
 namespace trippin {
     class Level {
@@ -38,6 +39,7 @@ namespace trippin {
         std::unique_ptr<LifeMeter> lifeMeter;
         bool training;
         std::unique_ptr<TrainingProgram> trainingProgram;
+        RenderClock renderClock;
         void initMap();
         void initCamera();
         void initEngine();

@@ -107,7 +107,8 @@ add_library(Game
         game/Level.cpp
         game/AutoPlay.cpp
         game/Shake.cpp
-        game/SoundManager.cpp)
+        game/SoundManager.cpp
+        game/RenderClock.cpp)
 target_link_libraries(Game Sprite Lock Net Ui PkgConfig::SDL2_MIXER)
 
 add_executable(trippin game/trippin.cpp)
