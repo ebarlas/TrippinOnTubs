@@ -215,7 +215,7 @@ void trippin::Goggin::afterTick(Uint32 engineTicks) {
     }
 
     // test for creation of new dust cloud
-    if (platformCollisions.testBottom() && engineTicks - dustTicks >= dustPeriodTicks) {
+    if (platformCollisions.testBottom() && engineTicks - dustTicks >= dustPeriodTicks && velocity.x >= terminalVelocity.x / 2) {
         dustTicks = engineTicks;
         auto left = roundedPosition.x;
         auto top = roundedPosition.y + size.y - dust->getHitBox().h;
