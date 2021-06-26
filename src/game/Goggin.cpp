@@ -20,8 +20,8 @@ void trippin::Goggin::init(const Configuration &config, const Map::Object &obj, 
     duckFriction = obj.duckFriction;
     state = State::falling;
     maxFallingVelocity = 0;
-    pointCloudDistanceMin = {size.x, size.y};
-    pointCloudDistanceMax = pointCloudDistanceMin * 4;
+    pointCloudDistanceMin = size * 2;
+    pointCloudDistanceMax = size * 6;
     pointCloudTicks = config.ticksPerSecond() * 2;
     consecutiveJumps = 0;
 
