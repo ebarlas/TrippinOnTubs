@@ -1,7 +1,12 @@
 #include "TitleOverlay.h"
 #include "engine/Convert.h"
 
-trippin::TitleOverlay::TitleOverlay(const Point<int> &windowSize, Options options, SpriteManager &spriteManager) :
+trippin::TitleOverlay::TitleOverlay(
+        const Point<int> &windowSize,
+        Options options,
+        SpriteManager &spriteManager,
+        const RenderClock &renderClock) :
+        renderClock(renderClock),
         windowSize(windowSize),
         options(options),
         titleSprite(spriteManager.get("trippin")),
@@ -54,12 +59,12 @@ void trippin::TitleOverlay::setScores(std::vector<Score> today, std::vector<Scor
     todayScoreBoard.setScores(std::move(today));
     allTimeScoreBoard.setScores(std::move(top));
     scoresSet = true;
-    scoresSetTicks = SDL_GetTicks();
+    scoresSetTicks = renderClock.getTicks();
 }
 
 int trippin::TitleOverlay::getScrollTop() const {
     if (scoresSet) {
-        int delta = static_cast<int>(SDL_GetTicks() - scoresSetTicks) - options.titlePause;
+        int delta = static_cast<int>(renderClock.getTicks() - scoresSetTicks) - options.titlePause;
         if (delta > 0) {
             return toInt(delta * options.scrollRate);
         }

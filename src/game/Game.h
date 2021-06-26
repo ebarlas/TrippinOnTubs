@@ -48,6 +48,7 @@ namespace trippin {
         std::unique_ptr<ScrollingScoreBoard> todayScoreBoard;
         std::unique_ptr<LevelOverlay> levelOverlay;
         std::shared_ptr<StagingArea> stagingArea;
+        RenderClock renderClock;
         void initSdl();
         void initRand();
         void initConfiguration();
@@ -57,6 +58,7 @@ namespace trippin {
         void initAutoPlay();
         void initOverlays();
         void initLevel();
+        void initClock();
         void renderLoop();
         std::unique_ptr<Level> nextLevel();
         void advanceLevel(int score, int extraLives);

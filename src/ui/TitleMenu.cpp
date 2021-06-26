@@ -1,7 +1,10 @@
 #include "TitleMenu.h"
 
-trippin::TitleMenu::TitleMenu(const Point<int> &windowSize, SpriteManager &spriteManager)
-        : menuLayout(windowSize, 750) {
+trippin::TitleMenu::TitleMenu(
+        const Point<int> &windowSize,
+        SpriteManager &spriteManager,
+        const RenderClock &renderClock)
+        : menuLayout(windowSize, 750, renderClock) {
     menuLayout.setSprite(0, &spriteManager.get("start"));
     menuLayout.setSprite(1, &spriteManager.get("train"));
     menuLayout.setSprite(2, &spriteManager.get("high_score"));

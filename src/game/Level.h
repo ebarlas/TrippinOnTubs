@@ -15,7 +15,7 @@
 #include "GogginInput.h"
 #include "LifeMeter.h"
 #include "TrainingProgram.h"
-#include "RenderClock.h"
+#include "sprite/RenderClock.h"
 
 namespace trippin {
     class Level {
@@ -39,7 +39,7 @@ namespace trippin {
         std::unique_ptr<LifeMeter> lifeMeter;
         bool training;
         std::unique_ptr<TrainingProgram> trainingProgram;
-        RenderClock renderClock;
+        const RenderClock *renderClock;
         void initMap();
         void initCamera();
         void initEngine();
@@ -49,6 +49,7 @@ namespace trippin {
         void setScale(Configuration::Scale *scale);
         void setSpriteManager(SpriteManager *spriteManager);
         void setSoundManager(SoundManager *soundManager);
+        void setRenderClock(const RenderClock &renderClock);
         void setAutoPlay(const std::vector<GogginInputTick> &autoPlay);
         void setMapName(const std::string &name);
         void setScore(int score);

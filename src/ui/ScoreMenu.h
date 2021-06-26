@@ -7,7 +7,7 @@
 namespace trippin {
     class ScoreMenu {
     public:
-        ScoreMenu(const Point<int> &windowSize, SpriteManager &spriteManager);
+        ScoreMenu(const Point<int> &windowSize, SpriteManager &spriteManager, const RenderClock &renderClock);
         void reset();
         void render();
         bool allTimeClicked(const Point<int> &coords) const;

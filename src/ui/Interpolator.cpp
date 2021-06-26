@@ -1,12 +1,8 @@
 #include "Interpolator.h"
 
-trippin::Interpolator::Interpolator(Uint32 duration, int magnitude)
-        : firstTick(-1), duration(duration), magnitude(magnitude) {
+trippin::Interpolator::Interpolator(const RenderClock &renderClock, Uint32 duration, int magnitude)
+        : renderClock(renderClock), firstTick(-1), duration(duration), magnitude(magnitude) {
 
-}
-
-void trippin::Interpolator::setDuration(Uint32 dur) {
-    duration = dur;
 }
 
 void trippin::Interpolator::setMagnitude(int mag) {
@@ -14,7 +10,7 @@ void trippin::Interpolator::setMagnitude(int mag) {
 }
 
 void trippin::Interpolator::reset() {
-    firstTick = SDL_GetTicks();
+    firstTick = renderClock.getTicks();
 }
 
 float trippin::Interpolator::interpolate(float input) {
@@ -22,7 +18,7 @@ float trippin::Interpolator::interpolate(float input) {
 }
 
 int trippin::Interpolator::interpolate() const {
-    auto elapsed = SDL_GetTicks() - firstTick;
+    auto elapsed = renderClock.getTicks() - firstTick;
     if (elapsed < duration) {
         float progress = static_cast<float>(elapsed) / duration;
         return static_cast<int>(static_cast<float>(magnitude) * interpolate(progress));

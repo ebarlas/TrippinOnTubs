@@ -7,7 +7,7 @@
 namespace trippin {
     class EndMenu {
     public:
-        EndMenu(const Point<int> &windowSize, SpriteManager &spriteManager);
+        EndMenu(const Point<int> &windowSize, SpriteManager &spriteManager, const RenderClock &renderClock);
         void reset();
         void render();
         bool exitClicked(const Point<int> &coords) const;

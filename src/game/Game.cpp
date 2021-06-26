@@ -16,6 +16,7 @@ void trippin::Game::init() {
     initAutoPlay();
     initOverlays();
     initLevel();
+    initClock();
 }
 
 void trippin::Game::initSdl() {
@@ -74,14 +75,18 @@ void trippin::Game::initLevel() {
 
 void trippin::Game::initOverlays() {
     TitleOverlay::Options titleOptions{-0.25, 3'000};
-    titleOverlay = std::make_unique<TitleOverlay>(rendererSize, titleOptions, *spriteManager);
-    titleMenu = std::make_unique<TitleMenu>(rendererSize, *spriteManager);
-    endMenu = std::make_unique<EndMenu>(rendererSize, *spriteManager);
+    titleOverlay = std::make_unique<TitleOverlay>(rendererSize, titleOptions, *spriteManager, renderClock);
+    titleMenu = std::make_unique<TitleMenu>(rendererSize, *spriteManager, renderClock);
+    endMenu = std::make_unique<EndMenu>(rendererSize, *spriteManager, renderClock);
     nameForm = std::make_unique<NameForm>(rendererSize, *spriteManager);
-    scoreMenu = std::make_unique<ScoreMenu>(rendererSize, *spriteManager);
-    topScoreBoard = std::make_unique<ScrollingScoreBoard>(rendererSize, -0.25, *spriteManager);
-    todayScoreBoard = std::make_unique<ScrollingScoreBoard>(rendererSize, -0.25, *spriteManager);
-    levelOverlay = std::make_unique<LevelOverlay>(rendererSize, *spriteManager);
+    scoreMenu = std::make_unique<ScoreMenu>(rendererSize, *spriteManager, renderClock);
+    topScoreBoard = std::make_unique<ScrollingScoreBoard>(rendererSize, -0.25, *spriteManager, renderClock);
+    todayScoreBoard = std::make_unique<ScrollingScoreBoard>(rendererSize, -0.25, *spriteManager, renderClock);
+    levelOverlay = std::make_unique<LevelOverlay>(rendererSize, *spriteManager, renderClock);
+}
+
+void trippin::Game::initClock() {
+    renderClock.init();
 }
 
 std::unique_ptr<trippin::Level> trippin::Game::nextLevel() {
@@ -91,6 +96,7 @@ std::unique_ptr<trippin::Level> trippin::Game::nextLevel() {
     lvl->setScale(scale);
     lvl->setSpriteManager(spriteManager.get());
     lvl->setSoundManager(&soundManager);
+    lvl->setRenderClock(renderClock);
     if (loadLevel) {
         lvl->setMapName(configuration.loadMap);
         lvl->setAutoPlay(autoPlay.events);
@@ -160,15 +166,23 @@ void trippin::Game::renderLoop() {
             break;
         }
 
-        SDL_SetRenderDrawColor(sdlSystem->getRenderer(), 244, 251, 255, 255);
-        SDL_RenderClear(sdlSystem->getRenderer());
-
-        if (ui.pPressed()) {
+        if (!renderClock.isPaused() && (ui.pPressed() || ui.wasFocusLost())) {
+            renderClock.pause();
             level->pause();
         }
-        if (ui.rPressed()) {
+        if (renderClock.isPaused() && (ui.rPressed() || ui.wasFocusGained())) {
+            renderClock.resume();
             level->resume();
         }
+        if (renderClock.isPaused()) {
+            SDL_Delay(1);
+            continue;
+        }
+
+        renderClock.update();
+
+        SDL_SetRenderDrawColor(sdlSystem->getRenderer(), 244, 251, 255, 255);
+        SDL_RenderClear(sdlSystem->getRenderer());
 
         level->render(ui.asGogginInput());
 

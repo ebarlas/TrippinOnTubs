@@ -1,7 +1,7 @@
 #include "EndMenu.h"
 
-trippin::EndMenu::EndMenu(const Point<int> &windowSize, SpriteManager &spriteManager)
-        : menuLayout(windowSize, 750) {
+trippin::EndMenu::EndMenu(const Point<int> &windowSize, SpriteManager &spriteManager, const RenderClock &renderClock)
+        : menuLayout(windowSize, 750, renderClock) {
     menuLayout.setSprite(0, &spriteManager.get("save_score"));
     menuLayout.setSprite(1, &spriteManager.get("exit"));
     menuLayout.init();

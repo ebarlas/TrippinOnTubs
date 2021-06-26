@@ -2,6 +2,7 @@
 #define TRIPPIN_TITLEOVERLAY_H
 
 #include "sprite/SpriteManager.h"
+#include "sprite/RenderClock.h"
 #include "ui/Interpolator.h"
 #include "net/Score.h"
 #include "ui/ScoreBoard.h"
@@ -14,7 +15,11 @@ namespace trippin {
             int titlePause;
         };
 
-        TitleOverlay(const Point<int> &windowSize, Options options, SpriteManager &spriteManager);
+        TitleOverlay(
+                const Point<int> &windowSize,
+                Options options,
+                SpriteManager &spriteManager,
+                const RenderClock &renderClock);
         void setScores(std::vector<Score> today, std::vector<Score> top);
         void render();
         bool hasScores() const;
@@ -22,6 +27,7 @@ namespace trippin {
         const Sprite &titleSprite;
         const Sprite &allTimeSprite;
         const Sprite &todaySprite;
+        const RenderClock &renderClock;
         Point<int> windowSize;
         ScoreBoard todayScoreBoard;
         ScoreBoard allTimeScoreBoard;

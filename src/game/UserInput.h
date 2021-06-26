@@ -12,6 +12,8 @@ namespace trippin {
         bool anythingPressed() const;
         bool pPressed() const;
         bool rPressed() const;
+        bool wasFocusLost() const;
+        bool wasFocusGained() const;
         Point<int> getLastPress() const;
         GogginInput asGogginInput() const;
 
@@ -32,6 +34,8 @@ namespace trippin {
         };
 
         bool quit{};
+        bool focusLost{};
+        bool focusGained{};
 
         Key spaceKey;
         Key downKey;

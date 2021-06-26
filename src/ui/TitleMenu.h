@@ -7,7 +7,7 @@
 namespace trippin {
     class TitleMenu {
     public:
-        TitleMenu(const Point<int> &windowSize, SpriteManager &spriteManager);
+        TitleMenu(const Point<int> &windowSize, SpriteManager &spriteManager, const RenderClock &renderClock);
         void reset();
         void render();
         bool startClicked(const Point<int> &coords) const;

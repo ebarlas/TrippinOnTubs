@@ -27,6 +27,10 @@ void trippin::Level::setSoundManager(trippin::SoundManager *sm) {
     soundManager = sm;
 }
 
+void trippin::Level::setRenderClock(const RenderClock &clock) {
+    renderClock = &clock;
+}
+
 void trippin::Level::setAutoPlay(const std::vector<GogginInputTick> &autoPlay) {
     goggin.setAutoPlay(autoPlay);
 }
@@ -64,7 +68,7 @@ void trippin::Level::initEngine() {
 
     for (auto &layer : map.layers) {
         auto uptr = std::make_unique<Layer>();
-        uptr->init(*spriteManager, layer, renderClock);
+        uptr->init(*spriteManager, layer, *renderClock);
         objects.push_back(std::move(uptr));
     }
 
@@ -151,7 +155,7 @@ void trippin::Level::initEngine() {
 
     if (training) {
         trainingProgram = std::make_unique<TrainingProgram>(
-                windowSize, *configuration, *spriteManager, *soundManager, goggin);
+                windowSize, *configuration, *spriteManager, *soundManager, goggin, *renderClock);
         engine.addListener(trainingProgram.get());
     }
 }
@@ -163,7 +167,6 @@ void trippin::Level::init() {
 }
 
 void trippin::Level::render(GogginInput input) {
-    renderClock.update();
     goggin.onUserInput(input);
     goggin.centerCamera(camera);
     for (auto &obj : objects) {
@@ -182,7 +185,6 @@ void trippin::Level::render(GogginInput input) {
 }
 
 void trippin::Level::start() {
-    renderClock.init();
     engine.start();
     Mix_FadeInMusic(soundManager->getMusic(map.music), -1, 2'000);
 }
@@ -214,14 +216,12 @@ void trippin::Level::setExtraLives(int extraLives) {
 
 void trippin::Level::pause() {
     engine.pause();
-    renderClock.pause();
     Mix_Pause(-1);
     Mix_PauseMusic();
 }
 
 void trippin::Level::resume() {
     engine.resume();
-    renderClock.resume();
     Mix_Resume(-1);
     Mix_ResumeMusic();
 }

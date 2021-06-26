@@ -4,7 +4,9 @@
 trippin::ScrollingScoreBoard::ScrollingScoreBoard(
         const Point<int> &windowSize,
         double scrollRate,
-        SpriteManager &spriteManager) :
+        SpriteManager &spriteManager,
+        const RenderClock &renderClock) :
+        renderClock(renderClock),
         windowSize(windowSize),
         scrollRate(scrollRate),
         scoreBoard(spriteManager.get("alpha")) {
@@ -16,11 +18,11 @@ void trippin::ScrollingScoreBoard::setScores(std::vector<Score> scores) {
 }
 
 void trippin::ScrollingScoreBoard::reset() {
-    startTime = SDL_GetTicks();
+    startTime = renderClock.getTicks();
 }
 
 void trippin::ScrollingScoreBoard::render() {
-    int delta = static_cast<int>(SDL_GetTicks() - startTime);
+    int delta = static_cast<int>(renderClock.getTicks() - startTime);
     scrollTop = toInt(delta * scrollRate);
 
     int scrollWrap = scrollTop % (windowSize.y + scoreBoard.getHeight());

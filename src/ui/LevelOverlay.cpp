@@ -1,10 +1,13 @@
 #include "LevelOverlay.h"
 
-trippin::LevelOverlay::LevelOverlay(const Point<int> &windowSize, SpriteManager &spriteManager) :
+trippin::LevelOverlay::LevelOverlay(
+        const Point<int> &windowSize,
+        SpriteManager &spriteManager,
+        const RenderClock &renderClock) :
         level(0),
         windowSize(windowSize),
         sprite(spriteManager.get("level")),
-        interpolator(750, (windowSize.x - sprite.getSize().x) / 2 + sprite.getSize().x) {
+        interpolator(renderClock, 750, (windowSize.x - sprite.getSize().x) / 2 + sprite.getSize().x) {
 
 }
 

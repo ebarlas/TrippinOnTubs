@@ -5,12 +5,12 @@
 #include "sprite/SpriteManager.h"
 #include "Map.h"
 #include "Renderable.h"
-#include "RenderClock.h"
+#include "sprite/RenderClock.h"
 
 namespace trippin {
     class Layer : public Renderable {
     public:
-        void init(SpriteManager &sm, Map::Layer &layer, RenderClock &renderClock);
+        void init(SpriteManager &sm, Map::Layer &layer, const RenderClock &renderClock);
         void render(const Camera &camera) override;
     private:
         struct Object {
@@ -23,7 +23,7 @@ namespace trippin {
             double velocityX{};
         };
 
-        RenderClock *renderClock;
+        const RenderClock *renderClock;
 
         std::vector<Object> objects;
         Point<int> size;

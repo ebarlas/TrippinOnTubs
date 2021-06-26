@@ -11,7 +11,7 @@ namespace trippin {
     template<std::size_t N>
     class MenuLayout {
     public:
-        MenuLayout(Point<int> windowSize, Uint32 duration);
+        MenuLayout(Point<int> windowSize, Uint32 duration, const RenderClock &renderClock);
         void setSprite(int index, const Sprite *sprite);
         void init();
         void reset();
@@ -30,8 +30,8 @@ namespace trippin {
 }
 
 template<std::size_t N>
-trippin::MenuLayout<N>::MenuLayout(Point<int> windowSize, Uint32 duration)
-        : windowSize(windowSize), interpolator(duration) {
+trippin::MenuLayout<N>::MenuLayout(Point<int> windowSize, Uint32 duration, const RenderClock &renderClock)
+        : windowSize(windowSize), interpolator(renderClock, duration) {
 
 }
 

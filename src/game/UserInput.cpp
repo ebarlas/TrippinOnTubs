@@ -74,6 +74,12 @@ void trippin::UserInput::pollEvents() {
             onFingerDown(e.tfinger);
         } else if (e.type == SDL_FINGERUP) {
             onFingerUp(e.tfinger);
+        } else if (e.type == SDL_WINDOWEVENT) {
+            if (e.window.event == SDL_WINDOWEVENT_FOCUS_LOST) {
+                focusLost = true;
+            } else if (e.window.event == SDL_WINDOWEVENT_FOCUS_GAINED) {
+                focusGained = true;
+            }
         }
     }
 }
@@ -86,6 +92,7 @@ void trippin::UserInput::reset() {
     rKey.keyDownEvent = rKey.keyUpEvent = false;
     leftTouch.touchDownEvent = leftTouch.touchUpEvent = false;
     rightTouch.touchDownEvent = rightTouch.touchUpEvent = false;
+    focusLost = focusGained = false;
 }
 
 void trippin::UserInput::onMouseButtonDown(int x, int y) {
@@ -142,4 +149,12 @@ bool trippin::UserInput::pPressed() const {
 
 bool trippin::UserInput::rPressed() const {
     return rKey.keyDownEvent;
+}
+
+bool trippin::UserInput::wasFocusLost() const {
+    return focusLost;
+}
+
+bool trippin::UserInput::wasFocusGained() const {
+    return focusGained;
 }

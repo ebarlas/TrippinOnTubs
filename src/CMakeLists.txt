@@ -28,7 +28,8 @@ add_library(Sprite
         sprite/SpriteLoader.cpp
         sprite/SpriteLoadTask.cpp
         sprite/Files.cpp
-        sprite/Camera.cpp)
+        sprite/Camera.cpp
+        sprite/RenderClock.cpp)
 target_include_directories(Sprite PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
 target_link_libraries(Sprite Engine nlohmann_json::nlohmann_json PkgConfig::SDL2_IMAGE)
 
@@ -107,8 +108,7 @@ add_library(Game
         game/Level.cpp
         game/AutoPlay.cpp
         game/Shake.cpp
-        game/SoundManager.cpp
-        game/RenderClock.cpp)
+        game/SoundManager.cpp)
 target_link_libraries(Game Sprite Lock Net Ui PkgConfig::SDL2_MIXER)
 
 add_executable(trippin game/trippin.cpp)

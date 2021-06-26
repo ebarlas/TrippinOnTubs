@@ -39,7 +39,8 @@ namespace trippin {
                 Configuration &configuration,
                 SpriteManager &spriteManager,
                 SoundManager &soundManager,
-                Goggin &goggin);
+                Goggin &goggin,
+                const RenderClock &renderClock);
         void render();
         bool completed();
         void afterTick(Uint32 engineTicks) override;

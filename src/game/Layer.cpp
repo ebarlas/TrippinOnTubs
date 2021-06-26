@@ -1,7 +1,7 @@
 #include "Layer.h"
 #include "engine/Convert.h"
 
-void trippin::Layer::init(SpriteManager &sm, Map::Layer &layer, RenderClock &renClock) {
+void trippin::Layer::init(SpriteManager &sm, Map::Layer &layer, const RenderClock &renClock) {
     for (auto &obj : layer.objects) {
         auto &sprite = sm.get(obj.type);
         int frame = obj.randFrame ? std::rand() % sprite.getFrames() : 0;

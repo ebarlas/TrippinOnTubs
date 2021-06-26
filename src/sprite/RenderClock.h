@@ -10,11 +10,13 @@ namespace trippin {
         void update();
         void pause();
         void resume();
-        int getElapsed();
+        int getElapsed() const;
+        Uint32 getTicks() const;
+        bool isPaused() const;
     private:
         Uint32 time;
-        Uint32 pauseTime;
         Uint32 elapsed;
+        Uint32 ticks;
         bool paused;
     };
 }

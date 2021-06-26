@@ -5,11 +5,12 @@ trippin::TrainingProgram::TrainingProgram(
         Configuration &configuration,
         SpriteManager &spriteManager,
         SoundManager &soundManager,
-        Goggin &goggin) :
+        Goggin &goggin,
+        const RenderClock &renderClock) :
         goggin(goggin),
         stage(TrainingStage::jump),
         stageTicks(0),
-        menuLayout({windowSize.x, windowSize.y / 2}, 750) {
+        menuLayout({windowSize.x, windowSize.y / 2}, 750, renderClock) {
     sprites[TrainingStage::jump] = &spriteManager.get("jump");
     sprites[TrainingStage::duck] = &spriteManager.get("duck");
     sprites[TrainingStage::chargedJump] = &spriteManager.get("charged_jump");
