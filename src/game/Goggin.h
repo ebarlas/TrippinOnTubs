@@ -116,6 +116,8 @@ namespace trippin {
 
         constexpr static const int RUNNING_FRAMES = 8;
 
+        constexpr static const double DUCK_HEIGHT = 0.6;
+
         Frames frames;
 
         Guarded<Channel> channel;

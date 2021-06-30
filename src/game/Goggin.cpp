@@ -376,13 +376,11 @@ void trippin::Goggin::onDucking(Uint32 engineTicks) {
 }
 
 void trippin::Goggin::shrinkForDuck() {
-    // make goggin contact-area half height when ducking
+    // reduce goggin contact-area half height when ducking
     int bottom = roundedPosition.y + size.y;
-    size.y /= 2;
-    position.y += size.y;
+    size.y = toInt(size.y * DUCK_HEIGHT);
 
-    // halving the height and shifting down might not result in ground contact
-    // fill any gap remaining
+    // fill gap under reduced height
     int delta = bottom - toInt(size.y + position.y);
     position.y += delta;
 
@@ -391,7 +389,7 @@ void trippin::Goggin::shrinkForDuck() {
 
 void trippin::Goggin::growForStand() {
     // restore goggin contact area to full-height using original sprite height
-    position.y -= size.y;
+    position.y -= sprite->getHitBox().h - size.y;
     size.y = sprite->getHitBox().h;
     syncPositions();
 }
@@ -484,7 +482,8 @@ void trippin::Goggin::syncChannel() {
     Point<int> shake{toInt(xShake.amplitude() * shakeAmplitude), toInt(yShake.amplitude() * shakeAmplitude)};
     if (state == ducking) {
         // restore y to normal in channel to prepare for rendering
-        ch.position = {roundedPosition.x, toInt(position.y - size.y)};
+        auto heightDelta = sprite->getHitBox().h - size.y;
+        ch.position = {roundedPosition.x, toInt(position.y - heightDelta)};
         ch.center = Point<int>({toInt(position.x + size.x / 2.0), toInt(position.y)}) + shake;
     } else {
         ch.position = roundedPosition;
