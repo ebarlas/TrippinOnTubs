@@ -162,8 +162,8 @@ void trippin::GameObject::drawHealthBar(const trippin::Camera &camera, int hp) {
     SDL_Rect outline{x, y, healthBarSize.x, healthBarSize.y};
     SDL_Rect fill{x, y, (int) (percent * healthBarSize.x), healthBarSize.y};
     SDL_SetRenderDrawBlendMode(ren, SDL_BLENDMODE_BLEND);
+    SDL_SetRenderDrawColor(ren, 150, 150, 150, 100);
+    SDL_RenderFillRect(ren, &outline);
     SDL_SetRenderDrawColor(ren, 237, 76, 92, 100);
     SDL_RenderFillRect(ren, &fill);
-    SDL_SetRenderDrawColor(ren, 0, 0, 0, 100);
-    SDL_RenderDrawRect(ren, &outline);
 }
