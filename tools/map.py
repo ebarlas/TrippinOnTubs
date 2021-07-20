@@ -61,6 +61,13 @@ def find_objects(root):
                     extract_int_from_xml(node, s, obj)
                 for s in bools:
                     extract_bool_from_xml(node, s, obj)
+                if 'activateWhen' in node.attrib:
+                    id = node.attrib['activateWhen']
+                    ref = root.findall(f'.//*[@id="{id}"]')
+                    if ref:
+                        ref_x = int(ref[0].attrib['x'])
+                        ref_activation = int(ref[0].attrib['activation'])
+                        obj['activation'] = ref_activation + (obj['position']['x'] - ref_x)
                 objects.append(obj)
                 id_counter = id_counter + 1
     return objects
