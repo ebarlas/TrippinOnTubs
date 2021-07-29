@@ -91,6 +91,38 @@ corresponding regions of different layers of graphics.
 
 ![Parallax](docs/parallax.png)
 
+# Object Activation
+
+The goal of the game object activation system in Trippin on Tubs is to minimize the number of 
+active objects at a given time. This is achieved using a simple, proximity-based
+activation method tailored for side-scrolling, single-direction gameplay. Objects are activated when 
+they approach the viewport and are subsequently deactivated when they leave the viewport behind.
+The end result is sparsely activated objects within a level. 
+
+A level is composed of game objects described in a map JSON file. _All_ games objects are created
+when a level is loaded and destroyed when a level ends. Once created, game object references are handed 
+to the engine and the engine handles the lifecycle of each game object. The main thread also retains 
+a reference for rendering objects. See [Timing](#timing) section for information on coordination between threads.
+
+```text
++----------+         +--------+         +---------+
+|          |         |        |         |         |
+| INACTIVE +-------->| ACTIVE +-------->| EXPIRED |
+|          |         |        |         |         |
++----------+         +--------+         +---------+
+```
+
+The tasks outlined in the [Engine](#engine) section only apply to objects in the active state.
+That is, inactive and expired objects are not considered for position updates, collision detection, etc.
+During each engine tick, game objects determine whether they ought to transition from one state to the next.
+
+The decision about transitioning to or from the active state is based on proximity to the viewport. 
+A default proximity is defined for all objects but proximity can also be configured for each object. 
+In some cases, a cluster of objects should activate at the same tick to achieve a desired visual effect. 
+The object-level activation proximity ought to be used in this case.
+
+![Image of object activation](docs/object-activation.png)
+
 # Engine
 The `trippin` physics engine handles the movement and interaction of all objects.
 The footprint of an object is represented with an axis aligned bounding box (AABB)
