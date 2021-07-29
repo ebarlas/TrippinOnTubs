@@ -87,7 +87,14 @@ to the right.
 # Parallax
 
 A parallax scrolling effect is achieved by mapping the camera viewport on to
-corresponding regions of different layers of graphics. 
+corresponding regions of different layers of graphics. The viewport pans
+across each layer proportionally, anchored to the player character.
+
+Consider a level with a foreground layer of width _N_ and a background layer
+of width _N/2_ The viewport will pan across the background layer at half
+the speed of the foreground layer. A background layer of width _N/4_ would 
+scroll at a quarter of the speed.
+
 
 ![Parallax](docs/parallax.png)
 
