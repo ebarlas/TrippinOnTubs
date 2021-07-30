@@ -7,7 +7,7 @@
 
 namespace trippin {
     // Factory for sprite surfaces given at a particular scale
-    // Surfaces a loaded individually with load function
+    // Surfaces are loaded individually with load function
     class SpriteLoader {
     public:
         SpriteLoader(Scale scale);

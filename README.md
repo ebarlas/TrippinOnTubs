@@ -54,9 +54,16 @@ is used in various places within the game. It was obtained from fontspace.com un
 
 # Media
 
+Raw game assets are SVG images. SVGs are processed and rasterized
+into sprite sheet PNG images. Trippin on Tubs loads PNGs with the help of SDL_Image and libpng.
+
+PNGs are rasterized at multiple scales tailored for different devices and screen resolutions.
+
 The diagram below outlines the flow of data between media components.
 
 ![Media Data Flow](docs/media-data-flow.png)
+
+# Scale
 
 # Timing
 
@@ -129,6 +136,10 @@ In some cases, a cluster of objects should activate at the same tick to achieve 
 The object-level activation proximity ought to be used in this case.
 
 ![Image of object activation](docs/object-activation.png)
+
+# Image Pre-Loading
+
+# Modules
 
 # Engine
 The `trippin` physics engine handles the movement and interaction of all objects.
@@ -242,10 +253,13 @@ Collision reactions can be divided into two categories:
 2. Object-object
 
 Object-platform collision reactions can be further subdivided:
-1. Absorbent
-2. Reflective
+1. Absorbent - Object velocity is 0 on the axis of collision
+2. Reflective - Object velocity direction changes on the axis of collision
 
 Object-object collisions reaction can be further subdivided:
-1. 1D elastic
-2. 2D elastic
-3. 2D inelastic
+1. 1D elastic - Energy-conserving (non-dampening) collision along one axis 
+2. 2D elastic - Energy-conserving (non-dampening) collision along vector between bounding box centers
+3. 2D inelastic - Non energy-conserving (dampening) collision along vector between bounding box centers
+
+C code for calculating elastic collision velocity vectors was obtained from 
+[http://www.plasmaphysics.org.uk/collision2d.htm](http://www.plasmaphysics.org.uk/collision2d.htm).
