@@ -52,6 +52,12 @@ is used in various places within the game. It was obtained from fontspace.com un
 
 ![Meltdown MF Font](docs/meltdown.png)
 
+# Modules
+
+The diagram below outlines the various game modules and the interdependencies.
+
+![Image of game modules](docs/game-modules.png)
+
 # Media
 
 Raw game assets are SVG images. SVGs are processed and rasterized
@@ -63,7 +69,17 @@ The diagram below outlines the flow of data between media components.
 
 ![Media Data Flow](docs/media-data-flow.png)
 
-# Scale
+# Image Pre-Loading
+
+Large sprite sheets can take a measurable amount of time to load. The level that appears on launch
+has relatively few objects and does not include the largest sprites. This represents an opportunity for
+pre-fetching large images. When the game launches, large sprites are loaded in a background thread
+while the auto-play loading level initializes and appears to the user. 
+When the user chooses to begin the game, large images will have been pre-fetched.
+
+The [SpriteLoadTask](src/sprite/SpriteLoadTask.h) class is responsible for background loading.
+
+![Image of pre-fetching](docs/pre-fetching.png)
 
 # Timing
 
@@ -86,10 +102,29 @@ Game elements are arranged in maps that are much larger than displays. A camera 
 portion of the screen that is currently visible. The camera is anchored to the player
 character. Vertically, the camera is centered on the player with half of the camera area
 above the player and half below. Horizontally, the camera is aimed just to the right of the
-player such that a third of the camera area resides to the left of the player and two thirds
+player such that a quarter of the viewport area resides to the left of the player and three quarters
 to the right.
 
 ![Camera](docs/camera.png)
+
+# Scale
+
+One of the guiding principle for Trippin on Tubs is that raster images should never be scaled or resized.
+All scaling occurs with vector graphics during image preparation noted [above](#media).
+
+Accordingly, a target scale is determined when the game launches and images are displayed at
+their native resolution.
+
+During game initialization, available scales are considered from largest to smallest until a minimum width
+threshold is satisfied. That is, the scale used is the largest scale available that meets the minimum viewport
+width requirement for that scale.
+
+The scale chosen is used for _all_ types of graphics loaded throughout the game.
+
+As noted [below](#camera), the camera is anchored on the player character. The visible area within a level
+varies for different devices and displays.
+
+![Image os scale](docs/scale.png)
 
 # Parallax
 
@@ -136,10 +171,6 @@ In some cases, a cluster of objects should activate at the same tick to achieve 
 The object-level activation proximity ought to be used in this case.
 
 ![Image of object activation](docs/object-activation.png)
-
-# Image Pre-Loading
-
-# Modules
 
 # Engine
 The `trippin` physics engine handles the movement and interaction of all objects.
