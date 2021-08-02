@@ -126,6 +126,15 @@ varies for different devices and displays.
 
 ![Image os scale](docs/scale.png)
 
+# Simulation
+
+Trippin on Tubs gameplay unfolds like a simulation. 
+Game object locations and [activation rules](#object-activation) are fixed 
+and [game engine](#engine) physics and movement rules govern interactions.
+The game engine thread runs at a [fixed rate](#timing) on a dedicated thread
+regardless of host device or platform. As a result, the game unfolds in a
+consistent, predictable way across devices.
+
 # Parallax
 
 A parallax scrolling effect is achieved by mapping the camera viewport on to
