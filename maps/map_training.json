@@ -2488,7 +2488,7 @@
       "stompable": true,
       "bottomStompable": true,
       "randFrame": true,
-      "activation": 340
+      "activation": 1652
     },
     {
       "id": 251,
@@ -2513,7 +2513,7 @@
       "stompable": true,
       "bottomStompable": true,
       "randFrame": true,
-      "activation": 420
+      "activation": 1732
     },
     {
       "id": 252,
@@ -2538,7 +2538,7 @@
       "stompable": true,
       "bottomStompable": true,
       "randFrame": true,
-      "activation": 660
+      "activation": 1972
     },
     {
       "id": 253,
@@ -2563,7 +2563,7 @@
       "stompable": true,
       "bottomStompable": true,
       "randFrame": true,
-      "activation": 520
+      "activation": 1832
     },
     {
       "id": 254,
@@ -2588,7 +2588,7 @@
       "stompable": true,
       "bottomStompable": true,
       "randFrame": true,
-      "activation": 640
+      "activation": 1952
     },
     {
       "id": 255,
@@ -2608,7 +2608,7 @@
       },
       "runningAcceleration": -150.0,
       "risingAcceleration": 150.0,
-      "activation": 300.0,
+      "activation": 1612.0,
       "lane": 1,
       "hitPoints": 1,
       "stompable": true,
@@ -2638,7 +2638,7 @@
       "stompable": true,
       "bottomStompable": true,
       "randFrame": true,
-      "activation": 320
+      "activation": 1632
     },
     {
       "id": 257,
@@ -2663,7 +2663,7 @@
       "stompable": true,
       "bottomStompable": true,
       "randFrame": true,
-      "activation": 440
+      "activation": 1752
     },
     {
       "id": 258,
@@ -2688,7 +2688,7 @@
       "stompable": true,
       "bottomStompable": true,
       "randFrame": true,
-      "activation": 560
+      "activation": 1872
     },
     {
       "id": 259,
@@ -2713,7 +2713,7 @@
       "stompable": true,
       "bottomStompable": true,
       "randFrame": true,
-      "activation": 370
+      "activation": 1682
     },
     {
       "id": 260,
@@ -2738,7 +2738,7 @@
       "stompable": true,
       "bottomStompable": true,
       "randFrame": true,
-      "activation": 510
+      "activation": 1822
     },
     {
       "id": 261,
@@ -2763,7 +2763,7 @@
       "stompable": true,
       "bottomStompable": true,
       "randFrame": true,
-      "activation": 580
+      "activation": 1892
     },
     {
       "id": 262,
@@ -2788,7 +2788,7 @@
       "stompable": true,
       "bottomStompable": true,
       "randFrame": true,
-      "activation": 440
+      "activation": 1752
     },
     {
       "id": 263,
@@ -2813,7 +2813,7 @@
       "stompable": true,
       "bottomStompable": true,
       "randFrame": true,
-      "activation": 620
+      "activation": 1932
     },
     {
       "id": 264,
@@ -2838,7 +2838,7 @@
       "stompable": true,
       "bottomStompable": true,
       "randFrame": true,
-      "activation": 630
+      "activation": 1942
     },
     {
       "id": 265,
@@ -3351,149 +3351,175 @@
     },
     {
       "id": 292,
-      "type": "ball",
+      "type": "winged_tub",
       "platform": false,
       "position": {
-        "x": 4275,
-        "y": 4243
-      },
-      "velocity": {
-        "x": 0.0,
-        "y": 0.0
-      },
-      "terminalVelocity": {
-        "x": 800.0,
-        "y": 800.0
-      },
-      "gravity": 1000.0,
-      "fallGravity": 1000.0,
-      "coefficient": 0.9,
-      "hitPoints": 2,
-      "stompable": true,
-      "elasticObjectCollisions": true
+        "x": 7520,
+        "y": 3600
+      }
     },
     {
       "id": 293,
-      "type": "ball",
+      "type": "winged_tub",
       "platform": false,
       "position": {
-        "x": 4405,
-        "y": 4243
-      },
-      "velocity": {
-        "x": 0.0,
-        "y": 0.0
-      },
-      "terminalVelocity": {
-        "x": 800.0,
-        "y": 800.0
-      },
-      "gravity": 1000.0,
-      "fallGravity": 1000.0,
-      "coefficient": 0.9,
-      "hitPoints": 2,
-      "stompable": true,
-      "elasticObjectCollisions": true
+        "x": 7760,
+        "y": 3680
+      }
     },
     {
       "id": 294,
-      "type": "ball",
+      "type": "winged_tub",
       "platform": false,
       "position": {
-        "x": 4210,
-        "y": 4243
-      },
-      "velocity": {
-        "x": 0.0,
-        "y": 0.0
-      },
-      "terminalVelocity": {
-        "x": 800.0,
-        "y": 800.0
-      },
-      "gravity": 1000.0,
-      "fallGravity": 1000.0,
-      "coefficient": 0.9,
-      "hitPoints": 2,
-      "stompable": true,
-      "elasticObjectCollisions": true
+        "x": 8560,
+        "y": 4360
+      }
     },
     {
       "id": 295,
-      "type": "ball",
+      "type": "winged_tub",
       "platform": false,
       "position": {
-        "x": 4145,
-        "y": 4243
-      },
-      "velocity": {
-        "x": 0.0,
-        "y": 0.0
-      },
-      "terminalVelocity": {
-        "x": 800.0,
-        "y": 800.0
-      },
-      "gravity": 1000.0,
-      "fallGravity": 1000.0,
-      "coefficient": 0.9,
-      "hitPoints": 2,
-      "stompable": true,
-      "elasticObjectCollisions": true
+        "x": 8840,
+        "y": 4120
+      }
     },
     {
       "id": 296,
-      "type": "ball",
+      "type": "winged_tub",
       "platform": false,
       "position": {
-        "x": 4015,
-        "y": 4243
-      },
-      "velocity": {
-        "x": 0.0,
-        "y": 0.0
-      },
-      "terminalVelocity": {
-        "x": 800.0,
-        "y": 800.0
-      },
-      "gravity": 1000.0,
-      "fallGravity": 1000.0,
-      "coefficient": 0.9,
-      "hitPoints": 2,
-      "stompable": true,
-      "elasticObjectCollisions": true
+        "x": 8960,
+        "y": 3360
+      }
     },
     {
       "id": 297,
-      "type": "ball",
+      "type": "winged_tub",
       "platform": false,
       "position": {
-        "x": 4340,
-        "y": 4243
-      },
-      "velocity": {
-        "x": 0.0,
-        "y": 0.0
-      },
-      "terminalVelocity": {
-        "x": 800.0,
-        "y": 800.0
-      },
-      "gravity": 1000.0,
-      "fallGravity": 1000.0,
-      "coefficient": 0.9,
-      "hitPoints": 2,
-      "stompable": true,
-      "elasticObjectCollisions": true
+        "x": 8960,
+        "y": 3560
+      }
     },
     {
       "id": 298,
+      "type": "winged_tub",
+      "platform": false,
+      "position": {
+        "x": 10280,
+        "y": 3920
+      }
+    },
+    {
+      "id": 299,
+      "type": "winged_tub",
+      "platform": false,
+      "position": {
+        "x": 10400,
+        "y": 4360
+      }
+    },
+    {
+      "id": 300,
+      "type": "winged_tub",
+      "platform": false,
+      "position": {
+        "x": 11960,
+        "y": 4160
+      }
+    },
+    {
+      "id": 301,
+      "type": "winged_tub",
+      "platform": false,
+      "position": {
+        "x": 11320,
+        "y": 3160
+      }
+    },
+    {
+      "id": 302,
+      "type": "winged_tub",
+      "platform": false,
+      "position": {
+        "x": 11600,
+        "y": 3160
+      }
+    },
+    {
+      "id": 303,
+      "type": "winged_tub",
+      "platform": false,
+      "position": {
+        "x": 11440,
+        "y": 2960
+      },
+      "sparkle": true
+    },
+    {
+      "id": 304,
+      "type": "winged_tub",
+      "platform": false,
+      "position": {
+        "x": 11440,
+        "y": 2720
+      },
+      "sparkle": true
+    },
+    {
+      "id": 305,
+      "type": "winged_tub",
+      "platform": false,
+      "position": {
+        "x": 13720,
+        "y": 3000
+      }
+    },
+    {
+      "id": 306,
+      "type": "winged_tub",
+      "platform": false,
+      "position": {
+        "x": 15320,
+        "y": 2720
+      }
+    },
+    {
+      "id": 307,
+      "type": "winged_tub",
+      "platform": false,
+      "position": {
+        "x": 16760,
+        "y": 2400
+      }
+    },
+    {
+      "id": 308,
+      "type": "winged_tub",
+      "platform": false,
+      "position": {
+        "x": 17880,
+        "y": 2400
+      }
+    },
+    {
+      "id": 309,
+      "type": "winged_tub",
+      "platform": false,
+      "position": {
+        "x": 18200,
+        "y": 2400
+      }
+    },
+    {
+      "id": 310,
       "type": "ball",
       "platform": false,
       "position": {
-        "x": 4080,
-        "y": 4243
+        "x": 4220,
+        "y": 4003
       },
       "velocity": {
         "x": 0.0,
@@ -3508,10 +3534,323 @@
       "coefficient": 0.9,
       "hitPoints": 2,
       "stompable": true,
+      "elasticObjectCollisions": true,
+      "activation": 1880
+    },
+    {
+      "id": 311,
+      "type": "ball",
+      "platform": false,
+      "position": {
+        "x": 4350,
+        "y": 3903
+      },
+      "velocity": {
+        "x": 0.0,
+        "y": 0.0
+      },
+      "terminalVelocity": {
+        "x": 800.0,
+        "y": 800.0
+      },
+      "gravity": 1000.0,
+      "fallGravity": 1000.0,
+      "coefficient": 0.9,
+      "hitPoints": 2,
+      "stompable": true,
+      "elasticObjectCollisions": true,
+      "activation": 2010
+    },
+    {
+      "id": 312,
+      "type": "ball",
+      "platform": false,
+      "position": {
+        "x": 4155,
+        "y": 4053
+      },
+      "velocity": {
+        "x": 0.0,
+        "y": 0.0
+      },
+      "terminalVelocity": {
+        "x": 800.0,
+        "y": 800.0
+      },
+      "gravity": 1000.0,
+      "fallGravity": 1000.0,
+      "coefficient": 0.9,
+      "hitPoints": 2,
+      "stompable": true,
+      "elasticObjectCollisions": true,
+      "activation": 1815
+    },
+    {
+      "id": 313,
+      "type": "ball",
+      "platform": false,
+      "position": {
+        "x": 4090,
+        "y": 4103
+      },
+      "velocity": {
+        "x": 0.0,
+        "y": 0.0
+      },
+      "terminalVelocity": {
+        "x": 800.0,
+        "y": 800.0
+      },
+      "gravity": 1000.0,
+      "fallGravity": 1000.0,
+      "coefficient": 0.9,
+      "hitPoints": 2,
+      "stompable": true,
+      "elasticObjectCollisions": true,
+      "activation": 1750
+    },
+    {
+      "id": 314,
+      "type": "ball",
+      "platform": false,
+      "position": {
+        "x": 3960,
+        "y": 4203
+      },
+      "velocity": {
+        "x": 0.0,
+        "y": 0.0
+      },
+      "terminalVelocity": {
+        "x": 800.0,
+        "y": 800.0
+      },
+      "gravity": 1000.0,
+      "fallGravity": 1000.0,
+      "coefficient": 0.9,
+      "activation": 1620.0,
+      "hitPoints": 2,
+      "stompable": true,
       "elasticObjectCollisions": true
     },
     {
-      "id": 299,
+      "id": 315,
+      "type": "ball",
+      "platform": false,
+      "position": {
+        "x": 4285,
+        "y": 3953
+      },
+      "velocity": {
+        "x": 0.0,
+        "y": 0.0
+      },
+      "terminalVelocity": {
+        "x": 800.0,
+        "y": 800.0
+      },
+      "gravity": 1000.0,
+      "fallGravity": 1000.0,
+      "coefficient": 0.9,
+      "hitPoints": 2,
+      "stompable": true,
+      "elasticObjectCollisions": true,
+      "activation": 1945
+    },
+    {
+      "id": 316,
+      "type": "ball",
+      "platform": false,
+      "position": {
+        "x": 4025,
+        "y": 4153
+      },
+      "velocity": {
+        "x": 0.0,
+        "y": 0.0
+      },
+      "terminalVelocity": {
+        "x": 800.0,
+        "y": 800.0
+      },
+      "gravity": 1000.0,
+      "fallGravity": 1000.0,
+      "coefficient": 0.9,
+      "hitPoints": 2,
+      "stompable": true,
+      "elasticObjectCollisions": true,
+      "activation": 1685
+    },
+    {
+      "id": 317,
+      "type": "ball",
+      "platform": false,
+      "position": {
+        "x": 7918,
+        "y": 3833
+      },
+      "velocity": {
+        "x": 0.0,
+        "y": 0.0
+      },
+      "terminalVelocity": {
+        "x": 800.0,
+        "y": 800.0
+      },
+      "gravity": 1000.0,
+      "fallGravity": 1000.0,
+      "coefficient": 0.9,
+      "hitPoints": 2,
+      "stompable": true,
+      "elasticObjectCollisions": true,
+      "activation": 1880
+    },
+    {
+      "id": 318,
+      "type": "ball",
+      "platform": false,
+      "position": {
+        "x": 8048,
+        "y": 3933
+      },
+      "velocity": {
+        "x": 0.0,
+        "y": 0.0
+      },
+      "terminalVelocity": {
+        "x": 800.0,
+        "y": 800.0
+      },
+      "gravity": 1000.0,
+      "fallGravity": 1000.0,
+      "coefficient": 0.9,
+      "hitPoints": 2,
+      "stompable": true,
+      "elasticObjectCollisions": true,
+      "activation": 2010
+    },
+    {
+      "id": 319,
+      "type": "ball",
+      "platform": false,
+      "position": {
+        "x": 7853,
+        "y": 3783
+      },
+      "velocity": {
+        "x": 0.0,
+        "y": 0.0
+      },
+      "terminalVelocity": {
+        "x": 800.0,
+        "y": 800.0
+      },
+      "gravity": 1000.0,
+      "fallGravity": 1000.0,
+      "coefficient": 0.9,
+      "hitPoints": 2,
+      "stompable": true,
+      "elasticObjectCollisions": true,
+      "activation": 1815
+    },
+    {
+      "id": 320,
+      "type": "ball",
+      "platform": false,
+      "position": {
+        "x": 7788,
+        "y": 3833
+      },
+      "velocity": {
+        "x": 0.0,
+        "y": 0.0
+      },
+      "terminalVelocity": {
+        "x": 800.0,
+        "y": 800.0
+      },
+      "gravity": 1000.0,
+      "fallGravity": 1000.0,
+      "coefficient": 0.9,
+      "hitPoints": 2,
+      "stompable": true,
+      "elasticObjectCollisions": true,
+      "activation": 1750
+    },
+    {
+      "id": 321,
+      "type": "ball",
+      "platform": false,
+      "position": {
+        "x": 7658,
+        "y": 3933
+      },
+      "velocity": {
+        "x": 0.0,
+        "y": 0.0
+      },
+      "terminalVelocity": {
+        "x": 800.0,
+        "y": 800.0
+      },
+      "gravity": 1000.0,
+      "fallGravity": 1000.0,
+      "coefficient": 0.9,
+      "activation": 1620.0,
+      "hitPoints": 2,
+      "stompable": true,
+      "elasticObjectCollisions": true
+    },
+    {
+      "id": 322,
+      "type": "ball",
+      "platform": false,
+      "position": {
+        "x": 7983,
+        "y": 3883
+      },
+      "velocity": {
+        "x": 0.0,
+        "y": 0.0
+      },
+      "terminalVelocity": {
+        "x": 800.0,
+        "y": 800.0
+      },
+      "gravity": 1000.0,
+      "fallGravity": 1000.0,
+      "coefficient": 0.9,
+      "hitPoints": 2,
+      "stompable": true,
+      "elasticObjectCollisions": true,
+      "activation": 1945
+    },
+    {
+      "id": 323,
+      "type": "ball",
+      "platform": false,
+      "position": {
+        "x": 7723,
+        "y": 3883
+      },
+      "velocity": {
+        "x": 0.0,
+        "y": 0.0
+      },
+      "terminalVelocity": {
+        "x": 800.0,
+        "y": 800.0
+      },
+      "gravity": 1000.0,
+      "fallGravity": 1000.0,
+      "coefficient": 0.9,
+      "hitPoints": 2,
+      "stompable": true,
+      "elasticObjectCollisions": true,
+      "activation": 1685
+    },
+    {
+      "id": 324,
       "type": "zombie",
       "platform": false,
       "position": {
@@ -3532,7 +3871,7 @@
       "topStompable": true
     },
     {
-      "id": 300,
+      "id": 325,
       "type": "zombie",
       "platform": false,
       "position": {
@@ -3553,7 +3892,7 @@
       "topStompable": true
     },
     {
-      "id": 301,
+      "id": 326,
       "type": "zombie",
       "platform": false,
       "position": {
@@ -3574,7 +3913,49 @@
       "topStompable": true
     },
     {
-      "id": 302,
+      "id": 327,
+      "type": "zombie",
+      "platform": false,
+      "position": {
+        "x": 14800,
+        "y": 3930
+      },
+      "terminalVelocity": {
+        "x": 100.0,
+        "y": 1125.0
+      },
+      "massFactor": 0.5,
+      "gravity": 1000.0,
+      "fallGravity": 1500.0,
+      "runningAcceleration": -125.0,
+      "hitPoints": 4,
+      "accelerateWhenGrounded": true,
+      "stompable": true,
+      "topStompable": true
+    },
+    {
+      "id": 328,
+      "type": "zombie",
+      "platform": false,
+      "position": {
+        "x": 17890,
+        "y": 3320
+      },
+      "terminalVelocity": {
+        "x": 100.0,
+        "y": 1125.0
+      },
+      "massFactor": 0.5,
+      "gravity": 1000.0,
+      "fallGravity": 1500.0,
+      "runningAcceleration": -125.0,
+      "hitPoints": 4,
+      "accelerateWhenGrounded": true,
+      "stompable": true,
+      "topStompable": true
+    },
+    {
+      "id": 329,
       "type": "rat",
       "platform": false,
       "position": {
@@ -3600,7 +3981,7 @@
       "topStompable": true
     },
     {
-      "id": 303,
+      "id": 330,
       "type": "rat",
       "platform": false,
       "position": {
@@ -3626,7 +4007,7 @@
       "topStompable": true
     },
     {
-      "id": 304,
+      "id": 331,
       "type": "rat",
       "platform": false,
       "position": {
@@ -3652,7 +4033,7 @@
       "topStompable": true
     },
     {
-      "id": 305,
+      "id": 332,
       "type": "rat",
       "platform": false,
       "position": {
@@ -3678,7 +4059,7 @@
       "topStompable": true
     },
     {
-      "id": 306,
+      "id": 333,
       "type": "rat",
       "platform": false,
       "position": {
@@ -3704,7 +4085,7 @@
       "topStompable": true
     },
     {
-      "id": 307,
+      "id": 334,
       "type": "rat",
       "platform": false,
       "position": {
@@ -3730,7 +4111,7 @@
       "topStompable": true
     },
     {
-      "id": 308,
+      "id": 335,
       "type": "rat",
       "platform": false,
       "position": {
@@ -3756,7 +4137,7 @@
       "topStompable": true
     },
     {
-      "id": 309,
+      "id": 336,
       "type": "rat",
       "platform": false,
       "position": {
@@ -3782,7 +4163,7 @@
       "topStompable": true
     },
     {
-      "id": 310,
+      "id": 337,
       "type": "rat",
       "platform": false,
       "position": {
@@ -3808,7 +4189,7 @@
       "topStompable": true
     },
     {
-      "id": 311,
+      "id": 338,
       "type": "rat",
       "platform": false,
       "position": {
@@ -3834,7 +4215,7 @@
       "topStompable": true
     },
     {
-      "id": 312,
+      "id": 339,
       "type": "rat",
       "platform": false,
       "position": {
@@ -3860,7 +4241,7 @@
       "topStompable": true
     },
     {
-      "id": 313,
+      "id": 340,
       "type": "rat",
       "platform": false,
       "position": {
@@ -3886,7 +4267,7 @@
       "topStompable": true
     },
     {
-      "id": 314,
+      "id": 341,
       "type": "rat",
       "platform": false,
       "position": {
@@ -3912,7 +4293,7 @@
       "topStompable": true
     },
     {
-      "id": 315,
+      "id": 342,
       "type": "rat",
       "platform": false,
       "position": {
@@ -3938,7 +4319,7 @@
       "topStompable": true
     },
     {
-      "id": 316,
+      "id": 343,
       "type": "rat",
       "platform": false,
       "position": {
@@ -3964,7 +4345,7 @@
       "topStompable": true
     },
     {
-      "id": 317,
+      "id": 344,
       "type": "rat",
       "platform": false,
       "position": {
@@ -3990,7 +4371,7 @@
       "topStompable": true
     },
     {
-      "id": 318,
+      "id": 345,
       "type": "rat",
       "platform": false,
       "position": {
@@ -4016,7 +4397,7 @@
       "topStompable": true
     },
     {
-      "id": 319,
+      "id": 346,
       "type": "rat",
       "platform": false,
       "position": {
@@ -4042,7 +4423,7 @@
       "topStompable": true
     },
     {
-      "id": 320,
+      "id": 347,
       "type": "rat",
       "platform": false,
       "position": {
@@ -4068,7 +4449,7 @@
       "topStompable": true
     },
     {
-      "id": 321,
+      "id": 348,
       "type": "rat",
       "platform": false,
       "position": {
@@ -4094,7 +4475,7 @@
       "topStompable": true
     },
     {
-      "id": 322,
+      "id": 349,
       "type": "rat",
       "platform": false,
       "position": {
@@ -4120,7 +4501,7 @@
       "topStompable": true
     },
     {
-      "id": 323,
+      "id": 350,
       "type": "rat",
       "platform": false,
       "position": {
@@ -4146,7 +4527,7 @@
       "topStompable": true
     },
     {
-      "id": 324,
+      "id": 351,
       "type": "rat",
       "platform": false,
       "position": {
@@ -4172,7 +4553,7 @@
       "topStompable": true
     },
     {
-      "id": 325,
+      "id": 352,
       "type": "rat",
       "platform": false,
       "position": {
@@ -4198,7 +4579,7 @@
       "topStompable": true
     },
     {
-      "id": 326,
+      "id": 353,
       "type": "rat",
       "platform": false,
       "position": {
@@ -4224,7 +4605,7 @@
       "topStompable": true
     },
     {
-      "id": 327,
+      "id": 354,
       "type": "rat",
       "platform": false,
       "position": {
@@ -4250,7 +4631,7 @@
       "topStompable": true
     },
     {
-      "id": 328,
+      "id": 355,
       "type": "rat",
       "platform": false,
       "position": {
@@ -4276,7 +4657,7 @@
       "topStompable": true
     },
     {
-      "id": 329,
+      "id": 356,
       "type": "rat",
       "platform": false,
       "position": {
@@ -4302,7 +4683,7 @@
       "topStompable": true
     },
     {
-      "id": 330,
+      "id": 357,
       "type": "rat",
       "platform": false,
       "position": {
@@ -4328,7 +4709,7 @@
       "topStompable": true
     },
     {
-      "id": 331,
+      "id": 358,
       "type": "rat",
       "platform": false,
       "position": {
@@ -4354,7 +4735,7 @@
       "topStompable": true
     },
     {
-      "id": 332,
+      "id": 359,
       "type": "rat",
       "platform": false,
       "position": {
@@ -4380,7 +4761,7 @@
       "topStompable": true
     },
     {
-      "id": 333,
+      "id": 360,
       "type": "rat",
       "platform": false,
       "position": {
@@ -4406,7 +4787,7 @@
       "topStompable": true
     },
     {
-      "id": 334,
+      "id": 361,
       "type": "rat",
       "platform": false,
       "position": {
@@ -4432,7 +4813,7 @@
       "topStompable": true
     },
     {
-      "id": 335,
+      "id": 362,
       "type": "rat",
       "platform": false,
       "position": {
@@ -4458,7 +4839,7 @@
       "topStompable": true
     },
     {
-      "id": 336,
+      "id": 363,
       "type": "rat",
       "platform": false,
       "position": {
@@ -4484,7 +4865,7 @@
       "topStompable": true
     },
     {
-      "id": 337,
+      "id": 364,
       "type": "rat",
       "platform": false,
       "position": {
@@ -4510,7 +4891,7 @@
       "topStompable": true
     },
     {
-      "id": 338,
+      "id": 365,
       "type": "rat",
       "platform": false,
       "position": {
@@ -4536,7 +4917,7 @@
       "topStompable": true
     },
     {
-      "id": 339,
+      "id": 366,
       "type": "rat",
       "platform": false,
       "position": {
@@ -4562,7 +4943,7 @@
       "topStompable": true
     },
     {
-      "id": 340,
+      "id": 367,
       "type": "rat",
       "platform": false,
       "position": {
@@ -4588,7 +4969,7 @@
       "topStompable": true
     },
     {
-      "id": 341,
+      "id": 368,
       "type": "rat",
       "platform": false,
       "position": {
@@ -4614,7 +4995,7 @@
       "topStompable": true
     },
     {
-      "id": 342,
+      "id": 369,
       "type": "rat",
       "platform": false,
       "position": {
@@ -4640,7 +5021,7 @@
       "topStompable": true
     },
     {
-      "id": 343,
+      "id": 370,
       "type": "rat",
       "platform": false,
       "position": {
@@ -4666,7 +5047,7 @@
       "topStompable": true
     },
     {
-      "id": 344,
+      "id": 371,
       "type": "rat",
       "platform": false,
       "position": {
@@ -4692,7 +5073,7 @@
       "topStompable": true
     },
     {
-      "id": 345,
+      "id": 372,
       "type": "rat",
       "platform": false,
       "position": {
@@ -4718,7 +5099,7 @@
       "topStompable": true
     },
     {
-      "id": 346,
+      "id": 373,
       "type": "rat",
       "platform": false,
       "position": {
@@ -4744,7 +5125,7 @@
       "topStompable": true
     },
     {
-      "id": 347,
+      "id": 374,
       "type": "rat",
       "platform": false,
       "position": {
@@ -4770,7 +5151,7 @@
       "topStompable": true
     },
     {
-      "id": 348,
+      "id": 375,
       "type": "rat",
       "platform": false,
       "position": {
@@ -4796,7 +5177,7 @@
       "topStompable": true
     },
     {
-      "id": 349,
+      "id": 376,
       "type": "rat",
       "platform": false,
       "position": {
@@ -4822,7 +5203,7 @@
       "topStompable": true
     },
     {
-      "id": 350,
+      "id": 377,
       "type": "rat",
       "platform": false,
       "position": {
@@ -4848,7 +5229,7 @@
       "topStompable": true
     },
     {
-      "id": 351,
+      "id": 378,
       "type": "rat",
       "platform": false,
       "position": {
@@ -4874,7 +5255,7 @@
       "topStompable": true
     },
     {
-      "id": 352,
+      "id": 379,
       "type": "rat",
       "platform": false,
       "position": {
@@ -4900,7 +5281,7 @@
       "topStompable": true
     },
     {
-      "id": 353,
+      "id": 380,
       "type": "rat",
       "platform": false,
       "position": {
@@ -4926,7 +5307,7 @@
       "topStompable": true
     },
     {
-      "id": 354,
+      "id": 381,
       "type": "rat",
       "platform": false,
       "position": {
@@ -4952,7 +5333,7 @@
       "topStompable": true
     },
     {
-      "id": 355,
+      "id": 382,
       "type": "rat",
       "platform": false,
       "position": {
@@ -4978,7 +5359,7 @@
       "topStompable": true
     },
     {
-      "id": 356,
+      "id": 383,
       "type": "rat",
       "platform": false,
       "position": {
@@ -5004,7 +5385,7 @@
       "topStompable": true
     },
     {
-      "id": 357,
+      "id": 384,
       "type": "rat",
       "platform": false,
       "position": {
@@ -5030,7 +5411,7 @@
       "topStompable": true
     },
     {
-      "id": 358,
+      "id": 385,
       "type": "rat",
       "platform": false,
       "position": {
@@ -5056,7 +5437,7 @@
       "topStompable": true
     },
     {
-      "id": 359,
+      "id": 386,
       "type": "rat",
       "platform": false,
       "position": {
@@ -5082,7 +5463,7 @@
       "topStompable": true
     },
     {
-      "id": 360,
+      "id": 387,
       "type": "rat",
       "platform": false,
       "position": {
@@ -5108,7 +5489,7 @@
       "topStompable": true
     },
     {
-      "id": 361,
+      "id": 388,
       "type": "rat",
       "platform": false,
       "position": {
@@ -5134,7 +5515,7 @@
       "topStompable": true
     },
     {
-      "id": 362,
+      "id": 389,
       "type": "rat",
       "platform": false,
       "position": {
@@ -5160,7 +5541,7 @@
       "topStompable": true
     },
     {
-      "id": 363,
+      "id": 390,
       "type": "rat",
       "platform": false,
       "position": {
@@ -5186,7 +5567,7 @@
       "topStompable": true
     },
     {
-      "id": 364,
+      "id": 391,
       "type": "rat",
       "platform": false,
       "position": {
@@ -5212,7 +5593,7 @@
       "topStompable": true
     },
     {
-      "id": 365,
+      "id": 392,
       "type": "rat",
       "platform": false,
       "position": {
@@ -5238,7 +5619,7 @@
       "topStompable": true
     },
     {
-      "id": 366,
+      "id": 393,
       "type": "rat",
       "platform": false,
       "position": {
@@ -5264,7 +5645,7 @@
       "topStompable": true
     },
     {
-      "id": 367,
+      "id": 394,
       "type": "rat",
       "platform": false,
       "position": {
@@ -5290,7 +5671,7 @@
       "topStompable": true
     },
     {
-      "id": 368,
+      "id": 395,
       "type": "rat",
       "platform": false,
       "position": {
@@ -5316,7 +5697,7 @@
       "topStompable": true
     },
     {
-      "id": 369,
+      "id": 396,
       "type": "rat",
       "platform": false,
       "position": {
@@ -5342,7 +5723,7 @@
       "topStompable": true
     },
     {
-      "id": 370,
+      "id": 397,
       "type": "rat",
       "platform": false,
       "position": {
@@ -5368,7 +5749,7 @@
       "topStompable": true
     },
     {
-      "id": 371,
+      "id": 398,
       "type": "rat",
       "platform": false,
       "position": {
@@ -5394,7 +5775,7 @@
       "topStompable": true
     },
     {
-      "id": 372,
+      "id": 399,
       "type": "rat",
       "platform": false,
       "position": {
@@ -5420,7 +5801,7 @@
       "topStompable": true
     },
     {
-      "id": 373,
+      "id": 400,
       "type": "rat",
       "platform": false,
       "position": {
@@ -5446,7 +5827,7 @@
       "topStompable": true
     },
     {
-      "id": 374,
+      "id": 401,
       "type": "rat",
       "platform": false,
       "position": {
@@ -5472,7 +5853,7 @@
       "topStompable": true
     },
     {
-      "id": 375,
+      "id": 402,
       "type": "rat",
       "platform": false,
       "position": {
@@ -5498,7 +5879,7 @@
       "topStompable": true
     },
     {
-      "id": 376,
+      "id": 403,
       "type": "rat",
       "platform": false,
       "position": {
@@ -5524,7 +5905,7 @@
       "topStompable": true
     },
     {
-      "id": 377,
+      "id": 404,
       "type": "rat",
       "platform": false,
       "position": {
@@ -5550,7 +5931,7 @@
       "topStompable": true
     },
     {
-      "id": 378,
+      "id": 405,
       "type": "rat",
       "platform": false,
       "position": {
@@ -5576,7 +5957,7 @@
       "topStompable": true
     },
     {
-      "id": 379,
+      "id": 406,
       "type": "rat",
       "platform": false,
       "position": {
@@ -5602,7 +5983,7 @@
       "topStompable": true
     },
     {
-      "id": 380,
+      "id": 407,
       "type": "rat",
       "platform": false,
       "position": {
@@ -5628,7 +6009,7 @@
       "topStompable": true
     },
     {
-      "id": 381,
+      "id": 408,
       "type": "rat",
       "platform": false,
       "position": {
@@ -5654,7 +6035,7 @@
       "topStompable": true
     },
     {
-      "id": 382,
+      "id": 409,
       "type": "clock_timer",
       "platform": false,
       "position": {
@@ -5663,7 +6044,7 @@
       }
     },
     {
-      "id": 383,
+      "id": 410,
       "type": "winged_foot",
       "platform": false,
       "position": {
