@@ -9,6 +9,7 @@ namespace trippin {
     class DbSynchronizer {
     public:
         static void startAddScoresThread(Transport transport, std::weak_ptr<StagingArea> stagingArea);
+        static void startAddLogEventsThread(Transport transport, std::weak_ptr<StagingArea> stagingArea);
         static void startQueryScoresThread(Transport transport, std::weak_ptr<StagingArea> stagingArea);
     };
 }

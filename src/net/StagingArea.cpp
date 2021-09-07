@@ -7,6 +7,11 @@ void trippin::StagingArea::addScore(const Score &score) {
     outgoingScores.push_back(score);
 }
 
+void trippin::StagingArea::addLogEvent(const LogEvent &logEvent) {
+    Lock lock(mutex);
+    outgoingLogEvents.push_back(logEvent);
+}
+
 void trippin::StagingArea::setTodayScores(std::vector<Score> scores) {
     Lock lock(mutex);
     todayScores = std::move(scores);
@@ -34,6 +39,13 @@ std::vector<trippin::Score> trippin::StagingArea::takeAddedScores() {
     std::vector<Score> scores = std::move(outgoingScores);
     outgoingScores.clear();
     return scores;
+}
+
+std::vector<trippin::LogEvent> trippin::StagingArea::takeAddedLogEvents() {
+    Lock lock(mutex);
+    std::vector<LogEvent> events = std::move(outgoingLogEvents);
+    outgoingLogEvents.clear();
+    return events;
 }
 
 std::vector<trippin::Score> trippin::StagingArea::combine(

@@ -4,6 +4,7 @@
 #include <string>
 #include <vector>
 #include "Score.h"
+#include "LogEvent.h"
 #include "nlohmann/json.hpp"
 
 namespace trippin {
@@ -16,6 +17,7 @@ namespace trippin {
 
         Transport(std::string host, int port);
         bool addScore(const Score &score) const;
+        bool addLogEvent(const LogEvent &event) const;
         Scores topScores() const;
         Scores todayScores() const;
     private:

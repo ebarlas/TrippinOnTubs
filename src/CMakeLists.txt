@@ -48,6 +48,7 @@ add_library(Net
         net/Tcp.cpp
         net/Transport.cpp
         net/DbSynchronizer.cpp
+        net/Logger.cpp
         net/StagingArea.cpp)
 target_include_directories(Net PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
 target_link_libraries(Net Lock PkgConfig::SDL2_NET nlohmann_json::nlohmann_json)

@@ -20,6 +20,7 @@
 #include "ui/LevelOverlay.h"
 #include "net/StagingArea.h"
 #include "SdlSystem.h"
+#include "net/Logger.h"
 
 namespace trippin {
     class Game {
@@ -49,8 +50,10 @@ namespace trippin {
         std::unique_ptr<LevelOverlay> levelOverlay;
         std::shared_ptr<StagingArea> stagingArea;
         RenderClock renderClock;
+        std::unique_ptr<Logger> logger;
         void initSdl();
         void initRand();
+        void initLogger();
         void initConfiguration();
         void initDbSychronizer();
         void initScale();
@@ -63,6 +66,9 @@ namespace trippin {
         std::unique_ptr<Level> nextLevel();
         void advanceLevel(int score, int extraLives);
         void transferSurfaces();
+        void logStateChange(const char *prev, const char *next);
+        static const char* getSystemName(SDL_Window *window);
+        static const char* getRendererName(SDL_Renderer *renderer);
     public:
         Game(std::string configName);
         void init();
