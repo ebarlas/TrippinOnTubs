@@ -5,6 +5,7 @@
 #include <vector>
 #include <string>
 #include <memory>
+#include <thread>
 #include "SDL.h"
 #include "Scale.h"
 #include "SpriteLoader.h"
@@ -25,8 +26,9 @@ namespace trippin {
     private:
         std::unique_ptr<std::unordered_map<std::string, SDL_Surface *>> surfaces;
         std::vector<std::string> names;
-        SDL_Thread *thread{};
+        std::thread thread;
         const SpriteLoader &spriteLoader;
+        bool threadStarted{};
         bool threadJoined{};
 
         std::unordered_map<std::string, SDL_Surface *> loadSurfaces() const;

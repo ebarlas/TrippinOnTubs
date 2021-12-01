@@ -3,13 +3,12 @@
 
 #include <string>
 #include <ctime>
-#include "SDL.h"
 #include "net/StagingArea.h"
 
 namespace trippin {
     class Logger {
     public:
-        Logger(StagingArea &stagingArea);
+        explicit Logger(StagingArea &stagingArea);
         void log(const std::string &message);
     private:
         time_t time;

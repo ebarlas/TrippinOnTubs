@@ -10,18 +10,17 @@ trippin::SpriteLoadTask::~SpriteLoadTask() {
     }
 }
 
-static int run(void *data) {
-    auto task = (trippin::SpriteLoadTask *) data;
+static void run(trippin::SpriteLoadTask *task) {
     task->load();
-    return 0;
 }
 
 void trippin::SpriteLoadTask::start() {
-    thread = SDL_CreateThread(run, "Surface Loader Thread", (void *) this);
+    thread = std::thread(run, this);
+    threadStarted = true;
 }
 
 bool trippin::SpriteLoadTask::started() const {
-    return thread != nullptr;
+    return threadStarted;
 }
 
 bool trippin::SpriteLoadTask::joined() const {
@@ -29,13 +28,14 @@ bool trippin::SpriteLoadTask::joined() const {
 }
 
 void trippin::SpriteLoadTask::join() {
-    int status;
-    SDL_WaitThread(thread, &status);
+    thread.join();
     threadJoined = true;
 }
 
 void trippin::SpriteLoadTask::load() {
+    SDL_Log("loading surfaces, count=%lu", names.size());
     surfaces = std::make_unique<std::unordered_map<std::string, SDL_Surface *>>(loadSurfaces());
+    SDL_Log("done loading surfaces");
 }
 
 std::unique_ptr<std::unordered_map<std::string, SDL_Surface *>> trippin::SpriteLoadTask::take() {

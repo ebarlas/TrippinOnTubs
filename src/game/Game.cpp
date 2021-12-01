@@ -11,7 +11,7 @@ void trippin::Game::init() {
     initSdl();
     initRand();
     initConfiguration();
-    initDbSychronizer();
+    initDbSynchronizer();
     initLogger();
     initScale();
     initSpriteManager();
@@ -38,11 +38,16 @@ void trippin::Game::initLogger() {
     auto sysName = getSystemName(sdlSystem->getWindow());
     auto sysRam = SDL_GetSystemRAM();
     std::stringstream ss;
-    ss << "op=init, rendererName=" << renName << ", systemName=" << sysName << ", systemRam=" << sysRam;
+    ss << "op=init";
+    ss << ", rendererName=" << renName;
+    ss << ", systemName=" << sysName;
+    ss << ", systemRam=" << sysRam;
+    ss << ", winSize=(" << windowSize.x << "," << windowSize.y << ")";
+    ss << ", renSize=(" << rendererSize.x << "," << rendererSize.y << ")";
     logger->log(ss.str());
 }
 
-void trippin::Game::initDbSychronizer() {
+void trippin::Game::initDbSynchronizer() {
     stagingArea = std::make_shared<StagingArea>();
     Transport transport(configuration.db.host, configuration.db.port);
     DbSynchronizer::startAddScoresThread(transport, stagingArea);

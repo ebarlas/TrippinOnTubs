@@ -55,7 +55,7 @@ namespace trippin {
         void initRand();
         void initLogger();
         void initConfiguration();
-        void initDbSychronizer();
+        void initDbSynchronizer();
         void initScale();
         void initSpriteManager();
         void initAutoPlay();
