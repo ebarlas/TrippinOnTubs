@@ -1,5 +1,4 @@
 #include "UserInput.h"
-#include "engine/Convert.h"
 
 bool trippin::UserInput::quitPressed() const {
     return quit;

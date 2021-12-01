@@ -20,7 +20,7 @@ static void runSyncLoop(Transport transport, std::weak_ptr<StagingArea> stagingA
     }
 }
 
-static int runAddScoresLoop(Transport transport, std::weak_ptr<StagingArea> stagingArea) {
+static void runAddScoresLoop(Transport transport, std::weak_ptr<StagingArea> stagingArea) {
     auto takeFn = [](std::shared_ptr<StagingArea> &sa) {
         auto scores = sa->takeAddedScores();
         SDL_Log("took score from staging area, count=%lu", scores.size());
@@ -31,10 +31,9 @@ static int runAddScoresLoop(Transport transport, std::weak_ptr<StagingArea> stag
         SDL_Log("added score, name=%s, score=%d, id=%d", s.name.c_str(), s.score, s.id);
     };
     runSyncLoop<Score>(std::move(transport), std::move(stagingArea), takeFn, addFn);
-    return 0;
 }
 
-static int runAddLogEventsLoop(Transport transport, std::weak_ptr<StagingArea> stagingArea) {
+static void runAddLogEventsLoop(Transport transport, std::weak_ptr<StagingArea> stagingArea) {
     auto takeFn = [](std::shared_ptr<StagingArea> &sa) {
         auto events = sa->takeAddedLogEvents();
         SDL_Log("took log events from staging area, count=%lu", events.size());
@@ -45,7 +44,6 @@ static int runAddLogEventsLoop(Transport transport, std::weak_ptr<StagingArea> s
         SDL_Log("added log events, message=%s", e.message.c_str());
     };
     runSyncLoop<LogEvent>(std::move(transport), std::move(stagingArea), takeFn, addFn);
-    return 0;
 }
 
 void DbSynchronizer::startAddScoresThread(Transport transport, std::weak_ptr<StagingArea> stagingArea) {

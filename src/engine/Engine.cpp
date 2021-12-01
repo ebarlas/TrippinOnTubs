@@ -1,6 +1,4 @@
-#include "SDL.h"
 #include "engine/Engine.h"
-#include "engine/Clock.h"
 
 void trippin::Engine::add(Object *obj) {
     auto &vec = obj->inactive ? inactive : (obj->platform ? platforms : objects);
@@ -65,8 +63,7 @@ void trippin::Engine::snapObjects() {
     }
 
     // next, snap objects to each object in priority order
-    Object *it;
-    while ((it = nextObjectToSnap()) != nullptr) {
+    for (auto *it = nextObjectToSnap(); it != nullptr; it = nextObjectToSnap()) {
         snapToPlatform(it);
     }
 }
@@ -200,17 +197,15 @@ void trippin::Engine::setTickPeriod(int tp) {
     tickPeriod = tp;
 }
 
-int run(void *data) {
-    auto engine = (trippin::Engine *) data;
+static void run(trippin::Engine *engine) {
     engine->runEngineLoop();
-    return 0;
 }
 
 void trippin::Engine::runEngineLoop() {
     SDL_Log("starting engine");
     Clock clock{static_cast<Uint32>(tickPeriod)};
-    while (!SDL_AtomicGet(&stopped)) {
-        if (SDL_AtomicGet(&paused)) {
+    while (!stopped) {
+        if (paused) {
             if (!pauseTicks) {
                 pauseTicks = clock.getTicks();
             }
@@ -228,23 +223,23 @@ void trippin::Engine::runEngineLoop() {
 }
 
 void trippin::Engine::start() {
-    thread = SDL_CreateThread(run, "Engine Thread", (void *) this);
+    thread = std::thread(run, this);
 }
 
 void trippin::Engine::pause() {
-    SDL_AtomicSet(&paused, 1);
+    paused = true;
 }
 
 void trippin::Engine::resume() {
-    SDL_AtomicSet(&paused, 0);
+    paused = false;
 }
 
 void trippin::Engine::stop() {
-    SDL_AtomicSet(&stopped, 1);
+    stopped = true;
 }
 
 void trippin::Engine::join() {
-    SDL_WaitThread(thread, nullptr);
+    thread.join();
 }
 
 void trippin::Engine::setPlatformCollision(std::function<void(Object&, Object&, const Sides&)> collision) {

@@ -72,7 +72,7 @@ namespace trippin {
         // Objects with a zero lane interact with all objects
         // Lane -1 indicates platform contacts only
         // Lane -2 indicates no contacts
-        int lane;
+        int lane{};
 
         // Flag that indicates whether this object has expired and can be removed.
         bool expired{};

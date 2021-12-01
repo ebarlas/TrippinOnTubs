@@ -3,6 +3,8 @@
 
 #include <vector>
 #include <functional>
+#include <thread>
+#include <atomic>
 #include "SDL.h"
 #include "engine/Object.h"
 #include "engine/Clock.h"
@@ -21,11 +23,11 @@ namespace trippin {
 
         // Sets the default type of collision between platform and non-platform objects.
         // This collision type can be overridden by individual objects.
-        void setPlatformCollision(std::function<void(Object&, Object&, const Sides&)> collision);
+        void setPlatformCollision(std::function<void(Object &, Object &, const Sides &)> collision);
 
         // Sets the default type of collision between objects.
         // This collision type can be overridden by individual objects.
-        void setObjectCollision(std::function<void(Object&, Object&, const Sides&)> collision);
+        void setObjectCollision(std::function<void(Object &, Object &, const Sides &)> collision);
 
         // Set the target engine tick period. Ticks per second are 1000 / tick-period.
         // A tick period of 10 results in 100 tps.
@@ -50,13 +52,13 @@ namespace trippin {
         std::vector<Object *> objects;
         std::vector<Listener *> listeners;
 
-        std::function<void(Object&, Object&, const Sides&)> platformCollision = onAbsorbentCollision;
+        std::function<void(Object &, Object &, const Sides &)> platformCollision = onAbsorbentCollision;
         std::function<void(Object &, Object &, const Sides &)> objectCollision = onInelasticCollisionDefault;
 
-        SDL_Thread *thread;
+        std::thread thread;
         int tickPeriod;
-        SDL_atomic_t paused{};
-        SDL_atomic_t stopped{};
+        std::atomic_bool paused{};
+        std::atomic_bool stopped{};
         Uint32 pauseTicks{};
         Uint32 pauseTime{};
 
@@ -66,7 +68,7 @@ namespace trippin {
         void removeExpired();
         void applyMotion();
         void snapObjects();
-        Object* nextObjectToSnap();
+        Object *nextObjectToSnap();
         static bool hasHigherSnapPriorityThan(Object *left, Object *right);
         void snapToPlatform(Object *obj);
         void applyPhysics();
@@ -74,7 +76,7 @@ namespace trippin {
         void applyPlatformCollision(Object &object, Object &platform, const Sides &sides);
         void applyObjectCollision(Object &left, Object &right, const Sides &sides);
 
-        inline static bool sameLane(Object* left, Object* right);
+        static bool sameLane(Object *left, Object *right);
     };
 }
 
