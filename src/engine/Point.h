@@ -2,6 +2,7 @@
 #define TRIPPIN_POINT_H
 
 #include <ostream>
+#include "SDL.h"
 
 namespace trippin {
     template<class T>
@@ -14,11 +15,14 @@ namespace trippin {
         T operator*(const Point<T> &right) const;
         Point<T> operator*(T right) const;
         Point<T> operator/(T right) const;
-        Point<T>& operator/=(T right);
-        T sumOfSquares() const;
+        Point<T> &operator/=(T right);
         bool operator==(const Point<T> &p) const;
         operator bool() const;
     };
+
+    inline Point<int> convertPoint(SDL_Point p) {
+        return Point<int>{p.x, p.y};
+    }
 }
 
 template<class T>
@@ -46,11 +50,6 @@ T trippin::Point<T>::operator*(const trippin::Point<T> &right) const {
 template<class T>
 trippin::Point<T> trippin::Point<T>::operator*(T right) const {
     return {x * right, y * right};
-}
-
-template<class T>
-T trippin::Point<T>::sumOfSquares() const {
-    return x * x + y * y;
 }
 
 template<class T>

@@ -1,6 +1,5 @@
 #include <cstdlib>
 #include <iostream>
-#include <sstream>
 #include <ctime>
 #include "SDL_syswm.h"
 #include "SDL_mixer.h"
@@ -24,10 +23,8 @@ void trippin::Game::init() {
 
 void trippin::Game::initSdl() {
     sdlSystem = std::make_unique<SdlSystem>();
-    auto ws = sdlSystem->getWindowSize();
-    windowSize = {ws.x, ws.y};
-    auto rs = sdlSystem->getRendererSize();
-    rendererSize = {rs.x, rs.y};
+    windowSize = convertPoint(sdlSystem->getWindowSize());
+    rendererSize = convertPoint(sdlSystem->getRendererSize());
 }
 
 void trippin::Game::initRand() {

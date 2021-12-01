@@ -1,7 +1,7 @@
-#ifndef TRIPPIN_SCORESYNCHRONIZER_H
-#define TRIPPIN_SCORESYNCHRONIZER_H
+#ifndef TRIPPIN_DBSYNCHRONIZER_H
+#define TRIPPIN_DBSYNCHRONIZER_H
 
-#include "SDL.h"
+#include <memory>
 #include "Transport.h"
 #include "StagingArea.h"
 
