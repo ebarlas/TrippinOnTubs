@@ -3,18 +3,16 @@
 
 #include "engine/Object.h"
 #include "sprite/Sprite.h"
-#include "sprite/Camera.h"
-#include "lock/Mutex.h"
-#include "Renderable.h"
 #include "Configuration.h"
 #include "Map.h"
 
 namespace trippin {
-    class SpriteObject : public Object, public Renderable {
+    class SpriteObject : public Object {
     public:
-        virtual void init(const Configuration &config, const Map::Object &obj, const Sprite &spr);
+        SpriteObject(const Configuration &config, const Map::Object &object, const Sprite &sprite);
+        virtual ~SpriteObject() = default;
     protected:
-        const Sprite *sprite{};
+        const Sprite &sprite;
     };
 }
 

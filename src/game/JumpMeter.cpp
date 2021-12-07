@@ -1,28 +1,24 @@
 #include "JumpMeter.h"
 #include "engine/Convert.h"
 
-void trippin::JumpMeter::init() {
-    channel.set(sprite->getFrames() - 1);
-}
-
-void trippin::JumpMeter::setPosition(Point<int> pos) {
-    position = pos;
-}
-
-void trippin::JumpMeter::setGoggin(const trippin::Goggin &go) {
-    goggin = &go;
-}
-
-void trippin::JumpMeter::setSprite(const trippin::Sprite &spr) {
-    sprite = &spr;
-}
-
-void trippin::JumpMeter::render(const trippin::Camera &camera) {
-    sprite->render(position, channel.get());
+trippin::JumpMeter::JumpMeter(
+        const Sprite &sprite,
+        const Goggin &goggin,
+        Point<int> position,
+        SceneBuilder &sceneBuilder,
+        int zIndex) :
+        sprite(sprite),
+        goggin(goggin),
+        position(position),
+        sceneBuilder(sceneBuilder),
+        zIndex(zIndex) {
 }
 
 void trippin::JumpMeter::afterTick(Uint32 engineTicks) {
-    auto jumpCharge = goggin->getJumpCharge();
-    auto numJumpBars = sprite->getFrames() - 1;
-    channel.set(toInt(jumpCharge * numJumpBars));
+    auto jumpCharge = goggin.getJumpCharge();
+    auto numJumpBars = sprite.getFrames() - 1;
+    auto frameNow = toInt(jumpCharge * numJumpBars);
+    sceneBuilder.dispatch([this, frameNow]() {
+        sprite.render(position, frameNow);
+    }, zIndex);
 }

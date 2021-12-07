@@ -4,58 +4,54 @@
 #include "SpriteObject.h"
 #include "Activation.h"
 #include "ScoreTicker.h"
-#include "lock/Guarded.h"
+#include "SceneBuilder.h"
 
 namespace trippin {
     class GameObject : public SpriteObject {
     public:
-        void init(const Configuration &config, const Map::Object &obj, const Sprite &spr) override;
+        GameObject(
+                const Configuration &config,
+                const Map::Object &object,
+                const Sprite &sprite,
+                Goggin &goggin,
+                const Activation &activation,
+                ScoreTicker &scoreTicker,
+                SoundManager &soundManager,
+                const Camera &camera,
+                SceneBuilder &sceneBuilder,
+                int zIndex);
         void beforeTick(Uint32 engineTicks) override;
         void afterTick(Uint32 engineTicks) override;
-        void render(const Camera &camera) override;
-        void setActivation(const Activation *activation);
-        void setGoggin(Goggin &goggin);
-        void setScoreTicker(ScoreTicker &st);
-        void setSoundManager(SoundManager &sm);
     private:
-        double runningAcceleration;
-        const Activation *activation;
+        Goggin &goggin;
+        const Activation &activation;
+        ScoreTicker &scoreTicker;
+        SceneBuilder &sceneBuilder;
+        const Camera &camera;
+        const int zIndex;
+
+        const double runningAcceleration;
+        const bool accelerateWhenGrounded;
+        Mix_Chunk *const stompSound;
+        const bool stompable;
+        const bool topStompable;
+        const bool bottomStompable;
+        const double objectActivation;
+        const int collisionDuration;
+        const Uint32 coolDownTicks;
+        const Uint32 flashDuration;
+        const int availableHitPoints;
+        const Point<int> healthBarSize;
+
         int frame;
-        bool accelerateWhenGrounded;
-        bool stompable;
-        bool topStompable;
-        bool bottomStompable;
         bool stomped;
-        double objectActivation;
-        Goggin *goggin;
-        ScoreTicker *scoreTicker;
-
-        int availableHitPoints;
         int hitPoints;
-        Point<int> healthBarSize;
-
-        SoundManager *soundManager;
-        Mix_Chunk *stompSound;
-
-        int collisionDuration;
         Uint32 collisionTicks;
-        Uint32 coolDownTicks;
 
-        struct Channel {
-            Point<int> roundedPosition;
-            int frame;
-            bool flash;
-            bool collision;
-            bool visible;
-            int hitPoints;
-        };
-        int flashCycle;
-        bool playedSound;
-        Guarded<Channel> channel;
-        void syncChannel(Uint32 engineTicks);
         void advanceFrame(Uint32 engineTicks);
-
-        void drawHealthBar(const trippin::Camera &camera, int hp);
+        void drawSprite(Uint32 engineTicks);
+        void drawHealthBar();
+        static Point<int> scaleHealthBar(Point<int> healthBarSize, const Sprite &sprite);
     };
 }
 

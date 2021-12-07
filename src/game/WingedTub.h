@@ -6,19 +6,23 @@
 #include "Goggin.h"
 #include "ScoreTicker.h"
 #include "Activation.h"
-#include "lock/Guarded.h"
 
 namespace trippin {
-    class WingedTub : public Renderable, public Listener {
+    class WingedTub : public Listener {
     public:
-        void init(const Configuration &config, const Map::Object &obj, const Sprite &spr);
-        void setGoggin(Goggin *goggin);
-        void setScoreTicker(ScoreTicker *scoreTicker);
-        void setActivation(const Activation *activation);
-        void setSoundManager(SoundManager &soundManager);
+        WingedTub(
+                const Configuration &config,
+                const Map::Object &object,
+                const Sprite &sprite,
+                const Activation &activation,
+                Goggin &goggin,
+                ScoreTicker &scoreTicker,
+                SoundManager &soundManager,
+                const Camera &camera,
+                SceneBuilder &sceneBuilder,
+                int zIndex);
         void beforeTick(Uint32 engineTicks) override;
         void afterTick(Uint32 engineTicks) override;
-        void render(const Camera &camera) override;
         bool isExpired() override;
     private:
         constexpr static const int FRAME_CLOUD_FIRST = 10;
@@ -28,33 +32,26 @@ namespace trippin {
         constexpr static const int FRAME_SPARKLE_FIRST = 20;
         constexpr static const int FRAME_SPARKLE_LAST = 29;
 
-        const Sprite *sprite;
-        Goggin *goggin;
-        ScoreTicker *scoreTicker;
-        Point<int> position;
-        Rect<int> hitBox;
+        const Sprite &sprite;
+        const Activation &activation;
+        Goggin &goggin;
+        ScoreTicker &scoreTicker;
+        SceneBuilder &sceneBuilder;
+        const Camera &camera;
+        const int zIndex;
+
+        const Point<int> position;
+        const Rect<int> hitBox;
+        const int tubFrameFirst;
+        const int tubFrameLast;
+        const int points;
+        Mix_Chunk *const sound;
+
         int hitTicks;
         bool hitGoggin;
         bool expired;
         bool inactive;
-        const Activation *activation;
-        SoundManager *soundManager;
-
-        int points;
-        int tubFrameFirst;
-        int tubFrameLast;
         int frame;
-
-        Mix_Chunk *sound;
-        bool playedSound;
-
-        struct Channel {
-            int frame;
-            bool visible;
-        };
-
-        Guarded<Channel> channel;
-        void syncChannel();
     };
 }
 

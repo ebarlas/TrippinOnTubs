@@ -1,36 +1,32 @@
 #include "SpiritClock.h"
 #include "engine/Convert.h"
 
-void trippin::SpiritClock::init(const Configuration &config, const Sprite &spr) {
-    engineTicksPerClockBar = config.engineTicksPerSpiritClockTick();
-    sprite = &spr;
-    channel.set(sprite->getFrames() - 1);
-}
-
-void trippin::SpiritClock::setSpirit(const trippin::Spirit &sp) {
-    spirit = &sp;
-}
-
-void trippin::SpiritClock::setGoggin(const trippin::Goggin &go) {
-    goggin = &go;
-}
-
-void trippin::SpiritClock::setPosition(trippin::Point<int> pos) {
-    position = pos;
-}
-
-void trippin::SpiritClock::setPadding(double p) {
-    padding = p;
-}
-
-void trippin::SpiritClock::render(const trippin::Camera &camera) {
-    sprite->render(position, channel.get());
+trippin::SpiritClock::SpiritClock(
+        const Configuration &config,
+        const Sprite &sprite,
+        const Spirit &spirit,
+        const Goggin &goggin,
+        Point<int> position,
+        double padding,
+        SceneBuilder &sceneBuilder,
+        int zIndex) :
+        sprite(sprite),
+        spirit(spirit),
+        goggin(goggin),
+        position(position),
+        padding(padding),
+        sceneBuilder(sceneBuilder),
+        zIndex(zIndex),
+        engineTicksPerClockBar(config.engineTicksPerSpiritClockTick()) {
 }
 
 void trippin::SpiritClock::afterTick(Uint32 engineTicks) {
-    auto distanceAway = goggin->position.x - spirit->getPosition() + padding;
-    auto ticksAway = distanceAway / spirit->getVelocity();
-    auto numClockBars = sprite->getFrames() - 1;
+    auto distanceAway = goggin.position.x - spirit.getPosition() + padding;
+    auto ticksAway = distanceAway / spirit.getVelocity();
+    auto numClockBars = sprite.getFrames() - 1;
     auto barsAway = toInt(ticksAway / engineTicksPerClockBar);
-    channel.set(std::min(numClockBars, std::max(0, barsAway)));
+    auto frameNow = std::min(numClockBars, std::max(0, barsAway));
+    sceneBuilder.dispatch([this, frameNow]() {
+        sprite.render(position, frameNow);
+    }, zIndex);
 }

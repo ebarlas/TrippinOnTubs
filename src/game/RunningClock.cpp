@@ -1,19 +1,37 @@
 #include "RunningClock.h"
 
-void trippin::RunningClock::init(const Configuration &config, const Map::Object &obj, const Sprite &spr) {
-    SpriteObject::init(config, obj, spr);
+trippin::RunningClock::RunningClock(
+        const Configuration &config,
+        const Map::Object &object,
+        const Sprite &sprite,
+        Goggin &goggin,
+        Spirit &spirit,
+        const Activation &activation,
+        ScoreTicker &scoreTicker,
+        SoundManager &soundManager,
+        const Camera &camera,
+        SceneBuilder &sceneBuilder,
+        int zIndex) :
+        SpriteObject(config, object, sprite),
+        goggin(goggin),
+        activation(activation),
+        spirit(spirit),
+        scoreTicker(scoreTicker),
+        camera(camera),
+        sceneBuilder(sceneBuilder),
+        zIndex(zIndex),
+        runningAcceleration(object.runningAcceleration),
+        points(50),
+        sound(soundManager.getEffect("chime1")) {
     lane = -1;
     inactive = true;
-    runningAcceleration = obj.runningAcceleration;
-    points = 50;
+    hitGoggin = false;
+    hitTicks = 0;
     frame = 0;
-    playedSound = false;
-    sound = soundManager->getEffect("chime1");
-    syncChannel();
 }
 
 void trippin::RunningClock::beforeTick(Uint32 engineTicks) {
-    if (inactive && activation->shouldActivate(roundedBox)) {
+    if (inactive && activation.shouldActivate(roundedBox)) {
         inactive = false;
     }
 }
@@ -24,77 +42,42 @@ void trippin::RunningClock::afterTick(Uint32 engineTicks) {
         return;
     }
 
-    if (activation->shouldDeactivate(roundedBox)) {
+    if (activation.shouldDeactivate(roundedBox)) {
         expired = true;
-        syncChannel();
         return;
     }
 
-    // Case #1: Goggin contact
-    if (!hitGoggin && roundedBox.intersect(goggin->roundedBox)) {
+
+    if (!hitGoggin && roundedBox.intersect(goggin.roundedBox)) { // Case #1: Goggin contact
+        Mix_PlayChannel(-1, sound, 0);
         hitGoggin = true;
         hitTicks = 0;
         frame = FRAME_CLOUD_FIRST;
-        spirit->delay(1);
-        scoreTicker->add(points);
-        goggin->addPointCloud(points, engineTicks);
-    }
-
-    // Case #2: Advance dust cloud
-    else if (hitGoggin) {
+        spirit.delay(1);
+        scoreTicker.add(points);
+        goggin.addPointCloud(points, engineTicks);
+    } else if (hitGoggin) { // Case #2: Advance dust cloud
         hitTicks++;
-        if (hitTicks % (sprite->getFramePeriodTicks() * 2) == 0) {
+        if (hitTicks % (sprite.getFramePeriodTicks() * 2) == 0) {
             frame++;
         }
-        if (frame == sprite->getFrames()) {
+        if (frame == sprite.getFrames()) {
             expired = true;
         }
-    }
-
-    // Case #3: Advance flapping wings cycle
-    else if (platformCollisions.testBottom() || objectCollisions.testBottom()) {
+    } else if (platformCollisions.testBottom() || objectCollisions.testBottom()) { // Case #3: Advance wings cycle
         acceleration.x = runningAcceleration;
-        if (engineTicks % sprite->getFramePeriodTicks() == 0) {
+        if (engineTicks % sprite.getFramePeriodTicks() == 0) {
             frame = (frame + 1) % FRAME_CLOUD_FIRST;
         }
     } else {
         acceleration.x = 0;
     }
 
-    syncChannel();
-}
-
-void trippin::RunningClock::setGoggin(Goggin *g) {
-    goggin = g;
-}
-
-void trippin::RunningClock::setSpirit(Spirit *sp) {
-    spirit = sp;
-}
-
-void trippin::RunningClock::render(const trippin::Camera &camera) {
-    auto ch = channel.get();
-    if (ch.visible) {
-        sprite->render(ch.roundedPosition, ch.frame, camera);
-        if (ch.frame == FRAME_CLOUD_FIRST && !playedSound) {
-            Mix_PlayChannel( -1, sound, 0 );
-            playedSound = true;
-        }
+    if (!expired) {
+        auto frameNow = frame;
+        auto posNow = roundedPosition;
+        sceneBuilder.dispatch([this, posNow, frameNow]() {
+            sprite.render(posNow, frameNow, camera);
+        }, zIndex);
     }
-}
-
-void trippin::RunningClock::setActivation(const Activation *act) {
-    activation = act;
-}
-
-void trippin::RunningClock::setScoreTicker(trippin::ScoreTicker *score) {
-    scoreTicker = score;
-}
-
-void trippin::RunningClock::setSoundManager(trippin::SoundManager &sm) {
-    soundManager = &sm;
-}
-
-void trippin::RunningClock::syncChannel() {
-    channel.set({roundedPosition, frame, !inactive && !expired});
 }

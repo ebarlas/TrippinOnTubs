@@ -1,11 +1,12 @@
 #ifndef TRIPPIN_TRAININGPROGRAM_H
 #define TRIPPIN_TRAININGPROGRAM_H
 
+#include <array>
+#include <atomic>
 #include "engine/Listener.h"
 #include "sprite/SpriteManager.h"
 #include "Goggin.h"
 #include "ui/MenuLayout.h"
-#include "lock/Guarded.h"
 
 namespace trippin {
     class TrainingProgram : public Listener {
@@ -21,27 +22,33 @@ namespace trippin {
         };
 
         static constexpr int NUM_STAGES = 5;
-        const Sprite *sprites[NUM_STAGES];
+        const std::array<const Sprite*, NUM_STAGES> sprites;
 
-        Goggin &goggin;
+        const Goggin &goggin;
         MenuLayout<1> menuLayout;
         int stage;
-        int finishedWaitTicks;
+        const int finishedWaitTicks;
         Uint32 stageTicks;
-        Mix_Chunk *sound;
+        Mix_Chunk *const sound;
 
-        Guarded<int> stageChannel;
+        SceneBuilder &sceneBuilder;
+        const int zIndex;
+
+        std::atomic_int channel;
 
         Uint32 getLastEventTime() const;
+
+        static std::array<const Sprite*, NUM_STAGES> makeSprites(SpriteManager &spriteManager);
     public:
         TrainingProgram(
                 Point<int> windowSize,
-                Configuration &configuration,
+                const Configuration &configuration,
                 SpriteManager &spriteManager,
                 SoundManager &soundManager,
-                Goggin &goggin,
-                const RenderClock &renderClock);
-        void render();
+                const Goggin &goggin,
+                const RenderClock &renderClock,
+                SceneBuilder &sb,
+                int zIndex);
         bool completed();
         void afterTick(Uint32 engineTicks) override;
     };

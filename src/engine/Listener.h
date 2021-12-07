@@ -14,6 +14,8 @@ namespace trippin {
 
         // Called from engine thread during tick processing to determine whether listener should be removed.
         virtual bool isExpired();
+
+        virtual ~Listener() = default;
     };
 }
 

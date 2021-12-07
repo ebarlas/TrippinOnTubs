@@ -63,7 +63,7 @@ namespace trippin {
         void initLevel();
         void initClock();
         void renderLoop();
-        std::unique_ptr<Level> nextLevel();
+        std::unique_ptr<Level> nextLevel(int score, int extraLives);
         void advanceLevel(int score, int extraLives);
         void transferSurfaces();
         void logStateChange(const char *prev, const char *next);

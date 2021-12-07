@@ -5,45 +5,42 @@
 #include "Activation.h"
 #include "ScoreTicker.h"
 #include "Spirit.h"
-#include "lock/Guarded.h"
 
 namespace trippin {
     class RunningClock : public SpriteObject {
     public:
-        void init(const Configuration &config, const Map::Object &obj, const Sprite &spr) override;
-        void setGoggin(Goggin *goggin);
-        void setSpirit(Spirit *spirit);
+        RunningClock(
+                const Configuration &config,
+                const Map::Object &object,
+                const Sprite &sprite,
+                Goggin &goggin,
+                Spirit &spirit,
+                const Activation &activation,
+                ScoreTicker &scoreTicker,
+                SoundManager &soundManager,
+                const Camera &camera,
+                SceneBuilder &sceneBuilder,
+                int zIndex);
         void beforeTick(Uint32 engineTicks) override;
         void afterTick(Uint32 engineTicks) override;
-        void render(const Camera &camera) override;
-        void setActivation(const Activation *activation);
-        void setScoreTicker(ScoreTicker *score);
-        void setSoundManager(SoundManager &soundManager);
     private:
         constexpr static const int FRAME_CLOUD_FIRST = 24;
 
-        Goggin *goggin;
-        Spirit *spirit;
+        Goggin &goggin;
+        Spirit &spirit;
+        const Activation &activation;
+        ScoreTicker &scoreTicker;
+        SceneBuilder &sceneBuilder;
+        const Camera &camera;
+        const int zIndex;
+
+        const int points;
+        const double runningAcceleration;
+        Mix_Chunk *const sound;
+
         int hitTicks;
         bool hitGoggin;
-        int points;
-
-        double runningAcceleration;
-        const Activation *activation;
-        ScoreTicker *scoreTicker;
-        SoundManager *soundManager;
         int frame;
-
-        Mix_Chunk *sound;
-        bool playedSound;
-
-        struct Channel {
-            Point<int> roundedPosition;
-            int frame;
-            bool visible;
-        };
-        Guarded<Channel> channel;
-        void syncChannel();
     };
 }
 

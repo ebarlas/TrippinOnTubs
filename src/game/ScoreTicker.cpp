@@ -1,39 +1,34 @@
 #include "ScoreTicker.h"
-#include "engine/Convert.h"
 #include "ui/DigitLayout.h"
 
-void trippin::ScoreTicker::init() {
-    setScore(0);
-}
-
-void trippin::ScoreTicker::setMargin(int mar) {
-    margin = mar;
-}
-
-void trippin::ScoreTicker::setSprite(const Sprite &spr) {
-    digits = &spr;
+trippin::ScoreTicker::ScoreTicker(
+        int margin,
+        const Sprite &digits,
+        int score,
+        Rect<int> viewport,
+        SceneBuilder &sceneBuilder,
+        int zIndex) :
+        margin(margin),
+        digits(digits),
+        score(score),
+        viewport(viewport),
+        sceneBuilder(sceneBuilder),
+        zIndex(zIndex) {
 }
 
 void trippin::ScoreTicker::add(int n) {
     score += n;
-    channel.set(score);
-}
-
-void trippin::ScoreTicker::render(const trippin::Camera &camera) {
-    int textWidth = DigitLayout::measureWidth(*digits, getScore());
-    Point<int> p{camera.getViewport().w / 2 + textWidth / 2, margin};
-    DigitLayout::renderDigits(*digits, p, getScore());
-}
-
-void trippin::ScoreTicker::setGoggin(const Goggin *g) {
-    goggin = g;
 }
 
 int trippin::ScoreTicker::getScore() const {
-    return toInt(channel.get());
+    return score;
 }
 
-void trippin::ScoreTicker::setScore(int sc) {
-    score = sc;
-    channel.set(score);
+void trippin::ScoreTicker::afterTick(Uint32 engineTicks) {
+    auto textWidth = DigitLayout::measureWidth(digits, score);
+    Point<int> pos{viewport.w / 2 + textWidth / 2, margin};
+    auto scoreNow = getScore();
+    sceneBuilder.dispatch([this, scoreNow, pos]() {
+        DigitLayout::renderDigits(digits, pos, scoreNow);
+    }, zIndex);
 }

@@ -38,6 +38,7 @@ namespace trippin {
         void load(const std::string &name);
         static std::string getConfigFile(const std::string &name);
 
+        double msPerTick() const;
         double ticksPerSecond() const;
         double engineTicksPerSpiritClockTick() const;
     };

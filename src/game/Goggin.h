@@ -3,34 +3,37 @@
 
 #include <vector>
 #include <unordered_map>
+#include <mutex>
+#include <atomic>
 #include "SDL_mixer.h"
 #include "engine/Object.h"
 #include "sprite/Sprite.h"
 #include "SpriteObject.h"
-#include "lock/Guarded.h"
 #include "SoundManager.h"
 #include "GogginInput.h"
 #include "GogginInputTick.h"
 #include "Shake.h"
+#include "SceneBuilder.h"
 
 namespace trippin {
     class Goggin : public SpriteObject {
     public:
-        void init(const Configuration &config, const Map::Object &obj, const Sprite &spr) override;
-        void setUniverse(const Point<int> &universe);
-        void setDust(const Sprite &spr);
-        void setDustBlast(const Sprite &spr);
-        void setWhiteDustBlast(const Sprite &spr);
-        void setDigits(const Sprite &spr);
-        void setSoundManager(SoundManager &sm);
-        void setAutoPlay(const std::vector<GogginInputTick> &autoPlay);
+        Goggin(
+                const Configuration &config,
+                const Map::Object &object,
+                const Sprite &sprite,
+                const Sprite &dust,
+                const Sprite &dustBlast,
+                const Sprite &whiteDustBlast,
+                const Sprite &digits,
+                const std::vector<GogginInputTick> *autoPlay,
+                const trippin::Point<int> &universe,
+                SoundManager &soundManager,
+                Camera &camera,
+                SceneBuilder &sceneBuilder,
+                int zIndex);
         void beforeTick(Uint32 engineTicks) override;
         void afterTick(Uint32 engineTicks) override;
-        void render(const Camera &camera) override;
-        // Anchor the camera on Goggin
-        // This is the first step of a frame update
-        // The position used here ought to be used in the subsequent render call to avoid jitter
-        void centerCamera(Camera &camera);
         bool rightOfUniverse() const;
         bool belowUniverse() const;
         void onUserInput(const GogginInput &input);
@@ -44,7 +47,7 @@ namespace trippin {
     private:
         struct Dust {
             Point<int> position;
-            char frame;
+            int frame;
             char ticks;
             bool white;
         };
@@ -63,48 +66,25 @@ namespace trippin {
             Uint32 ticks;
         };
 
-        // position data that flows from engine thread to render thread
-        struct Channel {
-            // goggin top-left corner position, pre-normalized for ducking case
-            Point<int> position;
-
-            // goggin center point, normalized
-            Point<int> center;
-
-            std::array<PointCloud, 8> pointClouds;
-
-            Frames frames;
-            bool expired;
-        };
-
-        // sound data that flows from engine thread to render thread
-        struct SoundChannel {
-            bool playJumpSound;
-        };
-
-        // goggin top-left corner, saved to ensure jitter/drift
-        // accessed exclusively by render/main thread
-        Point<int> cameraPosition;
-
-        Point<int> pointCloudDistanceMin;
-        Point<int> pointCloudDistanceMax;
-        int pointCloudTicks;
-        const Sprite *digits;
+        const Point<int> pointCloudDistanceMin;
+        const Point<int> pointCloudDistanceMax;
+        const int pointCloudTicks;
+        const Sprite &digits;
         std::array<PointCloud, 8> pointClouds; // circular buffer
         int nextPointCloudPos;
 
-        const Sprite *dust;
+        const Sprite &dust;
         Uint32 dustTicks;
         int nextDustPos;
-        int dustPeriodTicks;
+        const int dustPeriodTicks;
 
         int consecutiveJumps;
 
-        const Sprite *dustBlast;
-        const Sprite *whiteDustBlast;
+        const Sprite &dustBlast;
+        const Sprite &whiteDustBlast;
 
         double maxFallingVelocity;
-        Rect<int> universe;
+        const Point<int> universe;
 
         constexpr static const int FRAME_LANDING_FIRST = 15;
         constexpr static const int FRAME_FALLING_FIRST = 12;
@@ -120,35 +100,37 @@ namespace trippin {
 
         Frames frames;
 
-        Guarded<Channel> channel;
-        Guarded<SoundChannel> soundChannel;
-        Guarded<GogginInput> inputChannel;
-        void syncChannel();
+        std::mutex mutex;
+
+        GogginInput stagedInput;
 
         GogginInput input;
         bool rememberDuckStart;
         std::unordered_map<Uint32, GogginInput> autoPlay;
         bool autoPlayEnabled;
 
-        bool skipLaunch;
+        const bool skipLaunch;
         double jumpVelocity;
-        double risingAcceleration;
-        double runningAcceleration;
-        double duckFriction;
+        const double risingAcceleration;
+        const double runningAcceleration;
+        const double duckFriction;
 
-        double minJumpVelocity;
-        double maxJumpVelocity;
-        double maxDuckJumpVelocity;
-        int minJumpChargeTicks;
-        int maxJumpChargeTicks;
-        int jumpGracePeriodTicks;
+        const double minJumpVelocity;
+        const double maxJumpVelocity;
+        const double maxDuckJumpVelocity;
+        const int minJumpChargeTicks;
+        const int maxJumpChargeTicks;
+        const int jumpGracePeriodTicks;
 
-        double shakeAmplitude;
+        const double shakeAmplitude;
         Shake xShake;
         Shake yShake;
 
         Uint32 jumpTicks{};
         double jumpPercent{};
+
+        std::atomic_bool rightOfUni;
+        std::atomic_bool belowUni;
 
         enum State {
             running,
@@ -163,10 +145,13 @@ namespace trippin {
         int ticks{};
         Uint32 lastRunOrDuckTick{};
 
-        SoundManager *soundManager;
-        Mix_Chunk *jumpSound;
-        int jumpSoundTimeoutTicks;
+        Mix_Chunk *const jumpSound;
+        const int jumpSoundTimeoutTicks;
         Uint32 lastJumpSoundTicks;
+
+        SceneBuilder &sceneBuilder;
+        Camera &camera;
+        int zIndex;
 
         Uint32 lastJumpTicks;
         Uint32 lastChargedJumpTicks;
@@ -186,13 +171,18 @@ namespace trippin {
         void shrinkForDuck();
         void growForStand();
 
-        void enqueueJumpSound(Uint32 engineTicks);
+        void playJumpSound(Uint32 engineTicks);
         void transferInput(Uint32 engineTicks);
 
         void handleDuckStart(Uint32 engineTicks);
         void handleDuckEnd();
         void handleJumpCharge(Uint32 engineTicks);
         void handleJumpRelease(Uint32 engineTicks);
+
+        Point<int> centerCamera();
+        void drawDust();
+        void drawDustBlast();
+        void drawPointClouds();
 
         static float decelInterpolation(float input);
     };

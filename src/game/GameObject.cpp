@@ -2,67 +2,67 @@
 #include "engine/Convert.h"
 #include "engine/Collisions.h"
 
-void trippin::GameObject::setGoggin(Goggin &g) {
-    goggin = &g;
-}
-
-void trippin::GameObject::setScoreTicker(ScoreTicker &st) {
-    scoreTicker = &st;
-}
-
-void trippin::GameObject::setSoundManager(SoundManager &sm) {
-    soundManager = &sm;
-}
-
-void trippin::GameObject::init(const Configuration &config, const Map::Object &obj, const Sprite &spr) {
-    SpriteObject::init(config, obj, spr);
+trippin::GameObject::GameObject(
+        const Configuration &config,
+        const Map::Object &object,
+        const Sprite &sprite,
+        Goggin &goggin,
+        const Activation &activation,
+        ScoreTicker &scoreTicker,
+        SoundManager &soundManager,
+        const Camera &camera,
+        SceneBuilder &sceneBuilder,
+        int zIndex) :
+        SpriteObject(config, object, sprite),
+        goggin(goggin),
+        activation(activation),
+        scoreTicker(scoreTicker),
+        camera(camera),
+        sceneBuilder(sceneBuilder),
+        zIndex(zIndex),
+        accelerateWhenGrounded(object.accelerateWhenGrounded),
+        runningAcceleration(object.runningAcceleration),
+        stompable(object.stompable),
+        topStompable(object.topStompable),
+        bottomStompable(object.bottomStompable),
+        objectActivation(object.activation),
+        collisionDuration(config.ticksPerSecond() * 0.4),
+        coolDownTicks(config.ticksPerSecond() * 0.15),
+        flashDuration(config.ticksPerSecond() * 0.025),
+        stompSound(soundManager.getEffect("chime0")),
+        availableHitPoints(object.hitPoints),
+        healthBarSize(scaleHealthBar(config.healthBarSize, sprite)) {
     inactive = true;
-    accelerateWhenGrounded = obj.accelerateWhenGrounded;
-    if (accelerateWhenGrounded) {
-        runningAcceleration = obj.runningAcceleration;
-    } else {
-        acceleration.x = obj.runningAcceleration;
+    if (!accelerateWhenGrounded) {
+        acceleration.x = runningAcceleration;
     }
-    stompable = obj.stompable;
-    topStompable = obj.topStompable;
-    bottomStompable = obj.bottomStompable;
-    objectActivation = obj.activation;
     stomped = false;
-    if (obj.randFrame) {
-        frame = std::rand() % spr.getFrames() / 2;
+    if (object.randFrame) {
+        frame = std::rand() % sprite.getFrames() / 2;
     } else {
-        frame = obj.frame;
+        frame = object.frame;
     }
-    collisionDuration = config.ticksPerSecond() * 0.4;
-    coolDownTicks = config.ticksPerSecond() * 0.15;
     collisionTicks = 0;
-    flashCycle = 0;
-    if (obj.coefficient > 0) {
-        auto coefficient = obj.coefficient;
+    if (object.coefficient > 0) {
+        auto coefficient = object.coefficient;
         platformCollision.set([coefficient](Object &left, Object &right, const Sides &sides) {
             onReflectiveCollision(left, right, sides, coefficient);
         });
     }
-    if (obj.elasticObjectCollisions) {
+    if (object.elasticObjectCollisions) {
         objectCollision.set(onElasticCollision2D);
     }
-    stompSound = soundManager->getEffect("chime0");
-    availableHitPoints = hitPoints = obj.hitPoints;
-    healthBarSize = {
-            toInt(config.healthBarSize.x * sprite->getScale().getMultiplier()),
-            toInt(config.healthBarSize.y * sprite->getScale().getMultiplier())
-    };
-    syncChannel(0);
+    hitPoints = object.hitPoints;
 }
 
 void trippin::GameObject::beforeTick(Uint32 engineTicks) {
     if (inactive) {
         if (objectActivation > 0) {
-            if (goggin->position.x >= position.x - objectActivation) {
+            if (goggin.position.x >= position.x - objectActivation) {
                 inactive = false;
             }
         } else {
-            if (activation->shouldActivate(roundedBox)) {
+            if (activation.shouldActivate(roundedBox)) {
                 inactive = false;
             }
         }
@@ -72,12 +72,15 @@ void trippin::GameObject::beforeTick(Uint32 engineTicks) {
 void trippin::GameObject::afterTick(Uint32 engineTicks) {
     // early exit if not activated yet
     if (inactive) {
+        // hack to ensure "stalled" objects are drawn
+        if (objectActivation > 0) {
+            drawSprite(engineTicks);
+        }
         return;
     }
 
-    if (activation->shouldDeactivate(roundedBox)) {
+    if (activation.shouldDeactivate(roundedBox)) {
         expired = true;
-        syncChannel(engineTicks);
         return;
     }
 
@@ -93,7 +96,7 @@ void trippin::GameObject::afterTick(Uint32 engineTicks) {
     }
 
     if (stompable && !stomped && (engineTicks >= collisionTicks + coolDownTicks)) {
-        auto collision = roundedBox.collision(goggin->roundedBox);
+        auto collision = roundedBox.collision(goggin.roundedBox);
         if (collision) {
             if ((topStompable && collision.testTop()) || (bottomStompable && collision.testBottom())) {
                 hitPoints = 0;
@@ -104,66 +107,60 @@ void trippin::GameObject::afterTick(Uint32 engineTicks) {
         }
 
         if (hitPoints == 0) {
+            Mix_PlayChannel(-1, stompSound, 0);
             stomped = true;
             lane = -2; // no-collision plane
-            gravity = goggin->gravity;
+            gravity = goggin.gravity;
             velocity.y = -terminalVelocity.y / 2; // upward jolt
             velocity.x = 0;
-            scoreTicker->add(availableHitPoints * 25);
-            goggin->addPointCloud(availableHitPoints * 25, engineTicks);
+            scoreTicker.add(availableHitPoints * 25);
+            goggin.addPointCloud(availableHitPoints * 25, engineTicks);
         }
     }
 
-    syncChannel(engineTicks);
-}
-
-void trippin::GameObject::render(const trippin::Camera &camera) {
-    auto ch = channel.get();
-    if (!ch.visible) {
-        return;
-    }
-
-    flashCycle = (flashCycle + 1) % 2;
-    auto fr = ch.flash && flashCycle == 0 ? ch.frame + (sprite->getFrames() / 2) : ch.frame;
-    sprite->render(ch.roundedPosition, fr, camera);
-    if (ch.collision) {
-        if (!playedSound) {
-            Mix_PlayChannel(-1, stompSound, 0);
-            playedSound = true;
-        }
-    }
-    if (ch.flash) {
-        drawHealthBar(camera, ch.hitPoints);
-    }
-}
-
-void trippin::GameObject::setActivation(const Activation *act) {
-    activation = act;
-}
-
-void trippin::GameObject::syncChannel(Uint32 engineTicks) {
-    auto flash = collisionTicks > 0 && collisionTicks + collisionDuration > engineTicks;
-    channel.set({roundedPosition, frame, flash, stomped, !expired, hitPoints});
+    drawSprite(engineTicks);
 }
 
 void trippin::GameObject::advanceFrame(Uint32 engineTicks) {
-    if (engineTicks % sprite->getFramePeriodTicks() == 0) {
-        frame = (frame + 1) % (sprite->getFrames() / 2);
+    if (engineTicks % sprite.getFramePeriodTicks() == 0) {
+        frame = (frame + 1) % (sprite.getFrames() / 2);
     }
 }
 
-void trippin::GameObject::drawHealthBar(const trippin::Camera &camera, int hp) {
+void trippin::GameObject::drawSprite(Uint32 engineTicks) {
+    int frameNow = frame;
+    auto posNow = roundedPosition;
+    auto flash = collisionTicks > 0 && collisionTicks + collisionDuration > engineTicks;
+    if (flash) {
+        auto offset = engineTicks - collisionTicks;
+        frameNow = offset / flashDuration % 2 == 0 ? frame + (sprite.getFrames() / 2) : frame;
+        drawHealthBar();
+    }
+
+    sceneBuilder.dispatch([this, posNow, frameNow]() {
+        sprite.render(posNow, frameNow, camera);
+    }, zIndex);
+}
+
+void trippin::GameObject::drawHealthBar() {
     auto vp = camera.getViewport();
-    auto ren = sprite->getRenderer();
-    auto percent = (double) hp / availableHitPoints;
+    auto ren = sprite.getRenderer();
+    auto percent = (double) hitPoints / availableHitPoints;
     auto margin = healthBarSize.y * 3;
     auto x = roundedPosition.x - vp.x;
     auto y = roundedPosition.y - vp.y - margin;
     SDL_Rect outline{x, y, healthBarSize.x, healthBarSize.y};
     SDL_Rect fill{x, y, (int) (percent * healthBarSize.x), healthBarSize.y};
-    SDL_SetRenderDrawBlendMode(ren, SDL_BLENDMODE_BLEND);
-    SDL_SetRenderDrawColor(ren, 150, 150, 150, 100);
-    SDL_RenderFillRect(ren, &outline);
-    SDL_SetRenderDrawColor(ren, 237, 76, 92, 100);
-    SDL_RenderFillRect(ren, &fill);
+    sceneBuilder.dispatch([ren, fill, outline]() {
+        SDL_SetRenderDrawBlendMode(ren, SDL_BLENDMODE_BLEND);
+        SDL_SetRenderDrawColor(ren, 150, 150, 150, 100);
+        SDL_RenderFillRect(ren, &outline);
+        SDL_SetRenderDrawColor(ren, 237, 76, 92, 100);
+        SDL_RenderFillRect(ren, &fill);
+    });
+}
+
+trippin::Point<int> trippin::GameObject::scaleHealthBar(Point<int> healthBarSize, const Sprite &sprite) {
+    auto mul = sprite.getScale().getMultiplier();
+    return {toInt(healthBarSize.x * mul),toInt(healthBarSize.y * mul)};
 }

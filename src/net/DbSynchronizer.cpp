@@ -3,6 +3,7 @@
 #include <utility>
 #include <vector>
 #include <thread>
+#include "SDL.h"
 
 using namespace trippin;
 

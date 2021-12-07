@@ -2,24 +2,24 @@
 #define TRIPPIN_JUMPMETER_H
 
 #include "SpriteObject.h"
-#include "Spirit.h"
 #include "Goggin.h"
-#include "lock/Guarded.h"
 
 namespace trippin {
-    class JumpMeter : public Renderable, public Listener {
+    class JumpMeter : public Listener {
     private:
-        const Sprite *sprite{};
-        const Goggin *goggin{};
-        Point<int> position;
-        Guarded<int> channel;
+        const Sprite &sprite;
+        const Goggin &goggin;
+        const Point<int> position;
+        SceneBuilder &sceneBuilder;
+        const int zIndex;
     public:
-        void init();
-        void setPosition(Point<int> position);
-        void setSprite(const Sprite &sprite);
-        void setGoggin(const Goggin &goggin);
+        JumpMeter(
+                const Sprite &sprite,
+                const Goggin &goggin,
+                Point<int> position,
+                SceneBuilder &sceneBuilder,
+                int zIndex);
         void afterTick(Uint32 engineTicks) override;
-        void render(const Camera &camera) override;
     };
 }
 

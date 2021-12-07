@@ -1,23 +1,20 @@
 #include "SpriteObject.h"
 
-void trippin::SpriteObject::init(
-        const Configuration &config,
-        const trippin::Map::Object &obj,
-        const trippin::Sprite &spr) {
-    platform = obj.platform;
-    sprite = &spr;
-    id = obj.id;
-    lane = obj.lane;
-    gravity = obj.gravity;
-    fallGravity = obj.fallGravity;
-    auto hb = spr.getHitBox();
-    mass = obj.mass > 0 ? obj.mass : (obj.massFactor > 0 ? hb.area() * obj.massFactor : hb.area());
-    auto objPosX = obj.rightOf != 0 ? obj.rightOf + sprite->getSize().x * obj.rightMultiple : obj.position.x;
-    position = {objPosX + hb.corner().x, obj.position.y + hb.corner().y};
+trippin::SpriteObject::SpriteObject(const Configuration &config, const Map::Object &object, const Sprite &sprite)
+        : sprite(sprite) {
+    platform = object.platform;
+    id = object.id;
+    lane = object.lane;
+    gravity = object.gravity;
+    fallGravity = object.fallGravity;
+    auto hb = sprite.getHitBox();
+    mass = object.mass > 0 ? object.mass : (object.massFactor > 0 ? hb.area() * object.massFactor : hb.area());
+    auto objPosX = object.rightOf != 0 ? object.rightOf + sprite.getSize().x * object.rightMultiple : object.position.x;
+    position = {objPosX + hb.corner().x, object.position.y + hb.corner().y};
     size = {hb.w, hb.h};
-    velocity = obj.velocity;
-    terminalVelocity = obj.terminalVelocity;
-    friction = obj.friction;
-    velocity = obj.velocity;
+    velocity = object.velocity;
+    terminalVelocity = object.terminalVelocity;
+    friction = object.friction;
+    velocity = object.velocity;
     syncPositions();
 }

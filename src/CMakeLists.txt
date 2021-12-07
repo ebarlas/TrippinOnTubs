@@ -33,11 +33,6 @@ add_library(Sprite
 target_include_directories(Sprite PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
 target_link_libraries(Sprite Engine nlohmann_json::nlohmann_json PkgConfig::SDL2_IMAGE)
 
-add_library(Lock
-        lock/Lock.cpp
-        lock/Mutex.cpp)
-target_link_libraries(Lock SDL2::SDL2)
-
 add_library(Graphics
         demo/FontRenderer.cpp
         demo/RenderableObject.cpp)
@@ -51,7 +46,7 @@ add_library(Net
         net/Logger.cpp
         net/StagingArea.cpp)
 target_include_directories(Net PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
-target_link_libraries(Net Lock PkgConfig::SDL2_NET nlohmann_json::nlohmann_json)
+target_link_libraries(Net PkgConfig::SDL2_NET nlohmann_json::nlohmann_json)
 
 add_library(Ui
         ui/ScoreBoard.cpp
@@ -109,8 +104,9 @@ add_library(Game
         game/Level.cpp
         game/AutoPlay.cpp
         game/Shake.cpp
+        game/SceneBuilder.cpp
         game/SoundManager.cpp)
-target_link_libraries(Game Sprite Lock Net Ui PkgConfig::SDL2_MIXER)
+target_link_libraries(Game Sprite Net Ui PkgConfig::SDL2_MIXER)
 
 add_executable(trippin game/trippin.cpp)
 target_link_libraries(trippin Game)

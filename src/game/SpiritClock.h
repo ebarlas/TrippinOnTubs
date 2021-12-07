@@ -6,23 +6,27 @@
 #include "Goggin.h"
 
 namespace trippin {
-    class SpiritClock : public Renderable, public Listener {
+    class SpiritClock : public Listener {
     private:
-        const Spirit *spirit{};
-        const Sprite *sprite{};
-        const Goggin *goggin{};
-        Point<int> position;
-        double engineTicksPerClockBar;
-        double padding{};
-        Guarded <int> channel;
+        const Spirit &spirit;
+        const Sprite &sprite;
+        const Goggin &goggin;
+        const Point<int> position;
+        const double engineTicksPerClockBar;
+        const double padding;
+        SceneBuilder &sceneBuilder;
+        const int zIndex;
     public:
-        void init(const Configuration &config, const Sprite &spr);
-        void setSpirit(const Spirit &spirit);
-        void setGoggin(const Goggin &goggin);
-        void setPosition(Point<int> position);
-        void setPadding(double padding);
+        SpiritClock(
+                const Configuration &config,
+                const Sprite &sprite,
+                const Spirit &spirit,
+                const Goggin &goggin,
+                Point<int> position,
+                double padding,
+                SceneBuilder &sceneBuilder,
+                int zIndex);
         void afterTick(Uint32 engineTicks) override;
-        void render(const Camera &camera) override;
     };
 }
 

@@ -85,7 +85,7 @@ void trippin::Game::initLevel() {
     levelIndex = 0;
     loadLevel = true;
     trainLevel = false;
-    level = nextLevel();
+    level = nextLevel(0, 1);
     spriteLoadTask->start();
 }
 
@@ -105,7 +105,7 @@ void trippin::Game::initClock() {
     renderClock.init();
 }
 
-std::unique_ptr<trippin::Level> trippin::Game::nextLevel() {
+std::unique_ptr<trippin::Level> trippin::Game::nextLevel(int score, int extraLives) {
     auto lvl = std::make_unique<Level>();
     lvl->setWindowSize(rendererSize);
     lvl->setConfiguration(&configuration);
@@ -113,6 +113,8 @@ std::unique_ptr<trippin::Level> trippin::Game::nextLevel() {
     lvl->setSpriteManager(spriteManager.get());
     lvl->setSoundManager(&soundManager);
     lvl->setRenderClock(renderClock);
+    lvl->setScore(score);
+    lvl->setExtraLives(extraLives);
     if (loadLevel) {
         lvl->setMapName(configuration.loadMap);
         lvl->setAutoPlay(autoPlay.events);
@@ -130,9 +132,7 @@ std::unique_ptr<trippin::Level> trippin::Game::nextLevel() {
 void trippin::Game::advanceLevel(int score, int extraLives) {
     level->stop();
     level.reset();
-    level = nextLevel();
-    level->setScore(score);
-    level->setExtraLives(extraLives);
+    level = nextLevel(score, extraLives);
     level->start();
 }
 

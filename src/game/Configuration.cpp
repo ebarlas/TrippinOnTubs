@@ -24,6 +24,10 @@ double trippin::Configuration::engineTicksPerSpiritClockTick() const {
     return toDouble(spiritClockTickPeriod) / tickPeriod;
 }
 
+double trippin::Configuration::msPerTick() const {
+    return tickPeriod;
+}
+
 void trippin::from_json(const nlohmann::json &j, Configuration &config) {
     j.at("spiritSecondsBehind").get_to(config.spiritSecondsBehind);
     j.at("tickPeriod").get_to(config.tickPeriod);

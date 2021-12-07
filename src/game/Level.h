@@ -15,10 +15,11 @@
 #include "GogginInput.h"
 #include "LifeMeter.h"
 #include "TrainingProgram.h"
+#include "SceneBuilder.h"
 #include "sprite/RenderClock.h"
 
 namespace trippin {
-    class Level {
+    class Level : public Listener {
     private:
         Point<int> windowSize;
         Configuration *configuration;
@@ -30,16 +31,20 @@ namespace trippin {
         Camera camera;
         Engine engine;
         Activation activation;
-        std::vector<std::unique_ptr<Renderable>> objects;
-        Goggin goggin;
+        std::vector<std::unique_ptr<Listener>> objects;
+        const std::vector<GogginInputTick> *autoPlay{};
+        std::unique_ptr<Goggin> goggin;
         Spirit spirit;
-        SpiritClock spiritClock;
-        JumpMeter jumpMeter;
-        ScoreTicker scoreTicker;
+        std::unique_ptr<SpiritClock> spiritClock;
+        std::unique_ptr<JumpMeter> jumpMeter;
+        int initialScore{};
+        std::unique_ptr<ScoreTicker> scoreTicker;
+        int initialExtraLives{};
         std::unique_ptr<LifeMeter> lifeMeter;
         bool training;
         std::unique_ptr<TrainingProgram> trainingProgram;
         const RenderClock *renderClock;
+        SceneBuilder sceneBuilder;
         void initMap();
         void initCamera();
         void initEngine();
@@ -64,6 +69,8 @@ namespace trippin {
         void pause();
         void resume();
         int getScore() const;
+        void beforeTick(Uint32 engineTicks) override;
+        void afterTick(Uint32 engineTicks) override;
     };
 }
 

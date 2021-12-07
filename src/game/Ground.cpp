@@ -1,15 +1,28 @@
 #include "Ground.h"
 
-void trippin::Ground::init(const Configuration &config, const Map::Object &obj, const Sprite &spr) {
-    SpriteObject::init(config, obj, spr);
+trippin::Ground::Ground(
+        const Configuration &config,
+        const Map::Object &object,
+        const Sprite &sprite,
+        const Activation &activation,
+        const Spirit &spirit,
+        const Camera &camera,
+        SceneBuilder &sceneBuilder,
+        int zIndex) :
+        SpriteObject(config, object, sprite),
+        activation(activation),
+        spirit(spirit),
+        camera(camera),
+        sceneBuilder(sceneBuilder),
+        zIndex(zIndex) {
     frame = 0;
     melting = false;
+    meltingTick = 0;
     inactive = true;
-    syncChannel();
 }
 
 void trippin::Ground::beforeTick(Uint32 engineTicks) {
-    if (inactive && activation->shouldActivate(roundedBox)) {
+    if (inactive && activation.shouldActivate(roundedBox)) {
         inactive = false;
     }
 }
@@ -19,39 +32,24 @@ void trippin::Ground::afterTick(Uint32 engineTicks) {
         return;
     }
 
-    if (!melting && position.x <= spirit->getPosition()) {
+    if (!melting && position.x <= spirit.getPosition()) {
         melting = true;
         meltingTick = engineTicks;
     }
 
     if (melting) {
         auto diff = engineTicks - meltingTick;
-        if (diff % sprite->getFramePeriodTicks() == 0 && frame < sprite->getFrames()) {
+        if (diff % sprite.getFramePeriodTicks() == 0 && frame < sprite.getFrames()) {
             frame++;
         }
-        if (frame == sprite->getFrames() - 1) {
+        if (frame == sprite.getFrames() - 1) {
             expired = true;
         }
     }
 
-    syncChannel();
-}
-
-void trippin::Ground::render(const trippin::Camera &camera) {
-    auto ch = channel.get();
-    if (ch.visible) {
-        sprite->render(roundedPosition, ch.frame, camera);
-    }
-}
-
-void trippin::Ground::setSpirit(const trippin::Spirit *sp) {
-    spirit = sp;
-}
-
-void trippin::Ground::setActivation(const Activation *act) {
-    activation = act;
-}
-
-void trippin::Ground::syncChannel() {
-    channel.set({frame, !inactive && !expired});
+    auto posNow = roundedPosition;
+    auto frameNow = frame;
+    sceneBuilder.dispatch([this, posNow, frameNow]() {
+        sprite.render(posNow, frameNow, camera);
+    }, zIndex);
 }

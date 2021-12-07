@@ -1,18 +1,26 @@
 #include "LifeMeter.h"
 
-trippin::LifeMeter::LifeMeter(int margin, const trippin::Sprite &sprite)
-        : extraLives(0), margin(margin), sprite(sprite) {
+trippin::LifeMeter::LifeMeter(
+        int margin,
+        const Sprite &sprite,
+        int extraLives,
+        Rect<int> viewport,
+        SceneBuilder &sceneBuilder,
+        int zIndex) :
+        margin(margin),
+        sprite(sprite),
+        extraLives(extraLives),
+        viewport(viewport),
+        sceneBuilder(sceneBuilder),
+        zIndex(zIndex) {
 
 }
 
-void trippin::LifeMeter::setExtraLives(int lives) {
-    extraLives = lives;
-}
-
-void trippin::LifeMeter::render(const Camera &camera) {
+void trippin::LifeMeter::afterTick(Uint32 engineTicks) {
     for (int i = 0; i < extraLives; i++) {
-        auto vp = camera.getViewport();
-        Point<int> pos{vp.w - margin - (i + 1) * sprite.getSize().x, margin};
-        sprite.render(pos, 0);
+        Point<int> pos{viewport.w - margin - (i + 1) * sprite.getSize().x, margin};
+        sceneBuilder.dispatch([this, pos]() {
+            sprite.render(pos, 0);
+        }, zIndex);
     }
 }

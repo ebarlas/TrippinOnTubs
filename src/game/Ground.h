@@ -4,30 +4,31 @@
 #include "SpriteObject.h"
 #include "Spirit.h"
 #include "Activation.h"
-#include "lock/Guarded.h"
 
 namespace trippin {
     class Ground : public SpriteObject {
     public:
-        void init(const Configuration &config, const Map::Object &obj, const Sprite &spr) override;
+        Ground(
+                const Configuration &config,
+                const Map::Object &object,
+                const Sprite &sprite,
+                const Activation &activation,
+                const Spirit &spirit,
+                const Camera &camera,
+                SceneBuilder &sceneBuilder,
+                int zIndex);
         void beforeTick(Uint32 engineTicks) override;
         void afterTick(Uint32 engineTicks) override;
-        void render(const Camera &camera) override;
-        void setSpirit(const Spirit *spirit);
-        void setActivation(const Activation *activation);
     private:
+        const Activation &activation;
+        const Spirit &spirit;
+        const Camera &camera;
+        SceneBuilder &sceneBuilder;
+        int zIndex;
+
         bool melting;
         Uint32 meltingTick;
         int frame;
-        const Spirit *spirit;
-        const Activation *activation;
-
-        struct Channel {
-            int frame;
-            bool visible;
-        };
-        Guarded<Channel> channel;
-        void syncChannel();
     };
 }
 

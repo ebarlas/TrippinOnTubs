@@ -3,9 +3,9 @@
 
 #include <string>
 #include <vector>
+#include <mutex>
 #include "Score.h"
 #include "LogEvent.h"
-#include "lock/Mutex.h"
 
 namespace trippin {
     class StagingArea {
@@ -20,7 +20,7 @@ namespace trippin {
         std::vector<Score> getTopScores(int limit) const;
         bool bothSet() const;
     private:
-        Mutex mutex;
+        mutable std::mutex mutex;
         std::vector<Score> addedScores;
         std::vector<Score> outgoingScores;
         std::vector<Score> todayScores;

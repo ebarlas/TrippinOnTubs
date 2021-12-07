@@ -1,48 +1,47 @@
 #include "StagingArea.h"
-#include "lock/Lock.h"
 
 void trippin::StagingArea::addScore(const Score &score) {
-    Lock lock(mutex);
+    std::lock_guard<std::mutex> lock(mutex);
     addedScores.push_back(score);
     outgoingScores.push_back(score);
 }
 
 void trippin::StagingArea::addLogEvent(const LogEvent &logEvent) {
-    Lock lock(mutex);
+    std::lock_guard<std::mutex> lock(mutex);
     outgoingLogEvents.push_back(logEvent);
 }
 
 void trippin::StagingArea::setTodayScores(std::vector<Score> scores) {
-    Lock lock(mutex);
+    std::lock_guard<std::mutex> lock(mutex);
     todayScores = std::move(scores);
     todaySet = true;
 }
 
 void trippin::StagingArea::setTopScores(std::vector<Score> scores) {
-    Lock lock(mutex);
+    std::lock_guard<std::mutex> lock(mutex);
     topScores = std::move(scores);
     topSet = true;
 }
 
 std::vector<trippin::Score> trippin::StagingArea::getTodayScores(int limit) const {
-    Lock lock(mutex);
+    std::lock_guard<std::mutex> lock(mutex);
     return combine(todayScores, addedScores, limit);
 }
 
 std::vector<trippin::Score> trippin::StagingArea::getTopScores(int limit) const {
-    Lock lock(mutex);
+    std::lock_guard<std::mutex> lock(mutex);
     return combine(topScores, addedScores, limit);
 }
 
 std::vector<trippin::Score> trippin::StagingArea::takeAddedScores() {
-    Lock lock(mutex);
+    std::lock_guard<std::mutex> lock(mutex);
     std::vector<Score> scores = std::move(outgoingScores);
     outgoingScores.clear();
     return scores;
 }
 
 std::vector<trippin::LogEvent> trippin::StagingArea::takeAddedLogEvents() {
-    Lock lock(mutex);
+    std::lock_guard<std::mutex> lock(mutex);
     std::vector<LogEvent> events = std::move(outgoingLogEvents);
     outgoingLogEvents.clear();
     return events;

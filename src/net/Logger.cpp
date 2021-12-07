@@ -1,4 +1,5 @@
 #include "Logger.h"
+#include "SDL.h"
 
 trippin::Logger::Logger(StagingArea &stagingArea) : stagingArea(stagingArea) {
     time = std::time(0);
