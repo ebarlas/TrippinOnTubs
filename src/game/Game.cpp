@@ -170,7 +170,7 @@ void trippin::Game::renderLoop() {
     int state = TITLE;
     int score;
     int extraLives = 1;
-    Uint32 extraLifeTime;
+    std::chrono::time_point<std::chrono::steady_clock, std::chrono::milliseconds> extraLifeTime;
 
     Timer timer("renderer");
     UserInput ui;
@@ -191,7 +191,7 @@ void trippin::Game::renderLoop() {
             level->resume();
         }
         if (renderClock.isPaused()) {
-            SDL_Delay(1);
+            std::this_thread::sleep_for(std::chrono::milliseconds{1});
             continue;
         }
 
@@ -279,7 +279,8 @@ void trippin::Game::renderLoop() {
                     if (extraLives > 0) {
                         extraLives--;
                         state = EXTRA_LIFE_DELAY;
-                        extraLifeTime = SDL_GetTicks();
+                        auto now = std::chrono::steady_clock::now();
+                        extraLifeTime = std::chrono::time_point_cast<std::chrono::milliseconds>(now);
                         logStateChange("PLAYING", "EXTRA_LIFE_DELAY");
                     } else {
                         state = END_MENU;
@@ -289,7 +290,8 @@ void trippin::Game::renderLoop() {
                 }
             }
         } else if (state == EXTRA_LIFE_DELAY) {
-            if (SDL_GetTicks() - extraLifeTime >= 1'000) {
+            auto now = std::chrono::time_point_cast<std::chrono::milliseconds>(std::chrono::steady_clock::now());
+            if (now - extraLifeTime >= std::chrono::seconds{1}) {
                 advanceLevel(score, extraLives);
                 state = PLAYING;
                 logStateChange("EXTRA_LIFE_DELAY", "PLAYING");

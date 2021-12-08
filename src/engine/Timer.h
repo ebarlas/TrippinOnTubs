@@ -1,8 +1,7 @@
 #ifndef TRIPPIN_TIMER_H
 #define TRIPPIN_TIMER_H
 
-#include <string>
-#include "SDL.h"
+#include <chrono>
 
 namespace trippin {
     class Timer {
@@ -11,24 +10,24 @@ namespace trippin {
 
         // Advances the timer by one tick
         // Returns the number of milliseconds elapsed since the timer started
-        Uint32 next();
+        std::chrono::milliseconds next();
 
-        Uint32 getTotalTicks() const;
+        int getTotalTicks() const;
     private:
         // The timer name for logging
         const char *name;
 
         // The total number of ticks elapsed
-        Uint32 totalTicks;
+        int totalTicks;
 
-        // The total number of timer seconds elapsed
-        Uint32 secondTicks;
+        // The number of ticks elapsed this second, used for logging only
+        int secondTicks;
 
-        // The SDL-millis at timer start time
-        Uint32 firstMillis;
+        // The clock millis at timer start time
+        std::chrono::time_point<std::chrono::steady_clock, std::chrono::milliseconds> firstMillis;
 
-        // The previous timer second
-        Uint32 lastSecond;
+        // The previous timer second, used for calculating ticks per second for logging
+        std::chrono::time_point<std::chrono::steady_clock, std::chrono::seconds> lastSecond;
     };
 }
 

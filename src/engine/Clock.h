@@ -11,13 +11,13 @@ namespace trippin {
         // The target tick period in milliseconds
         // An engine tick ought to occur at this frequency
         // With a target tick rate of 100 per second, the tick period would be 10
-        Uint32 tickPeriod;
+        const std::chrono::milliseconds tickPeriod;
 
         Timer timer;
     public:
-        Clock(Uint32 tickPeriod);
+        Clock(std::chrono::milliseconds tickPeriod);
         void next();
-        Uint32 getTicks() const;
+        int getTicks() const;
     };
 }
 

@@ -24,7 +24,7 @@ namespace trippin {
         const RenderClock &renderClock;
 
         const double scrollRate;
-        Uint32 startTime;
+        int startTime;
         int scrollTop;
     };
 }

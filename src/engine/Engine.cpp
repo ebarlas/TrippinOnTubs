@@ -203,7 +203,7 @@ static void run(trippin::Engine *engine) {
 
 void trippin::Engine::runEngineLoop() {
     SDL_Log("starting engine");
-    Clock clock{static_cast<Uint32>(tickPeriod)};
+    Clock clock{std::chrono::milliseconds{tickPeriod}};
     while (!stopped) {
         if (paused) {
             if (!pauseTicks) {

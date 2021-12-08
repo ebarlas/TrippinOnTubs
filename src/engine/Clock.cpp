@@ -1,18 +1,19 @@
+#include <thread>
 #include "Clock.h"
 
-trippin::Clock::Clock(Uint32 period) : timer("engine") {
-    tickPeriod = period;
+trippin::Clock::Clock(std::chrono::milliseconds period) : tickPeriod(period), timer("engine") {
 }
 
 void trippin::Clock::next() {
+    using namespace std::literals;
     auto elapsed = timer.next();
     auto targetTicks = timer.getTotalTicks() * tickPeriod;
-    auto sleep = targetTicks > elapsed ? targetTicks - elapsed : 0;
-    if (sleep > 0) {
-        SDL_Delay(sleep);
+    auto sleep = targetTicks > elapsed ? targetTicks - elapsed : 0ms;
+    if (sleep > 0ms) {
+        std::this_thread::sleep_for(sleep);
     }
 }
 
-Uint32 trippin::Clock::getTicks() const {
+int trippin::Clock::getTicks() const {
     return timer.getTotalTicks();
 }

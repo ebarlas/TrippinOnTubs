@@ -1,24 +1,20 @@
 #include "RenderClock.h"
 
 void trippin::RenderClock::init() {
-    elapsed = 0;
-    time = SDL_GetTicks();
+    elapsed = std::chrono::milliseconds{0};
+    time = std::chrono::time_point_cast<std::chrono::milliseconds>(std::chrono::steady_clock::now());
     paused = false;
 }
 
 void trippin::RenderClock::update() {
     if (!paused) {
-        auto now = SDL_GetTicks();
+        auto now = std::chrono::time_point_cast<std::chrono::milliseconds>(std::chrono::steady_clock::now());
         elapsed = now - time;
         time = now;
         ticks += elapsed;
     } else {
-        elapsed = 0;
+        elapsed = std::chrono::milliseconds{0};
     }
-}
-
-int trippin::RenderClock::getElapsed() const {
-    return elapsed;
 }
 
 void trippin::RenderClock::pause() {
@@ -26,7 +22,7 @@ void trippin::RenderClock::pause() {
 }
 
 void trippin::RenderClock::resume() {
-    time = SDL_GetTicks();
+    time = std::chrono::time_point_cast<std::chrono::milliseconds>(std::chrono::steady_clock::now());
     paused = false;
 }
 
@@ -34,6 +30,6 @@ bool trippin::RenderClock::isPaused() const {
     return paused;
 }
 
-Uint32 trippin::RenderClock::getTicks() const {
-    return ticks;
+int trippin::RenderClock::getTicks() const {
+    return ticks.count();
 }

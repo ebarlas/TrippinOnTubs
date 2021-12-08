@@ -1,6 +1,6 @@
 #include "Interpolator.h"
 
-trippin::Interpolator::Interpolator(const RenderClock &renderClock, Uint32 duration, int magnitude)
+trippin::Interpolator::Interpolator(const RenderClock &renderClock, int duration, int magnitude)
         : renderClock(renderClock), firstTick(-1), duration(duration), magnitude(magnitude) {
 
 }
