@@ -63,7 +63,8 @@ namespace trippin {
         void init();
         bool ended();
         bool completed();
-        void render(GogginInput input);
+        void onInput(GogginInput input);
+        void render();
         void start();
         void stop();
         void pause();

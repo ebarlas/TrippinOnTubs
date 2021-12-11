@@ -1,159 +1,105 @@
 #include "UserInput.h"
 
-bool trippin::UserInput::quitPressed() const {
-    return quit;
-}
-
-bool trippin::UserInput::anythingPressed() const {
-    return mouseButtonDownEvent
-           || spaceKey.keyHeldDown
-           || downKey.keyHeldDown
-           || leftTouch.touchDownEvent
-           || rightTouch.touchDownEvent;
-}
-
-trippin::Point<int> trippin::UserInput::getLastPress() const {
-    if (mouseButtonDownEvent) {
-        return mouseButtonCoords;
-    }
-    return {};
-}
-
-trippin::GogginInput trippin::UserInput::asGogginInput() const {
+trippin::GogginInput trippin::UserInput::Event::asGogginInput() const {
     GogginInput gi;
-    if (spaceKey.keyDownEvent || rightTouch.touchDownEvent) {
+    if (spaceKeyDown || rightTouchDown) {
         gi.jumpCharge = true;
     }
-    if (spaceKey.keyUpEvent || rightTouch.touchUpEvent) {
+    if (spaceKeyUp || rightTouchUp) {
         gi.jumpRelease = true;
     }
-    if (downKey.keyDownEvent || leftTouch.touchDownEvent) {
+    if (downKeyDown || leftTouchDown) {
         gi.duckStart = true;
     }
-    if (downKey.keyUpEvent || leftTouch.touchUpEvent) {
+    if (downKeyUp || leftTouchUp) {
         gi.duckEnd = true;
     }
     return gi;
 }
 
-void trippin::UserInput::pollEvents() {
+bool trippin::UserInput::Event::anythingPressed() const {
+    return mouseButtonDown || spaceKeyDown || downKeyDown || leftTouchDown || rightTouchDown;
+}
+
+trippin::UserInput::Event::operator bool() const {
+    return render || quit || spaceKeyDown || spaceKeyUp || downKeyDown || downKeyUp || pKeyDown || pKeyUp
+           || rKeyDown || rKeyUp || mouseButtonDown || leftTouchDown || leftTouchUp || rightTouchDown || rightTouchUp
+           || focusLost || focusGained;
+}
+
+trippin::UserInput::Event trippin::UserInput::pollEvent() {
     SDL_Event e;
-    while (SDL_PollEvent(&e) != 0) {
-        if (e.type == SDL_QUIT) {
-            quit = true;
-        } else if (e.type == SDL_KEYDOWN) {
-            if (e.key.keysym.scancode == SDL_SCANCODE_SPACE) {
-                handleKeyDown(spaceKey);
-            }
-            if (e.key.keysym.scancode == SDL_SCANCODE_DOWN) {
-                handleKeyDown(downKey);
-            }
-            if (e.key.keysym.scancode == SDL_SCANCODE_P) {
-                handleKeyDown(pKey);
-            }
-            if (e.key.keysym.scancode == SDL_SCANCODE_R) {
-                handleKeyDown(rKey);
-            }
-        } else if (e.type == SDL_KEYUP) {
-            if (e.key.keysym.scancode == SDL_SCANCODE_SPACE) {
-                handleKeyUp(spaceKey);
-            }
-            if (e.key.keysym.scancode == SDL_SCANCODE_DOWN) {
-                handleKeyUp(downKey);
-            }
-            if (e.key.keysym.scancode == SDL_SCANCODE_P) {
-                handleKeyUp(pKey);
-            }
-            if (e.key.keysym.scancode == SDL_SCANCODE_R) {
-                handleKeyUp(rKey);
-            }
-        } else if (e.type == SDL_MOUSEBUTTONDOWN) {
-            onMouseButtonDown(e.button.x, e.button.y);
-        } else if (e.type == SDL_FINGERDOWN) {
-            onFingerDown(e.tfinger);
-        } else if (e.type == SDL_FINGERUP) {
-            onFingerUp(e.tfinger);
-        } else if (e.type == SDL_WINDOWEVENT) {
-            if (e.window.event == SDL_WINDOWEVENT_FOCUS_LOST) {
-                focusLost = true;
-            } else if (e.window.event == SDL_WINDOWEVENT_FOCUS_GAINED) {
-                focusGained = true;
+    auto events = SDL_PollEvent(&e);
+
+    Event result{};
+
+    auto keyDownFn = [&e](int scanCode, bool &heldDown, bool &event) {
+        if (e.key.keysym.scancode == scanCode) {
+            if (!heldDown) {
+                heldDown = true;
+                event = true;
             }
         }
+    };
+
+    auto keyUpFn = [&e](int scanCode, bool &heldDown, bool &event) {
+        if (e.key.keysym.scancode == scanCode) {
+            if (heldDown) {
+                heldDown = false;
+                event = true;
+            }
+        }
+    };
+
+    auto touchDownFn = [&e](Touch &touch, bool &event) {
+        if (!touch.touchHeldDown) {
+            touch.touchHeldDown = true;
+            touch.fingerId = e.tfinger.fingerId;
+            event = true;
+        }
+    };
+
+    auto touchUpFn = [&e](Touch &touch, bool &event) {
+        if (touch.touchHeldDown && touch.fingerId == e.tfinger.fingerId) {
+            touch.touchHeldDown = false;
+            event = true;
+        }
+    };
+
+    // with VSYNC enabled, returns 0 at sync interval (for ex, 60 per sec)
+    if (events == 0) {
+        result.render = true;
+    } else if (e.type == SDL_QUIT) {
+        result.quit = true;
+    } else if (e.type == SDL_KEYDOWN) {
+        keyDownFn(SDL_SCANCODE_SPACE, spaceKeyHeldDown, result.spaceKeyDown);
+        keyDownFn(SDL_SCANCODE_DOWN, downKeyHeldDown, result.downKeyDown);
+        keyDownFn(SDL_SCANCODE_P, pKeyHeldDown, result.pKeyDown);
+        keyDownFn(SDL_SCANCODE_R, rKeyHeldDown, result.rKeyDown);
+    } else if (e.type == SDL_KEYUP) {
+        keyUpFn(SDL_SCANCODE_SPACE, spaceKeyHeldDown, result.spaceKeyUp);
+        keyUpFn(SDL_SCANCODE_DOWN, downKeyHeldDown, result.downKeyUp);
+        keyUpFn(SDL_SCANCODE_P, pKeyHeldDown, result.pKeyUp);
+        keyUpFn(SDL_SCANCODE_R, rKeyHeldDown, result.rKeyUp);
+    } else if (e.type == SDL_MOUSEBUTTONDOWN) {
+        result.mouseButtonDown = true;
+        result.touchPoint = {e.button.x, e.button.y};
+    } else if (e.type == SDL_FINGERDOWN) {
+        if (e.tfinger.x < 0.5) {
+            touchDownFn(leftTouch, result.leftTouchDown);
+        } else {
+            touchDownFn(rightTouch, result.rightTouchDown);
+        }
+    } else if (e.type == SDL_FINGERUP) {
+        touchUpFn(leftTouch, result.leftTouchUp);
+        touchUpFn(rightTouch, result.rightTouchUp);
+    } else if (e.type == SDL_WINDOWEVENT) {
+        if (e.window.event == SDL_WINDOWEVENT_FOCUS_LOST) {
+            result.focusLost = true;
+        } else if (e.window.event == SDL_WINDOWEVENT_FOCUS_GAINED) {
+            result.focusGained = true;
+        }
     }
-}
 
-void trippin::UserInput::reset() {
-    mouseButtonDownEvent = false;
-    spaceKey.keyDownEvent = spaceKey.keyUpEvent = false;
-    downKey.keyDownEvent = downKey.keyUpEvent = false;
-    pKey.keyDownEvent = pKey.keyUpEvent = false;
-    rKey.keyDownEvent = rKey.keyUpEvent = false;
-    leftTouch.touchDownEvent = leftTouch.touchUpEvent = false;
-    rightTouch.touchDownEvent = rightTouch.touchUpEvent = false;
-    focusLost = focusGained = false;
-}
-
-void trippin::UserInput::onMouseButtonDown(int x, int y) {
-    mouseButtonDownEvent = true;
-    mouseButtonCoords = {x, y};
-}
-
-void trippin::UserInput::onFingerDown(const SDL_TouchFingerEvent &e) {
-    auto &touch = e.x < 0.5 ? leftTouch : rightTouch;
-    handleTouchDown(e, touch);
-}
-
-void trippin::UserInput::onFingerUp(const SDL_TouchFingerEvent &e) {
-    handleTouchUp(e, leftTouch);
-    handleTouchUp(e, rightTouch);
-}
-
-void trippin::UserInput::handleTouchDown(const SDL_TouchFingerEvent &e, Touch &touch) {
-    if (!touch.touchHeldDown) {
-        touch.touchHeldDown = true;
-        touch.touchDownEvent = true;
-        touch.touchUpEvent = false;
-        touch.fingerId = e.fingerId;
-    }
-}
-
-void trippin::UserInput::handleTouchUp(const SDL_TouchFingerEvent &e, Touch &touch) {
-    if (touch.touchHeldDown && touch.fingerId == e.fingerId) {
-        touch.touchHeldDown = false;
-        touch.touchDownEvent = false;
-        touch.touchUpEvent = true;
-    }
-}
-
-void trippin::UserInput::handleKeyDown(Key &key) {
-    if (!key.keyHeldDown) {
-        key.keyHeldDown = true;
-        key.keyDownEvent = true;
-        key.keyUpEvent = false;
-    }
-}
-
-void trippin::UserInput::handleKeyUp(Key &key) {
-    if (key.keyHeldDown) {
-        key.keyHeldDown = false;
-        key.keyDownEvent = false;
-        key.keyUpEvent = true;
-    }
-}
-
-bool trippin::UserInput::pPressed() const {
-    return pKey.keyDownEvent;
-}
-
-bool trippin::UserInput::rPressed() const {
-    return rKey.keyDownEvent;
-}
-
-bool trippin::UserInput::wasFocusLost() const {
-    return focusLost;
-}
-
-bool trippin::UserInput::wasFocusGained() const {
-    return focusGained;
+    return result;
 }

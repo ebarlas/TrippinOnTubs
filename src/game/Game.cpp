@@ -175,18 +175,26 @@ void trippin::Game::renderLoop() {
     Timer timer("renderer");
     UserInput ui;
     while (true) {
-        ui.pollEvents();
+        auto event = ui.pollEvent();
+        if (!event) {
+            continue;
+        }
 
-        if (ui.quitPressed()) {
+        if (event.quit) {
             level->stop();
             break;
         }
 
-        if (!renderClock.isPaused() && (ui.pPressed() || ui.wasFocusLost())) {
+        auto gogginInput = event.asGogginInput();
+        if (gogginInput) {
+            level->onInput(gogginInput);
+        }
+
+        if (!renderClock.isPaused() && (event.pKeyDown || event.focusLost)) {
             renderClock.pause();
             level->pause();
         }
-        if (renderClock.isPaused() && (ui.rPressed() || ui.wasFocusGained())) {
+        if (renderClock.isPaused() && (event.rKeyDown || event.focusGained)) {
             renderClock.resume();
             level->resume();
         }
@@ -195,26 +203,17 @@ void trippin::Game::renderLoop() {
             continue;
         }
 
-        renderClock.update();
-
-        SDL_SetRenderDrawColor(sdlSystem->getRenderer(), 244, 251, 255, 255);
-        SDL_RenderClear(sdlSystem->getRenderer());
-
-        level->render(ui.asGogginInput());
-
         if (state == TITLE) {
             if (!titleOverlay->hasScores() && stagingArea->bothSet()) {
                 titleOverlay->setScores(stagingArea->getTodayScores(15), stagingArea->getTopScores(15));
             }
-            titleOverlay->render();
-            if (ui.anythingPressed()) {
+            if (event.anythingPressed()) {
                 titleMenu->reset();
                 state = START_MENU;
                 logStateChange("TITLE", "START_MENU");
             }
         } else if (state == START_MENU) {
-            titleMenu->render();
-            if (titleMenu->startClicked(ui.getLastPress())) {
+            if (titleMenu->startClicked(event.touchPoint)) {
                 extraLives = 1;
                 loadLevel = false;
                 trainLevel = false;
@@ -222,48 +221,45 @@ void trippin::Game::renderLoop() {
                 advanceLevel(score, extraLives);
                 state = PLAYING;
                 logStateChange("START_MENU", "PLAYING");
-            } else if (titleMenu->trainClicked(ui.getLastPress())) {
+            } else if (titleMenu->trainClicked(event.touchPoint)) {
                 loadLevel = false;
                 trainLevel = true;
                 score = 0;
                 advanceLevel(score, extraLives);
                 state = TRAINING;
                 logStateChange("START_MENU", "TRAINING");
-            } else if (titleMenu->exitClicked(ui.getLastPress())) {
+            } else if (titleMenu->exitClicked(event.touchPoint)) {
                 level->stop();
                 break;
-            } else if (titleMenu->highScoreClicked(ui.getLastPress())) {
+            } else if (titleMenu->highScoreClicked(event.touchPoint)) {
                 state = SCORE_MENU;
                 scoreMenu->reset();
                 logStateChange("START_MENU", "SCORE_MENU");
             }
         } else if (state == SCORE_MENU) {
-            scoreMenu->render();
-            if (scoreMenu->exitClicked(ui.getLastPress())) {
+            if (scoreMenu->exitClicked(event.touchPoint)) {
                 titleMenu->reset();
                 state = START_MENU;
                 logStateChange("SCORE_MENU", "START_MENU");
-            } else if (scoreMenu->allTimeClicked(ui.getLastPress())) {
+            } else if (scoreMenu->allTimeClicked(event.touchPoint)) {
                 state = ALL_TIME_SCORES;
                 topScoreBoard->reset();
                 topScoreBoard->setScores(stagingArea->getTopScores(25));
                 logStateChange("SCORE_MENU", "ALL_TIME_SCORES");
-            } else if (scoreMenu->todayClicked(ui.getLastPress())) {
+            } else if (scoreMenu->todayClicked(event.touchPoint)) {
                 state = TODAY_SCORES;
                 todayScoreBoard->reset();
                 todayScoreBoard->setScores(stagingArea->getTodayScores(25));
                 logStateChange("SCORE_MENU", "TODAY_SCORES");
             }
         } else if (state == ALL_TIME_SCORES) {
-            topScoreBoard->render();
-            if (ui.anythingPressed()) {
+            if (event.anythingPressed()) {
                 titleMenu->reset();
                 state = START_MENU;
                 logStateChange("ALL_TIME_SCORES", "START_MENU");
             }
         } else if (state == TODAY_SCORES) {
-            todayScoreBoard->render();
-            if (ui.anythingPressed()) {
+            if (event.anythingPressed()) {
                 titleMenu->reset();
                 state = START_MENU;
                 logStateChange("TODAY_SCORES", "START_MENU");
@@ -306,8 +302,7 @@ void trippin::Game::renderLoop() {
                 logStateChange("TRAINING", "START_MENU");
             }
         } else if (state == LEVEL_TRANSITION) {
-            levelOverlay->render();
-            if (ui.anythingPressed()) {
+            if (event.anythingPressed()) {
                 if (levelIndex < configuration.maps.size() - 1) {
                     levelIndex++;
                     advanceLevel(score, extraLives);
@@ -320,19 +315,17 @@ void trippin::Game::renderLoop() {
                 }
             }
         } else if (state == END_MENU) {
-            endMenu->render();
-            if (endMenu->exitClicked(ui.getLastPress())) {
+            if (endMenu->exitClicked(event.touchPoint)) {
                 titleMenu->reset();
                 state = START_MENU;
                 logStateChange("END_MENU", "START_MENU");
-            } else if (endMenu->saveClicked(ui.getLastPress())) {
+            } else if (endMenu->saveClicked(event.touchPoint)) {
                 state = NAME_FORM;
                 nameForm->reset();
                 logStateChange("END_MENU", "NAME_FORM");
             }
         } else {
-            nameForm->render();
-            nameForm->onClick(ui.getLastPress());
+            nameForm->onClick(event.touchPoint);
             if (nameForm->nameEntered()) {
                 stagingArea->addScore({score, rand(), nameForm->getName()});
                 state = START_MENU;
@@ -341,9 +334,35 @@ void trippin::Game::renderLoop() {
             }
         }
 
-        SDL_RenderPresent(sdlSystem->getRenderer());
-        timer.next();
-        ui.reset();
+        if (event.render) {
+            renderClock.update();
+
+            SDL_SetRenderDrawColor(sdlSystem->getRenderer(), 244, 251, 255, 255);
+            SDL_RenderClear(sdlSystem->getRenderer());
+
+            level->render();
+
+            if (state == TITLE) {
+                titleOverlay->render();
+            } else if (state == START_MENU) {
+                titleMenu->render();
+            } else if (state == SCORE_MENU) {
+                scoreMenu->render();
+            } else if (state == ALL_TIME_SCORES) {
+                topScoreBoard->render();
+            } else if (state == TODAY_SCORES) {
+                todayScoreBoard->render();
+            } else if (state == LEVEL_TRANSITION) {
+                levelOverlay->render();
+            } else if (state == END_MENU) {
+                endMenu->render();
+            } else if (state == NAME_FORM) {
+                nameForm->render();
+            }
+
+            SDL_RenderPresent(sdlSystem->getRenderer());
+            timer.next();
+        }
     }
 }
 

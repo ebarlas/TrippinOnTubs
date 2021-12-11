@@ -225,12 +225,18 @@ void trippin::Level::init() {
     initEngine();
 }
 
-void trippin::Level::render(GogginInput input) {
+void trippin::Level::onInput(GogginInput input) {
     goggin->onUserInput(input);
+}
+
+void trippin::Level::render() {
     auto scene = sceneBuilder.take();
+
+    // stable sort ensures that (1) zIndex order is observed and (2) dispatch order is observed for each zIndex
     std::stable_sort(scene.begin(), scene.end(), [](const auto &left, const auto &right) {
         return left.zIndex < right.zIndex;
     });
+
     for (auto &fn: scene) {
         fn.fn();
     }

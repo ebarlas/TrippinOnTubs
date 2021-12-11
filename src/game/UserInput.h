@@ -8,55 +8,45 @@
 namespace trippin {
     class UserInput {
     public:
-        bool quitPressed() const;
-        bool anythingPressed() const;
-        bool pPressed() const;
-        bool rPressed() const;
-        bool wasFocusLost() const;
-        bool wasFocusGained() const;
-        Point<int> getLastPress() const;
-        GogginInput asGogginInput() const;
+        struct Event {
+            bool render;
+            bool quit;
+            bool spaceKeyDown;
+            bool spaceKeyUp;
+            bool downKeyDown;
+            bool downKeyUp;
+            bool pKeyDown;
+            bool pKeyUp;
+            bool rKeyDown;
+            bool rKeyUp;
+            bool mouseButtonDown;
+            bool leftTouchDown;
+            bool leftTouchUp;
+            bool rightTouchDown;
+            bool rightTouchUp;
+            bool focusLost;
+            bool focusGained;
+            Point<int> touchPoint;
 
-        void pollEvents();
-        void reset();
+            GogginInput asGogginInput() const;
+            bool anythingPressed() const;
+            operator bool() const;
+        };
+
+        Event pollEvent();
     private:
         struct Touch {
-            bool touchDownEvent{};
-            bool touchUpEvent{};
-            bool touchHeldDown{};
-            SDL_FingerID fingerId{};
+            bool touchHeldDown;
+            SDL_FingerID fingerId;
         };
 
-        struct Key {
-            bool keyDownEvent{};
-            bool keyUpEvent{};
-            bool keyHeldDown{};
-        };
+        bool spaceKeyHeldDown{};
+        bool downKeyHeldDown{};
+        bool pKeyHeldDown{};
+        bool rKeyHeldDown{};
 
-        bool quit{};
-        bool focusLost{};
-        bool focusGained{};
-
-        Key spaceKey;
-        Key downKey;
-        Key pKey;
-        Key rKey;
-
-        bool mouseButtonDownEvent{};
-        Point<int> mouseButtonCoords{};
-
-        Touch leftTouch;
-        Touch rightTouch;
-
-        void onMouseButtonDown(int x, int y);
-        void onFingerDown(const SDL_TouchFingerEvent &event);
-        void onFingerUp(const SDL_TouchFingerEvent &event);
-
-        static void handleTouchDown(const SDL_TouchFingerEvent &e, Touch &touch);
-        static void handleTouchUp(const SDL_TouchFingerEvent &e, Touch &touch);
-
-        static void handleKeyDown(Key &key);
-        static void handleKeyUp(Key &key);
+        Touch leftTouch{};
+        Touch rightTouch{};
     };
 }
 
