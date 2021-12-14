@@ -1,6 +1,7 @@
 #include <cstdlib>
 #include <iostream>
 #include <ctime>
+#include <map>
 #include "SDL_syswm.h"
 #include "SDL_mixer.h"
 #include "Game.h"
@@ -74,7 +75,7 @@ void trippin::Game::initScale() {
 void trippin::Game::initSpriteManager() {
     spriteLoader = std::make_unique<SpriteLoader>(Scale{scale->name, scale->multiplier});
     spriteLoadTask = std::make_unique<SpriteLoadTask>(*spriteLoader, configuration.prefetchSprites);
-    spriteManager = std::make_unique<SpriteManager>(sdlSystem->getRenderer(), *spriteLoader, configuration.tickPeriod);
+    spriteManager = std::make_unique<SpriteManager>(sdlSystem->getRenderer(), *spriteLoader, configuration.msPerTick());
 }
 
 void trippin::Game::initAutoPlay() {
@@ -172,7 +173,16 @@ void trippin::Game::renderLoop() {
     int extraLives = 1;
     std::chrono::time_point<std::chrono::steady_clock, std::chrono::milliseconds> extraLifeTime;
 
-    Timer timer("renderer");
+    int lastTicks = 0;
+
+    std::map<int, int> ticksPerFrame;
+
+    auto timerFn = [&ticksPerFrame](int tps) {
+        SDL_Log("timer=renderer, fps=%d, tpf=%s", tps, format(ticksPerFrame).c_str());
+        ticksPerFrame.clear();
+    };
+
+    Timer timer(timerFn);
     UserInput ui;
     while (true) {
         auto event = ui.pollEvent();
@@ -361,9 +371,29 @@ void trippin::Game::renderLoop() {
             }
 
             SDL_RenderPresent(sdlSystem->getRenderer());
+
+            auto ticks = level->getTicks();
+            auto diff = ticks - lastTicks;
+            lastTicks = ticks;
+            ticksPerFrame[diff]++;
+
             timer.next();
         }
     }
+}
+
+std::string trippin::Game::format(const std::map<int, int> &map) {
+    std::stringstream ss;
+    ss << "[";
+    for (auto i = map.begin(); i != map.end();) {
+        auto cur = i++;
+        ss << cur->first << "=" << cur->second;
+        if (i != map.end()) {
+            ss << ", ";
+        }
+    }
+    ss << "]";
+    return ss.str();
 }
 
 const char *trippin::Game::getSystemName(SDL_Window *window) {

@@ -29,9 +29,8 @@ namespace trippin {
         // This collision type can be overridden by individual objects.
         void setObjectCollision(std::function<void(Object &, Object &, const Sides &)> collision);
 
-        // Set the target engine tick period. Ticks per second are 1000 / tick-period.
-        // A tick period of 10 results in 100 tps.
-        void setTickPeriod(int tp);
+        // Set the target engine tick rate in ticks per second
+        void setTickRate(int tickRate);
 
         // Advance the engine simulation by one tick. In each tick:
         // (1) apply motion to objects and snap to grid
@@ -46,6 +45,7 @@ namespace trippin {
         void resume();
         void stop();
         void join();
+        int getTicks() const;
     private:
         std::vector<Object *> inactive;
         std::vector<Object *> platforms;
@@ -56,9 +56,10 @@ namespace trippin {
         std::function<void(Object &, Object &, const Sides &)> objectCollision = onInelasticCollisionDefault;
 
         std::thread thread;
-        int tickPeriod;
+        int tickRate;
         std::atomic_bool paused{};
         std::atomic_bool stopped{};
+        std::atomic_int ticks{};
         Uint32 pauseTicks{};
         Uint32 pauseTime{};
 

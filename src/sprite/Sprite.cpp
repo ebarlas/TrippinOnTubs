@@ -1,17 +1,17 @@
 #include <cmath>
 #include "Sprite.h"
 
-trippin::Sprite::Sprite(SDL_Renderer *renderer, const std::string &name, const SpriteLoader &loader, int tickPeriod)
+trippin::Sprite::Sprite(SDL_Renderer *renderer, const std::string &name, const SpriteLoader &loader, double tickPeriod)
         : scale(loader.getScale()), ren(renderer), sheet(renderer, name, loader) {
     init(name, tickPeriod);
 }
 
-trippin::Sprite::Sprite(SDL_Renderer *ren, const std::string &name, const Scale &sc, int tickPeriod, SDL_Surface *sur)
+trippin::Sprite::Sprite(SDL_Renderer *ren, const std::string &name, const Scale &sc, double tickPeriod, SDL_Surface *sur)
         : scale(sc), ren(ren), sheet(ren, sur) {
     init(name, tickPeriod);
 }
 
-void trippin::Sprite::init(const std::string &name, int tickPeriod) {
+void trippin::Sprite::init(const std::string &name, double tickPeriod) {
     metadata.load(name);
 
     size = sheet.getSize();
@@ -25,7 +25,7 @@ void trippin::Sprite::init(const std::string &name, int tickPeriod) {
               static_cast<int>(std::round(hb.h * mul))};
 
     // Duration in (milliseconds) and ticks period (milliseconds per tick)
-    framePeriodTicks = metadata.getDuration() / tickPeriod;
+    framePeriodTicks = static_cast<int>(std::round(metadata.getDuration() / tickPeriod));
 }
 
 void trippin::Sprite::render(trippin::Point<int> position, int frame) const {

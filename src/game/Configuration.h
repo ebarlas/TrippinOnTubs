@@ -20,7 +20,7 @@ namespace trippin {
         };
 
         int spiritSecondsBehind;
-        int tickPeriod;
+        int tickRate;
         int spiritClockTickPeriod;
         int activationProximity;
         int deactivationProximity;

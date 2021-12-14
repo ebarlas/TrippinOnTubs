@@ -1,15 +1,17 @@
 #include <thread>
 #include "Clock.h"
 
-trippin::Clock::Clock(std::chrono::milliseconds period) : tickPeriod(period), timer("engine") {
+trippin::Clock::Clock(int tickRate) :
+        tickPeriod(std::chrono::microseconds{1'000'000 / tickRate}),
+        timer([](int tps) { SDL_Log("timer=engine, tps=%d", tps); }) {
 }
 
 void trippin::Clock::next() {
-    using namespace std::literals;
+    auto zero = std::chrono::microseconds{0};
     auto elapsed = timer.next();
     auto targetTicks = timer.getTotalTicks() * tickPeriod;
-    auto sleep = targetTicks > elapsed ? targetTicks - elapsed : 0ms;
-    if (sleep > 0ms) {
+    auto sleep = targetTicks > elapsed ? targetTicks - elapsed : zero;
+    if (sleep > zero) {
         std::this_thread::sleep_for(sleep);
     }
 }

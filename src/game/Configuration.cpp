@@ -17,20 +17,20 @@ std::string trippin::Configuration::getConfigFile(const std::string &name) {
 }
 
 double trippin::Configuration::ticksPerSecond() const {
-    return 1'000.0 / tickPeriod;
+    return tickRate;
 }
 
 double trippin::Configuration::engineTicksPerSpiritClockTick() const {
-    return toDouble(spiritClockTickPeriod) / tickPeriod;
+    return spiritClockTickPeriod / msPerTick();
 }
 
 double trippin::Configuration::msPerTick() const {
-    return tickPeriod;
+    return 1000.0 / tickRate;
 }
 
 void trippin::from_json(const nlohmann::json &j, Configuration &config) {
     j.at("spiritSecondsBehind").get_to(config.spiritSecondsBehind);
-    j.at("tickPeriod").get_to(config.tickPeriod);
+    j.at("tickRate").get_to(config.tickRate);
     j.at("spiritClockTickPeriod").get_to(config.spiritClockTickPeriod);
     j.at("activationProximity").get_to(config.activationProximity);
     j.at("deactivationProximity").get_to(config.deactivationProximity);

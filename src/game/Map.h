@@ -73,7 +73,7 @@ namespace trippin {
         static std::string getMapFile(const std::string& name);
 
         void rescale(double scale);
-        void convert(int tickPeriod);
+        void convert(double tickRate);
     };
 
     template<class T>

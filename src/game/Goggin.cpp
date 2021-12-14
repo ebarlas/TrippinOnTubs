@@ -53,8 +53,8 @@ trippin::Goggin::Goggin(
     consecutiveJumps = 0;
 
     // tick/ms * ms/s * s/shake = tick/shake
-    auto shakePeriod = (1.0 / config.tickPeriod) * (1000.0 / config.shakeHertz);
-    auto shakeDuration = config.shakeDuration / config.tickPeriod;
+    auto shakePeriod = (1.0 / config.msPerTick()) * (1000.0 / config.shakeHertz);
+    auto shakeDuration = config.shakeDuration / config.msPerTick();
     xShake.init(toInt(shakePeriod), toInt(shakeDuration));
     yShake.init(toInt(shakePeriod), toInt(shakeDuration));
 
@@ -121,6 +121,7 @@ void trippin::Goggin::handleDuckEnd() {
         if (state == ducking) {
             ticks = 0;
             growForStand();
+            friction.x = 0;
             if (platformCollisions.testBottom() || objectCollisions.testBottom()) {
                 state = running;
                 frames.frame = FRAME_RUN_AFTER_LAND;

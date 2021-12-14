@@ -50,7 +50,7 @@ void trippin::Level::setTraining(bool b) {
 void trippin::Level::initMap() {
     map.load(*mapName);
     map.rescale(scale->multiplier);
-    map.convert(configuration->tickPeriod);
+    map.convert(configuration->tickRate);
 }
 
 void trippin::Level::initCamera() {
@@ -59,7 +59,7 @@ void trippin::Level::initCamera() {
 }
 
 void trippin::Level::initEngine() {
-    engine.setTickPeriod(configuration->tickPeriod);
+    engine.setTickRate(configuration->tickRate);
     engine.setPlatformCollision(onAbsorbentCollision);
     engine.setObjectCollision(onElasticCollision1D);
     if (!training) {
@@ -290,4 +290,8 @@ void trippin::Level::beforeTick(Uint32 engineTicks) {
 
 void trippin::Level::afterTick(Uint32 engineTicks) {
     sceneBuilder.build();
+}
+
+int trippin::Level::getTicks() const {
+    return engine.getTicks();
 }

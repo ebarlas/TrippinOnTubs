@@ -1,6 +1,6 @@
 #include "SpriteManager.h"
 
-trippin::SpriteManager::SpriteManager(SDL_Renderer *renderer, SpriteLoader &spriteLoader, int tickPeriod)
+trippin::SpriteManager::SpriteManager(SDL_Renderer *renderer, SpriteLoader &spriteLoader, double tickPeriod)
         : renderer(renderer), spriteLoader(spriteLoader), tickPeriod(tickPeriod) {
 }
 

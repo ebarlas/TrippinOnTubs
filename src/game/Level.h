@@ -70,6 +70,7 @@ namespace trippin {
         void pause();
         void resume();
         int getScore() const;
+        int getTicks() const;
         void beforeTick(Uint32 engineTicks) override;
         void afterTick(Uint32 engineTicks) override;
     };

@@ -193,8 +193,8 @@ void trippin::Engine::applyObjectCollision(Object &left, Object &right, const Si
     collision(left, right, sides);
 }
 
-void trippin::Engine::setTickPeriod(int tp) {
-    tickPeriod = tp;
+void trippin::Engine::setTickRate(int tps) {
+    tickRate = tps;
 }
 
 static void run(trippin::Engine *engine) {
@@ -203,7 +203,7 @@ static void run(trippin::Engine *engine) {
 
 void trippin::Engine::runEngineLoop() {
     SDL_Log("starting engine");
-    Clock clock{std::chrono::milliseconds{tickPeriod}};
+    Clock clock{tickRate};
     while (!stopped) {
         if (paused) {
             if (!pauseTicks) {
@@ -216,6 +216,7 @@ void trippin::Engine::runEngineLoop() {
                 pauseTicks = 0;
             }
             tick(clockTicks - pauseTime);
+            ticks++;
         }
         clock.next();
     }
@@ -252,6 +253,10 @@ void trippin::Engine::setObjectCollision(std::function<void(Object&, Object&, co
 
 void trippin::Engine::addListener(trippin::Listener *listener) {
     listeners.push_back(listener);
+}
+
+int trippin::Engine::getTicks() const {
+    return ticks;
 }
 
 bool trippin::Engine::sameLane(Object *left, Object *right) {

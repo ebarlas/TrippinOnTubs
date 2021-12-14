@@ -9,8 +9,8 @@
 namespace trippin {
     class Sprite {
     public:
-        Sprite(SDL_Renderer *renderer, const std::string &name, const SpriteLoader &spriteLoader, int tickPeriod);
-        Sprite(SDL_Renderer *renderer, const std::string &name, const Scale &scale, int tickPeriod, SDL_Surface *sur);
+        Sprite(SDL_Renderer *renderer, const std::string &name, const SpriteLoader &spriteLoader, double tickPeriod);
+        Sprite(SDL_Renderer *renderer, const std::string &name, const Scale &scale, double  tickPeriod, SDL_Surface *sur);
         void render(Point<int> position, int frame) const;
         void render(Point<int> hitBoxPos, int frame, const Camera &camera) const;
         Point<int> getSize() const;
@@ -32,7 +32,7 @@ namespace trippin {
         int framePeriodTicks;
         SDL_Renderer *ren;
 
-        void init(const std::string &name, int tickPeriod);
+        void init(const std::string &name, double tickPeriod);
     };
 }
 

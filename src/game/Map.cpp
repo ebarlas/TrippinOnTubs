@@ -56,8 +56,8 @@ void trippin::Map::rescale(double target) {
     }
 }
 
-void trippin::Map::convert(int tickPeriod) {
-    auto ticksPerSecond = 1'000.0 / tickPeriod;
+void trippin::Map::convert(double ticksPerSecond) {
+    auto tickPeriod = 1000.0 / ticksPerSecond;
     auto ticksPerSecondSq = ticksPerSecond * ticksPerSecond;
 
     for (auto &obj : objects) {
@@ -71,11 +71,11 @@ void trippin::Map::convert(int tickPeriod) {
         obj.minJumpVelocity /= ticksPerSecond;
         obj.maxJumpVelocity /= ticksPerSecond;
         obj.maxDuckJumpVelocity /= ticksPerSecond;
-        obj.minJumpChargeTime /= tickPeriod;
-        obj.maxJumpChargeTime /= tickPeriod;
-        obj.jumpGracePeriod /= tickPeriod;
-        obj.jumpSoundTimeout /= tickPeriod;
-        obj.dustPeriod /= tickPeriod;
+        obj.minJumpChargeTime = static_cast<int>(std::round(obj.minJumpChargeTime / tickPeriod));
+        obj.maxJumpChargeTime = static_cast<int>(std::round(obj.maxJumpChargeTime / tickPeriod));
+        obj.jumpGracePeriod = static_cast<int>(std::round(obj.jumpGracePeriod / tickPeriod));
+        obj.jumpSoundTimeout = static_cast<int>(std::round(obj.jumpSoundTimeout / tickPeriod));
+        obj.dustPeriod = static_cast<int>(std::round(obj.dustPeriod / tickPeriod));
         obj.duckFriction /= ticksPerSecondSq;
     }
 }

@@ -69,6 +69,7 @@ namespace trippin {
         void logStateChange(const char *prev, const char *next);
         static const char* getSystemName(SDL_Window *window);
         static const char* getRendererName(SDL_Renderer *renderer);
+        static std::string format(const std::map<int, int> &map);
     public:
         Game(std::string configName);
         void init();
