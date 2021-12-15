@@ -1,4 +1,5 @@
 #include "engine/Engine.h"
+#include "engine/Timer.h"
 
 void trippin::Engine::add(Object *obj) {
     auto &vec = obj->inactive ? inactive : (obj->platform ? platforms : objects);
@@ -193,32 +194,22 @@ void trippin::Engine::applyObjectCollision(Object &left, Object &right, const Si
     collision(left, right, sides);
 }
 
-void trippin::Engine::setTickRate(int tps) {
-    tickRate = tps;
-}
-
 static void run(trippin::Engine *engine) {
     engine->runEngineLoop();
 }
 
 void trippin::Engine::runEngineLoop() {
     SDL_Log("starting engine");
-    Clock clock{tickRate};
+    auto fn = [](int tps) { SDL_Log("timer=engine, tps=%d", tps); };
+    Timer timer;
     while (!stopped) {
-        if (paused) {
-            if (!pauseTicks) {
-                pauseTicks = clock.getTicks();
-            }
-        } else {
-            auto clockTicks = clock.getTicks();
-            if (pauseTicks) {
-                pauseTime += (clockTicks - pauseTicks);
-                pauseTicks = 0;
-            }
-            tick(clockTicks - pauseTime);
-            ticks++;
+        {
+            std::unique_lock<std::mutex> lock(mutex);
+            cv.wait(lock, [this]() { return stopped || ticks.load() < renders * ticksPerFrame; });
         }
-        clock.next();
+        auto t = timer.next(fn);
+        tick(t);
+        ticks = t;
     }
     SDL_Log("stopping engine");
 }
@@ -227,16 +218,10 @@ void trippin::Engine::start() {
     thread = std::thread(run, this);
 }
 
-void trippin::Engine::pause() {
-    paused = true;
-}
-
-void trippin::Engine::resume() {
-    paused = false;
-}
-
 void trippin::Engine::stop() {
+    std::lock_guard<std::mutex> lock{mutex};
     stopped = true;
+    cv.notify_one();
 }
 
 void trippin::Engine::join() {
@@ -257,6 +242,16 @@ void trippin::Engine::addListener(trippin::Listener *listener) {
 
 int trippin::Engine::getTicks() const {
     return ticks;
+}
+
+void trippin::Engine::onRender() {
+    std::lock_guard<std::mutex> lg{mutex};
+    renders++;
+    cv.notify_one();
+}
+
+void trippin::Engine::setTicksPerFrame(double tpf) {
+    ticksPerFrame = tpf;
 }
 
 bool trippin::Engine::sameLane(Object *left, Object *right) {

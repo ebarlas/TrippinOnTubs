@@ -3,9 +3,9 @@
 
 #include <string>
 #include <vector>
-#include <net/Transport.h>
 #include "SDL.h"
 #include "engine/Point.h"
+#include "engine/Timer.h"
 #include "sprite/SpriteManager.h"
 #include "Configuration.h"
 #include "Map.h"
@@ -18,13 +18,37 @@
 #include "ui/ScoreMenu.h"
 #include "ui/ScrollingScoreBoard.h"
 #include "ui/LevelOverlay.h"
+#include "net/Transport.h"
 #include "net/StagingArea.h"
 #include "SdlSystem.h"
 #include "net/Logger.h"
+#include "UserInput.h"
 
 namespace trippin {
     class Game {
     private:
+        enum class State {
+            TITLE,
+            START_MENU,
+            SCORE_MENU,
+            TRAINING,
+            PLAYING,
+            EXTRA_LIFE_DELAY,
+            LEVEL_TRANSITION,
+            END_MENU,
+            NAME_FORM,
+            ALL_TIME_SCORES,
+            TODAY_SCORES,
+            EXIT
+        };
+
+        State state;
+        int score{};
+        int extraLives{1};
+        int lastTicks{};
+        Timer timer;
+        std::map<int, int> ticksPerFrame;
+        std::chrono::time_point<std::chrono::steady_clock, std::chrono::milliseconds> extraLifeTime;
         std::string configName;
         std::unique_ptr<SdlSystem> sdlSystem;
         Point<int> windowSize;
@@ -63,12 +87,14 @@ namespace trippin {
         void initLevel();
         void initClock();
         void renderLoop();
-        std::unique_ptr<Level> nextLevel(int score, int extraLives);
-        void advanceLevel(int score, int extraLives);
+        std::unique_ptr<Level> nextLevel();
+        void advanceLevel();
         void transferSurfaces();
         void logStateChange(const char *prev, const char *next);
-        static const char* getSystemName(SDL_Window *window);
-        static const char* getRendererName(SDL_Renderer *renderer);
+        void render();
+        void handle(UserInput::Event &event);
+        static const char *getSystemName(SDL_Window *window);
+        static const char *getRendererName(SDL_Renderer *renderer);
         static std::string format(const std::map<int, int> &map);
     public:
         Game(std::string configName);

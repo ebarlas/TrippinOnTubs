@@ -45,6 +45,7 @@ namespace trippin {
         std::unique_ptr<TrainingProgram> trainingProgram;
         const RenderClock *renderClock;
         SceneBuilder sceneBuilder;
+        double ticksPerFrame;
         void initMap();
         void initCamera();
         void initEngine();
@@ -60,11 +61,13 @@ namespace trippin {
         void setScore(int score);
         void setExtraLives(int extraLives);
         void setTraining(bool training);
+        void setTicksPerFrame(double ticksPerFrame);
         void init();
         bool ended();
         bool completed();
         void onInput(GogginInput input);
         void render();
+        void update();
         void start();
         void stop();
         void pause();

@@ -43,6 +43,7 @@ void trippin::Game::initLogger() {
     ss << ", rendererName=" << renName;
     ss << ", systemName=" << sysName;
     ss << ", systemRam=" << sysRam;
+    ss << ", frameRate=" << sdlSystem->getRefreshRate();
     ss << ", winSize=(" << windowSize.x << "," << windowSize.y << ")";
     ss << ", renSize=(" << rendererSize.x << "," << rendererSize.y << ")";
     logger->log(ss.str());
@@ -86,7 +87,7 @@ void trippin::Game::initLevel() {
     levelIndex = 0;
     loadLevel = true;
     trainLevel = false;
-    level = nextLevel(0, 1);
+    level = nextLevel();
     spriteLoadTask->start();
 }
 
@@ -106,9 +107,10 @@ void trippin::Game::initClock() {
     renderClock.init();
 }
 
-std::unique_ptr<trippin::Level> trippin::Game::nextLevel(int score, int extraLives) {
+std::unique_ptr<trippin::Level> trippin::Game::nextLevel() {
     auto lvl = std::make_unique<Level>();
     lvl->setWindowSize(rendererSize);
+    lvl->setTicksPerFrame(configuration.ticksPerSecond() / static_cast<double>(sdlSystem->getRefreshRate()));
     lvl->setConfiguration(&configuration);
     lvl->setScale(scale);
     lvl->setSpriteManager(spriteManager.get());
@@ -130,10 +132,9 @@ std::unique_ptr<trippin::Level> trippin::Game::nextLevel(int score, int extraLiv
     return lvl;
 }
 
-void trippin::Game::advanceLevel(int score, int extraLives) {
+void trippin::Game::advanceLevel() {
     level->stop();
-    level.reset();
-    level = nextLevel(score, extraLives);
+    level = nextLevel();
     level->start();
 }
 
@@ -154,37 +155,10 @@ void trippin::Game::start() {
 }
 
 void trippin::Game::renderLoop() {
-    enum State {
-        TITLE,
-        START_MENU,
-        SCORE_MENU,
-        TRAINING,
-        PLAYING,
-        EXTRA_LIFE_DELAY,
-        LEVEL_TRANSITION,
-        END_MENU,
-        NAME_FORM,
-        ALL_TIME_SCORES,
-        TODAY_SCORES,
-    };
+    state = State::TITLE;
 
-    int state = TITLE;
-    int score;
-    int extraLives = 1;
-    std::chrono::time_point<std::chrono::steady_clock, std::chrono::milliseconds> extraLifeTime;
-
-    int lastTicks = 0;
-
-    std::map<int, int> ticksPerFrame;
-
-    auto timerFn = [&ticksPerFrame](int tps) {
-        SDL_Log("timer=renderer, fps=%d, tpf=%s", tps, format(ticksPerFrame).c_str());
-        ticksPerFrame.clear();
-    };
-
-    Timer timer(timerFn);
     UserInput ui;
-    while (true) {
+    while (state != State::EXIT) {
         auto event = ui.pollEvent();
         if (!event) {
             continue;
@@ -204,180 +178,18 @@ void trippin::Game::renderLoop() {
             renderClock.pause();
             level->pause();
         }
+
         if (renderClock.isPaused() && (event.rKeyDown || event.focusGained)) {
             renderClock.resume();
             level->resume();
         }
-        if (renderClock.isPaused()) {
-            std::this_thread::sleep_for(std::chrono::milliseconds{1});
-            continue;
-        }
 
-        if (state == TITLE) {
-            if (!titleOverlay->hasScores() && stagingArea->bothSet()) {
-                titleOverlay->setScores(stagingArea->getTodayScores(15), stagingArea->getTopScores(15));
-            }
-            if (event.anythingPressed()) {
-                titleMenu->reset();
-                state = START_MENU;
-                logStateChange("TITLE", "START_MENU");
-            }
-        } else if (state == START_MENU) {
-            if (titleMenu->startClicked(event.touchPoint)) {
-                extraLives = 1;
-                loadLevel = false;
-                trainLevel = false;
-                score = 0;
-                advanceLevel(score, extraLives);
-                state = PLAYING;
-                logStateChange("START_MENU", "PLAYING");
-            } else if (titleMenu->trainClicked(event.touchPoint)) {
-                loadLevel = false;
-                trainLevel = true;
-                score = 0;
-                advanceLevel(score, extraLives);
-                state = TRAINING;
-                logStateChange("START_MENU", "TRAINING");
-            } else if (titleMenu->exitClicked(event.touchPoint)) {
-                level->stop();
-                break;
-            } else if (titleMenu->highScoreClicked(event.touchPoint)) {
-                state = SCORE_MENU;
-                scoreMenu->reset();
-                logStateChange("START_MENU", "SCORE_MENU");
-            }
-        } else if (state == SCORE_MENU) {
-            if (scoreMenu->exitClicked(event.touchPoint)) {
-                titleMenu->reset();
-                state = START_MENU;
-                logStateChange("SCORE_MENU", "START_MENU");
-            } else if (scoreMenu->allTimeClicked(event.touchPoint)) {
-                state = ALL_TIME_SCORES;
-                topScoreBoard->reset();
-                topScoreBoard->setScores(stagingArea->getTopScores(25));
-                logStateChange("SCORE_MENU", "ALL_TIME_SCORES");
-            } else if (scoreMenu->todayClicked(event.touchPoint)) {
-                state = TODAY_SCORES;
-                todayScoreBoard->reset();
-                todayScoreBoard->setScores(stagingArea->getTodayScores(25));
-                logStateChange("SCORE_MENU", "TODAY_SCORES");
-            }
-        } else if (state == ALL_TIME_SCORES) {
-            if (event.anythingPressed()) {
-                titleMenu->reset();
-                state = START_MENU;
-                logStateChange("ALL_TIME_SCORES", "START_MENU");
-            }
-        } else if (state == TODAY_SCORES) {
-            if (event.anythingPressed()) {
-                titleMenu->reset();
-                state = START_MENU;
-                logStateChange("TODAY_SCORES", "START_MENU");
-            }
-        } else if (state == PLAYING) {
-            if (level->ended()) {
-                score = level->getScore();
-                if (level->completed()) {
-                    state = LEVEL_TRANSITION;
-                    levelOverlay->setLevel(levelIndex);
-                    logStateChange("PLAYING", "LEVEL_TRANSITION");
-                } else {
-                    if (extraLives > 0) {
-                        extraLives--;
-                        state = EXTRA_LIFE_DELAY;
-                        auto now = std::chrono::steady_clock::now();
-                        extraLifeTime = std::chrono::time_point_cast<std::chrono::milliseconds>(now);
-                        logStateChange("PLAYING", "EXTRA_LIFE_DELAY");
-                    } else {
-                        state = END_MENU;
-                        endMenu->reset();
-                        logStateChange("PLAYING", "END_MENU");
-                    }
-                }
-            }
-        } else if (state == EXTRA_LIFE_DELAY) {
-            auto now = std::chrono::time_point_cast<std::chrono::milliseconds>(std::chrono::steady_clock::now());
-            if (now - extraLifeTime >= std::chrono::seconds{1}) {
-                advanceLevel(score, extraLives);
-                state = PLAYING;
-                logStateChange("EXTRA_LIFE_DELAY", "PLAYING");
-            }
-        } else if (state == TRAINING) {
-            if (level->completed()) {
-                loadLevel = true;
-                trainLevel = false;
-                score = 0;
-                advanceLevel(score, extraLives);
-                state = START_MENU;
-                logStateChange("TRAINING", "START_MENU");
-            }
-        } else if (state == LEVEL_TRANSITION) {
-            if (event.anythingPressed()) {
-                if (levelIndex < configuration.maps.size() - 1) {
-                    levelIndex++;
-                    advanceLevel(score, extraLives);
-                    state = PLAYING;
-                    logStateChange("LEVEL_TRANSITION", "PLAYING");
-                } else {
-                    state = END_MENU;
-                    endMenu->reset();
-                    logStateChange("LEVEL_TRANSITION", "END_MENU");
-                }
-            }
-        } else if (state == END_MENU) {
-            if (endMenu->exitClicked(event.touchPoint)) {
-                titleMenu->reset();
-                state = START_MENU;
-                logStateChange("END_MENU", "START_MENU");
-            } else if (endMenu->saveClicked(event.touchPoint)) {
-                state = NAME_FORM;
-                nameForm->reset();
-                logStateChange("END_MENU", "NAME_FORM");
-            }
-        } else {
-            nameForm->onClick(event.touchPoint);
-            if (nameForm->nameEntered()) {
-                stagingArea->addScore({score, rand(), nameForm->getName()});
-                state = START_MENU;
-                titleMenu->reset();
-                logStateChange("NAME_FORM", "START_MENU");
-            }
+        if (!renderClock.isPaused()) {
+            handle(event);
         }
 
         if (event.render) {
-            renderClock.update();
-
-            SDL_SetRenderDrawColor(sdlSystem->getRenderer(), 244, 251, 255, 255);
-            SDL_RenderClear(sdlSystem->getRenderer());
-
-            level->render();
-
-            if (state == TITLE) {
-                titleOverlay->render();
-            } else if (state == START_MENU) {
-                titleMenu->render();
-            } else if (state == SCORE_MENU) {
-                scoreMenu->render();
-            } else if (state == ALL_TIME_SCORES) {
-                topScoreBoard->render();
-            } else if (state == TODAY_SCORES) {
-                todayScoreBoard->render();
-            } else if (state == LEVEL_TRANSITION) {
-                levelOverlay->render();
-            } else if (state == END_MENU) {
-                endMenu->render();
-            } else if (state == NAME_FORM) {
-                nameForm->render();
-            }
-
-            SDL_RenderPresent(sdlSystem->getRenderer());
-
-            auto ticks = level->getTicks();
-            auto diff = ticks - lastTicks;
-            lastTicks = ticks;
-            ticksPerFrame[diff]++;
-
-            timer.next();
+            render();
         }
     }
 }
@@ -440,4 +252,180 @@ const char *trippin::Game::getRendererName(SDL_Renderer *renderer) {
 void trippin::Game::logStateChange(const char *prev, const char *next) {
     using namespace std::string_literals;
     logger->log("op=state_change, prev="s + prev + ", next=" + next);
+}
+
+void trippin::Game::render() {
+    renderClock.update();
+
+    SDL_SetRenderDrawColor(sdlSystem->getRenderer(), 244, 251, 255, 255);
+    SDL_RenderClear(sdlSystem->getRenderer());
+
+    level->render();
+
+    if (!renderClock.isPaused()) {
+        level->update();
+    }
+
+    if (state == State::TITLE) {
+        titleOverlay->render();
+    } else if (state == State::START_MENU) {
+        titleMenu->render();
+    } else if (state == State::SCORE_MENU) {
+        scoreMenu->render();
+    } else if (state == State::ALL_TIME_SCORES) {
+        topScoreBoard->render();
+    } else if (state == State::TODAY_SCORES) {
+        todayScoreBoard->render();
+    } else if (state == State::LEVEL_TRANSITION) {
+        levelOverlay->render();
+    } else if (state == State::END_MENU) {
+        endMenu->render();
+    } else if (state == State::NAME_FORM) {
+        nameForm->render();
+    }
+
+    SDL_RenderPresent(sdlSystem->getRenderer());
+
+    auto ticks = level->getTicks();
+    auto diff = ticks - lastTicks;
+    lastTicks = ticks;
+    ticksPerFrame[diff]++;
+
+    timer.next([this](int tps) {
+        SDL_Log("timer=renderer, fps=%d, tpf=%s", tps, format(ticksPerFrame).c_str());
+        ticksPerFrame.clear();
+    });
+}
+
+void trippin::Game::handle(UserInput::Event &event) {
+    if (state == State::TITLE) {
+        if (!titleOverlay->hasScores() && stagingArea->bothSet()) {
+            titleOverlay->setScores(stagingArea->getTodayScores(15), stagingArea->getTopScores(15));
+        }
+        if (event.anythingPressed()) {
+            titleMenu->reset();
+            state = State::START_MENU;
+            logStateChange("TITLE", "START_MENU");
+        }
+    } else if (state == State::START_MENU) {
+        if (titleMenu->startClicked(event.touchPoint)) {
+            extraLives = 1;
+            loadLevel = false;
+            trainLevel = false;
+            score = 0;
+            advanceLevel();
+            state = State::PLAYING;
+            logStateChange("START_MENU", "PLAYING");
+        } else if (titleMenu->trainClicked(event.touchPoint)) {
+            loadLevel = false;
+            trainLevel = true;
+            score = 0;
+            advanceLevel();
+            state = State::TRAINING;
+            logStateChange("START_MENU", "TRAINING");
+        } else if (titleMenu->exitClicked(event.touchPoint)) {
+            level->stop();
+            state = State::EXIT;
+        } else if (titleMenu->highScoreClicked(event.touchPoint)) {
+            state = State::SCORE_MENU;
+            scoreMenu->reset();
+            logStateChange("START_MENU", "SCORE_MENU");
+        }
+    } else if (state == State::SCORE_MENU) {
+        if (scoreMenu->exitClicked(event.touchPoint)) {
+            titleMenu->reset();
+            state = State::START_MENU;
+            logStateChange("SCORE_MENU", "START_MENU");
+        } else if (scoreMenu->allTimeClicked(event.touchPoint)) {
+            state = State::ALL_TIME_SCORES;
+            topScoreBoard->reset();
+            topScoreBoard->setScores(stagingArea->getTopScores(25));
+            logStateChange("SCORE_MENU", "ALL_TIME_SCORES");
+        } else if (scoreMenu->todayClicked(event.touchPoint)) {
+            state = State::TODAY_SCORES;
+            todayScoreBoard->reset();
+            todayScoreBoard->setScores(stagingArea->getTodayScores(25));
+            logStateChange("SCORE_MENU", "TODAY_SCORES");
+        }
+    } else if (state == State::ALL_TIME_SCORES) {
+        if (event.anythingPressed()) {
+            titleMenu->reset();
+            state = State::START_MENU;
+            logStateChange("ALL_TIME_SCORES", "START_MENU");
+        }
+    } else if (state == State::TODAY_SCORES) {
+        if (event.anythingPressed()) {
+            titleMenu->reset();
+            state = State::START_MENU;
+            logStateChange("TODAY_SCORES", "START_MENU");
+        }
+    } else if (state == State::PLAYING) {
+        if (level->ended()) {
+            score = level->getScore();
+            if (level->completed()) {
+                state = State::LEVEL_TRANSITION;
+                levelOverlay->setLevel(levelIndex);
+                logStateChange("PLAYING", "LEVEL_TRANSITION");
+            } else {
+                if (extraLives > 0) {
+                    extraLives--;
+                    state = State::EXTRA_LIFE_DELAY;
+                    auto now = std::chrono::steady_clock::now();
+                    extraLifeTime = std::chrono::time_point_cast<std::chrono::milliseconds>(now);
+                    logStateChange("PLAYING", "EXTRA_LIFE_DELAY");
+                } else {
+                    state = State::END_MENU;
+                    endMenu->reset();
+                    logStateChange("PLAYING", "END_MENU");
+                }
+            }
+        }
+    } else if (state == State::EXTRA_LIFE_DELAY) {
+        auto now = std::chrono::time_point_cast<std::chrono::milliseconds>(std::chrono::steady_clock::now());
+        if (now - extraLifeTime >= std::chrono::seconds{1}) {
+            advanceLevel();
+            state = State::PLAYING;
+            logStateChange("EXTRA_LIFE_DELAY", "PLAYING");
+        }
+    } else if (state == State::TRAINING) {
+        if (level->completed()) {
+            loadLevel = true;
+            trainLevel = false;
+            score = 0;
+            advanceLevel();
+            state = State::START_MENU;
+            logStateChange("TRAINING", "START_MENU");
+        }
+    } else if (state == State::LEVEL_TRANSITION) {
+        if (event.anythingPressed()) {
+            if (levelIndex < configuration.maps.size() - 1) {
+                levelIndex++;
+                advanceLevel();
+                state = State::PLAYING;
+                logStateChange("LEVEL_TRANSITION", "PLAYING");
+            } else {
+                state = State::END_MENU;
+                endMenu->reset();
+                logStateChange("LEVEL_TRANSITION", "END_MENU");
+            }
+        }
+    } else if (state == State::END_MENU) {
+        if (endMenu->exitClicked(event.touchPoint)) {
+            titleMenu->reset();
+            state = State::START_MENU;
+            logStateChange("END_MENU", "START_MENU");
+        } else if (endMenu->saveClicked(event.touchPoint)) {
+            state = State::NAME_FORM;
+            nameForm->reset();
+            logStateChange("END_MENU", "NAME_FORM");
+        }
+    } else {
+        nameForm->onClick(event.touchPoint);
+        if (nameForm->nameEntered()) {
+            stagingArea->addScore({score, rand(), nameForm->getName()});
+            state = State::START_MENU;
+            titleMenu->reset();
+            logStateChange("NAME_FORM", "START_MENU");
+        }
+    }
 }

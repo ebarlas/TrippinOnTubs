@@ -59,7 +59,7 @@ void trippin::Level::initCamera() {
 }
 
 void trippin::Level::initEngine() {
-    engine.setTickRate(configuration->tickRate);
+    engine.setTicksPerFrame(ticksPerFrame);
     engine.setPlatformCollision(onAbsorbentCollision);
     engine.setObjectCollision(onElasticCollision1D);
     if (!training) {
@@ -242,6 +242,10 @@ void trippin::Level::render() {
     }
 }
 
+void trippin::Level::update() {
+    engine.onRender();
+}
+
 void trippin::Level::start() {
     engine.start();
     Mix_FadeInMusic(soundManager->getMusic(map.music), -1, 2'000);
@@ -273,13 +277,11 @@ void trippin::Level::setExtraLives(int extraLives) {
 }
 
 void trippin::Level::pause() {
-    engine.pause();
     Mix_Pause(-1);
     Mix_PauseMusic();
 }
 
 void trippin::Level::resume() {
-    engine.resume();
     Mix_Resume(-1);
     Mix_ResumeMusic();
 }
@@ -294,4 +296,8 @@ void trippin::Level::afterTick(Uint32 engineTicks) {
 
 int trippin::Level::getTicks() const {
     return engine.getTicks();
+}
+
+void trippin::Level::setTicksPerFrame(double tpf) {
+    ticksPerFrame = tpf;
 }

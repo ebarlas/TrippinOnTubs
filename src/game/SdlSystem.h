@@ -20,17 +20,21 @@ namespace trippin {
         SDL_Renderer *getRenderer() {
             return renderer;
         }
-        SDL_Point getWindowSize() {
+        SDL_Point getWindowSize() const {
             return windowSize;
         }
-        SDL_Point getRendererSize() {
+        SDL_Point getRendererSize() const {
             return rendererSize;
+        }
+        int getRefreshRate() const {
+            return refreshRate;
         }
     private:
         SDL_Window *window;
         SDL_Renderer *renderer;
         SDL_Point windowSize;
         SDL_Point rendererSize;
+        int refreshRate;
     };
 }
 

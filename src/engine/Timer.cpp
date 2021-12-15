@@ -1,27 +1,19 @@
 #include "Timer.h"
 
-trippin::Timer::Timer(std::function<void(int)> oncePerSecFn) : oncePerSecFn(move(oncePerSecFn)) {
+trippin::Timer::Timer() {
     totalTicks = 0;
     secondTicks = 0;
-    auto now = std::chrono::steady_clock::now();
-    startTime = std::chrono::time_point_cast<std::chrono::microseconds>(now);
-    lastSecond = std::chrono::time_point_cast<std::chrono::seconds>(now);
+    lastSecond = std::chrono::time_point_cast<std::chrono::seconds>(std::chrono::steady_clock::now());
 }
 
-std::chrono::microseconds trippin::Timer::next() {
-    auto now = std::chrono::steady_clock::now();
-    auto thisSecond = std::chrono::time_point_cast<std::chrono::seconds>(now);
-    totalTicks++;
+int trippin::Timer::next(const std::function<void(int)> &fn) {
+    auto thisSecond = std::chrono::time_point_cast<std::chrono::seconds>(std::chrono::steady_clock::now());
     if (thisSecond == lastSecond) {
         secondTicks++;
     } else {
-        oncePerSecFn(secondTicks);
+        fn(secondTicks);
         secondTicks = 1;
     }
     lastSecond = thisSecond;
-    return std::chrono::time_point_cast<std::chrono::microseconds>(now) - startTime;
-}
-
-int trippin::Timer::getTotalTicks() const {
-    return totalTicks;
+    return ++totalTicks;
 }

@@ -40,6 +40,10 @@ trippin::SdlSystem::SdlSystem() {
     SDL_GetRendererOutputSize(renderer, &rendererSize.x, &rendererSize.y);
     SDL_Log("renderer size w=%d, h=%d", rendererSize.x, rendererSize.y);
 
+    SDL_DisplayMode displayMode;
+    SDL_GetDisplayMode(0, 0, &displayMode);
+    refreshRate = displayMode.refresh_rate;
+
     auto flags = MIX_INIT_MP3;
     if (Mix_Init(flags) != flags) {
         SDL_Log("Mixer could not be initialized. Mixer error: %s", Mix_GetError());

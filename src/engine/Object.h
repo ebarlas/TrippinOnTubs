@@ -6,7 +6,6 @@
 #include "engine/Point.h"
 #include "engine/Sides.h"
 #include "engine/Optional.h"
-#include "engine/Clock.h"
 
 namespace trippin {
     class Object : public Listener {

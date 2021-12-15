@@ -14,8 +14,7 @@ add_library(Engine
         engine/Object.cpp
         engine/Sides.cpp
         engine/Engine.cpp
-        engine/Timer.cpp
-        engine/Clock.cpp)
+        engine/Timer.cpp)
 target_include_directories(Engine PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
 target_link_libraries(Engine SDL2::SDL2)
 
