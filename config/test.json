@@ -1,6 +1,6 @@
 {
   "spiritSecondsBehind": 3,
-  "tickRate": 180,
+  "tickRate": 120,
   "spiritClockTickPeriod": 500,
   "activationProximity": 8600,
   "deactivationProximity": 4300,
