@@ -2241,6 +2241,7 @@
         "x": 125.0,
         "y": 1125.0
       },
+      "massFactor": 0.25,
       "runningAcceleration": -150.0,
       "risingAcceleration": 150.0,
       "lane": 1,
@@ -2265,6 +2266,7 @@
         "x": 125.0,
         "y": 1125.0
       },
+      "massFactor": 0.25,
       "runningAcceleration": -150.0,
       "risingAcceleration": 150.0,
       "lane": 1,
@@ -2289,6 +2291,7 @@
         "x": 125.0,
         "y": 1125.0
       },
+      "massFactor": 0.25,
       "runningAcceleration": -150.0,
       "risingAcceleration": 150.0,
       "lane": 1,
@@ -2313,6 +2316,7 @@
         "x": 125.0,
         "y": 1125.0
       },
+      "massFactor": 0.25,
       "runningAcceleration": -150.0,
       "risingAcceleration": 150.0,
       "lane": 1,
@@ -2337,6 +2341,7 @@
         "x": 125.0,
         "y": 1125.0
       },
+      "massFactor": 0.25,
       "runningAcceleration": -150.0,
       "risingAcceleration": 150.0,
       "lane": 1,
@@ -2361,6 +2366,7 @@
         "x": 125.0,
         "y": 1125.0
       },
+      "massFactor": 0.25,
       "runningAcceleration": -150.0,
       "risingAcceleration": 150.0,
       "lane": 1,
@@ -2385,6 +2391,7 @@
         "x": 125.0,
         "y": 1125.0
       },
+      "massFactor": 0.25,
       "runningAcceleration": -150.0,
       "risingAcceleration": 150.0,
       "lane": 1,
@@ -2409,6 +2416,7 @@
         "x": 125.0,
         "y": 1125.0
       },
+      "massFactor": 0.25,
       "runningAcceleration": -150.0,
       "risingAcceleration": 150.0,
       "lane": 1,
@@ -2433,6 +2441,7 @@
         "x": 125.0,
         "y": 1125.0
       },
+      "massFactor": 0.25,
       "runningAcceleration": -150.0,
       "risingAcceleration": 150.0,
       "lane": 1,
@@ -2457,6 +2466,7 @@
         "x": 125.0,
         "y": 1125.0
       },
+      "massFactor": 0.25,
       "runningAcceleration": -150.0,
       "risingAcceleration": 150.0,
       "lane": 1,
@@ -2481,6 +2491,7 @@
         "x": 125.0,
         "y": 1125.0
       },
+      "massFactor": 0.25,
       "runningAcceleration": -150.0,
       "risingAcceleration": 150.0,
       "lane": 1,
@@ -2506,6 +2517,7 @@
         "x": 125.0,
         "y": 1125.0
       },
+      "massFactor": 0.25,
       "runningAcceleration": -150.0,
       "risingAcceleration": 150.0,
       "lane": 5,
@@ -2531,6 +2543,7 @@
         "x": 125.0,
         "y": 1125.0
       },
+      "massFactor": 0.25,
       "runningAcceleration": -150.0,
       "risingAcceleration": 150.0,
       "lane": 6,
@@ -2556,6 +2569,7 @@
         "x": 125.0,
         "y": 1125.0
       },
+      "massFactor": 0.25,
       "runningAcceleration": -150.0,
       "risingAcceleration": 150.0,
       "lane": 1,
@@ -2581,6 +2595,7 @@
         "x": 125.0,
         "y": 1125.0
       },
+      "massFactor": 0.25,
       "runningAcceleration": -150.0,
       "risingAcceleration": 150.0,
       "lane": 8,
@@ -2606,6 +2621,7 @@
         "x": 125.0,
         "y": 1125.0
       },
+      "massFactor": 0.25,
       "runningAcceleration": -150.0,
       "risingAcceleration": 150.0,
       "activation": 1612.0,
@@ -2631,6 +2647,7 @@
         "x": 125.0,
         "y": 1125.0
       },
+      "massFactor": 0.25,
       "runningAcceleration": -150.0,
       "risingAcceleration": 150.0,
       "lane": 2,
@@ -2656,6 +2673,7 @@
         "x": 125.0,
         "y": 1125.0
       },
+      "massFactor": 0.25,
       "runningAcceleration": -150.0,
       "risingAcceleration": 150.0,
       "lane": 6,
@@ -2681,6 +2699,7 @@
         "x": 125.0,
         "y": 1125.0
       },
+      "massFactor": 0.25,
       "runningAcceleration": -150.0,
       "risingAcceleration": 150.0,
       "lane": 2,
@@ -2706,6 +2725,7 @@
         "x": 125.0,
         "y": 1125.0
       },
+      "massFactor": 0.25,
       "runningAcceleration": -150.0,
       "risingAcceleration": 150.0,
       "lane": 4,
@@ -2731,6 +2751,7 @@
         "x": 125.0,
         "y": 1125.0
       },
+      "massFactor": 0.25,
       "runningAcceleration": -150.0,
       "risingAcceleration": 150.0,
       "lane": 3,
@@ -2756,6 +2777,7 @@
         "x": 125.0,
         "y": 1125.0
       },
+      "massFactor": 0.25,
       "runningAcceleration": -150.0,
       "risingAcceleration": 150.0,
       "lane": 4,
@@ -2781,6 +2803,7 @@
         "x": 125.0,
         "y": 1125.0
       },
+      "massFactor": 0.25,
       "runningAcceleration": -150.0,
       "risingAcceleration": 150.0,
       "lane": 7,
@@ -2806,6 +2829,7 @@
         "x": 125.0,
         "y": 1125.0
       },
+      "massFactor": 0.25,
       "runningAcceleration": -150.0,
       "risingAcceleration": 150.0,
       "lane": 5,
@@ -2831,6 +2855,7 @@
         "x": 125.0,
         "y": 1125.0
       },
+      "massFactor": 0.25,
       "runningAcceleration": -150.0,
       "risingAcceleration": 150.0,
       "lane": 7,
@@ -3529,6 +3554,7 @@
         "x": 800.0,
         "y": 800.0
       },
+      "massFactor": 0.5,
       "gravity": 1000.0,
       "fallGravity": 1000.0,
       "coefficient": 0.9,
@@ -3553,6 +3579,7 @@
         "x": 800.0,
         "y": 800.0
       },
+      "massFactor": 0.5,
       "gravity": 1000.0,
       "fallGravity": 1000.0,
       "coefficient": 0.9,
@@ -3577,6 +3604,7 @@
         "x": 800.0,
         "y": 800.0
       },
+      "massFactor": 0.5,
       "gravity": 1000.0,
       "fallGravity": 1000.0,
       "coefficient": 0.9,
@@ -3601,6 +3629,7 @@
         "x": 800.0,
         "y": 800.0
       },
+      "massFactor": 0.5,
       "gravity": 1000.0,
       "fallGravity": 1000.0,
       "coefficient": 0.9,
@@ -3625,6 +3654,7 @@
         "x": 800.0,
         "y": 800.0
       },
+      "massFactor": 0.5,
       "gravity": 1000.0,
       "fallGravity": 1000.0,
       "coefficient": 0.9,
@@ -3649,6 +3679,7 @@
         "x": 800.0,
         "y": 800.0
       },
+      "massFactor": 0.5,
       "gravity": 1000.0,
       "fallGravity": 1000.0,
       "coefficient": 0.9,
@@ -3673,6 +3704,7 @@
         "x": 800.0,
         "y": 800.0
       },
+      "massFactor": 0.5,
       "gravity": 1000.0,
       "fallGravity": 1000.0,
       "coefficient": 0.9,
@@ -3697,6 +3729,7 @@
         "x": 800.0,
         "y": 800.0
       },
+      "massFactor": 0.5,
       "gravity": 1000.0,
       "fallGravity": 1000.0,
       "coefficient": 0.9,
@@ -3721,6 +3754,7 @@
         "x": 800.0,
         "y": 800.0
       },
+      "massFactor": 0.5,
       "gravity": 1000.0,
       "fallGravity": 1000.0,
       "coefficient": 0.9,
@@ -3745,6 +3779,7 @@
         "x": 800.0,
         "y": 800.0
       },
+      "massFactor": 0.5,
       "gravity": 1000.0,
       "fallGravity": 1000.0,
       "coefficient": 0.9,
@@ -3769,6 +3804,7 @@
         "x": 800.0,
         "y": 800.0
       },
+      "massFactor": 0.5,
       "gravity": 1000.0,
       "fallGravity": 1000.0,
       "coefficient": 0.9,
@@ -3793,6 +3829,7 @@
         "x": 800.0,
         "y": 800.0
       },
+      "massFactor": 0.5,
       "gravity": 1000.0,
       "fallGravity": 1000.0,
       "coefficient": 0.9,
@@ -3817,6 +3854,7 @@
         "x": 800.0,
         "y": 800.0
       },
+      "massFactor": 0.5,
       "gravity": 1000.0,
       "fallGravity": 1000.0,
       "coefficient": 0.9,
@@ -3841,6 +3879,7 @@
         "x": 800.0,
         "y": 800.0
       },
+      "massFactor": 0.5,
       "gravity": 1000.0,
       "fallGravity": 1000.0,
       "coefficient": 0.9,
@@ -3970,7 +4009,7 @@
         "x": 125.0,
         "y": 1125.0
       },
-      "massFactor": 0.75,
+      "massFactor": 0.5,
       "gravity": 1000.0,
       "fallGravity": 1500.0,
       "runningAcceleration": -150.0,
@@ -3996,7 +4035,7 @@
         "x": 130.0,
         "y": 1125.0
       },
-      "massFactor": 0.75,
+      "massFactor": 0.5,
       "gravity": 1000.0,
       "fallGravity": 1500.0,
       "runningAcceleration": -150.0,
@@ -4022,7 +4061,7 @@
         "x": 135.0,
         "y": 1125.0
       },
-      "massFactor": 0.75,
+      "massFactor": 0.5,
       "gravity": 1000.0,
       "fallGravity": 1500.0,
       "runningAcceleration": -150.0,
@@ -4048,7 +4087,7 @@
         "x": 140.0,
         "y": 1125.0
       },
-      "massFactor": 0.75,
+      "massFactor": 0.5,
       "gravity": 1000.0,
       "fallGravity": 1500.0,
       "runningAcceleration": -150.0,
@@ -4074,7 +4113,7 @@
         "x": 145.0,
         "y": 1125.0
       },
-      "massFactor": 0.75,
+      "massFactor": 0.5,
       "gravity": 1000.0,
       "fallGravity": 1500.0,
       "runningAcceleration": -150.0,
@@ -4100,7 +4139,7 @@
         "x": 150.0,
         "y": 1125.0
       },
-      "massFactor": 0.75,
+      "massFactor": 0.5,
       "gravity": 1000.0,
       "fallGravity": 1500.0,
       "runningAcceleration": -150.0,
@@ -4126,7 +4165,7 @@
         "x": 155.0,
         "y": 1125.0
       },
-      "massFactor": 0.75,
+      "massFactor": 0.5,
       "gravity": 1000.0,
       "fallGravity": 1500.0,
       "runningAcceleration": -150.0,
@@ -4152,7 +4191,7 @@
         "x": 160.0,
         "y": 1125.0
       },
-      "massFactor": 0.75,
+      "massFactor": 0.5,
       "gravity": 1000.0,
       "fallGravity": 1500.0,
       "runningAcceleration": -150.0,
@@ -4178,7 +4217,7 @@
         "x": 165.0,
         "y": 1125.0
       },
-      "massFactor": 0.75,
+      "massFactor": 0.5,
       "gravity": 1000.0,
       "fallGravity": 1500.0,
       "runningAcceleration": -150.0,
@@ -4204,7 +4243,7 @@
         "x": 170.0,
         "y": 1125.0
       },
-      "massFactor": 0.75,
+      "massFactor": 0.5,
       "gravity": 1000.0,
       "fallGravity": 1500.0,
       "runningAcceleration": -150.0,
@@ -4230,7 +4269,7 @@
         "x": 175.0,
         "y": 1125.0
       },
-      "massFactor": 0.75,
+      "massFactor": 0.5,
       "gravity": 1000.0,
       "fallGravity": 1500.0,
       "runningAcceleration": -150.0,
@@ -4256,7 +4295,7 @@
         "x": 125.0,
         "y": 1125.0
       },
-      "massFactor": 0.75,
+      "massFactor": 0.5,
       "gravity": 1000.0,
       "fallGravity": 1500.0,
       "runningAcceleration": -150.0,
@@ -4282,7 +4321,7 @@
         "x": 130.0,
         "y": 1125.0
       },
-      "massFactor": 0.75,
+      "massFactor": 0.5,
       "gravity": 1000.0,
       "fallGravity": 1500.0,
       "runningAcceleration": -150.0,
@@ -4308,7 +4347,7 @@
         "x": 135.0,
         "y": 1125.0
       },
-      "massFactor": 0.75,
+      "massFactor": 0.5,
       "gravity": 1000.0,
       "fallGravity": 1500.0,
       "runningAcceleration": -150.0,
@@ -4334,7 +4373,7 @@
         "x": 140.0,
         "y": 1125.0
       },
-      "massFactor": 0.75,
+      "massFactor": 0.5,
       "gravity": 1000.0,
       "fallGravity": 1500.0,
       "runningAcceleration": -150.0,
@@ -4360,7 +4399,7 @@
         "x": 145.0,
         "y": 1125.0
       },
-      "massFactor": 0.75,
+      "massFactor": 0.5,
       "gravity": 1000.0,
       "fallGravity": 1500.0,
       "runningAcceleration": -150.0,
@@ -4386,7 +4425,7 @@
         "x": 150.0,
         "y": 1125.0
       },
-      "massFactor": 0.75,
+      "massFactor": 0.5,
       "gravity": 1000.0,
       "fallGravity": 1500.0,
       "runningAcceleration": -150.0,
@@ -4412,7 +4451,7 @@
         "x": 155.0,
         "y": 1125.0
       },
-      "massFactor": 0.75,
+      "massFactor": 0.5,
       "gravity": 1000.0,
       "fallGravity": 1500.0,
       "runningAcceleration": -150.0,
@@ -4438,7 +4477,7 @@
         "x": 160.0,
         "y": 1125.0
       },
-      "massFactor": 0.75,
+      "massFactor": 0.5,
       "gravity": 1000.0,
       "fallGravity": 1500.0,
       "runningAcceleration": -150.0,
@@ -4464,7 +4503,7 @@
         "x": 165.0,
         "y": 1125.0
       },
-      "massFactor": 0.75,
+      "massFactor": 0.5,
       "gravity": 1000.0,
       "fallGravity": 1500.0,
       "runningAcceleration": -150.0,
@@ -4490,7 +4529,7 @@
         "x": 170.0,
         "y": 1125.0
       },
-      "massFactor": 0.75,
+      "massFactor": 0.5,
       "gravity": 1000.0,
       "fallGravity": 1500.0,
       "runningAcceleration": -150.0,
@@ -4516,7 +4555,7 @@
         "x": 175.0,
         "y": 1125.0
       },
-      "massFactor": 0.75,
+      "massFactor": 0.5,
       "gravity": 1000.0,
       "fallGravity": 1500.0,
       "runningAcceleration": -150.0,
@@ -4542,7 +4581,7 @@
         "x": 125.0,
         "y": 1125.0
       },
-      "massFactor": 0.75,
+      "massFactor": 0.5,
       "gravity": 1000.0,
       "fallGravity": 1500.0,
       "runningAcceleration": -150.0,
@@ -4568,7 +4607,7 @@
         "x": 130.0,
         "y": 1125.0
       },
-      "massFactor": 0.75,
+      "massFactor": 0.5,
       "gravity": 1000.0,
       "fallGravity": 1500.0,
       "runningAcceleration": -150.0,
@@ -4594,7 +4633,7 @@
         "x": 135.0,
         "y": 1125.0
       },
-      "massFactor": 0.75,
+      "massFactor": 0.5,
       "gravity": 1000.0,
       "fallGravity": 1500.0,
       "runningAcceleration": -150.0,
@@ -4620,7 +4659,7 @@
         "x": 140.0,
         "y": 1125.0
       },
-      "massFactor": 0.75,
+      "massFactor": 0.5,
       "gravity": 1000.0,
       "fallGravity": 1500.0,
       "runningAcceleration": -150.0,
@@ -4646,7 +4685,7 @@
         "x": 145.0,
         "y": 1125.0
       },
-      "massFactor": 0.75,
+      "massFactor": 0.5,
       "gravity": 1000.0,
       "fallGravity": 1500.0,
       "runningAcceleration": -150.0,
@@ -4672,7 +4711,7 @@
         "x": 150.0,
         "y": 1125.0
       },
-      "massFactor": 0.75,
+      "massFactor": 0.5,
       "gravity": 1000.0,
       "fallGravity": 1500.0,
       "runningAcceleration": -150.0,
@@ -4698,7 +4737,7 @@
         "x": 155.0,
         "y": 1125.0
       },
-      "massFactor": 0.75,
+      "massFactor": 0.5,
       "gravity": 1000.0,
       "fallGravity": 1500.0,
       "runningAcceleration": -150.0,
@@ -4724,7 +4763,7 @@
         "x": 160.0,
         "y": 1125.0
       },
-      "massFactor": 0.75,
+      "massFactor": 0.5,
       "gravity": 1000.0,
       "fallGravity": 1500.0,
       "runningAcceleration": -150.0,
@@ -4750,7 +4789,7 @@
         "x": 165.0,
         "y": 1125.0
       },
-      "massFactor": 0.75,
+      "massFactor": 0.5,
       "gravity": 1000.0,
       "fallGravity": 1500.0,
       "runningAcceleration": -150.0,
@@ -4776,7 +4815,7 @@
         "x": 170.0,
         "y": 1125.0
       },
-      "massFactor": 0.75,
+      "massFactor": 0.5,
       "gravity": 1000.0,
       "fallGravity": 1500.0,
       "runningAcceleration": -150.0,
@@ -4802,7 +4841,7 @@
         "x": 175.0,
         "y": 1125.0
       },
-      "massFactor": 0.75,
+      "massFactor": 0.5,
       "gravity": 1000.0,
       "fallGravity": 1500.0,
       "runningAcceleration": -150.0,
@@ -4828,7 +4867,7 @@
         "x": 125.0,
         "y": 1125.0
       },
-      "massFactor": 0.75,
+      "massFactor": 0.5,
       "gravity": 1000.0,
       "fallGravity": 1500.0,
       "runningAcceleration": -150.0,
@@ -4854,7 +4893,7 @@
         "x": 130.0,
         "y": 1125.0
       },
-      "massFactor": 0.75,
+      "massFactor": 0.5,
       "gravity": 1000.0,
       "fallGravity": 1500.0,
       "runningAcceleration": -150.0,
@@ -4880,7 +4919,7 @@
         "x": 135.0,
         "y": 1125.0
       },
-      "massFactor": 0.75,
+      "massFactor": 0.5,
       "gravity": 1000.0,
       "fallGravity": 1500.0,
       "runningAcceleration": -150.0,
@@ -4906,7 +4945,7 @@
         "x": 140.0,
         "y": 1125.0
       },
-      "massFactor": 0.75,
+      "massFactor": 0.5,
       "gravity": 1000.0,
       "fallGravity": 1500.0,
       "runningAcceleration": -150.0,
@@ -4932,7 +4971,7 @@
         "x": 145.0,
         "y": 1125.0
       },
-      "massFactor": 0.75,
+      "massFactor": 0.5,
       "gravity": 1000.0,
       "fallGravity": 1500.0,
       "runningAcceleration": -150.0,
@@ -4958,7 +4997,7 @@
         "x": 150.0,
         "y": 1125.0
       },
-      "massFactor": 0.75,
+      "massFactor": 0.5,
       "gravity": 1000.0,
       "fallGravity": 1500.0,
       "runningAcceleration": -150.0,
@@ -4984,7 +5023,7 @@
         "x": 155.0,
         "y": 1125.0
       },
-      "massFactor": 0.75,
+      "massFactor": 0.5,
       "gravity": 1000.0,
       "fallGravity": 1500.0,
       "runningAcceleration": -150.0,
@@ -5010,7 +5049,7 @@
         "x": 160.0,
         "y": 1125.0
       },
-      "massFactor": 0.75,
+      "massFactor": 0.5,
       "gravity": 1000.0,
       "fallGravity": 1500.0,
       "runningAcceleration": -150.0,
@@ -5036,7 +5075,7 @@
         "x": 165.0,
         "y": 1125.0
       },
-      "massFactor": 0.75,
+      "massFactor": 0.5,
       "gravity": 1000.0,
       "fallGravity": 1500.0,
       "runningAcceleration": -150.0,
@@ -5062,7 +5101,7 @@
         "x": 170.0,
         "y": 1125.0
       },
-      "massFactor": 0.75,
+      "massFactor": 0.5,
       "gravity": 1000.0,
       "fallGravity": 1500.0,
       "runningAcceleration": -150.0,
@@ -5088,7 +5127,7 @@
         "x": 175.0,
         "y": 1125.0
       },
-      "massFactor": 0.75,
+      "massFactor": 0.5,
       "gravity": 1000.0,
       "fallGravity": 1500.0,
       "runningAcceleration": -150.0,
@@ -5114,7 +5153,7 @@
         "x": 125.0,
         "y": 1125.0
       },
-      "massFactor": 0.75,
+      "massFactor": 0.5,
       "gravity": 1000.0,
       "fallGravity": 1500.0,
       "runningAcceleration": -150.0,
@@ -5140,7 +5179,7 @@
         "x": 130.0,
         "y": 1125.0
       },
-      "massFactor": 0.75,
+      "massFactor": 0.5,
       "gravity": 1000.0,
       "fallGravity": 1500.0,
       "runningAcceleration": -150.0,
@@ -5166,7 +5205,7 @@
         "x": 135.0,
         "y": 1125.0
       },
-      "massFactor": 0.75,
+      "massFactor": 0.5,
       "gravity": 1000.0,
       "fallGravity": 1500.0,
       "runningAcceleration": -150.0,
@@ -5192,7 +5231,7 @@
         "x": 140.0,
         "y": 1125.0
       },
-      "massFactor": 0.75,
+      "massFactor": 0.5,
       "gravity": 1000.0,
       "fallGravity": 1500.0,
       "runningAcceleration": -150.0,
@@ -5218,7 +5257,7 @@
         "x": 145.0,
         "y": 1125.0
       },
-      "massFactor": 0.75,
+      "massFactor": 0.5,
       "gravity": 1000.0,
       "fallGravity": 1500.0,
       "runningAcceleration": -150.0,
@@ -5244,7 +5283,7 @@
         "x": 150.0,
         "y": 1125.0
       },
-      "massFactor": 0.75,
+      "massFactor": 0.5,
       "gravity": 1000.0,
       "fallGravity": 1500.0,
       "runningAcceleration": -150.0,
@@ -5270,7 +5309,7 @@
         "x": 155.0,
         "y": 1125.0
       },
-      "massFactor": 0.75,
+      "massFactor": 0.5,
       "gravity": 1000.0,
       "fallGravity": 1500.0,
       "runningAcceleration": -150.0,
@@ -5296,7 +5335,7 @@
         "x": 160.0,
         "y": 1125.0
       },
-      "massFactor": 0.75,
+      "massFactor": 0.5,
       "gravity": 1000.0,
       "fallGravity": 1500.0,
       "runningAcceleration": -150.0,
@@ -5322,7 +5361,7 @@
         "x": 165.0,
         "y": 1125.0
       },
-      "massFactor": 0.75,
+      "massFactor": 0.5,
       "gravity": 1000.0,
       "fallGravity": 1500.0,
       "runningAcceleration": -150.0,
@@ -5348,7 +5387,7 @@
         "x": 170.0,
         "y": 1125.0
       },
-      "massFactor": 0.75,
+      "massFactor": 0.5,
       "gravity": 1000.0,
       "fallGravity": 1500.0,
       "runningAcceleration": -150.0,
@@ -5374,7 +5413,7 @@
         "x": 175.0,
         "y": 1125.0
       },
-      "massFactor": 0.75,
+      "massFactor": 0.5,
       "gravity": 1000.0,
       "fallGravity": 1500.0,
       "runningAcceleration": -150.0,
@@ -5400,7 +5439,7 @@
         "x": 125.0,
         "y": 1125.0
       },
-      "massFactor": 0.75,
+      "massFactor": 0.5,
       "gravity": 1000.0,
       "fallGravity": 1500.0,
       "runningAcceleration": -150.0,
@@ -5426,7 +5465,7 @@
         "x": 130.0,
         "y": 1125.0
       },
-      "massFactor": 0.75,
+      "massFactor": 0.5,
       "gravity": 1000.0,
       "fallGravity": 1500.0,
       "runningAcceleration": -150.0,
@@ -5452,7 +5491,7 @@
         "x": 135.0,
         "y": 1125.0
       },
-      "massFactor": 0.75,
+      "massFactor": 0.5,
       "gravity": 1000.0,
       "fallGravity": 1500.0,
       "runningAcceleration": -150.0,
@@ -5478,7 +5517,7 @@
         "x": 140.0,
         "y": 1125.0
       },
-      "massFactor": 0.75,
+      "massFactor": 0.5,
       "gravity": 1000.0,
       "fallGravity": 1500.0,
       "runningAcceleration": -150.0,
@@ -5504,7 +5543,7 @@
         "x": 145.0,
         "y": 1125.0
       },
-      "massFactor": 0.75,
+      "massFactor": 0.5,
       "gravity": 1000.0,
       "fallGravity": 1500.0,
       "runningAcceleration": -150.0,
@@ -5530,7 +5569,7 @@
         "x": 150.0,
         "y": 1125.0
       },
-      "massFactor": 0.75,
+      "massFactor": 0.5,
       "gravity": 1000.0,
       "fallGravity": 1500.0,
       "runningAcceleration": -150.0,
@@ -5556,7 +5595,7 @@
         "x": 155.0,
         "y": 1125.0
       },
-      "massFactor": 0.75,
+      "massFactor": 0.5,
       "gravity": 1000.0,
       "fallGravity": 1500.0,
       "runningAcceleration": -150.0,
@@ -5582,7 +5621,7 @@
         "x": 160.0,
         "y": 1125.0
       },
-      "massFactor": 0.75,
+      "massFactor": 0.5,
       "gravity": 1000.0,
       "fallGravity": 1500.0,
       "runningAcceleration": -150.0,
@@ -5608,7 +5647,7 @@
         "x": 165.0,
         "y": 1125.0
       },
-      "massFactor": 0.75,
+      "massFactor": 0.5,
       "gravity": 1000.0,
       "fallGravity": 1500.0,
       "runningAcceleration": -150.0,
@@ -5634,7 +5673,7 @@
         "x": 170.0,
         "y": 1125.0
       },
-      "massFactor": 0.75,
+      "massFactor": 0.5,
       "gravity": 1000.0,
       "fallGravity": 1500.0,
       "runningAcceleration": -150.0,
@@ -5660,7 +5699,7 @@
         "x": 175.0,
         "y": 1125.0
       },
-      "massFactor": 0.75,
+      "massFactor": 0.5,
       "gravity": 1000.0,
       "fallGravity": 1500.0,
       "runningAcceleration": -150.0,
@@ -5686,7 +5725,7 @@
         "x": 125.0,
         "y": 1125.0
       },
-      "massFactor": 0.75,
+      "massFactor": 0.5,
       "gravity": 1000.0,
       "fallGravity": 1500.0,
       "runningAcceleration": -150.0,
@@ -5712,7 +5751,7 @@
         "x": 130.0,
         "y": 1125.0
       },
-      "massFactor": 0.75,
+      "massFactor": 0.5,
       "gravity": 1000.0,
       "fallGravity": 1500.0,
       "runningAcceleration": -150.0,
@@ -5738,7 +5777,7 @@
         "x": 135.0,
         "y": 1125.0
       },
-      "massFactor": 0.75,
+      "massFactor": 0.5,
       "gravity": 1000.0,
       "fallGravity": 1500.0,
       "runningAcceleration": -150.0,
@@ -5764,7 +5803,7 @@
         "x": 140.0,
         "y": 1125.0
       },
-      "massFactor": 0.75,
+      "massFactor": 0.5,
       "gravity": 1000.0,
       "fallGravity": 1500.0,
       "runningAcceleration": -150.0,
@@ -5790,7 +5829,7 @@
         "x": 145.0,
         "y": 1125.0
       },
-      "massFactor": 0.75,
+      "massFactor": 0.5,
       "gravity": 1000.0,
       "fallGravity": 1500.0,
       "runningAcceleration": -150.0,
@@ -5816,7 +5855,7 @@
         "x": 150.0,
         "y": 1125.0
       },
-      "massFactor": 0.75,
+      "massFactor": 0.5,
       "gravity": 1000.0,
       "fallGravity": 1500.0,
       "runningAcceleration": -150.0,
@@ -5842,7 +5881,7 @@
         "x": 155.0,
         "y": 1125.0
       },
-      "massFactor": 0.75,
+      "massFactor": 0.5,
       "gravity": 1000.0,
       "fallGravity": 1500.0,
       "runningAcceleration": -150.0,
@@ -5868,7 +5907,7 @@
         "x": 160.0,
         "y": 1125.0
       },
-      "massFactor": 0.75,
+      "massFactor": 0.5,
       "gravity": 1000.0,
       "fallGravity": 1500.0,
       "runningAcceleration": -150.0,
@@ -5894,7 +5933,7 @@
         "x": 165.0,
         "y": 1125.0
       },
-      "massFactor": 0.75,
+      "massFactor": 0.5,
       "gravity": 1000.0,
       "fallGravity": 1500.0,
       "runningAcceleration": -150.0,
@@ -5920,7 +5959,7 @@
         "x": 170.0,
         "y": 1125.0
       },
-      "massFactor": 0.75,
+      "massFactor": 0.5,
       "gravity": 1000.0,
       "fallGravity": 1500.0,
       "runningAcceleration": -150.0,
@@ -5946,7 +5985,7 @@
         "x": 175.0,
         "y": 1125.0
       },
-      "massFactor": 0.75,
+      "massFactor": 0.5,
       "gravity": 1000.0,
       "fallGravity": 1500.0,
       "runningAcceleration": -150.0,
@@ -5972,7 +6011,7 @@
         "x": 155.0,
         "y": 1125.0
       },
-      "massFactor": 0.75,
+      "massFactor": 0.5,
       "gravity": 1000.0,
       "fallGravity": 1500.0,
       "runningAcceleration": -150.0,
@@ -5998,7 +6037,7 @@
         "x": 155.0,
         "y": 1125.0
       },
-      "massFactor": 0.75,
+      "massFactor": 0.5,
       "gravity": 1000.0,
       "fallGravity": 1500.0,
       "runningAcceleration": -150.0,
@@ -6024,7 +6063,7 @@
         "x": 155.0,
         "y": 1125.0
       },
-      "massFactor": 0.75,
+      "massFactor": 0.5,
       "gravity": 1000.0,
       "fallGravity": 1500.0,
       "runningAcceleration": -150.0,
