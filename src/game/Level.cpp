@@ -102,6 +102,7 @@ void trippin::Level::initEngine() {
         objects.push_back(std::move(uptr));
     }
 
+    // define goggin object prior to other game objects
     for (auto &obj: map.objects) {
         if (obj.type == "goggin") {
             goggin = std::make_unique<Goggin>(
@@ -120,7 +121,12 @@ void trippin::Level::initEngine() {
                     sceneBuilder,
                     zIndexTop);
             engine.add(goggin.get());
-        } else if (obj.type.rfind("ground_melt_", 0) == 0 || obj.type.rfind("platform", 0) == 0) {
+            break;
+        }
+    }
+
+    for (auto &obj: map.objects) {
+        if (obj.type.rfind("ground_melt_", 0) == 0 || obj.type.rfind("platform", 0) == 0) {
             auto ground = std::make_unique<Ground>(
                     *configuration,
                     obj,
