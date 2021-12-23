@@ -23,6 +23,7 @@ namespace trippin {
         void beforeTick(Uint32 engineTicks) override;
         void afterTick(Uint32 engineTicks) override;
     private:
+        const Map::Object &object;
         Goggin &goggin;
         const Activation &activation;
         ScoreTicker &scoreTicker;
@@ -30,17 +31,10 @@ namespace trippin {
         const Camera &camera;
         const int zIndex;
 
-        const double runningAcceleration;
-        const bool accelerateWhenGrounded;
         Mix_Chunk *const stompSound;
-        const bool stompable;
-        const bool topStompable;
-        const bool bottomStompable;
-        const double objectActivation;
         const int collisionDuration;
         const Uint32 coolDownTicks;
         const Uint32 flashDuration;
-        const int availableHitPoints;
         const Point<int> healthBarSize;
 
         int frame;

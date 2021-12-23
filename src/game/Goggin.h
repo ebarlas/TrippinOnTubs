@@ -14,6 +14,7 @@
 #include "GogginInputTick.h"
 #include "Shake.h"
 #include "SceneBuilder.h"
+#include "ComboManager.h"
 
 namespace trippin {
     class Goggin : public SpriteObject {
@@ -26,6 +27,7 @@ namespace trippin {
                 const Sprite &dustBlast,
                 const Sprite &whiteDustBlast,
                 const Sprite &digits,
+                ComboManager &comboManager,
                 const std::vector<GogginInputTick> *autoPlay,
                 const trippin::Point<int> &universe,
                 SoundManager &soundManager,
@@ -38,7 +40,7 @@ namespace trippin {
         bool belowUniverse() const;
         void onUserInput(const GogginInput &input);
         double getJumpCharge() const;
-        void addPointCloud(int points, Uint32 ticks);
+        void addPointCloud(int points, Uint32 ticks, bool hit = false);
         Uint32 getLastJumpTicks() const;
         Uint32 getLastDuckTicks() const;
         Uint32 getLastChargedJumpTicks() const;
@@ -148,6 +150,9 @@ namespace trippin {
         Mix_Chunk *const jumpSound;
         const int jumpSoundTimeoutTicks;
         Uint32 lastJumpSoundTicks;
+
+        ComboManager &comboManager;
+        bool grounded;
 
         SceneBuilder &sceneBuilder;
         Camera &camera;

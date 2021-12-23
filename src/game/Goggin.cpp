@@ -12,6 +12,7 @@ trippin::Goggin::Goggin(
         const Sprite &dustBlast,
         const Sprite &whiteDustBlast,
         const Sprite &digits,
+        ComboManager &comboManager,
         const std::vector<GogginInputTick> *autoPlayVec,
         const trippin::Point<int> &universe,
         SoundManager &soundManager,
@@ -23,6 +24,7 @@ trippin::Goggin::Goggin(
         dustBlast(dustBlast),
         whiteDustBlast(whiteDustBlast),
         digits(digits),
+        comboManager(comboManager),
         universe(universe),
         camera(camera),
         sceneBuilder(sceneBuilder),
@@ -48,6 +50,7 @@ trippin::Goggin::Goggin(
     rightOfUni = false;
     belowUni = false;
 
+    grounded = false;
     state = State::falling;
     maxFallingVelocity = 0;
     consecutiveJumps = 0;
@@ -218,9 +221,13 @@ void trippin::Goggin::afterTick(Uint32 engineTicks) {
         }
     }
 
+    grounded = platformCollisions.testBottom();
+    if (grounded) {
+        comboManager.reset();
+    }
+
     // test for creation of new dust cloud
-    if (platformCollisions.testBottom() && engineTicks - dustTicks >= dustPeriodTicks &&
-        velocity.x >= terminalVelocity.x / 2) {
+    if (grounded && engineTicks - dustTicks >= dustPeriodTicks && velocity.x >= terminalVelocity.x / 2) {
         dustTicks = engineTicks;
         auto left = roundedPosition.x;
         auto top = roundedPosition.y + size.y - dust.getHitBox().h;
@@ -240,7 +247,7 @@ void trippin::Goggin::afterTick(Uint32 engineTicks) {
         }
     }
 
-    if (platformCollisions.testBottom()) {
+    if (grounded) {
         consecutiveJumps = 0;
     }
 
@@ -463,7 +470,7 @@ float trippin::Goggin::decelInterpolation(float input) {
     return (float) (1.0f - (1.0f - input) * (1.0f - input));;
 }
 
-void trippin::Goggin::addPointCloud(int points, Uint32 ticks) {
+void trippin::Goggin::addPointCloud(int points, Uint32 ticks, bool hit) {
     int x = roundedBox.x + roundedBox.w / 2 + DigitLayout::measureWidth(digits, points) / 2; // goggin horiz. midpoint
     int y = roundedBox.y;
     int xRange = pointCloudDistanceMax.x - pointCloudDistanceMin.x;
@@ -474,6 +481,9 @@ void trippin::Goggin::addPointCloud(int points, Uint32 ticks) {
     auto yDist = pointCloudDistanceMin.y + toInt(yRand * yRange);
     pointClouds[nextPointCloudPos] = {{x, y}, {x, y}, {xDist, yDist}, points, ticks};
     nextPointCloudPos = (nextPointCloudPos + 1) % pointClouds.size();
+    if (hit && !grounded) {
+        comboManager.recordHit();
+    }
 }
 
 Uint32 trippin::Goggin::getLastJumpTicks() const {
@@ -540,7 +550,7 @@ void trippin::Goggin::drawPointClouds() {
     auto size = sprite.getSize();
     for (auto &pc: pointClouds) {
         if (pc.points) {
-            Point<int> p{pc.posNow.x - size.x / 2, pc.posNow.y - size.y};
+            Point<int> p{pc.posNow.x, pc.posNow.y - size.y};
             auto pts = pc.points;
             sceneBuilder.dispatch([this, p, pts]() {
                 DigitLayout::renderDigits(digits, p, pts, &camera);

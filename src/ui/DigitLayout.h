@@ -13,13 +13,13 @@ namespace trippin {
                 const Camera *camera = nullptr) {
             int x = right.x;
             do {
+                x -= digits.getSize().x;
                 auto digit = value % 10;
                 value /= 10;
                 if (camera)
                     digits.render({x, right.y}, digit, *camera);
                 else
                     digits.render({x, right.y}, digit);
-                x -= digits.getSize().x;
             } while (value > 0);
         }
 

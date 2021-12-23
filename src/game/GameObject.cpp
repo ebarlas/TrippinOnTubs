@@ -14,27 +14,21 @@ trippin::GameObject::GameObject(
         SceneBuilder &sceneBuilder,
         int zIndex) :
         SpriteObject(config, object, sprite),
+        object(object),
         goggin(goggin),
         activation(activation),
         scoreTicker(scoreTicker),
         camera(camera),
         sceneBuilder(sceneBuilder),
         zIndex(zIndex),
-        accelerateWhenGrounded(object.accelerateWhenGrounded),
-        runningAcceleration(object.runningAcceleration),
-        stompable(object.stompable),
-        topStompable(object.topStompable),
-        bottomStompable(object.bottomStompable),
-        objectActivation(object.activation),
         collisionDuration(config.ticksPerSecond() * 0.4),
         coolDownTicks(config.ticksPerSecond() * 0.15),
         flashDuration(config.ticksPerSecond() * 0.025),
         stompSound(soundManager.getEffect("chime0")),
-        availableHitPoints(object.hitPoints),
         healthBarSize(scaleHealthBar(config.healthBarSize, sprite)) {
     inactive = true;
-    if (!accelerateWhenGrounded) {
-        acceleration.x = runningAcceleration;
+    if (!object.accelerateWhenGrounded) {
+        acceleration.x = object.runningAcceleration;
     }
     stomped = false;
     if (object.randFrame) {
@@ -57,8 +51,8 @@ trippin::GameObject::GameObject(
 
 void trippin::GameObject::beforeTick(Uint32 engineTicks) {
     if (inactive) {
-        if (objectActivation > 0) {
-            if (goggin.position.x >= position.x - objectActivation) {
+        if (object.activation > 0) {
+            if (goggin.position.x >= position.x - object.activation) {
                 inactive = false;
             }
         } else {
@@ -73,7 +67,7 @@ void trippin::GameObject::afterTick(Uint32 engineTicks) {
     // early exit if not activated yet
     if (inactive) {
         // hack to ensure "stalled" objects are drawn
-        if (objectActivation > 0) {
+        if (object.activation > 0) {
             drawSprite(engineTicks);
         }
         return;
@@ -84,9 +78,9 @@ void trippin::GameObject::afterTick(Uint32 engineTicks) {
         return;
     }
 
-    if (accelerateWhenGrounded) {
+    if (object.accelerateWhenGrounded) {
         if (platformCollisions.testBottom() || objectCollisions.testBottom()) {
-            acceleration.x = runningAcceleration;
+            acceleration.x = object.runningAcceleration;
             advanceFrame(engineTicks);
         } else {
             acceleration.x = 0;
@@ -95,10 +89,10 @@ void trippin::GameObject::afterTick(Uint32 engineTicks) {
         advanceFrame(engineTicks);
     }
 
-    if (stompable && !stomped && (engineTicks >= collisionTicks + coolDownTicks)) {
+    if (object.stompable && !stomped && (engineTicks >= collisionTicks + coolDownTicks)) {
         auto collision = roundedBox.collision(goggin.roundedBox);
         if (collision) {
-            if ((topStompable && collision.testTop()) || (bottomStompable && collision.testBottom())) {
+            if ((object.topStompable && collision.testTop()) || (object.bottomStompable && collision.testBottom())) {
                 hitPoints = 0;
             } else {
                 hitPoints -= 1;
@@ -113,8 +107,8 @@ void trippin::GameObject::afterTick(Uint32 engineTicks) {
             gravity = goggin.gravity;
             velocity.y = -terminalVelocity.y / 2; // upward jolt
             velocity.x = 0;
-            scoreTicker.add(availableHitPoints * 25);
-            goggin.addPointCloud(availableHitPoints * 25, engineTicks);
+            scoreTicker.add(object.hitPoints * 25);
+            goggin.addPointCloud(object.hitPoints * 25, engineTicks, true);
         }
     }
 
@@ -145,7 +139,7 @@ void trippin::GameObject::drawSprite(Uint32 engineTicks) {
 void trippin::GameObject::drawHealthBar() {
     auto vp = camera.getViewport();
     auto ren = sprite.getRenderer();
-    auto percent = (double) hitPoints / availableHitPoints;
+    auto percent = (double) hitPoints / object.hitPoints;
     auto margin = healthBarSize.y * 3;
     auto x = roundedPosition.x - vp.x;
     auto y = roundedPosition.y - vp.y - margin;
@@ -162,5 +156,5 @@ void trippin::GameObject::drawHealthBar() {
 
 trippin::Point<int> trippin::GameObject::scaleHealthBar(Point<int> healthBarSize, const Sprite &sprite) {
     auto mul = sprite.getScale().getMultiplier();
-    return {toInt(healthBarSize.x * mul),toInt(healthBarSize.y * mul)};
+    return {toInt(healthBarSize.x * mul), toInt(healthBarSize.y * mul)};
 }

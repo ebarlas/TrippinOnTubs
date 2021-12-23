@@ -80,6 +80,16 @@ void trippin::Level::initEngine() {
         engine.addListener(scoreTicker.get());
     }
 
+    comboManager = std::make_unique<ComboManager>(
+            *spriteManager,
+            *scoreTicker,
+            configuration->msPerTick(),
+            windowSize,
+            map.meterMargin,
+            sceneBuilder,
+            zIndexTop);
+    engine.addListener(comboManager.get());
+
     for (auto &layer: map.layers) {
         auto uptr = std::make_unique<Layer>(
                 *configuration,
@@ -102,6 +112,7 @@ void trippin::Level::initEngine() {
                     spriteManager->get("dust_blast"),
                     spriteManager->get("dust_blast_white"),
                     spriteManager->get("digits"),
+                    *comboManager,
                     autoPlay,
                     map.universe,
                     *soundManager,

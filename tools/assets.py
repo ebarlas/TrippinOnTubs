@@ -52,7 +52,8 @@ sprites = [
     'walking_tub_green',
     'walking_tub_yellow',
     'mystic_theatre',
-    'goggin_head'
+    'goggin_head',
+    'combo'
 ]
 
 levels = ['map_ground_melt', 'map_minimal', 'map_test', 'map_load', 'map_training', 'map_train']
