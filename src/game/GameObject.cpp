@@ -89,10 +89,10 @@ void trippin::GameObject::afterTick(Uint32 engineTicks) {
         advanceFrame(engineTicks);
     }
 
-    if (object.stompable && !stomped && (engineTicks >= collisionTicks + coolDownTicks)) {
+    if (!stomped && (engineTicks >= collisionTicks + coolDownTicks)) {
         auto collision = roundedBox.collision(goggin.roundedBox);
         if (collision) {
-            if ((object.topStompable && collision.testTop()) || (object.bottomStompable && collision.testBottom())) {
+            if (collision.testTop()) {
                 hitPoints = 0;
             } else {
                 hitPoints -= 1;
