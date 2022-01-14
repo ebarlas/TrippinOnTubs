@@ -15,6 +15,7 @@
 #include "Shake.h"
 #include "SceneBuilder.h"
 #include "ComboManager.h"
+#include "PointCloudManager.h"
 
 namespace trippin {
     class Goggin : public SpriteObject {
@@ -26,8 +27,8 @@ namespace trippin {
                 const Sprite &dust,
                 const Sprite &dustBlast,
                 const Sprite &whiteDustBlast,
-                const Sprite &digits,
                 ComboManager &comboManager,
+                PointCloudManager &pointCloudManager,
                 const std::vector<GogginInputTick> *autoPlay,
                 const trippin::Point<int> &universe,
                 SoundManager &soundManager,
@@ -59,21 +60,6 @@ namespace trippin {
             std::array<Dust, 5> dusts; // circular queue of dust clouds
             Dust blast;
         };
-
-        struct PointCloud {
-            Point<int> posStart;
-            Point<int> posNow;
-            Point<int> distance;
-            int points{};
-            Uint32 ticks;
-        };
-
-        const Point<int> pointCloudDistanceMin;
-        const Point<int> pointCloudDistanceMax;
-        const int pointCloudTicks;
-        const Sprite &digits;
-        std::array<PointCloud, 8> pointClouds; // circular buffer
-        int nextPointCloudPos;
 
         const Sprite &dust;
         Uint32 dustTicks;
@@ -151,6 +137,7 @@ namespace trippin {
         const int jumpSoundTimeoutTicks;
         Uint32 lastJumpSoundTicks;
 
+        PointCloudManager &pointCloudManager;
         ComboManager &comboManager;
         bool grounded;
 
@@ -187,9 +174,6 @@ namespace trippin {
         Point<int> centerCamera();
         void drawDust();
         void drawDustBlast();
-        void drawPointClouds();
-
-        static float decelInterpolation(float input);
     };
 }
 

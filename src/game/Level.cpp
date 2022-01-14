@@ -105,15 +105,28 @@ void trippin::Level::initEngine() {
     // define goggin object prior to other game objects
     for (auto &obj: map.objects) {
         if (obj.type == "goggin") {
+            auto &gogginSprite = spriteManager->get(obj.type);
+            auto gogginHb = gogginSprite.getHitBox();
+            auto gogginSize = Point<int>{gogginHb.w, gogginHb.h};
+            pointCloudManager = std::make_unique<PointCloudManager>(
+                    gogginSize * 2,
+                    gogginSize * 6,
+                    configuration->ticksPerSecond() * 2,
+                    spriteManager->get("digits"),
+                    sceneBuilder,
+                    camera,
+                    zIndexTop);
+            engine.addListener(pointCloudManager.get());
+
             goggin = std::make_unique<Goggin>(
                     *configuration,
                     obj,
-                    spriteManager->get(obj.type),
+                    gogginSprite,
                     spriteManager->get("dust"),
                     spriteManager->get("dust_blast"),
                     spriteManager->get("dust_blast_white"),
-                    spriteManager->get("digits"),
                     *comboManager,
+                    *pointCloudManager,
                     autoPlay,
                     map.universe,
                     *soundManager,

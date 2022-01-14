@@ -34,6 +34,7 @@ namespace trippin {
         Activation activation;
         std::vector<std::unique_ptr<Listener>> objects;
         const std::vector<GogginInputTick> *autoPlay{};
+        std::unique_ptr<PointCloudManager> pointCloudManager;
         std::unique_ptr<Goggin> goggin;
         Spirit spirit;
         std::unique_ptr<SpiritClock> spiritClock;

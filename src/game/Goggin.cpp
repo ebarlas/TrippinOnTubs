@@ -2,7 +2,6 @@
 #include "sprite/Sprite.h"
 #include "Goggin.h"
 #include "engine/Convert.h"
-#include "ui/DigitLayout.h"
 
 trippin::Goggin::Goggin(
         const Configuration &config,
@@ -11,8 +10,8 @@ trippin::Goggin::Goggin(
         const Sprite &dust,
         const Sprite &dustBlast,
         const Sprite &whiteDustBlast,
-        const Sprite &digits,
         ComboManager &comboManager,
+        PointCloudManager &pointCloudManager,
         const std::vector<GogginInputTick> *autoPlayVec,
         const trippin::Point<int> &universe,
         SoundManager &soundManager,
@@ -23,8 +22,8 @@ trippin::Goggin::Goggin(
         dust(dust),
         dustBlast(dustBlast),
         whiteDustBlast(whiteDustBlast),
-        digits(digits),
         comboManager(comboManager),
+        pointCloudManager(pointCloudManager),
         universe(universe),
         camera(camera),
         sceneBuilder(sceneBuilder),
@@ -41,9 +40,6 @@ trippin::Goggin::Goggin(
         jumpGracePeriodTicks(object.jumpGracePeriod),
         jumpSoundTimeoutTicks(object.jumpSoundTimeout),
         duckFriction(object.duckFriction),
-        pointCloudDistanceMin(size * 2),
-        pointCloudDistanceMax(size * 6),
-        pointCloudTicks(config.ticksPerSecond() * 2),
         shakeAmplitude(config.shakeAmplitude * sprite.getScale().getMultiplier()),
         dustPeriodTicks(object.dustPeriod) {
 
@@ -70,7 +66,6 @@ trippin::Goggin::Goggin(
 
     dustTicks = 0;
     nextDustPos = 0;
-    nextPointCloudPos = 0;
     jumpVelocity = 0;
 
     rememberDuckStart = false;
@@ -235,18 +230,6 @@ void trippin::Goggin::afterTick(Uint32 engineTicks) {
         nextDustPos = (nextDustPos + 1) % frames.dusts.size();
     }
 
-    // advance point clouds
-    for (auto &pc: pointClouds) {
-        auto elapsed = engineTicks - pc.ticks;
-        float di = decelInterpolation(std::min(1.0f, elapsed / (float) pointCloudTicks));
-        if (di == 1.0) {
-            pc.points = 0; // cancel display
-        } else {
-            pc.posNow.x = pc.posStart.x + toInt(di * pc.distance.x); // x diff may be pos (right) or neg (left)
-            pc.posNow.y = pc.posStart.y - toInt(di * pc.distance.y); // y diff is always negative (up)
-        }
-    }
-
     if (grounded) {
         consecutiveJumps = 0;
     }
@@ -283,8 +266,6 @@ void trippin::Goggin::afterTick(Uint32 engineTicks) {
     sceneBuilder.dispatch([this, cameraPos, frameNow]() {
         sprite.render(cameraPos, frameNow, camera);
     }, zIndex);
-
-    drawPointClouds();
 }
 
 void trippin::Goggin::onFalling(Uint32 engineTicks) {
@@ -466,21 +447,9 @@ void trippin::Goggin::transferInput(Uint32 engineTicks) {
     }
 }
 
-float trippin::Goggin::decelInterpolation(float input) {
-    return (float) (1.0f - (1.0f - input) * (1.0f - input));;
-}
-
 void trippin::Goggin::addPointCloud(int points, Uint32 ticks, bool hit) {
-    int x = roundedBox.x + roundedBox.w / 2 + DigitLayout::measureWidth(digits, points) / 2; // goggin horiz. midpoint
-    int y = roundedBox.y;
-    int xRange = pointCloudDistanceMax.x - pointCloudDistanceMin.x;
-    int yRange = pointCloudDistanceMax.y - pointCloudDistanceMin.y;
-    double xRand = ((std::rand() * 2.0) / RAND_MAX - 1.0); // [-1.0, 1.0]
-    double yRand = (std::rand() * 1.0) / RAND_MAX; // [0.0, 1.0]
-    auto xDist = pointCloudDistanceMin.x + toInt(xRand * xRange);
-    auto yDist = pointCloudDistanceMin.y + toInt(yRand * yRange);
-    pointClouds[nextPointCloudPos] = {{x, y}, {x, y}, {xDist, yDist}, points, ticks};
-    nextPointCloudPos = (nextPointCloudPos + 1) % pointClouds.size();
+    Point<int> pos{roundedBox.x + roundedBox.w / 2, roundedBox.y - size.y};
+    pointCloudManager.addPointCloud(pos, points, ticks);
     if (hit && !grounded) {
         comboManager.recordHit();
     }
@@ -543,18 +512,5 @@ void trippin::Goggin::drawDustBlast() {
         sceneBuilder.dispatch([this, dustSprite, dustPos, dustFrame]() {
             dustSprite->render(dustPos, dustFrame, camera);
         }, zIndex);
-    }
-}
-
-void trippin::Goggin::drawPointClouds() {
-    auto size = sprite.getSize();
-    for (auto &pc: pointClouds) {
-        if (pc.points) {
-            Point<int> p{pc.posNow.x, pc.posNow.y - size.y};
-            auto pts = pc.points;
-            sceneBuilder.dispatch([this, p, pts]() {
-                DigitLayout::renderDigits(digits, p, pts, &camera);
-            }, zIndex);
-        }
     }
 }

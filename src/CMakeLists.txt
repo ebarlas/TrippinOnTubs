@@ -105,6 +105,7 @@ add_library(Game
         game/Shake.cpp
         game/SceneBuilder.cpp
         game/ComboManager.cpp
+        game/PointCloudManager.cpp
         game/SoundManager.cpp)
 target_link_libraries(Game Sprite Net Ui PkgConfig::SDL2_MIXER)
 
