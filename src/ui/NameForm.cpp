@@ -1,7 +1,7 @@
 #include "NameForm.h"
 
 trippin::NameForm::NameForm(const Point<int> &windowSize, SpriteManager &spriteManager) :
-        windowSize(windowSize), sprite(spriteManager.get("alpha")), cursor(0) {
+        windowSize(windowSize), sprite(spriteManager.get("alpha")), cursor(0), entered(false) {
     name.resize(5);
 }
 
@@ -16,11 +16,12 @@ void trippin::NameForm::render() {
     int height = windowSize.y - ((size.y + padding * 2) * rows);
     for (int r = 0; r < rows; r++) {
         for (int c = 0; c < columns; c++) {
-            int digit = r * columns + c;
-            if (digit < chars) {
-                Point<int> pos{width / 2 + c * (size.x + padding * 2) + padding,
-                               height / 2 + r * (size.y + padding * 2) + padding};
-                sprite.render(pos, digit + 10);
+            int position = r * columns + c;
+            Point<int> pos{width / 2 + c * (size.x + padding * 2) + padding,
+                           height / 2 + r * (size.y + padding * 2) + padding};
+            // 26 letters + 1 delete + 1 enter
+            if (position < 28) {
+                sprite.render(pos, position + 10);
             }
         }
     }
@@ -31,12 +32,12 @@ void trippin::NameForm::render() {
         Point<int> pos{width / 2 + c * size.x + c * margin,
                        height / 2 + rows * (size.y + padding * 2) + padding};
         if (c < cursor) {
-            sprite.render(pos, 37);
+            sprite.render(pos, 39);
             sprite.render(pos, name[c] - 'A' + 10);
         } else if (c == cursor) {
-            sprite.render(pos, 36);
+            sprite.render(pos, 38);
         } else {
-            sprite.render(pos, 37);
+            sprite.render(pos, 39);
         }
     }
 }
@@ -51,15 +52,21 @@ void trippin::NameForm::onClick(const Point<int> &coords) {
     Point<int> offset = coords - corner;
     int row = offset.y / (size.y + padding * 2);
     int col = offset.x / (size.x + padding * 2);
-    if (row >= 0 && row < rows && col >= 0 && col < columns) {
-        int digit = row * columns + col;
-        name[cursor] = static_cast<char>(digit + 'A');
-        cursor++;
+    if (row >= 0 && row < rows && col >= 0 && col < columns) { // within grid?
+        int position = row * columns + col;
+        if (position < 26 && cursor < nameLength) { // letter click
+            name[cursor] = static_cast<char>(position + 'A');
+            cursor++;
+        } else if (position == 26 && cursor > 0) { // delete click
+            cursor--;
+        } else if (position == 27 && cursor == nameLength) { // enter click
+            entered = true;
+        }
     }
 }
 
 bool trippin::NameForm::nameEntered() const {
-    return cursor == nameLength;
+    return entered;
 }
 
 const std::string &trippin::NameForm::getName() const {
