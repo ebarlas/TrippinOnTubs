@@ -14,16 +14,16 @@ void trippin::ScoreBoard::render(Point<int> position) {
 
     auto narrow = scores.size() <= 9;
 
-    int rankLeft = position.x + (narrow ? 0 : digitSize.x);
+    int rankRight = position.x + digitSize.x * (narrow ? 1 : 2);
     int nameLeft = position.x + digitSize.x * (narrow ? 2 : 3);
-    int scoreLeft = nameLeft + digitSize.x * 10; // space for 5 chars, 1 sp, 4 digits
+    int scoreRight = nameLeft + digitSize.x * 11; // space for 5 chars, 1 sp, 5 digits
 
     int y = position.y;
     for (int i = 0; i < scores.size(); i++) {
         auto &score = scores[i];
-        DigitLayout::renderDigits(sprite, {rankLeft, y}, (i + 1));
+        DigitLayout::renderDigits(sprite, {rankRight, y}, (i + 1));
         renderName({nameLeft, y}, score.name);
-        DigitLayout::renderDigits(sprite, {scoreLeft, y}, score.score);
+        DigitLayout::renderDigits(sprite, {scoreRight, y}, score.score);
         y += digitSize.y;
     }
 }

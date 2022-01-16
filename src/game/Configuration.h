@@ -19,6 +19,7 @@ namespace trippin {
             int port;
         };
 
+        Point<int> windowSize;
         int spiritSecondsBehind;
         int tickRate;
         int spiritClockTickPeriod;

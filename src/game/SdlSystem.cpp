@@ -2,18 +2,19 @@
 #include "SDL_mixer.h"
 #include "SdlSystem.h"
 
-trippin::SdlSystem::SdlSystem() {
+trippin::SdlSystem::SdlSystem(SDL_Point ws) {
     if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO) < 0) {
         SDL_Log("SDL could not initialize. SDL error: %s", SDL_GetError());
         std::terminate();
     }
 
-    /*
-    SDL_DisplayMode displayMode;
-    SDL_GetCurrentDisplayMode(0, &displayMode);
-    windowSize = {displayMode.w, displayMode.h};
-    */
-    windowSize = {1600, 900};
+    if (ws.x || ws.y) {
+        windowSize = ws;
+    } else {
+        SDL_DisplayMode displayMode;
+        SDL_GetCurrentDisplayMode(0, &displayMode);
+        windowSize = {displayMode.w, displayMode.h};
+    }
     SDL_Log("window size w=%d, h=%d", windowSize.x, windowSize.y);
 
     window = SDL_CreateWindow(

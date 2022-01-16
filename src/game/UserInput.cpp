@@ -1,4 +1,8 @@
 #include "UserInput.h"
+#include "engine/Convert.h"
+
+trippin::UserInput::UserInput(trippin::Point<int> rendererSize) : rendererSize(rendererSize) {
+}
 
 trippin::GogginInput trippin::UserInput::Event::asGogginInput() const {
     GogginInput gi;
@@ -81,10 +85,11 @@ trippin::UserInput::Event trippin::UserInput::pollEvent() {
         keyUpFn(SDL_SCANCODE_DOWN, downKeyHeldDown, result.downKeyUp);
         keyUpFn(SDL_SCANCODE_P, pKeyHeldDown, result.pKeyUp);
         keyUpFn(SDL_SCANCODE_R, rKeyHeldDown, result.rKeyUp);
-    } else if (e.type == SDL_MOUSEBUTTONDOWN) {
+    } else if (e.type == SDL_MOUSEBUTTONDOWN && e.button.which != SDL_TOUCH_MOUSEID) { // ignore synthetic mouse events
         result.mouseButtonDown = true;
         result.touchPoint = {e.button.x, e.button.y};
     } else if (e.type == SDL_FINGERDOWN) {
+        result.touchPoint = {toInt(e.tfinger.x * rendererSize.x), toInt(e.tfinger.y * rendererSize.y)};
         if (e.tfinger.x < 0.5) {
             touchDownFn(leftTouch, result.leftTouchDown);
         } else {

@@ -1,6 +1,5 @@
 #include "nlohmann/json.hpp"
 #include "sprite/Files.h"
-#include "engine/Convert.h"
 #include "Configuration.h"
 
 void trippin::Configuration::load(const std::string &name) {
@@ -29,6 +28,10 @@ double trippin::Configuration::msPerTick() const {
 }
 
 void trippin::from_json(const nlohmann::json &j, Configuration &config) {
+    if (j.contains("windowSize")) {
+        j.at("windowSize").at("x").get_to(config.windowSize.x);
+        j.at("windowSize").at("y").get_to(config.windowSize.y);
+    }
     j.at("spiritSecondsBehind").get_to(config.spiritSecondsBehind);
     j.at("tickRate").get_to(config.tickRate);
     j.at("spiritClockTickPeriod").get_to(config.spiritClockTickPeriod);

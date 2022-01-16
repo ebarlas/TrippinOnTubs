@@ -9,9 +9,9 @@
 #include "UserInput.h"
 
 void trippin::Game::init() {
+    initConfiguration();
     initSdl();
     initRand();
-    initConfiguration();
     initDbSynchronizer();
     initLogger();
     initScale();
@@ -23,7 +23,7 @@ void trippin::Game::init() {
 }
 
 void trippin::Game::initSdl() {
-    sdlSystem = std::make_unique<SdlSystem>();
+    sdlSystem = std::make_unique<SdlSystem>(SDL_Point{configuration.windowSize.x, configuration.windowSize.y});
     windowSize = convertPoint(sdlSystem->getWindowSize());
     rendererSize = convertPoint(sdlSystem->getRendererSize());
 }
@@ -157,7 +157,7 @@ void trippin::Game::start() {
 void trippin::Game::renderLoop() {
     state = State::TITLE;
 
-    UserInput ui;
+    UserInput ui(rendererSize);
     while (state != State::EXIT) {
         auto event = ui.pollEvent();
         if (!event) {
@@ -184,7 +184,9 @@ void trippin::Game::renderLoop() {
             level->resume();
         }
 
-        if (!renderClock.isPaused()) {
+        if (renderClock.isPaused()) {
+            std::this_thread::sleep_for(std::chrono::milliseconds (1)); // avoid spinning in a tight loop
+        } else {
             handle(event);
         }
 

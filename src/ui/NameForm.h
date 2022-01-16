@@ -20,9 +20,12 @@ namespace trippin {
         std::string name;
         // 40 frames arranged as follows: [10 digits][26 letters][1 delete][1 enter][1 box][1 underscore]
         const Sprite &sprite;
-        Point<int> windowSize;
+        const Point<int> windowSize;
+        const Point<int> gridSize;
+        const int padding;
         int cursor;
         bool entered;
+        static Point<int> computeGridSize(Point<int> windowSize, Point<int> spriteSize);
     };
 }
 

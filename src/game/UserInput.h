@@ -33,12 +33,15 @@ namespace trippin {
             operator bool() const;
         };
 
+        UserInput(Point<int> rendererSize);
         Event pollEvent();
     private:
         struct Touch {
             bool touchHeldDown;
             SDL_FingerID fingerId;
         };
+
+        const Point<int> rendererSize;
 
         bool spaceKeyHeldDown{};
         bool downKeyHeldDown{};

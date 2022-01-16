@@ -8,7 +8,7 @@ namespace trippin {
     // Only one instance of this type ought to exist in the program
     class SdlSystem {
     public:
-        SdlSystem();
+        SdlSystem(SDL_Point windowSize);
         ~SdlSystem();
         SdlSystem(const SdlSystem&) = delete;
         SdlSystem(const SdlSystem&&) = delete;

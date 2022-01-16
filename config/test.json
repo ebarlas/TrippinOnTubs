@@ -1,4 +1,8 @@
 {
+  "windowSize": {
+    "x": 1600,
+    "y": 900
+  },
   "spiritSecondsBehind": 3,
   "tickRate": 120,
   "spiritClockTickPeriod": 500,

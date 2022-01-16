@@ -1,22 +1,23 @@
 #include <sstream>
-#include <fstream>
 #include <exception>
 #include "SDL.h"
 #include "Files.h"
 
 std::stringstream trippin::readFile(const char *fileName) {
-    std::ifstream in(fileName);
-    if (!in) {
-        SDL_Log("Unable to open file %s.", fileName);
+    auto file = SDL_RWFromFile(fileName, "rb");
+    if (file == nullptr) {
+        SDL_Log("Unable to open file %s! SDL Error: %s", fileName, SDL_GetError());
         std::terminate();
     }
 
     std::stringstream contents;
-    contents << in.rdbuf();
-    if (in.bad()) {
-        SDL_Log("Error occurred reading file %s.", fileName);
-        std::terminate();
+    char buffer[fileBufferSize];
+    int n;
+    while ((n = SDL_RWread(file, buffer, sizeof(char), fileBufferSize)) > 0) {
+        contents.write(buffer, n);
     }
+
+    SDL_RWclose(file);
 
     return contents;
 }
