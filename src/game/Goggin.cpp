@@ -106,6 +106,8 @@ void trippin::Goggin::handleDuckStart(Uint32 engineTicks) {
             acceleration.x = 0;
             friction.x = duckFriction;
             shrinkForDuck();
+        } else if (state == rising || state == falling) {
+            velocity.y = terminalVelocity.y;
         }
     }
 }
