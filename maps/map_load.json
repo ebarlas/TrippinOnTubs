@@ -25,7 +25,8 @@
       },
       "runningAcceleration": -150.0,
       "risingAcceleration": 150.0,
-      "lane": 1
+      "lane": 1,
+      "hitPoints": 1
     },
     {
       "id": 2,
@@ -45,7 +46,8 @@
       },
       "runningAcceleration": -150.0,
       "risingAcceleration": 150.0,
-      "lane": 1
+      "lane": 1,
+      "hitPoints": 1
     },
     {
       "id": 3,
@@ -65,7 +67,8 @@
       },
       "runningAcceleration": -150.0,
       "risingAcceleration": 150.0,
-      "lane": 1
+      "lane": 1,
+      "hitPoints": 1
     },
     {
       "id": 4,
@@ -87,7 +90,7 @@
       "maxDuckJumpVelocity": -1370.0,
       "runningAcceleration": 1000.0,
       "risingAcceleration": 50.0,
-      "duckFriction": 150.0,
+      "duckFriction": 200.0,
       "minJumpChargeTime": 0,
       "maxJumpChargeTime": 400,
       "jumpGracePeriod": 125,
