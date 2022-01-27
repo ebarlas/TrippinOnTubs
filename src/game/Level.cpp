@@ -121,10 +121,7 @@ void trippin::Level::initEngine() {
             goggin = std::make_unique<Goggin>(
                     *configuration,
                     obj,
-                    gogginSprite,
-                    spriteManager->get("dust"),
-                    spriteManager->get("dust_blast"),
-                    spriteManager->get("dust_blast_white"),
+                    *spriteManager,
                     *comboManager,
                     *pointCloudManager,
                     autoPlay,

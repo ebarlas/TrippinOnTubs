@@ -23,10 +23,7 @@ namespace trippin {
         Goggin(
                 const Configuration &config,
                 const Map::Object &object,
-                const Sprite &sprite,
-                const Sprite &dust,
-                const Sprite &dustBlast,
-                const Sprite &whiteDustBlast,
+                SpriteManager &spriteManager,
                 ComboManager &comboManager,
                 PointCloudManager &pointCloudManager,
                 const std::vector<GogginInputTick> *autoPlay,
