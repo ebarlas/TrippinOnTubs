@@ -6,15 +6,14 @@
 namespace trippin {
     class Camera {
     public:
-        void centerOn(Point<int> point);
-        void setUniverse(Rect<int> universe);
-        void setViewport(Rect<int> viewport);
-        bool inView(Rect<int> rect) const;
+        Camera(Rect<int> universe, Rect<int> viewport, int shakeMargin);
+        void centerOn(Point<int> point, Point<int> shake);
         Rect<int> getUniverse() const;
         Rect<int> getViewport() const;
     private:
-        Rect<int> universe{};
-        Rect<int> viewport{};
+        const Rect<int> universe;
+        Rect<int> viewport;
+        const int shakeMargin;
     };
 }
 

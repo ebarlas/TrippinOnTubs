@@ -482,12 +482,12 @@ trippin::Point<int> trippin::Goggin::centerCamera() {
         // restore y to normal in channel to prepare for rendering
         auto heightDelta = sprite.getHitBox().h - size.y;
         pos = {roundedPosition.x, toInt(position.y - heightDelta)};
-        cen = Point<int>({toInt(position.x + size.x / 2.0), toInt(position.y)}) + shake;
+        cen = Point<int>({toInt(position.x + size.x / 2.0), toInt(position.y)});
     } else {
         pos = roundedPosition;
-        cen = toInt(center) + shake;
+        cen = toInt(center);
     }
-    camera.centerOn(cen);
+    camera.centerOn(cen, shake);
     return pos;
 }
 

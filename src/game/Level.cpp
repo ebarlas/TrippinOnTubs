@@ -54,8 +54,10 @@ void trippin::Level::initMap() {
 }
 
 void trippin::Level::initCamera() {
-    camera.setViewport({0, 0, windowSize.x, windowSize.y});
-    camera.setUniverse({0, 0, map.universe.x, map.universe.y});
+    camera = std::make_unique<Camera>(
+            Rect<int>{0, 0, map.universe.x, map.universe.y},
+            Rect<int>{0, 0, windowSize.x, windowSize.y},
+            configuration->shakeAmplitude * scale->multiplier);
 }
 
 void trippin::Level::initEngine() {
@@ -73,7 +75,7 @@ void trippin::Level::initEngine() {
             map.meterMargin,
             spriteManager->get("digits"),
             initialScore,
-            camera.getViewport(),
+            camera->getViewport(),
             sceneBuilder,
             zIndexTop);
     if (!training) {
@@ -95,7 +97,7 @@ void trippin::Level::initEngine() {
                 *configuration,
                 *spriteManager,
                 layer,
-                camera,
+                *camera,
                 sceneBuilder,
                 zIndex++);
         engine.addListener(uptr.get());
@@ -114,7 +116,7 @@ void trippin::Level::initEngine() {
                     configuration->ticksPerSecond() * 2,
                     spriteManager->get("digits"),
                     sceneBuilder,
-                    camera,
+                    *camera,
                     zIndexTop);
             engine.addListener(pointCloudManager.get());
 
@@ -127,7 +129,7 @@ void trippin::Level::initEngine() {
                     autoPlay,
                     map.universe,
                     *soundManager,
-                    camera,
+                    *camera,
                     sceneBuilder,
                     zIndexTop);
             engine.add(goggin.get());
@@ -143,7 +145,7 @@ void trippin::Level::initEngine() {
                     spriteManager->get(obj.type),
                     activation,
                     spirit,
-                    camera,
+                    *camera,
                     sceneBuilder,
                     zIndex);
             engine.add(ground.get());
@@ -157,7 +159,7 @@ void trippin::Level::initEngine() {
                     *goggin,
                     *scoreTicker,
                     *soundManager,
-                    camera,
+                    *camera,
                     sceneBuilder,
                     zIndex);
             engine.addListener(wingedTub.get());
@@ -172,7 +174,7 @@ void trippin::Level::initEngine() {
                     activation,
                     *scoreTicker,
                     *soundManager,
-                    camera,
+                    *camera,
                     sceneBuilder,
                     zIndex);
             engine.add(runningClock.get());
@@ -187,7 +189,7 @@ void trippin::Level::initEngine() {
                     activation,
                     *scoreTicker,
                     *soundManager,
-                    camera,
+                    *camera,
                     sceneBuilder,
                     zIndex);
             engine.add(gameObject.get());
@@ -199,7 +201,7 @@ void trippin::Level::initEngine() {
             map.meterMargin,
             spriteManager->get("goggin_head"),
             initialExtraLives,
-            camera.getViewport(),
+            camera->getViewport(),
             sceneBuilder,
             zIndexTop);
     if (!training) {

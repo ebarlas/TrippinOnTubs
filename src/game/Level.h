@@ -29,7 +29,7 @@ namespace trippin {
         SoundManager *soundManager;
         const std::string *mapName;
         Map map;
-        Camera camera;
+        std::unique_ptr<Camera> camera;
         Engine engine;
         Activation activation;
         std::vector<std::unique_ptr<Listener>> objects;
