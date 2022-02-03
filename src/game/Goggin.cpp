@@ -73,6 +73,8 @@ trippin::Goggin::Goggin(
     lastDuckJumpTicks = 0;
     lastDoubleJumpTicks = 0;
     lastJumpSoundTicks = 0;
+    lastStopTicks = 0;
+    lastJumpSlamDownTicks = 0;
 
     if (autoPlayVec != nullptr) {
         for (auto &uit: *autoPlayVec) {
@@ -108,6 +110,7 @@ void trippin::Goggin::handleDuckStart(Uint32 engineTicks) {
             shrinkForDuck();
         } else if (state == rising || state == falling) {
             velocity.y = terminalVelocity.y;
+            lastJumpSlamDownTicks = engineTicks;
         }
     }
 }
@@ -360,6 +363,10 @@ void trippin::Goggin::onRising(Uint32 engineTicks) {
 void trippin::Goggin::onDucking(Uint32 engineTicks) {
     lastRunOrDuckTick = engineTicks;
 
+    if (velocity.x == 0) {
+        lastStopTicks = engineTicks;
+    }
+
     if (!platformCollisions.testBottom()) {
         ticks = 0;
         if (objectCollisions.testBottom()) {
@@ -472,6 +479,14 @@ Uint32 trippin::Goggin::getLastDuckJumpTicks() const {
 
 Uint32 trippin::Goggin::getLastDoubleJumpTicks() const {
     return lastDoubleJumpTicks;
+}
+
+Uint32 trippin::Goggin::getLastStopTicks() const {
+    return lastStopTicks;
+}
+
+Uint32 trippin::Goggin::getLastJumpSlamDownTicks() const {
+    return lastJumpSlamDownTicks;
 }
 
 trippin::Point<int> trippin::Goggin::centerCamera() {

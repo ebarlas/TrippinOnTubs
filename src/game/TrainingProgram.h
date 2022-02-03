@@ -14,14 +14,16 @@ namespace trippin {
         enum TrainingStage {
             jump,
             duck,
+            stop,
             chargedJump,
             duckJump,
             doubleJump,
+            jumpSlamDown,
             finishedWait,
             finished
         };
 
-        static constexpr int NUM_STAGES = 5;
+        static constexpr int NUM_STAGES = 7;
         const std::array<const Sprite*, NUM_STAGES> sprites;
 
         const Goggin &goggin;

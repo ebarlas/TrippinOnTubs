@@ -44,6 +44,8 @@ namespace trippin {
         Uint32 getLastChargedJumpTicks() const;
         Uint32 getLastDuckJumpTicks() const;
         Uint32 getLastDoubleJumpTicks() const;
+        Uint32 getLastStopTicks() const;
+        Uint32 getLastJumpSlamDownTicks() const;
     private:
         struct Dust {
             Point<int> position;
@@ -147,6 +149,8 @@ namespace trippin {
         Uint32 lastDuckJumpTicks;
         Uint32 lastDuckTicks;
         Uint32 lastDoubleJumpTicks;
+        Uint32 lastStopTicks;
+        Uint32 lastJumpSlamDownTicks;
 
         void onFalling(Uint32 engineTicks);
         void onLanding(Uint32 engineTicks);

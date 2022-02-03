@@ -55,12 +55,16 @@ Uint32 trippin::TrainingProgram::getLastEventTime() const {
         return goggin.getLastJumpTicks();
     } else if (stage == TrainingStage::duck) {
         return goggin.getLastDuckTicks();
+    } else if (stage == TrainingStage::stop) {
+        return goggin.getLastStopTicks();
     } else if (stage == TrainingStage::chargedJump) {
         return goggin.getLastChargedJumpTicks();
     } else if (stage == TrainingStage::duckJump) {
         return goggin.getLastDuckJumpTicks();
     } else if (stage == TrainingStage::doubleJump) {
         return goggin.getLastDoubleJumpTicks();
+    } else if (stage == TrainingStage::jumpSlamDown) {
+        return goggin.getLastJumpSlamDownTicks();
     }
     return 0;
 }
@@ -70,8 +74,10 @@ std::array<const trippin::Sprite *, trippin::TrainingProgram::NUM_STAGES> trippi
     std::array<const trippin::Sprite *, NUM_STAGES> sprites{};
     sprites[TrainingStage::jump] = &spriteManager.get("jump");
     sprites[TrainingStage::duck] = &spriteManager.get("duck");
+    sprites[TrainingStage::stop] = &spriteManager.get("stop");
     sprites[TrainingStage::chargedJump] = &spriteManager.get("charged_jump");
     sprites[TrainingStage::duckJump] = &spriteManager.get("charged_duck_jump");
     sprites[TrainingStage::doubleJump] = &spriteManager.get("double_jump");
+    sprites[TrainingStage::jumpSlamDown] = &spriteManager.get("jump_slam_down");
     return sprites;
 }
