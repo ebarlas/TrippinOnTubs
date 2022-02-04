@@ -494,10 +494,11 @@ trippin::Point<int> trippin::Goggin::centerCamera() {
     Point<int> pos;
     Point<int> cen;
     if (state == ducking) {
-        // restore y to normal in channel to prepare for rendering
-        auto heightDelta = sprite.getHitBox().h - size.y;
-        pos = {roundedPosition.x, toInt(position.y - heightDelta)};
-        cen = Point<int>({toInt(position.x + size.x / 2.0), toInt(position.y)});
+        // restore y to original footprint by lifting sprite
+        auto originalHeight = sprite.getHitBox().h;
+        auto heightDelta = originalHeight - size.y;
+        pos = {roundedPosition.x, roundedPosition.y - heightDelta};
+        cen = toInt(Point<double>{pos.x + size.x / 2.0, pos.y + originalHeight / 2.0});
     } else {
         pos = roundedPosition;
         cen = toInt(center);
