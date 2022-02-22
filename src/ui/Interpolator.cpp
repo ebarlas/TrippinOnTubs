@@ -25,7 +25,7 @@ int trippin::Interpolator::interpolate() const {
     auto elapsed = renderClock.getTicks() - firstTick;
     if (elapsed < duration) {
         float progress = static_cast<float>(elapsed) / duration;
-        return static_cast<int>(static_cast<float>(magnitude) * interpolate(progress));
+        return offset + static_cast<int>(static_cast<float>(magnitude) * interpolate(progress));
     }
     return offset + magnitude;
 }
