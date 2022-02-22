@@ -6,29 +6,38 @@
 #include "engine/Listener.h"
 #include "sprite/SpriteManager.h"
 #include "Goggin.h"
-#include "ui/MenuLayout.h"
+#include "ui/Interpolator.h"
 
 namespace trippin {
     class TrainingProgram : public Listener {
     private:
-        enum TrainingStage {
-            jump,
-            duck,
-            stop,
-            chargedJump,
-            duckJump,
-            doubleJump,
-            jumpSlamDown,
-            finishedWait,
-            finished
-        };
-
         static constexpr int NUM_STAGES = 7;
-        const std::array<const Sprite*, NUM_STAGES> sprites;
+        static constexpr std::array<const char *, NUM_STAGES> names{
+                "jump",
+                "duck",
+                "stop",
+                "charged_jump",
+                "charged_duck_jump",
+                "double_jump",
+                "jump_slam_down"};
+        const std::array<std::function<Uint32(const Goggin &g)>, NUM_STAGES> lastEventTimes{
+                [](const Goggin &g) { return g.getLastJumpTicks(); },
+                [](const Goggin &g) { return g.getLastDuckTicks(); },
+                [](const Goggin &g) { return g.getLastStopTicks(); },
+                [](const Goggin &g) { return g.getLastChargedJumpTicks(); },
+                [](const Goggin &g) { return g.getLastDuckJumpTicks(); },
+                [](const Goggin &g) { return g.getLastDoubleJumpTicks(); },
+                [](const Goggin &g) { return g.getLastJumpSlamDownTicks(); }
+        };
+        const std::array<const Sprite *, NUM_STAGES> titleSprites;
+        const std::array<const Sprite *, NUM_STAGES> controlSprites;
 
         const Goggin &goggin;
-        MenuLayout<1> menuLayout;
+        const Point<int> windowSize;
+        const int margin;
         int stage;
+        Interpolator titleInterpolator;
+        Interpolator controlInterpolator;
         const int finishedWaitTicks;
         Uint32 stageTicks;
         Mix_Chunk *const sound;
@@ -36,14 +45,16 @@ namespace trippin {
         SceneBuilder &sceneBuilder;
         const int zIndex;
 
-        std::atomic_int channel;
+        std::atomic_bool complete;
 
-        Uint32 getLastEventTime() const;
+        void resetInterpolators();
 
-        static std::array<const Sprite*, NUM_STAGES> makeSprites(SpriteManager &spriteManager);
+        static std::array<const Sprite *, NUM_STAGES>
+        makeSprites(SpriteManager &spriteManager, const std::string &suffix = "");
     public:
         TrainingProgram(
                 Point<int> windowSize,
+                int margin,
                 const Configuration &configuration,
                 SpriteManager &spriteManager,
                 SoundManager &soundManager,

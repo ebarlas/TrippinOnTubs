@@ -240,8 +240,8 @@ void trippin::Level::initEngine() {
 
     if (training) {
         trainingProgram = std::make_unique<TrainingProgram>(
-                windowSize, *configuration, *spriteManager, *soundManager, *goggin, *renderClock, sceneBuilder,
-                zIndexTop);
+                windowSize, map.meterMargin, *configuration, *spriteManager, *soundManager, *goggin, *renderClock,
+                sceneBuilder, zIndexTop);
         engine.addListener(trainingProgram.get());
     }
 

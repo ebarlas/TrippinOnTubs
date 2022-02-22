@@ -55,7 +55,14 @@ sprites = [
     'goggin_head',
     'combo',
     'stop',
-    'jump_slam_down'
+    'jump_slam_down',
+    'duck_controls',
+    'jump_controls',
+    'double_jump_controls',
+    'stop_controls',
+    'charged_jump_controls',
+    'charged_duck_jump_controls',
+    'jump_slam_down_controls'
 ]
 
 levels = ['map_ground_melt', 'map_minimal', 'map_test', 'map_load', 'map_training', 'map_train']

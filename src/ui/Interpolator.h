@@ -6,14 +6,16 @@
 namespace trippin {
     class Interpolator {
     public:
-        Interpolator(const RenderClock& renderClock, int duration, int magnitude = 0);
+        Interpolator(const RenderClock& renderClock, int duration, int magnitude = 0, int offset = 0);
         void setMagnitude(int magnitude);
+        void setOffset(int offset);
         void reset();
         int interpolate() const;
     private:
         const RenderClock& renderClock;
+        const int duration;
+        int offset;
         int magnitude;
-        int duration;
         int firstTick;
         static float interpolate(float input);
     };

@@ -1,0 +1,49 @@
+<ns0:svg xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:ns0="http://www.w3.org/2000/svg" xmlns:ns1="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd" xmlns:ns2="http://www.inkscape.org/namespaces/inkscape" xmlns:ns3="http://www.w3.org/1999/xlink" xmlns:ns5="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" ns1:docname="charged_duck_jump_controls.svg" ns2:version="1.0beta2 (2b71d25, 2019-12-03)" id="svg8" version="1.1" viewBox="0 0 440 130" scale="8" height="130" width="440">
+  <ns0:defs id="defs2">
+    <ns0:pattern patternTransform="translate(367.14645,44.646447)" id="pattern4747" ns3:href="#pattern4735" ns2:collect="always" />
+    <ns0:pattern patternTransform="translate(169.64645,44.646447)" id="pattern4735" ns3:href="#pattern3966" ns2:collect="always" />
+    <ns0:pattern ns2:collect="always" ns3:href="#pattern1853" id="pattern3966" patternTransform="translate(67.14645,44.646447)" />
+    <ns0:pattern id="pattern1853" patternTransform="translate(109.64645,4.6464466)" height="5.7071068" width="5.7071068" patternUnits="userSpaceOnUse">
+      <ns0:path style="fill:none;stroke:#000000;stroke-width:0.5;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" d="M 0.35355339,5.3535534 5.3535534,0.35355339" id="path877" ns2:connector-curvature="0" />
+    </ns0:pattern>
+  </ns0:defs>
+  <ns1:namedview ns2:snap-global="true" ns2:window-maximized="0" ns2:window-y="197" ns2:window-x="417" ns2:window-height="1367" ns2:window-width="2770" units="px" showgrid="true" ns2:document-rotation="0" ns2:current-layer="layer1" ns2:document-units="px" ns2:cy="48.775821" ns2:cx="239.5069" ns2:zoom="5.2738382" ns2:pageshadow="2" ns2:pageopacity="0.0" borderopacity="1.0" bordercolor="#666666" pagecolor="#ffffff" id="base">
+    <ns2:grid id="grid833" type="xygrid" />
+  </ns1:namedview>
+  <ns0:metadata id="metadata5">
+    <rdf:RDF>
+      <ns5:Work rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title />
+      </ns5:Work>
+    </rdf:RDF>
+  </ns0:metadata>
+  <ns0:g style="display:inline" ns2:label="phone" frame="1" type="frame" id="g1560" ns2:groupmode="layer">
+    <ns0:path ns1:nodetypes="ccccccccc" ns2:connector-curvature="0" id="path1552" d="m 135,111.25 v -42.5 c 0,-5 -5,-10 -10,-10 H 17.5 c -5,0 -10,5 -10,10 v 42.5 c 0,5 5,10 10,10 H 125 c 5,0 10,-5 10,-10 z" style="fill:#ffffff;fill-opacity:0.75;stroke:#000000;stroke-width:0.5px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+    <ns0:path ns2:connector-curvature="0" id="path1554" d="m 117.5,118.75 h -95 v -57.5 h 95 z" style="fill:none;stroke:#000000;stroke-width:0.5px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+    <ns0:circle transform="scale(-1)" r="6.25" cy="-90" cx="-126.25" id="circle1556" style="fill:none;fill-opacity:0.75;stroke:#000000;stroke-width:0.5;stroke-opacity:1;paint-order:stroke fill markers;stop-color:#000000" />
+    <ns0:path ns2:connector-curvature="0" id="path1558" d="m 17.5,81.25 v 17.5" style="fill:none;stroke:#000000;stroke-width:0.5px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+    <ns0:path style="mix-blend-mode:normal;fill:url(#pattern3966);fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:0.353554px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" d="M 117.5,118.75 H 70 v -57.5 h 47.5 z" id="path1562" ns2:connector-curvature="0" />
+    <ns0:path style="fill:#ffffff;fill-opacity:0.75;stroke:#000000;stroke-width:0.5px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" d="m 285,111.25 v -42.5 c 0,-5 -5,-10 -10,-10 H 167.5 c -5,0 -10,5 -10,10 v 42.5 c 0,5 5,10 10,10 H 275 c 5,0 10,-5 10,-10 z" id="path4725" ns2:connector-curvature="0" ns1:nodetypes="ccccccccc" />
+    <ns0:path style="fill:none;stroke:#000000;stroke-width:0.5px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" d="m 267.5,118.75 h -95 v -57.5 h 95 z" id="path4727" ns2:connector-curvature="0" />
+    <ns0:circle style="fill:none;fill-opacity:0.75;stroke:#000000;stroke-width:0.5;stroke-opacity:1;paint-order:stroke fill markers;stop-color:#000000" id="circle4729" cx="-276.25" cy="-90" r="6.25" transform="scale(-1)" />
+    <ns0:path style="fill:none;stroke:#000000;stroke-width:0.5px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" d="m 167.5,81.25 v 17.5" id="path4731" ns2:connector-curvature="0" />
+    <ns0:path ns2:connector-curvature="0" id="path4733" d="M 220,118.75 H 172.5 V 61.25 H 220 Z" style="mix-blend-mode:normal;fill:url(#pattern4735);fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:0.353554px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+    <ns0:path ns1:nodetypes="ccccccccc" ns2:connector-curvature="0" id="path4737" d="m 435,111.25 v -42.5 c 0,-5 -5,-10 -10,-10 H 317.5 c -5,0 -10,5 -10,10 v 42.5 c 0,5 5,10 10,10 H 425 c 5,0 10,-5 10,-10 z" style="fill:#ffffff;fill-opacity:0.75;stroke:#000000;stroke-width:0.5px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+    <ns0:path ns2:connector-curvature="0" id="path4739" d="m 417.5,118.75 h -95 v -57.5 h 95 z" style="fill:none;stroke:#000000;stroke-width:0.5px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+    <ns0:circle transform="scale(-1)" r="6.25" cy="-90" cx="-426.25" id="circle4741" style="fill:none;fill-opacity:0.75;stroke:#000000;stroke-width:0.5;stroke-opacity:1;paint-order:stroke fill markers;stop-color:#000000" />
+    <ns0:path ns2:connector-curvature="0" id="path4743" d="m 317.5,81.25 v 17.5" style="fill:none;stroke:#000000;stroke-width:0.5px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+    <ns0:path style="mix-blend-mode:normal;fill:url(#pattern4747);fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:0.353554px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" d="M 417.5,118.75 H 370 v -57.5 h 47.5 z" id="path4745" ns2:connector-curvature="0" />
+  </ns0:g>
+  <ns0:g ns2:label="Arrow" id="layer1" ns2:groupmode="layer">
+    <ns0:path ns1:nodetypes="cccccccccc" ns2:connector-curvature="0" id="path853" d="M 91.25,40 V 5 C 92.5,2.5 95,2.5 96.25,5 V 40 L 105,31.25 c 2.5,0 3.75,1.25 3.75,3.75 l -15,15 -15,-15 c 0,-2.5 1.25,-3.75 3.75,-3.75 z" style="fill:#ffffff;fill-opacity:0.75;stroke:#000000;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+    <ns0:path style="fill:#ffffff;fill-opacity:0.75;stroke:#000000;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" d="m 396.25,13.124979 v 35 c -1.25,2.5 -3.75,2.5 -5,0 v -35 l -8.75,8.75 c -2.5,0 -3.75,-1.25 -3.75,-3.75 l 15,-14.9999997 15,14.9999997 c 0,2.5 -1.25,3.75 -3.75,3.75 z" id="path2972" ns2:connector-curvature="0" ns1:nodetypes="cccccccccc" />
+    <ns0:path style="fill:#ffffff;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;fill-opacity:0.75" d="m 78.25,51 h 31 v 4 h -31 z" id="path4139" ns2:connector-curvature="0" />
+    <ns0:path style="fill:#ffffff;fill-opacity:0.75;stroke:#000000;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" d="M 193.75,40 V 5 c 1.25,-2.5 3.75,-2.5 5,0 v 35 l 8.75,-8.75 c 2.5,0 3.75,1.25 3.75,3.75 l -15,15 -15,-15 c 0,-2.5 1.25,-3.75 3.75,-3.75 z" id="path4749" ns2:connector-curvature="0" ns1:nodetypes="cccccccccc" />
+    <ns0:path ns2:connector-curvature="0" id="path4751" d="m 180.75,51 h 31 v 4 h -31 z" style="fill:#ffffff;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;fill-opacity:0.75" />
+  </ns0:g>
+  <ns0:g style="display:none" ns1:insensitive="true" ns2:label="pattern" id="layer4" ns2:groupmode="layer">
+    <ns0:rect id="rect1856" y="4.6464467" x="109.64645" height="5.7071066" width="5.7071066" style="display:inline;fill:url(#pattern1853);stroke:none" />
+  </ns0:g>
+</ns0:svg>
