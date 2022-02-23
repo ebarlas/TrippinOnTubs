@@ -56,6 +56,7 @@ void trippin::MenuLayout<N>::init() {
 
     auto &max = maxItem();
     interpolator.setMagnitude(max.position.x + max.sprite->getSize().x);
+    interpolator.setOffset(-max.sprite->getSize().x);
 }
 
 template<std::size_t N>
@@ -66,7 +67,7 @@ void trippin::MenuLayout<N>::reset() {
 template<std::size_t N>
 void trippin::MenuLayout<N>::render() {
     auto &max = maxItem();
-    int x = interpolator.interpolate() - max.sprite->getSize().x;
+    int x = interpolator.interpolate();
     for (auto &item : items) {
         Point<int> p{x + item.position.x - max.position.x, item.position.y};
         item.sprite->render(p, 0);
