@@ -26,7 +26,6 @@ trippin::Goggin::Goggin(
         sceneBuilder(sceneBuilder),
         zIndex(zIndex),
         jumpSound(soundManager.getEffect("thud")),
-        skipLaunch(true),
         runningAcceleration(object.runningAcceleration),
         risingAcceleration(object.risingAcceleration),
         minJumpVelocity(object.minJumpVelocity),
@@ -34,7 +33,6 @@ trippin::Goggin::Goggin(
         maxDuckJumpVelocity(object.maxDuckJumpVelocity),
         minJumpChargeTicks(object.minJumpChargeTime),
         maxJumpChargeTicks(object.maxJumpChargeTime),
-        jumpGracePeriodTicks(object.jumpGracePeriod),
         jumpSoundTimeoutTicks(object.jumpSoundTimeout),
         duckFriction(object.duckFriction),
         shakeAmplitude(config.shakeAmplitude * sprite.getScale().getMultiplier()),
@@ -63,7 +61,6 @@ trippin::Goggin::Goggin(
 
     dustTicks = 0;
     nextDustPos = 0;
-    jumpVelocity = 0;
 
     rememberDuckStart = false;
 
@@ -99,7 +96,7 @@ void trippin::Goggin::handleDuckStart(Uint32 engineTicks) {
         rememberDuckStart = true;
     }
     if (rememberDuckStart) {
-        if ((state == running || state == landing) && platformCollisions.testBottom()) {
+        if (state == running && platformCollisions.testBottom()) {
             rememberDuckStart = false;
             state = ducking;
             lastDuckTicks = engineTicks;
@@ -149,28 +146,19 @@ void trippin::Goggin::handleJumpCharge(Uint32 engineTicks) {
 void trippin::Goggin::handleJumpRelease(Uint32 engineTicks) {
     if (input.jumpRelease && jumpTicks) {
         auto maxEffective = state == ducking && jumpPercent == 1.0 ? maxDuckJumpVelocity : maxJumpVelocity;
-        double jumpVel = minJumpVelocity + jumpPercent * (maxEffective - minJumpVelocity);
-        if (state == running || state == landing || state == ducking ||
-            ((state == falling || state == rising) && consecutiveJumps < 2) ||
-            (engineTicks > lastRunOrDuckTick && engineTicks - lastRunOrDuckTick < jumpGracePeriodTicks)) {
+        auto jumpVel = std::min(minJumpVelocity, jumpPercent * maxEffective);
+        if (state == running || state == ducking || consecutiveJumps < 2) {
             if (state == ducking) {
                 growForStand();
             }
-            if (skipLaunch) {
-                if ((platformCollisions.testBottom() && jumpPercent >= 0.5) ||
-                    ((state == falling || state == rising) && consecutiveJumps < 2)) {
-                    resetDustBlast(state == falling || state == rising);
-                }
-                maxFallingVelocity = 0;
-                state = State::rising;
-                frames.frame = FRAME_LAUNCHING_LAST;
-                velocity.y = jumpVel;
-            } else {
-                maxFallingVelocity = 0;
-                state = State::launching;
-                frames.frame = FRAME_LAUNCHING_FIRST;
-                jumpVelocity = jumpVel;
+            if ((platformCollisions.testBottom() && jumpPercent >= 0.5) ||
+                ((state == falling || state == rising) && consecutiveJumps < 2)) {
+                resetDustBlast(state == falling || state == rising);
             }
+            maxFallingVelocity = 0;
+            state = State::rising;
+            frames.frame = FRAME_LAUNCHING_LAST;
+            velocity.y = jumpVel;
             consecutiveJumps++;
             if (consecutiveJumps == 2) {
                 lastDoubleJumpTicks = engineTicks;
@@ -238,12 +226,8 @@ void trippin::Goggin::afterTick(Uint32 engineTicks) {
 
     if (state == State::falling) {
         onFalling(engineTicks);
-    } else if (state == State::landing) {
-        onLanding(engineTicks);
     } else if (state == State::running) {
         onRunning(engineTicks);
-    } else if (state == State::launching) {
-        onLaunching(engineTicks);
     } else if (state == State::rising) {
         onRising(engineTicks);
     } else if (state == State::ducking) {
@@ -276,9 +260,9 @@ void trippin::Goggin::onFalling(Uint32 engineTicks) {
     }
 
     if (platformCollisions.testBottom() || objectCollisions.testBottom()) {
-        state = State::landing;
+        state = State::running;
         ticks = 0;
-        frames.frame = FRAME_LANDING_FIRST;
+        frames.frame = FRAME_RUN_AFTER_LAND;
         acceleration.x = runningAcceleration;
         if (platformCollisions.testBottom() && maxFallingVelocity >= terminalVelocity.y / 2.0) {
             resetDustBlast(false);
@@ -298,26 +282,7 @@ void trippin::Goggin::onFalling(Uint32 engineTicks) {
     }
 }
 
-void trippin::Goggin::onLanding(Uint32 engineTicks) {
-    if (ticks != sprite.getFramePeriodTicks()) {
-        return;
-    }
-
-    ticks = 0;
-    auto frame = frames.frame;
-    if (frame == FRAME_LANDING_FIRST) {
-        frames.frame = frame + 1;
-        return;
-    }
-
-    state = running;
-    frames.frame = FRAME_RUN_AFTER_LAND;
-    acceleration.x = runningAcceleration;
-}
-
 void trippin::Goggin::onRunning(Uint32 engineTicks) {
-    lastRunOrDuckTick = engineTicks;
-
     if (!platformCollisions.testBottom() && !objectCollisions.testBottom()) {
         state = State::falling;
         frames.frame = FRAME_FALLING_FIRST;
@@ -333,23 +298,6 @@ void trippin::Goggin::onRunning(Uint32 engineTicks) {
     }
 }
 
-void trippin::Goggin::onLaunching(Uint32 engineTicks) {
-    if (ticks != sprite.getFramePeriodTicks()) {
-        return;
-    }
-
-    ticks = 0;
-    auto frame = frames.frame;
-    if (frame < FRAME_LAUNCHING_LAST) {
-        frame++;
-        frames.frame = frame;
-        if (frame == FRAME_LAUNCHING_LAST) {
-            state = State::rising;
-            velocity.y = jumpVelocity;
-        }
-    }
-}
-
 void trippin::Goggin::onRising(Uint32 engineTicks) {
     if (velocity.y >= 0) {
         state = State::falling;
@@ -361,8 +309,6 @@ void trippin::Goggin::onRising(Uint32 engineTicks) {
 }
 
 void trippin::Goggin::onDucking(Uint32 engineTicks) {
-    lastRunOrDuckTick = engineTicks;
-
     if (velocity.x == 0) {
         lastStopTicks = engineTicks;
     }

@@ -73,11 +73,9 @@ namespace trippin {
         double maxFallingVelocity;
         const Point<int> universe;
 
-        constexpr static const int FRAME_LANDING_FIRST = 15;
         constexpr static const int FRAME_FALLING_FIRST = 12;
         constexpr static const int FRAME_FALLING_LAST = 14;
         constexpr static const int FRAME_RUN_AFTER_LAND = 3;
-        constexpr static const int FRAME_LAUNCHING_FIRST = 8;
         constexpr static const int FRAME_LAUNCHING_LAST = 11;
         constexpr static const int FRAME_DUCKING = 17;
 
@@ -96,8 +94,6 @@ namespace trippin {
         std::unordered_map<Uint32, GogginInput> autoPlay;
         bool autoPlayEnabled;
 
-        const bool skipLaunch;
-        double jumpVelocity;
         const double risingAcceleration;
         const double runningAcceleration;
         const double duckFriction;
@@ -107,7 +103,6 @@ namespace trippin {
         const double maxDuckJumpVelocity;
         const int minJumpChargeTicks;
         const int maxJumpChargeTicks;
-        const int jumpGracePeriodTicks;
 
         const double shakeAmplitude;
         Shake xShake;
@@ -121,16 +116,13 @@ namespace trippin {
 
         enum State {
             running,
-            launching,
             rising,
             falling,
-            landing,
             ducking
         };
 
         State state{};
         int ticks{};
-        Uint32 lastRunOrDuckTick{};
 
         Mix_Chunk *const jumpSound;
         const int jumpSoundTimeoutTicks;
@@ -153,9 +145,7 @@ namespace trippin {
         Uint32 lastJumpSlamDownTicks;
 
         void onFalling(Uint32 engineTicks);
-        void onLanding(Uint32 engineTicks);
         void onRunning(Uint32 engineTicks);
-        void onLaunching(Uint32 engineTicks);
         void onRising(Uint32 engineTicks);
         void onDucking(Uint32 engineTicks);
 
