@@ -2,17 +2,22 @@ import json
 import boto3
 import time
 import datetime
+import base64
+import urllib.parse
 
 client = boto3.client('dynamodb', region_name='us-west-2')
 
 
-def validate(event):
-    if 'body' not in event or 'queryStringParameters' not in event:
-        return False
-    body = event['body']
-    params = event['queryStringParameters']
+def extract_body(request):
+    return json.loads(base64.b64decode(request['body']['data']).decode('utf-8'))
 
-    record = json.loads(body)
+
+def validate(event):
+    if 'body' not in event or 'data' not in event['body'] or 'querystring' not in event:
+        return False
+
+    params = urllib.parse.parse_qs(event['querystring'])  # querystring request property is a raw string
+    record = extract_body(event)
     if 'id' not in record or 'time' not in record or 'index' not in record or 'message' not in record:
         return False
     id = record['id']
@@ -28,7 +33,7 @@ def validate(event):
     if 'h' not in params:
         return False
 
-    hash = params['h']
+    hash = params['h'][0]
     hashgen = hex(id)[2:] + hex(start_time)[2:] + hex(index)[2:]
     if hash != hashgen:
         return False
@@ -44,8 +49,8 @@ def add_log_record(record):
     epoch = int(time.time())
     date = datetime.datetime.fromtimestamp(epoch).strftime('%Y-%m-%d %H:%M:%S')
     item = {
-        'appid': {'S': f'{start_time}-{id}'},
-        'index': {'N': str(index)},
+        'pk': {'N': '1'},
+        'sk': {'S': f'{start_time}-{id}-{index}'},
         'time': {'N': str(epoch)},
         'date': {'S': date},
         'message': {'S': message}
@@ -55,15 +60,18 @@ def add_log_record(record):
 
 
 def lambda_handler(event, context):
-    print(f'method={event["httpMethod"]}, path={event["path"]}')
+    request = event['Records'][0]['cf']['request']
 
-    if event['httpMethod'] == 'POST' and '/logs' in event['path']:
-        if not validate(event):
-            return {'statusCode': 400}
-        add_log_record(json.loads(event['body']))
-        return {'statusCode': 200}
+    print(f'method={request["method"]}, path={request["uri"]}')
+
+    if request['method'] == 'POST' and '/logs' in request['uri']:
+        if not validate(request):
+            return {'status': '400', 'statusDescription': 'Bad Request'}
+        add_log_record(extract_body(request))
+        return {'status': '200', 'statusDescription': 'OK'}
 
     return {
-        'statusCode': 404,
+        'status': '404',
+        'statusDescription': 'Not Found',
         'body': 'Not Found'
     }

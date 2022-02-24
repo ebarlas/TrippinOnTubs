@@ -24,7 +24,7 @@
     "map_test"
   ],
   "db": {
-    "host": "trippin-alb-71634371.us-west-2.elb.amazonaws.com",
+    "host": "www.trippinontubs.com",
     "port": 80
   },
   "scales": [

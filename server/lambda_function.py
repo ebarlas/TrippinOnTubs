@@ -3,6 +3,8 @@ import boto3
 import time
 import datetime
 import re
+import base64
+import urllib.parse
 
 client = boto3.client('dynamodb', region_name='us-west-2')
 
@@ -40,13 +42,16 @@ def today_top_scores():
     return sorted(convert(today_scores()), key=lambda s: s['score'], reverse=True)
 
 
-def validate(event):
-    if 'body' not in event or 'queryStringParameters' not in event:
-        return False
-    body = event['body']
-    params = event['queryStringParameters']
+def extract_body(request):
+    return json.loads(base64.b64decode(request['body']['data']).decode('utf-8'))
 
-    score = json.loads(body)
+
+def validate(event):
+    if 'body' not in event or 'data' not in event['body'] or 'querystring' not in event:
+        return False
+
+    params = urllib.parse.parse_qs(event['querystring'])  # querystring request property is a raw string
+    score = extract_body(event)
     if 'id' not in score or 'name' not in score or 'score' not in score:
         return False
     id = score['id']
@@ -65,7 +70,7 @@ def validate(event):
     if 'h' not in params:
         return False
 
-    hash = params['h']
+    hash = params['h'][0]  # params is an array of strings
     hashgen = hex(score)[2:] + hex(id)[2:]
     if hash != hashgen:
         return False
@@ -96,30 +101,39 @@ def convert(items):
 
 def to_response(items):
     return {
-        'statusCode': 200,
+        'status': '200',
+        'statusDescription': 'OK',
         'headers': {
-            'Content-Type': 'application/json'
+            'content-type': [
+                {
+                    'key': 'Content-Type',
+                    'value': 'application/json'
+                }
+            ]
         },
         'body': json.dumps(items)
     }
 
 
 def lambda_handler(event, context):
-    print(f'method={event["httpMethod"]}, path={event["path"]}')
+    request = event['Records'][0]['cf']['request']
 
-    if event['httpMethod'] == 'GET' and '/scores/today' in event['path']:
+    print(f'method={request["method"]}, path={request["uri"]}')
+
+    if request['method'] == 'GET' and '/scores/today' in request['uri']:
         return to_response(today_top_scores())
 
-    if event['httpMethod'] == 'GET' and '/scores/alltime' in event['path']:
+    if request['method'] == 'GET' and '/scores/alltime' in request['uri']:
         return to_response(convert(top_scores(25)))
 
-    if event['httpMethod'] == 'POST' and '/scores' in event['path']:
-        if not validate(event):
-            return {'statusCode': 400}
-        add_score(json.loads(event['body']))
-        return {'statusCode': 200}
+    if request['method'] == 'POST' and '/scores' in request['uri']:
+        if not validate(request):
+            return {'status': '400', 'statusDescription': 'Bad Request'}
+        add_score(extract_body(request))
+        return {'status': '200', 'statusDescription': 'OK'}
 
     return {
-        'statusCode': 404,
+        'status': '404',
+        'statusDescription': 'Not Found',
         'body': 'Not Found'
     }

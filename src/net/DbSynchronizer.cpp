@@ -28,8 +28,12 @@ static void runAddScoresLoop(Transport transport, std::weak_ptr<StagingArea> sta
         return scores;
     };
     auto addFn = [](const Transport &t, const Score &s) {
-        t.addScore(s);
-        SDL_Log("added score, name=%s, score=%d, id=%d", s.name.c_str(), s.score, s.id);
+        auto success = t.addScore(s);
+        if (success) {
+            SDL_Log("added score, name=%s, score=%d, id=%d", s.name.c_str(), s.score, s.id);
+        } else {
+            SDL_Log("failed to add score, name=%s, score=%d, id=%d", s.name.c_str(), s.score, s.id);
+        }
     };
     runSyncLoop<Score>(std::move(transport), std::move(stagingArea), takeFn, addFn);
 }
@@ -41,8 +45,12 @@ static void runAddLogEventsLoop(Transport transport, std::weak_ptr<StagingArea> 
         return events;
     };
     auto addFn = [](const Transport &t, const LogEvent &e) {
-        t.addLogEvent(e);
-        SDL_Log("added log events, message=%s", e.message.c_str());
+        auto success = t.addLogEvent(e);
+        if (success) {
+            SDL_Log("added log events, message=%s", e.message.c_str());
+        } else {
+            SDL_Log("failed to add log events, message=%s", e.message.c_str());
+        }
     };
     runSyncLoop<LogEvent>(std::move(transport), std::move(stagingArea), takeFn, addFn);
 }
