@@ -1,5 +1,14 @@
 #include "TrainingProgram.h"
 
+std::array<const char *, 7> trippin::TrainingProgram::names{
+        "jump",
+        "duck",
+        "stop",
+        "charged_jump",
+        "charged_duck_jump",
+        "double_jump",
+        "jump_slam_down"};
+
 trippin::TrainingProgram::TrainingProgram(
         Point<int> windowSize,
         int margin,
@@ -51,7 +60,7 @@ void trippin::TrainingProgram::afterTick(Uint32 engineTicks) {
     if (stage < names.size()) {  // next stage exists
         auto titleSprite = titleSprites[stage];
         auto controlSprite = controlSprites[stage];
-        Point<int> menuPoint{titleInterpolator.interpolate(), windowSize.y / 4};
+        Point<int> menuPoint{titleInterpolator.interpolate(), windowSize.y / 5};
         Point<int> controlPoint{controlInterpolator.interpolate(), windowSize.y - controlSprite->getSize().y - margin};
         sceneBuilder.dispatch([menuPoint, controlPoint, titleSprite, controlSprite]() {
             titleSprite->render(menuPoint, 0);
