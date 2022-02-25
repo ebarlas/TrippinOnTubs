@@ -1,6 +1,6 @@
 #include "TrainingProgram.h"
 
-std::array<const char *, 7> trippin::TrainingProgram::names{
+const std::array<const char *, 7> trippin::TrainingProgram::names{
         "jump",
         "duck",
         "stop",

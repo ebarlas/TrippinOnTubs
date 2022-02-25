@@ -12,7 +12,7 @@ namespace trippin {
     class TrainingProgram : public Listener {
     private:
         static constexpr int NUM_STAGES = 7;
-        static std::array<const char *, NUM_STAGES> names;
+        static const std::array<const char *, NUM_STAGES> names;
         const std::array<std::function<Uint32(const Goggin &g)>, NUM_STAGES> lastEventTimes{
                 [](const Goggin &g) { return g.getLastJumpTicks(); },
                 [](const Goggin &g) { return g.getLastDuckTicks(); },
