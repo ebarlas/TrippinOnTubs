@@ -11,8 +11,9 @@ TEST_CASE("Sprite manager load", "[sprite]")
     SDL_Renderer *ren = SDL_CreateRenderer(win, -1, 0);
     REQUIRE(ren != nullptr);
 
-    trippin::SpriteManager manager{ren, trippin::Scale{"medium", 1.0}, 5};
+    trippin::SpriteLoader spriteLoader{trippin::Scale{"hdplus", 1.0}};
+    trippin::SpriteManager manager{ren, spriteLoader, 5};
     auto &sprite = manager.get("goggin");
-    REQUIRE(sprite.getSize().x == 480);
-    REQUIRE(sprite.getSize().y == 480);
+    REQUIRE(sprite.getSize().x == 90);
+    REQUIRE(sprite.getSize().y == 90);
 }

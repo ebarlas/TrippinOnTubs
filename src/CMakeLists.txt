@@ -74,12 +74,6 @@ target_link_libraries(frogs GameLoop Sprite)
 add_executable(mice demo/mice.cpp)
 target_link_libraries(mice GameLoop Sprite)
 
-add_executable(goggin demo/goggin.cpp)
-target_link_libraries(goggin GameLoop Sprite)
-
-add_executable(tgoggin demo/tgoggin.cpp)
-target_link_libraries(tgoggin GameLoop Sprite)
-
 add_library(Game
         game/SdlSystem.cpp
         game/Game.cpp

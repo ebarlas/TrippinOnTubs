@@ -11,7 +11,7 @@ TEST_CASE("Sprite sheet load", "[sprite]")
     SDL_Renderer *ren = SDL_CreateRenderer(win, -1, 0);
     REQUIRE(ren != nullptr);
 
-    trippin::SpriteSheet sheet{ren, "goggin", trippin::Scale{"medium", 1.0}};
-    REQUIRE(sheet.getSize().x == 3840);
-    REQUIRE(sheet.getSize().y == 480);
+    trippin::SpriteSheet sheet{ren, "goggin", trippin::Scale{"hdplus", 1.0}};
+    REQUIRE(sheet.getSize().x == 1620);
+    REQUIRE(sheet.getSize().y == 90);
 }
