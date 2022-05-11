@@ -1,3 +1,4 @@
+#include <algorithm>
 #include "StagingArea.h"
 
 void trippin::StagingArea::addScore(const Score &score) {

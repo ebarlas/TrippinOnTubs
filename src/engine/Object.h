@@ -1,6 +1,7 @@
 #ifndef TRIPPIN_OBJECT_H
 #define TRIPPIN_OBJECT_H
 
+#include <functional>
 #include "engine/Listener.h"
 #include "engine/Rect.h"
 #include "engine/Point.h"

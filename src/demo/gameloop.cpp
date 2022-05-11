@@ -1,3 +1,4 @@
+#include <functional>
 #include "engine/Sides.h"
 #include "gameloop.h"
 

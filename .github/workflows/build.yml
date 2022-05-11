@@ -1,0 +1,21 @@
+on: push
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out repo
+        uses: actions/checkout@v2
+
+      - name: Update package manager
+        run: apt-get update
+
+      - name: Install dependencies
+        run: apt-get install clang cmake libsdl2-dev libsdl2-image-dev libsdl2-mixer-dev libsdl2-ttf-dev libsdl2-net-dev nlohmann-json3-dev catch2
+
+      - name: CMake
+        run: cmake -S. -B build
+
+      - name: CMake build
+        run: cmake --build build

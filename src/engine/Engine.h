@@ -5,6 +5,8 @@
 #include <functional>
 #include <thread>
 #include <atomic>
+#include <mutex>
+#include <condition_variable>
 #include "SDL.h"
 #include "engine/Object.h"
 #include "engine/Collisions.h"

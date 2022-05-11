@@ -3,10 +3,10 @@ find_package(nlohmann_json REQUIRED)
 
 find_package(PkgConfig REQUIRED)
 
-pkg_check_modules(SDL2_MIXER REQUIRED IMPORTED_TARGET sdl2_mixer)
-pkg_check_modules(SDL2_IMAGE REQUIRED IMPORTED_TARGET sdl2_image)
-pkg_check_modules(SDL2_TTF REQUIRED IMPORTED_TARGET sdl2_ttf)
-pkg_check_modules(SDL2_NET REQUIRED IMPORTED_TARGET sdl2_net)
+pkg_search_module(SDL2_MIXER REQUIRED IMPORTED_TARGET sdl2_mixer SDL2_mixer)
+pkg_search_module(SDL2_IMAGE REQUIRED IMPORTED_TARGET sdl2_image SDL2_image)
+pkg_search_module(SDL2_TTF REQUIRED IMPORTED_TARGET sdl2_ttf SDL2_ttf)
+pkg_search_module(SDL2_NET REQUIRED IMPORTED_TARGET sdl2_net SDL2_net)
 
 add_library(Engine
         engine/PlasmaPhysics.cpp
