@@ -1,7 +1,7 @@
+find_package(SDL2 REQUIRED)
 find_package(nlohmann_json REQUIRED)
 find_package(PkgConfig REQUIRED)
 
-pkg_search_module(SDL2 REQUIRED IMPORTED_TARGET sdl2 SDL2)
 pkg_search_module(SDL2_MIXER REQUIRED IMPORTED_TARGET sdl2_mixer SDL2_mixer)
 pkg_search_module(SDL2_IMAGE REQUIRED IMPORTED_TARGET sdl2_image SDL2_image)
 pkg_search_module(SDL2_TTF REQUIRED IMPORTED_TARGET sdl2_ttf SDL2_ttf)
@@ -15,7 +15,7 @@ add_library(Engine
         engine/Engine.cpp
         engine/Timer.cpp)
 target_include_directories(Engine PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
-target_link_libraries(Engine PkgConfig::SDL2)
+target_link_libraries(Engine SDL2::SDL2)
 
 add_library(Sprite
         sprite/Scale.cpp
