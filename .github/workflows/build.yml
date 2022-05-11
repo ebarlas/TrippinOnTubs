@@ -1,15 +1,12 @@
 on: push
 
 jobs:
-  build:
+  container:
     runs-on: ubuntu-latest
-
+    container: ubuntu:latest
     steps:
       - name: Check out repo
         uses: actions/checkout@v2
-
-      - name: Add Ubuntu backports
-        run: sudo sh -c 'echo "deb http://archive.ubuntu.com/ubuntu release-backports main restricted universe multiverse" >> /etc/apt/sources.list'
 
       - name: Update package manager
         run: sudo apt-get update
