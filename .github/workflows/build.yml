@@ -8,11 +8,8 @@ jobs:
       - name: Check out repo
         uses: actions/checkout@v2
 
-      - name: Update package manager
-        run: sudo apt-get update
-
       - name: Install dependencies
-        run: sudo apt-get install clang cmake libsdl2-dev libsdl2-image-dev libsdl2-mixer-dev libsdl2-ttf-dev libsdl2-net-dev nlohmann-json3-dev catch2
+        run: sudo apt-get update && sudo apt-get -y install clang cmake libsdl2-dev libsdl2-image-dev libsdl2-mixer-dev libsdl2-ttf-dev libsdl2-net-dev nlohmann-json3-dev catch2
 
       - name: CMake
         run: cmake -S. -B build
