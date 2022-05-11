@@ -8,8 +8,14 @@ jobs:
       - name: Check out repo
         uses: actions/checkout@v2
 
+      - name: Update package manager
+        run: sudo apt-get update
+
       - name: Install dependencies
-        run: sudo apt-get update && sudo apt-get -y install clang cmake libsdl2-dev libsdl2-image-dev libsdl2-mixer-dev libsdl2-ttf-dev libsdl2-net-dev nlohmann-json3-dev catch2
+        run: sudo apt-get -y install git clang cmake libsdl2-dev libsdl2-image-dev libsdl2-mixer-dev libsdl2-ttf-dev libsdl2-net-dev nlohmann-json3-dev
+
+      - name: Install catch2
+        run: git clone https://github.com/catchorg/Catch2.git && cd Catch2 && cmake -Bbuild -H. -DBUILD_TESTING=OFF && sudo cmake --build build/ --target install
 
       - name: CMake
         run: cmake -S. -B build
