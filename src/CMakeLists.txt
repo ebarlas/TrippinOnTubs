@@ -1,3 +1,4 @@
+find_package(nlohmann_json REQUIRED)
 find_package(PkgConfig REQUIRED)
 
 pkg_search_module(SDL2 REQUIRED IMPORTED_TARGET sdl2 SDL2)
@@ -5,7 +6,6 @@ pkg_search_module(SDL2_MIXER REQUIRED IMPORTED_TARGET sdl2_mixer SDL2_mixer)
 pkg_search_module(SDL2_IMAGE REQUIRED IMPORTED_TARGET sdl2_image SDL2_image)
 pkg_search_module(SDL2_TTF REQUIRED IMPORTED_TARGET sdl2_ttf SDL2_ttf)
 pkg_search_module(SDL2_NET REQUIRED IMPORTED_TARGET sdl2_net SDL2_net)
-pkg_search_module(nlohmann_json REQUIRED IMPORTED_TARGET nlohmann_json)
 
 add_library(Engine
         engine/PlasmaPhysics.cpp
@@ -29,7 +29,7 @@ add_library(Sprite
         sprite/Camera.cpp
         sprite/RenderClock.cpp)
 target_include_directories(Sprite PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
-target_link_libraries(Sprite Engine PkgConfig::nlohmann_json PkgConfig::SDL2_IMAGE)
+target_link_libraries(Sprite Engine nlohmann_json::nlohmann_json PkgConfig::SDL2_IMAGE)
 
 add_library(Graphics
         demo/FontRenderer.cpp
@@ -44,7 +44,7 @@ add_library(Net
         net/Logger.cpp
         net/StagingArea.cpp)
 target_include_directories(Net PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
-target_link_libraries(Net PkgConfig::SDL2_NET PkgConfig::nlohmann_json)
+target_link_libraries(Net PkgConfig::SDL2_NET nlohmann_json::nlohmann_json)
 
 add_library(Ui
         ui/ScoreBoard.cpp
