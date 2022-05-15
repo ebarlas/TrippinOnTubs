@@ -21,4 +21,4 @@ jobs:
         run: cmake --build build
 
       - name: Run tests
-        run: sh -c "$(find ./build/test -name *tests | awk '{cmd=cmd" && "$0} BEGIN {cmd="true"} END {print cmd}')"
+        run: ./build/test/engine_tests  && ./build/test/net_tests
