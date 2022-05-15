@@ -159,6 +159,7 @@ TEST_CASE("Engine object 1D collision", "[engine]")
     a.size = {10, 10};
     a.position = {0, 0};
     a.velocity = {1, 0};
+    a.terminalVelocity = {1, 1};
     a.mass = 1.0;
     a.syncPositions();
 
@@ -167,6 +168,7 @@ TEST_CASE("Engine object 1D collision", "[engine]")
     b.size = {10, 10};
     b.position = {12, 0};
     b.velocity = {-1, 0};
+    b.terminalVelocity = {1, 1};
     b.mass = 1.0;
     b.syncPositions();
 
@@ -198,6 +200,7 @@ TEST_CASE("Engine object 1D fractional collision no oscillation", "[engine]")
     a.size = {10, 10};
     a.position = {0, 0};
     a.velocity = {0.1, 0};
+    a.terminalVelocity = {1, 1};
     a.mass = 1.0;
     a.syncPositions();
 
@@ -206,6 +209,7 @@ TEST_CASE("Engine object 1D fractional collision no oscillation", "[engine]")
     b.size = {10, 10};
     b.position = {10.2, 0};
     b.velocity = {-0.1, 0};
+    b.terminalVelocity = {1, 1};
     b.mass = 1.0;
     b.syncPositions();
 
@@ -250,6 +254,7 @@ TEST_CASE("Engine object 1D fractional collision no irrational", "[engine]")
     b.size = {10, 10};
     b.position = {0, 91};
     b.velocity = {0, 1};
+    b.terminalVelocity = {1, 1};
     b.mass = 1.0;
     b.syncPositions();
 
@@ -258,6 +263,7 @@ TEST_CASE("Engine object 1D fractional collision no irrational", "[engine]")
     c.size = {10, 10};
     c.position = {0, 81};
     c.velocity = {0, -1};
+    c.terminalVelocity = {1, 1};
     c.mass = 1.0;
     c.syncPositions();
 

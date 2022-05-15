@@ -19,3 +19,6 @@ jobs:
 
       - name: CMake build
         run: cmake --build build
+
+      - name: Run tests
+        run: sh -c "$(find ./build/test -name *tests | awk '{cmd=cmd" && "$0} BEGIN {cmd="true"} END {print cmd}')"

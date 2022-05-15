@@ -1,5 +1,6 @@
 # automatically enable catch2 to generate ctest targets
 find_package(Catch2 REQUIRED)
+include(CTest)
 include(Catch)
 
 add_library(catch_main STATIC catch_main.cpp)
