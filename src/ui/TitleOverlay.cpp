@@ -64,7 +64,8 @@ void trippin::TitleOverlay::setScores(std::vector<Score> today, std::vector<Scor
 
 int trippin::TitleOverlay::getScrollTop() const {
     if (scoresSet) {
-        int delta = static_cast<int>(renderClock.getTicks() - scoresSetTicks) - options.titlePause;
+        auto duration = renderClock.getTicks() - scoresSetTicks;
+        auto delta = static_cast<int>(duration.count()) - options.titlePause;
         if (delta > 0) {
             return toInt(delta * options.scrollRate);
         }

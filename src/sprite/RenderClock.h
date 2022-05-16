@@ -10,11 +10,10 @@ namespace trippin {
         void update();
         void pause();
         void resume();
-        int getTicks() const;
+        std::chrono::milliseconds getTicks() const;
         bool isPaused() const;
     private:
         std::chrono::time_point<std::chrono::steady_clock, std::chrono::milliseconds> time;
-        std::chrono::milliseconds elapsed;
         std::chrono::milliseconds ticks;
         bool paused;
     };

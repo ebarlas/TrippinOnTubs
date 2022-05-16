@@ -16,7 +16,7 @@ namespace trippin {
         const int duration;
         int offset;
         int magnitude;
-        int firstTick;
+        std::chrono::milliseconds firstTick;
         static float interpolate(float input);
     };
 }

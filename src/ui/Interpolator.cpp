@@ -1,7 +1,11 @@
 #include "Interpolator.h"
 
-trippin::Interpolator::Interpolator(const RenderClock &renderClock, int duration, int magnitude, int offset)
-        : renderClock(renderClock), firstTick(-1), duration(duration), magnitude(magnitude), offset(offset) {
+trippin::Interpolator::Interpolator(const RenderClock &renderClock, int duration, int magnitude, int offset) :
+        renderClock(renderClock),
+        firstTick(renderClock.getTicks()),
+        duration(duration),
+        magnitude(magnitude),
+        offset(offset) {
 
 }
 
@@ -22,9 +26,9 @@ float trippin::Interpolator::interpolate(float input) {
 }
 
 int trippin::Interpolator::interpolate() const {
-    auto elapsed = renderClock.getTicks() - firstTick;
+    auto elapsed = (renderClock.getTicks() - firstTick).count();
     if (elapsed < duration) {
-        float progress = static_cast<float>(elapsed) / duration;
+        auto progress = static_cast<float>(elapsed) / static_cast<float>(duration);
         return offset + static_cast<int>(static_cast<float>(magnitude) * interpolate(progress));
     }
     return offset + magnitude;

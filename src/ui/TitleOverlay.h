@@ -33,7 +33,7 @@ namespace trippin {
         ScoreBoard allTimeScoreBoard;
 
         bool scoresSet;
-        Uint32 scoresSetTicks;
+        std::chrono::milliseconds scoresSetTicks;
 
         const Options options;
 

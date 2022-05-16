@@ -22,8 +22,8 @@ void trippin::ScrollingScoreBoard::reset() {
 }
 
 void trippin::ScrollingScoreBoard::render() {
-    int delta = static_cast<int>(renderClock.getTicks() - startTime);
-    scrollTop = toInt(delta * scrollRate);
+    auto delta = renderClock.getTicks() - startTime;
+    scrollTop = toInt(static_cast<double>(delta.count()) * scrollRate);
 
     int scrollWrap = scrollTop % (windowSize.y + scoreBoard.getHeight());
     Point<int> position;
