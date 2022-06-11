@@ -17,6 +17,8 @@ namespace trippin {
         SpriteSheet& operator=(SpriteSheet &&) = delete;
         ~SpriteSheet();
         void render(SDL_Rect *clip, SDL_Rect *target) const;
+        // Get the total size of the sprite sheet in pixels
+        // Pixels are the in target sprite scale (hdplus, fdh, etc)
         Point<int> getSize() const;
     private:
         Point<int> size{};

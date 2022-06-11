@@ -8,27 +8,41 @@ namespace trippin {
     public:
         inline static void renderDigits(
                 const Sprite &digits,
-                const Point<int> &right,
+                const Point<int_fast64_t> &right, // engine scale
                 int value,
-                const Camera *camera = nullptr) {
-            int x = right.x;
-            do {
+                const Camera *camera,
+                const Units *units) {
+            auto x = right.x;
+            auto y = right.y;
+            forEachDigit(value, [&x, &y, &digits, &units, camera](int digit) {
+                x -= units->spriteToEngine(digits.getSize().x);
+                digits.render({x, y}, digit, *camera);
+            });
+        }
+
+        inline static void renderDigits(
+                const Sprite &digits,
+                const Point<int> &right, // sprite scale
+                int value) {
+            auto x = right.x;
+            auto y = right.y;
+            forEachDigit(value, [&x, &y, &digits](int digit) {
                 x -= digits.getSize().x;
+                digits.render({x, y}, digit);
+            });
+        }
+
+        inline static void forEachDigit(int value, const std::function<void(int)> &fn) {
+            do {
                 auto digit = value % 10;
+                fn(digit);
                 value /= 10;
-                if (camera)
-                    digits.render({x, right.y}, digit, *camera);
-                else
-                    digits.render({x, right.y}, digit);
             } while (value > 0);
         }
 
         inline static int countDigits(int value) {
             int numDigits = 0;
-            do {
-                value /= 10;
-                numDigits++;
-            } while (value > 0);
+            forEachDigit(value, [&numDigits](int) { numDigits++; });
             return numDigits;
         }
 

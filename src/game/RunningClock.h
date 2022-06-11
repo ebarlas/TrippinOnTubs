@@ -10,7 +10,6 @@ namespace trippin {
     class RunningClock : public SpriteObject {
     public:
         RunningClock(
-                const Configuration &config,
                 const Map::Object &object,
                 const Sprite &sprite,
                 Goggin &goggin,
@@ -20,7 +19,8 @@ namespace trippin {
                 SoundManager &soundManager,
                 const Camera &camera,
                 SceneBuilder &sceneBuilder,
-                int zIndex);
+                int zIndex,
+                const Units &units);
         void beforeTick(Uint32 engineTicks) override;
         void afterTick(Uint32 engineTicks) override;
     private:
@@ -30,12 +30,12 @@ namespace trippin {
         Spirit &spirit;
         const Activation &activation;
         ScoreTicker &scoreTicker;
-        SceneBuilder &sceneBuilder;
         const Camera &camera;
+        SceneBuilder &sceneBuilder;
         const int zIndex;
 
+        const int_fast64_t runningAcceleration;
         const int points;
-        const double runningAcceleration;
         Mix_Chunk *const sound;
 
         int hitTicks;

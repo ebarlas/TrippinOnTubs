@@ -4,13 +4,14 @@
 #include <string>
 #include <sstream>
 #include "engine/Point.h"
+#include "engine/Fraction.h"
 #include "nlohmann/json.hpp"
 
 namespace trippin {
     struct Configuration {
         struct Scale {
             std::string name;
-            double multiplier;
+            int multiplier;
             int minWidth;
         };
 
@@ -39,9 +40,9 @@ namespace trippin {
         void load(const std::string &name);
         static std::string getConfigFile(const std::string &name);
 
-        double msPerTick() const;
-        double ticksPerSecond() const;
-        double engineTicksPerSpiritClockTick() const;
+        Fraction<int> msPerTick() const;
+        int ticksPerSecond() const;
+        Fraction<int> engineTicksPerSpiritClockTick() const;
     };
 
     void from_json(const nlohmann::json &j, Configuration &config);

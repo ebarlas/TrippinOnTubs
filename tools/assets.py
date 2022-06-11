@@ -3,8 +3,11 @@ import map
 import sys
 import concurrent.futures
 
+unit_scale = 0.046875
+
 scales = [
-    ('map', 0.25), ('svga', 0.09375), ('sxga', 0.15), ('hdplus', 0.1875), ('fhd', 0.225), ('qhd', 0.3), ('qhdplus', 0.346875), ('uhd', 0.45)
+    # ('map', 0.25), ('svga', 0.09375), ('sxga', 0.15), ('hdplus', 0.1875), ('fhd', 0.225), ('qhd', 0.3), ('qhdplus', 0.346875), ('uhd', 0.45)
+    ('unit', 1), ('hdplus', 4),
 ]
 
 sprites = [
@@ -88,8 +91,8 @@ def sprite_assets(proj_home):
         sprite.sanitize(raw_file, svg_file)
 
         num_frames = sprite.count_frames(svg_file)
-        sprite.make_metadata(svg_file, meta_file)
-        sprite.export_pngs(svg_file, build_dir, build_dir, scales, spr)
+        sprite.make_metadata(svg_file, meta_file, unit_scale)
+        sprite.export_pngs(svg_file, build_dir, build_dir, scales, spr, unit_scale)
         for scale in scales:
             src_files = [f'{build_dir}/{spr}_{n + 1}_{scale[0]}.png' for n in range(num_frames)]
             output_file = f'{sprites_dir}/{spr}/{spr}_{scale[0]}.png'
@@ -107,7 +110,7 @@ def level_assets(proj_home):
     for level in levels:
         svg_file = f'{src_dir}/{level}.svg'
         map_json = f'{map_dir}/{level}.json'
-        model = map.make_model(svg_file)
+        model = map.make_model(svg_file, unit_scale)
         map.serialize_model(model, map_json)
 
 

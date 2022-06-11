@@ -1,0 +1,65 @@
+{
+  "universe": {
+    "width": 4000,
+    "height": 1000
+  },
+  "meterMargin": 4,
+  "music": "track1",
+  "objects": [
+    {
+      "id": 1,
+      "type": "goggin",
+      "platform": false,
+      "position": {
+        "x": 0,
+        "y": 0
+      },
+      "terminalVelocity": {
+        "x": 80,
+        "y": 281
+      },
+      "massFactor": 2,
+      "gravity": 234,
+      "fallGravity": 354,
+      "minJumpVelocity": -70,
+      "maxJumpVelocity": -206,
+      "maxDuckJumpVelocity": -257,
+      "runningAcceleration": 188,
+      "risingAcceleration": 9,
+      "duckFriction": 38,
+      "minJumpChargeTime": 0,
+      "maxJumpChargeTime": 400,
+      "jumpGracePeriod": 125,
+      "jumpSoundTimeout": 250,
+      "dustPeriod": 140
+    },
+    {
+      "id": 2,
+      "type": "ground_melt_left",
+      "platform": true,
+      "position": {
+        "x": 0,
+        "y": 1000
+      }
+    },
+    {
+      "id": 3,
+      "type": "ground_melt_middle",
+      "platform": true,
+      "position": {
+        "x": 28,
+        "y": 1000
+      }
+    },
+    {
+      "id": 4,
+      "type": "ground_melt_right",
+      "platform": true,
+      "position": {
+        "x": 56,
+        "y": 1000
+      }
+    }
+  ],
+  "layers": []
+}

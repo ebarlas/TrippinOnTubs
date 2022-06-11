@@ -10,35 +10,37 @@ namespace trippin {
     class PointCloudManager : public Listener {
     public:
         PointCloudManager(
-                Point<int> pointCloudDistanceMin,
-                Point<int> pointCloudDistanceMax,
+                Point<int_fast64_t> pointCloudDistanceMin, // engine units
+                Point<int_fast64_t> pointCloudDistanceMax, // engine units
                 int pointCloudTicks,
                 const Sprite &digits,
                 SceneBuilder &sceneBuilder,
                 Camera &camera,
-                int zIndex);
+                int zIndex,
+                const Units &units);
 
-        void addPointCloud(Point<int> position, int points, Uint32 ticks);
+        void addPointCloud(Point<int_fast64_t> position, int points, Uint32 ticks);
         void afterTick(Uint32 engineTicks) override;
     private:
         struct PointCloud {
-            Point<int> posStart;
-            Point<int> posNow;
-            Point<int> distance;
+            Point<int_fast64_t> posStart;
+            Point<int_fast64_t> posNow;
+            Point<int_fast64_t> distance;
             int points{};
             Uint32 ticks;
         };
 
-        const Point<int> pointCloudDistanceMin;
-        const Point<int> pointCloudDistanceMax;
+        const Point<int_fast64_t> pointCloudDistanceMin;
+        const Point<int_fast64_t> pointCloudDistanceMax;
         const int pointCloudTicks;
         const Sprite &digits;
         SceneBuilder &sceneBuilder;
         Camera &camera;
         const int zIndex;
+        int_fast64_t nextPointCloudPos;
+        const Units &units;
 
         std::array<PointCloud, 12> pointClouds; // circular buffer
-        int nextPointCloudPos;
     };
 }
 

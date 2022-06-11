@@ -43,7 +43,7 @@ void trippin::Engine::removeExpired() {
 }
 
 void trippin::Engine::tick(Uint32 engineTicks) {
-    // SDL_Log("inactive=%d, platforms=%d, objects=%d", inactive.size(), platforms.size(), objects.size());
+    //SDL_Log("platforms=%lu, objects=%lu", platforms.size(), objects.size());
     beforeTick(engineTicks);
     promoteActive();
     removeExpired();
@@ -97,11 +97,11 @@ void trippin::Engine::snapToPlatform(Object *plat) {
     for (auto obj : objects) {
         if (!obj->snappedToMe) {
             if (sameLane(obj, plat)) {
-                auto overlap = obj->roundedBox.intersect(plat->roundedBox);
+                auto overlap = obj->box.intersect(plat->box);
                 if (overlap) {
                     snapTo(*obj, *plat, overlap);
                 }
-                auto collision = obj->roundedBox.collision(plat->roundedBox);
+                auto collision = obj->box.collision(plat->box);
                 if (collision) {
                     obj->snapCollisions |= collision;
                 }
@@ -110,25 +110,25 @@ void trippin::Engine::snapToPlatform(Object *plat) {
     }
 }
 
-void trippin::Engine::snapTo(Object &obj, const Object &p, const Rect<int> &overlap) {
-    auto x = 0.0;
-    auto y = 0.0;
+void trippin::Engine::snapTo(Object &obj, const Object &p, const Rect<int_fast64_t> &overlap) {
+    int_fast64_t x = 0;
+    int_fast64_t y = 0;
 
     // examine horizontal overlap - the overlap rect must align with left-right sides of the two objects
     // this check excludes interior collisions, for example a tall, skinny object that drops vertically in the
     // middle of a wide platform
-    if (obj.roundedBox.leftAlignedWith(overlap) && p.roundedBox.rightAlignedWith(overlap)) {
+    if (obj.box.leftAlignedWith(overlap) && p.box.rightAlignedWith(overlap)) {
         x = overlap.w;
-    } else if (obj.roundedBox.rightAlignedWith(overlap) && p.roundedBox.leftAlignedWith(overlap)) {
+    } else if (obj.box.rightAlignedWith(overlap) && p.box.leftAlignedWith(overlap)) {
         x = -overlap.w;
     }
 
     // examine vertical overlap - the overlap rect must align with top-bottom sides of the two objects
     // this check excludes interior collisions, for example a short, wide object that moves laterally in the
     // middle of a tall platform
-    if (obj.roundedBox.topAlignedWith(overlap) && p.roundedBox.bottomAlignedWith(overlap)) {
+    if (obj.box.topAlignedWith(overlap) && p.box.bottomAlignedWith(overlap)) {
         y = overlap.h;
-    } else if (obj.roundedBox.bottomAlignedWith(overlap) && p.roundedBox.topAlignedWith(overlap)) {
+    } else if (obj.box.bottomAlignedWith(overlap) && p.box.topAlignedWith(overlap)) {
         y = -overlap.h;
     }
 
@@ -152,8 +152,8 @@ void trippin::Engine::applyPhysics() {
     for (auto platform : platforms) {
         for (auto object : objects) {
             if (sameLane(object, platform)) {
-                if (object->roundedBox.hasCollision(platform->roundedBox)) {
-                    auto collision = object->roundedBox.collision(platform->roundedBox);
+                if (object->box.hasCollision(platform->box)) {
+                    auto collision = object->box.collision(platform->box);
                     applyPlatformCollision(*object, *platform, collision);
                 }
             }
@@ -165,8 +165,8 @@ void trippin::Engine::applyPhysics() {
         for (int j = i + 1; j < objects.size(); j++) {
             auto b = objects[j];
             if (sameLane(a, b)) {
-                if (a->roundedBox.hasCollision(b->roundedBox)) {
-                    auto collision = a->roundedBox.collision(b->roundedBox);
+                if (a->box.hasCollision(b->box)) {
+                    auto collision = a->box.collision(b->box);
                     applyObjectCollision(*a, *b, collision);
                 }
             }
@@ -205,7 +205,7 @@ void trippin::Engine::runEngineLoop() {
     while (!stopped) {
         {
             std::unique_lock<std::mutex> lock(mutex);
-            cv.wait(lock, [this]() { return stopped || ticks.load() < renders * ticksPerFrame; });
+            cv.wait(lock, [this]() { return stopped || ticks.load() < static_cast<int>(ticksPerFrame * renders); });
         }
         auto t = timer.next(fn);
         tick(t);
@@ -250,7 +250,7 @@ void trippin::Engine::onRender() {
     cv.notify_one();
 }
 
-void trippin::Engine::setTicksPerFrame(double tpf) {
+void trippin::Engine::setTicksPerFrame(Fraction<int> tpf) {
     ticksPerFrame = tpf;
 }
 

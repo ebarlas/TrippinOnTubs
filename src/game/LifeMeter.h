@@ -12,15 +12,15 @@ namespace trippin {
                 int margin,
                 const Sprite &sprite,
                 int extraLives,
-                Rect<int> viewport,
+                Rect<int> windowSize,
                 SceneBuilder &sceneBuilder,
                 int zIndex);
         void afterTick(Uint32 engineTicks) override;
     private:
+        const int margin; // sprite scale
         const Sprite &sprite;
-        const int margin;
         const int extraLives;
-        const Rect<int> viewport;
+        const Rect<int> windowSize; // sprite scale
         SceneBuilder &sceneBuilder;
         const int zIndex;
     };

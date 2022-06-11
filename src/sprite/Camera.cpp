@@ -1,23 +1,23 @@
 #include "Camera.h"
 
-trippin::Camera::Camera(trippin::Rect<int> universe, Rect<int> viewport, int shakeMargin) :
+trippin::Camera::Camera(trippin::Rect<int_fast64_t> universe, Rect<int_fast64_t> viewport, int_fast64_t shakeMargin) :
         universe(universe),
         viewport(viewport),
         shakeMargin(shakeMargin) {
 
 }
 
-trippin::Rect<int> trippin::Camera::getViewport() const {
+trippin::Rect<int_fast64_t> trippin::Camera::getViewport() const {
     return viewport;
 }
 
-trippin::Rect<int> trippin::Camera::getUniverse() const {
+trippin::Rect<int_fast64_t> trippin::Camera::getUniverse() const {
     return universe;
 }
 
-void trippin::Camera::centerOn(Point<int> center, Point<int> shake) {
-    double x = center.x - viewport.w / 4.0;
-    double y = center.y - viewport.h / 2.0;
+void trippin::Camera::centerOn(Point<int_fast64_t> center, Point<int_fast64_t> shake) {
+    auto x = center.x - viewport.w / 4;
+    auto y = center.y - viewport.h / 2;
 
     if (x < universe.x + shakeMargin) {
         x = universe.x + shakeMargin;

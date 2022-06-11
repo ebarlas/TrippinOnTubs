@@ -11,7 +11,6 @@ namespace trippin {
     class WingedTub : public Listener {
     public:
         WingedTub(
-                const Configuration &config,
                 const Map::Object &object,
                 const Sprite &sprite,
                 const Activation &activation,
@@ -20,7 +19,8 @@ namespace trippin {
                 SoundManager &soundManager,
                 const Camera &camera,
                 SceneBuilder &sceneBuilder,
-                int zIndex);
+                int zIndex,
+                const Units &units);
         void beforeTick(Uint32 engineTicks) override;
         void afterTick(Uint32 engineTicks) override;
         bool isExpired() override;
@@ -36,12 +36,12 @@ namespace trippin {
         const Activation &activation;
         Goggin &goggin;
         ScoreTicker &scoreTicker;
-        SceneBuilder &sceneBuilder;
         const Camera &camera;
+        SceneBuilder &sceneBuilder;
         const int zIndex;
 
-        const Point<int> position;
-        const Rect<int> hitBox;
+        const Point<int_fast64_t> position;
+        const Rect<int_fast64_t> hitBox;
         const int tubFrameFirst;
         const int tubFrameLast;
         const int points;

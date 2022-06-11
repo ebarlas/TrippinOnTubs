@@ -3,6 +3,7 @@
 
 #include <SDL_mixer.h>
 #include "engine/Engine.h"
+#include "engine/Fraction.h"
 #include "sprite/SpriteManager.h"
 #include "Configuration.h"
 #include "Map.h"
@@ -47,8 +48,9 @@ namespace trippin {
         std::unique_ptr<TrainingProgram> trainingProgram;
         const RenderClock *renderClock;
         SceneBuilder sceneBuilder;
-        double ticksPerFrame;
+        Fraction<int> ticksPerFrame;
         std::unique_ptr<ComboManager> comboManager;
+        const Units *units;
         void initMap();
         void initCamera();
         void initEngine();
@@ -64,7 +66,8 @@ namespace trippin {
         void setScore(int score);
         void setExtraLives(int extraLives);
         void setTraining(bool training);
-        void setTicksPerFrame(double ticksPerFrame);
+        void setTicksPerFrame(Fraction<int> ticksPerFrame);
+        void setUnits(const Units *units);
         void init();
         bool ended();
         bool completed();

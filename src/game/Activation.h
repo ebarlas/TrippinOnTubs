@@ -6,17 +6,17 @@
 namespace trippin {
     class Activation {
     private:
-        int activationProximity;
-        int deactivationProximity;
+        int_fast64_t activationProximity;
+        int_fast64_t deactivationProximity;
         const Goggin *goggin;
-        Rect<int> universe;
+        Rect<int_fast64_t> universe;
     public:
-        void setActivationProximity(int proximity);
-        void setDeactivationProximity(int proximity);
+        void setActivationProximity(int_fast64_t proximity);  // engine scale
+        void setDeactivationProximity(int_fast64_t proximity);  // engine scale
         void setGoggin(const Goggin *goggin);
-        void setUniverse(const Point<int> &universe);
-        bool shouldActivate(const Rect<int> &rect) const;
-        bool shouldDeactivate(const Rect<int> &rect) const;
+        void setUniverse(const Point<int_fast64_t> &universe); // engine scale
+        bool shouldActivate(const Rect<int_fast64_t> &rect) const;
+        bool shouldDeactivate(const Rect<int_fast64_t> &rect) const;
     };
 }
 

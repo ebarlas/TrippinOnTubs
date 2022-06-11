@@ -7,18 +7,17 @@
 namespace trippin {
     class Spirit : public Listener {
     private:
-        double position;
-        double velocity;
-        double ticksPerSecond;
+        int_fast64_t position;
+        int_fast64_t velocity;
+        int ticksPerSecond;
     public:
-        double getPosition() const;
-        double getVelocity() const;
-        void setTicksPerSecond(double tps);
-        void setVelocity(double vel);
-        void delay(double seconds);
+        int_fast64_t getPosition() const;
+        int_fast64_t getVelocity() const;
+        void setTicksPerSecond(int tps);
+        void setVelocity(int_fast64_t vel);
+        void delay(int seconds);
         void beforeTick(Uint32 engineTicks) override;
         void afterTick(Uint32 engineTicks) override;
-        bool isExpired() override;
     };
 }
 

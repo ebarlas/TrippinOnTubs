@@ -14,57 +14,54 @@ namespace trippin {
             int lane{};
             std::string type;
             bool platform;
-            Point<double> position;
-            double runningAcceleration{};
-            double risingAcceleration{};
-            double gravity{};
-            double fallGravity{};
-            double mass{};
-            double massFactor{};
-            double minJumpVelocity;
-            double maxJumpVelocity;
-            double maxDuckJumpVelocity;
-            int minJumpChargeTime;
-            int maxJumpChargeTime;
-            int jumpGracePeriod;
-            int jumpSoundTimeout;
-            Point<double> velocity{};
-            Point<double> terminalVelocity{};
-            Point<double> friction{};
-            int dustPeriod{};
-            double duckFriction{};
-            double coefficient{};
+            Point<int_fast64_t> position{};
+            int_fast64_t runningAcceleration{};
+            int_fast64_t risingAcceleration{};
+            int_fast64_t gravity{};
+            int_fast64_t fallGravity{};
+            int_fast64_t mass{};
+            int massFactor{};
+            int_fast64_t minJumpVelocity{};
+            int_fast64_t maxJumpVelocity{};
+            int_fast64_t maxDuckJumpVelocity{};
+            int_fast64_t minJumpChargeTime{};
+            int_fast64_t maxJumpChargeTime{};
+            int_fast64_t jumpGracePeriod{};
+            int_fast64_t jumpSoundTimeout{};
+            Point<int_fast64_t> velocity{};
+            Point<int_fast64_t> terminalVelocity{};
+            Point<int_fast64_t> friction{};
+            int_fast64_t dustPeriod{};
+            int_fast64_t duckFriction{};
+            int_fast64_t coefficient{};
             bool sparkle{};
             int frame{};
             bool accelerateWhenGrounded{};
             bool stompable{};
             bool topStompable{};
             bool bottomStompable{};
-            double rightOf{};
-            double rightMultiple{};
             bool randFrame{};
-            double activation{};
+            int_fast64_t activation{};
             bool elasticObjectCollisions{};
             int hitPoints{};
         };
 
         struct Layer {
             struct Object {
-                Point<int> position;
+                Point<int_fast64_t> position{};
                 std::string type;
                 bool animated{};
                 bool randFrame{};
-                Point<double> velocity{};
+                Point<int_fast64_t> velocity{};
             };
 
             bool anchorTop{};
-            Point<int> size;
+            Point<int_fast64_t> size{};
             std::vector<Layer::Object> objects;
         };
 
-        Point<int> universe;
-        double scale;
-        int meterMargin;
+        Point<int_fast64_t> universe{};
+        int meterMargin{};
         std::string music;
         std::vector<Map::Object> objects;
         std::vector<Map::Layer> layers;
@@ -72,8 +69,8 @@ namespace trippin {
         void load(const std::string &name);
         static std::string getMapFile(const std::string& name);
 
-        void rescale(double scale);
-        void convert(double tickRate);
+        void rescale(int_fast64_t scale);
+        void convert(int tickRate);
     };
 
     template<class T>

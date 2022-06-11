@@ -27,9 +27,12 @@ namespace trippin {
         Sides collision(const trippin::Rect<T> &b) const;
         inline bool hasCollision(const trippin::Rect<T> &b) const;
         bool operator==(const Rect<T> &other) const;
-        Rect<T> operator+(const Point<T> &other);
-        Rect<T> operator-(const Point<T> &other);
-        Rect<T> operator*(const T &value);
+        Rect<T> operator+(const Point<T> &other) const;
+        Rect<T> operator-(const Point<T> &other) const;
+        Rect<T> operator*(const T &value) const;
+        Rect<T> operator/(const T &value) const;
+        Rect<T> &operator*=(const T &value);
+        Rect<T> &operator/=(const T &value);
     };
 }
 
@@ -134,18 +137,41 @@ T trippin::Rect<T>::area() const {
 }
 
 template<class T>
-trippin::Rect<T> trippin::Rect<T>::operator+(const trippin::Point<T> &other) {
+trippin::Rect<T> trippin::Rect<T>::operator+(const trippin::Point<T> &other) const {
     return {x + other.x, y + other.y, w, h};
 }
 
 template<class T>
-trippin::Rect<T> trippin::Rect<T>::operator-(const trippin::Point<T> &other) {
+trippin::Rect<T> trippin::Rect<T>::operator-(const trippin::Point<T> &other) const {
     return {x - other.x, y - other.y, w, h};
 }
 
 template<class T>
-trippin::Rect<T> trippin::Rect<T>::operator*(const T &val) {
+trippin::Rect<T> trippin::Rect<T>::operator*(const T &val) const {
     return {x * val, y * val, w * val, h * val};
+}
+
+template<class T>
+trippin::Rect<T> trippin::Rect<T>::operator/(const T &val) const {
+    return {x / val, y / val, w / val, h / val};
+}
+
+template<class T>
+trippin::Rect<T> &trippin::Rect<T>::operator*=(const T &val) {
+    x *= val;
+    y *= val;
+    w *= val;
+    h *= val;
+    return *this;
+}
+
+template<class T>
+trippin::Rect<T> &trippin::Rect<T>::operator/=(const T &val) {
+    x /= val;
+    y /= val;
+    w /= val;
+    h /= val;
+    return *this;
 }
 
 #endif

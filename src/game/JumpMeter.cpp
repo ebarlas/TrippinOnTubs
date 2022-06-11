@@ -14,10 +14,10 @@ trippin::JumpMeter::JumpMeter(
         zIndex(zIndex) {
 }
 
-void trippin::JumpMeter::afterTick(Uint32 engineTicks) {
+void trippin::JumpMeter::afterTick(Uint32) {
     auto jumpCharge = goggin.getJumpCharge();
     auto numJumpBars = sprite.getFrames() - 1;
-    auto frameNow = toInt(jumpCharge * numJumpBars);
+    auto frameNow = static_cast<int>(jumpCharge * numJumpBars);
     sceneBuilder.dispatch([this, frameNow]() {
         sprite.render(position, frameNow);
     }, zIndex);

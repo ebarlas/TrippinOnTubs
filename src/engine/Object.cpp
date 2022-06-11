@@ -1,11 +1,9 @@
 #include "engine/Sides.h"
 #include "engine/Object.h"
-#include "engine/Convert.h"
 
 void trippin::Object::syncPositions() {
-    center = {position.x + size.x / 2.0, position.y + size.y / 2.0};
-    roundedPosition = toInt(position);
-    roundedBox = {roundedPosition.x, roundedPosition.y, size.x, size.y};
+    center = {position.x + size.x / 2, position.y + size.y / 2};
+    box = {position.x, position.y, size.x, size.y};
 }
 
 void trippin::Object::applyMotion() {
@@ -13,13 +11,13 @@ void trippin::Object::applyMotion() {
     auto &oc = objectCollisions;
     if (pc.testBottom() || pc.testTop() || oc.testBottom() || oc.testTop()) {
         velocity.x = velocity.x > 0
-                     ? std::max(velocity.x - friction.x, 0.0)
-                     : std::min(velocity.x + friction.x, 0.0);
+                     ? std::max(velocity.x - friction.x, int_fast64_t{0})
+                     : std::min(velocity.x + friction.x, int_fast64_t{0});
     }
     if (pc.testLeft() || pc.testRight() || oc.testLeft() || oc.testRight()) {
         velocity.y = velocity.y > 0
-                     ? std::max(velocity.y - friction.y, 0.0)
-                     : std::min(velocity.y + friction.y, 0.0);
+                     ? std::max(velocity.y - friction.y, int_fast64_t{0})
+                     : std::min(velocity.y + friction.y, int_fast64_t{0});
     }
 
     if (fallGravity > 0 && velocity.y > 0) {

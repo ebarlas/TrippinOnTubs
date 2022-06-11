@@ -3,6 +3,7 @@
 
 #include <array>
 #include "engine/Point.h"
+#include "engine/Fraction.h"
 #include "engine/Listener.h"
 #include "sprite/SpriteManager.h"
 #include "SceneBuilder.h"
@@ -14,9 +15,9 @@ namespace trippin {
         ComboManager(
                 SpriteManager &spriteManager,
                 ScoreTicker &scoreTicker,
-                double msPerTick,
-                Point<int> windowSize,
-                int margin,
+                Fraction<int> msPerTick,
+                Point<int> windowSize, // sprite scale
+                int margin, // sprite scale
                 SceneBuilder &sceneBuilder,
                 int zIndex);
         void reset();

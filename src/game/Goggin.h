@@ -7,6 +7,7 @@
 #include <atomic>
 #include "SDL_mixer.h"
 #include "engine/Object.h"
+#include "engine/Fraction.h"
 #include "sprite/Sprite.h"
 #include "SpriteObject.h"
 #include "SoundManager.h"
@@ -22,22 +23,23 @@ namespace trippin {
     public:
         Goggin(
                 const Configuration &config,
-                const Map::Object &object,
+                const Map::Object &object, // engine scale
                 SpriteManager &spriteManager,
                 ComboManager &comboManager,
                 PointCloudManager &pointCloudManager,
                 const std::vector<GogginInputTick> *autoPlay,
-                const trippin::Point<int> &universe,
+                const Point<int_fast64_t> &universe, // engine scale
                 SoundManager &soundManager,
                 Camera &camera,
                 SceneBuilder &sceneBuilder,
-                int zIndex);
+                int zIndex,
+                const Units &units);
         void beforeTick(Uint32 engineTicks) override;
         void afterTick(Uint32 engineTicks) override;
         bool rightOfUniverse() const;
         bool belowUniverse() const;
         void onUserInput(const GogginInput &input);
-        double getJumpCharge() const;
+        Fraction<int> getJumpCharge() const;
         void addPointCloud(int points, Uint32 ticks, bool hit = false);
         Uint32 getLastJumpTicks() const;
         Uint32 getLastDuckTicks() const;
@@ -48,7 +50,7 @@ namespace trippin {
         Uint32 getLastJumpSlamDownTicks() const;
     private:
         struct Dust {
-            Point<int> position;
+            Point<int_fast64_t> position;
             int frame;
             char ticks;
             bool white;
@@ -70,8 +72,8 @@ namespace trippin {
         const Sprite &dustBlast;
         const Sprite &whiteDustBlast;
 
-        double maxFallingVelocity;
-        const Point<int> universe;
+        int_fast64_t maxFallingVelocity;
+        const Point<int_fast64_t> universe;
 
         constexpr static const int FRAME_FALLING_FIRST = 12;
         constexpr static const int FRAME_FALLING_LAST = 14;
@@ -94,22 +96,22 @@ namespace trippin {
         std::unordered_map<Uint32, GogginInput> autoPlay;
         bool autoPlayEnabled;
 
-        const double risingAcceleration;
-        const double runningAcceleration;
-        const double duckFriction;
+        const int_fast64_t risingAcceleration;
+        const int_fast64_t runningAcceleration;
+        const int_fast64_t duckFriction;
 
-        const double minJumpVelocity;
-        const double maxJumpVelocity;
-        const double maxDuckJumpVelocity;
+        const int_fast64_t minJumpVelocity;
+        const int_fast64_t maxJumpVelocity;
+        const int_fast64_t maxDuckJumpVelocity;
         const int minJumpChargeTicks;
         const int maxJumpChargeTicks;
 
-        const double shakeAmplitude;
+        const int_fast64_t shakeAmplitude;
         Shake xShake;
         Shake yShake;
 
         Uint32 jumpTicks{};
-        double jumpPercent{};
+        Fraction<int> jumpPercent;
 
         std::atomic_bool rightOfUni;
         std::atomic_bool belowUni;
@@ -135,6 +137,7 @@ namespace trippin {
         SceneBuilder &sceneBuilder;
         Camera &camera;
         int zIndex;
+        const Units &units;
 
         Uint32 lastJumpTicks;
         Uint32 lastChargedJumpTicks;
@@ -162,7 +165,7 @@ namespace trippin {
         void handleJumpCharge(Uint32 engineTicks);
         void handleJumpRelease(Uint32 engineTicks);
 
-        Point<int> centerCamera();
+        Point<int_fast64_t> centerCamera();
         void drawDust();
         void drawDustBlast();
     };

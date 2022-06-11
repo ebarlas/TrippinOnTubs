@@ -7,6 +7,7 @@
 #include "Game.h"
 #include "net/DbSynchronizer.h"
 #include "UserInput.h"
+#include "sprite/Units.h"
 
 void trippin::Game::init() {
     initConfiguration();
@@ -70,13 +71,14 @@ void trippin::Game::initScale() {
             break;
         }
     }
+    units = std::make_unique<Units>(1'000, scale->multiplier);
     SDL_Log("width=%d, height=%d, scale=%s", windowSize.x, windowSize.y, scale->name.c_str());
 }
 
 void trippin::Game::initSpriteManager() {
     spriteLoader = std::make_unique<SpriteLoader>(Scale{scale->name, scale->multiplier});
     spriteLoadTask = std::make_unique<SpriteLoadTask>(*spriteLoader, configuration.prefetchSprites);
-    spriteManager = std::make_unique<SpriteManager>(sdlSystem->getRenderer(), *spriteLoader, configuration.msPerTick());
+    spriteManager = std::make_unique<SpriteManager>(sdlSystem->getRenderer(), *spriteLoader, *units, configuration.msPerTick());
 }
 
 void trippin::Game::initAutoPlay() {
@@ -110,9 +112,10 @@ void trippin::Game::initClock() {
 std::unique_ptr<trippin::Level> trippin::Game::nextLevel() {
     auto lvl = std::make_unique<Level>();
     lvl->setWindowSize(rendererSize);
-    lvl->setTicksPerFrame(configuration.ticksPerSecond() / static_cast<double>(sdlSystem->getRefreshRate()));
+    lvl->setTicksPerFrame({configuration.ticksPerSecond(), sdlSystem->getRefreshRate()});
     lvl->setConfiguration(&configuration);
     lvl->setScale(scale);
+    lvl->setUnits(units.get());
     lvl->setSpriteManager(spriteManager.get());
     lvl->setSoundManager(&soundManager);
     lvl->setRenderClock(renderClock);

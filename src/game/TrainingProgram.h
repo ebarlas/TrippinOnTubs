@@ -46,8 +46,8 @@ namespace trippin {
         makeSprites(SpriteManager &spriteManager, const std::string &suffix = "");
     public:
         TrainingProgram(
-                Point<int> windowSize,
-                int margin,
+                Point<int> windowSize, // sprite scale
+                int margin, // sprite scale
                 const Configuration &configuration,
                 SpriteManager &spriteManager,
                 SoundManager &soundManager,

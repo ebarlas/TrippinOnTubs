@@ -19,49 +19,45 @@ namespace trippin {
         bool platform{};
 
         // The mass of this objects. This is important for calculating collision reactions.
-        double mass{};
+        int_fast64_t mass{};
 
         // The top left corner position of the object in abstract units.
-        Point<double> position{};
+        Point<int_fast64_t> position{};
 
         // The size of the object in abstract units.
-        Point<int> size{};
+        Point<int_fast64_t> size{};
 
         // The velocity of the object in units per engine tick.
-        Point<double> velocity{};
+        Point<int_fast64_t> velocity{};
 
         // The acceleration of the object in units per engine tick per engine tick.
-        Point<double> acceleration{};
+        Point<int_fast64_t> acceleration{};
 
         // The terminal velocity of the object in units per engine tick.
         // The object cannot exceed the maximum in either dimension.
-        Point<double> terminalVelocity{};
+        Point<int_fast64_t> terminalVelocity{};
 
         // The deceleration due to friction in units per engine tick per engine tick.
         // This quantity is applied when an object is in contact with an absorbent platform.
-        Point<double> friction{};
+        Point<int_fast64_t> friction{};
 
         // The acceleration due to gravity in units per engine tick per engine tick.
         // This quantity is applied continuously, except when an object is in contact with a platform.
-        double gravity{};
+        int_fast64_t gravity{};
 
         // The acceleration due to gravity applied to falling objects in units per engine tick per engine tick.
         // This quantity is applied continuously, except when an object is in contact with a platform.
         // This is used instead of (not in addition to) the normal gravity.
         // A value of 0 indicated that it is unset.
-        double fallGravity{};
-
-        // The rounded top left corner position of the object.
-        // This is a meta property based on position.
-        Point<int> roundedPosition{};
+        int_fast64_t fallGravity{};
 
         // The center position of the object.
         // This is a meta property based on position and size.
-        Point<double> center{};
+        Point<int_fast64_t> center{};
 
-        // The rounded bounding box of the object.
+        // The bounding box of the object.
         // This is a meta property based on position and size.
-        Rect<int> roundedBox{};
+        Rect<int_fast64_t> box{};
 
         // Optional platform collision, which overrides engine default.
         // Optional platform collision, which overrides engine default.

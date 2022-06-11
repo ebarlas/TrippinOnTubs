@@ -32,7 +32,7 @@ namespace trippin {
 
         // Set the engine ticks per rendered frame
         // The engine will synchronize its update thread with the render thread
-        void setTicksPerFrame(double ticksPerFrame);
+        void setTicksPerFrame(Fraction<int> ticksPerFrame);
 
         // Advance the engine simulation by one tick. In each tick:
         // (1) apply motion to objects and snap to grid
@@ -64,7 +64,7 @@ namespace trippin {
         int renders{};
         std::mutex mutex{};
         std::condition_variable cv{};
-        double ticksPerFrame{};
+        Fraction<int> ticksPerFrame{};
 
         void beforeTick(Uint32 engineTicks);
         void afterTick(Uint32 engineTicks);
@@ -76,7 +76,7 @@ namespace trippin {
         static bool hasHigherSnapPriorityThan(Object *left, Object *right);
         void snapToPlatform(Object *obj);
         void applyPhysics();
-        static void snapTo(Object &obj, const Object &p, const trippin::Rect<int> &overlap);
+        static void snapTo(Object &obj, const Object &p, const Rect<int_fast64_t> &overlap);
         void applyPlatformCollision(Object &object, Object &platform, const Sides &sides);
         void applyObjectCollision(Object &left, Object &right, const Sides &sides);
 

@@ -6,14 +6,17 @@
 namespace trippin {
     class Camera {
     public:
-        Camera(Rect<int> universe, Rect<int> viewport, int shakeMargin);
-        void centerOn(Point<int> point, Point<int> shake);
-        Rect<int> getUniverse() const;
-        Rect<int> getViewport() const;
+        // Universe, viewport, and shake margin are all in engine unit scale
+        Camera(Rect<int_fast64_t> universe, Rect<int_fast64_t> viewport, int_fast64_t shakeMargin);
+        void centerOn(Point<int_fast64_t> point, Point<int_fast64_t> shake);
+        // Get universe rectangle in engine scale
+        Rect<int_fast64_t> getUniverse() const;
+        // Get viewport rectangle in engine scale
+        Rect<int_fast64_t> getViewport() const;
     private:
-        const Rect<int> universe;
-        Rect<int> viewport;
-        const int shakeMargin;
+        const Rect<int_fast64_t> universe;
+        Rect<int_fast64_t> viewport;
+        const int_fast64_t shakeMargin;
     };
 }
 

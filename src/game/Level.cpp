@@ -49,15 +49,15 @@ void trippin::Level::setTraining(bool b) {
 
 void trippin::Level::initMap() {
     map.load(*mapName);
-    map.rescale(scale->multiplier);
+    map.rescale(units->getEngineFactor());
     map.convert(configuration->tickRate);
 }
 
 void trippin::Level::initCamera() {
     camera = std::make_unique<Camera>(
-            Rect<int>{0, 0, map.universe.x, map.universe.y},
-            Rect<int>{0, 0, windowSize.x, windowSize.y},
-            configuration->shakeAmplitude * scale->multiplier);
+            Rect<int_fast64_t>{0, 0, map.universe.x, map.universe.y},
+            units->spriteToEngine(Rect<int>{0, 0, windowSize.x, windowSize.y}),
+            units->baseToEngine(configuration->shakeAmplitude));
 }
 
 void trippin::Level::initEngine() {
@@ -72,10 +72,10 @@ void trippin::Level::initEngine() {
     int zIndexTop = 100'000;
 
     scoreTicker = std::make_unique<ScoreTicker>(
-            map.meterMargin,
+            units->baseToSprite(map.meterMargin),
             spriteManager->get("digits"),
             initialScore,
-            camera->getViewport(),
+            Rect<int>{0, 0, windowSize.x, windowSize.y},
             sceneBuilder,
             zIndexTop);
     if (!training) {
@@ -87,7 +87,7 @@ void trippin::Level::initEngine() {
             *scoreTicker,
             configuration->msPerTick(),
             windowSize,
-            map.meterMargin,
+            units->baseToSprite(map.meterMargin),
             sceneBuilder,
             zIndexTop);
     engine.addListener(comboManager.get());
@@ -99,7 +99,8 @@ void trippin::Level::initEngine() {
                 layer,
                 *camera,
                 sceneBuilder,
-                zIndex++);
+                zIndex++,
+                *units);
         engine.addListener(uptr.get());
         objects.push_back(std::move(uptr));
     }
@@ -109,15 +110,16 @@ void trippin::Level::initEngine() {
         if (obj.type == "goggin") {
             auto &gogginSprite = spriteManager->get(obj.type);
             auto gogginHb = gogginSprite.getHitBox();
-            auto gogginSize = Point<int>{gogginHb.w, gogginHb.h};
+            auto gogginSize = units->spriteToEngine(Point<int>{gogginHb.w, gogginHb.h});
             pointCloudManager = std::make_unique<PointCloudManager>(
-                    gogginSize * 2,
-                    gogginSize * 6,
+                    gogginSize * int_fast64_t{2},
+                    gogginSize * int_fast64_t{6},
                     configuration->ticksPerSecond() * 2,
                     spriteManager->get("digits"),
                     sceneBuilder,
                     *camera,
-                    zIndexTop);
+                    zIndexTop,
+                    *units);
             engine.addListener(pointCloudManager.get());
 
             goggin = std::make_unique<Goggin>(
@@ -131,7 +133,8 @@ void trippin::Level::initEngine() {
                     *soundManager,
                     *camera,
                     sceneBuilder,
-                    zIndexTop);
+                    zIndexTop,
+                    *units);
             engine.add(goggin.get());
             break;
         }
@@ -140,19 +143,18 @@ void trippin::Level::initEngine() {
     for (auto &obj: map.objects) {
         if (obj.type.rfind("ground_melt_", 0) == 0 || obj.type.rfind("platform", 0) == 0) {
             auto ground = std::make_unique<Ground>(
-                    *configuration,
                     obj,
                     spriteManager->get(obj.type),
                     activation,
                     spirit,
                     *camera,
                     sceneBuilder,
-                    zIndex);
+                    zIndex,
+                    *units);
             engine.add(ground.get());
             objects.push_back(std::move(ground));
         } else if (obj.type == "winged_tub") {
             auto wingedTub = std::make_unique<WingedTub>(
-                    *configuration,
                     obj,
                     spriteManager->get(obj.type),
                     activation,
@@ -161,12 +163,12 @@ void trippin::Level::initEngine() {
                     *soundManager,
                     *camera,
                     sceneBuilder,
-                    zIndex);
+                    zIndex,
+                    *units);
             engine.addListener(wingedTub.get());
             objects.push_back(std::move(wingedTub));
         } else if (obj.type == "running_clock") {
             auto runningClock = std::make_unique<RunningClock>(
-                    *configuration,
                     obj,
                     spriteManager->get(obj.type),
                     *goggin,
@@ -176,7 +178,8 @@ void trippin::Level::initEngine() {
                     *soundManager,
                     *camera,
                     sceneBuilder,
-                    zIndex);
+                    zIndex,
+                    *units);
             engine.add(runningClock.get());
             objects.push_back(std::move(runningClock));
         } else if (obj.type == "zombie" || obj.type == "rat" || obj.type == "bird" || obj.type == "ball" ||
@@ -191,17 +194,18 @@ void trippin::Level::initEngine() {
                     *soundManager,
                     *camera,
                     sceneBuilder,
-                    zIndex);
+                    zIndex,
+                    *units);
             engine.add(gameObject.get());
             objects.push_back(std::move(gameObject));
         }
     }
 
     lifeMeter = std::make_unique<LifeMeter>(
-            map.meterMargin,
+            units->baseToSprite(map.meterMargin),
             spriteManager->get("goggin_head"),
             initialExtraLives,
-            camera->getViewport(),
+            Rect<int>{0, 0, windowSize.x, windowSize.y},
             sceneBuilder,
             zIndexTop);
     if (!training) {
@@ -212,21 +216,24 @@ void trippin::Level::initEngine() {
     spirit.setVelocity(goggin->terminalVelocity.x);
     spirit.delay(configuration->spiritSecondsBehind);
 
+    auto meterMarginSpriteUnits = units->baseToSprite(map.meterMargin);
     jumpMeter = std::make_unique<JumpMeter>(
             spriteManager->get("winged_foot"),
             *goggin,
-            Point<int>{map.meterMargin, map.meterMargin},
+            Point<int>{meterMarginSpriteUnits, meterMarginSpriteUnits},
             sceneBuilder,
             zIndexTop);
     engine.addListener(jumpMeter.get());
 
+    auto wingedFootHeight = spriteManager->get("winged_foot").getSize().y;
+    auto groundMeltWidth = units->spriteToEngine(spriteManager->get("ground_melt_left").getSize().x);
     spiritClock = std::make_unique<SpiritClock>(
             *configuration,
             spriteManager->get("clock_timer"),
             spirit,
             *goggin,
-            Point<int>{map.meterMargin, map.meterMargin + spriteManager->get("winged_foot").getSize().y},
-            spriteManager->get("ground_melt_left").getSize().x,
+            Point<int>{meterMarginSpriteUnits, meterMarginSpriteUnits + wingedFootHeight},
+            groundMeltWidth,
             sceneBuilder,
             zIndexTop);
     if (!training) {
@@ -234,14 +241,21 @@ void trippin::Level::initEngine() {
     }
 
     activation.setUniverse(map.universe);
-    activation.setActivationProximity(toInt(configuration->activationProximity * scale->multiplier));
-    activation.setDeactivationProximity(toInt(configuration->deactivationProximity * scale->multiplier));
+    activation.setActivationProximity(units->baseToEngine(configuration->activationProximity));
+    activation.setDeactivationProximity(units->baseToEngine(configuration->deactivationProximity));
     activation.setGoggin(goggin.get());
 
     if (training) {
         trainingProgram = std::make_unique<TrainingProgram>(
-                windowSize, map.meterMargin, *configuration, *spriteManager, *soundManager, *goggin, *renderClock,
-                sceneBuilder, zIndexTop);
+                windowSize,
+                units->engineToSprite(map.meterMargin),
+                *configuration,
+                *spriteManager,
+                *soundManager,
+                *goggin,
+                *renderClock,
+                sceneBuilder,
+                zIndexTop);
         engine.addListener(trainingProgram.get());
     }
 
@@ -327,6 +341,10 @@ int trippin::Level::getTicks() const {
     return engine.getTicks();
 }
 
-void trippin::Level::setTicksPerFrame(double tpf) {
+void trippin::Level::setTicksPerFrame(Fraction<int> tpf) {
     ticksPerFrame = tpf;
+}
+
+void trippin::Level::setUnits(const Units *unts) {
+    units = unts;
 }

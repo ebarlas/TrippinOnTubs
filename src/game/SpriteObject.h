@@ -9,7 +9,7 @@
 namespace trippin {
     class SpriteObject : public Object {
     public:
-        SpriteObject(const Configuration &config, const Map::Object &object, const Sprite &sprite);
+        SpriteObject(const Map::Object &object, const Sprite &sprite, const Units &units);
         virtual ~SpriteObject() = default;
     protected:
         const Sprite &sprite;

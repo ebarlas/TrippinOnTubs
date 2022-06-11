@@ -16,7 +16,7 @@ namespace trippin {
         JumpMeter(
                 const Sprite &sprite,
                 const Goggin &goggin,
-                Point<int> position,
+                Point<int> position, // sprite scale
                 SceneBuilder &sceneBuilder,
                 int zIndex);
         void afterTick(Uint32 engineTicks) override;

@@ -1,7 +1,14 @@
 #include "SpriteManager.h"
 
-trippin::SpriteManager::SpriteManager(SDL_Renderer *renderer, SpriteLoader &spriteLoader, double tickPeriod)
-        : renderer(renderer), spriteLoader(spriteLoader), tickPeriod(tickPeriod) {
+trippin::SpriteManager::SpriteManager(
+        SDL_Renderer *renderer,
+        SpriteLoader &spriteLoader,
+        const Units &units,
+        Fraction<int> tickPeriod) :
+        renderer(renderer),
+        spriteLoader(spriteLoader),
+        units(units),
+        tickPeriod(tickPeriod) {
 }
 
 const trippin::Sprite &trippin::SpriteManager::get(const std::string &type) {
@@ -19,15 +26,15 @@ void trippin::SpriteManager::setSurfaces(std::unique_ptr<std::unordered_map<std:
 
 trippin::SpriteManager::SpritePtr trippin::SpriteManager::newSprite(const std::string &type) {
     if (!surfaces) {
-        return std::make_unique<Sprite>(renderer, type, spriteLoader, tickPeriod);
+        return std::make_unique<Sprite>(renderer, type, units, tickPeriod, spriteLoader);
     }
 
     auto it = surfaces->find(type);
     if (it == surfaces->end()) {
-        return std::make_unique<Sprite>(renderer, type, spriteLoader, tickPeriod);
+        return std::make_unique<Sprite>(renderer, type, units, tickPeriod, spriteLoader);
     }
 
     auto surface = it->second;
     surfaces->erase(it);
-    return std::make_unique<Sprite>(renderer, type, spriteLoader.getScale(), tickPeriod, surface);
+    return std::make_unique<Sprite>(renderer, type, units, tickPeriod, surface);
 }

@@ -1,10 +1,9 @@
 {
   "universe": {
-    "width": 80000,
-    "height": 20000
+    "width": 3750,
+    "height": 937
   },
-  "scale": 1.0,
-  "meterMargin": 80.0,
+  "meterMargin": 3,
   "music": "streetsound",
   "objects": [
     {
@@ -13,21 +12,21 @@
       "platform": false,
       "position": {
         "x": 0,
-        "y": 16200
+        "y": 759
       },
       "terminalVelocity": {
-        "x": 1700.0,
-        "y": 4500.0
+        "x": 79,
+        "y": 210
       },
-      "gravity": 4000.0,
-      "fallGravity": 6000.0,
-      "minJumpVelocity": -1500.0,
-      "maxJumpVelocity": -3500.0,
-      "runningAcceleration": 2000.0,
-      "risingAcceleration": 200.0,
       "minJumpChargeTime": 0,
       "maxJumpChargeTime": 400,
-      "jumpGracePeriod": 125
+      "jumpGracePeriod": 125,
+      "gravity": 187,
+      "fallGravity": 281,
+      "minJumpVelocity": -70,
+      "maxJumpVelocity": -164,
+      "runningAcceleration": 93,
+      "risingAcceleration": 9
     },
     {
       "id": 2,
@@ -35,7 +34,7 @@
       "platform": true,
       "position": {
         "x": 0,
-        "y": 18840
+        "y": 883
       }
     },
     {
@@ -43,8 +42,8 @@
       "type": "ground_melt_middle",
       "platform": true,
       "position": {
-        "x": 600,
-        "y": 18840
+        "x": 28,
+        "y": 883
       }
     },
     {
@@ -52,8 +51,8 @@
       "type": "ground_melt_middle",
       "platform": true,
       "position": {
-        "x": 1800,
-        "y": 18840
+        "x": 84,
+        "y": 883
       }
     },
     {
@@ -61,8 +60,8 @@
       "type": "ground_melt_middle",
       "platform": true,
       "position": {
-        "x": 3000,
-        "y": 18840
+        "x": 140,
+        "y": 883
       }
     },
     {
@@ -70,8 +69,8 @@
       "type": "ground_melt_middle",
       "platform": true,
       "position": {
-        "x": 3600,
-        "y": 18840
+        "x": 168,
+        "y": 883
       }
     },
     {
@@ -79,8 +78,8 @@
       "type": "ground_melt_right",
       "platform": true,
       "position": {
-        "x": 4800,
-        "y": 18840
+        "x": 225,
+        "y": 883
       }
     },
     {
@@ -88,8 +87,8 @@
       "type": "ground_melt_left",
       "platform": true,
       "position": {
-        "x": 5600,
-        "y": 18240
+        "x": 262,
+        "y": 855
       }
     },
     {
@@ -97,8 +96,8 @@
       "type": "ground_melt_middle",
       "platform": true,
       "position": {
-        "x": 6800,
-        "y": 18240
+        "x": 318,
+        "y": 855
       }
     },
     {
@@ -106,8 +105,8 @@
       "type": "ground_melt_right",
       "platform": true,
       "position": {
-        "x": 7400,
-        "y": 18240
+        "x": 346,
+        "y": 855
       }
     },
     {
@@ -115,8 +114,8 @@
       "type": "ground_melt_left",
       "platform": true,
       "position": {
-        "x": 7920,
-        "y": 17360
+        "x": 371,
+        "y": 813
       }
     },
     {
@@ -124,8 +123,8 @@
       "type": "ground_melt_middle",
       "platform": true,
       "position": {
-        "x": 8520,
-        "y": 17360
+        "x": 399,
+        "y": 813
       }
     },
     {
@@ -133,8 +132,8 @@
       "type": "ground_melt_middle",
       "platform": true,
       "position": {
-        "x": 9720,
-        "y": 17360
+        "x": 455,
+        "y": 813
       }
     },
     {
@@ -142,8 +141,8 @@
       "type": "ground_melt_right",
       "platform": true,
       "position": {
-        "x": 10920,
-        "y": 17360
+        "x": 511,
+        "y": 813
       }
     },
     {
@@ -151,8 +150,8 @@
       "type": "ground_melt_left",
       "platform": true,
       "position": {
-        "x": 11000,
-        "y": 18120
+        "x": 515,
+        "y": 849
       }
     },
     {
@@ -160,8 +159,8 @@
       "type": "ground_melt_middle",
       "platform": true,
       "position": {
-        "x": 11600,
-        "y": 18120
+        "x": 543,
+        "y": 849
       }
     },
     {
@@ -169,8 +168,8 @@
       "type": "ground_melt_right",
       "platform": true,
       "position": {
-        "x": 12800,
-        "y": 18120
+        "x": 600,
+        "y": 849
       }
     },
     {
@@ -178,8 +177,8 @@
       "type": "ground_melt_middle",
       "platform": true,
       "position": {
-        "x": 1200,
-        "y": 18840
+        "x": 56,
+        "y": 883
       }
     },
     {
@@ -187,8 +186,8 @@
       "type": "ground_melt_middle",
       "platform": true,
       "position": {
-        "x": 2400,
-        "y": 18840
+        "x": 112,
+        "y": 883
       }
     },
     {
@@ -196,8 +195,8 @@
       "type": "ground_melt_middle",
       "platform": true,
       "position": {
-        "x": 4200,
-        "y": 18840
+        "x": 196,
+        "y": 883
       }
     },
     {
@@ -205,8 +204,8 @@
       "type": "ground_melt_middle",
       "platform": true,
       "position": {
-        "x": 6200,
-        "y": 18240
+        "x": 290,
+        "y": 855
       }
     },
     {
@@ -214,8 +213,8 @@
       "type": "ground_melt_middle",
       "platform": true,
       "position": {
-        "x": 9120,
-        "y": 17360
+        "x": 427,
+        "y": 813
       }
     },
     {
@@ -223,8 +222,8 @@
       "type": "ground_melt_middle",
       "platform": true,
       "position": {
-        "x": 10320,
-        "y": 17360
+        "x": 483,
+        "y": 813
       }
     },
     {
@@ -232,8 +231,8 @@
       "type": "ground_melt_middle",
       "platform": true,
       "position": {
-        "x": 12200,
-        "y": 18120
+        "x": 571,
+        "y": 849
       }
     },
     {
@@ -241,8 +240,8 @@
       "type": "clock_timer",
       "platform": false,
       "position": {
-        "x": 80,
-        "y": 80
+        "x": 3,
+        "y": 3
       }
     },
     {
@@ -250,8 +249,8 @@
       "type": "winged_foot",
       "platform": false,
       "position": {
-        "x": 920,
-        "y": 80
+        "x": 43,
+        "y": 3
       }
     }
   ],

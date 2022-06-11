@@ -75,6 +75,7 @@ namespace trippin {
         std::shared_ptr<StagingArea> stagingArea;
         RenderClock renderClock;
         std::unique_ptr<Logger> logger;
+        std::unique_ptr<Units> units;
         void initSdl();
         void initRand();
         void initLogger();

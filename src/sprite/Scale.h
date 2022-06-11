@@ -7,12 +7,12 @@
 namespace trippin {
     class Scale {
     public:
-        Scale(std::string name, double multiplier);
+        Scale(std::string name, int multiplier);
         const std::string& getName() const;
-        double getMultiplier() const;
+        int getMultiplier() const;
     private:
         const std::string name;
-        const double multiplier;
+        const int multiplier;
     };
 }
 

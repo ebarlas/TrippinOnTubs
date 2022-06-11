@@ -12,15 +12,15 @@ namespace trippin {
         const int margin;
         const Sprite &digits;
         std::atomic_int score;
-        const Rect<int> viewport;
+        const Rect<int> windowSize;
         SceneBuilder &sceneBuilder;
         const int zIndex;
     public:
         ScoreTicker(
-                int margin,
+                int margin, // sprite scale
                 const Sprite &digits,
                 int score,
-                Rect<int> viewport,
+                Rect<int> windowSize, // sprite scale
                 SceneBuilder &sceneBuilder,
                 int zIndex);
         void add(int n);

@@ -1,7 +1,6 @@
 #include "RunningClock.h"
 
 trippin::RunningClock::RunningClock(
-        const Configuration &config,
         const Map::Object &object,
         const Sprite &sprite,
         Goggin &goggin,
@@ -11,8 +10,9 @@ trippin::RunningClock::RunningClock(
         SoundManager &soundManager,
         const Camera &camera,
         SceneBuilder &sceneBuilder,
-        int zIndex) :
-        SpriteObject(config, object, sprite),
+        int zIndex,
+        const Units &units) :
+        SpriteObject(object, sprite, units),
         goggin(goggin),
         activation(activation),
         spirit(spirit),
@@ -31,7 +31,7 @@ trippin::RunningClock::RunningClock(
 }
 
 void trippin::RunningClock::beforeTick(Uint32 engineTicks) {
-    if (inactive && activation.shouldActivate(roundedBox)) {
+    if (inactive && activation.shouldActivate(box)) {
         inactive = false;
     }
 }
@@ -42,13 +42,13 @@ void trippin::RunningClock::afterTick(Uint32 engineTicks) {
         return;
     }
 
-    if (activation.shouldDeactivate(roundedBox)) {
+    if (activation.shouldDeactivate(box)) {
         expired = true;
         return;
     }
 
 
-    if (!hitGoggin && roundedBox.intersect(goggin.roundedBox)) { // Case #1: Goggin contact
+    if (!hitGoggin && box.intersect(goggin.box)) { // Case #1: Goggin contact
         Mix_PlayChannel(-1, sound, 0);
         hitGoggin = true;
         hitTicks = 0;
@@ -75,7 +75,7 @@ void trippin::RunningClock::afterTick(Uint32 engineTicks) {
 
     if (!expired) {
         auto frameNow = frame;
-        auto posNow = roundedPosition;
+        auto posNow = position;
         sceneBuilder.dispatch([this, posNow, frameNow]() {
             sprite.render(posNow, frameNow, camera);
         }, zIndex);

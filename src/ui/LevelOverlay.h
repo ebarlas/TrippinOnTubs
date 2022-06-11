@@ -7,7 +7,10 @@
 namespace trippin {
     class LevelOverlay {
     public:
-        LevelOverlay(const Point<int> &windowSize, SpriteManager &spriteManager, const RenderClock &renderClock);
+        LevelOverlay(
+                const Point<int> &windowSize, // sprite scale
+                SpriteManager &spriteManager,
+                const RenderClock &renderClock);
         void setLevel(int level);
         void render();
     private:

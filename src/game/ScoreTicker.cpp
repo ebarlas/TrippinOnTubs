@@ -5,13 +5,13 @@ trippin::ScoreTicker::ScoreTicker(
         int margin,
         const Sprite &digits,
         int score,
-        Rect<int> viewport,
+        Rect<int> windowSize,
         SceneBuilder &sceneBuilder,
         int zIndex) :
         margin(margin),
         digits(digits),
         score(score),
-        viewport(viewport),
+        windowSize(windowSize),
         sceneBuilder(sceneBuilder),
         zIndex(zIndex) {
 }
@@ -24,9 +24,9 @@ int trippin::ScoreTicker::getScore() const {
     return score;
 }
 
-void trippin::ScoreTicker::afterTick(Uint32 engineTicks) {
+void trippin::ScoreTicker::afterTick(Uint32) {
     auto textWidth = DigitLayout::measureWidth(digits, score);
-    Point<int> pos{viewport.w / 2 + textWidth / 2, margin};
+    Point<int> pos{windowSize.w / 2 + textWidth / 2, margin};
     auto scoreNow = getScore();
     sceneBuilder.dispatch([this, scoreNow, pos]() {
         DigitLayout::renderDigits(digits, pos, scoreNow);

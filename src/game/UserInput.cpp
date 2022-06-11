@@ -89,8 +89,10 @@ trippin::UserInput::Event trippin::UserInput::pollEvent() {
         result.mouseButtonDown = true;
         result.touchPoint = {e.button.x, e.button.y};
     } else if (e.type == SDL_FINGERDOWN) {
-        result.touchPoint = {toInt(e.tfinger.x * rendererSize.x), toInt(e.tfinger.y * rendererSize.y)};
-        if (e.tfinger.x < 0.5) {
+        result.touchPoint = {
+                toInt(static_cast<double>(e.tfinger.x) * rendererSize.x),
+                toInt(static_cast<double>(e.tfinger.y) * rendererSize.y)};
+        if (e.tfinger.x < 0.5f) {
             touchDownFn(leftTouch, result.leftTouchDown);
         } else {
             touchDownFn(rightTouch, result.rightTouchDown);

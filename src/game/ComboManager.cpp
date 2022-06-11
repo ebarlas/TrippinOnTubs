@@ -5,7 +5,7 @@
 trippin::ComboManager::ComboManager(
         SpriteManager &spriteManager,
         ScoreTicker &scoreTicker,
-        double msPerTick,
+        Fraction<int> msPerTick,
         Point<int> windowSize,
         int margin,
         SceneBuilder &sceneBuilder,
@@ -13,7 +13,7 @@ trippin::ComboManager::ComboManager(
         scoreTicker(scoreTicker),
         comboText(spriteManager.get("combo")),
         digits(spriteManager.get("digits")),
-        msPerTick(msPerTick),
+        msPerTick(static_cast<double>(msPerTick.numerator) / msPerTick.denominator),
         windowSize(windowSize),
         margin(margin),
         sceneBuilder(sceneBuilder),

@@ -10,12 +10,13 @@ trippin::Goggin::Goggin(
         ComboManager &comboManager,
         PointCloudManager &pointCloudManager,
         const std::vector<GogginInputTick> *autoPlayVec,
-        const trippin::Point<int> &universe,
+        const Point<int_fast64_t> &universe,
         SoundManager &soundManager,
         Camera &camera,
         SceneBuilder &sceneBuilder,
-        int zIndex) :
-        SpriteObject(config, object, spriteManager.get("goggin")),
+        int zIndex,
+        const Units &units) :
+        SpriteObject(object, spriteManager.get("goggin"), units),
         dust(spriteManager.get("dust")),
         dustBlast(spriteManager.get("dust_blast")),
         whiteDustBlast(spriteManager.get("dust_blast_white")),
@@ -35,8 +36,9 @@ trippin::Goggin::Goggin(
         maxJumpChargeTicks(object.maxJumpChargeTime),
         jumpSoundTimeoutTicks(object.jumpSoundTimeout),
         duckFriction(object.duckFriction),
-        shakeAmplitude(config.shakeAmplitude * sprite.getScale().getMultiplier()),
-        dustPeriodTicks(object.dustPeriod) {
+        shakeAmplitude(units.baseToEngine(config.shakeAmplitude)),
+        dustPeriodTicks(object.dustPeriod),
+        units(units) {
 
     rightOfUni = false;
     belowUni = false;
@@ -47,10 +49,11 @@ trippin::Goggin::Goggin(
     consecutiveJumps = 0;
 
     // tick/ms * ms/s * s/shake = tick/shake
-    auto shakePeriod = (1.0 / config.msPerTick()) * (1000.0 / config.shakeHertz);
-    auto shakeDuration = config.shakeDuration / config.msPerTick();
-    xShake.init(toInt(shakePeriod), toInt(shakeDuration));
-    yShake.init(toInt(shakePeriod), toInt(shakeDuration));
+    auto tickPerMs = config.msPerTick().flip();
+    auto shakePeriod = static_cast<int>(tickPerMs * Fraction<int>{1000, config.shakeHertz});
+    auto shakeDuration = static_cast<int>(tickPerMs * config.shakeDuration);
+    xShake.init(shakePeriod, shakeDuration);
+    yShake.init(shakePeriod, shakeDuration);
 
     for (auto &d: frames.dusts) {
         d.frame = dust.getFrames(); // past the end
@@ -137,21 +140,23 @@ void trippin::Goggin::handleJumpCharge(Uint32 engineTicks) {
     }
     if (jumpTicks) {
         auto relTicks = static_cast<int>(engineTicks - jumpTicks);
-        auto range = toDouble(maxJumpChargeTicks - minJumpChargeTicks);
+        auto range = maxJumpChargeTicks - minJumpChargeTicks;
         auto boundedTicks = std::max(minJumpChargeTicks, std::min(relTicks, maxJumpChargeTicks));
-        jumpPercent = (boundedTicks - minJumpChargeTicks) / range;
+        jumpPercent = {boundedTicks - minJumpChargeTicks, range};
     }
 }
 
 void trippin::Goggin::handleJumpRelease(Uint32 engineTicks) {
     if (input.jumpRelease && jumpTicks) {
-        auto maxEffective = state == ducking && jumpPercent == 1.0 ? maxDuckJumpVelocity : maxJumpVelocity;
-        auto jumpVel = std::min(minJumpVelocity, jumpPercent * maxEffective);
+        auto fullCharge = jumpPercent.numerator == jumpPercent.denominator;
+        auto maxEffective = state == ducking && fullCharge ? maxDuckJumpVelocity : maxJumpVelocity;
+        auto jp = Fraction<int_fast64_t>{jumpPercent.numerator, jumpPercent.denominator};
+        auto jumpVel = std::min(minJumpVelocity, static_cast<int_fast64_t>(jp * maxEffective));
         if (state == running || state == ducking || consecutiveJumps < 2) {
             if (state == ducking) {
                 growForStand();
             }
-            if ((platformCollisions.testBottom() && jumpPercent >= 0.5) ||
+            if ((platformCollisions.testBottom() && static_cast<int>(jumpPercent * 100) >= 50) ||
                 ((state == falling || state == rising) && consecutiveJumps < 2)) {
                 resetDustBlast(state == falling || state == rising);
             }
@@ -164,7 +169,7 @@ void trippin::Goggin::handleJumpRelease(Uint32 engineTicks) {
                 lastDoubleJumpTicks = engineTicks;
             }
             lastJumpTicks = engineTicks;
-            if (jumpPercent == 1.0) {
+            if (jumpPercent.isOne()) {
                 if (maxEffective == maxDuckJumpVelocity) {
                     lastDuckJumpTicks = engineTicks;
                 } else {
@@ -176,7 +181,6 @@ void trippin::Goggin::handleJumpRelease(Uint32 engineTicks) {
             ticks = 0;
         }
         jumpTicks = 0;
-        jumpPercent = 0;
     }
 }
 
@@ -214,8 +218,8 @@ void trippin::Goggin::afterTick(Uint32 engineTicks) {
     // test for creation of new dust cloud
     if (grounded && engineTicks - dustTicks >= dustPeriodTicks && velocity.x >= terminalVelocity.x / 2) {
         dustTicks = engineTicks;
-        auto left = roundedPosition.x;
-        auto top = roundedPosition.y + size.y - dust.getHitBox().h;
+        auto left = position.x;
+        auto top = position.y + size.y - units.spriteToEngine(dust.getHitBox().h);
         frames.dusts[nextDustPos] = {{left, top}, 0};
         nextDustPos = (nextDustPos + 1) % frames.dusts.size();
     }
@@ -298,7 +302,7 @@ void trippin::Goggin::onRunning(Uint32 engineTicks) {
     }
 }
 
-void trippin::Goggin::onRising(Uint32 engineTicks) {
+void trippin::Goggin::onRising(Uint32) {
     if (velocity.y >= 0) {
         state = State::falling;
         frames.frame = FRAME_FALLING_FIRST;
@@ -329,11 +333,11 @@ void trippin::Goggin::onDucking(Uint32 engineTicks) {
 
 void trippin::Goggin::shrinkForDuck() {
     // reduce goggin contact-area half height when ducking
-    int bottom = roundedPosition.y + size.y;
+    auto bottom = position.y + size.y;
     size.y = toInt(size.y * DUCK_HEIGHT);
 
     // fill gap under reduced height
-    int delta = bottom - toInt(size.y + position.y);
+    auto delta = bottom - (size.y + position.y);
     position.y += delta;
 
     syncPositions();
@@ -341,17 +345,19 @@ void trippin::Goggin::shrinkForDuck() {
 
 void trippin::Goggin::growForStand() {
     // restore goggin contact area to full-height using original sprite height
-    position.y -= sprite.getHitBox().h - size.y;
-    size.y = sprite.getHitBox().h;
+    auto h = units.spriteToEngine(sprite.getHitBox().h);
+    position.y -= h - size.y;
+    size.y = h;
     syncPositions();
 }
 
 void trippin::Goggin::resetDustBlast(bool white) {
+    auto dustBlastHb = units.spriteToEngine(dustBlast.getHitBox());
     frames.blast.white = white;
     frames.blast.frame = 0;
     frames.blast.ticks = 0;
-    frames.blast.position.x = (roundedPosition.x + size.x / 2) - (dustBlast.getHitBox().w / 2);
-    frames.blast.position.y = (roundedPosition.y + size.y) - dustBlast.getHitBox().h;
+    frames.blast.position.x = (position.x + size.x / 2) - (dustBlastHb.w / 2);
+    frames.blast.position.y = (position.y + size.y) - dustBlastHb.h;
 }
 
 void trippin::Goggin::onUserInput(const trippin::GogginInput &in) {
@@ -359,7 +365,7 @@ void trippin::Goggin::onUserInput(const trippin::GogginInput &in) {
     stagedInput |= in;
 }
 
-double trippin::Goggin::getJumpCharge() const {
+trippin::Fraction<int> trippin::Goggin::getJumpCharge() const {
     return jumpPercent;
 }
 
@@ -400,7 +406,7 @@ void trippin::Goggin::transferInput(Uint32 engineTicks) {
 }
 
 void trippin::Goggin::addPointCloud(int points, Uint32 ticks, bool hit) {
-    Point<int> pos{roundedBox.x + roundedBox.w / 2, roundedBox.y - size.y};
+    Point<int_fast64_t> pos{box.x + box.w / 2, box.y - size.y};
     pointCloudManager.addPointCloud(pos, points, ticks);
     if (hit && !grounded) {
         comboManager.recordHit();
@@ -435,19 +441,21 @@ Uint32 trippin::Goggin::getLastJumpSlamDownTicks() const {
     return lastJumpSlamDownTicks;
 }
 
-trippin::Point<int> trippin::Goggin::centerCamera() {
-    Point<int> shake{toInt(xShake.amplitude() * shakeAmplitude), toInt(yShake.amplitude() * shakeAmplitude)};
-    Point<int> pos;
-    Point<int> cen;
+trippin::Point<int_fast64_t> trippin::Goggin::centerCamera() {
+    Point<int_fast64_t> shake{
+            static_cast<int_fast64_t>(xShake.amplitude() * shakeAmplitude),
+            static_cast<int_fast64_t>(yShake.amplitude() * shakeAmplitude)};
+    Point<int_fast64_t> pos;
+    Point<int_fast64_t> cen;
     if (state == ducking) {
         // restore y to original footprint by lifting sprite
-        auto originalHeight = sprite.getHitBox().h;
+        auto originalHeight = units.spriteToEngine(sprite.getHitBox().h);
         auto heightDelta = originalHeight - size.y;
-        pos = {roundedPosition.x, roundedPosition.y - heightDelta};
-        cen = toInt(Point<double>{pos.x + size.x / 2.0, pos.y + originalHeight / 2.0});
+        pos = {position.x, position.y - heightDelta};
+        cen = Point<int_fast64_t>{pos.x + size.x / 2, pos.y + originalHeight / 2};
     } else {
-        pos = roundedPosition;
-        cen = toInt(center);
+        pos = position;
+        cen = center;
     }
     camera.centerOn(cen, shake);
     return pos;

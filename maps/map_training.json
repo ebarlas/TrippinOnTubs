@@ -1,10 +1,9 @@
 {
   "universe": {
-    "width": 20000,
-    "height": 5000
+    "width": 3750,
+    "height": 937
   },
-  "scale": 0.25,
-  "meterMargin": 20.0,
+  "meterMargin": 3,
   "music": "track1",
   "objects": [
     {
@@ -12,35 +11,35 @@
       "type": "goggin",
       "platform": false,
       "position": {
-        "x": 80,
-        "y": 4120
+        "x": 15,
+        "y": 772
       },
       "terminalVelocity": {
-        "x": 425.0,
-        "y": 1500.0
+        "x": 79,
+        "y": 281
       },
-      "massFactor": 2.0,
-      "gravity": 1250.0,
-      "fallGravity": 1890.0,
-      "minJumpVelocity": -375.0,
-      "maxJumpVelocity": -1100.0,
-      "maxDuckJumpVelocity": -1370.0,
-      "runningAcceleration": 1000.0,
-      "risingAcceleration": 50.0,
-      "duckFriction": 200.0,
       "minJumpChargeTime": 0,
       "maxJumpChargeTime": 400,
       "jumpGracePeriod": 125,
       "jumpSoundTimeout": 250,
-      "dustPeriod": 140
+      "dustPeriod": 140,
+      "gravity": 234,
+      "fallGravity": 354,
+      "minJumpVelocity": -70,
+      "maxJumpVelocity": -206,
+      "maxDuckJumpVelocity": -256,
+      "runningAcceleration": 187,
+      "risingAcceleration": 9,
+      "duckFriction": 28,
+      "massFactor": 200
     },
     {
       "id": 2,
       "type": "ground_melt_left",
       "platform": true,
       "position": {
-        "x": 6800,
-        "y": 4280
+        "x": 1275,
+        "y": 802
       }
     },
     {
@@ -48,8 +47,8 @@
       "type": "ground_melt_middle",
       "platform": true,
       "position": {
-        "x": 6950,
-        "y": 4280
+        "x": 1303,
+        "y": 802
       }
     },
     {
@@ -57,8 +56,8 @@
       "type": "ground_melt_middle",
       "platform": true,
       "position": {
-        "x": 7100,
-        "y": 4280
+        "x": 1331,
+        "y": 802
       }
     },
     {
@@ -66,8 +65,8 @@
       "type": "ground_melt_middle",
       "platform": true,
       "position": {
-        "x": 7250,
-        "y": 4280
+        "x": 1359,
+        "y": 802
       }
     },
     {
@@ -75,8 +74,8 @@
       "type": "ground_melt_middle",
       "platform": true,
       "position": {
-        "x": 7400,
-        "y": 4280
+        "x": 1387,
+        "y": 802
       }
     },
     {
@@ -84,8 +83,8 @@
       "type": "ground_melt_middle",
       "platform": true,
       "position": {
-        "x": 7550,
-        "y": 4280
+        "x": 1415,
+        "y": 802
       }
     },
     {
@@ -93,8 +92,8 @@
       "type": "ground_melt_middle",
       "platform": true,
       "position": {
-        "x": 7700,
-        "y": 4280
+        "x": 1443,
+        "y": 802
       }
     },
     {
@@ -102,8 +101,8 @@
       "type": "ground_melt_right",
       "platform": true,
       "position": {
-        "x": 8000,
-        "y": 4280
+        "x": 1500,
+        "y": 802
       }
     },
     {
@@ -111,8 +110,8 @@
       "type": "ground_melt_middle",
       "platform": true,
       "position": {
-        "x": 7850,
-        "y": 4280
+        "x": 1471,
+        "y": 802
       }
     },
     {
@@ -120,8 +119,8 @@
       "type": "ground_melt_left",
       "platform": true,
       "position": {
-        "x": 8190,
-        "y": 4000
+        "x": 1535,
+        "y": 750
       }
     },
     {
@@ -129,8 +128,8 @@
       "type": "ground_melt_middle",
       "platform": true,
       "position": {
-        "x": 8340,
-        "y": 4000
+        "x": 1563,
+        "y": 750
       }
     },
     {
@@ -138,8 +137,8 @@
       "type": "ground_melt_middle",
       "platform": true,
       "position": {
-        "x": 8490,
-        "y": 4000
+        "x": 1591,
+        "y": 750
       }
     },
     {
@@ -147,8 +146,8 @@
       "type": "ground_melt_middle",
       "platform": true,
       "position": {
-        "x": 8640,
-        "y": 4000
+        "x": 1620,
+        "y": 750
       }
     },
     {
@@ -156,8 +155,8 @@
       "type": "ground_melt_middle",
       "platform": true,
       "position": {
-        "x": 8790,
-        "y": 4000
+        "x": 1648,
+        "y": 750
       }
     },
     {
@@ -165,8 +164,8 @@
       "type": "ground_melt_middle",
       "platform": true,
       "position": {
-        "x": 8940,
-        "y": 4000
+        "x": 1676,
+        "y": 750
       }
     },
     {
@@ -174,8 +173,8 @@
       "type": "ground_melt_middle",
       "platform": true,
       "position": {
-        "x": 9090,
-        "y": 4000
+        "x": 1704,
+        "y": 750
       }
     },
     {
@@ -183,8 +182,8 @@
       "type": "ground_melt_middle",
       "platform": true,
       "position": {
-        "x": 9240,
-        "y": 4000
+        "x": 1732,
+        "y": 750
       }
     },
     {
@@ -192,8 +191,8 @@
       "type": "ground_melt_right",
       "platform": true,
       "position": {
-        "x": 9390,
-        "y": 4000
+        "x": 1760,
+        "y": 750
       }
     },
     {
@@ -201,8 +200,8 @@
       "type": "ground_melt_left",
       "platform": true,
       "position": {
-        "x": 8160,
-        "y": 4640
+        "x": 1530,
+        "y": 870
       }
     },
     {
@@ -210,8 +209,8 @@
       "type": "ground_melt_middle",
       "platform": true,
       "position": {
-        "x": 8310,
-        "y": 4640
+        "x": 1558,
+        "y": 870
       }
     },
     {
@@ -219,8 +218,8 @@
       "type": "ground_melt_middle",
       "platform": true,
       "position": {
-        "x": 8460,
-        "y": 4640
+        "x": 1586,
+        "y": 870
       }
     },
     {
@@ -228,8 +227,8 @@
       "type": "ground_melt_middle",
       "platform": true,
       "position": {
-        "x": 8610,
-        "y": 4640
+        "x": 1614,
+        "y": 870
       }
     },
     {
@@ -237,8 +236,8 @@
       "type": "ground_melt_middle",
       "platform": true,
       "position": {
-        "x": 8760,
-        "y": 4640
+        "x": 1642,
+        "y": 870
       }
     },
     {
@@ -246,8 +245,8 @@
       "type": "ground_melt_middle",
       "platform": true,
       "position": {
-        "x": 8910,
-        "y": 4640
+        "x": 1670,
+        "y": 870
       }
     },
     {
@@ -255,8 +254,8 @@
       "type": "ground_melt_middle",
       "platform": true,
       "position": {
-        "x": 9060,
-        "y": 4640
+        "x": 1698,
+        "y": 870
       }
     },
     {
@@ -264,8 +263,8 @@
       "type": "ground_melt_middle",
       "platform": true,
       "position": {
-        "x": 9210,
-        "y": 4640
+        "x": 1726,
+        "y": 870
       }
     },
     {
@@ -273,8 +272,8 @@
       "type": "ground_melt_right",
       "platform": true,
       "position": {
-        "x": 9360,
-        "y": 4640
+        "x": 1755,
+        "y": 870
       }
     },
     {
@@ -282,8 +281,8 @@
       "type": "ground_melt_left",
       "platform": true,
       "position": {
-        "x": 9720,
-        "y": 4240
+        "x": 1822,
+        "y": 795
       }
     },
     {
@@ -291,8 +290,8 @@
       "type": "ground_melt_middle",
       "platform": true,
       "position": {
-        "x": 9870,
-        "y": 4240
+        "x": 1850,
+        "y": 795
       }
     },
     {
@@ -300,8 +299,8 @@
       "type": "ground_melt_middle",
       "platform": true,
       "position": {
-        "x": 10020,
-        "y": 4240
+        "x": 1878,
+        "y": 795
       }
     },
     {
@@ -309,8 +308,8 @@
       "type": "ground_melt_middle",
       "platform": true,
       "position": {
-        "x": 10170,
-        "y": 4240
+        "x": 1906,
+        "y": 795
       }
     },
     {
@@ -318,8 +317,8 @@
       "type": "ground_melt_middle",
       "platform": true,
       "position": {
-        "x": 10320,
-        "y": 4240
+        "x": 1935,
+        "y": 795
       }
     },
     {
@@ -327,8 +326,8 @@
       "type": "ground_melt_middle",
       "platform": true,
       "position": {
-        "x": 10470,
-        "y": 4240
+        "x": 1963,
+        "y": 795
       }
     },
     {
@@ -336,8 +335,8 @@
       "type": "ground_melt_middle",
       "platform": true,
       "position": {
-        "x": 10620,
-        "y": 4240
+        "x": 1991,
+        "y": 795
       }
     },
     {
@@ -345,8 +344,8 @@
       "type": "ground_melt_middle",
       "platform": true,
       "position": {
-        "x": 10770,
-        "y": 4240
+        "x": 2019,
+        "y": 795
       }
     },
     {
@@ -354,8 +353,8 @@
       "type": "ground_melt_right",
       "platform": true,
       "position": {
-        "x": 10920,
-        "y": 4240
+        "x": 2047,
+        "y": 795
       }
     },
     {
@@ -363,8 +362,8 @@
       "type": "ground_melt_left",
       "platform": true,
       "position": {
-        "x": 13620,
-        "y": 3440
+        "x": 2553,
+        "y": 645
       }
     },
     {
@@ -372,8 +371,8 @@
       "type": "ground_melt_middle",
       "platform": true,
       "position": {
-        "x": 13770,
-        "y": 3440
+        "x": 2581,
+        "y": 645
       }
     },
     {
@@ -381,8 +380,8 @@
       "type": "ground_melt_middle",
       "platform": true,
       "position": {
-        "x": 13920,
-        "y": 3440
+        "x": 2610,
+        "y": 645
       }
     },
     {
@@ -390,8 +389,8 @@
       "type": "ground_melt_middle",
       "platform": true,
       "position": {
-        "x": 14070,
-        "y": 3440
+        "x": 2638,
+        "y": 645
       }
     },
     {
@@ -399,8 +398,8 @@
       "type": "ground_melt_middle",
       "platform": true,
       "position": {
-        "x": 14220,
-        "y": 3440
+        "x": 2666,
+        "y": 645
       }
     },
     {
@@ -408,8 +407,8 @@
       "type": "ground_melt_middle",
       "platform": true,
       "position": {
-        "x": 14370,
-        "y": 3440
+        "x": 2694,
+        "y": 645
       }
     },
     {
@@ -417,8 +416,8 @@
       "type": "ground_melt_middle",
       "platform": true,
       "position": {
-        "x": 14520,
-        "y": 3440
+        "x": 2722,
+        "y": 645
       }
     },
     {
@@ -426,8 +425,8 @@
       "type": "ground_melt_middle",
       "platform": true,
       "position": {
-        "x": 14670,
-        "y": 3440
+        "x": 2750,
+        "y": 645
       }
     },
     {
@@ -435,8 +434,8 @@
       "type": "ground_melt_right",
       "platform": true,
       "position": {
-        "x": 14820,
-        "y": 3440
+        "x": 2778,
+        "y": 645
       }
     },
     {
@@ -444,8 +443,8 @@
       "type": "ground_melt_left",
       "platform": true,
       "position": {
-        "x": 14790,
-        "y": 3120
+        "x": 2773,
+        "y": 585
       }
     },
     {
@@ -453,8 +452,8 @@
       "type": "ground_melt_middle",
       "platform": true,
       "position": {
-        "x": 14940,
-        "y": 3120
+        "x": 2801,
+        "y": 585
       }
     },
     {
@@ -462,8 +461,8 @@
       "type": "ground_melt_middle",
       "platform": true,
       "position": {
-        "x": 15090,
-        "y": 3120
+        "x": 2829,
+        "y": 585
       }
     },
     {
@@ -471,8 +470,8 @@
       "type": "ground_melt_middle",
       "platform": true,
       "position": {
-        "x": 15240,
-        "y": 3120
+        "x": 2857,
+        "y": 585
       }
     },
     {
@@ -480,8 +479,8 @@
       "type": "ground_melt_middle",
       "platform": true,
       "position": {
-        "x": 15390,
-        "y": 3120
+        "x": 2885,
+        "y": 585
       }
     },
     {
@@ -489,8 +488,8 @@
       "type": "ground_melt_middle",
       "platform": true,
       "position": {
-        "x": 15540,
-        "y": 3120
+        "x": 2913,
+        "y": 585
       }
     },
     {
@@ -498,8 +497,8 @@
       "type": "ground_melt_middle",
       "platform": true,
       "position": {
-        "x": 15690,
-        "y": 3120
+        "x": 2941,
+        "y": 585
       }
     },
     {
@@ -507,8 +506,8 @@
       "type": "ground_melt_middle",
       "platform": true,
       "position": {
-        "x": 15840,
-        "y": 3120
+        "x": 2970,
+        "y": 585
       }
     },
     {
@@ -516,8 +515,8 @@
       "type": "ground_melt_right",
       "platform": true,
       "position": {
-        "x": 15990,
-        "y": 3120
+        "x": 2998,
+        "y": 585
       }
     },
     {
@@ -525,8 +524,8 @@
       "type": "ground_melt_left",
       "platform": true,
       "position": {
-        "x": 16240,
-        "y": 2800
+        "x": 3045,
+        "y": 525
       }
     },
     {
@@ -534,8 +533,8 @@
       "type": "ground_melt_middle",
       "platform": true,
       "position": {
-        "x": 16390,
-        "y": 2800
+        "x": 3073,
+        "y": 525
       }
     },
     {
@@ -543,8 +542,8 @@
       "type": "ground_melt_middle",
       "platform": true,
       "position": {
-        "x": 16540,
-        "y": 2800
+        "x": 3101,
+        "y": 525
       }
     },
     {
@@ -552,8 +551,8 @@
       "type": "ground_melt_middle",
       "platform": true,
       "position": {
-        "x": 16690,
-        "y": 2800
+        "x": 3129,
+        "y": 525
       }
     },
     {
@@ -561,8 +560,8 @@
       "type": "ground_melt_middle",
       "platform": true,
       "position": {
-        "x": 16840,
-        "y": 2800
+        "x": 3157,
+        "y": 525
       }
     },
     {
@@ -570,8 +569,8 @@
       "type": "ground_melt_middle",
       "platform": true,
       "position": {
-        "x": 16990,
-        "y": 2800
+        "x": 3185,
+        "y": 525
       }
     },
     {
@@ -579,8 +578,8 @@
       "type": "ground_melt_middle",
       "platform": true,
       "position": {
-        "x": 17140,
-        "y": 2800
+        "x": 3213,
+        "y": 525
       }
     },
     {
@@ -588,8 +587,8 @@
       "type": "ground_melt_middle",
       "platform": true,
       "position": {
-        "x": 17290,
-        "y": 2800
+        "x": 3241,
+        "y": 525
       }
     },
     {
@@ -597,8 +596,8 @@
       "type": "ground_melt_right",
       "platform": true,
       "position": {
-        "x": 17440,
-        "y": 2800
+        "x": 3270,
+        "y": 525
       }
     },
     {
@@ -606,8 +605,8 @@
       "type": "ground_melt_left",
       "platform": true,
       "position": {
-        "x": 17220,
-        "y": 3120
+        "x": 3228,
+        "y": 585
       }
     },
     {
@@ -615,8 +614,8 @@
       "type": "ground_melt_middle",
       "platform": true,
       "position": {
-        "x": 17370,
-        "y": 3120
+        "x": 3256,
+        "y": 585
       }
     },
     {
@@ -624,8 +623,8 @@
       "type": "ground_melt_middle",
       "platform": true,
       "position": {
-        "x": 17520,
-        "y": 3120
+        "x": 3285,
+        "y": 585
       }
     },
     {
@@ -633,8 +632,8 @@
       "type": "ground_melt_middle",
       "platform": true,
       "position": {
-        "x": 17670,
-        "y": 3120
+        "x": 3313,
+        "y": 585
       }
     },
     {
@@ -642,8 +641,8 @@
       "type": "ground_melt_middle",
       "platform": true,
       "position": {
-        "x": 17820,
-        "y": 3120
+        "x": 3341,
+        "y": 585
       }
     },
     {
@@ -651,8 +650,8 @@
       "type": "ground_melt_middle",
       "platform": true,
       "position": {
-        "x": 17970,
-        "y": 3120
+        "x": 3369,
+        "y": 585
       }
     },
     {
@@ -660,8 +659,8 @@
       "type": "ground_melt_middle",
       "platform": true,
       "position": {
-        "x": 18120,
-        "y": 3120
+        "x": 3397,
+        "y": 585
       }
     },
     {
@@ -669,8 +668,8 @@
       "type": "ground_melt_middle",
       "platform": true,
       "position": {
-        "x": 18270,
-        "y": 3120
+        "x": 3425,
+        "y": 585
       }
     },
     {
@@ -678,8 +677,8 @@
       "type": "ground_melt_right",
       "platform": true,
       "position": {
-        "x": 18420,
-        "y": 3120
+        "x": 3453,
+        "y": 585
       }
     },
     {
@@ -687,8 +686,8 @@
       "type": "ground_melt_left",
       "platform": true,
       "position": {
-        "x": 11459,
-        "y": 3428
+        "x": 2148,
+        "y": 642
       }
     },
     {
@@ -696,8 +695,8 @@
       "type": "ground_melt_right",
       "platform": true,
       "position": {
-        "x": 11609,
-        "y": 3428
+        "x": 2176,
+        "y": 642
       }
     },
     {
@@ -706,7 +705,7 @@
       "platform": true,
       "position": {
         "x": 0,
-        "y": 4560
+        "y": 855
       }
     },
     {
@@ -714,8 +713,8 @@
       "type": "ground_melt_middle",
       "platform": true,
       "position": {
-        "x": 150,
-        "y": 4560
+        "x": 28,
+        "y": 855
       }
     },
     {
@@ -723,8 +722,8 @@
       "type": "ground_melt_middle",
       "platform": true,
       "position": {
-        "x": 300,
-        "y": 4560
+        "x": 56,
+        "y": 855
       }
     },
     {
@@ -732,8 +731,8 @@
       "type": "ground_melt_middle",
       "platform": true,
       "position": {
-        "x": 450,
-        "y": 4560
+        "x": 84,
+        "y": 855
       }
     },
     {
@@ -741,8 +740,8 @@
       "type": "ground_melt_middle",
       "platform": true,
       "position": {
-        "x": 600,
-        "y": 4560
+        "x": 112,
+        "y": 855
       }
     },
     {
@@ -750,8 +749,8 @@
       "type": "ground_melt_middle",
       "platform": true,
       "position": {
-        "x": 750,
-        "y": 4560
+        "x": 140,
+        "y": 855
       }
     },
     {
@@ -759,8 +758,8 @@
       "type": "ground_melt_middle",
       "platform": true,
       "position": {
-        "x": 900,
-        "y": 4560
+        "x": 168,
+        "y": 855
       }
     },
     {
@@ -768,8 +767,8 @@
       "type": "ground_melt_middle",
       "platform": true,
       "position": {
-        "x": 1050,
-        "y": 4560
+        "x": 196,
+        "y": 855
       }
     },
     {
@@ -777,8 +776,8 @@
       "type": "ground_melt_middle",
       "platform": true,
       "position": {
-        "x": 1200,
-        "y": 4560
+        "x": 225,
+        "y": 855
       }
     },
     {
@@ -786,8 +785,8 @@
       "type": "ground_melt_middle",
       "platform": true,
       "position": {
-        "x": 1350,
-        "y": 4560
+        "x": 253,
+        "y": 855
       }
     },
     {
@@ -795,8 +794,8 @@
       "type": "ground_melt_middle",
       "platform": true,
       "position": {
-        "x": 1500,
-        "y": 4560
+        "x": 281,
+        "y": 855
       }
     },
     {
@@ -804,8 +803,8 @@
       "type": "ground_melt_middle",
       "platform": true,
       "position": {
-        "x": 1650,
-        "y": 4560
+        "x": 309,
+        "y": 855
       }
     },
     {
@@ -813,8 +812,8 @@
       "type": "ground_melt_middle",
       "platform": true,
       "position": {
-        "x": 1800,
-        "y": 4560
+        "x": 337,
+        "y": 855
       }
     },
     {
@@ -822,8 +821,8 @@
       "type": "ground_melt_middle",
       "platform": true,
       "position": {
-        "x": 1950,
-        "y": 4560
+        "x": 365,
+        "y": 855
       }
     },
     {
@@ -831,8 +830,8 @@
       "type": "ground_melt_middle",
       "platform": true,
       "position": {
-        "x": 2100,
-        "y": 4560
+        "x": 393,
+        "y": 855
       }
     },
     {
@@ -840,8 +839,8 @@
       "type": "ground_melt_middle",
       "platform": true,
       "position": {
-        "x": 2250,
-        "y": 4560
+        "x": 421,
+        "y": 855
       }
     },
     {
@@ -849,8 +848,8 @@
       "type": "ground_melt_middle",
       "platform": true,
       "position": {
-        "x": 2400,
-        "y": 4560
+        "x": 450,
+        "y": 855
       }
     },
     {
@@ -858,8 +857,8 @@
       "type": "ground_melt_middle",
       "platform": true,
       "position": {
-        "x": 2550,
-        "y": 4560
+        "x": 478,
+        "y": 855
       }
     },
     {
@@ -867,8 +866,8 @@
       "type": "ground_melt_middle",
       "platform": true,
       "position": {
-        "x": 2700,
-        "y": 4560
+        "x": 506,
+        "y": 855
       }
     },
     {
@@ -876,8 +875,8 @@
       "type": "ground_melt_middle",
       "platform": true,
       "position": {
-        "x": 2850,
-        "y": 4560
+        "x": 534,
+        "y": 855
       }
     },
     {
@@ -885,8 +884,8 @@
       "type": "ground_melt_middle",
       "platform": true,
       "position": {
-        "x": 3000,
-        "y": 4560
+        "x": 562,
+        "y": 855
       }
     },
     {
@@ -894,8 +893,8 @@
       "type": "ground_melt_middle",
       "platform": true,
       "position": {
-        "x": 3150,
-        "y": 4560
+        "x": 590,
+        "y": 855
       }
     },
     {
@@ -903,8 +902,8 @@
       "type": "ground_melt_middle",
       "platform": true,
       "position": {
-        "x": 3300,
-        "y": 4560
+        "x": 618,
+        "y": 855
       }
     },
     {
@@ -912,8 +911,8 @@
       "type": "ground_melt_middle",
       "platform": true,
       "position": {
-        "x": 3450,
-        "y": 4560
+        "x": 646,
+        "y": 855
       }
     },
     {
@@ -921,8 +920,8 @@
       "type": "ground_melt_middle",
       "platform": true,
       "position": {
-        "x": 3600,
-        "y": 4560
+        "x": 675,
+        "y": 855
       }
     },
     {
@@ -930,8 +929,8 @@
       "type": "ground_melt_right",
       "platform": true,
       "position": {
-        "x": 6750,
-        "y": 4560
+        "x": 1265,
+        "y": 855
       }
     },
     {
@@ -939,8 +938,8 @@
       "type": "ground_melt_middle",
       "platform": true,
       "position": {
-        "x": 3750,
-        "y": 4560
+        "x": 703,
+        "y": 855
       }
     },
     {
@@ -948,8 +947,8 @@
       "type": "ground_melt_middle",
       "platform": true,
       "position": {
-        "x": 3900,
-        "y": 4560
+        "x": 731,
+        "y": 855
       }
     },
     {
@@ -957,8 +956,8 @@
       "type": "ground_melt_middle",
       "platform": true,
       "position": {
-        "x": 4050,
-        "y": 4560
+        "x": 759,
+        "y": 855
       }
     },
     {
@@ -966,8 +965,8 @@
       "type": "ground_melt_middle",
       "platform": true,
       "position": {
-        "x": 4200,
-        "y": 4560
+        "x": 787,
+        "y": 855
       }
     },
     {
@@ -975,8 +974,8 @@
       "type": "ground_melt_middle",
       "platform": true,
       "position": {
-        "x": 4350,
-        "y": 4560
+        "x": 815,
+        "y": 855
       }
     },
     {
@@ -984,8 +983,8 @@
       "type": "ground_melt_middle",
       "platform": true,
       "position": {
-        "x": 4500,
-        "y": 4560
+        "x": 843,
+        "y": 855
       }
     },
     {
@@ -993,8 +992,8 @@
       "type": "ground_melt_middle",
       "platform": true,
       "position": {
-        "x": 4650,
-        "y": 4560
+        "x": 871,
+        "y": 855
       }
     },
     {
@@ -1002,8 +1001,8 @@
       "type": "ground_melt_middle",
       "platform": true,
       "position": {
-        "x": 4800,
-        "y": 4560
+        "x": 900,
+        "y": 855
       }
     },
     {
@@ -1011,8 +1010,8 @@
       "type": "ground_melt_middle",
       "platform": true,
       "position": {
-        "x": 4950,
-        "y": 4560
+        "x": 928,
+        "y": 855
       }
     },
     {
@@ -1020,8 +1019,8 @@
       "type": "ground_melt_middle",
       "platform": true,
       "position": {
-        "x": 5100,
-        "y": 4560
+        "x": 956,
+        "y": 855
       }
     },
     {
@@ -1029,8 +1028,8 @@
       "type": "ground_melt_middle",
       "platform": true,
       "position": {
-        "x": 5250,
-        "y": 4560
+        "x": 984,
+        "y": 855
       }
     },
     {
@@ -1038,8 +1037,8 @@
       "type": "ground_melt_middle",
       "platform": true,
       "position": {
-        "x": 5400,
-        "y": 4560
+        "x": 1012,
+        "y": 855
       }
     },
     {
@@ -1047,8 +1046,8 @@
       "type": "ground_melt_middle",
       "platform": true,
       "position": {
-        "x": 5550,
-        "y": 4560
+        "x": 1040,
+        "y": 855
       }
     },
     {
@@ -1056,8 +1055,8 @@
       "type": "ground_melt_middle",
       "platform": true,
       "position": {
-        "x": 5700,
-        "y": 4560
+        "x": 1068,
+        "y": 855
       }
     },
     {
@@ -1065,8 +1064,8 @@
       "type": "ground_melt_middle",
       "platform": true,
       "position": {
-        "x": 5850,
-        "y": 4560
+        "x": 1096,
+        "y": 855
       }
     },
     {
@@ -1074,8 +1073,8 @@
       "type": "ground_melt_middle",
       "platform": true,
       "position": {
-        "x": 6000,
-        "y": 4560
+        "x": 1125,
+        "y": 855
       }
     },
     {
@@ -1083,8 +1082,8 @@
       "type": "ground_melt_middle",
       "platform": true,
       "position": {
-        "x": 6150,
-        "y": 4560
+        "x": 1153,
+        "y": 855
       }
     },
     {
@@ -1092,8 +1091,8 @@
       "type": "ground_melt_middle",
       "platform": true,
       "position": {
-        "x": 6300,
-        "y": 4560
+        "x": 1181,
+        "y": 855
       }
     },
     {
@@ -1101,8 +1100,8 @@
       "type": "ground_melt_middle",
       "platform": true,
       "position": {
-        "x": 6450,
-        "y": 4560
+        "x": 1209,
+        "y": 855
       }
     },
     {
@@ -1110,8 +1109,8 @@
       "type": "ground_melt_middle",
       "platform": true,
       "position": {
-        "x": 6600,
-        "y": 4560
+        "x": 1237,
+        "y": 855
       }
     },
     {
@@ -1119,8 +1118,8 @@
       "type": "ground_melt_left",
       "platform": true,
       "position": {
-        "x": 9740,
-        "y": 3760
+        "x": 1826,
+        "y": 705
       }
     },
     {
@@ -1128,8 +1127,8 @@
       "type": "ground_melt_middle",
       "platform": true,
       "position": {
-        "x": 9890,
-        "y": 3760
+        "x": 1854,
+        "y": 705
       }
     },
     {
@@ -1137,8 +1136,8 @@
       "type": "ground_melt_middle",
       "platform": true,
       "position": {
-        "x": 10040,
-        "y": 3760
+        "x": 1882,
+        "y": 705
       }
     },
     {
@@ -1146,8 +1145,8 @@
       "type": "ground_melt_middle",
       "platform": true,
       "position": {
-        "x": 10190,
-        "y": 3760
+        "x": 1910,
+        "y": 705
       }
     },
     {
@@ -1155,8 +1154,8 @@
       "type": "ground_melt_middle",
       "platform": true,
       "position": {
-        "x": 10340,
-        "y": 3760
+        "x": 1938,
+        "y": 705
       }
     },
     {
@@ -1164,8 +1163,8 @@
       "type": "ground_melt_middle",
       "platform": true,
       "position": {
-        "x": 10490,
-        "y": 3760
+        "x": 1966,
+        "y": 705
       }
     },
     {
@@ -1173,8 +1172,8 @@
       "type": "ground_melt_middle",
       "platform": true,
       "position": {
-        "x": 10640,
-        "y": 3760
+        "x": 1995,
+        "y": 705
       }
     },
     {
@@ -1182,8 +1181,8 @@
       "type": "ground_melt_middle",
       "platform": true,
       "position": {
-        "x": 10790,
-        "y": 3760
+        "x": 2023,
+        "y": 705
       }
     },
     {
@@ -1191,8 +1190,8 @@
       "type": "ground_melt_right",
       "platform": true,
       "position": {
-        "x": 10940,
-        "y": 3760
+        "x": 2051,
+        "y": 705
       }
     },
     {
@@ -1200,8 +1199,8 @@
       "type": "ground_melt_left",
       "platform": true,
       "position": {
-        "x": 9690,
-        "y": 4720
+        "x": 1816,
+        "y": 885
       }
     },
     {
@@ -1209,8 +1208,8 @@
       "type": "ground_melt_middle",
       "platform": true,
       "position": {
-        "x": 9840,
-        "y": 4720
+        "x": 1845,
+        "y": 885
       }
     },
     {
@@ -1218,8 +1217,8 @@
       "type": "ground_melt_middle",
       "platform": true,
       "position": {
-        "x": 9990,
-        "y": 4720
+        "x": 1873,
+        "y": 885
       }
     },
     {
@@ -1227,8 +1226,8 @@
       "type": "ground_melt_middle",
       "platform": true,
       "position": {
-        "x": 10140,
-        "y": 4720
+        "x": 1901,
+        "y": 885
       }
     },
     {
@@ -1236,8 +1235,8 @@
       "type": "ground_melt_middle",
       "platform": true,
       "position": {
-        "x": 10290,
-        "y": 4720
+        "x": 1929,
+        "y": 885
       }
     },
     {
@@ -1245,8 +1244,8 @@
       "type": "ground_melt_middle",
       "platform": true,
       "position": {
-        "x": 10440,
-        "y": 4720
+        "x": 1957,
+        "y": 885
       }
     },
     {
@@ -1254,8 +1253,8 @@
       "type": "ground_melt_middle",
       "platform": true,
       "position": {
-        "x": 10590,
-        "y": 4720
+        "x": 1985,
+        "y": 885
       }
     },
     {
@@ -1263,8 +1262,8 @@
       "type": "ground_melt_middle",
       "platform": true,
       "position": {
-        "x": 10740,
-        "y": 4720
+        "x": 2013,
+        "y": 885
       }
     },
     {
@@ -1272,8 +1271,8 @@
       "type": "ground_melt_right",
       "platform": true,
       "position": {
-        "x": 10890,
-        "y": 4720
+        "x": 2041,
+        "y": 885
       }
     },
     {
@@ -1281,8 +1280,8 @@
       "type": "ground_melt_left",
       "platform": true,
       "position": {
-        "x": 11330,
-        "y": 4000
+        "x": 2124,
+        "y": 750
       }
     },
     {
@@ -1290,8 +1289,8 @@
       "type": "ground_melt_middle",
       "platform": true,
       "position": {
-        "x": 11480,
-        "y": 4000
+        "x": 2152,
+        "y": 750
       }
     },
     {
@@ -1299,8 +1298,8 @@
       "type": "ground_melt_middle",
       "platform": true,
       "position": {
-        "x": 11630,
-        "y": 4000
+        "x": 2180,
+        "y": 750
       }
     },
     {
@@ -1308,8 +1307,8 @@
       "type": "ground_melt_middle",
       "platform": true,
       "position": {
-        "x": 11780,
-        "y": 4000
+        "x": 2208,
+        "y": 750
       }
     },
     {
@@ -1317,8 +1316,8 @@
       "type": "ground_melt_middle",
       "platform": true,
       "position": {
-        "x": 11930,
-        "y": 4000
+        "x": 2236,
+        "y": 750
       }
     },
     {
@@ -1326,8 +1325,8 @@
       "type": "ground_melt_middle",
       "platform": true,
       "position": {
-        "x": 12080,
-        "y": 4000
+        "x": 2265,
+        "y": 750
       }
     },
     {
@@ -1335,8 +1334,8 @@
       "type": "ground_melt_middle",
       "platform": true,
       "position": {
-        "x": 12230,
-        "y": 4000
+        "x": 2293,
+        "y": 750
       }
     },
     {
@@ -1344,8 +1343,8 @@
       "type": "ground_melt_middle",
       "platform": true,
       "position": {
-        "x": 12380,
-        "y": 4000
+        "x": 2321,
+        "y": 750
       }
     },
     {
@@ -1353,8 +1352,8 @@
       "type": "ground_melt_right",
       "platform": true,
       "position": {
-        "x": 12530,
-        "y": 4000
+        "x": 2349,
+        "y": 750
       }
     },
     {
@@ -1362,8 +1361,8 @@
       "type": "ground_melt_left",
       "platform": true,
       "position": {
-        "x": 11320,
-        "y": 4480
+        "x": 2122,
+        "y": 840
       }
     },
     {
@@ -1371,8 +1370,8 @@
       "type": "ground_melt_middle",
       "platform": true,
       "position": {
-        "x": 11470,
-        "y": 4480
+        "x": 2150,
+        "y": 840
       }
     },
     {
@@ -1380,8 +1379,8 @@
       "type": "ground_melt_middle",
       "platform": true,
       "position": {
-        "x": 11620,
-        "y": 4480
+        "x": 2178,
+        "y": 840
       }
     },
     {
@@ -1389,8 +1388,8 @@
       "type": "ground_melt_middle",
       "platform": true,
       "position": {
-        "x": 11770,
-        "y": 4480
+        "x": 2206,
+        "y": 840
       }
     },
     {
@@ -1398,8 +1397,8 @@
       "type": "ground_melt_middle",
       "platform": true,
       "position": {
-        "x": 11920,
-        "y": 4480
+        "x": 2235,
+        "y": 840
       }
     },
     {
@@ -1407,8 +1406,8 @@
       "type": "ground_melt_middle",
       "platform": true,
       "position": {
-        "x": 12070,
-        "y": 4480
+        "x": 2263,
+        "y": 840
       }
     },
     {
@@ -1416,8 +1415,8 @@
       "type": "ground_melt_middle",
       "platform": true,
       "position": {
-        "x": 12220,
-        "y": 4480
+        "x": 2291,
+        "y": 840
       }
     },
     {
@@ -1425,8 +1424,8 @@
       "type": "ground_melt_middle",
       "platform": true,
       "position": {
-        "x": 12370,
-        "y": 4480
+        "x": 2319,
+        "y": 840
       }
     },
     {
@@ -1434,8 +1433,8 @@
       "type": "ground_melt_right",
       "platform": true,
       "position": {
-        "x": 12520,
-        "y": 4480
+        "x": 2347,
+        "y": 840
       }
     },
     {
@@ -1443,8 +1442,8 @@
       "type": "ground_melt_left",
       "platform": true,
       "position": {
-        "x": 12890,
-        "y": 3760
+        "x": 2416,
+        "y": 705
       }
     },
     {
@@ -1452,8 +1451,8 @@
       "type": "ground_melt_middle",
       "platform": true,
       "position": {
-        "x": 13040,
-        "y": 3760
+        "x": 2445,
+        "y": 705
       }
     },
     {
@@ -1461,8 +1460,8 @@
       "type": "ground_melt_middle",
       "platform": true,
       "position": {
-        "x": 13190,
-        "y": 3760
+        "x": 2473,
+        "y": 705
       }
     },
     {
@@ -1470,8 +1469,8 @@
       "type": "ground_melt_middle",
       "platform": true,
       "position": {
-        "x": 13340,
-        "y": 3760
+        "x": 2501,
+        "y": 705
       }
     },
     {
@@ -1479,8 +1478,8 @@
       "type": "ground_melt_middle",
       "platform": true,
       "position": {
-        "x": 13490,
-        "y": 3760
+        "x": 2529,
+        "y": 705
       }
     },
     {
@@ -1488,8 +1487,8 @@
       "type": "ground_melt_middle",
       "platform": true,
       "position": {
-        "x": 13640,
-        "y": 3760
+        "x": 2557,
+        "y": 705
       }
     },
     {
@@ -1497,8 +1496,8 @@
       "type": "ground_melt_middle",
       "platform": true,
       "position": {
-        "x": 13790,
-        "y": 3760
+        "x": 2585,
+        "y": 705
       }
     },
     {
@@ -1506,8 +1505,8 @@
       "type": "ground_melt_middle",
       "platform": true,
       "position": {
-        "x": 13940,
-        "y": 3760
+        "x": 2613,
+        "y": 705
       }
     },
     {
@@ -1515,8 +1514,8 @@
       "type": "ground_melt_right",
       "platform": true,
       "position": {
-        "x": 14090,
-        "y": 3760
+        "x": 2641,
+        "y": 705
       }
     },
     {
@@ -1524,8 +1523,8 @@
       "type": "ground_melt_left",
       "platform": true,
       "position": {
-        "x": 17700,
-        "y": 3520
+        "x": 3318,
+        "y": 660
       }
     },
     {
@@ -1533,8 +1532,8 @@
       "type": "ground_melt_middle",
       "platform": true,
       "position": {
-        "x": 17850,
-        "y": 3520
+        "x": 3346,
+        "y": 660
       }
     },
     {
@@ -1542,8 +1541,8 @@
       "type": "ground_melt_middle",
       "platform": true,
       "position": {
-        "x": 18000,
-        "y": 3520
+        "x": 3375,
+        "y": 660
       }
     },
     {
@@ -1551,8 +1550,8 @@
       "type": "ground_melt_middle",
       "platform": true,
       "position": {
-        "x": 18150,
-        "y": 3520
+        "x": 3403,
+        "y": 660
       }
     },
     {
@@ -1560,8 +1559,8 @@
       "type": "ground_melt_middle",
       "platform": true,
       "position": {
-        "x": 18300,
-        "y": 3520
+        "x": 3431,
+        "y": 660
       }
     },
     {
@@ -1569,8 +1568,8 @@
       "type": "ground_melt_middle",
       "platform": true,
       "position": {
-        "x": 18450,
-        "y": 3520
+        "x": 3459,
+        "y": 660
       }
     },
     {
@@ -1578,8 +1577,8 @@
       "type": "ground_melt_middle",
       "platform": true,
       "position": {
-        "x": 18600,
-        "y": 3520
+        "x": 3487,
+        "y": 660
       }
     },
     {
@@ -1587,8 +1586,8 @@
       "type": "ground_melt_middle",
       "platform": true,
       "position": {
-        "x": 18750,
-        "y": 3520
+        "x": 3515,
+        "y": 660
       }
     },
     {
@@ -1596,8 +1595,8 @@
       "type": "ground_melt_right",
       "platform": true,
       "position": {
-        "x": 18900,
-        "y": 3520
+        "x": 3543,
+        "y": 660
       }
     },
     {
@@ -1605,8 +1604,8 @@
       "type": "ground_melt_left",
       "platform": true,
       "position": {
-        "x": 18110,
-        "y": 3920
+        "x": 3395,
+        "y": 735
       }
     },
     {
@@ -1614,8 +1613,8 @@
       "type": "ground_melt_middle",
       "platform": true,
       "position": {
-        "x": 18260,
-        "y": 3920
+        "x": 3423,
+        "y": 735
       }
     },
     {
@@ -1623,8 +1622,8 @@
       "type": "ground_melt_middle",
       "platform": true,
       "position": {
-        "x": 18410,
-        "y": 3920
+        "x": 3451,
+        "y": 735
       }
     },
     {
@@ -1632,8 +1631,8 @@
       "type": "ground_melt_middle",
       "platform": true,
       "position": {
-        "x": 18560,
-        "y": 3920
+        "x": 3480,
+        "y": 735
       }
     },
     {
@@ -1641,8 +1640,8 @@
       "type": "ground_melt_middle",
       "platform": true,
       "position": {
-        "x": 18710,
-        "y": 3920
+        "x": 3508,
+        "y": 735
       }
     },
     {
@@ -1650,8 +1649,8 @@
       "type": "ground_melt_middle",
       "platform": true,
       "position": {
-        "x": 18860,
-        "y": 3920
+        "x": 3536,
+        "y": 735
       }
     },
     {
@@ -1659,8 +1658,8 @@
       "type": "ground_melt_middle",
       "platform": true,
       "position": {
-        "x": 19010,
-        "y": 3920
+        "x": 3564,
+        "y": 735
       }
     },
     {
@@ -1668,8 +1667,8 @@
       "type": "ground_melt_middle",
       "platform": true,
       "position": {
-        "x": 19160,
-        "y": 3920
+        "x": 3592,
+        "y": 735
       }
     },
     {
@@ -1677,8 +1676,8 @@
       "type": "ground_melt_right",
       "platform": true,
       "position": {
-        "x": 19310,
-        "y": 3920
+        "x": 3620,
+        "y": 735
       }
     },
     {
@@ -1686,8 +1685,8 @@
       "type": "ground_melt_left",
       "platform": true,
       "position": {
-        "x": 18680,
-        "y": 4400
+        "x": 3502,
+        "y": 825
       }
     },
     {
@@ -1695,8 +1694,8 @@
       "type": "ground_melt_middle",
       "platform": true,
       "position": {
-        "x": 18830,
-        "y": 4400
+        "x": 3530,
+        "y": 825
       }
     },
     {
@@ -1704,8 +1703,8 @@
       "type": "ground_melt_middle",
       "platform": true,
       "position": {
-        "x": 18980,
-        "y": 4400
+        "x": 3558,
+        "y": 825
       }
     },
     {
@@ -1713,8 +1712,8 @@
       "type": "ground_melt_middle",
       "platform": true,
       "position": {
-        "x": 19130,
-        "y": 4400
+        "x": 3586,
+        "y": 825
       }
     },
     {
@@ -1722,8 +1721,8 @@
       "type": "ground_melt_middle",
       "platform": true,
       "position": {
-        "x": 19280,
-        "y": 4400
+        "x": 3615,
+        "y": 825
       }
     },
     {
@@ -1731,8 +1730,8 @@
       "type": "ground_melt_middle",
       "platform": true,
       "position": {
-        "x": 19430,
-        "y": 4400
+        "x": 3643,
+        "y": 825
       }
     },
     {
@@ -1740,8 +1739,8 @@
       "type": "ground_melt_middle",
       "platform": true,
       "position": {
-        "x": 19580,
-        "y": 4400
+        "x": 3671,
+        "y": 825
       }
     },
     {
@@ -1749,8 +1748,8 @@
       "type": "ground_melt_middle",
       "platform": true,
       "position": {
-        "x": 19730,
-        "y": 4400
+        "x": 3699,
+        "y": 825
       }
     },
     {
@@ -1758,8 +1757,8 @@
       "type": "ground_melt_right",
       "platform": true,
       "position": {
-        "x": 19880,
-        "y": 4400
+        "x": 3727,
+        "y": 825
       }
     },
     {
@@ -1767,8 +1766,8 @@
       "type": "ground_melt_middle",
       "platform": true,
       "position": {
-        "x": 13000,
-        "y": 4160
+        "x": 2437,
+        "y": 780
       }
     },
     {
@@ -1776,8 +1775,8 @@
       "type": "ground_melt_middle",
       "platform": true,
       "position": {
-        "x": 13150,
-        "y": 4160
+        "x": 2465,
+        "y": 780
       }
     },
     {
@@ -1785,8 +1784,8 @@
       "type": "ground_melt_middle",
       "platform": true,
       "position": {
-        "x": 13300,
-        "y": 4160
+        "x": 2493,
+        "y": 780
       }
     },
     {
@@ -1794,8 +1793,8 @@
       "type": "ground_melt_middle",
       "platform": true,
       "position": {
-        "x": 13450,
-        "y": 4160
+        "x": 2521,
+        "y": 780
       }
     },
     {
@@ -1803,8 +1802,8 @@
       "type": "ground_melt_middle",
       "platform": true,
       "position": {
-        "x": 13600,
-        "y": 4160
+        "x": 2550,
+        "y": 780
       }
     },
     {
@@ -1812,8 +1811,8 @@
       "type": "ground_melt_middle",
       "platform": true,
       "position": {
-        "x": 13750,
-        "y": 4160
+        "x": 2578,
+        "y": 780
       }
     },
     {
@@ -1821,8 +1820,8 @@
       "type": "ground_melt_middle",
       "platform": true,
       "position": {
-        "x": 13900,
-        "y": 4160
+        "x": 2606,
+        "y": 780
       }
     },
     {
@@ -1830,8 +1829,8 @@
       "type": "ground_melt_middle",
       "platform": true,
       "position": {
-        "x": 14050,
-        "y": 4160
+        "x": 2634,
+        "y": 780
       }
     },
     {
@@ -1839,8 +1838,8 @@
       "type": "ground_melt_middle",
       "platform": true,
       "position": {
-        "x": 14200,
-        "y": 4160
+        "x": 2662,
+        "y": 780
       }
     },
     {
@@ -1848,8 +1847,8 @@
       "type": "ground_melt_middle",
       "platform": true,
       "position": {
-        "x": 14350,
-        "y": 4160
+        "x": 2690,
+        "y": 780
       }
     },
     {
@@ -1857,8 +1856,8 @@
       "type": "ground_melt_middle",
       "platform": true,
       "position": {
-        "x": 14500,
-        "y": 4160
+        "x": 2718,
+        "y": 780
       }
     },
     {
@@ -1866,8 +1865,8 @@
       "type": "ground_melt_middle",
       "platform": true,
       "position": {
-        "x": 14650,
-        "y": 4160
+        "x": 2746,
+        "y": 780
       }
     },
     {
@@ -1875,8 +1874,8 @@
       "type": "ground_melt_middle",
       "platform": true,
       "position": {
-        "x": 14800,
-        "y": 4160
+        "x": 2775,
+        "y": 780
       }
     },
     {
@@ -1884,8 +1883,8 @@
       "type": "ground_melt_middle",
       "platform": true,
       "position": {
-        "x": 14950,
-        "y": 4160
+        "x": 2803,
+        "y": 780
       }
     },
     {
@@ -1893,8 +1892,8 @@
       "type": "ground_melt_middle",
       "platform": true,
       "position": {
-        "x": 15100,
-        "y": 4160
+        "x": 2831,
+        "y": 780
       }
     },
     {
@@ -1902,8 +1901,8 @@
       "type": "ground_melt_middle",
       "platform": true,
       "position": {
-        "x": 15250,
-        "y": 4160
+        "x": 2859,
+        "y": 780
       }
     },
     {
@@ -1911,8 +1910,8 @@
       "type": "ground_melt_middle",
       "platform": true,
       "position": {
-        "x": 15400,
-        "y": 4160
+        "x": 2887,
+        "y": 780
       }
     },
     {
@@ -1920,8 +1919,8 @@
       "type": "ground_melt_middle",
       "platform": true,
       "position": {
-        "x": 15550,
-        "y": 4160
+        "x": 2915,
+        "y": 780
       }
     },
     {
@@ -1929,8 +1928,8 @@
       "type": "ground_melt_middle",
       "platform": true,
       "position": {
-        "x": 15700,
-        "y": 4160
+        "x": 2943,
+        "y": 780
       }
     },
     {
@@ -1938,8 +1937,8 @@
       "type": "ground_melt_middle",
       "platform": true,
       "position": {
-        "x": 15850,
-        "y": 4160
+        "x": 2971,
+        "y": 780
       }
     },
     {
@@ -1947,8 +1946,8 @@
       "type": "ground_melt_right",
       "platform": true,
       "position": {
-        "x": 18550,
-        "y": 4160
+        "x": 3478,
+        "y": 780
       }
     },
     {
@@ -1956,8 +1955,8 @@
       "type": "ground_melt_middle",
       "platform": true,
       "position": {
-        "x": 16000,
-        "y": 4160
+        "x": 3000,
+        "y": 780
       }
     },
     {
@@ -1965,8 +1964,8 @@
       "type": "ground_melt_middle",
       "platform": true,
       "position": {
-        "x": 16150,
-        "y": 4160
+        "x": 3028,
+        "y": 780
       }
     },
     {
@@ -1974,8 +1973,8 @@
       "type": "ground_melt_middle",
       "platform": true,
       "position": {
-        "x": 16300,
-        "y": 4160
+        "x": 3056,
+        "y": 780
       }
     },
     {
@@ -1983,8 +1982,8 @@
       "type": "ground_melt_middle",
       "platform": true,
       "position": {
-        "x": 16450,
-        "y": 4160
+        "x": 3084,
+        "y": 780
       }
     },
     {
@@ -1992,8 +1991,8 @@
       "type": "ground_melt_middle",
       "platform": true,
       "position": {
-        "x": 16600,
-        "y": 4160
+        "x": 3112,
+        "y": 780
       }
     },
     {
@@ -2001,8 +2000,8 @@
       "type": "ground_melt_middle",
       "platform": true,
       "position": {
-        "x": 16750,
-        "y": 4160
+        "x": 3140,
+        "y": 780
       }
     },
     {
@@ -2010,8 +2009,8 @@
       "type": "ground_melt_middle",
       "platform": true,
       "position": {
-        "x": 16900,
-        "y": 4160
+        "x": 3168,
+        "y": 780
       }
     },
     {
@@ -2019,8 +2018,8 @@
       "type": "ground_melt_middle",
       "platform": true,
       "position": {
-        "x": 17050,
-        "y": 4160
+        "x": 3196,
+        "y": 780
       }
     },
     {
@@ -2028,8 +2027,8 @@
       "type": "ground_melt_middle",
       "platform": true,
       "position": {
-        "x": 17200,
-        "y": 4160
+        "x": 3225,
+        "y": 780
       }
     },
     {
@@ -2037,8 +2036,8 @@
       "type": "ground_melt_middle",
       "platform": true,
       "position": {
-        "x": 17350,
-        "y": 4160
+        "x": 3253,
+        "y": 780
       }
     },
     {
@@ -2046,8 +2045,8 @@
       "type": "ground_melt_middle",
       "platform": true,
       "position": {
-        "x": 17500,
-        "y": 4160
+        "x": 3281,
+        "y": 780
       }
     },
     {
@@ -2055,8 +2054,8 @@
       "type": "ground_melt_middle",
       "platform": true,
       "position": {
-        "x": 17650,
-        "y": 4160
+        "x": 3309,
+        "y": 780
       }
     },
     {
@@ -2064,8 +2063,8 @@
       "type": "ground_melt_middle",
       "platform": true,
       "position": {
-        "x": 17800,
-        "y": 4160
+        "x": 3337,
+        "y": 780
       }
     },
     {
@@ -2073,8 +2072,8 @@
       "type": "ground_melt_middle",
       "platform": true,
       "position": {
-        "x": 17950,
-        "y": 4160
+        "x": 3365,
+        "y": 780
       }
     },
     {
@@ -2082,8 +2081,8 @@
       "type": "ground_melt_middle",
       "platform": true,
       "position": {
-        "x": 18100,
-        "y": 4160
+        "x": 3393,
+        "y": 780
       }
     },
     {
@@ -2091,8 +2090,8 @@
       "type": "ground_melt_middle",
       "platform": true,
       "position": {
-        "x": 18250,
-        "y": 4160
+        "x": 3421,
+        "y": 780
       }
     },
     {
@@ -2100,8 +2099,8 @@
       "type": "ground_melt_middle",
       "platform": true,
       "position": {
-        "x": 18400,
-        "y": 4160
+        "x": 3450,
+        "y": 780
       }
     },
     {
@@ -2109,8 +2108,8 @@
       "type": "ground_melt_left",
       "platform": true,
       "position": {
-        "x": 12850,
-        "y": 4160
+        "x": 2409,
+        "y": 780
       }
     },
     {
@@ -2118,134 +2117,134 @@
       "type": "running_clock",
       "platform": false,
       "position": {
-        "x": 9233,
-        "y": 4448
+        "x": 1731,
+        "y": 834
       },
       "terminalVelocity": {
-        "x": 100.0,
-        "y": 1125.0
+        "x": 18,
+        "y": 210
       },
-      "gravity": 1000.0,
-      "fallGravity": 1500.0,
-      "runningAcceleration": -150.0
+      "gravity": 187,
+      "fallGravity": 281,
+      "runningAcceleration": -28
     },
     {
       "id": 234,
       "type": "running_clock",
       "platform": false,
       "position": {
-        "x": 10760,
-        "y": 3568
+        "x": 2017,
+        "y": 669
       },
       "terminalVelocity": {
-        "x": 100.0,
-        "y": 1125.0
+        "x": 18,
+        "y": 210
       },
-      "gravity": 1000.0,
-      "fallGravity": 1500.0,
-      "runningAcceleration": -150.0
+      "gravity": 187,
+      "fallGravity": 281,
+      "runningAcceleration": -28
     },
     {
       "id": 235,
       "type": "running_clock",
       "platform": false,
       "position": {
-        "x": 9280,
-        "y": 3768
+        "x": 1740,
+        "y": 706
       },
       "terminalVelocity": {
-        "x": 100.0,
-        "y": 1125.0
+        "x": 18,
+        "y": 210
       },
-      "gravity": 1000.0,
-      "fallGravity": 1500.0,
-      "runningAcceleration": -150.0
+      "gravity": 187,
+      "fallGravity": 281,
+      "runningAcceleration": -28
     },
     {
       "id": 236,
       "type": "running_clock",
       "platform": false,
       "position": {
-        "x": 10673,
-        "y": 4088
+        "x": 2001,
+        "y": 766
       },
       "terminalVelocity": {
-        "x": 100.0,
-        "y": 1125.0
+        "x": 18,
+        "y": 210
       },
-      "gravity": 1000.0,
-      "fallGravity": 1500.0,
-      "runningAcceleration": -150.0
+      "gravity": 187,
+      "fallGravity": 281,
+      "runningAcceleration": -28
     },
     {
       "id": 237,
       "type": "running_clock",
       "platform": false,
       "position": {
-        "x": 10760,
-        "y": 4568
+        "x": 2017,
+        "y": 856
       },
       "terminalVelocity": {
-        "x": 100.0,
-        "y": 1125.0
+        "x": 18,
+        "y": 210
       },
-      "gravity": 1000.0,
-      "fallGravity": 1500.0,
-      "runningAcceleration": -150.0
+      "gravity": 187,
+      "fallGravity": 281,
+      "runningAcceleration": -28
     },
     {
       "id": 238,
       "type": "running_clock",
       "platform": false,
       "position": {
-        "x": 5600,
-        "y": 3968
+        "x": 1050,
+        "y": 744
       },
       "terminalVelocity": {
-        "x": 100.0,
-        "y": 1125.0
+        "x": 18,
+        "y": 210
       },
-      "gravity": 1000.0,
-      "fallGravity": 1500.0,
-      "runningAcceleration": -150.0
+      "gravity": 187,
+      "fallGravity": 281,
+      "runningAcceleration": -28
     },
     {
       "id": 239,
       "type": "running_clock",
       "platform": false,
       "position": {
-        "x": 5320,
-        "y": 4008
+        "x": 997,
+        "y": 751
       },
       "terminalVelocity": {
-        "x": 100.0,
-        "y": 1125.0
+        "x": 18,
+        "y": 210
       },
-      "gravity": 1000.0,
-      "fallGravity": 1500.0,
-      "runningAcceleration": -150.0
+      "gravity": 187,
+      "fallGravity": 281,
+      "runningAcceleration": -28
     },
     {
       "id": 240,
       "type": "bird",
       "platform": false,
       "position": {
-        "x": 10380,
-        "y": 3225
+        "x": 1946,
+        "y": 604
       },
       "velocity": {
-        "x": -50.0,
-        "y": 0.0
+        "x": -9,
+        "y": 0
       },
       "terminalVelocity": {
-        "x": 125.0,
-        "y": 1125.0
+        "x": 23,
+        "y": 210
       },
-      "massFactor": 0.25,
-      "runningAcceleration": -150.0,
-      "risingAcceleration": 150.0,
       "lane": 1,
       "hitPoints": 1,
+      "runningAcceleration": -28,
+      "risingAcceleration": 28,
+      "massFactor": 25,
       "stompable": true,
       "bottomStompable": true,
       "randFrame": true
@@ -2255,22 +2254,22 @@
       "type": "bird",
       "platform": false,
       "position": {
-        "x": 10420,
-        "y": 3100
+        "x": 1953,
+        "y": 581
       },
       "velocity": {
-        "x": -50.0,
-        "y": 0.0
+        "x": -9,
+        "y": 0
       },
       "terminalVelocity": {
-        "x": 125.0,
-        "y": 1125.0
+        "x": 23,
+        "y": 210
       },
-      "massFactor": 0.25,
-      "runningAcceleration": -150.0,
-      "risingAcceleration": 150.0,
       "lane": 1,
       "hitPoints": 1,
+      "runningAcceleration": -28,
+      "risingAcceleration": 28,
+      "massFactor": 25,
       "stompable": true,
       "bottomStompable": true,
       "randFrame": true
@@ -2280,22 +2279,22 @@
       "type": "bird",
       "platform": false,
       "position": {
-        "x": 10560,
-        "y": 3185
+        "x": 1980,
+        "y": 597
       },
       "velocity": {
-        "x": -50.0,
-        "y": 0.0
+        "x": -9,
+        "y": 0
       },
       "terminalVelocity": {
-        "x": 125.0,
-        "y": 1125.0
+        "x": 23,
+        "y": 210
       },
-      "massFactor": 0.25,
-      "runningAcceleration": -150.0,
-      "risingAcceleration": 150.0,
       "lane": 1,
       "hitPoints": 1,
+      "runningAcceleration": -28,
+      "risingAcceleration": 28,
+      "massFactor": 25,
       "stompable": true,
       "bottomStompable": true,
       "randFrame": true
@@ -2305,22 +2304,22 @@
       "type": "bird",
       "platform": false,
       "position": {
-        "x": 10640,
-        "y": 3100
+        "x": 1995,
+        "y": 581
       },
       "velocity": {
-        "x": -50.0,
-        "y": 0.0
+        "x": -9,
+        "y": 0
       },
       "terminalVelocity": {
-        "x": 125.0,
-        "y": 1125.0
+        "x": 23,
+        "y": 210
       },
-      "massFactor": 0.25,
-      "runningAcceleration": -150.0,
-      "risingAcceleration": 150.0,
       "lane": 1,
       "hitPoints": 1,
+      "runningAcceleration": -28,
+      "risingAcceleration": 28,
+      "massFactor": 25,
       "stompable": true,
       "bottomStompable": true,
       "randFrame": true
@@ -2330,22 +2329,22 @@
       "type": "bird",
       "platform": false,
       "position": {
-        "x": 10720,
-        "y": 3245
+        "x": 2010,
+        "y": 608
       },
       "velocity": {
-        "x": -50.0,
-        "y": 0.0
+        "x": -9,
+        "y": 0
       },
       "terminalVelocity": {
-        "x": 125.0,
-        "y": 1125.0
+        "x": 23,
+        "y": 210
       },
-      "massFactor": 0.25,
-      "runningAcceleration": -150.0,
-      "risingAcceleration": 150.0,
       "lane": 1,
       "hitPoints": 1,
+      "runningAcceleration": -28,
+      "risingAcceleration": 28,
+      "massFactor": 25,
       "stompable": true,
       "bottomStompable": true,
       "randFrame": true
@@ -2355,22 +2354,22 @@
       "type": "bird",
       "platform": false,
       "position": {
-        "x": 6640,
-        "y": 3450
+        "x": 1245,
+        "y": 646
       },
       "velocity": {
-        "x": -50.0,
-        "y": 0.0
+        "x": -9,
+        "y": 0
       },
       "terminalVelocity": {
-        "x": 125.0,
-        "y": 1125.0
+        "x": 23,
+        "y": 210
       },
-      "massFactor": 0.25,
-      "runningAcceleration": -150.0,
-      "risingAcceleration": 150.0,
       "lane": 1,
       "hitPoints": 1,
+      "runningAcceleration": -28,
+      "risingAcceleration": 28,
+      "massFactor": 25,
       "stompable": true,
       "bottomStompable": true,
       "randFrame": true
@@ -2380,22 +2379,22 @@
       "type": "bird",
       "platform": false,
       "position": {
-        "x": 6840,
-        "y": 3850
+        "x": 1282,
+        "y": 721
       },
       "velocity": {
-        "x": -50.0,
-        "y": 0.0
+        "x": -9,
+        "y": 0
       },
       "terminalVelocity": {
-        "x": 125.0,
-        "y": 1125.0
+        "x": 23,
+        "y": 210
       },
-      "massFactor": 0.25,
-      "runningAcceleration": -150.0,
-      "risingAcceleration": 150.0,
       "lane": 1,
       "hitPoints": 1,
+      "runningAcceleration": -28,
+      "risingAcceleration": 28,
+      "massFactor": 25,
       "stompable": true,
       "bottomStompable": true,
       "randFrame": true
@@ -2405,22 +2404,22 @@
       "type": "bird",
       "platform": false,
       "position": {
-        "x": 7200,
-        "y": 3745
+        "x": 1350,
+        "y": 702
       },
       "velocity": {
-        "x": -50.0,
-        "y": 0.0
+        "x": -9,
+        "y": 0
       },
       "terminalVelocity": {
-        "x": 125.0,
-        "y": 1125.0
+        "x": 23,
+        "y": 210
       },
-      "massFactor": 0.25,
-      "runningAcceleration": -150.0,
-      "risingAcceleration": 150.0,
       "lane": 1,
       "hitPoints": 1,
+      "runningAcceleration": -28,
+      "risingAcceleration": 28,
+      "massFactor": 25,
       "stompable": true,
       "bottomStompable": true,
       "randFrame": true
@@ -2430,22 +2429,22 @@
       "type": "bird",
       "platform": false,
       "position": {
-        "x": 6880,
-        "y": 3625
+        "x": 1290,
+        "y": 679
       },
       "velocity": {
-        "x": -50.0,
-        "y": 0.0
+        "x": -9,
+        "y": 0
       },
       "terminalVelocity": {
-        "x": 125.0,
-        "y": 1125.0
+        "x": 23,
+        "y": 210
       },
-      "massFactor": 0.25,
-      "runningAcceleration": -150.0,
-      "risingAcceleration": 150.0,
       "lane": 1,
       "hitPoints": 1,
+      "runningAcceleration": -28,
+      "risingAcceleration": 28,
+      "massFactor": 25,
       "stompable": true,
       "bottomStompable": true,
       "randFrame": true
@@ -2455,22 +2454,22 @@
       "type": "bird",
       "platform": false,
       "position": {
-        "x": 7040,
-        "y": 3465
+        "x": 1320,
+        "y": 649
       },
       "velocity": {
-        "x": -50.0,
-        "y": 0.0
+        "x": -9,
+        "y": 0
       },
       "terminalVelocity": {
-        "x": 125.0,
-        "y": 1125.0
+        "x": 23,
+        "y": 210
       },
-      "massFactor": 0.25,
-      "runningAcceleration": -150.0,
-      "risingAcceleration": 150.0,
       "lane": 1,
       "hitPoints": 1,
+      "runningAcceleration": -28,
+      "risingAcceleration": 28,
+      "massFactor": 25,
       "stompable": true,
       "bottomStompable": true,
       "randFrame": true
@@ -2480,153 +2479,153 @@
       "type": "bird",
       "platform": false,
       "position": {
-        "x": 2580,
-        "y": 4000
+        "x": 483,
+        "y": 750
       },
       "velocity": {
-        "x": -50.0,
-        "y": 0.0
+        "x": -9,
+        "y": 0
       },
       "terminalVelocity": {
-        "x": 125.0,
-        "y": 1125.0
+        "x": 23,
+        "y": 210
       },
-      "massFactor": 0.25,
-      "runningAcceleration": -150.0,
-      "risingAcceleration": 150.0,
       "lane": 1,
       "hitPoints": 1,
+      "runningAcceleration": -28,
+      "risingAcceleration": 28,
+      "massFactor": 25,
       "stompable": true,
       "bottomStompable": true,
       "randFrame": true,
-      "activation": 1652
+      "activation": 309
     },
     {
       "id": 251,
       "type": "bird",
       "platform": false,
       "position": {
-        "x": 2660,
-        "y": 4140
+        "x": 498,
+        "y": 776
       },
       "velocity": {
-        "x": -50.0,
-        "y": 0.0
+        "x": -9,
+        "y": 0
       },
       "terminalVelocity": {
-        "x": 125.0,
-        "y": 1125.0
+        "x": 23,
+        "y": 210
       },
-      "massFactor": 0.25,
-      "runningAcceleration": -150.0,
-      "risingAcceleration": 150.0,
       "lane": 5,
       "hitPoints": 1,
+      "runningAcceleration": -28,
+      "risingAcceleration": 28,
+      "massFactor": 25,
       "stompable": true,
       "bottomStompable": true,
       "randFrame": true,
-      "activation": 1732
+      "activation": 324
     },
     {
       "id": 252,
       "type": "bird",
       "platform": false,
       "position": {
-        "x": 2900,
-        "y": 4140
+        "x": 543,
+        "y": 776
       },
       "velocity": {
-        "x": -50.0,
-        "y": 0.0
+        "x": -9,
+        "y": 0
       },
       "terminalVelocity": {
-        "x": 125.0,
-        "y": 1125.0
+        "x": 23,
+        "y": 210
       },
-      "massFactor": 0.25,
-      "runningAcceleration": -150.0,
-      "risingAcceleration": 150.0,
       "lane": 6,
       "hitPoints": 1,
+      "runningAcceleration": -28,
+      "risingAcceleration": 28,
+      "massFactor": 25,
       "stompable": true,
       "bottomStompable": true,
       "randFrame": true,
-      "activation": 1972
+      "activation": 369
     },
     {
       "id": 253,
       "type": "bird",
       "platform": false,
       "position": {
-        "x": 2760,
-        "y": 4040
+        "x": 517,
+        "y": 757
       },
       "velocity": {
-        "x": -50.0,
-        "y": 0.0
+        "x": -9,
+        "y": 0
       },
       "terminalVelocity": {
-        "x": 125.0,
-        "y": 1125.0
+        "x": 23,
+        "y": 210
       },
-      "massFactor": 0.25,
-      "runningAcceleration": -150.0,
-      "risingAcceleration": 150.0,
       "lane": 1,
       "hitPoints": 1,
+      "runningAcceleration": -28,
+      "risingAcceleration": 28,
+      "massFactor": 25,
       "stompable": true,
       "bottomStompable": true,
       "randFrame": true,
-      "activation": 1832
+      "activation": 343
     },
     {
       "id": 254,
       "type": "bird",
       "platform": false,
       "position": {
-        "x": 2880,
-        "y": 4000
+        "x": 540,
+        "y": 750
       },
       "velocity": {
-        "x": -50.0,
-        "y": 0.0
+        "x": -9,
+        "y": 0
       },
       "terminalVelocity": {
-        "x": 125.0,
-        "y": 1125.0
+        "x": 23,
+        "y": 210
       },
-      "massFactor": 0.25,
-      "runningAcceleration": -150.0,
-      "risingAcceleration": 150.0,
       "lane": 8,
       "hitPoints": 1,
+      "runningAcceleration": -28,
+      "risingAcceleration": 28,
+      "massFactor": 25,
       "stompable": true,
       "bottomStompable": true,
       "randFrame": true,
-      "activation": 1952
+      "activation": 366
     },
     {
       "id": 255,
       "type": "bird",
       "platform": false,
       "position": {
-        "x": 2540,
-        "y": 4160
+        "x": 476,
+        "y": 780
       },
       "velocity": {
-        "x": -50.0,
-        "y": 0.0
+        "x": -9,
+        "y": 0
       },
       "terminalVelocity": {
-        "x": 125.0,
-        "y": 1125.0
+        "x": 23,
+        "y": 210
       },
-      "massFactor": 0.25,
-      "runningAcceleration": -150.0,
-      "risingAcceleration": 150.0,
-      "activation": 1612.0,
       "lane": 1,
       "hitPoints": 1,
+      "runningAcceleration": -28,
+      "risingAcceleration": 28,
+      "activation": 302,
+      "massFactor": 25,
       "stompable": true,
       "bottomStompable": true,
       "randFrame": true
@@ -2636,254 +2635,254 @@
       "type": "bird",
       "platform": false,
       "position": {
-        "x": 2560,
-        "y": 4080
+        "x": 480,
+        "y": 765
       },
       "velocity": {
-        "x": -50.0,
-        "y": 0.0
+        "x": -9,
+        "y": 0
       },
       "terminalVelocity": {
-        "x": 125.0,
-        "y": 1125.0
+        "x": 23,
+        "y": 210
       },
-      "massFactor": 0.25,
-      "runningAcceleration": -150.0,
-      "risingAcceleration": 150.0,
       "lane": 2,
       "hitPoints": 1,
+      "runningAcceleration": -28,
+      "risingAcceleration": 28,
+      "massFactor": 25,
       "stompable": true,
       "bottomStompable": true,
       "randFrame": true,
-      "activation": 1632
+      "activation": 306
     },
     {
       "id": 257,
       "type": "bird",
       "platform": false,
       "position": {
-        "x": 2680,
-        "y": 4040
+        "x": 502,
+        "y": 757
       },
       "velocity": {
-        "x": -50.0,
-        "y": 0.0
+        "x": -9,
+        "y": 0
       },
       "terminalVelocity": {
-        "x": 125.0,
-        "y": 1125.0
+        "x": 23,
+        "y": 210
       },
-      "massFactor": 0.25,
-      "runningAcceleration": -150.0,
-      "risingAcceleration": 150.0,
       "lane": 6,
       "hitPoints": 1,
+      "runningAcceleration": -28,
+      "risingAcceleration": 28,
+      "massFactor": 25,
       "stompable": true,
       "bottomStompable": true,
       "randFrame": true,
-      "activation": 1752
+      "activation": 328
     },
     {
       "id": 258,
       "type": "bird",
       "platform": false,
       "position": {
-        "x": 2800,
-        "y": 4140
+        "x": 525,
+        "y": 776
       },
       "velocity": {
-        "x": -50.0,
-        "y": 0.0
+        "x": -9,
+        "y": 0
       },
       "terminalVelocity": {
-        "x": 125.0,
-        "y": 1125.0
+        "x": 23,
+        "y": 210
       },
-      "massFactor": 0.25,
-      "runningAcceleration": -150.0,
-      "risingAcceleration": 150.0,
       "lane": 2,
       "hitPoints": 1,
+      "runningAcceleration": -28,
+      "risingAcceleration": 28,
+      "massFactor": 25,
       "stompable": true,
       "bottomStompable": true,
       "randFrame": true,
-      "activation": 1872
+      "activation": 351
     },
     {
       "id": 259,
       "type": "bird",
       "platform": false,
       "position": {
-        "x": 2610,
-        "y": 4090
+        "x": 489,
+        "y": 766
       },
       "velocity": {
-        "x": -50.0,
-        "y": 0.0
+        "x": -9,
+        "y": 0
       },
       "terminalVelocity": {
-        "x": 125.0,
-        "y": 1125.0
+        "x": 23,
+        "y": 210
       },
-      "massFactor": 0.25,
-      "runningAcceleration": -150.0,
-      "risingAcceleration": 150.0,
       "lane": 4,
       "hitPoints": 1,
+      "runningAcceleration": -28,
+      "risingAcceleration": 28,
+      "massFactor": 25,
       "stompable": true,
       "bottomStompable": true,
       "randFrame": true,
-      "activation": 1682
+      "activation": 315
     },
     {
       "id": 260,
       "type": "bird",
       "platform": false,
       "position": {
-        "x": 2750,
-        "y": 4150
+        "x": 515,
+        "y": 778
       },
       "velocity": {
-        "x": -50.0,
-        "y": 0.0
+        "x": -9,
+        "y": 0
       },
       "terminalVelocity": {
-        "x": 125.0,
-        "y": 1125.0
+        "x": 23,
+        "y": 210
       },
-      "massFactor": 0.25,
-      "runningAcceleration": -150.0,
-      "risingAcceleration": 150.0,
       "lane": 3,
       "hitPoints": 1,
+      "runningAcceleration": -28,
+      "risingAcceleration": 28,
+      "massFactor": 25,
       "stompable": true,
       "bottomStompable": true,
       "randFrame": true,
-      "activation": 1822
+      "activation": 341
     },
     {
       "id": 261,
       "type": "bird",
       "platform": false,
       "position": {
-        "x": 2820,
-        "y": 4010
+        "x": 528,
+        "y": 751
       },
       "velocity": {
-        "x": -50.0,
-        "y": 0.0
+        "x": -9,
+        "y": 0
       },
       "terminalVelocity": {
-        "x": 125.0,
-        "y": 1125.0
+        "x": 23,
+        "y": 210
       },
-      "massFactor": 0.25,
-      "runningAcceleration": -150.0,
-      "risingAcceleration": 150.0,
       "lane": 4,
       "hitPoints": 1,
+      "runningAcceleration": -28,
+      "risingAcceleration": 28,
+      "massFactor": 25,
       "stompable": true,
       "bottomStompable": true,
       "randFrame": true,
-      "activation": 1892
+      "activation": 354
     },
     {
       "id": 262,
       "type": "bird",
       "platform": false,
       "position": {
-        "x": 2680,
-        "y": 3960
+        "x": 502,
+        "y": 742
       },
       "velocity": {
-        "x": -50.0,
-        "y": 0.0
+        "x": -9,
+        "y": 0
       },
       "terminalVelocity": {
-        "x": 125.0,
-        "y": 1125.0
+        "x": 23,
+        "y": 210
       },
-      "massFactor": 0.25,
-      "runningAcceleration": -150.0,
-      "risingAcceleration": 150.0,
       "lane": 7,
       "hitPoints": 1,
+      "runningAcceleration": -28,
+      "risingAcceleration": 28,
+      "massFactor": 25,
       "stompable": true,
       "bottomStompable": true,
       "randFrame": true,
-      "activation": 1752
+      "activation": 328
     },
     {
       "id": 263,
       "type": "bird",
       "platform": false,
       "position": {
-        "x": 2860,
-        "y": 4200
+        "x": 536,
+        "y": 787
       },
       "velocity": {
-        "x": -50.0,
-        "y": 0.0
+        "x": -9,
+        "y": 0
       },
       "terminalVelocity": {
-        "x": 125.0,
-        "y": 1125.0
+        "x": 23,
+        "y": 210
       },
-      "massFactor": 0.25,
-      "runningAcceleration": -150.0,
-      "risingAcceleration": 150.0,
       "lane": 5,
       "hitPoints": 1,
+      "runningAcceleration": -28,
+      "risingAcceleration": 28,
+      "massFactor": 25,
       "stompable": true,
       "bottomStompable": true,
       "randFrame": true,
-      "activation": 1932
+      "activation": 362
     },
     {
       "id": 264,
       "type": "bird",
       "platform": false,
       "position": {
-        "x": 2870,
-        "y": 4070
+        "x": 538,
+        "y": 763
       },
       "velocity": {
-        "x": -50.0,
-        "y": 0.0
+        "x": -9,
+        "y": 0
       },
       "terminalVelocity": {
-        "x": 125.0,
-        "y": 1125.0
+        "x": 23,
+        "y": 210
       },
-      "massFactor": 0.25,
-      "runningAcceleration": -150.0,
-      "risingAcceleration": 150.0,
       "lane": 7,
       "hitPoints": 1,
+      "runningAcceleration": -28,
+      "risingAcceleration": 28,
+      "massFactor": 25,
       "stompable": true,
       "bottomStompable": true,
       "randFrame": true,
-      "activation": 1942
+      "activation": 364
     },
     {
       "id": 265,
       "type": "brick",
       "platform": false,
       "position": {
-        "x": 14250,
-        "y": 2670
+        "x": 2671,
+        "y": 500
       },
       "terminalVelocity": {
-        "x": 125.0,
-        "y": 1125.0
+        "x": 23,
+        "y": 210
       },
       "friction": {
-        "x": 200.0,
-        "y": 0.0
+        "x": 37,
+        "y": 0
       },
-      "gravity": 1000.0,
-      "fallGravity": 1500.0,
       "hitPoints": 8,
+      "gravity": 187,
+      "fallGravity": 281,
       "stompable": true
     },
     {
@@ -2891,21 +2890,20 @@
       "type": "brick",
       "platform": false,
       "position": {
-        "x": 14300,
-        "y": 2670
+        "x": 2681,
+        "y": 500
       },
       "terminalVelocity": {
-        "x": 125.0,
-        "y": 1125.0
+        "x": 23,
+        "y": 210
       },
       "friction": {
-        "x": 200.0,
-        "y": 0.0
+        "x": 37,
+        "y": 0
       },
-      "gravity": 1000.0,
-      "fallGravity": 1500.0,
-      "rightOf": 14250.0,
       "hitPoints": 8,
+      "gravity": 187,
+      "fallGravity": 281,
       "stompable": true
     },
     {
@@ -2913,20 +2911,20 @@
       "type": "brick",
       "platform": false,
       "position": {
-        "x": 14250,
-        "y": 2630
+        "x": 2671,
+        "y": 493
       },
       "terminalVelocity": {
-        "x": 125.0,
-        "y": 1125.0
+        "x": 23,
+        "y": 210
       },
       "friction": {
-        "x": 200.0,
-        "y": 0.0
+        "x": 37,
+        "y": 0
       },
-      "gravity": 1000.0,
-      "fallGravity": 1500.0,
       "hitPoints": 8,
+      "gravity": 187,
+      "fallGravity": 281,
       "stompable": true
     },
     {
@@ -2934,22 +2932,20 @@
       "type": "brick",
       "platform": false,
       "position": {
-        "x": 14300,
-        "y": 2630
+        "x": 2681,
+        "y": 493
       },
       "terminalVelocity": {
-        "x": 125.0,
-        "y": 1125.0
+        "x": 23,
+        "y": 210
       },
       "friction": {
-        "x": 200.0,
-        "y": 0.0
+        "x": 37,
+        "y": 0
       },
-      "gravity": 1000.0,
-      "fallGravity": 1500.0,
-      "rightOf": 14250.0,
-      "rightMultiple": 1.0,
       "hitPoints": 8,
+      "gravity": 187,
+      "fallGravity": 281,
       "stompable": true
     },
     {
@@ -2957,20 +2953,20 @@
       "type": "brick",
       "platform": false,
       "position": {
-        "x": 14250,
-        "y": 2525
+        "x": 2671,
+        "y": 473
       },
       "terminalVelocity": {
-        "x": 125.0,
-        "y": 1125.0
+        "x": 23,
+        "y": 210
       },
       "friction": {
-        "x": 200.0,
-        "y": 0.0
+        "x": 37,
+        "y": 0
       },
-      "gravity": 1000.0,
-      "fallGravity": 1500.0,
       "hitPoints": 8,
+      "gravity": 187,
+      "fallGravity": 281,
       "stompable": true
     },
     {
@@ -2978,20 +2974,20 @@
       "type": "brick",
       "platform": false,
       "position": {
-        "x": 14250,
-        "y": 2420
+        "x": 2671,
+        "y": 453
       },
       "terminalVelocity": {
-        "x": 125.0,
-        "y": 1125.0
+        "x": 23,
+        "y": 210
       },
       "friction": {
-        "x": 200.0,
-        "y": 0.0
+        "x": 37,
+        "y": 0
       },
-      "gravity": 1000.0,
-      "fallGravity": 1500.0,
       "hitPoints": 8,
+      "gravity": 187,
+      "fallGravity": 281,
       "stompable": true
     },
     {
@@ -2999,20 +2995,20 @@
       "type": "brick",
       "platform": false,
       "position": {
-        "x": 14250,
-        "y": 2305
+        "x": 2671,
+        "y": 432
       },
       "terminalVelocity": {
-        "x": 125.0,
-        "y": 1125.0
+        "x": 23,
+        "y": 210
       },
       "friction": {
-        "x": 200.0,
-        "y": 0.0
+        "x": 37,
+        "y": 0
       },
-      "gravity": 1000.0,
-      "fallGravity": 1500.0,
       "hitPoints": 8,
+      "gravity": 187,
+      "fallGravity": 281,
       "stompable": true
     },
     {
@@ -3020,22 +3016,20 @@
       "type": "brick",
       "platform": false,
       "position": {
-        "x": 14300,
-        "y": 2565
+        "x": 2681,
+        "y": 480
       },
       "terminalVelocity": {
-        "x": 125.0,
-        "y": 1125.0
+        "x": 23,
+        "y": 210
       },
       "friction": {
-        "x": 200.0,
-        "y": 0.0
+        "x": 37,
+        "y": 0
       },
-      "gravity": 1000.0,
-      "fallGravity": 1500.0,
-      "rightOf": 14250.0,
-      "rightMultiple": 1.0,
       "hitPoints": 8,
+      "gravity": 187,
+      "fallGravity": 281,
       "stompable": true
     },
     {
@@ -3043,22 +3037,20 @@
       "type": "brick",
       "platform": false,
       "position": {
-        "x": 14300,
-        "y": 2400
+        "x": 2681,
+        "y": 450
       },
       "terminalVelocity": {
-        "x": 125.0,
-        "y": 1125.0
+        "x": 23,
+        "y": 210
       },
       "friction": {
-        "x": 200.0,
-        "y": 0.0
+        "x": 37,
+        "y": 0
       },
-      "gravity": 1000.0,
-      "fallGravity": 1500.0,
-      "rightOf": 14250.0,
-      "rightMultiple": 1.0,
       "hitPoints": 8,
+      "gravity": 187,
+      "fallGravity": 281,
       "stompable": true
     },
     {
@@ -3066,22 +3058,20 @@
       "type": "brick",
       "platform": false,
       "position": {
-        "x": 14300,
-        "y": 2290
+        "x": 2681,
+        "y": 429
       },
       "terminalVelocity": {
-        "x": 125.0,
-        "y": 1125.0
+        "x": 23,
+        "y": 210
       },
       "friction": {
-        "x": 200.0,
-        "y": 0.0
+        "x": 37,
+        "y": 0
       },
-      "gravity": 1000.0,
-      "fallGravity": 1500.0,
-      "rightOf": 14250.0,
-      "rightMultiple": 1.0,
       "hitPoints": 8,
+      "gravity": 187,
+      "fallGravity": 281,
       "stompable": true
     },
     {
@@ -3089,22 +3079,20 @@
       "type": "brick",
       "platform": false,
       "position": {
-        "x": 14350,
-        "y": 2670
+        "x": 2690,
+        "y": 500
       },
       "terminalVelocity": {
-        "x": 125.0,
-        "y": 1125.0
+        "x": 23,
+        "y": 210
       },
       "friction": {
-        "x": 200.0,
-        "y": 0.0
+        "x": 37,
+        "y": 0
       },
-      "gravity": 1000.0,
-      "fallGravity": 1500.0,
-      "rightOf": 14250.0,
-      "rightMultiple": 2.0,
       "hitPoints": 8,
+      "gravity": 187,
+      "fallGravity": 281,
       "stompable": true
     },
     {
@@ -3112,22 +3100,20 @@
       "type": "brick",
       "platform": false,
       "position": {
-        "x": 14350,
-        "y": 2600
+        "x": 2690,
+        "y": 487
       },
       "terminalVelocity": {
-        "x": 125.0,
-        "y": 1125.0
+        "x": 23,
+        "y": 210
       },
       "friction": {
-        "x": 200.0,
-        "y": 0.0
+        "x": 37,
+        "y": 0
       },
-      "gravity": 1000.0,
-      "fallGravity": 1500.0,
-      "rightOf": 14250.0,
-      "rightMultiple": 2.0,
       "hitPoints": 8,
+      "gravity": 187,
+      "fallGravity": 281,
       "stompable": true
     },
     {
@@ -3135,22 +3121,20 @@
       "type": "brick",
       "platform": false,
       "position": {
-        "x": 14350,
-        "y": 2480
+        "x": 2690,
+        "y": 465
       },
       "terminalVelocity": {
-        "x": 125.0,
-        "y": 1125.0
+        "x": 23,
+        "y": 210
       },
       "friction": {
-        "x": 200.0,
-        "y": 0.0
+        "x": 37,
+        "y": 0
       },
-      "gravity": 1000.0,
-      "fallGravity": 1500.0,
-      "rightOf": 14250.0,
-      "rightMultiple": 2.0,
       "hitPoints": 8,
+      "gravity": 187,
+      "fallGravity": 281,
       "stompable": true
     },
     {
@@ -3158,22 +3142,20 @@
       "type": "brick",
       "platform": false,
       "position": {
-        "x": 14350,
-        "y": 2350
+        "x": 2690,
+        "y": 440
       },
       "terminalVelocity": {
-        "x": 125.0,
-        "y": 1125.0
+        "x": 23,
+        "y": 210
       },
       "friction": {
-        "x": 200.0,
-        "y": 0.0
+        "x": 37,
+        "y": 0
       },
-      "gravity": 1000.0,
-      "fallGravity": 1500.0,
-      "rightOf": 14250.0,
-      "rightMultiple": 2.0,
       "hitPoints": 8,
+      "gravity": 187,
+      "fallGravity": 281,
       "stompable": true
     },
     {
@@ -3181,22 +3163,20 @@
       "type": "brick",
       "platform": false,
       "position": {
-        "x": 14350,
-        "y": 2300
+        "x": 2690,
+        "y": 431
       },
       "terminalVelocity": {
-        "x": 125.0,
-        "y": 1125.0
+        "x": 23,
+        "y": 210
       },
       "friction": {
-        "x": 200.0,
-        "y": 0.0
+        "x": 37,
+        "y": 0
       },
-      "gravity": 1000.0,
-      "fallGravity": 1500.0,
-      "rightOf": 14250.0,
-      "rightMultiple": 2.0,
       "hitPoints": 8,
+      "gravity": 187,
+      "fallGravity": 281,
       "stompable": true
     },
     {
@@ -3204,21 +3184,21 @@
       "type": "brick",
       "platform": false,
       "position": {
-        "x": 8460,
-        "y": 3575
+        "x": 1586,
+        "y": 670
       },
       "terminalVelocity": {
-        "x": 125.0,
-        "y": 1125.0
+        "x": 23,
+        "y": 210
       },
       "friction": {
-        "x": 200.0,
-        "y": 0.0
+        "x": 37,
+        "y": 0
       },
-      "gravity": 1000.0,
-      "fallGravity": 1500.0,
-      "activation": 300.0,
       "hitPoints": 8,
+      "gravity": 187,
+      "fallGravity": 281,
+      "activation": 56,
       "stompable": true
     },
     {
@@ -3226,21 +3206,21 @@
       "type": "brick",
       "platform": false,
       "position": {
-        "x": 8510,
-        "y": 3575
+        "x": 1595,
+        "y": 670
       },
       "terminalVelocity": {
-        "x": 125.0,
-        "y": 1125.0
+        "x": 23,
+        "y": 210
       },
       "friction": {
-        "x": 200.0,
-        "y": 0.0
+        "x": 37,
+        "y": 0
       },
-      "gravity": 1000.0,
-      "fallGravity": 1500.0,
-      "activation": 300.0,
       "hitPoints": 8,
+      "gravity": 187,
+      "fallGravity": 281,
+      "activation": 56,
       "stompable": true
     },
     {
@@ -3248,21 +3228,21 @@
       "type": "brick",
       "platform": false,
       "position": {
-        "x": 8560,
-        "y": 3575
+        "x": 1605,
+        "y": 670
       },
       "terminalVelocity": {
-        "x": 125.0,
-        "y": 1125.0
+        "x": 23,
+        "y": 210
       },
       "friction": {
-        "x": 200.0,
-        "y": 0.0
+        "x": 37,
+        "y": 0
       },
-      "gravity": 1000.0,
-      "fallGravity": 1500.0,
-      "activation": 300.0,
       "hitPoints": 8,
+      "gravity": 187,
+      "fallGravity": 281,
+      "activation": 56,
       "stompable": true
     },
     {
@@ -3270,21 +3250,21 @@
       "type": "brick",
       "platform": false,
       "position": {
-        "x": 8610,
-        "y": 3575
+        "x": 1614,
+        "y": 670
       },
       "terminalVelocity": {
-        "x": 125.0,
-        "y": 1125.0
+        "x": 23,
+        "y": 210
       },
       "friction": {
-        "x": 200.0,
-        "y": 0.0
+        "x": 37,
+        "y": 0
       },
-      "gravity": 1000.0,
-      "fallGravity": 1500.0,
-      "activation": 300.0,
       "hitPoints": 8,
+      "gravity": 187,
+      "fallGravity": 281,
+      "activation": 56,
       "stompable": true
     },
     {
@@ -3292,21 +3272,21 @@
       "type": "brick",
       "platform": false,
       "position": {
-        "x": 8660,
-        "y": 3575
+        "x": 1623,
+        "y": 670
       },
       "terminalVelocity": {
-        "x": 125.0,
-        "y": 1125.0
+        "x": 23,
+        "y": 210
       },
       "friction": {
-        "x": 200.0,
-        "y": 0.0
+        "x": 37,
+        "y": 0
       },
-      "gravity": 1000.0,
-      "fallGravity": 1500.0,
-      "activation": 300.0,
       "hitPoints": 8,
+      "gravity": 187,
+      "fallGravity": 281,
+      "activation": 56,
       "stompable": true
     },
     {
@@ -3314,8 +3294,8 @@
       "type": "winged_tub",
       "platform": false,
       "position": {
-        "x": 1480,
-        "y": 4280
+        "x": 277,
+        "y": 802
       },
       "sparkle": true
     },
@@ -3324,8 +3304,8 @@
       "type": "winged_tub",
       "platform": false,
       "position": {
-        "x": 1720,
-        "y": 4280
+        "x": 322,
+        "y": 802
       }
     },
     {
@@ -3333,8 +3313,8 @@
       "type": "winged_tub",
       "platform": false,
       "position": {
-        "x": 1960,
-        "y": 4280
+        "x": 367,
+        "y": 802
       }
     },
     {
@@ -3342,8 +3322,8 @@
       "type": "winged_tub",
       "platform": false,
       "position": {
-        "x": 2680,
-        "y": 4080
+        "x": 502,
+        "y": 765
       },
       "sparkle": true
     },
@@ -3352,8 +3332,8 @@
       "type": "winged_tub",
       "platform": false,
       "position": {
-        "x": 2920,
-        "y": 4080
+        "x": 547,
+        "y": 765
       }
     },
     {
@@ -3361,8 +3341,8 @@
       "type": "winged_tub",
       "platform": false,
       "position": {
-        "x": 3160,
-        "y": 4080
+        "x": 592,
+        "y": 765
       }
     },
     {
@@ -3370,8 +3350,8 @@
       "type": "winged_tub",
       "platform": false,
       "position": {
-        "x": 720,
-        "y": 4360
+        "x": 135,
+        "y": 817
       }
     },
     {
@@ -3379,8 +3359,8 @@
       "type": "winged_tub",
       "platform": false,
       "position": {
-        "x": 7520,
-        "y": 3600
+        "x": 1410,
+        "y": 675
       }
     },
     {
@@ -3388,8 +3368,8 @@
       "type": "winged_tub",
       "platform": false,
       "position": {
-        "x": 7760,
-        "y": 3680
+        "x": 1455,
+        "y": 690
       }
     },
     {
@@ -3397,8 +3377,8 @@
       "type": "winged_tub",
       "platform": false,
       "position": {
-        "x": 8560,
-        "y": 4360
+        "x": 1605,
+        "y": 817
       }
     },
     {
@@ -3406,8 +3386,8 @@
       "type": "winged_tub",
       "platform": false,
       "position": {
-        "x": 8840,
-        "y": 4120
+        "x": 1657,
+        "y": 772
       }
     },
     {
@@ -3415,8 +3395,8 @@
       "type": "winged_tub",
       "platform": false,
       "position": {
-        "x": 8960,
-        "y": 3360
+        "x": 1680,
+        "y": 630
       }
     },
     {
@@ -3424,8 +3404,8 @@
       "type": "winged_tub",
       "platform": false,
       "position": {
-        "x": 8960,
-        "y": 3560
+        "x": 1680,
+        "y": 667
       }
     },
     {
@@ -3433,8 +3413,8 @@
       "type": "winged_tub",
       "platform": false,
       "position": {
-        "x": 10280,
-        "y": 3920
+        "x": 1927,
+        "y": 735
       }
     },
     {
@@ -3442,8 +3422,8 @@
       "type": "winged_tub",
       "platform": false,
       "position": {
-        "x": 10400,
-        "y": 4360
+        "x": 1950,
+        "y": 817
       }
     },
     {
@@ -3451,8 +3431,8 @@
       "type": "winged_tub",
       "platform": false,
       "position": {
-        "x": 11960,
-        "y": 4160
+        "x": 2242,
+        "y": 780
       }
     },
     {
@@ -3460,8 +3440,8 @@
       "type": "winged_tub",
       "platform": false,
       "position": {
-        "x": 11320,
-        "y": 3160
+        "x": 2122,
+        "y": 592
       }
     },
     {
@@ -3469,8 +3449,8 @@
       "type": "winged_tub",
       "platform": false,
       "position": {
-        "x": 11600,
-        "y": 3160
+        "x": 2175,
+        "y": 592
       }
     },
     {
@@ -3478,8 +3458,8 @@
       "type": "winged_tub",
       "platform": false,
       "position": {
-        "x": 11440,
-        "y": 2960
+        "x": 2145,
+        "y": 555
       },
       "sparkle": true
     },
@@ -3488,8 +3468,8 @@
       "type": "winged_tub",
       "platform": false,
       "position": {
-        "x": 11440,
-        "y": 2720
+        "x": 2145,
+        "y": 510
       },
       "sparkle": true
     },
@@ -3498,8 +3478,8 @@
       "type": "winged_tub",
       "platform": false,
       "position": {
-        "x": 13720,
-        "y": 3000
+        "x": 2572,
+        "y": 562
       }
     },
     {
@@ -3507,8 +3487,8 @@
       "type": "winged_tub",
       "platform": false,
       "position": {
-        "x": 15320,
-        "y": 2720
+        "x": 2872,
+        "y": 510
       }
     },
     {
@@ -3516,8 +3496,8 @@
       "type": "winged_tub",
       "platform": false,
       "position": {
-        "x": 16760,
-        "y": 2400
+        "x": 3142,
+        "y": 450
       }
     },
     {
@@ -3525,8 +3505,8 @@
       "type": "winged_tub",
       "platform": false,
       "position": {
-        "x": 17880,
-        "y": 2400
+        "x": 3352,
+        "y": 450
       }
     },
     {
@@ -3534,8 +3514,8 @@
       "type": "winged_tub",
       "platform": false,
       "position": {
-        "x": 18200,
-        "y": 2400
+        "x": 3412,
+        "y": 450
       }
     },
     {
@@ -3543,123 +3523,123 @@
       "type": "ball",
       "platform": false,
       "position": {
-        "x": 4220,
-        "y": 4003
+        "x": 791,
+        "y": 750
       },
       "velocity": {
-        "x": 0.0,
-        "y": 0.0
+        "x": 0,
+        "y": 0
       },
       "terminalVelocity": {
-        "x": 800.0,
-        "y": 800.0
+        "x": 150,
+        "y": 150
       },
-      "massFactor": 0.5,
-      "gravity": 1000.0,
-      "fallGravity": 1000.0,
-      "coefficient": 0.9,
       "hitPoints": 2,
+      "gravity": 187,
+      "fallGravity": 187,
+      "massFactor": 50,
+      "coefficient": 90,
       "stompable": true,
       "elasticObjectCollisions": true,
-      "activation": 1880
+      "activation": 352
     },
     {
       "id": 311,
       "type": "ball",
       "platform": false,
       "position": {
-        "x": 4350,
-        "y": 3903
+        "x": 815,
+        "y": 731
       },
       "velocity": {
-        "x": 0.0,
-        "y": 0.0
+        "x": 0,
+        "y": 0
       },
       "terminalVelocity": {
-        "x": 800.0,
-        "y": 800.0
+        "x": 150,
+        "y": 150
       },
-      "massFactor": 0.5,
-      "gravity": 1000.0,
-      "fallGravity": 1000.0,
-      "coefficient": 0.9,
       "hitPoints": 2,
+      "gravity": 187,
+      "fallGravity": 187,
+      "massFactor": 50,
+      "coefficient": 90,
       "stompable": true,
       "elasticObjectCollisions": true,
-      "activation": 2010
+      "activation": 376
     },
     {
       "id": 312,
       "type": "ball",
       "platform": false,
       "position": {
-        "x": 4155,
-        "y": 4053
+        "x": 779,
+        "y": 759
       },
       "velocity": {
-        "x": 0.0,
-        "y": 0.0
+        "x": 0,
+        "y": 0
       },
       "terminalVelocity": {
-        "x": 800.0,
-        "y": 800.0
+        "x": 150,
+        "y": 150
       },
-      "massFactor": 0.5,
-      "gravity": 1000.0,
-      "fallGravity": 1000.0,
-      "coefficient": 0.9,
       "hitPoints": 2,
+      "gravity": 187,
+      "fallGravity": 187,
+      "massFactor": 50,
+      "coefficient": 90,
       "stompable": true,
       "elasticObjectCollisions": true,
-      "activation": 1815
+      "activation": 340
     },
     {
       "id": 313,
       "type": "ball",
       "platform": false,
       "position": {
-        "x": 4090,
-        "y": 4103
+        "x": 766,
+        "y": 769
       },
       "velocity": {
-        "x": 0.0,
-        "y": 0.0
+        "x": 0,
+        "y": 0
       },
       "terminalVelocity": {
-        "x": 800.0,
-        "y": 800.0
+        "x": 150,
+        "y": 150
       },
-      "massFactor": 0.5,
-      "gravity": 1000.0,
-      "fallGravity": 1000.0,
-      "coefficient": 0.9,
       "hitPoints": 2,
+      "gravity": 187,
+      "fallGravity": 187,
+      "massFactor": 50,
+      "coefficient": 90,
       "stompable": true,
       "elasticObjectCollisions": true,
-      "activation": 1750
+      "activation": 327
     },
     {
       "id": 314,
       "type": "ball",
       "platform": false,
       "position": {
-        "x": 3960,
-        "y": 4203
+        "x": 742,
+        "y": 788
       },
       "velocity": {
-        "x": 0.0,
-        "y": 0.0
+        "x": 0,
+        "y": 0
       },
       "terminalVelocity": {
-        "x": 800.0,
-        "y": 800.0
+        "x": 150,
+        "y": 150
       },
-      "massFactor": 0.5,
-      "gravity": 1000.0,
-      "fallGravity": 1000.0,
-      "coefficient": 0.9,
-      "activation": 1620.0,
       "hitPoints": 2,
+      "gravity": 187,
+      "fallGravity": 187,
+      "activation": 303,
+      "massFactor": 50,
+      "coefficient": 90,
       "stompable": true,
       "elasticObjectCollisions": true
     },
@@ -3668,173 +3648,173 @@
       "type": "ball",
       "platform": false,
       "position": {
-        "x": 4285,
-        "y": 3953
+        "x": 803,
+        "y": 741
       },
       "velocity": {
-        "x": 0.0,
-        "y": 0.0
+        "x": 0,
+        "y": 0
       },
       "terminalVelocity": {
-        "x": 800.0,
-        "y": 800.0
+        "x": 150,
+        "y": 150
       },
-      "massFactor": 0.5,
-      "gravity": 1000.0,
-      "fallGravity": 1000.0,
-      "coefficient": 0.9,
       "hitPoints": 2,
+      "gravity": 187,
+      "fallGravity": 187,
+      "massFactor": 50,
+      "coefficient": 90,
       "stompable": true,
       "elasticObjectCollisions": true,
-      "activation": 1945
+      "activation": 364
     },
     {
       "id": 316,
       "type": "ball",
       "platform": false,
       "position": {
-        "x": 4025,
-        "y": 4153
+        "x": 754,
+        "y": 778
       },
       "velocity": {
-        "x": 0.0,
-        "y": 0.0
+        "x": 0,
+        "y": 0
       },
       "terminalVelocity": {
-        "x": 800.0,
-        "y": 800.0
+        "x": 150,
+        "y": 150
       },
-      "massFactor": 0.5,
-      "gravity": 1000.0,
-      "fallGravity": 1000.0,
-      "coefficient": 0.9,
       "hitPoints": 2,
+      "gravity": 187,
+      "fallGravity": 187,
+      "massFactor": 50,
+      "coefficient": 90,
       "stompable": true,
       "elasticObjectCollisions": true,
-      "activation": 1685
+      "activation": 315
     },
     {
       "id": 317,
       "type": "ball",
       "platform": false,
       "position": {
-        "x": 7918,
-        "y": 3833
+        "x": 1484,
+        "y": 718
       },
       "velocity": {
-        "x": 0.0,
-        "y": 0.0
+        "x": 0,
+        "y": 0
       },
       "terminalVelocity": {
-        "x": 800.0,
-        "y": 800.0
+        "x": 150,
+        "y": 150
       },
-      "massFactor": 0.5,
-      "gravity": 1000.0,
-      "fallGravity": 1000.0,
-      "coefficient": 0.9,
       "hitPoints": 2,
+      "gravity": 187,
+      "fallGravity": 187,
+      "massFactor": 50,
+      "coefficient": 90,
       "stompable": true,
       "elasticObjectCollisions": true,
-      "activation": 1880
+      "activation": 352
     },
     {
       "id": 318,
       "type": "ball",
       "platform": false,
       "position": {
-        "x": 8048,
-        "y": 3933
+        "x": 1509,
+        "y": 737
       },
       "velocity": {
-        "x": 0.0,
-        "y": 0.0
+        "x": 0,
+        "y": 0
       },
       "terminalVelocity": {
-        "x": 800.0,
-        "y": 800.0
+        "x": 150,
+        "y": 150
       },
-      "massFactor": 0.5,
-      "gravity": 1000.0,
-      "fallGravity": 1000.0,
-      "coefficient": 0.9,
       "hitPoints": 2,
+      "gravity": 187,
+      "fallGravity": 187,
+      "massFactor": 50,
+      "coefficient": 90,
       "stompable": true,
       "elasticObjectCollisions": true,
-      "activation": 2010
+      "activation": 377
     },
     {
       "id": 319,
       "type": "ball",
       "platform": false,
       "position": {
-        "x": 7853,
-        "y": 3783
+        "x": 1472,
+        "y": 709
       },
       "velocity": {
-        "x": 0.0,
-        "y": 0.0
+        "x": 0,
+        "y": 0
       },
       "terminalVelocity": {
-        "x": 800.0,
-        "y": 800.0
+        "x": 150,
+        "y": 150
       },
-      "massFactor": 0.5,
-      "gravity": 1000.0,
-      "fallGravity": 1000.0,
-      "coefficient": 0.9,
       "hitPoints": 2,
+      "gravity": 187,
+      "fallGravity": 187,
+      "massFactor": 50,
+      "coefficient": 90,
       "stompable": true,
       "elasticObjectCollisions": true,
-      "activation": 1815
+      "activation": 340
     },
     {
       "id": 320,
       "type": "ball",
       "platform": false,
       "position": {
-        "x": 7788,
-        "y": 3833
+        "x": 1460,
+        "y": 718
       },
       "velocity": {
-        "x": 0.0,
-        "y": 0.0
+        "x": 0,
+        "y": 0
       },
       "terminalVelocity": {
-        "x": 800.0,
-        "y": 800.0
+        "x": 150,
+        "y": 150
       },
-      "massFactor": 0.5,
-      "gravity": 1000.0,
-      "fallGravity": 1000.0,
-      "coefficient": 0.9,
       "hitPoints": 2,
+      "gravity": 187,
+      "fallGravity": 187,
+      "massFactor": 50,
+      "coefficient": 90,
       "stompable": true,
       "elasticObjectCollisions": true,
-      "activation": 1750
+      "activation": 328
     },
     {
       "id": 321,
       "type": "ball",
       "platform": false,
       "position": {
-        "x": 7658,
-        "y": 3933
+        "x": 1435,
+        "y": 737
       },
       "velocity": {
-        "x": 0.0,
-        "y": 0.0
+        "x": 0,
+        "y": 0
       },
       "terminalVelocity": {
-        "x": 800.0,
-        "y": 800.0
+        "x": 150,
+        "y": 150
       },
-      "massFactor": 0.5,
-      "gravity": 1000.0,
-      "fallGravity": 1000.0,
-      "coefficient": 0.9,
-      "activation": 1620.0,
       "hitPoints": 2,
+      "gravity": 187,
+      "fallGravity": 187,
+      "activation": 303,
+      "massFactor": 50,
+      "coefficient": 90,
       "stompable": true,
       "elasticObjectCollisions": true
     },
@@ -3843,68 +3823,68 @@
       "type": "ball",
       "platform": false,
       "position": {
-        "x": 7983,
-        "y": 3883
+        "x": 1496,
+        "y": 728
       },
       "velocity": {
-        "x": 0.0,
-        "y": 0.0
+        "x": 0,
+        "y": 0
       },
       "terminalVelocity": {
-        "x": 800.0,
-        "y": 800.0
+        "x": 150,
+        "y": 150
       },
-      "massFactor": 0.5,
-      "gravity": 1000.0,
-      "fallGravity": 1000.0,
-      "coefficient": 0.9,
       "hitPoints": 2,
+      "gravity": 187,
+      "fallGravity": 187,
+      "massFactor": 50,
+      "coefficient": 90,
       "stompable": true,
       "elasticObjectCollisions": true,
-      "activation": 1945
+      "activation": 364
     },
     {
       "id": 323,
       "type": "ball",
       "platform": false,
       "position": {
-        "x": 7723,
-        "y": 3883
+        "x": 1448,
+        "y": 728
       },
       "velocity": {
-        "x": 0.0,
-        "y": 0.0
+        "x": 0,
+        "y": 0
       },
       "terminalVelocity": {
-        "x": 800.0,
-        "y": 800.0
+        "x": 150,
+        "y": 150
       },
-      "massFactor": 0.5,
-      "gravity": 1000.0,
-      "fallGravity": 1000.0,
-      "coefficient": 0.9,
       "hitPoints": 2,
+      "gravity": 187,
+      "fallGravity": 187,
+      "massFactor": 50,
+      "coefficient": 90,
       "stompable": true,
       "elasticObjectCollisions": true,
-      "activation": 1685
+      "activation": 316
     },
     {
       "id": 324,
       "type": "zombie",
       "platform": false,
       "position": {
-        "x": 5810,
-        "y": 4330
+        "x": 1089,
+        "y": 811
       },
       "terminalVelocity": {
-        "x": 100.0,
-        "y": 1125.0
+        "x": 18,
+        "y": 210
       },
-      "massFactor": 0.5,
-      "gravity": 1000.0,
-      "fallGravity": 1500.0,
-      "runningAcceleration": -125.0,
       "hitPoints": 4,
+      "gravity": 187,
+      "fallGravity": 281,
+      "runningAcceleration": -23,
+      "massFactor": 50,
       "accelerateWhenGrounded": true,
       "stompable": true,
       "topStompable": true
@@ -3914,18 +3894,18 @@
       "type": "zombie",
       "platform": false,
       "position": {
-        "x": 12520,
-        "y": 4250
+        "x": 2347,
+        "y": 796
       },
       "terminalVelocity": {
-        "x": 100.0,
-        "y": 1125.0
+        "x": 18,
+        "y": 210
       },
-      "massFactor": 0.5,
-      "gravity": 1000.0,
-      "fallGravity": 1500.0,
-      "runningAcceleration": -125.0,
       "hitPoints": 4,
+      "gravity": 187,
+      "fallGravity": 281,
+      "runningAcceleration": -23,
+      "massFactor": 50,
       "accelerateWhenGrounded": true,
       "stompable": true,
       "topStompable": true
@@ -3935,18 +3915,18 @@
       "type": "zombie",
       "platform": false,
       "position": {
-        "x": 15920,
-        "y": 2910
+        "x": 2985,
+        "y": 545
       },
       "terminalVelocity": {
-        "x": 100.0,
-        "y": 1125.0
+        "x": 18,
+        "y": 210
       },
-      "massFactor": 0.5,
-      "gravity": 1000.0,
-      "fallGravity": 1500.0,
-      "runningAcceleration": -125.0,
       "hitPoints": 4,
+      "gravity": 187,
+      "fallGravity": 281,
+      "runningAcceleration": -23,
+      "massFactor": 50,
       "accelerateWhenGrounded": true,
       "stompable": true,
       "topStompable": true
@@ -3956,18 +3936,18 @@
       "type": "zombie",
       "platform": false,
       "position": {
-        "x": 14800,
-        "y": 3930
+        "x": 2775,
+        "y": 736
       },
       "terminalVelocity": {
-        "x": 100.0,
-        "y": 1125.0
+        "x": 18,
+        "y": 210
       },
-      "massFactor": 0.5,
-      "gravity": 1000.0,
-      "fallGravity": 1500.0,
-      "runningAcceleration": -125.0,
       "hitPoints": 4,
+      "gravity": 187,
+      "fallGravity": 281,
+      "runningAcceleration": -23,
+      "massFactor": 50,
       "accelerateWhenGrounded": true,
       "stompable": true,
       "topStompable": true
@@ -3977,18 +3957,18 @@
       "type": "zombie",
       "platform": false,
       "position": {
-        "x": 17890,
-        "y": 3320
+        "x": 3354,
+        "y": 622
       },
       "terminalVelocity": {
-        "x": 100.0,
-        "y": 1125.0
+        "x": 18,
+        "y": 210
       },
-      "massFactor": 0.5,
-      "gravity": 1000.0,
-      "fallGravity": 1500.0,
-      "runningAcceleration": -125.0,
       "hitPoints": 4,
+      "gravity": 187,
+      "fallGravity": 281,
+      "runningAcceleration": -23,
+      "massFactor": 50,
       "accelerateWhenGrounded": true,
       "stompable": true,
       "topStompable": true
@@ -3998,23 +3978,23 @@
       "type": "rat",
       "platform": false,
       "position": {
-        "x": 17339,
-        "y": 2528
+        "x": 3251,
+        "y": 474
       },
       "velocity": {
-        "x": -50.0,
-        "y": 0.0
+        "x": -9,
+        "y": 0
       },
       "terminalVelocity": {
-        "x": 125.0,
-        "y": 1125.0
+        "x": 23,
+        "y": 210
       },
-      "massFactor": 0.5,
-      "gravity": 1000.0,
-      "fallGravity": 1500.0,
-      "runningAcceleration": -150.0,
       "lane": 1,
       "hitPoints": 3,
+      "gravity": 187,
+      "fallGravity": 281,
+      "runningAcceleration": -28,
+      "massFactor": 50,
       "accelerateWhenGrounded": true,
       "stompable": true,
       "topStompable": true
@@ -4024,23 +4004,23 @@
       "type": "rat",
       "platform": false,
       "position": {
-        "x": 17230,
-        "y": 2500
+        "x": 3230,
+        "y": 468
       },
       "velocity": {
-        "x": -50.0,
-        "y": 0.0
+        "x": -9,
+        "y": 0
       },
       "terminalVelocity": {
-        "x": 130.0,
-        "y": 1125.0
+        "x": 24,
+        "y": 210
       },
-      "massFactor": 0.5,
-      "gravity": 1000.0,
-      "fallGravity": 1500.0,
-      "runningAcceleration": -150.0,
       "lane": 2,
       "hitPoints": 3,
+      "gravity": 187,
+      "fallGravity": 281,
+      "runningAcceleration": -28,
+      "massFactor": 50,
       "accelerateWhenGrounded": true,
       "stompable": true,
       "topStompable": true
@@ -4050,23 +4030,23 @@
       "type": "rat",
       "platform": false,
       "position": {
-        "x": 17319,
-        "y": 2448
+        "x": 3247,
+        "y": 459
       },
       "velocity": {
-        "x": -50.0,
-        "y": 0.0
+        "x": -9,
+        "y": 0
       },
       "terminalVelocity": {
-        "x": 135.0,
-        "y": 1125.0
+        "x": 25,
+        "y": 210
       },
-      "massFactor": 0.5,
-      "gravity": 1000.0,
-      "fallGravity": 1500.0,
-      "runningAcceleration": -150.0,
       "lane": 3,
       "hitPoints": 3,
+      "gravity": 187,
+      "fallGravity": 281,
+      "runningAcceleration": -28,
+      "massFactor": 50,
       "accelerateWhenGrounded": true,
       "stompable": true,
       "topStompable": true
@@ -4076,23 +4056,23 @@
       "type": "rat",
       "platform": false,
       "position": {
-        "x": 17199,
-        "y": 2448
+        "x": 3224,
+        "y": 459
       },
       "velocity": {
-        "x": -50.0,
-        "y": 0.0
+        "x": -9,
+        "y": 0
       },
       "terminalVelocity": {
-        "x": 140.0,
-        "y": 1125.0
+        "x": 26,
+        "y": 210
       },
-      "massFactor": 0.5,
-      "gravity": 1000.0,
-      "fallGravity": 1500.0,
-      "runningAcceleration": -150.0,
       "lane": 1,
       "hitPoints": 3,
+      "gravity": 187,
+      "fallGravity": 281,
+      "runningAcceleration": -28,
+      "massFactor": 50,
       "accelerateWhenGrounded": true,
       "stompable": true,
       "topStompable": true
@@ -4102,23 +4082,23 @@
       "type": "rat",
       "platform": false,
       "position": {
-        "x": 17294,
-        "y": 2393
+        "x": 3242,
+        "y": 448
       },
       "velocity": {
-        "x": -50.0,
-        "y": 0.0
+        "x": -9,
+        "y": 0
       },
       "terminalVelocity": {
-        "x": 145.0,
-        "y": 1125.0
+        "x": 27,
+        "y": 210
       },
-      "massFactor": 0.5,
-      "gravity": 1000.0,
-      "fallGravity": 1500.0,
-      "runningAcceleration": -150.0,
       "lane": 2,
       "hitPoints": 3,
+      "gravity": 187,
+      "fallGravity": 281,
+      "runningAcceleration": -28,
+      "massFactor": 50,
       "accelerateWhenGrounded": true,
       "stompable": true,
       "topStompable": true
@@ -4128,23 +4108,23 @@
       "type": "rat",
       "platform": false,
       "position": {
-        "x": 17219,
-        "y": 2388
+        "x": 3228,
+        "y": 447
       },
       "velocity": {
-        "x": -50.0,
-        "y": 0.0
+        "x": -9,
+        "y": 0
       },
       "terminalVelocity": {
-        "x": 150.0,
-        "y": 1125.0
+        "x": 28,
+        "y": 210
       },
-      "massFactor": 0.5,
-      "gravity": 1000.0,
-      "fallGravity": 1500.0,
-      "runningAcceleration": -150.0,
       "lane": 3,
       "hitPoints": 3,
+      "gravity": 187,
+      "fallGravity": 281,
+      "runningAcceleration": -28,
+      "massFactor": 50,
       "accelerateWhenGrounded": true,
       "stompable": true,
       "topStompable": true
@@ -4154,23 +4134,23 @@
       "type": "rat",
       "platform": false,
       "position": {
-        "x": 17299,
-        "y": 2328
+        "x": 3243,
+        "y": 436
       },
       "velocity": {
-        "x": -50.0,
-        "y": 0.0
+        "x": -9,
+        "y": 0
       },
       "terminalVelocity": {
-        "x": 155.0,
-        "y": 1125.0
+        "x": 29,
+        "y": 210
       },
-      "massFactor": 0.5,
-      "gravity": 1000.0,
-      "fallGravity": 1500.0,
-      "runningAcceleration": -150.0,
       "lane": 1,
       "hitPoints": 3,
+      "gravity": 187,
+      "fallGravity": 281,
+      "runningAcceleration": -28,
+      "massFactor": 50,
       "accelerateWhenGrounded": true,
       "stompable": true,
       "topStompable": true
@@ -4180,23 +4160,23 @@
       "type": "rat",
       "platform": false,
       "position": {
-        "x": 17339,
-        "y": 2488
+        "x": 3251,
+        "y": 466
       },
       "velocity": {
-        "x": -50.0,
-        "y": 0.0
+        "x": -9,
+        "y": 0
       },
       "terminalVelocity": {
-        "x": 160.0,
-        "y": 1125.0
+        "x": 30,
+        "y": 210
       },
-      "massFactor": 0.5,
-      "gravity": 1000.0,
-      "fallGravity": 1500.0,
-      "runningAcceleration": -150.0,
       "lane": 2,
       "hitPoints": 3,
+      "gravity": 187,
+      "fallGravity": 281,
+      "runningAcceleration": -28,
+      "massFactor": 50,
       "accelerateWhenGrounded": true,
       "stompable": true,
       "topStompable": true
@@ -4206,23 +4186,23 @@
       "type": "rat",
       "platform": false,
       "position": {
-        "x": 17359,
-        "y": 2408
+        "x": 3254,
+        "y": 451
       },
       "velocity": {
-        "x": -50.0,
-        "y": 0.0
+        "x": -9,
+        "y": 0
       },
       "terminalVelocity": {
-        "x": 165.0,
-        "y": 1125.0
+        "x": 30,
+        "y": 210
       },
-      "massFactor": 0.5,
-      "gravity": 1000.0,
-      "fallGravity": 1500.0,
-      "runningAcceleration": -150.0,
       "lane": 3,
       "hitPoints": 3,
+      "gravity": 187,
+      "fallGravity": 281,
+      "runningAcceleration": -28,
+      "massFactor": 50,
       "accelerateWhenGrounded": true,
       "stompable": true,
       "topStompable": true
@@ -4232,23 +4212,23 @@
       "type": "rat",
       "platform": false,
       "position": {
-        "x": 17239,
-        "y": 2348
+        "x": 3232,
+        "y": 440
       },
       "velocity": {
-        "x": -50.0,
-        "y": 0.0
+        "x": -9,
+        "y": 0
       },
       "terminalVelocity": {
-        "x": 170.0,
-        "y": 1125.0
+        "x": 31,
+        "y": 210
       },
-      "massFactor": 0.5,
-      "gravity": 1000.0,
-      "fallGravity": 1500.0,
-      "runningAcceleration": -150.0,
       "lane": 1,
       "hitPoints": 3,
+      "gravity": 187,
+      "fallGravity": 281,
+      "runningAcceleration": -28,
+      "massFactor": 50,
       "accelerateWhenGrounded": true,
       "stompable": true,
       "topStompable": true
@@ -4258,23 +4238,23 @@
       "type": "rat",
       "platform": false,
       "position": {
-        "x": 17334,
-        "y": 2356
+        "x": 3250,
+        "y": 441
       },
       "velocity": {
-        "x": -50.0,
-        "y": 0.0
+        "x": -9,
+        "y": 0
       },
       "terminalVelocity": {
-        "x": 175.0,
-        "y": 1125.0
+        "x": 32,
+        "y": 210
       },
-      "massFactor": 0.5,
-      "gravity": 1000.0,
-      "fallGravity": 1500.0,
-      "runningAcceleration": -150.0,
       "lane": 2,
       "hitPoints": 3,
+      "gravity": 187,
+      "fallGravity": 281,
+      "runningAcceleration": -28,
+      "massFactor": 50,
       "accelerateWhenGrounded": true,
       "stompable": true,
       "topStompable": true
@@ -4284,23 +4264,23 @@
       "type": "rat",
       "platform": false,
       "position": {
-        "x": 12520,
-        "y": 3860
+        "x": 2347,
+        "y": 723
       },
       "velocity": {
-        "x": -50.0,
-        "y": 0.0
+        "x": -9,
+        "y": 0
       },
       "terminalVelocity": {
-        "x": 125.0,
-        "y": 1125.0
+        "x": 23,
+        "y": 210
       },
-      "massFactor": 0.5,
-      "gravity": 1000.0,
-      "fallGravity": 1500.0,
-      "runningAcceleration": -150.0,
       "lane": 1,
       "hitPoints": 3,
+      "gravity": 187,
+      "fallGravity": 281,
+      "runningAcceleration": -28,
+      "massFactor": 50,
       "accelerateWhenGrounded": true,
       "stompable": true,
       "topStompable": true
@@ -4310,23 +4290,23 @@
       "type": "rat",
       "platform": false,
       "position": {
-        "x": 12411,
-        "y": 3832
+        "x": 2327,
+        "y": 718
       },
       "velocity": {
-        "x": -50.0,
-        "y": 0.0
+        "x": -9,
+        "y": 0
       },
       "terminalVelocity": {
-        "x": 130.0,
-        "y": 1125.0
+        "x": 24,
+        "y": 210
       },
-      "massFactor": 0.5,
-      "gravity": 1000.0,
-      "fallGravity": 1500.0,
-      "runningAcceleration": -150.0,
       "lane": 2,
       "hitPoints": 3,
+      "gravity": 187,
+      "fallGravity": 281,
+      "runningAcceleration": -28,
+      "massFactor": 50,
       "accelerateWhenGrounded": true,
       "stompable": true,
       "topStompable": true
@@ -4336,23 +4316,23 @@
       "type": "rat",
       "platform": false,
       "position": {
-        "x": 12500,
-        "y": 3780
+        "x": 2343,
+        "y": 708
       },
       "velocity": {
-        "x": -50.0,
-        "y": 0.0
+        "x": -9,
+        "y": 0
       },
       "terminalVelocity": {
-        "x": 135.0,
-        "y": 1125.0
+        "x": 25,
+        "y": 210
       },
-      "massFactor": 0.5,
-      "gravity": 1000.0,
-      "fallGravity": 1500.0,
-      "runningAcceleration": -150.0,
       "lane": 3,
       "hitPoints": 3,
+      "gravity": 187,
+      "fallGravity": 281,
+      "runningAcceleration": -28,
+      "massFactor": 50,
       "accelerateWhenGrounded": true,
       "stompable": true,
       "topStompable": true
@@ -4362,23 +4342,23 @@
       "type": "rat",
       "platform": false,
       "position": {
-        "x": 12380,
-        "y": 3780
+        "x": 2321,
+        "y": 708
       },
       "velocity": {
-        "x": -50.0,
-        "y": 0.0
+        "x": -9,
+        "y": 0
       },
       "terminalVelocity": {
-        "x": 140.0,
-        "y": 1125.0
+        "x": 26,
+        "y": 210
       },
-      "massFactor": 0.5,
-      "gravity": 1000.0,
-      "fallGravity": 1500.0,
-      "runningAcceleration": -150.0,
       "lane": 1,
       "hitPoints": 3,
+      "gravity": 187,
+      "fallGravity": 281,
+      "runningAcceleration": -28,
+      "massFactor": 50,
       "accelerateWhenGrounded": true,
       "stompable": true,
       "topStompable": true
@@ -4388,23 +4368,23 @@
       "type": "rat",
       "platform": false,
       "position": {
-        "x": 12475,
-        "y": 3725
+        "x": 2339,
+        "y": 698
       },
       "velocity": {
-        "x": -50.0,
-        "y": 0.0
+        "x": -9,
+        "y": 0
       },
       "terminalVelocity": {
-        "x": 145.0,
-        "y": 1125.0
+        "x": 27,
+        "y": 210
       },
-      "massFactor": 0.5,
-      "gravity": 1000.0,
-      "fallGravity": 1500.0,
-      "runningAcceleration": -150.0,
       "lane": 2,
       "hitPoints": 3,
+      "gravity": 187,
+      "fallGravity": 281,
+      "runningAcceleration": -28,
+      "massFactor": 50,
       "accelerateWhenGrounded": true,
       "stompable": true,
       "topStompable": true
@@ -4414,23 +4394,23 @@
       "type": "rat",
       "platform": false,
       "position": {
-        "x": 12400,
-        "y": 3720
+        "x": 2325,
+        "y": 697
       },
       "velocity": {
-        "x": -50.0,
-        "y": 0.0
+        "x": -9,
+        "y": 0
       },
       "terminalVelocity": {
-        "x": 150.0,
-        "y": 1125.0
+        "x": 28,
+        "y": 210
       },
-      "massFactor": 0.5,
-      "gravity": 1000.0,
-      "fallGravity": 1500.0,
-      "runningAcceleration": -150.0,
       "lane": 3,
       "hitPoints": 3,
+      "gravity": 187,
+      "fallGravity": 281,
+      "runningAcceleration": -28,
+      "massFactor": 50,
       "accelerateWhenGrounded": true,
       "stompable": true,
       "topStompable": true
@@ -4440,23 +4420,23 @@
       "type": "rat",
       "platform": false,
       "position": {
-        "x": 12480,
-        "y": 3660
+        "x": 2340,
+        "y": 686
       },
       "velocity": {
-        "x": -50.0,
-        "y": 0.0
+        "x": -9,
+        "y": 0
       },
       "terminalVelocity": {
-        "x": 155.0,
-        "y": 1125.0
+        "x": 29,
+        "y": 210
       },
-      "massFactor": 0.5,
-      "gravity": 1000.0,
-      "fallGravity": 1500.0,
-      "runningAcceleration": -150.0,
       "lane": 1,
       "hitPoints": 3,
+      "gravity": 187,
+      "fallGravity": 281,
+      "runningAcceleration": -28,
+      "massFactor": 50,
       "accelerateWhenGrounded": true,
       "stompable": true,
       "topStompable": true
@@ -4466,23 +4446,23 @@
       "type": "rat",
       "platform": false,
       "position": {
-        "x": 12520,
-        "y": 3820
+        "x": 2347,
+        "y": 716
       },
       "velocity": {
-        "x": -50.0,
-        "y": 0.0
+        "x": -9,
+        "y": 0
       },
       "terminalVelocity": {
-        "x": 160.0,
-        "y": 1125.0
+        "x": 30,
+        "y": 210
       },
-      "massFactor": 0.5,
-      "gravity": 1000.0,
-      "fallGravity": 1500.0,
-      "runningAcceleration": -150.0,
       "lane": 2,
       "hitPoints": 3,
+      "gravity": 187,
+      "fallGravity": 281,
+      "runningAcceleration": -28,
+      "massFactor": 50,
       "accelerateWhenGrounded": true,
       "stompable": true,
       "topStompable": true
@@ -4492,23 +4472,23 @@
       "type": "rat",
       "platform": false,
       "position": {
-        "x": 12540,
-        "y": 3740
+        "x": 2351,
+        "y": 701
       },
       "velocity": {
-        "x": -50.0,
-        "y": 0.0
+        "x": -9,
+        "y": 0
       },
       "terminalVelocity": {
-        "x": 165.0,
-        "y": 1125.0
+        "x": 30,
+        "y": 210
       },
-      "massFactor": 0.5,
-      "gravity": 1000.0,
-      "fallGravity": 1500.0,
-      "runningAcceleration": -150.0,
       "lane": 3,
       "hitPoints": 3,
+      "gravity": 187,
+      "fallGravity": 281,
+      "runningAcceleration": -28,
+      "massFactor": 50,
       "accelerateWhenGrounded": true,
       "stompable": true,
       "topStompable": true
@@ -4518,23 +4498,23 @@
       "type": "rat",
       "platform": false,
       "position": {
-        "x": 12420,
-        "y": 3680
+        "x": 2328,
+        "y": 690
       },
       "velocity": {
-        "x": -50.0,
-        "y": 0.0
+        "x": -9,
+        "y": 0
       },
       "terminalVelocity": {
-        "x": 170.0,
-        "y": 1125.0
+        "x": 31,
+        "y": 210
       },
-      "massFactor": 0.5,
-      "gravity": 1000.0,
-      "fallGravity": 1500.0,
-      "runningAcceleration": -150.0,
       "lane": 1,
       "hitPoints": 3,
+      "gravity": 187,
+      "fallGravity": 281,
+      "runningAcceleration": -28,
+      "massFactor": 50,
       "accelerateWhenGrounded": true,
       "stompable": true,
       "topStompable": true
@@ -4544,23 +4524,23 @@
       "type": "rat",
       "platform": false,
       "position": {
-        "x": 12515,
-        "y": 3688
+        "x": 2346,
+        "y": 691
       },
       "velocity": {
-        "x": -50.0,
-        "y": 0.0
+        "x": -9,
+        "y": 0
       },
       "terminalVelocity": {
-        "x": 175.0,
-        "y": 1125.0
+        "x": 32,
+        "y": 210
       },
-      "massFactor": 0.5,
-      "gravity": 1000.0,
-      "fallGravity": 1500.0,
-      "runningAcceleration": -150.0,
       "lane": 2,
       "hitPoints": 3,
+      "gravity": 187,
+      "fallGravity": 281,
+      "runningAcceleration": -28,
+      "massFactor": 50,
       "accelerateWhenGrounded": true,
       "stompable": true,
       "topStompable": true
@@ -4570,23 +4550,23 @@
       "type": "rat",
       "platform": false,
       "position": {
-        "x": 10240,
-        "y": 3640
+        "x": 1920,
+        "y": 682
       },
       "velocity": {
-        "x": -50.0,
-        "y": 0.0
+        "x": -9,
+        "y": 0
       },
       "terminalVelocity": {
-        "x": 125.0,
-        "y": 1125.0
+        "x": 23,
+        "y": 210
       },
-      "massFactor": 0.5,
-      "gravity": 1000.0,
-      "fallGravity": 1500.0,
-      "runningAcceleration": -150.0,
       "lane": 1,
       "hitPoints": 3,
+      "gravity": 187,
+      "fallGravity": 281,
+      "runningAcceleration": -28,
+      "massFactor": 50,
       "accelerateWhenGrounded": true,
       "stompable": true,
       "topStompable": true
@@ -4596,23 +4576,23 @@
       "type": "rat",
       "platform": false,
       "position": {
-        "x": 10131,
-        "y": 3612
+        "x": 1899,
+        "y": 677
       },
       "velocity": {
-        "x": -50.0,
-        "y": 0.0
+        "x": -9,
+        "y": 0
       },
       "terminalVelocity": {
-        "x": 130.0,
-        "y": 1125.0
+        "x": 24,
+        "y": 210
       },
-      "massFactor": 0.5,
-      "gravity": 1000.0,
-      "fallGravity": 1500.0,
-      "runningAcceleration": -150.0,
       "lane": 2,
       "hitPoints": 3,
+      "gravity": 187,
+      "fallGravity": 281,
+      "runningAcceleration": -28,
+      "massFactor": 50,
       "accelerateWhenGrounded": true,
       "stompable": true,
       "topStompable": true
@@ -4622,23 +4602,23 @@
       "type": "rat",
       "platform": false,
       "position": {
-        "x": 10220,
-        "y": 3560
+        "x": 1916,
+        "y": 667
       },
       "velocity": {
-        "x": -50.0,
-        "y": 0.0
+        "x": -9,
+        "y": 0
       },
       "terminalVelocity": {
-        "x": 135.0,
-        "y": 1125.0
+        "x": 25,
+        "y": 210
       },
-      "massFactor": 0.5,
-      "gravity": 1000.0,
-      "fallGravity": 1500.0,
-      "runningAcceleration": -150.0,
       "lane": 3,
       "hitPoints": 3,
+      "gravity": 187,
+      "fallGravity": 281,
+      "runningAcceleration": -28,
+      "massFactor": 50,
       "accelerateWhenGrounded": true,
       "stompable": true,
       "topStompable": true
@@ -4648,23 +4628,23 @@
       "type": "rat",
       "platform": false,
       "position": {
-        "x": 10100,
-        "y": 3560
+        "x": 1893,
+        "y": 667
       },
       "velocity": {
-        "x": -50.0,
-        "y": 0.0
+        "x": -9,
+        "y": 0
       },
       "terminalVelocity": {
-        "x": 140.0,
-        "y": 1125.0
+        "x": 26,
+        "y": 210
       },
-      "massFactor": 0.5,
-      "gravity": 1000.0,
-      "fallGravity": 1500.0,
-      "runningAcceleration": -150.0,
       "lane": 1,
       "hitPoints": 3,
+      "gravity": 187,
+      "fallGravity": 281,
+      "runningAcceleration": -28,
+      "massFactor": 50,
       "accelerateWhenGrounded": true,
       "stompable": true,
       "topStompable": true
@@ -4674,23 +4654,23 @@
       "type": "rat",
       "platform": false,
       "position": {
-        "x": 10195,
-        "y": 3505
+        "x": 1911,
+        "y": 657
       },
       "velocity": {
-        "x": -50.0,
-        "y": 0.0
+        "x": -9,
+        "y": 0
       },
       "terminalVelocity": {
-        "x": 145.0,
-        "y": 1125.0
+        "x": 27,
+        "y": 210
       },
-      "massFactor": 0.5,
-      "gravity": 1000.0,
-      "fallGravity": 1500.0,
-      "runningAcceleration": -150.0,
       "lane": 2,
       "hitPoints": 3,
+      "gravity": 187,
+      "fallGravity": 281,
+      "runningAcceleration": -28,
+      "massFactor": 50,
       "accelerateWhenGrounded": true,
       "stompable": true,
       "topStompable": true
@@ -4700,23 +4680,23 @@
       "type": "rat",
       "platform": false,
       "position": {
-        "x": 10120,
-        "y": 3500
+        "x": 1897,
+        "y": 656
       },
       "velocity": {
-        "x": -50.0,
-        "y": 0.0
+        "x": -9,
+        "y": 0
       },
       "terminalVelocity": {
-        "x": 150.0,
-        "y": 1125.0
+        "x": 28,
+        "y": 210
       },
-      "massFactor": 0.5,
-      "gravity": 1000.0,
-      "fallGravity": 1500.0,
-      "runningAcceleration": -150.0,
       "lane": 3,
       "hitPoints": 3,
+      "gravity": 187,
+      "fallGravity": 281,
+      "runningAcceleration": -28,
+      "massFactor": 50,
       "accelerateWhenGrounded": true,
       "stompable": true,
       "topStompable": true
@@ -4726,23 +4706,23 @@
       "type": "rat",
       "platform": false,
       "position": {
-        "x": 10200,
-        "y": 3440
+        "x": 1912,
+        "y": 645
       },
       "velocity": {
-        "x": -50.0,
-        "y": 0.0
+        "x": -9,
+        "y": 0
       },
       "terminalVelocity": {
-        "x": 155.0,
-        "y": 1125.0
+        "x": 29,
+        "y": 210
       },
-      "massFactor": 0.5,
-      "gravity": 1000.0,
-      "fallGravity": 1500.0,
-      "runningAcceleration": -150.0,
       "lane": 1,
       "hitPoints": 3,
+      "gravity": 187,
+      "fallGravity": 281,
+      "runningAcceleration": -28,
+      "massFactor": 50,
       "accelerateWhenGrounded": true,
       "stompable": true,
       "topStompable": true
@@ -4752,23 +4732,23 @@
       "type": "rat",
       "platform": false,
       "position": {
-        "x": 10240,
-        "y": 3600
+        "x": 1920,
+        "y": 675
       },
       "velocity": {
-        "x": -50.0,
-        "y": 0.0
+        "x": -9,
+        "y": 0
       },
       "terminalVelocity": {
-        "x": 160.0,
-        "y": 1125.0
+        "x": 30,
+        "y": 210
       },
-      "massFactor": 0.5,
-      "gravity": 1000.0,
-      "fallGravity": 1500.0,
-      "runningAcceleration": -150.0,
       "lane": 2,
       "hitPoints": 3,
+      "gravity": 187,
+      "fallGravity": 281,
+      "runningAcceleration": -28,
+      "massFactor": 50,
       "accelerateWhenGrounded": true,
       "stompable": true,
       "topStompable": true
@@ -4778,23 +4758,23 @@
       "type": "rat",
       "platform": false,
       "position": {
-        "x": 10260,
-        "y": 3520
+        "x": 1923,
+        "y": 660
       },
       "velocity": {
-        "x": -50.0,
-        "y": 0.0
+        "x": -9,
+        "y": 0
       },
       "terminalVelocity": {
-        "x": 165.0,
-        "y": 1125.0
+        "x": 30,
+        "y": 210
       },
-      "massFactor": 0.5,
-      "gravity": 1000.0,
-      "fallGravity": 1500.0,
-      "runningAcceleration": -150.0,
       "lane": 3,
       "hitPoints": 3,
+      "gravity": 187,
+      "fallGravity": 281,
+      "runningAcceleration": -28,
+      "massFactor": 50,
       "accelerateWhenGrounded": true,
       "stompable": true,
       "topStompable": true
@@ -4804,23 +4784,23 @@
       "type": "rat",
       "platform": false,
       "position": {
-        "x": 10140,
-        "y": 3460
+        "x": 1901,
+        "y": 648
       },
       "velocity": {
-        "x": -50.0,
-        "y": 0.0
+        "x": -9,
+        "y": 0
       },
       "terminalVelocity": {
-        "x": 170.0,
-        "y": 1125.0
+        "x": 31,
+        "y": 210
       },
-      "massFactor": 0.5,
-      "gravity": 1000.0,
-      "fallGravity": 1500.0,
-      "runningAcceleration": -150.0,
       "lane": 1,
       "hitPoints": 3,
+      "gravity": 187,
+      "fallGravity": 281,
+      "runningAcceleration": -28,
+      "massFactor": 50,
       "accelerateWhenGrounded": true,
       "stompable": true,
       "topStompable": true
@@ -4830,23 +4810,23 @@
       "type": "rat",
       "platform": false,
       "position": {
-        "x": 10235,
-        "y": 3468
+        "x": 1919,
+        "y": 650
       },
       "velocity": {
-        "x": -50.0,
-        "y": 0.0
+        "x": -9,
+        "y": 0
       },
       "terminalVelocity": {
-        "x": 175.0,
-        "y": 1125.0
+        "x": 32,
+        "y": 210
       },
-      "massFactor": 0.5,
-      "gravity": 1000.0,
-      "fallGravity": 1500.0,
-      "runningAcceleration": -150.0,
       "lane": 2,
       "hitPoints": 3,
+      "gravity": 187,
+      "fallGravity": 281,
+      "runningAcceleration": -28,
+      "massFactor": 50,
       "accelerateWhenGrounded": true,
       "stompable": true,
       "topStompable": true
@@ -4856,23 +4836,23 @@
       "type": "rat",
       "platform": false,
       "position": {
-        "x": 10245,
-        "y": 3375
+        "x": 1920,
+        "y": 632
       },
       "velocity": {
-        "x": -50.0,
-        "y": 0.0
+        "x": -9,
+        "y": 0
       },
       "terminalVelocity": {
-        "x": 125.0,
-        "y": 1125.0
+        "x": 23,
+        "y": 210
       },
-      "massFactor": 0.5,
-      "gravity": 1000.0,
-      "fallGravity": 1500.0,
-      "runningAcceleration": -150.0,
       "lane": 1,
       "hitPoints": 3,
+      "gravity": 187,
+      "fallGravity": 281,
+      "runningAcceleration": -28,
+      "massFactor": 50,
       "accelerateWhenGrounded": true,
       "stompable": true,
       "topStompable": true
@@ -4882,23 +4862,23 @@
       "type": "rat",
       "platform": false,
       "position": {
-        "x": 10136,
-        "y": 3347
+        "x": 1900,
+        "y": 627
       },
       "velocity": {
-        "x": -50.0,
-        "y": 0.0
+        "x": -9,
+        "y": 0
       },
       "terminalVelocity": {
-        "x": 130.0,
-        "y": 1125.0
+        "x": 24,
+        "y": 210
       },
-      "massFactor": 0.5,
-      "gravity": 1000.0,
-      "fallGravity": 1500.0,
-      "runningAcceleration": -150.0,
       "lane": 2,
       "hitPoints": 3,
+      "gravity": 187,
+      "fallGravity": 281,
+      "runningAcceleration": -28,
+      "massFactor": 50,
       "accelerateWhenGrounded": true,
       "stompable": true,
       "topStompable": true
@@ -4908,23 +4888,23 @@
       "type": "rat",
       "platform": false,
       "position": {
-        "x": 10225,
-        "y": 3295
+        "x": 1917,
+        "y": 617
       },
       "velocity": {
-        "x": -50.0,
-        "y": 0.0
+        "x": -9,
+        "y": 0
       },
       "terminalVelocity": {
-        "x": 135.0,
-        "y": 1125.0
+        "x": 25,
+        "y": 210
       },
-      "massFactor": 0.5,
-      "gravity": 1000.0,
-      "fallGravity": 1500.0,
-      "runningAcceleration": -150.0,
       "lane": 3,
       "hitPoints": 3,
+      "gravity": 187,
+      "fallGravity": 281,
+      "runningAcceleration": -28,
+      "massFactor": 50,
       "accelerateWhenGrounded": true,
       "stompable": true,
       "topStompable": true
@@ -4934,23 +4914,23 @@
       "type": "rat",
       "platform": false,
       "position": {
-        "x": 10105,
-        "y": 3295
+        "x": 1894,
+        "y": 617
       },
       "velocity": {
-        "x": -50.0,
-        "y": 0.0
+        "x": -9,
+        "y": 0
       },
       "terminalVelocity": {
-        "x": 140.0,
-        "y": 1125.0
+        "x": 26,
+        "y": 210
       },
-      "massFactor": 0.5,
-      "gravity": 1000.0,
-      "fallGravity": 1500.0,
-      "runningAcceleration": -150.0,
       "lane": 1,
       "hitPoints": 3,
+      "gravity": 187,
+      "fallGravity": 281,
+      "runningAcceleration": -28,
+      "massFactor": 50,
       "accelerateWhenGrounded": true,
       "stompable": true,
       "topStompable": true
@@ -4960,23 +4940,23 @@
       "type": "rat",
       "platform": false,
       "position": {
-        "x": 10200,
-        "y": 3240
+        "x": 1912,
+        "y": 607
       },
       "velocity": {
-        "x": -50.0,
-        "y": 0.0
+        "x": -9,
+        "y": 0
       },
       "terminalVelocity": {
-        "x": 145.0,
-        "y": 1125.0
+        "x": 27,
+        "y": 210
       },
-      "massFactor": 0.5,
-      "gravity": 1000.0,
-      "fallGravity": 1500.0,
-      "runningAcceleration": -150.0,
       "lane": 2,
       "hitPoints": 3,
+      "gravity": 187,
+      "fallGravity": 281,
+      "runningAcceleration": -28,
+      "massFactor": 50,
       "accelerateWhenGrounded": true,
       "stompable": true,
       "topStompable": true
@@ -4986,23 +4966,23 @@
       "type": "rat",
       "platform": false,
       "position": {
-        "x": 10125,
-        "y": 3235
+        "x": 1898,
+        "y": 606
       },
       "velocity": {
-        "x": -50.0,
-        "y": 0.0
+        "x": -9,
+        "y": 0
       },
       "terminalVelocity": {
-        "x": 150.0,
-        "y": 1125.0
+        "x": 28,
+        "y": 210
       },
-      "massFactor": 0.5,
-      "gravity": 1000.0,
-      "fallGravity": 1500.0,
-      "runningAcceleration": -150.0,
       "lane": 3,
       "hitPoints": 3,
+      "gravity": 187,
+      "fallGravity": 281,
+      "runningAcceleration": -28,
+      "massFactor": 50,
       "accelerateWhenGrounded": true,
       "stompable": true,
       "topStompable": true
@@ -5012,23 +4992,23 @@
       "type": "rat",
       "platform": false,
       "position": {
-        "x": 10205,
-        "y": 3175
+        "x": 1913,
+        "y": 595
       },
       "velocity": {
-        "x": -50.0,
-        "y": 0.0
+        "x": -9,
+        "y": 0
       },
       "terminalVelocity": {
-        "x": 155.0,
-        "y": 1125.0
+        "x": 29,
+        "y": 210
       },
-      "massFactor": 0.5,
-      "gravity": 1000.0,
-      "fallGravity": 1500.0,
-      "runningAcceleration": -150.0,
       "lane": 1,
       "hitPoints": 3,
+      "gravity": 187,
+      "fallGravity": 281,
+      "runningAcceleration": -28,
+      "massFactor": 50,
       "accelerateWhenGrounded": true,
       "stompable": true,
       "topStompable": true
@@ -5038,23 +5018,23 @@
       "type": "rat",
       "platform": false,
       "position": {
-        "x": 10245,
-        "y": 3335
+        "x": 1920,
+        "y": 625
       },
       "velocity": {
-        "x": -50.0,
-        "y": 0.0
+        "x": -9,
+        "y": 0
       },
       "terminalVelocity": {
-        "x": 160.0,
-        "y": 1125.0
+        "x": 30,
+        "y": 210
       },
-      "massFactor": 0.5,
-      "gravity": 1000.0,
-      "fallGravity": 1500.0,
-      "runningAcceleration": -150.0,
       "lane": 2,
       "hitPoints": 3,
+      "gravity": 187,
+      "fallGravity": 281,
+      "runningAcceleration": -28,
+      "massFactor": 50,
       "accelerateWhenGrounded": true,
       "stompable": true,
       "topStompable": true
@@ -5064,23 +5044,23 @@
       "type": "rat",
       "platform": false,
       "position": {
-        "x": 10265,
-        "y": 3255
+        "x": 1924,
+        "y": 610
       },
       "velocity": {
-        "x": -50.0,
-        "y": 0.0
+        "x": -9,
+        "y": 0
       },
       "terminalVelocity": {
-        "x": 165.0,
-        "y": 1125.0
+        "x": 30,
+        "y": 210
       },
-      "massFactor": 0.5,
-      "gravity": 1000.0,
-      "fallGravity": 1500.0,
-      "runningAcceleration": -150.0,
       "lane": 3,
       "hitPoints": 3,
+      "gravity": 187,
+      "fallGravity": 281,
+      "runningAcceleration": -28,
+      "massFactor": 50,
       "accelerateWhenGrounded": true,
       "stompable": true,
       "topStompable": true
@@ -5090,23 +5070,23 @@
       "type": "rat",
       "platform": false,
       "position": {
-        "x": 10145,
-        "y": 3195
+        "x": 1902,
+        "y": 599
       },
       "velocity": {
-        "x": -50.0,
-        "y": 0.0
+        "x": -9,
+        "y": 0
       },
       "terminalVelocity": {
-        "x": 170.0,
-        "y": 1125.0
+        "x": 31,
+        "y": 210
       },
-      "massFactor": 0.5,
-      "gravity": 1000.0,
-      "fallGravity": 1500.0,
-      "runningAcceleration": -150.0,
       "lane": 1,
       "hitPoints": 3,
+      "gravity": 187,
+      "fallGravity": 281,
+      "runningAcceleration": -28,
+      "massFactor": 50,
       "accelerateWhenGrounded": true,
       "stompable": true,
       "topStompable": true
@@ -5116,23 +5096,23 @@
       "type": "rat",
       "platform": false,
       "position": {
-        "x": 10240,
-        "y": 3203
+        "x": 1920,
+        "y": 600
       },
       "velocity": {
-        "x": -50.0,
-        "y": 0.0
+        "x": -9,
+        "y": 0
       },
       "terminalVelocity": {
-        "x": 175.0,
-        "y": 1125.0
+        "x": 32,
+        "y": 210
       },
-      "massFactor": 0.5,
-      "gravity": 1000.0,
-      "fallGravity": 1500.0,
-      "runningAcceleration": -150.0,
       "lane": 2,
       "hitPoints": 3,
+      "gravity": 187,
+      "fallGravity": 281,
+      "runningAcceleration": -28,
+      "massFactor": 50,
       "accelerateWhenGrounded": true,
       "stompable": true,
       "topStompable": true
@@ -5142,23 +5122,23 @@
       "type": "rat",
       "platform": false,
       "position": {
-        "x": 16520,
-        "y": 3980
+        "x": 3097,
+        "y": 746
       },
       "velocity": {
-        "x": -50.0,
-        "y": 0.0
+        "x": -9,
+        "y": 0
       },
       "terminalVelocity": {
-        "x": 125.0,
-        "y": 1125.0
+        "x": 23,
+        "y": 210
       },
-      "massFactor": 0.5,
-      "gravity": 1000.0,
-      "fallGravity": 1500.0,
-      "runningAcceleration": -150.0,
       "lane": 1,
       "hitPoints": 3,
+      "gravity": 187,
+      "fallGravity": 281,
+      "runningAcceleration": -28,
+      "massFactor": 50,
       "accelerateWhenGrounded": true,
       "stompable": true,
       "topStompable": true
@@ -5168,23 +5148,23 @@
       "type": "rat",
       "platform": false,
       "position": {
-        "x": 16411,
-        "y": 3952
+        "x": 3077,
+        "y": 741
       },
       "velocity": {
-        "x": -50.0,
-        "y": 0.0
+        "x": -9,
+        "y": 0
       },
       "terminalVelocity": {
-        "x": 130.0,
-        "y": 1125.0
+        "x": 24,
+        "y": 210
       },
-      "massFactor": 0.5,
-      "gravity": 1000.0,
-      "fallGravity": 1500.0,
-      "runningAcceleration": -150.0,
       "lane": 2,
       "hitPoints": 3,
+      "gravity": 187,
+      "fallGravity": 281,
+      "runningAcceleration": -28,
+      "massFactor": 50,
       "accelerateWhenGrounded": true,
       "stompable": true,
       "topStompable": true
@@ -5194,23 +5174,23 @@
       "type": "rat",
       "platform": false,
       "position": {
-        "x": 16500,
-        "y": 3900
+        "x": 3093,
+        "y": 731
       },
       "velocity": {
-        "x": -50.0,
-        "y": 0.0
+        "x": -9,
+        "y": 0
       },
       "terminalVelocity": {
-        "x": 135.0,
-        "y": 1125.0
+        "x": 25,
+        "y": 210
       },
-      "massFactor": 0.5,
-      "gravity": 1000.0,
-      "fallGravity": 1500.0,
-      "runningAcceleration": -150.0,
       "lane": 3,
       "hitPoints": 3,
+      "gravity": 187,
+      "fallGravity": 281,
+      "runningAcceleration": -28,
+      "massFactor": 50,
       "accelerateWhenGrounded": true,
       "stompable": true,
       "topStompable": true
@@ -5220,23 +5200,23 @@
       "type": "rat",
       "platform": false,
       "position": {
-        "x": 16380,
-        "y": 3900
+        "x": 3071,
+        "y": 731
       },
       "velocity": {
-        "x": -50.0,
-        "y": 0.0
+        "x": -9,
+        "y": 0
       },
       "terminalVelocity": {
-        "x": 140.0,
-        "y": 1125.0
+        "x": 26,
+        "y": 210
       },
-      "massFactor": 0.5,
-      "gravity": 1000.0,
-      "fallGravity": 1500.0,
-      "runningAcceleration": -150.0,
       "lane": 1,
       "hitPoints": 3,
+      "gravity": 187,
+      "fallGravity": 281,
+      "runningAcceleration": -28,
+      "massFactor": 50,
       "accelerateWhenGrounded": true,
       "stompable": true,
       "topStompable": true
@@ -5246,23 +5226,23 @@
       "type": "rat",
       "platform": false,
       "position": {
-        "x": 16475,
-        "y": 3845
+        "x": 3089,
+        "y": 720
       },
       "velocity": {
-        "x": -50.0,
-        "y": 0.0
+        "x": -9,
+        "y": 0
       },
       "terminalVelocity": {
-        "x": 145.0,
-        "y": 1125.0
+        "x": 27,
+        "y": 210
       },
-      "massFactor": 0.5,
-      "gravity": 1000.0,
-      "fallGravity": 1500.0,
-      "runningAcceleration": -150.0,
       "lane": 2,
       "hitPoints": 3,
+      "gravity": 187,
+      "fallGravity": 281,
+      "runningAcceleration": -28,
+      "massFactor": 50,
       "accelerateWhenGrounded": true,
       "stompable": true,
       "topStompable": true
@@ -5272,23 +5252,23 @@
       "type": "rat",
       "platform": false,
       "position": {
-        "x": 16400,
-        "y": 3840
+        "x": 3075,
+        "y": 720
       },
       "velocity": {
-        "x": -50.0,
-        "y": 0.0
+        "x": -9,
+        "y": 0
       },
       "terminalVelocity": {
-        "x": 150.0,
-        "y": 1125.0
+        "x": 28,
+        "y": 210
       },
-      "massFactor": 0.5,
-      "gravity": 1000.0,
-      "fallGravity": 1500.0,
-      "runningAcceleration": -150.0,
       "lane": 3,
       "hitPoints": 3,
+      "gravity": 187,
+      "fallGravity": 281,
+      "runningAcceleration": -28,
+      "massFactor": 50,
       "accelerateWhenGrounded": true,
       "stompable": true,
       "topStompable": true
@@ -5298,23 +5278,23 @@
       "type": "rat",
       "platform": false,
       "position": {
-        "x": 16480,
-        "y": 3780
+        "x": 3090,
+        "y": 708
       },
       "velocity": {
-        "x": -50.0,
-        "y": 0.0
+        "x": -9,
+        "y": 0
       },
       "terminalVelocity": {
-        "x": 155.0,
-        "y": 1125.0
+        "x": 29,
+        "y": 210
       },
-      "massFactor": 0.5,
-      "gravity": 1000.0,
-      "fallGravity": 1500.0,
-      "runningAcceleration": -150.0,
       "lane": 1,
       "hitPoints": 3,
+      "gravity": 187,
+      "fallGravity": 281,
+      "runningAcceleration": -28,
+      "massFactor": 50,
       "accelerateWhenGrounded": true,
       "stompable": true,
       "topStompable": true
@@ -5324,23 +5304,23 @@
       "type": "rat",
       "platform": false,
       "position": {
-        "x": 16520,
-        "y": 3940
+        "x": 3097,
+        "y": 738
       },
       "velocity": {
-        "x": -50.0,
-        "y": 0.0
+        "x": -9,
+        "y": 0
       },
       "terminalVelocity": {
-        "x": 160.0,
-        "y": 1125.0
+        "x": 30,
+        "y": 210
       },
-      "massFactor": 0.5,
-      "gravity": 1000.0,
-      "fallGravity": 1500.0,
-      "runningAcceleration": -150.0,
       "lane": 2,
       "hitPoints": 3,
+      "gravity": 187,
+      "fallGravity": 281,
+      "runningAcceleration": -28,
+      "massFactor": 50,
       "accelerateWhenGrounded": true,
       "stompable": true,
       "topStompable": true
@@ -5350,23 +5330,23 @@
       "type": "rat",
       "platform": false,
       "position": {
-        "x": 16540,
-        "y": 3860
+        "x": 3101,
+        "y": 723
       },
       "velocity": {
-        "x": -50.0,
-        "y": 0.0
+        "x": -9,
+        "y": 0
       },
       "terminalVelocity": {
-        "x": 165.0,
-        "y": 1125.0
+        "x": 30,
+        "y": 210
       },
-      "massFactor": 0.5,
-      "gravity": 1000.0,
-      "fallGravity": 1500.0,
-      "runningAcceleration": -150.0,
       "lane": 3,
       "hitPoints": 3,
+      "gravity": 187,
+      "fallGravity": 281,
+      "runningAcceleration": -28,
+      "massFactor": 50,
       "accelerateWhenGrounded": true,
       "stompable": true,
       "topStompable": true
@@ -5376,23 +5356,23 @@
       "type": "rat",
       "platform": false,
       "position": {
-        "x": 16420,
-        "y": 3800
+        "x": 3078,
+        "y": 712
       },
       "velocity": {
-        "x": -50.0,
-        "y": 0.0
+        "x": -9,
+        "y": 0
       },
       "terminalVelocity": {
-        "x": 170.0,
-        "y": 1125.0
+        "x": 31,
+        "y": 210
       },
-      "massFactor": 0.5,
-      "gravity": 1000.0,
-      "fallGravity": 1500.0,
-      "runningAcceleration": -150.0,
       "lane": 1,
       "hitPoints": 3,
+      "gravity": 187,
+      "fallGravity": 281,
+      "runningAcceleration": -28,
+      "massFactor": 50,
       "accelerateWhenGrounded": true,
       "stompable": true,
       "topStompable": true
@@ -5402,23 +5382,23 @@
       "type": "rat",
       "platform": false,
       "position": {
-        "x": 16515,
-        "y": 3808
+        "x": 3096,
+        "y": 714
       },
       "velocity": {
-        "x": -50.0,
-        "y": 0.0
+        "x": -9,
+        "y": 0
       },
       "terminalVelocity": {
-        "x": 175.0,
-        "y": 1125.0
+        "x": 32,
+        "y": 210
       },
-      "massFactor": 0.5,
-      "gravity": 1000.0,
-      "fallGravity": 1500.0,
-      "runningAcceleration": -150.0,
       "lane": 2,
       "hitPoints": 3,
+      "gravity": 187,
+      "fallGravity": 281,
+      "runningAcceleration": -28,
+      "massFactor": 50,
       "accelerateWhenGrounded": true,
       "stompable": true,
       "topStompable": true
@@ -5428,23 +5408,23 @@
       "type": "rat",
       "platform": false,
       "position": {
-        "x": 16525,
-        "y": 3692
+        "x": 3098,
+        "y": 692
       },
       "velocity": {
-        "x": -50.0,
-        "y": 0.0
+        "x": -9,
+        "y": 0
       },
       "terminalVelocity": {
-        "x": 125.0,
-        "y": 1125.0
+        "x": 23,
+        "y": 210
       },
-      "massFactor": 0.5,
-      "gravity": 1000.0,
-      "fallGravity": 1500.0,
-      "runningAcceleration": -150.0,
       "lane": 1,
       "hitPoints": 3,
+      "gravity": 187,
+      "fallGravity": 281,
+      "runningAcceleration": -28,
+      "massFactor": 50,
       "accelerateWhenGrounded": true,
       "stompable": true,
       "topStompable": true
@@ -5454,23 +5434,23 @@
       "type": "rat",
       "platform": false,
       "position": {
-        "x": 16416,
-        "y": 3664
+        "x": 3078,
+        "y": 687
       },
       "velocity": {
-        "x": -50.0,
-        "y": 0.0
+        "x": -9,
+        "y": 0
       },
       "terminalVelocity": {
-        "x": 130.0,
-        "y": 1125.0
+        "x": 24,
+        "y": 210
       },
-      "massFactor": 0.5,
-      "gravity": 1000.0,
-      "fallGravity": 1500.0,
-      "runningAcceleration": -150.0,
       "lane": 2,
       "hitPoints": 3,
+      "gravity": 187,
+      "fallGravity": 281,
+      "runningAcceleration": -28,
+      "massFactor": 50,
       "accelerateWhenGrounded": true,
       "stompable": true,
       "topStompable": true
@@ -5480,23 +5460,23 @@
       "type": "rat",
       "platform": false,
       "position": {
-        "x": 16505,
-        "y": 3612
+        "x": 3094,
+        "y": 677
       },
       "velocity": {
-        "x": -50.0,
-        "y": 0.0
+        "x": -9,
+        "y": 0
       },
       "terminalVelocity": {
-        "x": 135.0,
-        "y": 1125.0
+        "x": 25,
+        "y": 210
       },
-      "massFactor": 0.5,
-      "gravity": 1000.0,
-      "fallGravity": 1500.0,
-      "runningAcceleration": -150.0,
       "lane": 3,
       "hitPoints": 3,
+      "gravity": 187,
+      "fallGravity": 281,
+      "runningAcceleration": -28,
+      "massFactor": 50,
       "accelerateWhenGrounded": true,
       "stompable": true,
       "topStompable": true
@@ -5506,23 +5486,23 @@
       "type": "rat",
       "platform": false,
       "position": {
-        "x": 16385,
-        "y": 3612
+        "x": 3072,
+        "y": 677
       },
       "velocity": {
-        "x": -50.0,
-        "y": 0.0
+        "x": -9,
+        "y": 0
       },
       "terminalVelocity": {
-        "x": 140.0,
-        "y": 1125.0
+        "x": 26,
+        "y": 210
       },
-      "massFactor": 0.5,
-      "gravity": 1000.0,
-      "fallGravity": 1500.0,
-      "runningAcceleration": -150.0,
       "lane": 1,
       "hitPoints": 3,
+      "gravity": 187,
+      "fallGravity": 281,
+      "runningAcceleration": -28,
+      "massFactor": 50,
       "accelerateWhenGrounded": true,
       "stompable": true,
       "topStompable": true
@@ -5532,23 +5512,23 @@
       "type": "rat",
       "platform": false,
       "position": {
-        "x": 16480,
-        "y": 3557
+        "x": 3090,
+        "y": 666
       },
       "velocity": {
-        "x": -50.0,
-        "y": 0.0
+        "x": -9,
+        "y": 0
       },
       "terminalVelocity": {
-        "x": 145.0,
-        "y": 1125.0
+        "x": 27,
+        "y": 210
       },
-      "massFactor": 0.5,
-      "gravity": 1000.0,
-      "fallGravity": 1500.0,
-      "runningAcceleration": -150.0,
       "lane": 2,
       "hitPoints": 3,
+      "gravity": 187,
+      "fallGravity": 281,
+      "runningAcceleration": -28,
+      "massFactor": 50,
       "accelerateWhenGrounded": true,
       "stompable": true,
       "topStompable": true
@@ -5558,23 +5538,23 @@
       "type": "rat",
       "platform": false,
       "position": {
-        "x": 16405,
-        "y": 3552
+        "x": 3075,
+        "y": 666
       },
       "velocity": {
-        "x": -50.0,
-        "y": 0.0
+        "x": -9,
+        "y": 0
       },
       "terminalVelocity": {
-        "x": 150.0,
-        "y": 1125.0
+        "x": 28,
+        "y": 210
       },
-      "massFactor": 0.5,
-      "gravity": 1000.0,
-      "fallGravity": 1500.0,
-      "runningAcceleration": -150.0,
       "lane": 3,
       "hitPoints": 3,
+      "gravity": 187,
+      "fallGravity": 281,
+      "runningAcceleration": -28,
+      "massFactor": 50,
       "accelerateWhenGrounded": true,
       "stompable": true,
       "topStompable": true
@@ -5584,23 +5564,23 @@
       "type": "rat",
       "platform": false,
       "position": {
-        "x": 16485,
-        "y": 3492
+        "x": 3090,
+        "y": 654
       },
       "velocity": {
-        "x": -50.0,
-        "y": 0.0
+        "x": -9,
+        "y": 0
       },
       "terminalVelocity": {
-        "x": 155.0,
-        "y": 1125.0
+        "x": 29,
+        "y": 210
       },
-      "massFactor": 0.5,
-      "gravity": 1000.0,
-      "fallGravity": 1500.0,
-      "runningAcceleration": -150.0,
       "lane": 1,
       "hitPoints": 3,
+      "gravity": 187,
+      "fallGravity": 281,
+      "runningAcceleration": -28,
+      "massFactor": 50,
       "accelerateWhenGrounded": true,
       "stompable": true,
       "topStompable": true
@@ -5610,23 +5590,23 @@
       "type": "rat",
       "platform": false,
       "position": {
-        "x": 16525,
-        "y": 3652
+        "x": 3098,
+        "y": 684
       },
       "velocity": {
-        "x": -50.0,
-        "y": 0.0
+        "x": -9,
+        "y": 0
       },
       "terminalVelocity": {
-        "x": 160.0,
-        "y": 1125.0
+        "x": 30,
+        "y": 210
       },
-      "massFactor": 0.5,
-      "gravity": 1000.0,
-      "fallGravity": 1500.0,
-      "runningAcceleration": -150.0,
       "lane": 2,
       "hitPoints": 3,
+      "gravity": 187,
+      "fallGravity": 281,
+      "runningAcceleration": -28,
+      "massFactor": 50,
       "accelerateWhenGrounded": true,
       "stompable": true,
       "topStompable": true
@@ -5636,23 +5616,23 @@
       "type": "rat",
       "platform": false,
       "position": {
-        "x": 16545,
-        "y": 3572
+        "x": 3102,
+        "y": 669
       },
       "velocity": {
-        "x": -50.0,
-        "y": 0.0
+        "x": -9,
+        "y": 0
       },
       "terminalVelocity": {
-        "x": 165.0,
-        "y": 1125.0
+        "x": 30,
+        "y": 210
       },
-      "massFactor": 0.5,
-      "gravity": 1000.0,
-      "fallGravity": 1500.0,
-      "runningAcceleration": -150.0,
       "lane": 3,
       "hitPoints": 3,
+      "gravity": 187,
+      "fallGravity": 281,
+      "runningAcceleration": -28,
+      "massFactor": 50,
       "accelerateWhenGrounded": true,
       "stompable": true,
       "topStompable": true
@@ -5662,23 +5642,23 @@
       "type": "rat",
       "platform": false,
       "position": {
-        "x": 16425,
-        "y": 3512
+        "x": 3079,
+        "y": 658
       },
       "velocity": {
-        "x": -50.0,
-        "y": 0.0
+        "x": -9,
+        "y": 0
       },
       "terminalVelocity": {
-        "x": 170.0,
-        "y": 1125.0
+        "x": 31,
+        "y": 210
       },
-      "massFactor": 0.5,
-      "gravity": 1000.0,
-      "fallGravity": 1500.0,
-      "runningAcceleration": -150.0,
       "lane": 1,
       "hitPoints": 3,
+      "gravity": 187,
+      "fallGravity": 281,
+      "runningAcceleration": -28,
+      "massFactor": 50,
       "accelerateWhenGrounded": true,
       "stompable": true,
       "topStompable": true
@@ -5688,23 +5668,23 @@
       "type": "rat",
       "platform": false,
       "position": {
-        "x": 16520,
-        "y": 3520
+        "x": 3097,
+        "y": 660
       },
       "velocity": {
-        "x": -50.0,
-        "y": 0.0
+        "x": -9,
+        "y": 0
       },
       "terminalVelocity": {
-        "x": 175.0,
-        "y": 1125.0
+        "x": 32,
+        "y": 210
       },
-      "massFactor": 0.5,
-      "gravity": 1000.0,
-      "fallGravity": 1500.0,
-      "runningAcceleration": -150.0,
       "lane": 2,
       "hitPoints": 3,
+      "gravity": 187,
+      "fallGravity": 281,
+      "runningAcceleration": -28,
+      "massFactor": 50,
       "accelerateWhenGrounded": true,
       "stompable": true,
       "topStompable": true
@@ -5714,23 +5694,23 @@
       "type": "rat",
       "platform": false,
       "position": {
-        "x": 1849,
-        "y": 4248
+        "x": 346,
+        "y": 796
       },
       "velocity": {
-        "x": -50.0,
-        "y": 0.0
+        "x": -9,
+        "y": 0
       },
       "terminalVelocity": {
-        "x": 125.0,
-        "y": 1125.0
+        "x": 23,
+        "y": 210
       },
-      "massFactor": 0.5,
-      "gravity": 1000.0,
-      "fallGravity": 1500.0,
-      "runningAcceleration": -150.0,
       "lane": 1,
       "hitPoints": 3,
+      "gravity": 187,
+      "fallGravity": 281,
+      "runningAcceleration": -28,
+      "massFactor": 50,
       "accelerateWhenGrounded": true,
       "stompable": true,
       "topStompable": true
@@ -5740,23 +5720,23 @@
       "type": "rat",
       "platform": false,
       "position": {
-        "x": 1740,
-        "y": 4220
+        "x": 326,
+        "y": 791
       },
       "velocity": {
-        "x": -50.0,
-        "y": 0.0
+        "x": -9,
+        "y": 0
       },
       "terminalVelocity": {
-        "x": 130.0,
-        "y": 1125.0
+        "x": 24,
+        "y": 210
       },
-      "massFactor": 0.5,
-      "gravity": 1000.0,
-      "fallGravity": 1500.0,
-      "runningAcceleration": -150.0,
       "lane": 2,
       "hitPoints": 3,
+      "gravity": 187,
+      "fallGravity": 281,
+      "runningAcceleration": -28,
+      "massFactor": 50,
       "accelerateWhenGrounded": true,
       "stompable": true,
       "topStompable": true
@@ -5766,23 +5746,23 @@
       "type": "rat",
       "platform": false,
       "position": {
-        "x": 1829,
-        "y": 4168
+        "x": 342,
+        "y": 781
       },
       "velocity": {
-        "x": -50.0,
-        "y": 0.0
+        "x": -9,
+        "y": 0
       },
       "terminalVelocity": {
-        "x": 135.0,
-        "y": 1125.0
+        "x": 25,
+        "y": 210
       },
-      "massFactor": 0.5,
-      "gravity": 1000.0,
-      "fallGravity": 1500.0,
-      "runningAcceleration": -150.0,
       "lane": 3,
       "hitPoints": 3,
+      "gravity": 187,
+      "fallGravity": 281,
+      "runningAcceleration": -28,
+      "massFactor": 50,
       "accelerateWhenGrounded": true,
       "stompable": true,
       "topStompable": true
@@ -5792,23 +5772,23 @@
       "type": "rat",
       "platform": false,
       "position": {
-        "x": 1709,
-        "y": 4168
+        "x": 320,
+        "y": 781
       },
       "velocity": {
-        "x": -50.0,
-        "y": 0.0
+        "x": -9,
+        "y": 0
       },
       "terminalVelocity": {
-        "x": 140.0,
-        "y": 1125.0
+        "x": 26,
+        "y": 210
       },
-      "massFactor": 0.5,
-      "gravity": 1000.0,
-      "fallGravity": 1500.0,
-      "runningAcceleration": -150.0,
       "lane": 1,
       "hitPoints": 3,
+      "gravity": 187,
+      "fallGravity": 281,
+      "runningAcceleration": -28,
+      "massFactor": 50,
       "accelerateWhenGrounded": true,
       "stompable": true,
       "topStompable": true
@@ -5818,23 +5798,23 @@
       "type": "rat",
       "platform": false,
       "position": {
-        "x": 1804,
-        "y": 4113
+        "x": 338,
+        "y": 771
       },
       "velocity": {
-        "x": -50.0,
-        "y": 0.0
+        "x": -9,
+        "y": 0
       },
       "terminalVelocity": {
-        "x": 145.0,
-        "y": 1125.0
+        "x": 27,
+        "y": 210
       },
-      "massFactor": 0.5,
-      "gravity": 1000.0,
-      "fallGravity": 1500.0,
-      "runningAcceleration": -150.0,
       "lane": 2,
       "hitPoints": 3,
+      "gravity": 187,
+      "fallGravity": 281,
+      "runningAcceleration": -28,
+      "massFactor": 50,
       "accelerateWhenGrounded": true,
       "stompable": true,
       "topStompable": true
@@ -5844,23 +5824,23 @@
       "type": "rat",
       "platform": false,
       "position": {
-        "x": 1729,
-        "y": 4108
+        "x": 324,
+        "y": 770
       },
       "velocity": {
-        "x": -50.0,
-        "y": 0.0
+        "x": -9,
+        "y": 0
       },
       "terminalVelocity": {
-        "x": 150.0,
-        "y": 1125.0
+        "x": 28,
+        "y": 210
       },
-      "massFactor": 0.5,
-      "gravity": 1000.0,
-      "fallGravity": 1500.0,
-      "runningAcceleration": -150.0,
       "lane": 3,
       "hitPoints": 3,
+      "gravity": 187,
+      "fallGravity": 281,
+      "runningAcceleration": -28,
+      "massFactor": 50,
       "accelerateWhenGrounded": true,
       "stompable": true,
       "topStompable": true
@@ -5870,23 +5850,23 @@
       "type": "rat",
       "platform": false,
       "position": {
-        "x": 1809,
-        "y": 4048
+        "x": 339,
+        "y": 759
       },
       "velocity": {
-        "x": -50.0,
-        "y": 0.0
+        "x": -9,
+        "y": 0
       },
       "terminalVelocity": {
-        "x": 155.0,
-        "y": 1125.0
+        "x": 29,
+        "y": 210
       },
-      "massFactor": 0.5,
-      "gravity": 1000.0,
-      "fallGravity": 1500.0,
-      "runningAcceleration": -150.0,
       "lane": 1,
       "hitPoints": 3,
+      "gravity": 187,
+      "fallGravity": 281,
+      "runningAcceleration": -28,
+      "massFactor": 50,
       "accelerateWhenGrounded": true,
       "stompable": true,
       "topStompable": true
@@ -5896,23 +5876,23 @@
       "type": "rat",
       "platform": false,
       "position": {
-        "x": 1849,
-        "y": 4208
+        "x": 346,
+        "y": 789
       },
       "velocity": {
-        "x": -50.0,
-        "y": 0.0
+        "x": -9,
+        "y": 0
       },
       "terminalVelocity": {
-        "x": 160.0,
-        "y": 1125.0
+        "x": 30,
+        "y": 210
       },
-      "massFactor": 0.5,
-      "gravity": 1000.0,
-      "fallGravity": 1500.0,
-      "runningAcceleration": -150.0,
       "lane": 2,
       "hitPoints": 3,
+      "gravity": 187,
+      "fallGravity": 281,
+      "runningAcceleration": -28,
+      "massFactor": 50,
       "accelerateWhenGrounded": true,
       "stompable": true,
       "topStompable": true
@@ -5922,23 +5902,23 @@
       "type": "rat",
       "platform": false,
       "position": {
-        "x": 1869,
-        "y": 4128
+        "x": 350,
+        "y": 774
       },
       "velocity": {
-        "x": -50.0,
-        "y": 0.0
+        "x": -9,
+        "y": 0
       },
       "terminalVelocity": {
-        "x": 165.0,
-        "y": 1125.0
+        "x": 30,
+        "y": 210
       },
-      "massFactor": 0.5,
-      "gravity": 1000.0,
-      "fallGravity": 1500.0,
-      "runningAcceleration": -150.0,
       "lane": 3,
       "hitPoints": 3,
+      "gravity": 187,
+      "fallGravity": 281,
+      "runningAcceleration": -28,
+      "massFactor": 50,
       "accelerateWhenGrounded": true,
       "stompable": true,
       "topStompable": true
@@ -5948,23 +5928,23 @@
       "type": "rat",
       "platform": false,
       "position": {
-        "x": 1749,
-        "y": 4068
+        "x": 327,
+        "y": 762
       },
       "velocity": {
-        "x": -50.0,
-        "y": 0.0
+        "x": -9,
+        "y": 0
       },
       "terminalVelocity": {
-        "x": 170.0,
-        "y": 1125.0
+        "x": 31,
+        "y": 210
       },
-      "massFactor": 0.5,
-      "gravity": 1000.0,
-      "fallGravity": 1500.0,
-      "runningAcceleration": -150.0,
       "lane": 1,
       "hitPoints": 3,
+      "gravity": 187,
+      "fallGravity": 281,
+      "runningAcceleration": -28,
+      "massFactor": 50,
       "accelerateWhenGrounded": true,
       "stompable": true,
       "topStompable": true
@@ -5974,23 +5954,23 @@
       "type": "rat",
       "platform": false,
       "position": {
-        "x": 1844,
-        "y": 4076
+        "x": 345,
+        "y": 764
       },
       "velocity": {
-        "x": -50.0,
-        "y": 0.0
+        "x": -9,
+        "y": 0
       },
       "terminalVelocity": {
-        "x": 175.0,
-        "y": 1125.0
+        "x": 32,
+        "y": 210
       },
-      "massFactor": 0.5,
-      "gravity": 1000.0,
-      "fallGravity": 1500.0,
-      "runningAcceleration": -150.0,
       "lane": 2,
       "hitPoints": 3,
+      "gravity": 187,
+      "fallGravity": 281,
+      "runningAcceleration": -28,
+      "massFactor": 50,
       "accelerateWhenGrounded": true,
       "stompable": true,
       "topStompable": true
@@ -6000,23 +5980,23 @@
       "type": "rat",
       "platform": false,
       "position": {
-        "x": 1750,
-        "y": 4130
+        "x": 328,
+        "y": 774
       },
       "velocity": {
-        "x": -50.0,
-        "y": 0.0
+        "x": -9,
+        "y": 0
       },
       "terminalVelocity": {
-        "x": 155.0,
-        "y": 1125.0
+        "x": 29,
+        "y": 210
       },
-      "massFactor": 0.5,
-      "gravity": 1000.0,
-      "fallGravity": 1500.0,
-      "runningAcceleration": -150.0,
       "lane": 4,
       "hitPoints": 3,
+      "gravity": 187,
+      "fallGravity": 281,
+      "runningAcceleration": -28,
+      "massFactor": 50,
       "accelerateWhenGrounded": true,
       "stompable": true,
       "topStompable": true
@@ -6026,23 +6006,23 @@
       "type": "rat",
       "platform": false,
       "position": {
-        "x": 1770,
-        "y": 4190
+        "x": 331,
+        "y": 785
       },
       "velocity": {
-        "x": -50.0,
-        "y": 0.0
+        "x": -9,
+        "y": 0
       },
       "terminalVelocity": {
-        "x": 155.0,
-        "y": 1125.0
+        "x": 29,
+        "y": 210
       },
-      "massFactor": 0.5,
-      "gravity": 1000.0,
-      "fallGravity": 1500.0,
-      "runningAcceleration": -150.0,
       "lane": 4,
       "hitPoints": 3,
+      "gravity": 187,
+      "fallGravity": 281,
+      "runningAcceleration": -28,
+      "massFactor": 50,
       "accelerateWhenGrounded": true,
       "stompable": true,
       "topStompable": true
@@ -6052,23 +6032,23 @@
       "type": "rat",
       "platform": false,
       "position": {
-        "x": 1770,
-        "y": 4010
+        "x": 331,
+        "y": 751
       },
       "velocity": {
-        "x": -50.0,
-        "y": 0.0
+        "x": -9,
+        "y": 0
       },
       "terminalVelocity": {
-        "x": 155.0,
-        "y": 1125.0
+        "x": 29,
+        "y": 210
       },
-      "massFactor": 0.5,
-      "gravity": 1000.0,
-      "fallGravity": 1500.0,
-      "runningAcceleration": -150.0,
       "lane": 4,
       "hitPoints": 3,
+      "gravity": 187,
+      "fallGravity": 281,
+      "runningAcceleration": -28,
+      "massFactor": 50,
       "accelerateWhenGrounded": true,
       "stompable": true,
       "topStompable": true
@@ -6078,8 +6058,8 @@
       "type": "clock_timer",
       "platform": false,
       "position": {
-        "x": 20,
-        "y": 20
+        "x": 3,
+        "y": 3
       }
     },
     {
@@ -6087,8 +6067,8 @@
       "type": "winged_foot",
       "platform": false,
       "position": {
-        "x": 230,
-        "y": 20
+        "x": 43,
+        "y": 3
       }
     }
   ],
@@ -6099,150 +6079,150 @@
           "type": "hills",
           "position": {
             "x": 0,
-            "y": 75
+            "y": 14
           }
         },
         {
           "type": "hills",
           "position": {
-            "x": 1050,
-            "y": 75
+            "x": 196,
+            "y": 14
           }
         },
         {
           "type": "hills",
           "position": {
-            "x": 2100,
-            "y": 75
+            "x": 393,
+            "y": 14
           }
         },
         {
           "type": "hills_base",
           "position": {
             "x": 0,
-            "y": 1075
+            "y": 201
           }
         },
         {
           "type": "hills_base",
           "position": {
-            "x": 1050,
-            "y": 1075
+            "x": 196,
+            "y": 201
           }
         },
         {
           "type": "hills_base",
           "position": {
-            "x": 2100,
-            "y": 1075
+            "x": 393,
+            "y": 201
           }
         }
       ],
       "anchorTop": true,
-      "width": 3000,
-      "height": 1400
+      "width": 562,
+      "height": 262
     },
     {
       "objects": [
         {
           "type": "cloud",
           "position": {
-            "x": 460,
-            "y": 660
+            "x": 86,
+            "y": 123
           }
         },
         {
           "type": "cloud",
           "position": {
-            "x": 2660,
-            "y": 600
+            "x": 498,
+            "y": 112
           }
         },
         {
           "type": "cloud",
           "position": {
-            "x": 1700,
-            "y": 80
+            "x": 318,
+            "y": 15
           }
         },
         {
           "type": "cloud",
           "position": {
-            "x": 240,
-            "y": 240
+            "x": 45,
+            "y": 45
           }
         },
         {
           "type": "cloud",
           "position": {
-            "x": 1580,
-            "y": 520
+            "x": 296,
+            "y": 97
           }
         },
         {
           "type": "cloud",
           "position": {
-            "x": 3020,
-            "y": 80
+            "x": 566,
+            "y": 15
           }
         },
         {
           "type": "cloud",
           "position": {
-            "x": 180,
-            "y": 1220
+            "x": 33,
+            "y": 228
           }
         },
         {
           "type": "cloud",
           "position": {
-            "x": 1660,
-            "y": 1300
+            "x": 311,
+            "y": 243
           }
         },
         {
           "type": "cloud",
           "position": {
-            "x": 2980,
-            "y": 1140
+            "x": 558,
+            "y": 213
           }
         }
       ],
-      "width": 3540,
-      "height": 1620
+      "width": 663,
+      "height": 303
     },
     {
       "objects": [
         {
           "type": "hotel_petaluma",
           "position": {
-            "x": 2600,
-            "y": 1675
+            "x": 487,
+            "y": 314
           }
         },
         {
           "type": "masonic_lodge",
           "position": {
-            "x": 1470,
-            "y": 1500
+            "x": 275,
+            "y": 281
           }
         },
         {
           "type": "phoenix",
           "position": {
             "x": 0,
-            "y": 1850
+            "y": 346
           }
         },
         {
           "type": "walking_tub",
           "position": {
-            "x": 1080,
-            "y": 1930
+            "x": 202,
+            "y": 361
           },
           "velocity": {
-            "x": -100.0,
-            "y": 0.0
+            "x": -18,
+            "y": 0
           },
           "animated": true,
           "randFrame": true
@@ -6250,12 +6230,12 @@
         {
           "type": "walking_tub_green",
           "position": {
-            "x": 2680,
-            "y": 1930
+            "x": 502,
+            "y": 361
           },
           "velocity": {
-            "x": -100.0,
-            "y": 0.0
+            "x": -18,
+            "y": 0
           },
           "animated": true,
           "randFrame": true
@@ -6263,102 +6243,102 @@
         {
           "type": "walking_tub_yellow",
           "position": {
-            "x": 4480,
-            "y": 1930
+            "x": 840,
+            "y": 361
           },
           "velocity": {
-            "x": -100.0,
-            "y": 0.0
+            "x": -18,
+            "y": 0
           },
           "animated": true,
           "randFrame": true
         }
       ],
-      "width": 4100,
-      "height": 2500
+      "width": 768,
+      "height": 468
     },
     {
       "objects": [
         {
           "type": "street_light",
           "position": {
-            "x": 50,
-            "y": 2240
+            "x": 9,
+            "y": 420
           }
         },
         {
           "type": "street_light",
           "position": {
-            "x": 830,
-            "y": 2240
+            "x": 155,
+            "y": 420
           }
         },
         {
           "type": "street_light",
           "position": {
-            "x": 1610,
-            "y": 2240
+            "x": 301,
+            "y": 420
           }
         },
         {
           "type": "street_light",
           "position": {
-            "x": 2390,
-            "y": 2240
+            "x": 448,
+            "y": 420
           }
         },
         {
           "type": "street_light",
           "position": {
-            "x": 3170,
-            "y": 2240
+            "x": 594,
+            "y": 420
           }
         },
         {
           "type": "street_light",
           "position": {
-            "x": 3950,
-            "y": 2240
+            "x": 740,
+            "y": 420
           }
         },
         {
           "type": "street_light",
           "position": {
-            "x": 4730,
-            "y": 2240
+            "x": 886,
+            "y": 420
           }
         },
         {
           "type": "street_light",
           "position": {
-            "x": 5510,
-            "y": 2240
+            "x": 1033,
+            "y": 420
           }
         },
         {
           "type": "street_light",
           "position": {
-            "x": 6290,
-            "y": 2240
+            "x": 1179,
+            "y": 420
           }
         },
         {
           "type": "street_light",
           "position": {
-            "x": 7070,
-            "y": 2240
+            "x": 1325,
+            "y": 420
           }
         },
         {
           "type": "street_light",
           "position": {
-            "x": 7850,
-            "y": 2240
+            "x": 1471,
+            "y": 420
           }
         }
       ],
-      "width": 8160,
-      "height": 2480
+      "width": 1530,
+      "height": 465
     }
   ]
 }

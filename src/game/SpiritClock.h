@@ -12,8 +12,8 @@ namespace trippin {
         const Sprite &sprite;
         const Goggin &goggin;
         const Point<int> position;
-        const double engineTicksPerClockBar;
-        const double padding;
+        const Fraction<int> engineTicksPerClockBar;
+        const int_fast64_t padding;
         SceneBuilder &sceneBuilder;
         const int zIndex;
     public:
@@ -22,8 +22,8 @@ namespace trippin {
                 const Sprite &sprite,
                 const Spirit &spirit,
                 const Goggin &goggin,
-                Point<int> position,
-                double padding,
+                Point<int> position, // sprite units
+                int_fast64_t padding, // engine unit
                 SceneBuilder &sceneBuilder,
                 int zIndex);
         void afterTick(Uint32 engineTicks) override;

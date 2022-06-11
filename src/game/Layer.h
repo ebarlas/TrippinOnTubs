@@ -17,31 +17,33 @@ namespace trippin {
                 const Map::Layer &layer,
                 const Camera &camera,
                 SceneBuilder &sceneBuilder,
-                int zIndex);
+                int zIndex,
+                const Units &units);
         void afterTick(Uint32 engineTicks) override;
     private:
         struct Object {
-            Point<int> position;
+            Point<int_fast64_t> position;
             const Sprite *sprite{};
             bool animated{};
             int frame{};
-            double x{};
-            double velocityX{};
+            int_fast64_t x{};
+            int_fast64_t velocityX{};
         };
 
         const Camera &camera;
-        const Point<int> size;
+        const Point<int_fast64_t> size;
         const bool anchorTop;
         SceneBuilder &sceneBuilder;
         const int zIndex;
+        const Units &units;
 
         std::vector<Object> objects;
 
-        void updateAnimatedObject(const Rect<int> &viewport, Object &obj, Uint32 engineTicks) const;
-        void updateStaticObject(const Rect<int> &viewport, const Object &obj) const;
+        void updateAnimatedObject(const Rect<int_fast64_t> &viewport, Object &obj, Uint32 engineTicks) const;
+        void updateStaticObject(const Rect<int_fast64_t> &viewport, const Object &obj) const;
 
         static std::vector<Object> convertObjects(const Configuration &config, SpriteManager &spriteManager, const Map::Layer &layer);
-        Rect<int> makeViewport();
+        Rect<int_fast64_t> makeViewport();
     };
 }
 

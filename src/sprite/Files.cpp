@@ -1,4 +1,3 @@
-#include <sstream>
 #include <exception>
 #include "SDL.h"
 #include "Files.h"
@@ -12,9 +11,9 @@ std::stringstream trippin::readFile(const char *fileName) {
 
     std::stringstream contents;
     char buffer[fileBufferSize];
-    int n;
+    size_t n;
     while ((n = SDL_RWread(file, buffer, sizeof(char), fileBufferSize)) > 0) {
-        contents.write(buffer, n);
+        contents.write(buffer, static_cast<std::streamsize>(n));
     }
 
     SDL_RWclose(file);

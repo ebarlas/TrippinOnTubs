@@ -9,14 +9,14 @@ namespace trippin {
     class Ground : public SpriteObject {
     public:
         Ground(
-                const Configuration &config,
                 const Map::Object &object,
                 const Sprite &sprite,
                 const Activation &activation,
                 const Spirit &spirit,
                 const Camera &camera,
                 SceneBuilder &sceneBuilder,
-                int zIndex);
+                int zIndex,
+                const Units &units);
         void beforeTick(Uint32 engineTicks) override;
         void afterTick(Uint32 engineTicks) override;
     private:

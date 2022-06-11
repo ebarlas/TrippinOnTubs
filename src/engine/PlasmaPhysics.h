@@ -1,9 +1,16 @@
-void collision2D(char mode, double alpha, double R,
-                 double m1, double m2, double r1, double r2,
-                 double &x1, double &y1, double &x2, double &y2,
-                 double &vx1, double &vy1, double &vx2, double &vy2,
-                 int &error);
+#include "Fraction.h"
 
-void collision2Ds(double m1, double m2, double R,
-                  double x1, double y1, double x2, double y2,
-                  double &vx1, double &vy1, double &vx2, double &vy2);
+namespace trippin {
+    void collision2Ds(
+            int_fast64_t m1,
+            int_fast64_t m2,
+            Fraction<int_fast64_t> R,
+            int_fast64_t x1,
+            int_fast64_t y1,
+            int_fast64_t x2,
+            int_fast64_t y2,
+            int_fast64_t &vx1,
+            int_fast64_t &vy1,
+            int_fast64_t &vx2,
+            int_fast64_t &vy2);
+}

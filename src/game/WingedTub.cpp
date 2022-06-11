@@ -1,8 +1,6 @@
 #include "WingedTub.h"
-#include "engine/Convert.h"
 
 trippin::WingedTub::WingedTub(
-        const Configuration &config,
         const Map::Object &object,
         const Sprite &sprite,
         const Activation &activation,
@@ -11,7 +9,8 @@ trippin::WingedTub::WingedTub(
         SoundManager &soundManager,
         const Camera &camera,
         SceneBuilder &sceneBuilder,
-        int zIndex) :
+        int zIndex,
+        const Units &units) :
         sprite(sprite),
         activation(activation),
         goggin(goggin),
@@ -19,8 +18,8 @@ trippin::WingedTub::WingedTub(
         camera(camera),
         sceneBuilder(sceneBuilder),
         zIndex(zIndex),
-        position(toInt(object.position)),
-        hitBox(sprite.getHitBox() + position),
+        position(object.position),
+        hitBox(units.spriteToEngine(sprite.getHitBox()) + position),
         tubFrameFirst(object.sparkle ? FRAME_SPARKLE_FIRST : FRAME_TUB_FIRST),
         tubFrameLast(object.sparkle ? FRAME_SPARKLE_LAST : FRAME_TUB_LAST),
         points(object.sparkle ? 200 : 100),
@@ -47,7 +46,7 @@ void trippin::WingedTub::afterTick(Uint32 engineTicks) {
         return;
     }
 
-    if (!hitGoggin && hitBox.intersect(goggin.roundedBox)) { // Case #1: Goggin contact
+    if (!hitGoggin && hitBox.intersect(goggin.box)) { // Case #1: Goggin contact
         Mix_PlayChannel(-1, sound, 0);
         hitGoggin = true;
         hitTicks = 0;

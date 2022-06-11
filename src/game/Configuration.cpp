@@ -15,16 +15,16 @@ std::string trippin::Configuration::getConfigFile(const std::string &name) {
     return path.str();
 }
 
-double trippin::Configuration::ticksPerSecond() const {
+int trippin::Configuration::ticksPerSecond() const {
     return tickRate;
 }
 
-double trippin::Configuration::engineTicksPerSpiritClockTick() const {
-    return spiritClockTickPeriod / msPerTick();
+trippin::Fraction<int> trippin::Configuration::engineTicksPerSpiritClockTick() const {
+    return msPerTick().flip() * spiritClockTickPeriod;
 }
 
-double trippin::Configuration::msPerTick() const {
-    return 1000.0 / tickRate;
+trippin::Fraction<int> trippin::Configuration::msPerTick() const {
+    return {1000, tickRate};
 }
 
 void trippin::from_json(const nlohmann::json &j, Configuration &config) {
@@ -52,7 +52,7 @@ void trippin::from_json(const nlohmann::json &j, Configuration &config) {
 
     for (auto &elem : j.at("scales")) {
         std::string name;
-        double multiplier;
+        int multiplier;
         int minWidth;
         elem.at("name").get_to(name);
         elem.at("multiplier").get_to(multiplier);

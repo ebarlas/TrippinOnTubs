@@ -25,9 +25,9 @@ namespace trippin {
         std::unique_ptr<std::unordered_map<std::string, SDL_Surface *>> take();
     private:
         std::unique_ptr<std::unordered_map<std::string, SDL_Surface *>> surfaces;
-        std::vector<std::string> names;
         std::thread thread;
         const SpriteLoader &spriteLoader;
+        std::vector<std::string> names;
         bool threadStarted{};
         bool threadJoined{};
 
