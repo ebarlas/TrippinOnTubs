@@ -6,15 +6,15 @@
   "spiritSecondsBehind": 3,
   "tickRate": 120,
   "spiritClockTickPeriod": 500,
-  "activationProximity": 8600,
-  "deactivationProximity": 4300,
+  "activationProximity": 403,
+  "deactivationProximity": 202,
   "healthBarSize": {
-    "x": 533,
-    "y": 53
+    "x": 40,
+    "y": 3
   },
   "shakeDuration": 350,
   "shakeHertz": 60,
-  "shakeAmplitude": 92,
+  "shakeAmplitude": 10,
   "loadMap": "map_load",
   "trainMap": "map_train",
   "loadAutoPlay": "test",
@@ -30,37 +30,37 @@
   "scales": [
     {
       "name": "svga",
-      "multiplier": 0.09375,
+      "multiplier": 2,
       "minWidth": 800
     },
     {
       "name": "sxga",
-      "multiplier": 0.15,
+      "multiplier": 3,
       "minWidth": 1280
     },
     {
       "name": "hdplus",
-      "multiplier": 0.1875,
+      "multiplier": 4,
       "minWidth": 1600
     },
     {
       "name": "fhd",
-      "multiplier": 0.225,
+      "multiplier": 5,
       "minWidth": 1920
     },
     {
       "name": "qhd",
-      "multiplier": 0.3,
+      "multiplier": 6,
       "minWidth": 2560
     },
     {
       "name": "qhdplus",
-      "multiplier": 0.346875,
+      "multiplier": 7,
       "minWidth": 2960
     },
     {
       "name": "uhd",
-      "multiplier": 0.45,
+      "multiplier": 8,
       "minWidth": 3840
     }
   ]
