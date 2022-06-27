@@ -1,6 +1,7 @@
 #ifndef TRIPPIN_DIGITLAYOUT_H
 #define TRIPPIN_DIGITLAYOUT_H
 
+#include <functional>
 #include "sprite/Sprite.h"
 
 namespace trippin {
