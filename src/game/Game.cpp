@@ -116,12 +116,15 @@ void trippin::Game::initOverlays() {
 
 void trippin::Game::initClock() {
     renderClock.init();
+    timer = std::make_unique<Timer>([this](int tps) {
+        SDL_Log("timer=renderer, fps=%d, tpf=%s", tps, format(ticksPerFrame).c_str());
+        ticksPerFrame.clear();
+    });
 }
 
 std::unique_ptr<trippin::Level> trippin::Game::nextLevel() {
     auto lvl = std::make_unique<Level>();
     lvl->setWindowSize(rendererSize);
-    lvl->setTicksPerFrame(configuration.ticksPerSecond() / static_cast<double>(sdlSystem->getRefreshRate()));
     lvl->setConfiguration(&configuration);
     lvl->setScale(scale.get());
     lvl->setSpriteManager(spriteManager.get());
@@ -144,6 +147,7 @@ std::unique_ptr<trippin::Level> trippin::Game::nextLevel() {
 }
 
 void trippin::Game::advanceLevel() {
+    lastTicks = -1; // represents no-last-ticks
     level->stop();
     level = nextLevel();
     level->start();
@@ -196,7 +200,7 @@ void trippin::Game::renderLoop() {
         }
 
         if (renderClock.isPaused()) {
-            std::this_thread::sleep_for(std::chrono::milliseconds (1)); // avoid spinning in a tight loop
+            std::this_thread::sleep_for(std::chrono::milliseconds(1)); // avoid spinning in a tight loop
         } else {
             handle(event);
         }
@@ -275,10 +279,6 @@ void trippin::Game::render() {
 
     level->render();
 
-    if (!renderClock.isPaused()) {
-        level->update();
-    }
-
     if (state == State::TITLE) {
         titleOverlay->render();
     } else if (state == State::START_MENU) {
@@ -300,14 +300,13 @@ void trippin::Game::render() {
     SDL_RenderPresent(sdlSystem->getRenderer());
 
     auto ticks = level->getTicks();
-    auto diff = ticks - lastTicks;
+    if (lastTicks != -1) {
+        auto diff = ticks - lastTicks;
+        ticksPerFrame[diff]++;
+    }
     lastTicks = ticks;
-    ticksPerFrame[diff]++;
 
-    timer.next([this](int tps) {
-        SDL_Log("timer=renderer, fps=%d, tpf=%s", tps, format(ticksPerFrame).c_str());
-        ticksPerFrame.clear();
-    });
+    timer->next();
 }
 
 void trippin::Game::handle(UserInput::Event &event) {

@@ -5,8 +5,6 @@
 #include <functional>
 #include <thread>
 #include <atomic>
-#include <mutex>
-#include <condition_variable>
 #include "SDL.h"
 #include "engine/Object.h"
 #include "engine/Collisions.h"
@@ -30,9 +28,8 @@ namespace trippin {
         // This collision type can be overridden by individual objects.
         void setObjectCollision(std::function<void(Object &, Object &, const Sides &)> collision);
 
-        // Set the engine ticks per rendered frame
-        // The engine will synchronize its update thread with the render thread
-        void setTicksPerFrame(double ticksPerFrame);
+        // Set the target engine tick rate in ticks per second
+        void setTickRate(int tickRate);
 
         // Advance the engine simulation by one tick. In each tick:
         // (1) apply motion to objects and snap to grid
@@ -43,12 +40,11 @@ namespace trippin {
         void runEngineLoop();
 
         void start();
+        void pause();
+        void resume();
         void stop();
         void join();
         int getTicks() const;
-
-        // Notifies engine that render has occurred so engine thread can advance accordingly
-        void onRender();
     private:
         std::vector<Object *> inactive;
         std::vector<Object *> platforms;
@@ -59,12 +55,12 @@ namespace trippin {
         std::function<void(Object &, Object &, const Sides &)> objectCollision = onInelasticCollisionDefault;
 
         std::thread thread;
+        int tickRate;
+        std::atomic_bool paused{};
         std::atomic_bool stopped{};
         std::atomic_int ticks{};
-        int renders{};
-        std::mutex mutex{};
-        std::condition_variable cv{};
-        double ticksPerFrame{};
+        Uint32 pauseTicks{};
+        Uint32 pauseTime{};
 
         void beforeTick(Uint32 engineTicks);
         void afterTick(Uint32 engineTicks);

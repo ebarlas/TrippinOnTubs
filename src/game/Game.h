@@ -46,7 +46,7 @@ namespace trippin {
         int score{};
         int extraLives{1};
         int lastTicks{};
-        Timer timer;
+        std::unique_ptr<Timer> timer;
         std::map<int, int> ticksPerFrame;
         std::chrono::time_point<std::chrono::steady_clock, std::chrono::milliseconds> extraLifeTime;
         std::string configName;
