@@ -1,5 +1,6 @@
 #include <cstdlib>
 #include <iostream>
+#include <sstream>
 #include <ctime>
 #include <map>
 #include "SDL_syswm.h"
@@ -63,18 +64,28 @@ void trippin::Game::initConfiguration() {
 
 void trippin::Game::initScale() {
     auto &cs = configuration.scales;
-    scale = &cs[0];
+    auto sc = &cs[0];
     for (auto it = cs.rbegin(); it != cs.rend(); it++) {
         if (windowSize.x >= it->minWidth) {
-            scale = &(*it);
+            sc = &(*it);
             break;
         }
     }
-    SDL_Log("width=%d, height=%d, scale=%s", windowSize.x, windowSize.y, scale->name.c_str());
+    // using LCM to derive the engine factor ensures that conversions between base, device, and engine
+    // scales in any direction always occur with whole numbers and facilitates simple int arithmetic
+    auto lcm = std::accumulate(
+            configuration.scales.begin(),
+            configuration.scales.end(),
+            1,
+            [](int a, const Configuration::Scale &b) { return std::lcm(a, b.multiplier); });
+    scale = std::make_unique<Scale>(sc->name, sc->multiplier, lcm);
+    SDL_Log("width=%d, height=%d, scale=%s, deviceFactor=%d, engineFactor=%d, deviceEngineFactor=%d",
+            windowSize.x, windowSize.y, sc->name.c_str(), sc->multiplier, lcm, scale->getDeviceEngineFactor());
+    configuration.rescale(*scale);
 }
 
 void trippin::Game::initSpriteManager() {
-    spriteLoader = std::make_unique<SpriteLoader>(Scale{scale->name, scale->multiplier});
+    spriteLoader = std::make_unique<SpriteLoader>(*scale);
     spriteLoadTask = std::make_unique<SpriteLoadTask>(*spriteLoader, configuration.prefetchSprites);
     spriteManager = std::make_unique<SpriteManager>(sdlSystem->getRenderer(), *spriteLoader, configuration.msPerTick());
 }
@@ -112,7 +123,7 @@ std::unique_ptr<trippin::Level> trippin::Game::nextLevel() {
     lvl->setWindowSize(rendererSize);
     lvl->setTicksPerFrame(configuration.ticksPerSecond() / static_cast<double>(sdlSystem->getRefreshRate()));
     lvl->setConfiguration(&configuration);
-    lvl->setScale(scale);
+    lvl->setScale(scale.get());
     lvl->setSpriteManager(spriteManager.get());
     lvl->setSoundManager(&soundManager);
     lvl->setRenderClock(renderClock);

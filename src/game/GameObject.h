@@ -11,6 +11,7 @@ namespace trippin {
     public:
         GameObject(
                 const Configuration &config,
+                const Configuration::Object &configObject,
                 const Map::Object &object,
                 const Sprite &sprite,
                 Goggin &goggin,
@@ -24,6 +25,7 @@ namespace trippin {
         void afterTick(Uint32 engineTicks) override;
     private:
         const Map::Object &object;
+        const Configuration::Object &configObject;
         Goggin &goggin;
         const Activation &activation;
         ScoreTicker &scoreTicker;

@@ -7,7 +7,7 @@ trippin::SpiritClock::SpiritClock(
         const Spirit &spirit,
         const Goggin &goggin,
         Point<int> position,
-        double padding,
+        int padding,
         SceneBuilder &sceneBuilder,
         int zIndex) :
         sprite(sprite),
@@ -27,6 +27,6 @@ void trippin::SpiritClock::afterTick(Uint32 engineTicks) {
     auto barsAway = toInt(ticksAway / engineTicksPerClockBar);
     auto frameNow = std::min(numClockBars, std::max(0, barsAway));
     sceneBuilder.dispatch([this, frameNow]() {
-        sprite.render(position, frameNow);
+        sprite.renderDevice(position, frameNow);
     }, zIndex);
 }

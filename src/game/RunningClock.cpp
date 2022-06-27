@@ -1,7 +1,7 @@
 #include "RunningClock.h"
 
 trippin::RunningClock::RunningClock(
-        const Configuration &config,
+        const Configuration::Object &configObject,
         const Map::Object &object,
         const Sprite &sprite,
         Goggin &goggin,
@@ -12,7 +12,7 @@ trippin::RunningClock::RunningClock(
         const Camera &camera,
         SceneBuilder &sceneBuilder,
         int zIndex) :
-        SpriteObject(config, object, sprite),
+        SpriteObject(configObject, object, sprite),
         goggin(goggin),
         activation(activation),
         spirit(spirit),
@@ -20,7 +20,7 @@ trippin::RunningClock::RunningClock(
         camera(camera),
         sceneBuilder(sceneBuilder),
         zIndex(zIndex),
-        runningAcceleration(object.runningAcceleration),
+        runningAcceleration(configObject.runningAcceleration),
         points(50),
         sound(soundManager.getEffect("chime1")) {
     lane = -1;
@@ -77,7 +77,7 @@ void trippin::RunningClock::afterTick(Uint32 engineTicks) {
         auto frameNow = frame;
         auto posNow = roundedPosition;
         sceneBuilder.dispatch([this, posNow, frameNow]() {
-            sprite.render(posNow, frameNow, camera);
+            sprite.renderEngine(posNow, frameNow, camera);
         }, zIndex);
     }
 }

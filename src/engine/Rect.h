@@ -30,6 +30,7 @@ namespace trippin {
         Rect<T> operator+(const Point<T> &other);
         Rect<T> operator-(const Point<T> &other);
         Rect<T> operator*(const T &value);
+        Rect<T> &operator*=(const T &value);
     };
 }
 
@@ -146,6 +147,15 @@ trippin::Rect<T> trippin::Rect<T>::operator-(const trippin::Point<T> &other) {
 template<class T>
 trippin::Rect<T> trippin::Rect<T>::operator*(const T &val) {
     return {x * val, y * val, w * val, h * val};
+}
+
+template<class T>
+trippin::Rect<T> &trippin::Rect<T>::operator*=(const T &val) {
+    x *= val;
+    y *= val;
+    w *= val;
+    h *= val;
+    return *this;
 }
 
 #endif

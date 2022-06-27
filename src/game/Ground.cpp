@@ -1,7 +1,6 @@
 #include "Ground.h"
 
 trippin::Ground::Ground(
-        const Configuration &config,
         const Map::Object &object,
         const Sprite &sprite,
         const Activation &activation,
@@ -9,7 +8,7 @@ trippin::Ground::Ground(
         const Camera &camera,
         SceneBuilder &sceneBuilder,
         int zIndex) :
-        SpriteObject(config, object, sprite),
+        SpriteObject({"", true}, object, sprite),
         activation(activation),
         spirit(spirit),
         camera(camera),
@@ -50,6 +49,6 @@ void trippin::Ground::afterTick(Uint32 engineTicks) {
     auto posNow = roundedPosition;
     auto frameNow = frame;
     sceneBuilder.dispatch([this, posNow, frameNow]() {
-        sprite.render(posNow, frameNow, camera);
+        sprite.renderEngine(posNow, frameNow, camera);
     }, zIndex);
 }

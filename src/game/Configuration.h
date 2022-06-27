@@ -2,15 +2,48 @@
 #define TRIPPIN_CONFIGURATION_H
 
 #include <string>
-#include <sstream>
-#include "engine/Point.h"
-#include "nlohmann/json.hpp"
+#include "game/Json.h"
+#include "sprite/Scale.h"
 
 namespace trippin {
     struct Configuration {
+        struct Object {
+            std::string type;
+            bool platform;
+            double runningAcceleration{};
+            double risingAcceleration{};
+            double gravity{};
+            double fallGravity{};
+            double mass{};
+            double massFactor{};
+            double minJumpVelocity;
+            double maxJumpVelocity;
+            double maxDuckJumpVelocity;
+            int minJumpChargeTime;
+            int maxJumpChargeTime;
+            int jumpSoundTimeout;
+            Point<double> velocity{};
+            Point<double> terminalVelocity{};
+            Point<double> friction{};
+            int dustPeriod{};
+            double duckFriction{};
+            double coefficient{};
+            bool sparkle{};
+            bool accelerateWhenGrounded{};
+            bool randFrame{};
+            bool elasticObjectCollisions{};
+            int hitPoints{};
+        };
+
+        struct LayerObject {
+            std::string type;
+            bool randFrame{};
+            Point<double> velocity{};
+        };
+
         struct Scale {
             std::string name;
-            double multiplier;
+            int multiplier;
             int minWidth;
         };
 
@@ -28,6 +61,7 @@ namespace trippin {
         int shakeDuration;
         int shakeHertz;
         int shakeAmplitude;
+        int meterMargin;
         Point<int> healthBarSize;
         std::vector<std::string> maps;
         std::string loadMap;
@@ -35,6 +69,8 @@ namespace trippin {
         std::string loadAutoPlay;
         std::vector<Scale> scales;
         std::vector<std::string> prefetchSprites;
+        std::vector<Object> objects;
+        std::vector<LayerObject> layerObjects;
         Db db;
         void load(const std::string &name);
         static std::string getConfigFile(const std::string &name);
@@ -42,9 +78,15 @@ namespace trippin {
         double msPerTick() const;
         double ticksPerSecond() const;
         double engineTicksPerSpiritClockTick() const;
+        const Object *findObject(const std::string &name) const;
+        const LayerObject *findLayerObject(const std::string &name) const;
+
+        void rescale(const trippin::Scale &scale);
     };
 
     void from_json(const nlohmann::json &j, Configuration &config);
+    void from_json(const nlohmann::json& j, Configuration::Object& obj);
+    void from_json(const nlohmann::json& j, Configuration::LayerObject& obj);
 }
 
 #endif

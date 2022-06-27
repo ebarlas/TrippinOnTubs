@@ -18,9 +18,9 @@ trippin::LifeMeter::LifeMeter(
 
 void trippin::LifeMeter::afterTick(Uint32 engineTicks) {
     for (int i = 0; i < extraLives; i++) {
-        Point<int> pos{viewport.w - margin - (i + 1) * sprite.getSize().x, margin};
+        Point<int> pos{viewport.w - margin - (i + 1) * sprite.getDeviceSize().x, margin};
         sceneBuilder.dispatch([this, pos]() {
-            sprite.render(pos, 0);
+            sprite.renderDevice(pos, 0);
         }, zIndex);
     }
 }

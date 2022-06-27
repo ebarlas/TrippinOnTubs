@@ -1,7 +1,10 @@
-#include <cmath>
 #include "Scale.h"
 
-trippin::Scale::Scale(std::string name, double multiplier) : name(std::move(name)), multiplier(multiplier) {
+trippin::Scale::Scale(std::string name, int deviceFactor, int engineFactor) :
+        name(std::move(name)),
+        deviceFactor(deviceFactor),
+        engineFactor(engineFactor),
+        deviceEngineFactor(engineFactor / deviceFactor) {
 
 }
 
@@ -9,6 +12,14 @@ const std::string &trippin::Scale::getName() const {
     return name;
 }
 
-double trippin::Scale::getMultiplier() const {
-    return multiplier;
+int trippin::Scale::getDeviceFactor() const {
+    return deviceFactor;
+}
+
+int trippin::Scale::getEngineFactor() const {
+    return engineFactor;
+}
+
+int trippin::Scale::getDeviceEngineFactor() const {
+    return deviceEngineFactor;
 }

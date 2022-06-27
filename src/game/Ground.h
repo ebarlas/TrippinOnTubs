@@ -9,7 +9,6 @@ namespace trippin {
     class Ground : public SpriteObject {
     public:
         Ground(
-                const Configuration &config,
                 const Map::Object &object,
                 const Sprite &sprite,
                 const Activation &activation,

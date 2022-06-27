@@ -19,6 +19,6 @@ void trippin::JumpMeter::afterTick(Uint32 engineTicks) {
     auto numJumpBars = sprite.getFrames() - 1;
     auto frameNow = toInt(jumpCharge * numJumpBars);
     sceneBuilder.dispatch([this, frameNow]() {
-        sprite.render(position, frameNow);
+        sprite.renderDevice(position, frameNow);
     }, zIndex);
 }

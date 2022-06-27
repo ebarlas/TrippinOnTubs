@@ -22,7 +22,7 @@ trippin::PointCloudManager::PointCloudManager(
 }
 
 void trippin::PointCloudManager::addPointCloud(Point<int> position, int points, Uint32 ticks) {
-    int x = position.x + DigitLayout::measureWidth(digits, points) / 2; // goggin horiz. midpoint
+    int x = position.x + digits.getScale().getDeviceEngineFactor() * DigitLayout::measureWidth(digits, points) / 2; // goggin horiz. midpoint
     int y = position.y;
     int xRange = pointCloudDistanceMax.x - pointCloudDistanceMin.x;
     int yRange = pointCloudDistanceMax.y - pointCloudDistanceMin.y;
@@ -35,7 +35,7 @@ void trippin::PointCloudManager::addPointCloud(Point<int> position, int points, 
 }
 
 static float decelInterpolation(float input) {
-    return (float) (1.0f - (1.0f - input) * (1.0f - input));;
+    return (float) (1.0f - (1.0f - input) * (1.0f - input));
 }
 
 void trippin::PointCloudManager::afterTick(Uint32 engineTicks) {

@@ -11,7 +11,6 @@ namespace trippin {
     class WingedTub : public Listener {
     public:
         WingedTub(
-                const Configuration &config,
                 const Map::Object &object,
                 const Sprite &sprite,
                 const Activation &activation,

@@ -55,7 +55,7 @@ namespace trippin {
         Point<int> rendererSize;
         Configuration configuration;
         AutoPlay autoPlay;
-        Configuration::Scale *scale;
+        std::unique_ptr<Scale> scale;
         std::unique_ptr<SpriteManager> spriteManager;
         std::unique_ptr<SpriteLoader> spriteLoader;
         std::unique_ptr<SpriteLoadTask> spriteLoadTask;

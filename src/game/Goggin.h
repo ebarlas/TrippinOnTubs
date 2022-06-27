@@ -22,6 +22,7 @@ namespace trippin {
     public:
         Goggin(
                 const Configuration &config,
+                const Configuration::Object &configObject,
                 const Map::Object &object,
                 SpriteManager &spriteManager,
                 ComboManager &comboManager,

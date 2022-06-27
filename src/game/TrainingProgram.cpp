@@ -61,17 +61,17 @@ void trippin::TrainingProgram::afterTick(Uint32 engineTicks) {
         auto titleSprite = titleSprites[stage];
         auto controlSprite = controlSprites[stage];
         Point<int> menuPoint{titleInterpolator.interpolate(), windowSize.y / 5};
-        Point<int> controlPoint{controlInterpolator.interpolate(), windowSize.y - controlSprite->getSize().y - margin};
+        Point<int> controlPoint{controlInterpolator.interpolate(), windowSize.y - controlSprite->getDeviceSize().y - margin};
         sceneBuilder.dispatch([menuPoint, controlPoint, titleSprite, controlSprite]() {
-            titleSprite->render(menuPoint, 0);
-            controlSprite->render(controlPoint, 0);
+            titleSprite->renderDevice(menuPoint, 0);
+            controlSprite->renderDevice(controlPoint, 0);
         }, zIndex);
     }
 }
 
 void trippin::TrainingProgram::resetInterpolators() {
-    auto titleSpriteSize = titleSprites[stage]->getSize();
-    auto controlSpriteSize = controlSprites[stage]->getSize();
+    auto titleSpriteSize = titleSprites[stage]->getDeviceSize();
+    auto controlSpriteSize = controlSprites[stage]->getDeviceSize();
     titleInterpolator.setMagnitude(titleSpriteSize.x + (windowSize.x - titleSpriteSize.x) / 2);
     titleInterpolator.setOffset(-titleSpriteSize.x);
     titleInterpolator.reset();

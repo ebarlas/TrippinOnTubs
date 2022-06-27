@@ -10,8 +10,8 @@ trippin::LevelOverlay::LevelOverlay(
         interpolator(
                 renderClock,
                 750,
-                (windowSize.x - sprite.getSize().x) / 2 + sprite.getSize().x,
-                -sprite.getSize().x) {
+                (windowSize.x - sprite.getDeviceSize().x) / 2 + sprite.getDeviceSize().x,
+                -sprite.getDeviceSize().x) {
 
 }
 
@@ -21,6 +21,6 @@ void trippin::LevelOverlay::setLevel(int lvl) {
 }
 
 void trippin::LevelOverlay::render() {
-    Point<int> pos{interpolator.interpolate(), (windowSize.y - sprite.getSize().y) / 2};
-    sprite.render(pos, level);
+    Point<int> pos{interpolator.interpolate(), (windowSize.y - sprite.getDeviceSize().y) / 2};
+    sprite.renderDevice(pos, level);
 }

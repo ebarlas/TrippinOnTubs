@@ -1,3 +1,4 @@
+#include <sstream>
 #include "nlohmann/json.hpp"
 #include "sprite/Files.h"
 #include "Configuration.h"
@@ -27,6 +28,73 @@ double trippin::Configuration::msPerTick() const {
     return 1000.0 / tickRate;
 }
 
+void trippin::Configuration::rescale(const trippin::Scale &sc) {
+    auto df = sc.getDeviceFactor();
+    healthBarSize *= df;
+    meterMargin *= df;
+
+    auto ef = sc.getEngineFactor();
+    shakeAmplitude *= ef;
+    activationProximity *= ef;
+    deactivationProximity *= ef;
+
+    for (auto &obj: objects) {
+        obj.runningAcceleration *= ef;
+        obj.risingAcceleration *= ef;
+        obj.gravity *= ef;
+        obj.fallGravity *= ef;
+        obj.velocity *= ef;
+        obj.minJumpVelocity *= ef;
+        obj.maxJumpVelocity *= ef;
+        obj.maxDuckJumpVelocity *= ef;
+        obj.terminalVelocity *= ef;
+        obj.friction *= ef;
+        obj.duckFriction *= ef;
+    }
+
+    for (auto &obj: layerObjects) {
+        obj.velocity *= ef;
+    }
+
+    auto ticksPerSecond = tickRate;
+    auto tickPeriod = 1000.0 / ticksPerSecond;
+    auto ticksPerSecondSq = ticksPerSecond * ticksPerSecond;
+
+    for (auto &obj: objects) {
+        obj.gravity /= ticksPerSecondSq;
+        obj.fallGravity /= ticksPerSecondSq;
+        obj.friction /= ticksPerSecondSq;
+        obj.velocity /= ticksPerSecond;
+        obj.terminalVelocity /= ticksPerSecond;
+        obj.runningAcceleration /= ticksPerSecondSq;
+        obj.risingAcceleration /= ticksPerSecondSq;
+        obj.minJumpVelocity /= ticksPerSecond;
+        obj.maxJumpVelocity /= ticksPerSecond;
+        obj.maxDuckJumpVelocity /= ticksPerSecond;
+        obj.minJumpChargeTime = static_cast<int>(std::round(obj.minJumpChargeTime / tickPeriod));
+        obj.maxJumpChargeTime = static_cast<int>(std::round(obj.maxJumpChargeTime / tickPeriod));
+        obj.jumpSoundTimeout = static_cast<int>(std::round(obj.jumpSoundTimeout / tickPeriod));
+        obj.dustPeriod = static_cast<int>(std::round(obj.dustPeriod / tickPeriod));
+        obj.duckFriction /= ticksPerSecondSq;
+    }
+
+    for (auto &obj: layerObjects) {
+        obj.velocity /= ticksPerSecond;
+    }
+}
+
+const trippin::Configuration::Object *trippin::Configuration::findObject(const std::string &type) const {
+    auto fn = [&type](const Configuration::Object &configObj) { return type == configObj.type; };
+    auto it = std::find_if(objects.begin(), objects.end(), fn);
+    return it == objects.end() ? nullptr : &(*it);
+}
+
+const trippin::Configuration::LayerObject *trippin::Configuration::findLayerObject(const std::string &type) const {
+    auto fn = [&type](const Configuration::LayerObject &configObj) { return type == configObj.type; };
+    auto it = std::find_if(layerObjects.begin(), layerObjects.end(), fn);
+    return it == layerObjects.end() ? nullptr : &(*it);
+}
+
 void trippin::from_json(const nlohmann::json &j, Configuration &config) {
     if (j.contains("windowSize")) {
         j.at("windowSize").at("x").get_to(config.windowSize.x);
@@ -40,6 +108,7 @@ void trippin::from_json(const nlohmann::json &j, Configuration &config) {
     j.at("shakeDuration").get_to(config.shakeDuration);
     j.at("shakeHertz").get_to(config.shakeHertz);
     j.at("shakeAmplitude").get_to(config.shakeAmplitude);
+    j.at("meterMargin").get_to(config.meterMargin);
     j.at("healthBarSize").at("x").get_to(config.healthBarSize.x);
     j.at("healthBarSize").at("y").get_to(config.healthBarSize.y);
     j.at("maps").get_to(config.maps);
@@ -49,14 +118,78 @@ void trippin::from_json(const nlohmann::json &j, Configuration &config) {
     j.at("prefetchSprites").get_to(config.prefetchSprites);
     j.at("db").at("host").get_to(config.db.host);
     j.at("db").at("port").get_to(config.db.port);
-
-    for (auto &elem : j.at("scales")) {
+    if (j.contains("objects")) {
+        j.at("objects").get_to(config.objects);
+    }
+    if (j.contains("layerObjects")) {
+        j.at("layerObjects").get_to(config.layerObjects);
+    }
+    for (auto &elem: j.at("scales")) {
         std::string name;
-        double multiplier;
+        int multiplier;
         int minWidth;
         elem.at("name").get_to(name);
         elem.at("multiplier").get_to(multiplier);
         elem.at("minWidth").get_to(minWidth);
         config.scales.push_back({std::move(name), multiplier, minWidth});
     }
+}
+
+void trippin::from_json(const nlohmann::json &j, Configuration::Object &obj) {
+    j.at("type").get_to(obj.type);
+    j.at("platform").get_to(obj.platform);
+    if (j.contains("runningAcceleration"))
+        j.at("runningAcceleration").get_to(obj.runningAcceleration);
+    if (j.contains("risingAcceleration"))
+        j.at("risingAcceleration").get_to(obj.risingAcceleration);
+    if (j.contains("gravity"))
+        j.at("gravity").get_to(obj.gravity);
+    if (j.contains("fallGravity"))
+        j.at("fallGravity").get_to(obj.fallGravity);
+    if (j.contains("mass"))
+        j.at("mass").get_to(obj.mass);
+    if (j.contains("massFactor"))
+        j.at("massFactor").get_to(obj.massFactor);
+    if (j.contains("velocity"))
+        j.at("velocity").get_to(obj.velocity);
+    if (j.contains("minJumpVelocity"))
+        j.at("minJumpVelocity").get_to(obj.minJumpVelocity);
+    if (j.contains("maxJumpVelocity"))
+        j.at("maxJumpVelocity").get_to(obj.maxJumpVelocity);
+    if (j.contains("maxDuckJumpVelocity"))
+        j.at("maxDuckJumpVelocity").get_to(obj.maxDuckJumpVelocity);
+    if (j.contains("minJumpChargeTime"))
+        j.at("minJumpChargeTime").get_to(obj.minJumpChargeTime);
+    if (j.contains("maxJumpChargeTime"))
+        j.at("maxJumpChargeTime").get_to(obj.maxJumpChargeTime);
+    if (j.contains("jumpSoundTimeout"))
+        j.at("jumpSoundTimeout").get_to(obj.jumpSoundTimeout);
+    if (j.contains("terminalVelocity"))
+        j.at("terminalVelocity").get_to(obj.terminalVelocity);
+    if (j.contains("friction"))
+        j.at("friction").get_to(obj.friction);
+    if (j.contains("dustPeriod"))
+        j.at("dustPeriod").get_to(obj.dustPeriod);
+    if (j.contains("duckFriction"))
+        j.at("duckFriction").get_to(obj.duckFriction);
+    if (j.contains("coefficient"))
+        j.at("coefficient").get_to(obj.coefficient);
+    if (j.contains("sparkle"))
+        j.at("sparkle").get_to(obj.sparkle);
+    if (j.contains("accelerateWhenGrounded"))
+        j.at("accelerateWhenGrounded").get_to(obj.accelerateWhenGrounded);
+    if (j.contains("randFrame"))
+        j.at("randFrame").get_to(obj.randFrame);
+    if (j.contains("elasticObjectCollisions"))
+        j.at("elasticObjectCollisions").get_to(obj.elasticObjectCollisions);
+    if (j.contains("hitPoints"))
+        j.at("hitPoints").get_to(obj.hitPoints);
+}
+
+void trippin::from_json(const nlohmann::json &j, Configuration::LayerObject &obj) {
+    j.at("type").get_to(obj.type);
+    if (j.contains("randFrame"))
+        j.at("randFrame").get_to(obj.randFrame);
+    if (j.contains("velocity"))
+        j.at("velocity").get_to(obj.velocity);
 }

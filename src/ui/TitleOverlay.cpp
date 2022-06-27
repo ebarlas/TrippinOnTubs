@@ -22,36 +22,36 @@ void trippin::TitleOverlay::render() {
     int scrollTop = getScrollTop();
 
     int height = windowSize.y * 3
-                 + todaySprite.getSize().y
+                 + todaySprite.getDeviceSize().y
                  + todayScoreBoard.getHeight()
-                 + allTimeSprite.getSize().y
+                 + allTimeSprite.getDeviceSize().y
                  + allTimeScoreBoard.getHeight();
     int scrollWrap = scrollTop % height;
 
     Point<int> titlePosition;
-    titlePosition.x = (windowSize.x - titleSprite.getSize().x) / 2;
-    titlePosition.y = scrollTop + (windowSize.y - titleSprite.getSize().y) / 2;
-    titleSprite.render(titlePosition, 0);
+    titlePosition.x = (windowSize.x - titleSprite.getDeviceSize().x) / 2;
+    titlePosition.y = scrollTop + (windowSize.y - titleSprite.getDeviceSize().y) / 2;
+    titleSprite.renderDevice(titlePosition, 0);
 
     Point<int> todayPosition;
-    todayPosition.x = (windowSize.x - todaySprite.getSize().x) / 2;
+    todayPosition.x = (windowSize.x - todaySprite.getDeviceSize().x) / 2;
     todayPosition.y = scrollWrap + windowSize.y * 2;
-    todaySprite.render(todayPosition, 0);
-    int todayHeight = todaySprite.getSize().y + todayScoreBoard.getHeight();
+    todaySprite.renderDevice(todayPosition, 0);
+    int todayHeight = todaySprite.getDeviceSize().y + todayScoreBoard.getHeight();
 
     Point<int> todayScorePosition;
     todayScorePosition.x = (windowSize.x - todayScoreBoard.getWidth()) / 2;;
-    todayScorePosition.y = scrollWrap + windowSize.y * 2 + todaySprite.getSize().y;
+    todayScorePosition.y = scrollWrap + windowSize.y * 2 + todaySprite.getDeviceSize().y;
     todayScoreBoard.render(todayScorePosition);
 
     Point<int> allTimePosition;
-    allTimePosition.x = (windowSize.x - allTimeSprite.getSize().x) / 2;
+    allTimePosition.x = (windowSize.x - allTimeSprite.getDeviceSize().x) / 2;
     allTimePosition.y = scrollWrap + windowSize.y * 3 + todayHeight;
-    allTimeSprite.render(allTimePosition, 0);
+    allTimeSprite.renderDevice(allTimePosition, 0);
 
     Point<int> allTimeScorePosition;
     allTimeScorePosition.x = (windowSize.x - allTimeScoreBoard.getWidth()) / 2;
-    allTimeScorePosition.y = scrollWrap + windowSize.y * 3 + todayHeight + allTimeSprite.getSize().y;
+    allTimeScorePosition.y = scrollWrap + windowSize.y * 3 + todayHeight + allTimeSprite.getDeviceSize().y;
     allTimeScoreBoard.render(allTimeScorePosition);
 }
 

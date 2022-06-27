@@ -44,19 +44,19 @@ template<std::size_t N>
 void trippin::MenuLayout<N>::init() {
     int menuHeight = 0;
     for (auto &item : items) {
-        menuHeight += item.sprite->getSize().y;
+        menuHeight += item.sprite->getDeviceSize().y;
     }
 
     int itemY = 0;
     for (auto &item : items) {
-        item.position.x = (windowSize.x - item.sprite->getSize().x) / 2;
+        item.position.x = (windowSize.x - item.sprite->getDeviceSize().x) / 2;
         item.position.y = (windowSize.y - menuHeight) / 2 + itemY;
-        itemY += item.sprite->getSize().y;
+        itemY += item.sprite->getDeviceSize().y;
     }
 
     auto &max = maxItem();
-    interpolator.setMagnitude(max.position.x + max.sprite->getSize().x);
-    interpolator.setOffset(-max.sprite->getSize().x);
+    interpolator.setMagnitude(max.position.x + max.sprite->getDeviceSize().x);
+    interpolator.setOffset(-max.sprite->getDeviceSize().x);
 }
 
 template<std::size_t N>
@@ -70,14 +70,14 @@ void trippin::MenuLayout<N>::render() {
     int x = interpolator.interpolate();
     for (auto &item : items) {
         Point<int> p{x + item.position.x - max.position.x, item.position.y};
-        item.sprite->render(p, 0);
+        item.sprite->renderDevice(p, 0);
     }
 }
 
 template<std::size_t N>
 const typename trippin::MenuLayout<N>::Item &trippin::MenuLayout<N>::maxItem() const {
     auto cmp = [](const Item &a, const Item &b) {
-        return a.sprite->getSize().x < b.sprite->getSize().x;
+        return a.sprite->getDeviceSize().x < b.sprite->getDeviceSize().x;
     };
     return *std::max_element(items.begin(), items.end(), cmp);
 }
@@ -85,7 +85,7 @@ const typename trippin::MenuLayout<N>::Item &trippin::MenuLayout<N>::maxItem() c
 template<std::size_t N>
 bool trippin::MenuLayout<N>::contains(int index, Point<int> point) const {
     auto &item = items[index];
-    auto size = item.sprite->getSize();
+    auto size = item.sprite->getDeviceSize();
     Rect<int> r{item.position.x, item.position.y, size.x, size.y};
     return r.contains(point);
 }

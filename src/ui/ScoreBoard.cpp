@@ -10,7 +10,7 @@ void trippin::ScoreBoard::setScores(std::vector<Score> vec) {
 }
 
 void trippin::ScoreBoard::render(Point<int> position) {
-    auto digitSize = sprite.getSize();
+    auto digitSize = sprite.getDeviceSize();
 
     auto narrow = scores.size() <= 9;
 
@@ -30,16 +30,16 @@ void trippin::ScoreBoard::render(Point<int> position) {
 
 void trippin::ScoreBoard::renderName(Point<int> position, const std::string &name) const {
     for (int i = 0; i < 5; i++) {
-        Point<int> pos{position.x + i * sprite.getSize().x, position.y};
-        sprite.render(pos, 10 + name[i] - 'A'); // 'A' is frame 10
+        Point<int> pos{position.x + i * sprite.getDeviceSize().x, position.y};
+        sprite.renderDevice(pos, 10 + name[i] - 'A'); // 'A' is frame 10
     }
 }
 
 int trippin::ScoreBoard::getHeight() const {
-    return scores.size() * sprite.getSize().y;
+    return scores.size() * sprite.getDeviceSize().y;
 }
 
 int trippin::ScoreBoard::getWidth() const {
     auto narrow = scores.size() <= 9;
-    return (narrow ? 13 : 14) * sprite.getSize().x; // 1 or 2 digits, 1 sp, 5 chars, 1 sp, 5 digits
+    return (narrow ? 13 : 14) * sprite.getDeviceSize().x; // 1 or 2 digits, 1 sp, 5 chars, 1 sp, 5 digits
 }
