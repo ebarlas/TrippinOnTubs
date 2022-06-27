@@ -53,7 +53,7 @@ void trippin::ComboManager::render(Uint32 engineTicks, Display &display) {
     auto pauseTicks = slideDuration + pauseDuration;
 
     auto digitsWidth = DigitLayout::measureWidth(digits, display.points);
-    auto totalWidth = comboText.getSize().x + digitsWidth;
+    auto totalWidth = comboText.getDeviceSize().x + digitsWidth;
     auto totalDistance = totalWidth + margin;
 
     auto distance = [&]() {
@@ -73,7 +73,7 @@ void trippin::ComboManager::render(Uint32 engineTicks, Display &display) {
     auto y = windowSize.y / 4;
     auto points = display.points;
     sceneBuilder.dispatch([this, x, y, totalWidth, points]() {
-        comboText.render({x, y}, 0);
+        comboText.renderDevice({x, y}, 0);
         DigitLayout::renderDigits(digits, {x + totalWidth, y}, points);
     }, zIndex);
 }

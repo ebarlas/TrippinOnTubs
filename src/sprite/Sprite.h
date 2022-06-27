@@ -11,20 +11,21 @@ namespace trippin {
     public:
         Sprite(SDL_Renderer *renderer, const std::string &name, const SpriteLoader &spriteLoader, double tickPeriod);
         Sprite(SDL_Renderer *renderer, const std::string &name, const Scale &scale, double  tickPeriod, SDL_Surface *sur);
-        void render(Point<int> position, int frame) const;
-        void render(Point<int> hitBoxPos, int frame, const Camera &camera) const;
-        Point<int> getSize() const;
-        Rect<int> getHitBox() const;
+        void renderDevice(Point<int> position, int frame) const;
+        void renderEngine(Point<int> hitBoxPos, int frame, const Camera &camera) const;
+        Point<int> getEngineSize() const;
+        Point<int> getDeviceSize() const;
+        Rect<int> getEngineHitBox() const;
         int getFramePeriodTicks() const;
         int getFrameDuration() const;
         int getFrames() const;
         SDL_Renderer* getRenderer() const;
-        bool intersectsWith(Point<int> hitBoxPos, Rect<int> rect) const;
         const Scale& getScale() const;
     private:
         const Scale& scale;
-        Point<int> size;
-        Rect<int> hitBox;
+        Point<int> engineSize;
+        Point<int> deviceSize;
+        Rect<int> engineHitBox;
         SpriteMetadata metadata;
         SpriteSheet sheet;
         // Duration of each frame in ticks

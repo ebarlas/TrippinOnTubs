@@ -14,6 +14,7 @@ namespace trippin {
         Point<T> operator-(const Point<T> &right) const;
         T operator*(const Point<T> &right) const;
         Point<T> operator*(T right) const;
+        Point<T> &operator*=(T right);
         Point<T> operator/(T right) const;
         Point<T> &operator/=(T right);
         bool operator==(const Point<T> &p) const;
@@ -45,6 +46,13 @@ trippin::Point<T> trippin::Point<T>::operator-(const trippin::Point<T> &right) c
 template<class T>
 T trippin::Point<T>::operator*(const trippin::Point<T> &right) const {
     return x * right.x + y * right.y;
+}
+
+template<class T>
+trippin::Point<T> &trippin::Point<T>::operator*=(T right) {
+    x *= right;
+    y *= right;
+    return *this;
 }
 
 template<class T>

@@ -5,6 +5,7 @@
 
 trippin::Goggin::Goggin(
         const Configuration &config,
+        const Configuration::Object &configObject,
         const Map::Object &object,
         SpriteManager &spriteManager,
         ComboManager &comboManager,
@@ -15,7 +16,7 @@ trippin::Goggin::Goggin(
         Camera &camera,
         SceneBuilder &sceneBuilder,
         int zIndex) :
-        SpriteObject(config, object, spriteManager.get("goggin")),
+        SpriteObject(configObject, object, spriteManager.get("goggin")),
         dust(spriteManager.get("dust")),
         dustBlast(spriteManager.get("dust_blast")),
         whiteDustBlast(spriteManager.get("dust_blast_white")),
@@ -26,17 +27,17 @@ trippin::Goggin::Goggin(
         sceneBuilder(sceneBuilder),
         zIndex(zIndex),
         jumpSound(soundManager.getEffect("thud")),
-        runningAcceleration(object.runningAcceleration),
-        risingAcceleration(object.risingAcceleration),
-        minJumpVelocity(object.minJumpVelocity),
-        maxJumpVelocity(object.maxJumpVelocity),
-        maxDuckJumpVelocity(object.maxDuckJumpVelocity),
-        minJumpChargeTicks(object.minJumpChargeTime),
-        maxJumpChargeTicks(object.maxJumpChargeTime),
-        jumpSoundTimeoutTicks(object.jumpSoundTimeout),
-        duckFriction(object.duckFriction),
-        shakeAmplitude(config.shakeAmplitude * sprite.getScale().getMultiplier()),
-        dustPeriodTicks(object.dustPeriod) {
+        runningAcceleration(configObject.runningAcceleration),
+        risingAcceleration(configObject.risingAcceleration),
+        minJumpVelocity(configObject.minJumpVelocity),
+        maxJumpVelocity(configObject.maxJumpVelocity),
+        maxDuckJumpVelocity(configObject.maxDuckJumpVelocity),
+        minJumpChargeTicks(configObject.minJumpChargeTime),
+        maxJumpChargeTicks(configObject.maxJumpChargeTime),
+        jumpSoundTimeoutTicks(configObject.jumpSoundTimeout),
+        duckFriction(configObject.duckFriction),
+        shakeAmplitude(config.shakeAmplitude),
+        dustPeriodTicks(configObject.dustPeriod) {
 
     rightOfUni = false;
     belowUni = false;
@@ -137,7 +138,7 @@ void trippin::Goggin::handleJumpCharge(Uint32 engineTicks) {
     }
     if (jumpTicks) {
         auto relTicks = static_cast<int>(engineTicks - jumpTicks);
-        auto range = toDouble(maxJumpChargeTicks - minJumpChargeTicks);
+        double range = maxJumpChargeTicks - minJumpChargeTicks;
         auto boundedTicks = std::max(minJumpChargeTicks, std::min(relTicks, maxJumpChargeTicks));
         jumpPercent = (boundedTicks - minJumpChargeTicks) / range;
     }
@@ -214,8 +215,8 @@ void trippin::Goggin::afterTick(Uint32 engineTicks) {
     // test for creation of new dust cloud
     if (grounded && engineTicks - dustTicks >= dustPeriodTicks && velocity.x >= terminalVelocity.x / 2) {
         dustTicks = engineTicks;
-        auto left = roundedPosition.x;
-        auto top = roundedPosition.y + size.y - dust.getHitBox().h;
+        auto left = roundedPosition.x - dust.getEngineHitBox().w / 2; // horizontally center dust on goggin left
+        auto top = roundedPosition.y + size.y - dust.getEngineHitBox().h;
         frames.dusts[nextDustPos] = {{left, top}, 0};
         nextDustPos = (nextDustPos + 1) % frames.dusts.size();
     }
@@ -250,7 +251,7 @@ void trippin::Goggin::afterTick(Uint32 engineTicks) {
 
     auto frameNow = frames.frame;
     sceneBuilder.dispatch([this, cameraPos, frameNow]() {
-        sprite.render(cameraPos, frameNow, camera);
+        sprite.renderEngine(cameraPos, frameNow, camera);
     }, zIndex);
 }
 
@@ -341,8 +342,8 @@ void trippin::Goggin::shrinkForDuck() {
 
 void trippin::Goggin::growForStand() {
     // restore goggin contact area to full-height using original sprite height
-    position.y -= sprite.getHitBox().h - size.y;
-    size.y = sprite.getHitBox().h;
+    position.y -= sprite.getEngineHitBox().h - size.y;
+    size.y = sprite.getEngineHitBox().h;
     syncPositions();
 }
 
@@ -350,8 +351,8 @@ void trippin::Goggin::resetDustBlast(bool white) {
     frames.blast.white = white;
     frames.blast.frame = 0;
     frames.blast.ticks = 0;
-    frames.blast.position.x = (roundedPosition.x + size.x / 2) - (dustBlast.getHitBox().w / 2);
-    frames.blast.position.y = (roundedPosition.y + size.y) - dustBlast.getHitBox().h;
+    frames.blast.position.x = (roundedPosition.x + size.x / 2) - (dustBlast.getEngineHitBox().w / 2);
+    frames.blast.position.y = (roundedPosition.y + size.y) - dustBlast.getEngineHitBox().h;
 }
 
 void trippin::Goggin::onUserInput(const trippin::GogginInput &in) {
@@ -441,7 +442,7 @@ trippin::Point<int> trippin::Goggin::centerCamera() {
     Point<int> cen;
     if (state == ducking) {
         // restore y to original footprint by lifting sprite
-        auto originalHeight = sprite.getHitBox().h;
+        auto originalHeight = sprite.getEngineHitBox().h;
         auto heightDelta = originalHeight - size.y;
         pos = {roundedPosition.x, roundedPosition.y - heightDelta};
         cen = toInt(Point<double>{pos.x + size.x / 2.0, pos.y + originalHeight / 2.0});
@@ -459,7 +460,7 @@ void trippin::Goggin::drawDust() {
             auto dustPos = d.position;
             auto dustFrame = d.frame;
             sceneBuilder.dispatch([this, dustPos, dustFrame]() {
-                dust.render(dustPos, dustFrame, camera);
+                dust.renderEngine(dustPos, dustFrame, camera);
             }, zIndex);
         }
     }
@@ -471,7 +472,7 @@ void trippin::Goggin::drawDustBlast() {
         auto dustPos = frames.blast.position;
         auto dustFrame = frames.blast.frame;
         sceneBuilder.dispatch([this, dustSprite, dustPos, dustFrame]() {
-            dustSprite->render(dustPos, dustFrame, camera);
+            dustSprite->renderEngine(dustPos, dustFrame, camera);
         }, zIndex);
     }
 }

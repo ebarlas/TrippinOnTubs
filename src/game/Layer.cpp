@@ -8,23 +8,24 @@ trippin::Layer::Layer(
         const Camera &camera,
         SceneBuilder &sceneBuilder,
         int zIndex) :
-        objects(convertObjects(config, spriteManager, layer)),
         camera(camera),
         size(layer.size),
         anchorTop(layer.anchorTop),
         sceneBuilder(sceneBuilder),
-        zIndex(zIndex) {
+        zIndex(zIndex),
+        objects(convertObjects(config, spriteManager, layer)) {
 
 }
 
 void trippin::Layer::updateStaticObject(const Rect<int> &viewport, const Layer::Object &obj) const {
-    auto spriteSize = obj.sprite->getSize();
+    auto spriteSize = obj.sprite->getEngineSize();
     for (int i = 0; i < obj.sprite->getFrames(); i++) {
         Rect<int> box{obj.position.x + i * spriteSize.x, obj.position.y, spriteSize.x, spriteSize.y};
         if (box.intersect(viewport)) {
             Point<int> target = {box.x - viewport.x, box.y - viewport.y};
+            target /= obj.sprite->getScale().getDeviceEngineFactor();
             sceneBuilder.dispatch([obj, target, i]() {
-                obj.sprite->render(target, i);
+                obj.sprite->renderDevice(target, i);
             }, zIndex);
         }
     }
@@ -37,10 +38,11 @@ void trippin::Layer::updateAnimatedObject(const Rect<int> &viewport, Layer::Obje
     }
 
     Point<int> target = {(int) obj.x + obj.position.x - viewport.x, obj.position.y - viewport.y};
+    target /= obj.sprite->getScale().getDeviceEngineFactor();
     auto sp = obj.sprite;
     auto fr = obj.frame;
     sceneBuilder.dispatch([sp, fr, target]() {
-        sp->render(target, fr);
+        sp->renderDevice(target, fr);
     }, zIndex);
 }
 
@@ -48,7 +50,7 @@ void trippin::Layer::afterTick(Uint32 engineTicks) {
     auto viewport = makeViewport();
 
     for (auto &obj: objects) {
-        if (obj.animated) {
+        if (obj.velocityX != 0) {
             updateAnimatedObject(viewport, obj, engineTicks);
         } else {
             updateStaticObject(viewport, obj);
@@ -62,10 +64,11 @@ std::vector<trippin::Layer::Object> trippin::Layer::convertObjects(
         const Map::Layer &layer) {
     std::vector<Object> objects;
     for (auto &obj: layer.objects) {
+        auto configObject = config.findLayerObject(obj.type);
         auto &sprite = spriteManager.get(obj.type);
-        int frame = obj.randFrame ? std::rand() % sprite.getFrames() : 0;
-        auto vel = (obj.velocity.x / 1000.0) * config.msPerTick(); // (px per ms) * (ms per tick) = px per tick
-        objects.push_back({obj.position, &sprite, obj.animated, frame, 0, vel});
+        auto frame = configObject != nullptr && configObject->randFrame ? std::rand() % sprite.getFrames() : 0;
+        auto vel = configObject != nullptr ? configObject->velocity.x : 0;
+        objects.push_back({obj.position, &sprite, frame, 0, vel});
     }
     return objects;
 }

@@ -14,32 +14,27 @@ trippin::Sprite::Sprite(SDL_Renderer *ren, const std::string &name, const Scale 
 void trippin::Sprite::init(const std::string &name, double tickPeriod) {
     metadata.load(name);
 
-    size = sheet.getSize();
-    size.x /= metadata.getFrames();
-
-    auto mul = scale.getMultiplier();
-    auto hb = metadata.getHitBox();
-    hitBox = {static_cast<int>(std::round(hb.x * mul)),
-              static_cast<int>(std::round(hb.y * mul)),
-              static_cast<int>(std::round(hb.w * mul)),
-              static_cast<int>(std::round(hb.h * mul))};
+    deviceSize = sheet.getSize();
+    deviceSize.x /= metadata.getFrames();
+    engineSize = deviceSize * scale.getDeviceEngineFactor();
+    engineHitBox = metadata.getHitBox() * scale.getEngineFactor();
 
     // Duration in (milliseconds) and ticks period (milliseconds per tick)
     framePeriodTicks = static_cast<int>(std::round(metadata.getDuration() / tickPeriod));
 }
 
-void trippin::Sprite::render(trippin::Point<int> position, int frame) const {
-    SDL_Rect clip{frame * size.x, 0, size.x, size.y};
-    SDL_Rect target{position.x, position.y, size.x, size.y};
+void trippin::Sprite::renderDevice(trippin::Point<int> position, int frame) const {
+    SDL_Rect clip{frame * deviceSize.x, 0, deviceSize.x, deviceSize.y};
+    SDL_Rect target{position.x, position.y, deviceSize.x, deviceSize.y};
     sheet.render(&clip, &target);
 }
 
-void trippin::Sprite::render(trippin::Point<int> hitBoxPos, int frame, const trippin::Camera &camera) const {
+void trippin::Sprite::renderEngine(trippin::Point<int> hitBoxPos, int frame, const trippin::Camera &camera) const {
     auto viewport = camera.getViewport();
-    trippin::Rect<int> box{hitBoxPos.x - hitBox.x, hitBoxPos.y - hitBox.y, size.x, size.y};
+    trippin::Rect<int> box{hitBoxPos.x - engineHitBox.x, hitBoxPos.y - engineHitBox.y, engineSize.x, engineSize.y};
     if (box.hasCollision(viewport)) {
         Point<int> target = {box.x - viewport.x, box.y - viewport.y};
-        render(target, frame);
+        renderDevice(target / scale.getDeviceEngineFactor(), frame);
         /*
         SDL_SetRenderDrawColor(ren, 0, 0, 255, 255);
         SDL_Rect r{hitBoxPos.x - viewport.x, hitBoxPos.y - viewport.y, hitBox.w, hitBox.h};
@@ -48,12 +43,16 @@ void trippin::Sprite::render(trippin::Point<int> hitBoxPos, int frame, const tri
     }
 }
 
-trippin::Point<int> trippin::Sprite::getSize() const {
-    return size;
+trippin::Point<int> trippin::Sprite::getEngineSize() const {
+    return engineSize;
 }
 
-trippin::Rect<int> trippin::Sprite::getHitBox() const {
-    return hitBox;
+trippin::Point<int> trippin::Sprite::getDeviceSize() const {
+    return deviceSize;
+}
+
+trippin::Rect<int> trippin::Sprite::getEngineHitBox() const {
+    return engineHitBox;
 }
 
 int trippin::Sprite::getFrames() const {
@@ -74,8 +73,4 @@ const trippin::Scale &trippin::Sprite::getScale() const {
 
 SDL_Renderer *trippin::Sprite::getRenderer() const {
     return ren;
-}
-
-bool trippin::Sprite::intersectsWith(Point<int> hitBoxPos, Rect<int> rect) const {
-    return rect.hasCollision({hitBoxPos.x - hitBox.x, hitBoxPos.y - hitBox.y, size.x, size.y});
 }

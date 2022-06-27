@@ -1,8 +1,6 @@
 #include "WingedTub.h"
-#include "engine/Convert.h"
 
 trippin::WingedTub::WingedTub(
-        const Configuration &config,
         const Map::Object &object,
         const Sprite &sprite,
         const Activation &activation,
@@ -16,11 +14,11 @@ trippin::WingedTub::WingedTub(
         activation(activation),
         goggin(goggin),
         scoreTicker(scoreTicker),
-        camera(camera),
         sceneBuilder(sceneBuilder),
+        camera(camera),
         zIndex(zIndex),
-        position(toInt(object.position)),
-        hitBox(sprite.getHitBox() + position),
+        position(object.position),
+        hitBox(sprite.getEngineHitBox() + position),
         tubFrameFirst(object.sparkle ? FRAME_SPARKLE_FIRST : FRAME_TUB_FIRST),
         tubFrameLast(object.sparkle ? FRAME_SPARKLE_LAST : FRAME_TUB_LAST),
         points(object.sparkle ? 200 : 100),
@@ -72,7 +70,7 @@ void trippin::WingedTub::afterTick(Uint32 engineTicks) {
     if (!expired) {
         auto frameNow = frame;
         sceneBuilder.dispatch([this, frameNow]() {
-            sprite.render(hitBox.corner(), frameNow, camera);
+            sprite.renderEngine(hitBox.corner(), frameNow, camera);
         }, zIndex);
     }
 }

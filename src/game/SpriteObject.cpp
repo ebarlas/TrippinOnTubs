@@ -1,20 +1,32 @@
 #include "SpriteObject.h"
 
-trippin::SpriteObject::SpriteObject(const Configuration &config, const Map::Object &object, const Sprite &sprite)
-        : sprite(sprite) {
-    platform = object.platform;
+static double calculateMass(const trippin::Configuration::Object &obj, const trippin::Sprite &sprite) {
+    if (obj.mass > 0) {
+        return obj.mass;
+    }
+    if (obj.massFactor > 0) {
+        return sprite.getEngineHitBox().area() * obj.massFactor;
+    }
+    return sprite.getEngineHitBox().area();
+}
+
+trippin::SpriteObject::SpriteObject(
+        const Configuration::Object &configObject,
+        const Map::Object &object,
+        const Sprite &sprite) :
+        sprite(sprite) {
+    platform = configObject.platform;
     id = object.id;
     lane = object.lane;
-    gravity = object.gravity;
-    fallGravity = object.fallGravity;
-    auto hb = sprite.getHitBox();
-    mass = object.mass > 0 ? object.mass : (object.massFactor > 0 ? hb.area() * object.massFactor : hb.area());
-    auto objPosX = object.rightOf != 0 ? object.rightOf + sprite.getSize().x * object.rightMultiple : object.position.x;
-    position = {objPosX + hb.corner().x, object.position.y + hb.corner().y};
+    gravity = configObject.gravity;
+    fallGravity = configObject.fallGravity;
+    mass = calculateMass(configObject, sprite);
+    auto hb = sprite.getEngineHitBox();
+    position = {static_cast<double>(object.position.x) + hb.corner().x,
+                static_cast<double>(object.position.y) + hb.corner().y};
     size = {hb.w, hb.h};
-    velocity = object.velocity;
-    terminalVelocity = object.terminalVelocity;
-    friction = object.friction;
-    velocity = object.velocity;
+    velocity = configObject.velocity;
+    terminalVelocity = configObject.terminalVelocity;
+    friction = configObject.friction;
     syncPositions();
 }

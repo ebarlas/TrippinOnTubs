@@ -4,6 +4,7 @@
 
 trippin::GameObject::GameObject(
         const Configuration &config,
+        const Configuration::Object &configObject,
         const Map::Object &object,
         const Sprite &sprite,
         Goggin &goggin,
@@ -13,7 +14,8 @@ trippin::GameObject::GameObject(
         const Camera &camera,
         SceneBuilder &sceneBuilder,
         int zIndex) :
-        SpriteObject(config, object, sprite),
+        SpriteObject(configObject, object, sprite),
+        configObject(configObject),
         object(object),
         goggin(goggin),
         activation(activation),
@@ -25,34 +27,33 @@ trippin::GameObject::GameObject(
         coolDownTicks(config.ticksPerSecond() * 0.15),
         flashDuration(config.ticksPerSecond() * 0.025),
         stompSound(soundManager.getEffect("chime0")),
-        healthBarSize(scaleHealthBar(config.healthBarSize, sprite)) {
+        healthBarSize(config.healthBarSize) {
     inactive = true;
-    if (!object.accelerateWhenGrounded) {
-        acceleration.x = object.runningAcceleration;
+    if (!configObject.accelerateWhenGrounded) {
+        acceleration.x = configObject.runningAcceleration;
     }
     stomped = false;
-    if (object.randFrame) {
-        frame = std::rand() % sprite.getFrames() / 2;
-    } else {
-        frame = object.frame;
-    }
+    frame = configObject.randFrame ? std::rand() % sprite.getFrames() / 2 : 0;
     collisionTicks = 0;
-    if (object.coefficient > 0) {
-        auto coefficient = object.coefficient;
+    if (configObject.coefficient > 0) {
+        auto coefficient = configObject.coefficient;
         platformCollision.set([coefficient](Object &left, Object &right, const Sides &sides) {
             onReflectiveCollision(left, right, sides, coefficient);
         });
     }
-    if (object.elasticObjectCollisions) {
+    if (configObject.elasticObjectCollisions) {
         objectCollision.set(onElasticCollision2D);
     }
-    hitPoints = object.hitPoints;
+    hitPoints = configObject.hitPoints;
 }
 
 void trippin::GameObject::beforeTick(Uint32 engineTicks) {
     if (inactive) {
         if (object.activation > 0) {
             if (goggin.position.x >= position.x - object.activation) {
+                if (id >= 186 && id <= 190) {
+                    SDL_Log("activate id=%d", id);
+                }
                 inactive = false;
             }
         } else {
@@ -68,19 +69,25 @@ void trippin::GameObject::afterTick(Uint32 engineTicks) {
     if (inactive) {
         // hack to ensure "stalled" objects are drawn
         if (object.activation > 0) {
+            if (id >= 186 && id <= 190) {
+                SDL_Log("draw-hack id=%d", id);
+            }
             drawSprite(engineTicks);
         }
         return;
     }
 
     if (activation.shouldDeactivate(roundedBox)) {
+        if (id >= 186 && id <= 190) {
+            SDL_Log("deactivate id=%d", id);
+        }
         expired = true;
         return;
     }
 
-    if (object.accelerateWhenGrounded) {
+    if (configObject.accelerateWhenGrounded) {
         if (platformCollisions.testBottom() || objectCollisions.testBottom()) {
-            acceleration.x = object.runningAcceleration;
+            acceleration.x = configObject.runningAcceleration;
             advanceFrame(engineTicks);
         } else {
             acceleration.x = 0;
@@ -107,8 +114,8 @@ void trippin::GameObject::afterTick(Uint32 engineTicks) {
             gravity = goggin.gravity;
             velocity.y = -terminalVelocity.y / 2; // upward jolt
             velocity.x = 0;
-            scoreTicker.add(object.hitPoints * 25);
-            goggin.addPointCloud(object.hitPoints * 25, engineTicks, true);
+            scoreTicker.add(configObject.hitPoints * 25);
+            goggin.addPointCloud(configObject.hitPoints * 25, engineTicks, true);
         }
     }
 
@@ -132,19 +139,23 @@ void trippin::GameObject::drawSprite(Uint32 engineTicks) {
     }
 
     sceneBuilder.dispatch([this, posNow, frameNow]() {
-        sprite.render(posNow, frameNow, camera);
+        if (id >= 186 && id <= 190) {
+            SDL_Log("render id=%d, pos=(%d, %d), frameNow=%d", id, posNow.x, posNow.y, frameNow);
+        }
+
+        sprite.renderEngine(posNow, frameNow, camera);
     }, zIndex);
 }
 
 void trippin::GameObject::drawHealthBar() {
     auto vp = camera.getViewport();
     auto ren = sprite.getRenderer();
-    auto percent = (double) hitPoints / object.hitPoints;
-    auto margin = healthBarSize.y * 3;
-    auto x = roundedPosition.x - vp.x;
-    auto y = roundedPosition.y - vp.y - margin;
-    SDL_Rect outline{x, y, healthBarSize.x, healthBarSize.y};
-    SDL_Rect fill{x, y, (int) (percent * healthBarSize.x), healthBarSize.y};
+    auto percent = (double) hitPoints / configObject.hitPoints;
+    auto pos = Point<int>{roundedPosition.x - vp.x, roundedPosition.y - vp.y};
+    pos /= sprite.getScale().getDeviceEngineFactor();
+    pos.y -= healthBarSize.y * 3;
+    SDL_Rect outline{pos.x, pos.y, healthBarSize.x, healthBarSize.y};
+    SDL_Rect fill{pos.x, pos.y, static_cast<int>(percent * healthBarSize.x), healthBarSize.y};
     sceneBuilder.dispatch([ren, fill, outline]() {
         SDL_SetRenderDrawBlendMode(ren, SDL_BLENDMODE_BLEND);
         SDL_SetRenderDrawColor(ren, 150, 150, 150, 100);
@@ -152,9 +163,4 @@ void trippin::GameObject::drawHealthBar() {
         SDL_SetRenderDrawColor(ren, 237, 76, 92, 100);
         SDL_RenderFillRect(ren, &fill);
     });
-}
-
-trippin::Point<int> trippin::GameObject::scaleHealthBar(Point<int> healthBarSize, const Sprite &sprite) {
-    auto mul = sprite.getScale().getMultiplier();
-    return {toInt(healthBarSize.x * mul), toInt(healthBarSize.y * mul)};
 }

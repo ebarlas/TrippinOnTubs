@@ -10,12 +10,12 @@ namespace trippin {
     // Surfaces are loaded individually with load function
     class SpriteLoader {
     public:
-        SpriteLoader(Scale scale);
+        SpriteLoader(const Scale& scale);
         SDL_Surface *loadSurface(const std::string &name) const;
         static SDL_Texture *createTexture(SDL_Renderer *renderer, SDL_Surface *surface);
         const Scale& getScale() const;
     private:
-        const Scale scale;
+        const Scale& scale;
         static SDL_Surface *loadSurface(const char *path);
         static std::string getSpriteSheetFile(const std::string &name, const Scale &scale);
     };

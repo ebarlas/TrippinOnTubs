@@ -3,8 +3,13 @@ import map
 import sys
 import concurrent.futures
 
+# Roughly corresponds to device min-width of 600 px
+# The small floating value reflects the fact that the dimensions of raw SVGs are hugely inflated
+# Raw SVG scale is high to ease drafting, with grid lines on 1-px or 10-px boundaries
+unit_scale = 0.0703125
+
 scales = [
-    ('map', 0.25), ('svga', 0.09375), ('sxga', 0.15), ('hdplus', 0.1875), ('fhd', 0.225), ('qhd', 0.3), ('qhdplus', 0.346875), ('uhd', 0.45)
+    ('1x', 1), ('3x', 3)
 ]
 
 sprites = [
@@ -65,7 +70,7 @@ sprites = [
     'jump_slam_down_controls'
 ]
 
-levels = ['map_ground_melt', 'map_minimal', 'map_test', 'map_load', 'map_training', 'map_train']
+levels = ['loading', 'training', 'level1', 'level2']
 
 dir_raw = 'raw'
 dir_svgs = 'svgs'
@@ -88,8 +93,8 @@ def sprite_assets(proj_home):
         sprite.sanitize(raw_file, svg_file)
 
         num_frames = sprite.count_frames(svg_file)
-        sprite.make_metadata(svg_file, meta_file)
-        sprite.export_pngs(svg_file, build_dir, build_dir, scales, spr)
+        sprite.make_metadata(svg_file, meta_file, unit_scale)
+        sprite.export_pngs(svg_file, build_dir, build_dir, scales, spr, unit_scale)
         for scale in scales:
             src_files = [f'{build_dir}/{spr}_{n + 1}_{scale[0]}.png' for n in range(num_frames)]
             output_file = f'{sprites_dir}/{spr}/{spr}_{scale[0]}.png'

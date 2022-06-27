@@ -10,7 +10,7 @@ namespace trippin {
     class RunningClock : public SpriteObject {
     public:
         RunningClock(
-                const Configuration &config,
+                const Configuration::Object &configObject,
                 const Map::Object &object,
                 const Sprite &sprite,
                 Goggin &goggin,

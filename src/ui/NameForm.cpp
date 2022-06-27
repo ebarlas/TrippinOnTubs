@@ -5,8 +5,8 @@ trippin::NameForm::NameForm(const Point<int> &windowSize, SpriteManager &spriteM
         sprite(spriteManager.get("alpha")),
         cursor(0),
         entered(false),
-        gridSize(computeGridSize(windowSize, sprite.getSize())),
-        padding(sprite.getSize().x / paddingDivisor) {
+        gridSize(computeGridSize(windowSize, sprite.getDeviceSize())),
+        padding(sprite.getDeviceSize().x / paddingDivisor) {
     name.resize(5);
 }
 
@@ -22,7 +22,7 @@ void trippin::NameForm::reset() {
 }
 
 void trippin::NameForm::render() {
-    auto size = sprite.getSize();
+    auto size = sprite.getDeviceSize();
     for (int r = 0; r < rows; r++) {
         for (int c = 0; c < columns; c++) {
             int position = r * columns + c;
@@ -30,7 +30,7 @@ void trippin::NameForm::render() {
                            gridSize.y / 2 + r * (size.y + padding * 2) + padding};
             // 26 letters + 1 delete + 1 enter
             if (position < 28) {
-                sprite.render(pos, position + 10);
+                sprite.renderDevice(pos, position + 10);
             }
         }
     }
@@ -41,18 +41,18 @@ void trippin::NameForm::render() {
         Point<int> pos{width / 2 + c * size.x + c * margin,
                        gridSize.y / 2 + rows * (size.y + padding * 2) + padding};
         if (c < cursor) {
-            sprite.render(pos, 39);
-            sprite.render(pos, name[c] - 'A' + 10);
+            sprite.renderDevice(pos, 39);
+            sprite.renderDevice(pos, name[c] - 'A' + 10);
         } else if (c == cursor) {
-            sprite.render(pos, 38);
+            sprite.renderDevice(pos, 38);
         } else {
-            sprite.render(pos, 39);
+            sprite.renderDevice(pos, 39);
         }
     }
 }
 
 void trippin::NameForm::onClick(const Point<int> &coords) {
-    auto size = sprite.getSize();
+    auto size = sprite.getDeviceSize();
     Point<int> corner{gridSize.x / 2, gridSize.y / 2};
     Point<int> offset = coords - corner;
     int row = offset.y / (size.y + padding * 2);

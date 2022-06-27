@@ -24,7 +24,7 @@ namespace trippin {
     private:
         Point<int> windowSize;
         Configuration *configuration;
-        Configuration::Scale *scale;
+        const Scale* scale;
         SpriteManager *spriteManager;
         SoundManager *soundManager;
         const std::string *mapName;
@@ -55,7 +55,7 @@ namespace trippin {
     public:
         void setWindowSize(Point<int> windowSize);
         void setConfiguration(Configuration *configuration);
-        void setScale(Configuration::Scale *scale);
+        void setScale(const Scale* scale);
         void setSpriteManager(SpriteManager *spriteManager);
         void setSoundManager(SoundManager *soundManager);
         void setRenderClock(const RenderClock &renderClock);

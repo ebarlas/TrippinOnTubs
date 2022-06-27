@@ -6,39 +6,15 @@ namespace = {
 }
 
 
-def extract_float_from_xml(node, name, target):
+def extract_from_xml(node, name, target, fn):
     if name in node.attrib:
-        target[name] = float(node.attrib[name])
-
-
-def extract_int_from_xml(node, name, target):
-    if name in node.attrib:
-        target[name] = int(node.attrib[name])
-
-
-def extract_bool_from_xml(node, name, target):
-    if name in node.attrib:
-        target[name] = bool(node.attrib[name])
-
-
-def extract_float_point_from_xml(node, name, target):
-    if f'{name}X' in node.attrib and f'{name}Y' in node.attrib:
-        target[name] = {
-            'x': float(node.attrib[f'{name}X']),
-            'y': float(node.attrib[f'{name}Y']),
-        }
+        target[name] = fn(node.attrib[name])
 
 
 def find_objects(root):
     objects = []
-    points = ['velocity', 'terminalVelocity', 'friction']
-    floats = ['mass', 'massFactor', 'gravity', 'fallGravity', 'minJumpVelocity', 'maxJumpVelocity', 'maxDuckJumpVelocity',
-              'runningAcceleration', 'risingAcceleration', 'duckFriction', 'coefficient', 'rightOf', 'rightMultiple',
-              'activation']
-    ints = ['minJumpChargeTime', 'maxJumpChargeTime', 'jumpGracePeriod', 'jumpSoundTimeout',
-            'lane', 'dustPeriod', 'hitPoints']
-    bools = ['sparkle', 'accelerateWhenGrounded', 'stompable', 'topStompable', 'bottomStompable',
-             'randFrame', 'elasticObjectCollisions']
+    ints = ['lane', 'activation']
+    bools = ['sparkle']
     id_counter = 1
     # an object is an image within a group that does not have attribute type='layer'
     for g in root.findall('.//svg:g', namespace):
@@ -47,20 +23,15 @@ def find_objects(root):
                 obj = {
                     'id': id_counter,
                     'type': node.attrib['type'],
-                    'platform': node.attrib['platform'] == 'true',
                     'position': {
                         'x': int(node.attrib['x']),
                         'y': int(node.attrib['y'])
                     }
                 }
-                for p in points:
-                    extract_float_point_from_xml(node, p, obj)
-                for s in floats:
-                    extract_float_from_xml(node, s, obj)
                 for s in ints:
-                    extract_int_from_xml(node, s, obj)
+                    extract_from_xml(node, s, obj, int)
                 for s in bools:
-                    extract_bool_from_xml(node, s, obj)
+                    extract_from_xml(node, s, obj, bool)
                 if 'activateWhen' in node.attrib:
                     id = node.attrib['activateWhen']
                     ref = root.findall(f'.//*[@id="{id}"]')
@@ -89,13 +60,10 @@ def find_layers(root):
             obj = {
                 'type': node.attrib['type'],
                 'position': {
-                    'x': round(float(node.attrib['x'])),
-                    'y': round(float(node.attrib['y']))
+                    'x': int(node.attrib['x']),
+                    'y': int(node.attrib['y'])
                 }
             }
-            extract_float_point_from_xml(node, 'velocity', obj)
-            extract_bool_from_xml(node, 'animated', obj)
-            extract_bool_from_xml(node, 'randFrame', obj)
             layer['objects'].append(obj)
     return layers
 
@@ -108,8 +76,6 @@ def make_model(svg_file):
             'width': int(root.attrib['width']),
             'height': int(root.attrib['height'])
         },
-        'scale': float(root.attrib['scale']),
-        'meterMargin': float(root.attrib['meterMargin']),
         'music': root.attrib['music'],
         'objects': find_objects(root),
         'layers': find_layers(root)

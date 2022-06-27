@@ -2,7 +2,6 @@ import xml.etree.ElementTree as ET
 import subprocess
 import json
 import re
-import math
 from pathlib import Path
 from PIL import Image
 
@@ -61,20 +60,17 @@ def replace_display(style, display):
     return re.sub(p, display, style) if style and re.search(p, style) else display
 
 
-def export_pngs(svg_file, tmp_dir, export_dir, scales, name):
+def export_pngs(svg_file, tmp_dir, export_dir, scales, name, unit_scale):
     for d in (tmp_dir, export_dir):
         Path(d).mkdir(parents=True, exist_ok=True)
 
     tree = ET.parse(svg_file)
     root = tree.getroot()
 
-    img_width = int(root.attrib['width'])
-    img_height = int(root.attrib['height'])
+    sprite_scale = unit_scale * (float(root.attrib['scale']) if 'scale' in root.attrib else 1.0)
 
-    if 'scale' in root.attrib:
-        scale = float(root.attrib['scale'])
-        img_width *= scale
-        img_height *= scale
+    img_width = int(int(root.attrib['width']) * sprite_scale)
+    img_height = int(int(root.attrib['height']) * sprite_scale)
 
     fade_to_white = float(root.attrib['fadeToWhite']) if 'fadeToWhite' in root.attrib else None
 
@@ -97,10 +93,8 @@ def export_pngs(svg_file, tmp_dir, export_dir, scales, name):
             subprocess.run([
                 'inkscape',
                 '--export-type=png',
-                # ceil in lines below reflects preference to grow slightly rather than to shrink
-                # prior to this change, touching ground tiles had small slivers of space between then at some scales
-                f'--export-width={int(math.ceil(img_width * scale[1]))}',
-                f'--export-height={int(math.ceil(img_height * scale[1]))}',
+                f'--export-width={img_width * scale[1]}',
+                f'--export-height={img_height * scale[1]}',
                 f'{tmp_dir}/{name}_tmp.svg'])
             subprocess.run([
                 'mv',
@@ -108,21 +102,18 @@ def export_pngs(svg_file, tmp_dir, export_dir, scales, name):
                 f'{export_dir}/{name}_{n}_{scale[0]}.png'])
 
 
-def find_hit_box(svg_file):
+def find_hit_box(svg_file, unit_scale):
     root = ET.parse(svg_file).getroot()
 
-    scale = 1.0
-
-    if 'scale' in root.attrib:
-        scale = float(root.attrib['scale'])
+    sprite_scale = unit_scale * (float(root.attrib['scale']) if 'scale' in root.attrib else 1.0)
 
     for e in root.findall('.//svg:g[@type="hitbox"]/svg:rect', namespace):
-        return int(round(int(e.attrib['x']) * scale)), \
-               int(round(int(e.attrib['y']) * scale)), \
-               int(round(int(e.attrib['width']) * scale)), \
-               int(round(int(e.attrib['height']) * scale))
+        return int(e.attrib['x']) * sprite_scale, \
+               int(e.attrib['y']) * sprite_scale, \
+               int(e.attrib['width']) * sprite_scale, \
+               int(e.attrib['height']) * sprite_scale
 
-    return 0, 0, int(root.attrib['width']) * scale, int(root.attrib['height']) * scale
+    return 0, 0, int(root.attrib['width']) * sprite_scale, int(root.attrib['height']) * sprite_scale
 
 
 def find_frame_duration(svg_file):
@@ -137,10 +128,10 @@ def count_frames(svg_file, check_attrib=False):
     return len(root.findall('.//svg:g[@type="frame"]', namespace))
 
 
-def make_metadata(svg_file, output_file):
+def make_metadata(svg_file, output_file, unit_scale):
     Path(output_file).parent.mkdir(parents=True, exist_ok=True)
     num_frames = count_frames(svg_file, True)
-    hit_box = find_hit_box(svg_file)
+    hit_box = find_hit_box(svg_file, unit_scale)
     duration = find_frame_duration(svg_file)
     metadata = {
         'frames': num_frames,

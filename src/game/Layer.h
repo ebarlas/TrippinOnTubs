@@ -23,7 +23,6 @@ namespace trippin {
         struct Object {
             Point<int> position;
             const Sprite *sprite{};
-            bool animated{};
             int frame{};
             double x{};
             double velocityX{};

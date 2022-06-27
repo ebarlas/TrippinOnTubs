@@ -2,7 +2,7 @@
 #include "SpriteLoader.h"
 #include "Files.h"
 
-trippin::SpriteLoader::SpriteLoader(Scale scale) : scale(std::move(scale)) {
+trippin::SpriteLoader::SpriteLoader(const Scale &scale) : scale(scale) {
 }
 
 SDL_Surface *trippin::SpriteLoader::loadSurface(const std::string &name) const {
