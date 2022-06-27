@@ -11,7 +11,7 @@ TEST_CASE("Sprite load", "[sprite]")
     SDL_Renderer *ren = SDL_CreateRenderer(win, -1, 0);
     REQUIRE(ren != nullptr);
 
-    trippin::Sprite sprite{ren, "goggin", trippin::Scale{"hdplus", 1.0}, 5};
-    REQUIRE(sprite.getSize().x == 90);
-    REQUIRE(sprite.getSize().y == 90);
+    trippin::Sprite sprite{ren, "goggin", trippin::Scale{"1x", 1, 2}, 5};
+    REQUIRE(sprite.getDeviceSize().x == 33);
+    REQUIRE(sprite.getDeviceSize().y == 33);
 }
