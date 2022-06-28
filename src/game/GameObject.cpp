@@ -12,8 +12,7 @@ trippin::GameObject::GameObject(
         ScoreTicker &scoreTicker,
         SoundManager &soundManager,
         const Camera &camera,
-        SceneBuilder &sceneBuilder,
-        int zIndex) :
+        SceneBuilder &sceneBuilder) :
         SpriteObject(configObject, object, sprite),
         configObject(configObject),
         object(object),
@@ -22,7 +21,6 @@ trippin::GameObject::GameObject(
         scoreTicker(scoreTicker),
         camera(camera),
         sceneBuilder(sceneBuilder),
-        zIndex(zIndex),
         collisionDuration(config.ticksPerSecond() * 0.4),
         coolDownTicks(config.ticksPerSecond() * 0.15),
         flashDuration(config.ticksPerSecond() * 0.025),
@@ -51,9 +49,6 @@ void trippin::GameObject::beforeTick(Uint32 engineTicks) {
     if (inactive) {
         if (object.activation > 0) {
             if (goggin.position.x >= position.x - object.activation) {
-                if (id >= 186 && id <= 190) {
-                    SDL_Log("activate id=%d", id);
-                }
                 inactive = false;
             }
         } else {
@@ -69,18 +64,12 @@ void trippin::GameObject::afterTick(Uint32 engineTicks) {
     if (inactive) {
         // hack to ensure "stalled" objects are drawn
         if (object.activation > 0) {
-            if (id >= 186 && id <= 190) {
-                SDL_Log("draw-hack id=%d", id);
-            }
             drawSprite(engineTicks);
         }
         return;
     }
 
     if (activation.shouldDeactivate(roundedBox)) {
-        if (id >= 186 && id <= 190) {
-            SDL_Log("deactivate id=%d", id);
-        }
         expired = true;
         return;
     }
@@ -139,12 +128,8 @@ void trippin::GameObject::drawSprite(Uint32 engineTicks) {
     }
 
     sceneBuilder.dispatch([this, posNow, frameNow]() {
-        if (id >= 186 && id <= 190) {
-            SDL_Log("render id=%d, pos=(%d, %d), frameNow=%d", id, posNow.x, posNow.y, frameNow);
-        }
-
         sprite.renderEngine(posNow, frameNow, camera);
-    }, zIndex);
+    });
 }
 
 void trippin::GameObject::drawHealthBar() {

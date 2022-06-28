@@ -10,8 +10,7 @@ trippin::RunningClock::RunningClock(
         ScoreTicker &scoreTicker,
         SoundManager &soundManager,
         const Camera &camera,
-        SceneBuilder &sceneBuilder,
-        int zIndex) :
+        SceneBuilder &sceneBuilder) :
         SpriteObject(configObject, object, sprite),
         goggin(goggin),
         activation(activation),
@@ -19,7 +18,6 @@ trippin::RunningClock::RunningClock(
         scoreTicker(scoreTicker),
         camera(camera),
         sceneBuilder(sceneBuilder),
-        zIndex(zIndex),
         runningAcceleration(configObject.runningAcceleration),
         points(50),
         sound(soundManager.getEffect("chime1")) {
@@ -78,6 +76,6 @@ void trippin::RunningClock::afterTick(Uint32 engineTicks) {
         auto posNow = roundedPosition;
         sceneBuilder.dispatch([this, posNow, frameNow]() {
             sprite.renderEngine(posNow, frameNow, camera);
-        }, zIndex);
+        });
     }
 }

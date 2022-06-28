@@ -5,13 +5,11 @@ trippin::JumpMeter::JumpMeter(
         const Sprite &sprite,
         const Goggin &goggin,
         Point<int> position,
-        SceneBuilder &sceneBuilder,
-        int zIndex) :
+        SceneBuilder &sceneBuilder) :
         sprite(sprite),
         goggin(goggin),
         position(position),
-        sceneBuilder(sceneBuilder),
-        zIndex(zIndex) {
+        sceneBuilder(sceneBuilder) {
 }
 
 void trippin::JumpMeter::afterTick(Uint32 engineTicks) {
@@ -20,5 +18,5 @@ void trippin::JumpMeter::afterTick(Uint32 engineTicks) {
     auto frameNow = toInt(jumpCharge * numJumpBars);
     sceneBuilder.dispatch([this, frameNow]() {
         sprite.renderDevice(position, frameNow);
-    }, zIndex);
+    });
 }

@@ -8,15 +8,13 @@ trippin::SpiritClock::SpiritClock(
         const Goggin &goggin,
         Point<int> position,
         int padding,
-        SceneBuilder &sceneBuilder,
-        int zIndex) :
+        SceneBuilder &sceneBuilder) :
         sprite(sprite),
         spirit(spirit),
         goggin(goggin),
         position(position),
         padding(padding),
         sceneBuilder(sceneBuilder),
-        zIndex(zIndex),
         engineTicksPerClockBar(config.engineTicksPerSpiritClockTick()) {
 }
 
@@ -28,5 +26,5 @@ void trippin::SpiritClock::afterTick(Uint32 engineTicks) {
     auto frameNow = std::min(numClockBars, std::max(0, barsAway));
     sceneBuilder.dispatch([this, frameNow]() {
         sprite.renderDevice(position, frameNow);
-    }, zIndex);
+    });
 }

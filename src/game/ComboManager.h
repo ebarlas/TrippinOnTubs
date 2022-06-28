@@ -17,8 +17,7 @@ namespace trippin {
                 double msPerTick,
                 Point<int> windowSize,
                 int margin,
-                SceneBuilder &sceneBuilder,
-                int zIndex);
+                SceneBuilder &sceneBuilder);
         void reset();
         void recordHit();
         void afterTick(Uint32 engineTicks) override;
@@ -38,7 +37,6 @@ namespace trippin {
         const Sprite &comboText;
         const Sprite &digits;
         SceneBuilder &sceneBuilder;
-        const int zIndex;
 
         std::array<Display, 3> displays{};
         int hits{};

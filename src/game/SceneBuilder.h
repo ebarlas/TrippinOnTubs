@@ -8,19 +8,14 @@
 namespace trippin {
     class SceneBuilder {
     public:
-        struct DrawFn {
-            int zIndex = 0;
-            std::function<void()> fn;
-        };
-
         void reset();
         void build();
-        void dispatch(std::function<void()> drawFn, int zIndex = 1'000);
-        std::vector<DrawFn> take();
+        void dispatch(std::function<void()> drawFn);
+        void execute();
     private:
         std::mutex mutex;
-        std::vector<DrawFn> drawFns;
-        std::vector<DrawFn> scene;
+        std::vector<std::function<void()>> drawFns; // changes accumulate here via dispatch(...)
+        std::vector<std::function<void()>> scene; // scene is frozen on build()
     };
 }
 

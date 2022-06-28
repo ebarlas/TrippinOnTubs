@@ -14,15 +14,13 @@ namespace trippin {
         std::atomic_int score;
         const Rect<int> viewport;
         SceneBuilder &sceneBuilder;
-        const int zIndex;
     public:
         ScoreTicker(
                 int margin,
                 const Sprite &digits,
                 int score,
                 Rect<int> viewport,
-                SceneBuilder &sceneBuilder,
-                int zIndex);
+                SceneBuilder &sceneBuilder);
         void add(int n);
         void afterTick(Uint32 engineTicks) override;
         int getScore() const;

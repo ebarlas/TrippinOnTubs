@@ -15,8 +15,7 @@ namespace trippin {
                 int pointCloudTicks,
                 const Sprite &digits,
                 SceneBuilder &sceneBuilder,
-                Camera &camera,
-                int zIndex);
+                Camera &camera);
 
         void addPointCloud(Point<int> position, int points, Uint32 ticks);
         void afterTick(Uint32 engineTicks) override;
@@ -35,7 +34,6 @@ namespace trippin {
         const Sprite &digits;
         SceneBuilder &sceneBuilder;
         Camera &camera;
-        const int zIndex;
 
         std::array<PointCloud, 12> pointClouds; // circular buffer
         int nextPointCloudPos;

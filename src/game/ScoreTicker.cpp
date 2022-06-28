@@ -6,14 +6,12 @@ trippin::ScoreTicker::ScoreTicker(
         const Sprite &digits,
         int score,
         Rect<int> viewport,
-        SceneBuilder &sceneBuilder,
-        int zIndex) :
+        SceneBuilder &sceneBuilder) :
         margin(margin),
         digits(digits),
         score(score),
         viewport(viewport),
-        sceneBuilder(sceneBuilder),
-        zIndex(zIndex) {
+        sceneBuilder(sceneBuilder) {
 }
 
 void trippin::ScoreTicker::add(int n) {
@@ -30,5 +28,5 @@ void trippin::ScoreTicker::afterTick(Uint32 engineTicks) {
     auto scoreNow = getScore();
     sceneBuilder.dispatch([this, scoreNow, pos]() {
         DigitLayout::renderDigits(digits, pos, scoreNow);
-    }, zIndex);
+    });
 }

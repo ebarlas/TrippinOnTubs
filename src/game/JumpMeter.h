@@ -11,14 +11,12 @@ namespace trippin {
         const Goggin &goggin;
         const Point<int> position;
         SceneBuilder &sceneBuilder;
-        const int zIndex;
     public:
         JumpMeter(
                 const Sprite &sprite,
                 const Goggin &goggin,
                 Point<int> position,
-                SceneBuilder &sceneBuilder,
-                int zIndex);
+                SceneBuilder &sceneBuilder);
         void afterTick(Uint32 engineTicks) override;
     };
 }

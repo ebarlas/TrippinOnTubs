@@ -36,7 +36,6 @@ namespace trippin {
         Mix_Chunk *const sound;
 
         SceneBuilder &sceneBuilder;
-        const int zIndex;
 
         std::atomic_bool complete;
 
@@ -53,8 +52,7 @@ namespace trippin {
                 SoundManager &soundManager,
                 const Goggin &goggin,
                 const RenderClock &renderClock,
-                SceneBuilder &sb,
-                int zIndex);
+                SceneBuilder &sb);
         bool completed();
         void afterTick(Uint32 engineTicks) override;
     };

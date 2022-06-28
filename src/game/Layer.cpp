@@ -6,13 +6,11 @@ trippin::Layer::Layer(
         SpriteManager &spriteManager,
         const Map::Layer &layer,
         const Camera &camera,
-        SceneBuilder &sceneBuilder,
-        int zIndex) :
+        SceneBuilder &sceneBuilder) :
         camera(camera),
         size(layer.size),
         anchorTop(layer.anchorTop),
         sceneBuilder(sceneBuilder),
-        zIndex(zIndex),
         objects(convertObjects(config, spriteManager, layer)) {
 
 }
@@ -26,7 +24,7 @@ void trippin::Layer::updateStaticObject(const Rect<int> &viewport, const Layer::
             target /= obj.sprite->getScale().getDeviceEngineFactor();
             sceneBuilder.dispatch([obj, target, i]() {
                 obj.sprite->renderDevice(target, i);
-            }, zIndex);
+            });
         }
     }
 }
@@ -43,7 +41,7 @@ void trippin::Layer::updateAnimatedObject(const Rect<int> &viewport, Layer::Obje
     auto fr = obj.frame;
     sceneBuilder.dispatch([sp, fr, target]() {
         sp->renderDevice(target, fr);
-    }, zIndex);
+    });
 }
 
 void trippin::Layer::afterTick(Uint32 engineTicks) {

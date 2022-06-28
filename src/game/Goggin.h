@@ -31,8 +31,7 @@ namespace trippin {
                 const trippin::Point<int> &universe,
                 SoundManager &soundManager,
                 Camera &camera,
-                SceneBuilder &sceneBuilder,
-                int zIndex);
+                SceneBuilder &sceneBuilder);
         void beforeTick(Uint32 engineTicks) override;
         void afterTick(Uint32 engineTicks) override;
         bool rightOfUniverse() const;
@@ -135,7 +134,6 @@ namespace trippin {
 
         SceneBuilder &sceneBuilder;
         Camera &camera;
-        int zIndex;
 
         Uint32 lastJumpTicks;
         Uint32 lastChargedJumpTicks;

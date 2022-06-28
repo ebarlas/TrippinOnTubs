@@ -19,8 +19,7 @@ namespace trippin {
                 ScoreTicker &scoreTicker,
                 SoundManager &soundManager,
                 const Camera &camera,
-                SceneBuilder &sceneBuilder,
-                int zIndex);
+                SceneBuilder &sceneBuilder);
         void beforeTick(Uint32 engineTicks) override;
         void afterTick(Uint32 engineTicks) override;
     private:
@@ -31,7 +30,6 @@ namespace trippin {
         ScoreTicker &scoreTicker;
         SceneBuilder &sceneBuilder;
         const Camera &camera;
-        const int zIndex;
 
         Mix_Chunk *const stompSound;
         const int collisionDuration;

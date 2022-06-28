@@ -8,15 +8,13 @@ trippin::PointCloudManager::PointCloudManager(
         int pointCloudTicks,
         const trippin::Sprite &digits,
         SceneBuilder &sceneBuilder,
-        Camera &camera,
-        int zIndex) :
+        Camera &camera) :
         pointCloudDistanceMin(pointCloudDistanceMin),
         pointCloudDistanceMax(pointCloudDistanceMax),
         pointCloudTicks(pointCloudTicks),
         digits(digits),
         sceneBuilder(sceneBuilder),
         camera(camera),
-        zIndex(zIndex),
         nextPointCloudPos(0) {
 
 }
@@ -56,7 +54,7 @@ void trippin::PointCloudManager::afterTick(Uint32 engineTicks) {
             auto pts = pc.points;
             sceneBuilder.dispatch([this, p, pts]() {
                 DigitLayout::renderDigits(digits, p, pts, &camera);
-            }, zIndex);
+            });
         }
     }
 }

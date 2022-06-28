@@ -16,8 +16,7 @@ namespace trippin {
                 SpriteManager &spriteManager,
                 const Map::Layer &layer,
                 const Camera &camera,
-                SceneBuilder &sceneBuilder,
-                int zIndex);
+                SceneBuilder &sceneBuilder);
         void afterTick(Uint32 engineTicks) override;
     private:
         struct Object {
@@ -32,7 +31,6 @@ namespace trippin {
         const Point<int> size;
         const bool anchorTop;
         SceneBuilder &sceneBuilder;
-        const int zIndex;
 
         std::vector<Object> objects;
 

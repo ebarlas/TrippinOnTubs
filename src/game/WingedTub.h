@@ -18,8 +18,7 @@ namespace trippin {
                 ScoreTicker &scoreTicker,
                 SoundManager &soundManager,
                 const Camera &camera,
-                SceneBuilder &sceneBuilder,
-                int zIndex);
+                SceneBuilder &sceneBuilder);
         void beforeTick(Uint32 engineTicks) override;
         void afterTick(Uint32 engineTicks) override;
         bool isExpired() override;
@@ -37,7 +36,6 @@ namespace trippin {
         ScoreTicker &scoreTicker;
         SceneBuilder &sceneBuilder;
         const Camera &camera;
-        const int zIndex;
 
         const Point<int> position;
         const Rect<int> hitBox;

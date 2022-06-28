@@ -14,8 +14,7 @@ trippin::Goggin::Goggin(
         const trippin::Point<int> &universe,
         SoundManager &soundManager,
         Camera &camera,
-        SceneBuilder &sceneBuilder,
-        int zIndex) :
+        SceneBuilder &sceneBuilder) :
         SpriteObject(configObject, object, spriteManager.get("goggin")),
         dust(spriteManager.get("dust")),
         dustBlast(spriteManager.get("dust_blast")),
@@ -25,7 +24,6 @@ trippin::Goggin::Goggin(
         universe(universe),
         camera(camera),
         sceneBuilder(sceneBuilder),
-        zIndex(zIndex),
         jumpSound(soundManager.getEffect("thud")),
         runningAcceleration(configObject.runningAcceleration),
         risingAcceleration(configObject.risingAcceleration),
@@ -252,7 +250,7 @@ void trippin::Goggin::afterTick(Uint32 engineTicks) {
     auto frameNow = frames.frame;
     sceneBuilder.dispatch([this, cameraPos, frameNow]() {
         sprite.renderEngine(cameraPos, frameNow, camera);
-    }, zIndex);
+    });
 }
 
 void trippin::Goggin::onFalling(Uint32 engineTicks) {
@@ -461,7 +459,7 @@ void trippin::Goggin::drawDust() {
             auto dustFrame = d.frame;
             sceneBuilder.dispatch([this, dustPos, dustFrame]() {
                 dust.renderEngine(dustPos, dustFrame, camera);
-            }, zIndex);
+            });
         }
     }
 }
@@ -473,6 +471,6 @@ void trippin::Goggin::drawDustBlast() {
         auto dustFrame = frames.blast.frame;
         sceneBuilder.dispatch([this, dustSprite, dustPos, dustFrame]() {
             dustSprite->renderEngine(dustPos, dustFrame, camera);
-        }, zIndex);
+        });
     }
 }

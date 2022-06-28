@@ -5,14 +5,12 @@ trippin::LifeMeter::LifeMeter(
         const Sprite &sprite,
         int extraLives,
         Rect<int> viewport,
-        SceneBuilder &sceneBuilder,
-        int zIndex) :
+        SceneBuilder &sceneBuilder) :
         margin(margin),
         sprite(sprite),
         extraLives(extraLives),
         viewport(viewport),
-        sceneBuilder(sceneBuilder),
-        zIndex(zIndex) {
+        sceneBuilder(sceneBuilder) {
 
 }
 
@@ -21,6 +19,6 @@ void trippin::LifeMeter::afterTick(Uint32 engineTicks) {
         Point<int> pos{viewport.w - margin - (i + 1) * sprite.getDeviceSize().x, margin};
         sceneBuilder.dispatch([this, pos]() {
             sprite.renderDevice(pos, 0);
-        }, zIndex);
+        });
     }
 }

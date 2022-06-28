@@ -13,8 +13,7 @@ namespace trippin {
                 const Sprite &sprite,
                 int extraLives,
                 Rect<int> viewport,
-                SceneBuilder &sceneBuilder,
-                int zIndex);
+                SceneBuilder &sceneBuilder);
         void afterTick(Uint32 engineTicks) override;
     private:
         const Sprite &sprite;
@@ -22,7 +21,6 @@ namespace trippin {
         const int extraLives;
         const Rect<int> viewport;
         SceneBuilder &sceneBuilder;
-        const int zIndex;
     };
 }
 

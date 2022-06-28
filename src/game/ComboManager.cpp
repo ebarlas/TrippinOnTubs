@@ -8,16 +8,14 @@ trippin::ComboManager::ComboManager(
         double msPerTick,
         Point<int> windowSize,
         int margin,
-        SceneBuilder &sceneBuilder,
-        int zIndex) :
+        SceneBuilder &sceneBuilder) :
         scoreTicker(scoreTicker),
         comboText(spriteManager.get("combo")),
         digits(spriteManager.get("digits")),
         msPerTick(msPerTick),
         windowSize(windowSize),
         margin(margin),
-        sceneBuilder(sceneBuilder),
-        zIndex(zIndex) {
+        sceneBuilder(sceneBuilder) {
 
 }
 
@@ -75,7 +73,7 @@ void trippin::ComboManager::render(Uint32 engineTicks, Display &display) {
     sceneBuilder.dispatch([this, x, y, totalWidth, points]() {
         comboText.renderDevice({x, y}, 0);
         DigitLayout::renderDigits(digits, {x + totalWidth, y}, points);
-    }, zIndex);
+    });
 }
 
 double trippin::ComboManager::decelInterpolation(float input) {

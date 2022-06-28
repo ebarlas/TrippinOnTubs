@@ -6,14 +6,12 @@ trippin::Ground::Ground(
         const Activation &activation,
         const Spirit &spirit,
         const Camera &camera,
-        SceneBuilder &sceneBuilder,
-        int zIndex) :
+        SceneBuilder &sceneBuilder) :
         SpriteObject({"", true}, object, sprite),
         activation(activation),
         spirit(spirit),
         camera(camera),
-        sceneBuilder(sceneBuilder),
-        zIndex(zIndex) {
+        sceneBuilder(sceneBuilder) {
     frame = 0;
     melting = false;
     meltingTick = 0;
@@ -50,5 +48,5 @@ void trippin::Ground::afterTick(Uint32 engineTicks) {
     auto frameNow = frame;
     sceneBuilder.dispatch([this, posNow, frameNow]() {
         sprite.renderEngine(posNow, frameNow, camera);
-    }, zIndex);
+    });
 }

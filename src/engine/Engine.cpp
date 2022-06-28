@@ -7,19 +7,11 @@ void trippin::Engine::add(Object *obj) {
 }
 
 void trippin::Engine::beforeTick(Uint32 engineTicks) {
-    auto fn = [engineTicks](auto obj) { obj->beforeTick(engineTicks); };
-    std::for_each(inactive.begin(), inactive.end(), fn);
-    std::for_each(platforms.begin(), platforms.end(), fn);
-    std::for_each(objects.begin(), objects.end(), fn);
-    std::for_each(listeners.begin(), listeners.end(), fn);
+    std::for_each(listeners.begin(), listeners.end(), [engineTicks](Listener *obj) { obj->beforeTick(engineTicks); });
 }
 
 void trippin::Engine::afterTick(Uint32 engineTicks) {
-    auto fn = [engineTicks](auto obj) { obj->afterTick(engineTicks); };
-    std::for_each(inactive.begin(), inactive.end(), fn);
-    std::for_each(platforms.begin(), platforms.end(), fn);
-    std::for_each(objects.begin(), objects.end(), fn);
-    std::for_each(listeners.begin(), listeners.end(), fn);
+    std::for_each(listeners.begin(), listeners.end(), [engineTicks](Listener *obj) { obj->afterTick(engineTicks); });
 }
 
 void trippin::Engine::promoteActive() {

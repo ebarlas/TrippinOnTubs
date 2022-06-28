@@ -15,7 +15,6 @@ namespace trippin {
         const double engineTicksPerClockBar;
         const int padding;
         SceneBuilder &sceneBuilder;
-        const int zIndex;
     public:
         SpiritClock(
                 const Configuration &config,
@@ -24,8 +23,7 @@ namespace trippin {
                 const Goggin &goggin,
                 Point<int> position,
                 int padding,
-                SceneBuilder &sceneBuilder,
-                int zIndex);
+                SceneBuilder &sceneBuilder);
         void afterTick(Uint32 engineTicks) override;
     };
 }

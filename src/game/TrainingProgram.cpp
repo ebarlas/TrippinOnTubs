@@ -17,14 +17,12 @@ trippin::TrainingProgram::TrainingProgram(
         SoundManager &soundManager,
         const Goggin &goggin,
         const RenderClock &renderClock,
-        SceneBuilder &sceneBuilder,
-        int zIndex) :
+        SceneBuilder &sceneBuilder) :
         goggin(goggin),
         margin(margin),
         stage(0),
         stageTicks(0),
         sceneBuilder(sceneBuilder),
-        zIndex(zIndex),
         sound(soundManager.getEffect("chime2")),
         finishedWaitTicks(2 * (int) configuration.ticksPerSecond()),
         titleSprites(makeSprites(spriteManager)),
@@ -61,11 +59,12 @@ void trippin::TrainingProgram::afterTick(Uint32 engineTicks) {
         auto titleSprite = titleSprites[stage];
         auto controlSprite = controlSprites[stage];
         Point<int> menuPoint{titleInterpolator.interpolate(), windowSize.y / 5};
-        Point<int> controlPoint{controlInterpolator.interpolate(), windowSize.y - controlSprite->getDeviceSize().y - margin};
+        Point<int> controlPoint{controlInterpolator.interpolate(),
+                                windowSize.y - controlSprite->getDeviceSize().y - margin};
         sceneBuilder.dispatch([menuPoint, controlPoint, titleSprite, controlSprite]() {
             titleSprite->renderDevice(menuPoint, 0);
             controlSprite->renderDevice(controlPoint, 0);
-        }, zIndex);
+        });
     }
 }
 

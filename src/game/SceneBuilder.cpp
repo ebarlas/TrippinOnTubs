@@ -9,11 +9,17 @@ void trippin::SceneBuilder::build() {
     scene = std::move(drawFns);
 }
 
-void trippin::SceneBuilder::dispatch(std::function<void()> drawFn, int zIndex) {
-    drawFns.push_back({zIndex, std::move(drawFn)});
+void trippin::SceneBuilder::dispatch(std::function<void()> drawFn) {
+    drawFns.push_back(std::move(drawFn));
 }
 
-std::vector<trippin::SceneBuilder::DrawFn> trippin::SceneBuilder::take() {
-    std::lock_guard<std::mutex> lock(mutex);
-    return scene;
+void trippin::SceneBuilder::execute() {
+    static std::vector<std::function<void()>> fns;
+    {
+        std::lock_guard<std::mutex> lock(mutex);
+        fns = scene;
+    }
+    for (auto &fn: fns) {
+        fn();
+    }
 }

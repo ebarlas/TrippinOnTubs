@@ -8,15 +8,13 @@ trippin::WingedTub::WingedTub(
         ScoreTicker &scoreTicker,
         SoundManager &soundManager,
         const Camera &camera,
-        SceneBuilder &sceneBuilder,
-        int zIndex) :
+        SceneBuilder &sceneBuilder) :
         sprite(sprite),
         activation(activation),
         goggin(goggin),
         scoreTicker(scoreTicker),
         sceneBuilder(sceneBuilder),
         camera(camera),
-        zIndex(zIndex),
         position(object.position),
         hitBox(sprite.getEngineHitBox() + position),
         tubFrameFirst(object.sparkle ? FRAME_SPARKLE_FIRST : FRAME_TUB_FIRST),
@@ -71,7 +69,7 @@ void trippin::WingedTub::afterTick(Uint32 engineTicks) {
         auto frameNow = frame;
         sceneBuilder.dispatch([this, frameNow]() {
             sprite.renderEngine(hitBox.corner(), frameNow, camera);
-        }, zIndex);
+        });
     }
 }
 
