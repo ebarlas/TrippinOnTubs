@@ -7,7 +7,7 @@ TEST_CASE("Shake test", "[shake]")
     trippin::Shake shake;
     shake.init(2, 10);
     REQUIRE(shake.amplitude() == 0.0);
-    Uint32 ticks = 0;
+    int ticks = 0;
     shake.start(0);
     for (int i = 0; i < 10; i++) {
         auto amp = shake.amplitude();
