@@ -35,7 +35,6 @@ namespace trippin {
         static std::string getMapFile(const std::string &name);
 
         void rescale(int scale);
-        void convert(double tickRate);
     };
 
     void from_json(const nlohmann::json &j, Map &map);

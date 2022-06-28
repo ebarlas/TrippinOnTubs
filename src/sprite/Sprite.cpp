@@ -2,12 +2,12 @@
 #include "Sprite.h"
 
 trippin::Sprite::Sprite(SDL_Renderer *renderer, const std::string &name, const SpriteLoader &loader, double tickPeriod)
-        : scale(loader.getScale()), ren(renderer), sheet(renderer, name, loader) {
+        : scale(loader.getScale()), sheet(renderer, name, loader), ren(renderer) {
     init(name, tickPeriod);
 }
 
 trippin::Sprite::Sprite(SDL_Renderer *ren, const std::string &name, const Scale &sc, double tickPeriod, SDL_Surface *sur)
-        : scale(sc), ren(ren), sheet(ren, sur) {
+        : scale(sc), sheet(ren, sur), ren(ren) {
     init(name, tickPeriod);
 }
 

@@ -12,7 +12,7 @@ trippin::JumpMeter::JumpMeter(
         sceneBuilder(sceneBuilder) {
 }
 
-void trippin::JumpMeter::afterTick(Uint32 engineTicks) {
+void trippin::JumpMeter::afterTick(Uint32) {
     auto jumpCharge = goggin.getJumpCharge();
     auto numJumpBars = sprite.getFrames() - 1;
     auto frameNow = toInt(jumpCharge * numJumpBars);

@@ -38,7 +38,7 @@ namespace trippin {
         bool belowUniverse() const;
         void onUserInput(const GogginInput &input);
         double getJumpCharge() const;
-        void addPointCloud(int points, Uint32 ticks, bool hit = false);
+        void addPointCloud(int points, Uint32 engineTicks, bool hit = false);
         Uint32 getLastJumpTicks() const;
         Uint32 getLastDuckTicks() const;
         Uint32 getLastChargedJumpTicks() const;
@@ -62,7 +62,7 @@ namespace trippin {
 
         const Sprite &dust;
         Uint32 dustTicks;
-        int nextDustPos;
+        unsigned int nextDustPos;
         const int dustPeriodTicks;
 
         int consecutiveJumps;

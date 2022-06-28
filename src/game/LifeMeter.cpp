@@ -6,15 +6,15 @@ trippin::LifeMeter::LifeMeter(
         int extraLives,
         Rect<int> viewport,
         SceneBuilder &sceneBuilder) :
-        margin(margin),
         sprite(sprite),
+        margin(margin),
         extraLives(extraLives),
         viewport(viewport),
         sceneBuilder(sceneBuilder) {
 
 }
 
-void trippin::LifeMeter::afterTick(Uint32 engineTicks) {
+void trippin::LifeMeter::afterTick(Uint32) {
     for (int i = 0; i < extraLives; i++) {
         Point<int> pos{viewport.w - margin - (i + 1) * sprite.getDeviceSize().x, margin};
         sceneBuilder.dispatch([this, pos]() {

@@ -1,5 +1,4 @@
 #include "UserInput.h"
-#include "engine/Convert.h"
 
 trippin::UserInput::UserInput(trippin::Point<int> rendererSize) : rendererSize(rendererSize) {
 }
@@ -89,8 +88,10 @@ trippin::UserInput::Event trippin::UserInput::pollEvent() {
         result.mouseButtonDown = true;
         result.touchPoint = {e.button.x, e.button.y};
     } else if (e.type == SDL_FINGERDOWN) {
-        result.touchPoint = {toInt(e.tfinger.x * rendererSize.x), toInt(e.tfinger.y * rendererSize.y)};
-        if (e.tfinger.x < 0.5) {
+        result.touchPoint = {
+                static_cast<int>(static_cast<double>(e.tfinger.x) * rendererSize.x),
+                static_cast<int>(static_cast<double>(e.tfinger.y) * rendererSize.y)};
+        if (e.tfinger.x < 0.5f) {
             touchDownFn(leftTouch, result.leftTouchDown);
         } else {
             touchDownFn(rightTouch, result.rightTouchDown);

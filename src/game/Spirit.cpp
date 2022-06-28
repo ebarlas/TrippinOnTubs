@@ -12,11 +12,11 @@ double trippin::Spirit::getPosition() const {
     return position;
 }
 
-void trippin::Spirit::beforeTick(Uint32 engineTicks) {
+void trippin::Spirit::beforeTick(Uint32) {
     position += velocity;
 }
 
-void trippin::Spirit::afterTick(Uint32 engineTicks) {
+void trippin::Spirit::afterTick(Uint32) {
 
 }
 

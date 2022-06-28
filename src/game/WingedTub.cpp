@@ -27,7 +27,7 @@ trippin::WingedTub::WingedTub(
     frame = tubFrameFirst;
 }
 
-void trippin::WingedTub::beforeTick(Uint32 engineTicks) {
+void trippin::WingedTub::beforeTick(Uint32) {
     if (inactive && activation.shouldActivate(hitBox)) {
         inactive = false;
     }
@@ -58,7 +58,7 @@ void trippin::WingedTub::afterTick(Uint32 engineTicks) {
         if (frame == FRAME_CLOUD_LAST) {
             expired = true;
         }
-    } else if (engineTicks % sprite.getFramePeriodTicks() == 0) { // Case #3: Advance flapping wings cycle
+    } else if (static_cast<int>(engineTicks) % sprite.getFramePeriodTicks() == 0) { // Case #3: Advance wings cycle
         frame++;
         if (frame == tubFrameLast) {
             frame = tubFrameFirst;

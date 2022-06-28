@@ -31,10 +31,6 @@ void trippin::Map::rescale(int scale) {
     }
 }
 
-void trippin::Map::convert(double ticksPerSecond) {
-
-}
-
 void trippin::from_json(const nlohmann::json &j, Map &map) {
     j.at("universe").at("width").get_to(map.universe.x);
     j.at("universe").at("height").get_to(map.universe.y);

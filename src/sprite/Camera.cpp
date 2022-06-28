@@ -31,6 +31,6 @@ void trippin::Camera::centerOn(Point<int> center, Point<int> shake) {
         y = universe.y + universe.h - viewport.h - shakeMargin;
     }
 
-    viewport.x = x + shake.x;
-    viewport.y = y + shake.y;
+    viewport.x = static_cast<int>(x + shake.x);
+    viewport.y = static_cast<int>(y + shake.y);
 }

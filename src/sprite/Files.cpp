@@ -12,9 +12,9 @@ std::stringstream trippin::readFile(const char *fileName) {
 
     std::stringstream contents;
     char buffer[fileBufferSize];
-    int n;
+    size_t n;
     while ((n = SDL_RWread(file, buffer, sizeof(char), fileBufferSize)) > 0) {
-        contents.write(buffer, n);
+        contents.write(buffer, static_cast<long>(n));
     }
 
     SDL_RWclose(file);

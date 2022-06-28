@@ -9,16 +9,16 @@ trippin::SpiritClock::SpiritClock(
         Point<int> position,
         int padding,
         SceneBuilder &sceneBuilder) :
-        sprite(sprite),
         spirit(spirit),
+        sprite(sprite),
         goggin(goggin),
         position(position),
+        engineTicksPerClockBar(config.engineTicksPerSpiritClockTick()),
         padding(padding),
-        sceneBuilder(sceneBuilder),
-        engineTicksPerClockBar(config.engineTicksPerSpiritClockTick()) {
+        sceneBuilder(sceneBuilder) {
 }
 
-void trippin::SpiritClock::afterTick(Uint32 engineTicks) {
+void trippin::SpiritClock::afterTick(Uint32) {
     auto distanceAway = goggin.position.x - spirit.getPosition() + padding;
     auto ticksAway = distanceAway / spirit.getVelocity();
     auto numClockBars = sprite.getFrames() - 1;

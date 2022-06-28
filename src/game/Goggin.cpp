@@ -17,25 +17,25 @@ trippin::Goggin::Goggin(
         SceneBuilder &sceneBuilder) :
         SpriteObject(configObject, object, spriteManager.get("goggin")),
         dust(spriteManager.get("dust")),
+        dustPeriodTicks(configObject.dustPeriod),
         dustBlast(spriteManager.get("dust_blast")),
         whiteDustBlast(spriteManager.get("dust_blast_white")),
-        comboManager(comboManager),
-        pointCloudManager(pointCloudManager),
         universe(universe),
-        camera(camera),
-        sceneBuilder(sceneBuilder),
-        jumpSound(soundManager.getEffect("thud")),
-        runningAcceleration(configObject.runningAcceleration),
         risingAcceleration(configObject.risingAcceleration),
+        runningAcceleration(configObject.runningAcceleration),
+        duckFriction(configObject.duckFriction),
         minJumpVelocity(configObject.minJumpVelocity),
         maxJumpVelocity(configObject.maxJumpVelocity),
         maxDuckJumpVelocity(configObject.maxDuckJumpVelocity),
         minJumpChargeTicks(configObject.minJumpChargeTime),
         maxJumpChargeTicks(configObject.maxJumpChargeTime),
-        jumpSoundTimeoutTicks(configObject.jumpSoundTimeout),
-        duckFriction(configObject.duckFriction),
         shakeAmplitude(config.shakeAmplitude),
-        dustPeriodTicks(configObject.dustPeriod) {
+        jumpSound(soundManager.getEffect("thud")),
+        jumpSoundTimeoutTicks(configObject.jumpSoundTimeout),
+        pointCloudManager(pointCloudManager),
+        comboManager(comboManager),
+        sceneBuilder(sceneBuilder),
+        camera(camera) {
 
     rightOfUni = false;
     belowUni = false;
@@ -211,11 +211,12 @@ void trippin::Goggin::afterTick(Uint32 engineTicks) {
     }
 
     // test for creation of new dust cloud
-    if (grounded && engineTicks - dustTicks >= dustPeriodTicks && velocity.x >= terminalVelocity.x / 2) {
+    auto dustTicksElapsed = static_cast<int>(engineTicks - dustTicks);
+    if (grounded && dustTicksElapsed >= dustPeriodTicks && velocity.x >= terminalVelocity.x / 2) {
         dustTicks = engineTicks;
         auto left = roundedPosition.x - dust.getEngineHitBox().w / 2; // horizontally center dust on goggin left
         auto top = roundedPosition.y + size.y - dust.getEngineHitBox().h;
-        frames.dusts[nextDustPos] = {{left, top}, 0};
+        frames.dusts[nextDustPos] = {{left, top}, 0, 0, false};
         nextDustPos = (nextDustPos + 1) % frames.dusts.size();
     }
 
@@ -281,7 +282,7 @@ void trippin::Goggin::onFalling(Uint32 engineTicks) {
     }
 }
 
-void trippin::Goggin::onRunning(Uint32 engineTicks) {
+void trippin::Goggin::onRunning(Uint32) {
     if (!platformCollisions.testBottom() && !objectCollisions.testBottom()) {
         state = State::falling;
         frames.frame = FRAME_FALLING_FIRST;
@@ -363,7 +364,7 @@ double trippin::Goggin::getJumpCharge() const {
 }
 
 void trippin::Goggin::playJumpSound(Uint32 engineTicks) {
-    if (engineTicks - lastJumpSoundTicks >= jumpSoundTimeoutTicks) {
+    if (static_cast<int>(engineTicks - lastJumpSoundTicks) >= jumpSoundTimeoutTicks) {
         Mix_PlayChannel(-1, jumpSound, 0);
     }
 }
@@ -398,9 +399,9 @@ void trippin::Goggin::transferInput(Uint32 engineTicks) {
     }
 }
 
-void trippin::Goggin::addPointCloud(int points, Uint32 ticks, bool hit) {
+void trippin::Goggin::addPointCloud(int points, Uint32 engineTicks, bool hit) {
     Point<int> pos{roundedBox.x + roundedBox.w / 2, roundedBox.y - size.y};
-    pointCloudManager.addPointCloud(pos, points, ticks);
+    pointCloudManager.addPointCloud(pos, points, engineTicks);
     if (hit && !grounded) {
         comboManager.recordHit();
     }
@@ -435,7 +436,9 @@ Uint32 trippin::Goggin::getLastJumpSlamDownTicks() const {
 }
 
 trippin::Point<int> trippin::Goggin::centerCamera() {
-    Point<int> shake{toInt(xShake.amplitude() * shakeAmplitude), toInt(yShake.amplitude() * shakeAmplitude)};
+    Point<int> shake{
+            static_cast<int>(static_cast<double>(xShake.amplitude()) * shakeAmplitude),
+            static_cast<int>(static_cast<double>(yShake.amplitude()) * shakeAmplitude)};
     Point<int> pos;
     Point<int> cen;
     if (state == ducking) {

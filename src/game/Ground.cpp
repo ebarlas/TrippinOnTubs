@@ -7,18 +7,19 @@ trippin::Ground::Ground(
         const Spirit &spirit,
         const Camera &camera,
         SceneBuilder &sceneBuilder) :
-        SpriteObject({"", true}, object, sprite),
+        SpriteObject({}, object, sprite),
         activation(activation),
         spirit(spirit),
         camera(camera),
         sceneBuilder(sceneBuilder) {
+    platform = true;
     frame = 0;
     melting = false;
     meltingTick = 0;
     inactive = true;
 }
 
-void trippin::Ground::beforeTick(Uint32 engineTicks) {
+void trippin::Ground::beforeTick(Uint32) {
     if (inactive && activation.shouldActivate(roundedBox)) {
         inactive = false;
     }
@@ -35,7 +36,7 @@ void trippin::Ground::afterTick(Uint32 engineTicks) {
     }
 
     if (melting) {
-        auto diff = engineTicks - meltingTick;
+        auto diff = static_cast<int>(engineTicks - meltingTick);
         if (diff % sprite.getFramePeriodTicks() == 0 && frame < sprite.getFrames()) {
             frame++;
         }

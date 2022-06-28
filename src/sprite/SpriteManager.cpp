@@ -1,7 +1,7 @@
 #include "SpriteManager.h"
 
 trippin::SpriteManager::SpriteManager(SDL_Renderer *renderer, SpriteLoader &spriteLoader, double tickPeriod)
-        : renderer(renderer), spriteLoader(spriteLoader), tickPeriod(tickPeriod) {
+        : tickPeriod(tickPeriod), renderer(renderer), spriteLoader(spriteLoader) {
 }
 
 const trippin::Sprite &trippin::SpriteManager::get(const std::string &type) {

@@ -1,7 +1,7 @@
 #include "SpriteLoadTask.h"
 
 trippin::SpriteLoadTask::SpriteLoadTask(const SpriteLoader &spriteLoader, std::vector<std::string> names)
-        : spriteLoader(spriteLoader), names(std::move(names)) {
+        : names(std::move(names)), spriteLoader(spriteLoader) {
 }
 
 trippin::SpriteLoadTask::~SpriteLoadTask() {

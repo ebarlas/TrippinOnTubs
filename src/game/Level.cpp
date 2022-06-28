@@ -50,7 +50,6 @@ void trippin::Level::setTraining(bool b) {
 void trippin::Level::initMap() {
     map.load(*mapName);
     map.rescale(scale->getEngineFactor());
-    map.convert(configuration->tickRate);
 }
 
 void trippin::Level::initCamera() {
