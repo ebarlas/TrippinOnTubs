@@ -97,17 +97,19 @@ bool trippin::Transport::addLogEvent(const LogEvent &event) const {
 
     nlohmann::json j;
     j["id"] = event.id;
-    j["time"] = event.time;
     j["index"] = event.index;
     j["message"] = event.message;
 
-    std::stringstream hash;
-    hash << std::hex << event.id << event.time << event.index;
+    std::stringstream ss;
+    ss << event.id << event.index;
+    auto hashstr = ss.str();
+    auto hashfn = [](const int &sum, const char &ch) { return sum + ch; };
+    auto hash = std::accumulate(hashstr.begin(), hashstr.end(), 0, hashfn);
 
     auto json = j.dump();
 
     std::string msg = "POST /logs?h=";
-    msg += hash.str();
+    msg += std::to_string(hash);
     msg += " HTTP/1.0\r\n";
     msg += "Host: ";
     msg += host;

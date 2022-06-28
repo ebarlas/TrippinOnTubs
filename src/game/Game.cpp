@@ -1,8 +1,7 @@
-#include <cstdlib>
 #include <iostream>
 #include <sstream>
-#include <ctime>
 #include <map>
+#include <chrono>
 #include "SDL_syswm.h"
 #include "SDL_mixer.h"
 #include "Game.h"
@@ -12,7 +11,7 @@
 void trippin::Game::init() {
     initConfiguration();
     initSdl();
-    initRand();
+    initAppId();
     initDbSynchronizer();
     initLogger();
     initScale();
@@ -29,13 +28,24 @@ void trippin::Game::initSdl() {
     rendererSize = convertPoint(sdlSystem->getRendererSize());
 }
 
-void trippin::Game::initRand() {
-    std::srand(std::time(0));
-    SDL_Log("seeded random number generator, RAND_MAX=%d", RAND_MAX);
+void trippin::Game::initAppId() {
+    auto now = std::chrono::system_clock::now();
+    auto dur = std::chrono::duration_cast<std::chrono::seconds>(now.time_since_epoch()).count();
+
+    std::stringstream ss;
+    ss << "T";
+    ss << dur;
+    ss << "N";
+    ss << random.next();
+
+    appId = ss.str();
+    gameId = 0;
+
+    SDL_Log("appId=%s", appId.c_str());
 }
 
 void trippin::Game::initLogger() {
-    logger = std::make_unique<Logger>(*stagingArea);
+    logger = std::make_unique<Logger>(*stagingArea, appId);
     auto renName = getRendererName(sdlSystem->getRenderer());
     auto sysName = getSystemName(sdlSystem->getWindow());
     auto sysRam = SDL_GetSystemRAM();

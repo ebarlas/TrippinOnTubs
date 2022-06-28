@@ -2,19 +2,17 @@
 #define TRIPPIN_LOGGER_H
 
 #include <string>
-#include <ctime>
 #include "net/StagingArea.h"
 
 namespace trippin {
     class Logger {
     public:
-        explicit Logger(StagingArea &stagingArea);
+        Logger(StagingArea &stagingArea, std::string appId);
         void log(const std::string &message);
     private:
-        time_t time;
-        int id;
-        int counter;
         StagingArea &stagingArea;
+        const std::string appId;
+        int counter;
     };
 }
 

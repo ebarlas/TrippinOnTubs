@@ -23,6 +23,7 @@
 #include "SdlSystem.h"
 #include "net/Logger.h"
 #include "UserInput.h"
+#include "Random.h"
 
 namespace trippin {
     class Game {
@@ -75,8 +76,11 @@ namespace trippin {
         std::shared_ptr<StagingArea> stagingArea;
         RenderClock renderClock;
         std::unique_ptr<Logger> logger;
+        Random<int, 0, 10'000'000> random;
+        std::string appId;
+        int gameId;
         void initSdl();
-        void initRand();
+        void initAppId();
         void initLogger();
         void initConfiguration();
         void initDbSynchronizer();

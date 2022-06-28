@@ -6,8 +6,7 @@
 
 namespace trippin {
     struct LogEvent {
-        int id;
-        time_t time;
+        std::string id;
         int index;
         std::string message;
     };

@@ -1,15 +1,14 @@
 #include "Logger.h"
 #include "SDL.h"
 
-trippin::Logger::Logger(StagingArea &stagingArea) : stagingArea(stagingArea) {
-    time = std::time(0);
-    id = std::rand();
-    counter = 0;
-    SDL_Log("initialized logger, time=%ld, id=%d", time, id);
+trippin::Logger::Logger(StagingArea &stagingArea, std::string appId) :
+        stagingArea(stagingArea),
+        appId(std::move(appId)),
+        counter(0) {
 }
 
 void trippin::Logger::log(const std::string &message) {
     auto cnt = ++counter;
-    stagingArea.addLogEvent({id, time, cnt, message});
+    stagingArea.addLogEvent({appId, cnt, message});
     SDL_Log("count=%d, %s", cnt, message.c_str());
 }
