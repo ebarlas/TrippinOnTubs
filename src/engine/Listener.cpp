@@ -1,10 +1,10 @@
 #include "Listener.h"
 
-void trippin::Listener::beforeTick(Uint32 engineTicks) {
+void trippin::Listener::beforeTick(int engineTicks) {
 
 }
 
-void trippin::Listener::afterTick(Uint32 engineTicks) {
+void trippin::Listener::afterTick(int engineTicks) {
 
 }
 

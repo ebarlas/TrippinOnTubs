@@ -376,7 +376,7 @@ void trippin::Game::handle(UserInput::Event &event) {
             score = level->getScore();
             if (level->completed()) {
                 state = State::LEVEL_TRANSITION;
-                levelOverlay->setLevel(levelIndex);
+                levelOverlay->setLevel(static_cast<int>(levelIndex));
                 logStateChange("PLAYING", "LEVEL_TRANSITION");
             } else {
                 if (extraLives > 0) {

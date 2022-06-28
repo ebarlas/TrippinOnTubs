@@ -13,7 +13,7 @@ namespace trippin {
     private:
         static constexpr int NUM_STAGES = 7;
         static const std::array<const char *, NUM_STAGES> names;
-        const std::array<std::function<Uint32(const Goggin &g)>, NUM_STAGES> lastEventTimes{
+        const std::array<std::function<int(const Goggin &g)>, NUM_STAGES> lastEventTimes{
                 [](const Goggin &g) { return g.getLastJumpTicks(); },
                 [](const Goggin &g) { return g.getLastDuckTicks(); },
                 [](const Goggin &g) { return g.getLastStopTicks(); },
@@ -28,11 +28,11 @@ namespace trippin {
         const Goggin &goggin;
         const Point<int> windowSize;
         const int margin;
-        int stage;
+        unsigned int stage;
         Interpolator titleInterpolator;
         Interpolator controlInterpolator;
         const int finishedWaitTicks;
-        Uint32 stageTicks;
+        int stageTicks;
         Mix_Chunk *const sound;
 
         SceneBuilder &sceneBuilder;
@@ -54,7 +54,7 @@ namespace trippin {
                 const RenderClock &renderClock,
                 SceneBuilder &sb);
         bool completed();
-        void afterTick(Uint32 engineTicks) override;
+        void afterTick(int engineTicks) override;
     };
 }
 

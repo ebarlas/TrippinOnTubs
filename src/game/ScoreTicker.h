@@ -22,7 +22,7 @@ namespace trippin {
                 Rect<int> viewport,
                 SceneBuilder &sceneBuilder);
         void add(int n);
-        void afterTick(Uint32 engineTicks) override;
+        void afterTick(int engineTicks) override;
         int getScore() const;
     };
 }

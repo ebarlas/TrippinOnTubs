@@ -14,7 +14,7 @@ trippin::LifeMeter::LifeMeter(
 
 }
 
-void trippin::LifeMeter::afterTick(Uint32) {
+void trippin::LifeMeter::afterTick(int) {
     for (int i = 0; i < extraLives; i++) {
         Point<int> pos{viewport.w - margin - (i + 1) * sprite.getDeviceSize().x, margin};
         sceneBuilder.dispatch([this, pos]() {

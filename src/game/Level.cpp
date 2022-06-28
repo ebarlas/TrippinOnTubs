@@ -301,11 +301,11 @@ void trippin::Level::resume() {
     Mix_ResumeMusic();
 }
 
-void trippin::Level::beforeTick(Uint32 engineTicks) {
+void trippin::Level::beforeTick(int) {
     sceneBuilder.reset();
 }
 
-void trippin::Level::afterTick(Uint32 engineTicks) {
+void trippin::Level::afterTick(int) {
     sceneBuilder.build();
 }
 

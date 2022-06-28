@@ -17,15 +17,15 @@ namespace trippin {
                 SceneBuilder &sceneBuilder,
                 Camera &camera);
 
-        void addPointCloud(Point<int> position, int points, Uint32 ticks);
-        void afterTick(Uint32 engineTicks) override;
+        void addPointCloud(Point<int> position, int points, int ticks);
+        void afterTick(int engineTicks) override;
     private:
         struct PointCloud {
             Point<int> posStart;
             Point<int> posNow;
             Point<int> distance;
             int points{};
-            Uint32 ticks;
+            int ticks;
         };
 
         const Point<int> pointCloudDistanceMin;

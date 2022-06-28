@@ -35,7 +35,7 @@ namespace trippin {
         // (1) apply motion to objects and snap to grid
         // (2) detect intersections and snap objects
         // (3) detect and react to collisions
-        void tick(Uint32 engineTicks);
+        void tick(int engineTicks);
 
         void runEngineLoop();
 
@@ -59,11 +59,11 @@ namespace trippin {
         std::atomic_bool paused{};
         std::atomic_bool stopped{};
         std::atomic_int ticks{};
-        Uint32 pauseTicks{};
-        Uint32 pauseTime{};
+        int pauseTicks{};
+        int pauseTime{};
 
-        void beforeTick(Uint32 engineTicks);
-        void afterTick(Uint32 engineTicks);
+        void beforeTick(int engineTicks);
+        void afterTick(int engineTicks);
         void promoteActive();
         void removeExpired();
         void applyMotion();

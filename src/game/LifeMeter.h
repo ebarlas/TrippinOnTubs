@@ -14,7 +14,7 @@ namespace trippin {
                 int extraLives,
                 Rect<int> viewport,
                 SceneBuilder &sceneBuilder);
-        void afterTick(Uint32 engineTicks) override;
+        void afterTick(int engineTicks) override;
     private:
         const Sprite &sprite;
         const int margin;

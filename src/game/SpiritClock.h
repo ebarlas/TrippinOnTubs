@@ -24,7 +24,7 @@ namespace trippin {
                 Point<int> position,
                 int padding,
                 SceneBuilder &sceneBuilder);
-        void afterTick(Uint32 engineTicks) override;
+        void afterTick(int engineTicks) override;
     };
 }
 

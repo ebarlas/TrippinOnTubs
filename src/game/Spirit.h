@@ -16,8 +16,8 @@ namespace trippin {
         void setTicksPerSecond(double tps);
         void setVelocity(double vel);
         void delay(double seconds);
-        void beforeTick(Uint32 engineTicks) override;
-        void afterTick(Uint32 engineTicks) override;
+        void beforeTick(int engineTicks) override;
+        void afterTick(int engineTicks) override;
         bool isExpired() override;
     };
 }

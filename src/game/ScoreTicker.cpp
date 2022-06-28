@@ -22,7 +22,7 @@ int trippin::ScoreTicker::getScore() const {
     return score;
 }
 
-void trippin::ScoreTicker::afterTick(Uint32) {
+void trippin::ScoreTicker::afterTick(int) {
     auto textWidth = DigitLayout::measureWidth(digits, score);
     Point<int> pos{viewport.w / 2 + textWidth / 2, margin};
     auto scoreNow = getScore();

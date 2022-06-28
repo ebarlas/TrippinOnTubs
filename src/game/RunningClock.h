@@ -20,8 +20,8 @@ namespace trippin {
                 SoundManager &soundManager,
                 const Camera &camera,
                 SceneBuilder &sceneBuilder);
-        void beforeTick(Uint32 engineTicks) override;
-        void afterTick(Uint32 engineTicks) override;
+        void beforeTick(int engineTicks) override;
+        void afterTick(int engineTicks) override;
     private:
         constexpr static const int FRAME_CLOUD_FIRST = 24;
 

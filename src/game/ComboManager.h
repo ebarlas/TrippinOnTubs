@@ -20,7 +20,7 @@ namespace trippin {
                 SceneBuilder &sceneBuilder);
         void reset();
         void recordHit();
-        void afterTick(Uint32 engineTicks) override;
+        void afterTick(int engineTicks) override;
     private:
         struct Display {
             int points{};
@@ -42,7 +42,7 @@ namespace trippin {
         int hits{};
         int nextDisplayPos{};
 
-        void render(Uint32 engineTicks, Display &display);
+        void render(int engineTicks, Display &display);
 
         static double decelInterpolation(float input);
     };

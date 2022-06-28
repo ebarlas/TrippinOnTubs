@@ -61,7 +61,7 @@ namespace trippin {
         std::unique_ptr<SpriteLoadTask> spriteLoadTask;
         SoundManager soundManager;
         std::unique_ptr<Level> level;
-        int levelIndex;
+        unsigned int levelIndex;
         bool loadLevel;
         bool trainLevel;
         std::unique_ptr<TitleOverlay> titleOverlay;

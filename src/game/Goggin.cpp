@@ -82,7 +82,7 @@ trippin::Goggin::Goggin(
     }
 }
 
-void trippin::Goggin::beforeTick(Uint32 engineTicks) {
+void trippin::Goggin::beforeTick(int engineTicks) {
     transferInput(engineTicks);
     handleDuckStart(engineTicks);
     handleDuckEnd();
@@ -90,7 +90,7 @@ void trippin::Goggin::beforeTick(Uint32 engineTicks) {
     handleJumpRelease(engineTicks);
 }
 
-void trippin::Goggin::handleDuckStart(Uint32 engineTicks) {
+void trippin::Goggin::handleDuckStart(int engineTicks) {
     if (input.duckStart) {
         rememberDuckStart = true;
     }
@@ -130,19 +130,19 @@ void trippin::Goggin::handleDuckEnd() {
     }
 }
 
-void trippin::Goggin::handleJumpCharge(Uint32 engineTicks) {
+void trippin::Goggin::handleJumpCharge(int engineTicks) {
     if (input.jumpCharge) {
         jumpTicks = engineTicks;
     }
     if (jumpTicks) {
-        auto relTicks = static_cast<int>(engineTicks - jumpTicks);
+        auto relTicks = engineTicks - jumpTicks;
         double range = maxJumpChargeTicks - minJumpChargeTicks;
         auto boundedTicks = std::max(minJumpChargeTicks, std::min(relTicks, maxJumpChargeTicks));
         jumpPercent = (boundedTicks - minJumpChargeTicks) / range;
     }
 }
 
-void trippin::Goggin::handleJumpRelease(Uint32 engineTicks) {
+void trippin::Goggin::handleJumpRelease(int engineTicks) {
     if (input.jumpRelease && jumpTicks) {
         auto maxEffective = state == ducking && jumpPercent == 1.0 ? maxDuckJumpVelocity : maxJumpVelocity;
         auto jumpVel = std::min(minJumpVelocity, jumpPercent * maxEffective);
@@ -179,7 +179,7 @@ void trippin::Goggin::handleJumpRelease(Uint32 engineTicks) {
     }
 }
 
-void trippin::Goggin::afterTick(Uint32 engineTicks) {
+void trippin::Goggin::afterTick(int engineTicks) {
     ticks++;
 
     xShake.update(engineTicks);
@@ -211,7 +211,7 @@ void trippin::Goggin::afterTick(Uint32 engineTicks) {
     }
 
     // test for creation of new dust cloud
-    auto dustTicksElapsed = static_cast<int>(engineTicks - dustTicks);
+    auto dustTicksElapsed = engineTicks - dustTicks;
     if (grounded && dustTicksElapsed >= dustPeriodTicks && velocity.x >= terminalVelocity.x / 2) {
         dustTicks = engineTicks;
         auto left = roundedPosition.x - dust.getEngineHitBox().w / 2; // horizontally center dust on goggin left
@@ -254,7 +254,7 @@ void trippin::Goggin::afterTick(Uint32 engineTicks) {
     });
 }
 
-void trippin::Goggin::onFalling(Uint32 engineTicks) {
+void trippin::Goggin::onFalling(int engineTicks) {
     if (velocity.y > maxFallingVelocity) {
         maxFallingVelocity = velocity.y;
     }
@@ -282,7 +282,7 @@ void trippin::Goggin::onFalling(Uint32 engineTicks) {
     }
 }
 
-void trippin::Goggin::onRunning(Uint32) {
+void trippin::Goggin::onRunning(int) {
     if (!platformCollisions.testBottom() && !objectCollisions.testBottom()) {
         state = State::falling;
         frames.frame = FRAME_FALLING_FIRST;
@@ -298,7 +298,7 @@ void trippin::Goggin::onRunning(Uint32) {
     }
 }
 
-void trippin::Goggin::onRising(Uint32 engineTicks) {
+void trippin::Goggin::onRising(int) {
     if (velocity.y >= 0) {
         state = State::falling;
         frames.frame = FRAME_FALLING_FIRST;
@@ -308,7 +308,7 @@ void trippin::Goggin::onRising(Uint32 engineTicks) {
     }
 }
 
-void trippin::Goggin::onDucking(Uint32 engineTicks) {
+void trippin::Goggin::onDucking(int engineTicks) {
     if (velocity.x == 0) {
         lastStopTicks = engineTicks;
     }
@@ -363,8 +363,8 @@ double trippin::Goggin::getJumpCharge() const {
     return jumpPercent;
 }
 
-void trippin::Goggin::playJumpSound(Uint32 engineTicks) {
-    if (static_cast<int>(engineTicks - lastJumpSoundTicks) >= jumpSoundTimeoutTicks) {
+void trippin::Goggin::playJumpSound(int engineTicks) {
+    if (engineTicks - lastJumpSoundTicks >= jumpSoundTimeoutTicks) {
         Mix_PlayChannel(-1, jumpSound, 0);
     }
 }
@@ -377,7 +377,7 @@ bool trippin::Goggin::belowUniverse() const {
     return belowUni;
 }
 
-void trippin::Goggin::transferInput(Uint32 engineTicks) {
+void trippin::Goggin::transferInput(int engineTicks) {
     if (autoPlayEnabled) {
         auto it = autoPlay.find(engineTicks);
         if (it != autoPlay.end()) {
@@ -399,7 +399,7 @@ void trippin::Goggin::transferInput(Uint32 engineTicks) {
     }
 }
 
-void trippin::Goggin::addPointCloud(int points, Uint32 engineTicks, bool hit) {
+void trippin::Goggin::addPointCloud(int points, int engineTicks, bool hit) {
     Point<int> pos{roundedBox.x + roundedBox.w / 2, roundedBox.y - size.y};
     pointCloudManager.addPointCloud(pos, points, engineTicks);
     if (hit && !grounded) {
@@ -407,31 +407,31 @@ void trippin::Goggin::addPointCloud(int points, Uint32 engineTicks, bool hit) {
     }
 }
 
-Uint32 trippin::Goggin::getLastJumpTicks() const {
+int trippin::Goggin::getLastJumpTicks() const {
     return lastJumpTicks;
 }
 
-Uint32 trippin::Goggin::getLastDuckTicks() const {
+int trippin::Goggin::getLastDuckTicks() const {
     return lastDuckTicks;
 }
 
-Uint32 trippin::Goggin::getLastChargedJumpTicks() const {
+int trippin::Goggin::getLastChargedJumpTicks() const {
     return lastChargedJumpTicks;
 }
 
-Uint32 trippin::Goggin::getLastDuckJumpTicks() const {
+int trippin::Goggin::getLastDuckJumpTicks() const {
     return lastDuckJumpTicks;
 }
 
-Uint32 trippin::Goggin::getLastDoubleJumpTicks() const {
+int trippin::Goggin::getLastDoubleJumpTicks() const {
     return lastDoubleJumpTicks;
 }
 
-Uint32 trippin::Goggin::getLastStopTicks() const {
+int trippin::Goggin::getLastStopTicks() const {
     return lastStopTicks;
 }
 
-Uint32 trippin::Goggin::getLastJumpSlamDownTicks() const {
+int trippin::Goggin::getLastJumpSlamDownTicks() const {
     return lastJumpSlamDownTicks;
 }
 

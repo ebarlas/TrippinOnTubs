@@ -17,7 +17,7 @@ namespace trippin {
                 const Map::Layer &layer,
                 const Camera &camera,
                 SceneBuilder &sceneBuilder);
-        void afterTick(Uint32 engineTicks) override;
+        void afterTick(int engineTicks) override;
     private:
         struct Object {
             Point<int> position;
@@ -34,7 +34,7 @@ namespace trippin {
 
         std::vector<Object> objects;
 
-        void updateAnimatedObject(const Rect<int> &viewport, Object &obj, Uint32 engineTicks) const;
+        void updateAnimatedObject(const Rect<int> &viewport, Object &obj, int engineTicks) const;
         void updateStaticObject(const Rect<int> &viewport, const Object &obj) const;
 
         static std::vector<Object> convertObjects(const Configuration &config, SpriteManager &spriteManager, const Map::Layer &layer);

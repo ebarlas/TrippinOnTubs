@@ -31,7 +31,7 @@ namespace trippin {
 
 template<std::size_t N>
 trippin::MenuLayout<N>::MenuLayout(Point<int> windowSize, Uint32 duration, const RenderClock &renderClock)
-        : windowSize(windowSize), interpolator(renderClock, duration) {
+        : windowSize(windowSize), interpolator(renderClock, static_cast<int>(duration)) {
 
 }
 

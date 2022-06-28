@@ -17,7 +17,7 @@ namespace trippin {
                 const Goggin &goggin,
                 Point<int> position,
                 SceneBuilder &sceneBuilder);
-        void afterTick(Uint32 engineTicks) override;
+        void afterTick(int engineTicks) override;
     };
 }
 

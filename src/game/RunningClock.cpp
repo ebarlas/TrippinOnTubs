@@ -13,13 +13,13 @@ trippin::RunningClock::RunningClock(
         SceneBuilder &sceneBuilder) :
         SpriteObject(configObject, object, sprite),
         goggin(goggin),
-        activation(activation),
         spirit(spirit),
+        activation(activation),
         scoreTicker(scoreTicker),
-        camera(camera),
         sceneBuilder(sceneBuilder),
-        runningAcceleration(configObject.runningAcceleration),
+        camera(camera),
         points(50),
+        runningAcceleration(configObject.runningAcceleration),
         sound(soundManager.getEffect("chime1")) {
     lane = -1;
     inactive = true;
@@ -28,13 +28,13 @@ trippin::RunningClock::RunningClock(
     frame = 0;
 }
 
-void trippin::RunningClock::beforeTick(Uint32 engineTicks) {
+void trippin::RunningClock::beforeTick(int engineTicks) {
     if (inactive && activation.shouldActivate(roundedBox)) {
         inactive = false;
     }
 }
 
-void trippin::RunningClock::afterTick(Uint32 engineTicks) {
+void trippin::RunningClock::afterTick(int engineTicks) {
     // early exit if not activated yet
     if (inactive) {
         return;

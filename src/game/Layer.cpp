@@ -29,7 +29,7 @@ void trippin::Layer::updateStaticObject(const Rect<int> &viewport, const Layer::
     }
 }
 
-void trippin::Layer::updateAnimatedObject(const Rect<int> &viewport, Layer::Object &obj, Uint32 engineTicks) const {
+void trippin::Layer::updateAnimatedObject(const Rect<int> &viewport, Layer::Object &obj, int engineTicks) const {
     obj.x += obj.velocityX;
     if (engineTicks % obj.sprite->getFramePeriodTicks() == 0) {
         obj.frame = (obj.frame + 1) % obj.sprite->getFrames();
@@ -44,7 +44,7 @@ void trippin::Layer::updateAnimatedObject(const Rect<int> &viewport, Layer::Obje
     });
 }
 
-void trippin::Layer::afterTick(Uint32 engineTicks) {
+void trippin::Layer::afterTick(int engineTicks) {
     auto viewport = makeViewport();
 
     for (auto &obj: objects) {

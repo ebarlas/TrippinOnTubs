@@ -6,7 +6,7 @@
 
 namespace trippin {
     struct GogginInputTick : GogginInput {
-        Uint32 tick{};
+        int tick{};
     };
 }
 

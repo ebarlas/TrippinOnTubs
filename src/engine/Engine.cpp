@@ -6,11 +6,11 @@ void trippin::Engine::add(Object *obj) {
     vec.push_back(obj);
 }
 
-void trippin::Engine::beforeTick(Uint32 engineTicks) {
+void trippin::Engine::beforeTick(int engineTicks) {
     std::for_each(listeners.begin(), listeners.end(), [engineTicks](Listener *obj) { obj->beforeTick(engineTicks); });
 }
 
-void trippin::Engine::afterTick(Uint32 engineTicks) {
+void trippin::Engine::afterTick(int engineTicks) {
     std::for_each(listeners.begin(), listeners.end(), [engineTicks](Listener *obj) { obj->afterTick(engineTicks); });
 }
 
@@ -34,7 +34,7 @@ void trippin::Engine::removeExpired() {
     listeners.erase(std::remove_if(listeners.begin(), listeners.end(), fn), listeners.end());
 }
 
-void trippin::Engine::tick(Uint32 engineTicks) {
+void trippin::Engine::tick(int engineTicks) {
     // SDL_Log("inactive=%d, platforms=%d, objects=%d", inactive.size(), platforms.size(), objects.size());
     beforeTick(engineTicks);
     promoteActive();

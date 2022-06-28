@@ -32,7 +32,7 @@ void trippin::ComboManager::recordHit() {
     hits++;
 }
 
-void trippin::ComboManager::afterTick(Uint32 engineTicks) {
+void trippin::ComboManager::afterTick(int engineTicks) {
     for (auto &display: displays) {
         if (display.points) {
             if (!display.startTicks) {
@@ -44,7 +44,7 @@ void trippin::ComboManager::afterTick(Uint32 engineTicks) {
     }
 }
 
-void trippin::ComboManager::render(Uint32 engineTicks, Display &display) {
+void trippin::ComboManager::render(int engineTicks, Display &display) {
     auto ticksElapsed = engineTicks - display.startTicks;
     auto slideDuration = DURATION_SLIDE / msPerTick;
     auto pauseDuration = DURATION_PAUSE / msPerTick;

@@ -14,17 +14,17 @@ trippin::GameObject::GameObject(
         const Camera &camera,
         SceneBuilder &sceneBuilder) :
         SpriteObject(configObject, object, sprite),
-        configObject(configObject),
         object(object),
+        configObject(configObject),
         goggin(goggin),
         activation(activation),
         scoreTicker(scoreTicker),
-        camera(camera),
         sceneBuilder(sceneBuilder),
-        collisionDuration(config.ticksPerSecond() * 0.4),
-        coolDownTicks(config.ticksPerSecond() * 0.15),
-        flashDuration(config.ticksPerSecond() * 0.025),
+        camera(camera),
         stompSound(soundManager.getEffect("chime0")),
+        collisionDuration(static_cast<const int>(config.ticksPerSecond() * 0.4)),
+        coolDownTicks(static_cast<const int>(config.ticksPerSecond() * 0.15)),
+        flashDuration(static_cast<const int>(config.ticksPerSecond() * 0.025)),
         healthBarSize(config.healthBarSize) {
     inactive = true;
     if (!configObject.accelerateWhenGrounded) {
@@ -45,7 +45,7 @@ trippin::GameObject::GameObject(
     hitPoints = configObject.hitPoints;
 }
 
-void trippin::GameObject::beforeTick(Uint32 engineTicks) {
+void trippin::GameObject::beforeTick(int) {
     if (inactive) {
         if (object.activation > 0) {
             if (goggin.position.x >= position.x - object.activation) {
@@ -59,7 +59,7 @@ void trippin::GameObject::beforeTick(Uint32 engineTicks) {
     }
 }
 
-void trippin::GameObject::afterTick(Uint32 engineTicks) {
+void trippin::GameObject::afterTick(int engineTicks) {
     // early exit if not activated yet
     if (inactive) {
         // hack to ensure "stalled" objects are drawn
@@ -111,13 +111,13 @@ void trippin::GameObject::afterTick(Uint32 engineTicks) {
     drawSprite(engineTicks);
 }
 
-void trippin::GameObject::advanceFrame(Uint32 engineTicks) {
+void trippin::GameObject::advanceFrame(int engineTicks) {
     if (engineTicks % sprite.getFramePeriodTicks() == 0) {
         frame = (frame + 1) % (sprite.getFrames() / 2);
     }
 }
 
-void trippin::GameObject::drawSprite(Uint32 engineTicks) {
+void trippin::GameObject::drawSprite(int engineTicks) {
     int frameNow = frame;
     auto posNow = roundedPosition;
     auto flash = collisionTicks > 0 && collisionTicks + collisionDuration > engineTicks;

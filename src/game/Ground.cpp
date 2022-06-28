@@ -19,13 +19,13 @@ trippin::Ground::Ground(
     inactive = true;
 }
 
-void trippin::Ground::beforeTick(Uint32) {
+void trippin::Ground::beforeTick(int) {
     if (inactive && activation.shouldActivate(roundedBox)) {
         inactive = false;
     }
 }
 
-void trippin::Ground::afterTick(Uint32 engineTicks) {
+void trippin::Ground::afterTick(int engineTicks) {
     if (inactive) {
         return;
     }
@@ -36,7 +36,7 @@ void trippin::Ground::afterTick(Uint32 engineTicks) {
     }
 
     if (melting) {
-        auto diff = static_cast<int>(engineTicks - meltingTick);
+        auto diff = engineTicks - meltingTick;
         if (diff % sprite.getFramePeriodTicks() == 0 && frame < sprite.getFrames()) {
             frame++;
         }

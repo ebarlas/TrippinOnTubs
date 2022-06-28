@@ -15,8 +15,8 @@ namespace trippin {
                 const Spirit &spirit,
                 const Camera &camera,
                 SceneBuilder &sceneBuilder);
-        void beforeTick(Uint32 engineTicks) override;
-        void afterTick(Uint32 engineTicks) override;
+        void beforeTick(int engineTicks) override;
+        void afterTick(int engineTicks) override;
     private:
         const Activation &activation;
         const Spirit &spirit;
@@ -24,7 +24,7 @@ namespace trippin {
         SceneBuilder &sceneBuilder;
 
         bool melting;
-        Uint32 meltingTick;
+        int meltingTick;
         int frame;
     };
 }

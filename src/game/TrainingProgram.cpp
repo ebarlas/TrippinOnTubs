@@ -18,18 +18,18 @@ trippin::TrainingProgram::TrainingProgram(
         const Goggin &goggin,
         const RenderClock &renderClock,
         SceneBuilder &sceneBuilder) :
-        goggin(goggin),
-        margin(margin),
-        stage(0),
-        stageTicks(0),
-        sceneBuilder(sceneBuilder),
-        sound(soundManager.getEffect("chime2")),
-        finishedWaitTicks(2 * (int) configuration.ticksPerSecond()),
         titleSprites(makeSprites(spriteManager)),
         controlSprites(makeSprites(spriteManager, "_controls")),
+        goggin(goggin),
         windowSize(windowSize),
+        margin(margin),
+        stage(0),
         titleInterpolator(renderClock, 750, 0),
         controlInterpolator(renderClock, 750, 0),
+        finishedWaitTicks(static_cast<const int>(2 * configuration.ticksPerSecond())),
+        stageTicks(0),
+        sound(soundManager.getEffect("chime2")),
+        sceneBuilder(sceneBuilder),
         complete(false) {
 }
 
@@ -37,7 +37,7 @@ bool trippin::TrainingProgram::completed() {
     return complete;
 }
 
-void trippin::TrainingProgram::afterTick(Uint32 engineTicks) {
+void trippin::TrainingProgram::afterTick(int engineTicks) {
     if (stageTicks == 0) {
         stageTicks = engineTicks;
         resetInterpolators();

@@ -1,24 +1,25 @@
-#include <cstdlib>
 #include <cmath>
 #include "Shake.h"
+#include "Random.h"
 
 void trippin::Shake::init(int pd, int dur) {
     period = pd;
     duration = dur;
     started = false;
+    Random<> rand;
     auto count = dur / pd;
     for (int i = 0; i <= count + 1; i++) {
-        samples.push_back(std::rand() * 2.0 / RAND_MAX - 1);
+        samples.push_back(static_cast<float>(rand.next() * 2.0 / rand.max() - 1));
     }
 }
 
-void trippin::Shake::start(Uint32 ticks) {
+void trippin::Shake::start(int ticks) {
     started = true;
     startTime = ticks;
     t = 0;
 }
 
-void trippin::Shake::update(Uint32 ticks) {
+void trippin::Shake::update(int ticks) {
     t = ticks - startTime;
 }
 
@@ -27,15 +28,20 @@ float trippin::Shake::amplitude() {
         return 0;
     }
 
-    auto s = static_cast<float>(t) / period;
-    auto s0 = (int) std::floor(s);
-    auto s1 = s0 + 1;
-    auto k = decay();
-    return (samples[s0] + (s - s0) * (samples[s1] - samples[s0])) * k;
-}
+    // time offset in period-units
+    auto s = static_cast<float>(t) / static_cast<float>(period);
 
-float trippin::Shake::decay() {
-    return (duration - static_cast<float>(t)) / duration;
+    // lower sample
+    auto s0 = static_cast<unsigned int>(std::floor(s));
+
+    // upper sample
+    auto s1 = s0 + 1;
+
+    // dampening factor proportional to progress
+    auto k = (static_cast<float>(duration) - static_cast<float>(t)) / static_cast<float>(duration);
+
+    // interpolate from lower sample to upper, then dampen
+    return (samples[s0] + (s - static_cast<float>(s0)) * (samples[s1] - samples[s0])) * k;
 }
 
 

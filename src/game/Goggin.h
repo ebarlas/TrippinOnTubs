@@ -32,20 +32,20 @@ namespace trippin {
                 SoundManager &soundManager,
                 Camera &camera,
                 SceneBuilder &sceneBuilder);
-        void beforeTick(Uint32 engineTicks) override;
-        void afterTick(Uint32 engineTicks) override;
+        void beforeTick(int engineTicks) override;
+        void afterTick(int engineTicks) override;
         bool rightOfUniverse() const;
         bool belowUniverse() const;
         void onUserInput(const GogginInput &input);
         double getJumpCharge() const;
-        void addPointCloud(int points, Uint32 engineTicks, bool hit = false);
-        Uint32 getLastJumpTicks() const;
-        Uint32 getLastDuckTicks() const;
-        Uint32 getLastChargedJumpTicks() const;
-        Uint32 getLastDuckJumpTicks() const;
-        Uint32 getLastDoubleJumpTicks() const;
-        Uint32 getLastStopTicks() const;
-        Uint32 getLastJumpSlamDownTicks() const;
+        void addPointCloud(int points, int engineTicks, bool hit = false);
+        int getLastJumpTicks() const;
+        int getLastDuckTicks() const;
+        int getLastChargedJumpTicks() const;
+        int getLastDuckJumpTicks() const;
+        int getLastDoubleJumpTicks() const;
+        int getLastStopTicks() const;
+        int getLastJumpSlamDownTicks() const;
     private:
         struct Dust {
             Point<int> position;
@@ -61,7 +61,7 @@ namespace trippin {
         };
 
         const Sprite &dust;
-        Uint32 dustTicks;
+        int dustTicks;
         unsigned int nextDustPos;
         const int dustPeriodTicks;
 
@@ -91,7 +91,7 @@ namespace trippin {
 
         GogginInput input;
         bool rememberDuckStart;
-        std::unordered_map<Uint32, GogginInput> autoPlay;
+        std::unordered_map<int, GogginInput> autoPlay;
         bool autoPlayEnabled;
 
         const double risingAcceleration;
@@ -108,7 +108,7 @@ namespace trippin {
         Shake xShake;
         Shake yShake;
 
-        Uint32 jumpTicks{};
+        int jumpTicks{};
         double jumpPercent{};
 
         std::atomic_bool rightOfUni;
@@ -126,7 +126,7 @@ namespace trippin {
 
         Mix_Chunk *const jumpSound;
         const int jumpSoundTimeoutTicks;
-        Uint32 lastJumpSoundTicks;
+        int lastJumpSoundTicks;
 
         PointCloudManager &pointCloudManager;
         ComboManager &comboManager;
@@ -135,31 +135,31 @@ namespace trippin {
         SceneBuilder &sceneBuilder;
         Camera &camera;
 
-        Uint32 lastJumpTicks;
-        Uint32 lastChargedJumpTicks;
-        Uint32 lastDuckJumpTicks;
-        Uint32 lastDuckTicks;
-        Uint32 lastDoubleJumpTicks;
-        Uint32 lastStopTicks;
-        Uint32 lastJumpSlamDownTicks;
+        int lastJumpTicks;
+        int lastChargedJumpTicks;
+        int lastDuckJumpTicks;
+        int lastDuckTicks;
+        int lastDoubleJumpTicks;
+        int lastStopTicks;
+        int lastJumpSlamDownTicks;
 
-        void onFalling(Uint32 engineTicks);
-        void onRunning(Uint32 engineTicks);
-        void onRising(Uint32 engineTicks);
-        void onDucking(Uint32 engineTicks);
+        void onFalling(int engineTicks);
+        void onRunning(int engineTicks);
+        void onRising(int engineTicks);
+        void onDucking(int engineTicks);
 
         void resetDustBlast(bool white);
 
         void shrinkForDuck();
         void growForStand();
 
-        void playJumpSound(Uint32 engineTicks);
-        void transferInput(Uint32 engineTicks);
+        void playJumpSound(int engineTicks);
+        void transferInput(int engineTicks);
 
-        void handleDuckStart(Uint32 engineTicks);
+        void handleDuckStart(int engineTicks);
         void handleDuckEnd();
-        void handleJumpCharge(Uint32 engineTicks);
-        void handleJumpRelease(Uint32 engineTicks);
+        void handleJumpCharge(int engineTicks);
+        void handleJumpRelease(int engineTicks);
 
         Point<int> centerCamera();
         void drawDust();
