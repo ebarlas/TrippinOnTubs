@@ -1,25 +1,37 @@
 #include "SceneBuilder.h"
 
+trippin::SceneBuilder::SceneBuilder() :
+        workspace(std::make_unique<std::vector<std::function<void()>>>()),
+        staging(std::make_unique<std::vector<std::function<void()>>>()),
+        scene(std::make_unique<std::vector<std::function<void()>>>()),
+        updated(false) {
+}
+
 void trippin::SceneBuilder::reset() {
-    drawFns.clear();
+    workspace->clear();
 }
 
 void trippin::SceneBuilder::build() {
     std::lock_guard<std::mutex> lock(mutex);
-    scene = std::move(drawFns);
+    workspace.swap(staging);
+    updated = true;
 }
 
 void trippin::SceneBuilder::dispatch(std::function<void()> drawFn) {
-    drawFns.push_back(std::move(drawFn));
+    workspace->push_back(std::move(drawFn));
 }
 
 void trippin::SceneBuilder::execute() {
-    static std::vector<std::function<void()>> fns;
-    {
-        std::lock_guard<std::mutex> lock(mutex);
-        fns = scene;
-    }
-    for (auto &fn: fns) {
+    syncScene();
+    for (auto &fn: *scene) {
         fn();
+    }
+}
+
+void trippin::SceneBuilder::syncScene() {
+    std::lock_guard<std::mutex> lock(mutex);
+    if (updated) {
+        staging.swap(scene);
+        updated = false;
     }
 }

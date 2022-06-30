@@ -8,14 +8,18 @@
 namespace trippin {
     class SceneBuilder {
     public:
+        SceneBuilder();
         void reset();
         void build();
         void dispatch(std::function<void()> drawFn);
         void execute();
     private:
+        std::unique_ptr<std::vector<std::function<void()>>> workspace; // changes accumulate here via dispatch(...)
+        std::unique_ptr<std::vector<std::function<void()>>> staging; // vector frozen on build() ready for promotion to scene
+        std::unique_ptr<std::vector<std::function<void()>>> scene; // vector used for execution promoted from staging
         std::mutex mutex;
-        std::vector<std::function<void()>> drawFns; // changes accumulate here via dispatch(...)
-        std::vector<std::function<void()>> scene; // scene is frozen on build()
+        bool updated;
+        void syncScene();
     };
 }
 
