@@ -30,9 +30,9 @@ static void runAddScoresLoop(Transport transport, std::weak_ptr<StagingArea> sta
     auto addFn = [](const Transport &t, const Score &s) {
         auto success = t.addScore(s);
         if (success) {
-            SDL_Log("added score, name=%s, score=%d, id=%d", s.name.c_str(), s.score, s.id);
+            SDL_Log("added score, id=%s, game=%d, name=%s, score=%d", s.id.c_str(), s.game, s.name.c_str(), s.score);
         } else {
-            SDL_Log("failed to add score, name=%s, score=%d, id=%d", s.name.c_str(), s.score, s.id);
+            SDL_Log("failed to add score, id=%s, game=%d, name=%s, score=%d", s.id.c_str(), s.game, s.name.c_str(), s.score);
         }
     };
     runSyncLoop<Score>(std::move(transport), std::move(stagingArea), takeFn, addFn);

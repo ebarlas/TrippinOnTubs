@@ -16,7 +16,7 @@ void trippin::ScoreBoard::render(Point<int> position) {
 
     int rankRight = position.x + digitSize.x * (narrow ? 1 : 2);
     int nameLeft = position.x + digitSize.x * (narrow ? 2 : 3);
-    int scoreRight = nameLeft + digitSize.x * 11; // space for 5 chars, 1 sp, 5 digits
+    int scoreRight = nameLeft + digitSize.x * 9; // space for 3 chars, 1 sp, 5 digits
 
     int y = position.y;
     for (int i = 0; i < scores.size(); i++) {
@@ -29,7 +29,7 @@ void trippin::ScoreBoard::render(Point<int> position) {
 }
 
 void trippin::ScoreBoard::renderName(Point<int> position, const std::string &name) const {
-    for (int i = 0; i < 5; i++) {
+    for (int i = 0; i < 3; i++) {
         Point<int> pos{position.x + i * sprite.getDeviceSize().x, position.y};
         sprite.renderDevice(pos, 10 + name[i] - 'A'); // 'A' is frame 10
     }
@@ -41,5 +41,5 @@ int trippin::ScoreBoard::getHeight() const {
 
 int trippin::ScoreBoard::getWidth() const {
     auto narrow = scores.size() <= 9;
-    return (narrow ? 13 : 14) * sprite.getDeviceSize().x; // 1 or 2 digits, 1 sp, 5 chars, 1 sp, 5 digits
+    return (narrow ? 11 : 12) * sprite.getDeviceSize().x; // 1 or 2 digits, 1 sp, 3 chars, 1 sp, 5 digits
 }

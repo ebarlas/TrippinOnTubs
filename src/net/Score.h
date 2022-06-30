@@ -3,12 +3,19 @@
 
 namespace trippin {
     struct Score {
+        struct InputEvent {
+            int tick;
+            int input;
+        };
+
+        std::string id;
+        int game;
         int score;
-        int id;
         std::string name;
+        std::vector<InputEvent> events;
 
         bool operator==(const Score &ds) const {
-            return score == ds.score && name == ds.name && id == ds.id;
+            return id == ds.id && game == ds.game;
         }
     };
 }

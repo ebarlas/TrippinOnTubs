@@ -15,7 +15,7 @@ namespace trippin {
     private:
         static constexpr const int columns = 10;
         static constexpr const int rows = 3;
-        static constexpr const int nameLength = 5;
+        static constexpr const int nameLength = 3;
         static constexpr const int paddingDivisor = 16;
         std::string name;
         // 40 frames arranged as follows: [10 digits][26 letters][1 delete][1 enter][1 box][1 underscore]

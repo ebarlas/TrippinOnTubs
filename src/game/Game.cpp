@@ -335,6 +335,7 @@ void trippin::Game::handle(UserInput::Event &event) {
             loadLevel = false;
             trainLevel = false;
             score = 0;
+            gameId++;
             advanceLevel();
             state = State::PLAYING;
             logStateChange("START_MENU", "PLAYING");
@@ -444,7 +445,7 @@ void trippin::Game::handle(UserInput::Event &event) {
     } else {
         nameForm->onClick(event.touchPoint);
         if (nameForm->nameEntered()) {
-            stagingArea->addScore({score, rand(), nameForm->getName()});
+            stagingArea->addScore({appId, gameId, score, nameForm->getName(), {}});
             state = State::START_MENU;
             titleMenu->reset();
             logStateChange("NAME_FORM", "START_MENU");

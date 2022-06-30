@@ -62,16 +62,21 @@ bool trippin::Transport::addScore(const Score &score) const {
 
     nlohmann::json j;
     j["id"] = score.id;
+    j["game"] = score.game;
     j["name"] = score.name;
     j["score"] = score.score;
+    j["events"] = score.events;
 
-    std::stringstream hash;
-    hash << std::hex << score.score << score.id;
+    std::stringstream ss;
+    ss << score.id << score.game;
+    auto hashstr = ss.str();
+    auto hashfn = [](const int &sum, const char &ch) { return sum + ch; };
+    auto hash = std::accumulate(hashstr.begin(), hashstr.end(), 0, hashfn);
 
     auto json = j.dump();
 
     std::string msg = "POST /scores?h=";
-    msg += hash.str();
+    msg += std::to_string(hash);
     msg += " HTTP/1.0\r\n";
     msg += "Host: ";
     msg += host;
@@ -128,6 +133,18 @@ bool trippin::Transport::addLogEvent(const LogEvent &event) const {
 
 void trippin::from_json(const nlohmann::json &j, trippin::Score &score) {
     j.at("id").get_to(score.id);
+    j.at("game").get_to(score.game);
     j.at("name").get_to(score.name);
     j.at("score").get_to(score.score);
+    j.at("events").get_to(score.events);
+}
+
+void trippin::to_json(nlohmann::json &j, const Score::InputEvent &evt) {
+    j["t"] = evt.tick;
+    j["e"] = evt.input;
+}
+
+void trippin::from_json(const nlohmann::json &j, Score::InputEvent &evt) {
+    j.at("t").get_to(evt.tick);
+    j.at("e").get_to(evt.input);
 }

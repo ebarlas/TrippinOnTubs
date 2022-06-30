@@ -12,66 +12,70 @@ client = boto3.client('dynamodb', region_name='us-west-2')
 def top_scores(limit):
     res = client.query(
         TableName='trippin-scores',
+        IndexName='score-index',
         ScanIndexForward=False,
         Limit=limit,
-        ProjectionExpression='sk',
         KeyConditionExpression='#pk = :pk',
         ExpressionAttributeNames={'#pk': 'pk'},
         ExpressionAttributeValues={':pk': {'N': '1'}})
     return res['Items']
 
 
-def query_scores(lower, upper):
+def top_today_scores(day, limit):
     res = client.query(
         TableName='trippin-scores',
-        IndexName='pk-time-index',
-        ProjectionExpression='sk',
-        KeyConditionExpression='#pk = :pk AND #time BETWEEN :lower AND :upper',
-        ExpressionAttributeNames={'#pk': 'pk', '#time': 'time'},
-        ExpressionAttributeValues={':pk': {'N': '1'}, ':lower': {'N': str(lower)}, ':upper': {'N': str(upper)}})
+        IndexName='dayscore-index',
+        ScanIndexForward=False,
+        Limit=limit,
+        KeyConditionExpression='#pk = :pk AND begins_with (#dayscore, :dayscore)',
+        ExpressionAttributeNames={'#pk': 'pk', '#dayscore': 'dayscore'},
+        ExpressionAttributeValues={':pk': {'N': '1'}, ':dayscore': {'S': day}})
     return res['Items']
-
-
-def today_scores():
-    upper = int(time.time())
-    lower = upper - 86400
-    return query_scores(lower, upper)
-
-
-def today_top_scores():
-    return sorted(convert(today_scores()), key=lambda s: s['score'], reverse=True)
 
 
 def extract_body(request):
     return json.loads(base64.b64decode(request['body']['data']).decode('utf-8'))
 
 
+def validate_input_event(event):
+    if type(event) is not dict:
+        return False
+    if 't' not in event or 'e' not in event:
+        return False
+    if type(event['t']) is not int or type(event['e']) is not int:
+        return False
+    return True
+
+
 def validate(event):
     if 'body' not in event or 'data' not in event['body'] or 'querystring' not in event:
         return False
 
-    params = urllib.parse.parse_qs(event['querystring'])  # querystring request property is a raw string
-    score = extract_body(event)
-    if 'id' not in score or 'name' not in score or 'score' not in score:
+    params = urllib.parse.parse_qs(event['querystring']) # querystring request property is a raw string
+    body = extract_body(event)
+    if 'id' not in body or 'name' not in body or 'score' not in body or 'game' not in body or 'events' not in body:
         return False
-    id = score['id']
-    name = score['name']
-    score = score['score']
+    id = body['id']
+    game = body['game']
+    name = body['name']
+    score = body['score']
+    events = body['events']
 
-    if type(id) is not int or type(score) is not int or type(name) is not str:
+    if type(id) is not str or type(score) is not int or type(name) is not str or type(game) is not int or type(events) is not list:
         return False
-    if not re.match(r'[A-Z]{5}', name):
+    if not re.match(r'[A-Z]{3}', name):
         return False
     if score < 0 or score > 99999:
         return False
-    if id < 0 or id > 2 ** 64:
-        return False
+    for input_event in events:
+        if not validate_input_event(input_event):
+            return False
 
     if 'h' not in params:
         return False
 
-    hash = params['h'][0]  # params is an array of strings
-    hashgen = hex(score)[2:] + hex(id)[2:]
+    hash = params['h'][0]
+    hashgen = str(sum(bytearray(id + str(game), 'ascii')))
     if hash != hashgen:
         return False
 
@@ -80,23 +84,48 @@ def validate(event):
 
 def add_score(request):
     id = request['id']
+    game = request['game']
     name = request['name']
     score = request['score']
+    events = request['events']
     epoch = int(time.time())
-    date = datetime.datetime.fromtimestamp(epoch).strftime('%Y-%m-%d %H:%M:%S')
-    sk = '0' * (5 - len(str(score))) + str(score) + '/' + name + '/' + str(id)
+    date = datetime.datetime.fromtimestamp(epoch)
+    day = date.strftime('%Y-%m-%d')
+    daytime = date.strftime('%H:%M:%S')
+    padded_score = '0' * (5 - len(str(score))) + str(score)
     item = {
         'pk': {'N': '1'},
-        'sk': {'S': sk},
-        'time': {'N': str(epoch)},
-        'date': {'S': date}
+        'sk': {'S': f'{id}/{game}'},
+        'name': {'S': name},
+        'score': {'N': str(score)},
+        'dayscore': {'S': f'{day}/{padded_score}'},
+        'time': {'S': daytime},
+        'events': {'S': json.dumps(events)},
     }
     client.put_item(TableName='trippin-scores', Item=item)
     print(f'added score, id={id}, name={name}, score={score}')
 
 
+def convert_item(item):
+    sk = item['sk']['S']
+    split = sk.split('/')
+    id = split[0]
+    game = int(split[1])
+    name = item['name']['S']
+    score = int(item['score']['N'])
+    events = json.loads(item['events']['S'])
+    return {
+        'id': id,
+        'game': game,
+        'name': name,
+        'score': score,
+        'events': events
+    }
+
+
+
 def convert(items):
-    return [{'id': int(a[2]), 'name': a[1], 'score': int(a[0])} for a in (i['sk']['S'].split('/') for i in items)]
+    return [convert_item(i) for i in items]
 
 
 def to_response(items):
@@ -121,7 +150,10 @@ def lambda_handler(event, context):
     print(f'method={request["method"]}, path={request["uri"]}')
 
     if request['method'] == 'GET' and '/scores/today' in request['uri']:
-        return to_response(today_top_scores())
+        epoch = int(time.time())
+        date = datetime.datetime.fromtimestamp(epoch)
+        day = date.strftime('%Y-%m-%d')
+        return to_response(convert(top_today_scores(day, 25)))
 
     if request['method'] == 'GET' and '/scores/alltime' in request['uri']:
         return to_response(convert(top_scores(25)))

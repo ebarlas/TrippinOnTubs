@@ -23,10 +23,12 @@ namespace trippin {
     private:
         std::string host;
         int port;
-        Scores sendRequest(const std::string& uri) const;
+        Scores sendRequest(const std::string &uri) const;
     };
 
     void from_json(const nlohmann::json &j, Score &score);
+    void from_json(const nlohmann::json &j, Score::InputEvent &evt);
+    void to_json(nlohmann::json &j, const Score::InputEvent &evt);
 }
 
 #endif

@@ -7,7 +7,7 @@ trippin::NameForm::NameForm(const Point<int> &windowSize, SpriteManager &spriteM
         entered(false),
         gridSize(computeGridSize(windowSize, sprite.getDeviceSize())),
         padding(sprite.getDeviceSize().x / paddingDivisor) {
-    name.resize(5);
+    name.resize(3);
 }
 
 trippin::Point<int> trippin::NameForm::computeGridSize(trippin::Point<int> windowSize, trippin::Point<int> spriteSize) {
