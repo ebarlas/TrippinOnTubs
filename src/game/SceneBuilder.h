@@ -4,6 +4,7 @@
 #include <functional>
 #include <vector>
 #include <mutex>
+#include <memory>
 
 namespace trippin {
     class SceneBuilder {
