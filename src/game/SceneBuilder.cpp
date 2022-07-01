@@ -1,14 +1,7 @@
 #include "SceneBuilder.h"
 
-trippin::SceneBuilder::SceneBuilder() :
-        workspace(std::make_unique<std::vector<std::function<void()>>>()),
-        staging(std::make_unique<std::vector<std::function<void()>>>()),
-        scene(std::make_unique<std::vector<std::function<void()>>>()),
-        updated(false) {
-}
-
 void trippin::SceneBuilder::reset() {
-    workspace->clear();
+    workspace.clear();
 }
 
 void trippin::SceneBuilder::build() {
@@ -18,12 +11,12 @@ void trippin::SceneBuilder::build() {
 }
 
 void trippin::SceneBuilder::dispatch(std::function<void()> drawFn) {
-    workspace->push_back(std::move(drawFn));
+    workspace.push_back(std::move(drawFn));
 }
 
 void trippin::SceneBuilder::execute() {
     syncScene();
-    for (auto &fn: *scene) {
+    for (auto &fn: scene) {
         fn();
     }
 }
