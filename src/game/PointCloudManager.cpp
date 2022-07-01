@@ -1,6 +1,5 @@
 #include "PointCloudManager.h"
 #include "ui/DigitLayout.h"
-#include "engine/Convert.h"
 
 trippin::PointCloudManager::PointCloudManager(
         Point<int> pointCloudDistanceMin,
@@ -25,10 +24,10 @@ void trippin::PointCloudManager::addPointCloud(Point<int> position, int points, 
     int y = position.y;
     int xRange = pointCloudDistanceMax.x - pointCloudDistanceMin.x;
     int yRange = pointCloudDistanceMax.y - pointCloudDistanceMin.y;
-    double xRand = ((std::rand() * 2.0) / RAND_MAX - 1.0); // [-1.0, 1.0]
-    double yRand = (std::rand() * 1.0) / RAND_MAX; // [0.0, 1.0]
-    auto xDist = pointCloudDistanceMin.x + toInt(xRand * xRange);
-    auto yDist = pointCloudDistanceMin.y + toInt(yRand * yRange);
+    double xRand = ((random.next() * 2.0) / random.max() - 1.0); // [-1.0, 1.0]
+    double yRand = (random.next() * 1.0) / random.max(); // [0.0, 1.0]
+    auto xDist = pointCloudDistanceMin.x + static_cast<int>(xRand * xRange);
+    auto yDist = pointCloudDistanceMin.y + static_cast<int>(yRand * yRange);
     pointClouds[nextPointCloudPos] = {{x, y}, {x, y}, {xDist, yDist}, points, ticks};
     nextPointCloudPos = (nextPointCloudPos + 1) % pointClouds.size();
 }

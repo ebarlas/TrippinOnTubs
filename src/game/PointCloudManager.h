@@ -5,6 +5,7 @@
 #include "sprite/Sprite.h"
 #include "engine/Listener.h"
 #include "SceneBuilder.h"
+#include "Random.h"
 
 namespace trippin {
     class PointCloudManager : public Listener {
@@ -37,6 +38,8 @@ namespace trippin {
 
         std::array<PointCloud, 12> pointClouds; // circular buffer
         unsigned int nextPointCloudPos;
+
+        Random<> random;
     };
 }
 

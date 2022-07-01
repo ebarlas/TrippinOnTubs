@@ -1,5 +1,5 @@
 #include "Layer.h"
-#include "engine/Convert.h"
+#include "Random.h"
 
 trippin::Layer::Layer(
         const Configuration &config,
@@ -60,11 +60,12 @@ std::vector<trippin::Layer::Object> trippin::Layer::convertObjects(
         const Configuration &config,
         SpriteManager &spriteManager,
         const Map::Layer &layer) {
+    Random<> random;
     std::vector<Object> objects;
     for (auto &obj: layer.objects) {
         auto configObject = config.findLayerObject(obj.type);
         auto &sprite = spriteManager.get(obj.type);
-        auto frame = configObject != nullptr && configObject->randFrame ? std::rand() % sprite.getFrames() : 0;
+        auto frame = configObject != nullptr && configObject->randFrame ? random.next() % sprite.getFrames() : 0;
         auto vel = configObject != nullptr ? configObject->velocity.x : 0;
         objects.push_back({obj.position, &sprite, frame, 0, vel});
     }

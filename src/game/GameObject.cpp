@@ -1,6 +1,6 @@
 #include "GameObject.h"
-#include "engine/Convert.h"
 #include "engine/Collisions.h"
+#include "Random.h"
 
 trippin::GameObject::GameObject(
         const Configuration &config,
@@ -31,7 +31,7 @@ trippin::GameObject::GameObject(
         acceleration.x = configObject.runningAcceleration;
     }
     stomped = false;
-    frame = configObject.randFrame ? std::rand() % sprite.getFrames() / 2 : 0;
+    frame = configObject.randFrame ? Random<>{}.next() % sprite.getFrames() / 2 : 0;
     collisionTicks = 0;
     if (configObject.coefficient > 0) {
         auto coefficient = configObject.coefficient;
