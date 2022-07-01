@@ -10,11 +10,11 @@ trippin::ComboManager::ComboManager(
         int margin,
         SceneBuilder &sceneBuilder) :
         scoreTicker(scoreTicker),
-        comboText(spriteManager.get("combo")),
-        digits(spriteManager.get("digits")),
         msPerTick(msPerTick),
         windowSize(windowSize),
         margin(margin),
+        comboText(spriteManager.get("combo")),
+        digits(spriteManager.get("digits")),
         sceneBuilder(sceneBuilder) {
 
 }
@@ -76,6 +76,6 @@ void trippin::ComboManager::render(int engineTicks, Display &display) {
     });
 }
 
-double trippin::ComboManager::decelInterpolation(float input) {
-    return (float) (1.0f - (1.0f - input) * (1.0f - input));
+double trippin::ComboManager::decelInterpolation(double input) {
+    return (1.0 - (1.0 - input) * (1.0 - input));
 }

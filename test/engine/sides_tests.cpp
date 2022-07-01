@@ -3,7 +3,7 @@
 
 TEST_CASE("Sides initialization", "[sides]") {
     REQUIRE(!trippin::Sides());
-    REQUIRE((int) trippin::Sides() == 0);
+    REQUIRE(static_cast<int>(trippin::Sides()) == 0);
 }
 
 TEST_CASE("Sides set and get", "[sides]") {

@@ -36,7 +36,7 @@ namespace trippin {
         Camera &camera;
 
         std::array<PointCloud, 12> pointClouds; // circular buffer
-        int nextPointCloudPos;
+        unsigned int nextPointCloudPos;
     };
 }
 

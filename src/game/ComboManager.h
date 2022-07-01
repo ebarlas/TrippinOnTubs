@@ -40,11 +40,11 @@ namespace trippin {
 
         std::array<Display, 3> displays{};
         int hits{};
-        int nextDisplayPos{};
+        unsigned int nextDisplayPos{};
 
         void render(int engineTicks, Display &display);
 
-        static double decelInterpolation(float input);
+        static double decelInterpolation(double input);
     };
 }
 

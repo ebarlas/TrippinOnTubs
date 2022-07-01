@@ -35,7 +35,7 @@ void trippin::Layer::updateAnimatedObject(const Rect<int> &viewport, Layer::Obje
         obj.frame = (obj.frame + 1) % obj.sprite->getFrames();
     }
 
-    Point<int> target = {(int) obj.x + obj.position.x - viewport.x, obj.position.y - viewport.y};
+    Point<int> target = {static_cast<int>(obj.x) + obj.position.x - viewport.x, obj.position.y - viewport.y};
     target /= obj.sprite->getScale().getDeviceEngineFactor();
     auto sp = obj.sprite;
     auto fr = obj.frame;
@@ -76,8 +76,8 @@ trippin::Rect<int> trippin::Layer::makeViewport() {
     auto viewport = camera.getViewport();
     Point<int> universeRange{universe.w - viewport.w, universe.h - viewport.h};
     Point<int> layerRange{size.x - viewport.w, size.y - viewport.h};
-    viewport.x *= toDouble(layerRange.x) / universeRange.x;
-    viewport.y *= toDouble(layerRange.y) / universeRange.y;
+    viewport.x = static_cast<int>(viewport.x * static_cast<double>(layerRange.x) / universeRange.x);
+    viewport.y = static_cast<int>(viewport.y * static_cast<double>(layerRange.y) / universeRange.y);
 
     // anchor camera to the bottom of the layer if the viewport is taller than the layer
     if (layerRange.y < 0) {

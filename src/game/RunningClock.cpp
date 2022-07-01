@@ -28,7 +28,7 @@ trippin::RunningClock::RunningClock(
     frame = 0;
 }
 
-void trippin::RunningClock::beforeTick(int engineTicks) {
+void trippin::RunningClock::beforeTick(int) {
     if (inactive && activation.shouldActivate(roundedBox)) {
         inactive = false;
     }

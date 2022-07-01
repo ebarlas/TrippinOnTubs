@@ -20,7 +20,8 @@ trippin::PointCloudManager::PointCloudManager(
 }
 
 void trippin::PointCloudManager::addPointCloud(Point<int> position, int points, int ticks) {
-    int x = position.x + digits.getScale().getDeviceEngineFactor() * DigitLayout::measureWidth(digits, points) / 2; // goggin horiz. midpoint
+    auto midpoint = DigitLayout::measureWidth(digits, points) / 2; // goggin horiz. midpoint
+    int x = position.x + digits.getScale().getDeviceEngineFactor() * midpoint;
     int y = position.y;
     int xRange = pointCloudDistanceMax.x - pointCloudDistanceMin.x;
     int yRange = pointCloudDistanceMax.y - pointCloudDistanceMin.y;
@@ -33,18 +34,20 @@ void trippin::PointCloudManager::addPointCloud(Point<int> position, int points, 
 }
 
 static float decelInterpolation(float input) {
-    return (float) (1.0f - (1.0f - input) * (1.0f - input));
+    return (1.0f - (1.0f - input) * (1.0f - input));
 }
 
 void trippin::PointCloudManager::afterTick(int engineTicks) {
     for (auto &pc: pointClouds) {
         auto elapsed = engineTicks - pc.ticks;
-        float di = decelInterpolation(std::min(1.0f, elapsed / (float) pointCloudTicks));
-        if (di == 1.0) {
+        auto progress = static_cast<float>(elapsed) / static_cast<float>(pointCloudTicks);
+        auto di = decelInterpolation(std::min(1.0f, progress));
+        if (di == 1.0f) {
             pc.points = 0; // cancel display
         } else {
-            pc.posNow.x = pc.posStart.x + toInt(di * pc.distance.x); // x diff may be pos (right) or neg (left)
-            pc.posNow.y = pc.posStart.y - toInt(di * pc.distance.y); // y diff is always negative (up)
+            // x diff may be pos (right) or neg (left), y diff is always negative (up)
+            pc.posNow.x = pc.posStart.x + static_cast<int>(di * static_cast<float>(pc.distance.x));
+            pc.posNow.y = pc.posStart.y - static_cast<int>(di * static_cast<float>(pc.distance.y));
         }
     }
 

@@ -135,7 +135,7 @@ void trippin::GameObject::drawSprite(int engineTicks) {
 void trippin::GameObject::drawHealthBar() {
     auto vp = camera.getViewport();
     auto ren = sprite.getRenderer();
-    auto percent = (double) hitPoints / configObject.hitPoints;
+    auto percent = static_cast<double>(hitPoints) / configObject.hitPoints;
     auto pos = Point<int>{roundedPosition.x - vp.x, roundedPosition.y - vp.y};
     pos /= sprite.getScale().getDeviceEngineFactor();
     pos.y -= healthBarSize.y * 3;
