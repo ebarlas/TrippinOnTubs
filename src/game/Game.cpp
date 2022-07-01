@@ -385,6 +385,7 @@ void trippin::Game::handle(UserInput::Event &event) {
     } else if (state == State::PLAYING) {
         if (level->ended()) {
             score = level->getScore();
+            inputEvents.push_back(level->takeInputEvents());
             if (level->completed()) {
                 state = State::LEVEL_TRANSITION;
                 levelOverlay->setLevel(static_cast<int>(levelIndex));
@@ -445,10 +446,22 @@ void trippin::Game::handle(UserInput::Event &event) {
     } else {
         nameForm->onClick(event.touchPoint);
         if (nameForm->nameEntered()) {
-            stagingArea->addScore({appId, gameId, score, nameForm->getName(), {}});
+            stagingArea->addScore({appId, gameId, score, nameForm->getName(), convertInputEvents()});
             state = State::START_MENU;
             titleMenu->reset();
             logStateChange("NAME_FORM", "START_MENU");
         }
     }
+}
+
+std::vector<std::vector<trippin::Score::InputEvent>> trippin::Game::convertInputEvents() const {
+    std::vector<std::vector<Score::InputEvent>> result;
+    for (auto &vec: inputEvents) {
+        std::vector<Score::InputEvent> v;
+        for (auto &e: vec) {
+            v.push_back(Score::InputEvent::fromFlags(e.tick, e.jumpCharge, e.jumpRelease, e.duckStart, e.duckEnd));
+        }
+        result.push_back(v);
+    }
+    return result;
 }

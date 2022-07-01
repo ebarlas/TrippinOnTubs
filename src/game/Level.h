@@ -73,6 +73,7 @@ namespace trippin {
         void pause();
         void resume();
         int getScore() const;
+        std::vector<GogginInputTick> takeInputEvents() const;
         int getTicks() const;
         void beforeTick(int engineTicks) override;
         void afterTick(int engineTicks) override;

@@ -45,6 +45,7 @@ namespace trippin {
 
         State state;
         int score{};
+        std::vector<std::vector<GogginInputTick>> inputEvents;
         int extraLives{1};
         int lastTicks{};
         std::unique_ptr<Timer> timer;
@@ -97,6 +98,7 @@ namespace trippin {
         void logStateChange(const char *prev, const char *next);
         void render();
         void handle(UserInput::Event &event);
+        std::vector<std::vector<Score::InputEvent>> convertInputEvents() const;
         static const char *getSystemName(SDL_Window *window);
         static const char *getRendererName(SDL_Renderer *renderer);
         static std::string format(const std::map<int, int> &map);

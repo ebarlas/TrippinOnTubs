@@ -46,6 +46,7 @@ namespace trippin {
         int getLastDoubleJumpTicks() const;
         int getLastStopTicks() const;
         int getLastJumpSlamDownTicks() const;
+        std::vector<GogginInputTick> takeInputEvents();
     private:
         struct Dust {
             Point<int> position;
@@ -142,6 +143,8 @@ namespace trippin {
         int lastDoubleJumpTicks;
         int lastStopTicks;
         int lastJumpSlamDownTicks;
+
+        std::vector<GogginInputTick> inputEvents;
 
         void onFalling(int engineTicks);
         void onRunning(int engineTicks);

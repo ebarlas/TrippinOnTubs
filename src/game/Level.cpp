@@ -285,6 +285,10 @@ int trippin::Level::getScore() const {
     return scoreTicker->getScore();
 }
 
+std::vector<trippin::GogginInputTick> trippin::Level::takeInputEvents() const {
+    return goggin->takeInputEvents();
+}
+
 void trippin::Level::setExtraLives(int extraLives) {
     initialExtraLives = extraLives;
 }

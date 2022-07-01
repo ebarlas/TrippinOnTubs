@@ -47,6 +47,15 @@ def validate_input_event(event):
     return True
 
 
+def validate_input_events(events):
+    if type(events) is not list:
+        return False
+    for e in events:
+        if not validate_input_event(e):
+            return False
+    return True
+
+
 def validate(event):
     if 'body' not in event or 'data' not in event['body'] or 'querystring' not in event:
         return False
@@ -68,7 +77,7 @@ def validate(event):
     if score < 0 or score > 99999:
         return False
     for input_event in events:
-        if not validate_input_event(input_event):
+        if not validate_input_events(input_event):
             return False
 
     if 'h' not in params:
@@ -82,16 +91,21 @@ def validate(event):
     return True
 
 
+def cur_day_and_time():
+    epoch = int(time.time())
+    date = datetime.datetime.fromtimestamp(epoch)
+    day = date.strftime('%Y-%m-%d')
+    daytime = date.strftime('%H:%M:%S')
+    return (day, daytime)
+
+
 def add_score(request):
     id = request['id']
     game = request['game']
     name = request['name']
     score = request['score']
     events = request['events']
-    epoch = int(time.time())
-    date = datetime.datetime.fromtimestamp(epoch)
-    day = date.strftime('%Y-%m-%d')
-    daytime = date.strftime('%H:%M:%S')
+    day, daytime = cur_day_and_time()
     padded_score = '0' * (5 - len(str(score))) + str(score)
     item = {
         'pk': {'N': '1'},
@@ -150,9 +164,7 @@ def lambda_handler(event, context):
     print(f'method={request["method"]}, path={request["uri"]}')
 
     if request['method'] == 'GET' and '/scores/today' in request['uri']:
-        epoch = int(time.time())
-        date = datetime.datetime.fromtimestamp(epoch)
-        day = date.strftime('%Y-%m-%d')
+        day, daytime = cur_day_and_time()
         return to_response(convert(top_today_scores(day, 25)))
 
     if request['method'] == 'GET' and '/scores/alltime' in request['uri']:
