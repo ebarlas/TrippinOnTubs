@@ -47,6 +47,7 @@ namespace trippin {
         int getLastStopTicks() const;
         int getLastJumpSlamDownTicks() const;
         std::vector<GogginInputTick> takeInputEvents();
+        void render();
     private:
         struct Dust {
             Point<int> position;
@@ -145,6 +146,8 @@ namespace trippin {
         int lastJumpSlamDownTicks;
 
         std::vector<GogginInputTick> inputEvents;
+
+        Point<int> cameraPos;
 
         void onFalling(int engineTicks);
         void onRunning(int engineTicks);

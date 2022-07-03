@@ -1,5 +1,4 @@
 #include "ScrollingScoreBoard.h"
-#include "engine/Convert.h"
 
 trippin::ScrollingScoreBoard::ScrollingScoreBoard(
         const Point<int> &windowSize,
@@ -22,12 +21,22 @@ void trippin::ScrollingScoreBoard::reset() {
 }
 
 void trippin::ScrollingScoreBoard::render() {
-    auto delta = renderClock.getTicks() - startTime;
-    scrollTop = toInt(static_cast<double>(delta.count()) * scrollRate);
+    scoreBoard.render(renderPosition());
+}
 
+const trippin::Score *trippin::ScrollingScoreBoard::onClick(const Point<int> &coords) const {
+    auto pos = renderPosition();
+    auto offset = coords - pos;
+    if (offset.x > 0 && offset.y > 0 && offset.x < scoreBoard.getWidth() && offset.y < scoreBoard.getHeight()) {
+        int n = static_cast<int>(scoreBoard.numScores() * static_cast<double>(offset.y) / scoreBoard.getHeight());
+        return &scoreBoard.scoreAt(n);
+    }
+    return nullptr;
+}
+
+trippin::Point<int> trippin::ScrollingScoreBoard::renderPosition() const {
+    auto delta = renderClock.getTicks() - startTime;
+    int scrollTop = static_cast<int>(static_cast<double>(delta.count()) * scrollRate);
     int scrollWrap = scrollTop % (windowSize.y + scoreBoard.getHeight());
-    Point<int> position;
-    position.x = (windowSize.x - scoreBoard.getWidth()) / 2;
-    position.y = scrollWrap + windowSize.y;
-    scoreBoard.render(position);
+    return {(windowSize.x - scoreBoard.getWidth()) / 2, scrollWrap + windowSize.y};
 }

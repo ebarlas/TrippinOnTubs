@@ -6,9 +6,9 @@ trippin::Sprite::Sprite(SDL_Renderer *renderer, const std::string &name, const S
     init(name, tickPeriod);
 }
 
-trippin::Sprite::Sprite(SDL_Renderer *ren, const std::string &name, const Scale &sc, double tickPeriod, SDL_Surface *sur)
+trippin::Sprite::Sprite(SDL_Renderer *ren, const std::string &name, const Scale &sc, double tickPer, SDL_Surface *sur)
         : scale(sc), sheet(ren, sur), ren(ren) {
-    init(name, tickPeriod);
+    init(name, tickPer);
 }
 
 void trippin::Sprite::init(const std::string &name, double tickPeriod) {
@@ -29,9 +29,8 @@ void trippin::Sprite::renderDevice(trippin::Point<int> position, int frame) cons
     sheet.render(&clip, &target);
 }
 
-void trippin::Sprite::renderEngine(trippin::Point<int> hitBoxPos, int frame, const trippin::Camera &camera) const {
-    auto viewport = camera.getViewport();
-    trippin::Rect<int> box{hitBoxPos.x - engineHitBox.x, hitBoxPos.y - engineHitBox.y, engineSize.x, engineSize.y};
+void trippin::Sprite::renderEngine(trippin::Point<int> hitBoxPos, int frame, const Rect<int> &viewport) const {
+    Rect<int> box{hitBoxPos.x - engineHitBox.x, hitBoxPos.y - engineHitBox.y, engineSize.x, engineSize.y};
     if (box.hasCollision(viewport)) {
         Point<int> target = {box.x - viewport.x, box.y - viewport.y};
         renderDevice(target / scale.getDeviceEngineFactor(), frame);

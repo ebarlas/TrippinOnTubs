@@ -18,14 +18,14 @@ namespace trippin {
         void setScores(std::vector<Score> scores);
         void reset();
         void render();
+        const trippin::Score *onClick(const Point<int> &coords) const;
     private:
         const Point<int> windowSize;
         ScoreBoard scoreBoard;
         const RenderClock &renderClock;
-
         const double scrollRate;
-        std::chrono::milliseconds startTime;
-        int scrollTop;
+        std::chrono::milliseconds startTime{};
+        Point<int> renderPosition() const;
     };
 }
 

@@ -74,8 +74,9 @@ void trippin::RunningClock::afterTick(int engineTicks) {
     if (!expired) {
         auto frameNow = frame;
         auto posNow = roundedPosition;
-        sceneBuilder.dispatch([this, posNow, frameNow]() {
-            sprite.renderEngine(posNow, frameNow, camera);
+        auto vp = camera.getViewport();
+        sceneBuilder.dispatch([this, posNow, frameNow, vp]() {
+            sprite.renderEngine(posNow, frameNow, vp);
         });
     }
 }

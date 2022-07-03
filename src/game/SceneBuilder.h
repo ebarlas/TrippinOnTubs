@@ -6,6 +6,20 @@
 #include <mutex>
 
 namespace trippin {
+    // Class for assembling functions that perform scene rendering
+    // Engine thread appends functions via reset(), dispatch(fn), then build()
+    // Render thread executes all the functions in the latest build via execute()
+    //
+    // Key properties:
+    // - No race conditions
+    // - Vectors are reused via swap, never created anew
+    // - Narrow, targeted locking that only covers vector swap
+    // - No std::function copying beyond initial vector placement
+    // - Supports successive calls to execute (without rebuild)
+    // - Supports successive builds (without execute)
+    //
+    // Other considerations:
+    // - Execute may be invoked before build, in which case nothing is rendered - this will produce a blank canvas
     class SceneBuilder {
     public:
         void reset();

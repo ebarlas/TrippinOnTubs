@@ -40,6 +40,7 @@ namespace trippin {
             NAME_FORM,
             ALL_TIME_SCORES,
             TODAY_SCORES,
+            REPLAY,
             EXIT
         };
 
@@ -64,8 +65,6 @@ namespace trippin {
         SoundManager soundManager;
         std::unique_ptr<Level> level;
         unsigned int levelIndex;
-        bool loadLevel;
-        bool trainLevel;
         std::unique_ptr<TitleOverlay> titleOverlay;
         std::unique_ptr<TitleMenu> titleMenu;
         std::unique_ptr<EndMenu> endMenu;
@@ -80,6 +79,9 @@ namespace trippin {
         Random<int, 0, 10'000'000> random;
         std::string appId;
         int gameId;
+        Score replayScore;
+        unsigned int replayOffset;
+        std::vector<GogginInputTick> replayAutoPlay;
         void initSdl();
         void initAppId();
         void initLogger();
@@ -99,6 +101,7 @@ namespace trippin {
         void render();
         void handle(UserInput::Event &event);
         std::vector<std::vector<Score::InputEvent>> convertInputEvents() const;
+        static std::vector<GogginInputTick> convertEvents(const std::vector<Score::InputEvent> &events) ;
         static const char *getSystemName(SDL_Window *window);
         static const char *getRendererName(SDL_Renderer *renderer);
         static std::string format(const std::map<int, int> &map);

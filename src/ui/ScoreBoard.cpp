@@ -43,3 +43,11 @@ int trippin::ScoreBoard::getWidth() const {
     auto narrow = scores.size() <= 9;
     return (narrow ? 11 : 12) * sprite.getDeviceSize().x; // 1 or 2 digits, 1 sp, 3 chars, 1 sp, 5 digits
 }
+
+int trippin::ScoreBoard::numScores() const {
+    return scores.size();
+}
+
+const trippin::Score &trippin::ScoreBoard::scoreAt(int n) const {
+    return scores[n];
+}

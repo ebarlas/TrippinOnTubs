@@ -63,9 +63,6 @@ void trippin::Level::initEngine() {
     engine.setTickRate(configuration->tickRate);
     engine.setPlatformCollision(onAbsorbentCollision);
     engine.setObjectCollision(onElasticCollision1D);
-    if (!training) {
-        engine.addListener(&spirit);
-    }
 
     scoreTicker = std::make_unique<ScoreTicker>(
             configuration->meterMargin,
@@ -81,17 +78,6 @@ void trippin::Level::initEngine() {
             windowSize,
             configuration->meterMargin,
             sceneBuilder);
-
-    for (auto &layer: map.layers) {
-        auto uptr = std::make_unique<Layer>(
-                *configuration,
-                *spriteManager,
-                layer,
-                *camera,
-                sceneBuilder);
-        engine.addListener(uptr.get());
-        objects.push_back(std::move(uptr));
-    }
 
     // define goggin object prior to other game objects
     for (auto &obj: map.objects) {
@@ -117,8 +103,28 @@ void trippin::Level::initEngine() {
                     *soundManager,
                     *camera,
                     sceneBuilder);
+            gogginRenderer = std::make_unique<GogginRenderer>(*goggin);
             break;
         }
+    }
+
+    // add goggin first since centered camera is required for proper positioning
+    // in particular, the first frame of the level will be badly skewed with no camera centering
+    engine.addListener(goggin.get());
+
+    if (!training) {
+        engine.addListener(&spirit);
+    }
+
+    for (auto &layer: map.layers) {
+        auto uptr = std::make_unique<Layer>(
+                *configuration,
+                *spriteManager,
+                layer,
+                *camera,
+                sceneBuilder);
+        engine.addListener(uptr.get());
+        objects.push_back(std::move(uptr));
     }
 
     for (auto &obj: map.objects) {
@@ -218,7 +224,9 @@ void trippin::Level::initEngine() {
     activation.setDeactivationProximity(configuration->deactivationProximity);
     activation.setGoggin(goggin.get());
 
-    engine.addListener(goggin.get());
+    // add separate goggin rendered last, to ensure goggin is laid over everything else
+    // this must be separate from main goggin object, which much update the camera first (not last)
+    engine.addListener(gogginRenderer.get());
     engine.add(goggin.get());
 
     engine.addListener(pointCloudManager.get());

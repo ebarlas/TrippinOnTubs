@@ -47,7 +47,8 @@ void trippin::Ground::afterTick(int engineTicks) {
 
     auto posNow = roundedPosition;
     auto frameNow = frame;
-    sceneBuilder.dispatch([this, posNow, frameNow]() {
-        sprite.renderEngine(posNow, frameNow, camera);
+    auto vp = camera.getViewport();
+    sceneBuilder.dispatch([this, posNow, frameNow, vp]() {
+        sprite.renderEngine(posNow, frameNow, vp);
     });
 }

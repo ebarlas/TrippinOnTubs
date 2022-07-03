@@ -67,8 +67,9 @@ void trippin::WingedTub::afterTick(int engineTicks) {
 
     if (!expired) {
         auto frameNow = frame;
-        sceneBuilder.dispatch([this, frameNow]() {
-            sprite.renderEngine(hitBox.corner(), frameNow, camera);
+        auto vp = camera.getViewport();
+        sceneBuilder.dispatch([this, frameNow, vp]() {
+            sprite.renderEngine(hitBox.corner(), frameNow, vp);
         });
     }
 }

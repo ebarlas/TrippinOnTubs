@@ -24,6 +24,22 @@ namespace trippin {
                     input |= BIT_DUCK_END;
                 return {tick, input};
             }
+
+            bool jumpCharge() const {
+                return input & BIT_JUMP_CHARGE;
+            }
+
+            bool jumpRelease() const {
+                return input & BIT_JUMP_RELEASE;
+            }
+
+            bool duckStart() const {
+                return input & BIT_DUCK_START;
+            }
+
+            bool duckEnd() const {
+                return input & BIT_DUCK_END;
+            }
         };
 
         std::string id;

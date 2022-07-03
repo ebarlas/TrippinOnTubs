@@ -127,8 +127,9 @@ void trippin::GameObject::drawSprite(int engineTicks) {
         drawHealthBar();
     }
 
-    sceneBuilder.dispatch([this, posNow, frameNow]() {
-        sprite.renderEngine(posNow, frameNow, camera);
+    auto vp = camera.getViewport();
+    sceneBuilder.dispatch([this, posNow, frameNow, vp]() {
+        sprite.renderEngine(posNow, frameNow, vp);
     });
 }
 

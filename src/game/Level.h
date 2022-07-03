@@ -7,6 +7,7 @@
 #include "Configuration.h"
 #include "Map.h"
 #include "Goggin.h"
+#include "GogginRenderer.h"
 #include "Spirit.h"
 #include "SpiritClock.h"
 #include "JumpMeter.h"
@@ -36,6 +37,7 @@ namespace trippin {
         const std::vector<GogginInputTick> *autoPlay{};
         std::unique_ptr<PointCloudManager> pointCloudManager;
         std::unique_ptr<Goggin> goggin;
+        std::unique_ptr<GogginRenderer> gogginRenderer;
         Spirit spirit;
         std::unique_ptr<SpiritClock> spiritClock;
         std::unique_ptr<JumpMeter> jumpMeter;

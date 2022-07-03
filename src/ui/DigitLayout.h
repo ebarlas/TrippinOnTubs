@@ -16,7 +16,7 @@ namespace trippin {
             auto y = right.y;
             forEachDigit(value, [&x, &y, &digits, camera](int digit) {
                 x -= digits.getEngineSize().x;
-                digits.renderEngine({x, y}, digit, *camera);
+                digits.renderEngine({x, y}, digit, camera->getViewport());
             });
         }
 

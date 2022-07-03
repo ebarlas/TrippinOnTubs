@@ -122,6 +122,7 @@ add_library(Game
         game/Ground.cpp
         game/WingedTub.cpp
         game/Goggin.cpp
+        game/GogginRenderer.cpp
         game/JumpMeter.cpp
         game/LifeMeter.cpp
         game/ScoreTicker.cpp

@@ -243,14 +243,18 @@ void trippin::Goggin::afterTick(int engineTicks) {
         expired = true;
     }
 
-    auto cameraPos = centerCamera();
+    cameraPos = centerCamera();
+}
 
+void trippin::Goggin::render() {
     drawDust();
     drawDustBlast();
 
+    auto pos = cameraPos;
     auto frameNow = frames.frame;
-    sceneBuilder.dispatch([this, cameraPos, frameNow]() {
-        sprite.renderEngine(cameraPos, frameNow, camera);
+    auto vp = camera.getViewport();
+    sceneBuilder.dispatch([this, pos, frameNow, vp]() {
+        sprite.renderEngine(pos, frameNow, vp);
     });
 }
 
@@ -460,24 +464,26 @@ trippin::Point<int> trippin::Goggin::centerCamera() {
 }
 
 void trippin::Goggin::drawDust() {
+    auto vp = camera.getViewport();
     for (auto &d: frames.dusts) {
         if (d.frame < dust.getFrames()) {
             auto dustPos = d.position;
             auto dustFrame = d.frame;
-            sceneBuilder.dispatch([this, dustPos, dustFrame]() {
-                dust.renderEngine(dustPos, dustFrame, camera);
+            sceneBuilder.dispatch([this, dustPos, dustFrame, vp]() {
+                dust.renderEngine(dustPos, dustFrame, vp);
             });
         }
     }
 }
 
 void trippin::Goggin::drawDustBlast() {
+    auto vp = camera.getViewport();
     if (frames.blast.frame < dustBlast.getFrames()) {
         auto dustSprite = frames.blast.white ? &whiteDustBlast : &dustBlast;
         auto dustPos = frames.blast.position;
         auto dustFrame = frames.blast.frame;
-        sceneBuilder.dispatch([this, dustSprite, dustPos, dustFrame]() {
-            dustSprite->renderEngine(dustPos, dustFrame, camera);
+        sceneBuilder.dispatch([dustSprite, dustPos, dustFrame, vp]() {
+            dustSprite->renderEngine(dustPos, dustFrame, vp);
         });
     }
 }
