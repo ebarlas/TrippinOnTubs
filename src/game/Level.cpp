@@ -264,7 +264,7 @@ void trippin::Level::onInput(GogginInput input, bool replay) {
     if (replay) {
         if (input.jumpCharge || input.duckStart) {
             engine.setTickRate(configuration->tickRate * configuration->fastReplayFactor);
-        } else {
+        } else if (input.jumpRelease || input.duckEnd) {
             engine.setTickRate(configuration->tickRate);
         }
     }
