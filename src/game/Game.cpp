@@ -199,7 +199,7 @@ void trippin::Game::renderLoop() {
 
         auto gogginInput = event.asGogginInput();
         if (gogginInput) {
-            level->onInput(gogginInput);
+            level->onInput(gogginInput, state == State::REPLAY);
         }
 
         if (!renderClock.isPaused() && (event.pKeyDown || event.focusLost)) {

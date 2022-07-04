@@ -259,8 +259,15 @@ void trippin::Level::init() {
     initEngine();
 }
 
-void trippin::Level::onInput(GogginInput input) {
+void trippin::Level::onInput(GogginInput input, bool replay) {
     goggin->onUserInput(input);
+    if (replay) {
+        if (input.jumpCharge || input.duckStart) {
+            engine.setTickRate(configuration->tickRate * configuration->fastReplayFactor);
+        } else {
+            engine.setTickRate(configuration->tickRate);
+        }
+    }
 }
 
 void trippin::Level::render() {

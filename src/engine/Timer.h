@@ -17,7 +17,7 @@ namespace trippin {
     private:
         // Function to run on each second transition
         // Useful for logging diagnostics at a fixed schedule
-        const std::function<void(int)> oncePerSecFn;
+        std::function<void(int)> oncePerSecFn;
 
         // The total number of ticks elapsed
         int totalTicks;

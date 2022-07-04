@@ -212,6 +212,9 @@ void trippin::Engine::runEngineLoop() {
             ticks++;
         }
         clock.next();
+        if (tickRate != clock.getTickRate()) {
+            clock.updateTickRate(tickRate);
+        }
     }
     SDL_Log("stopping engine");
 }

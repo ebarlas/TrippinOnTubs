@@ -62,6 +62,7 @@ namespace trippin {
         int shakeHertz;
         int shakeAmplitude;
         int meterMargin;
+        int fastReplayFactor;
         Point<int> healthBarSize;
         std::vector<std::string> maps;
         std::string loadMap;

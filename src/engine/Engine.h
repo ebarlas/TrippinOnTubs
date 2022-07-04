@@ -55,7 +55,7 @@ namespace trippin {
         std::function<void(Object &, Object &, const Sides &)> objectCollision = onInelasticCollisionDefault;
 
         std::thread thread;
-        int tickRate;
+        std::atomic_int tickRate;
         std::atomic_bool paused{};
         std::atomic_bool stopped{};
         std::atomic_int ticks{};

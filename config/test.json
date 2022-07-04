@@ -16,6 +16,7 @@
   "shakeHertz": 60,
   "shakeAmplitude": 11,
   "meterMargin": 6,
+  "fastReplayFactor": 5,
   "loadMap": "loading",
   "trainMap": "training",
   "loadAutoPlay": "test",

@@ -2,9 +2,14 @@
 #include "SDL.h"
 #include "Clock.h"
 
+static void logTps(int tps) {
+    SDL_Log("timer=engine, tps=%d", tps);
+}
+
 trippin::Clock::Clock(int tickRate) :
-        tickPeriod(std::chrono::microseconds{1'000'000 / tickRate}),
-        timer([](int tps) { SDL_Log("timer=engine, tps=%d", tps); }) {
+        tickRate(tickRate),
+        tickPeriod(tickRateToTickPeriod(tickRate)),
+        timer(logTps) {
 }
 
 void trippin::Clock::next() {
@@ -18,5 +23,20 @@ void trippin::Clock::next() {
 }
 
 int trippin::Clock::getTicks() const {
-    return timer.getTotalTicks();
+    return priorTicks + timer.getTotalTicks();
+}
+
+void trippin::Clock::updateTickRate(int tr) {
+    tickRate = tr;
+    tickPeriod = tickRateToTickPeriod(tr);
+    priorTicks += timer.getTotalTicks();
+    timer = Timer{logTps};
+}
+
+std::chrono::microseconds trippin::Clock::tickRateToTickPeriod(int tickRate) {
+    return std::chrono::microseconds{1'000'000 / tickRate};
+}
+
+int trippin::Clock::getTickRate() const {
+    return tickRate;
 }
