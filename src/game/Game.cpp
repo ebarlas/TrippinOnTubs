@@ -111,14 +111,15 @@ void trippin::Game::initLevel() {
 }
 
 void trippin::Game::initOverlays() {
-    TitleOverlay::Options titleOptions{-0.25, 3'000};
+    auto scrollPixelsPerMs = -configuration.scrollPixelsPerSecond / 1'000.0;
+    TitleOverlay::Options titleOptions{scrollPixelsPerMs, 3'000};
     titleOverlay = std::make_unique<TitleOverlay>(rendererSize, titleOptions, *spriteManager, renderClock);
     titleMenu = std::make_unique<TitleMenu>(rendererSize, *spriteManager, renderClock);
     endMenu = std::make_unique<EndMenu>(rendererSize, *spriteManager, renderClock);
     nameForm = std::make_unique<NameForm>(rendererSize, *spriteManager);
     scoreMenu = std::make_unique<ScoreMenu>(rendererSize, *spriteManager, renderClock);
-    topScoreBoard = std::make_unique<ScrollingScoreBoard>(rendererSize, -0.25, *spriteManager, renderClock);
-    todayScoreBoard = std::make_unique<ScrollingScoreBoard>(rendererSize, -0.25, *spriteManager, renderClock);
+    topScoreBoard = std::make_unique<ScrollingScoreBoard>(rendererSize, scrollPixelsPerMs, *spriteManager, renderClock);
+    todayScoreBoard = std::make_unique<ScrollingScoreBoard>(rendererSize, scrollPixelsPerMs, *spriteManager, renderClock);
     levelOverlay = std::make_unique<LevelOverlay>(rendererSize, *spriteManager, renderClock);
 }
 

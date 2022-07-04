@@ -32,6 +32,7 @@ void trippin::Configuration::rescale(const trippin::Scale &sc) {
     auto df = sc.getDeviceFactor();
     healthBarSize *= df;
     meterMargin *= df;
+    scrollPixelsPerSecond *= df;
 
     auto ef = sc.getEngineFactor();
     shakeAmplitude *= ef;
@@ -110,6 +111,7 @@ void trippin::from_json(const nlohmann::json &j, Configuration &config) {
     j.at("shakeAmplitude").get_to(config.shakeAmplitude);
     j.at("meterMargin").get_to(config.meterMargin);
     j.at("fastReplayFactor").get_to(config.fastReplayFactor);
+    j.at("scrollPixelsPerSecond").get_to(config.scrollPixelsPerSecond);
     j.at("healthBarSize").at("x").get_to(config.healthBarSize.x);
     j.at("healthBarSize").at("y").get_to(config.healthBarSize.y);
     j.at("maps").get_to(config.maps);

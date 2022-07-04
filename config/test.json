@@ -17,6 +17,7 @@
   "shakeAmplitude": 11,
   "meterMargin": 6,
   "fastReplayFactor": 5,
+  "scrollPixelsPerSecond": 40,
   "loadMap": "loading",
   "trainMap": "training",
   "loadAutoPlay": "test",
