@@ -45,6 +45,7 @@ sprites = [
     'charged_duck_jump',
     'double_jump',
     'high_score',
+    'high_score_title',
     'save_score',
     'exit',
     'all_time',

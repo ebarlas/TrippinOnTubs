@@ -25,7 +25,10 @@ namespace trippin {
         const RenderClock &renderClock;
         const double scrollRate;
         std::chrono::milliseconds startTime{};
-        Point<int> renderPosition() const;
+        const Sprite &highScoreTitle;
+        Point<int> titleRenderPosition() const;
+        Point<int> boardRenderPosition() const;
+        int titleHeight() const;
     };
 }
 
