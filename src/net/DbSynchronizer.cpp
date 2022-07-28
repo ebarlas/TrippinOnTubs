@@ -15,7 +15,9 @@ static void runSyncLoop(Transport transport, std::weak_ptr<StagingArea> stagingA
             items = takeFn(sa);
         }
         for (auto &item: items) {
-            addFn(transport, item);
+            while (!addFn(transport, item)) { // process head-of-line before proceeding
+                std::this_thread::sleep_for(std::chrono::seconds(5));
+            }
         }
         std::this_thread::sleep_for(std::chrono::seconds(5));
     }
@@ -34,6 +36,7 @@ static void runAddScoresLoop(Transport transport, std::weak_ptr<StagingArea> sta
         } else {
             SDL_Log("failed to add score, id=%s, game=%d, name=%s, score=%d", s.id.c_str(), s.game, s.name.c_str(), s.score);
         }
+        return success;
     };
     runSyncLoop<Score>(std::move(transport), std::move(stagingArea), takeFn, addFn);
 }
@@ -47,10 +50,11 @@ static void runAddLogEventsLoop(Transport transport, std::weak_ptr<StagingArea> 
     auto addFn = [](const Transport &t, const LogEvent &e) {
         auto success = t.addLogEvent(e);
         if (success) {
-            SDL_Log("added log events, message=%s", e.message.c_str());
+            SDL_Log("added log event, message=%s", e.message.c_str());
         } else {
-            SDL_Log("failed to add log events, message=%s", e.message.c_str());
+            SDL_Log("failed to add log event, message=%s", e.message.c_str());
         }
+        return success;
     };
     runSyncLoop<LogEvent>(std::move(transport), std::move(stagingArea), takeFn, addFn);
 }
