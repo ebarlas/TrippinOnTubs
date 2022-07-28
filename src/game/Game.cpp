@@ -121,6 +121,7 @@ void trippin::Game::initOverlays() {
     topScoreBoard = std::make_unique<ScrollingScoreBoard>(rendererSize, scrollPixelsPerMs, *spriteManager, renderClock);
     todayScoreBoard = std::make_unique<ScrollingScoreBoard>(rendererSize, scrollPixelsPerMs, *spriteManager, renderClock);
     levelOverlay = std::make_unique<LevelOverlay>(rendererSize, *spriteManager, renderClock);
+    exitOverlay = std::make_unique<ExitOverlay>(rendererSize, configuration.meterMargin, *spriteManager, renderClock);
 }
 
 void trippin::Game::initClock() {
@@ -309,6 +310,8 @@ void trippin::Game::render() {
         endMenu->render();
     } else if (state == State::NAME_FORM) {
         nameForm->render();
+    } else if (state == State::REPLAY) {
+        exitOverlay->render();
     }
 
     SDL_RenderPresent(sdlSystem->getRenderer());
@@ -381,6 +384,7 @@ void trippin::Game::handle(UserInput::Event &event) {
                 levelIndex = 0;
                 score = 0;
                 state = State::REPLAY;
+                exitOverlay->reset();
                 advanceLevel();
                 logStateChange("ALL_TIME_SCORES", "REPLAY");
             } else {
@@ -401,6 +405,11 @@ void trippin::Game::handle(UserInput::Event &event) {
             state = State::START_MENU;
             logStateChange("REPLAY", "START_MENU");
         };
+        if (event.anythingPressed()) {
+            if (exitOverlay->exitClicked(event.touchPoint)) {
+                endFn();
+            }
+        }
         if (level->ended()) {
             score = level->getScore(); // capture score to carry into next level
             if (level->completed()) {
