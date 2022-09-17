@@ -167,7 +167,7 @@ void trippin::Level::initEngine() {
             engine.addListener(runningClock.get());
             objects.push_back(std::move(runningClock));
         } else if (obj.type == "zombie" || obj.type == "rat" || obj.type == "bird" || obj.type == "ball" ||
-                   obj.type == "brick") {
+                   obj.type == "brick" || obj.type == "chicken") {
             auto gameObject = std::make_unique<GameObject>(
                     *configuration,
                     *configuration->findObject(obj.type),

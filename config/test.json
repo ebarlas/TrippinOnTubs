@@ -164,7 +164,24 @@
       "gravity": 281,
       "fallGravity": 422,
       "runningAcceleration": -42,
-      "lane": 2,
+      "hitPoints": 3,
+      "accelerateWhenGrounded": true
+    },
+    {
+      "type": "chicken",
+      "platform": false,
+      "velocity": {
+        "x": -14,
+        "y": 0
+      },
+      "terminalVelocity": {
+        "x": 37,
+        "y": 316
+      },
+      "massFactor": 0.5,
+      "gravity": 281,
+      "fallGravity": 422,
+      "runningAcceleration": -42,
       "hitPoints": 3,
       "accelerateWhenGrounded": true
     },
