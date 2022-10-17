@@ -5,6 +5,7 @@
 #include "Activation.h"
 #include "ScoreTicker.h"
 #include "SceneBuilder.h"
+#include "GroupManager.h"
 
 namespace trippin {
     class GameObject : public SpriteObject {
@@ -19,7 +20,9 @@ namespace trippin {
                 ScoreTicker &scoreTicker,
                 SoundManager &soundManager,
                 const Camera &camera,
-                SceneBuilder &sceneBuilder);
+                SceneBuilder &sceneBuilder,
+                GroupManager &groupManager,
+                const Sprite &sparkleSprite);
         void beforeTick(int engineTicks) override;
         void afterTick(int engineTicks) override;
     private:
@@ -30,6 +33,8 @@ namespace trippin {
         ScoreTicker &scoreTicker;
         SceneBuilder &sceneBuilder;
         const Camera &camera;
+        GroupManager &groupManager;
+        const Sprite &sparkleSprite;
 
         Mix_Chunk *const stompSound;
         const int collisionDuration;
@@ -41,11 +46,10 @@ namespace trippin {
         bool stomped;
         int hitPoints;
         int collisionTicks;
+        int sparkleFrame;
 
-        void advanceFrame(int engineTicks);
         void drawSprite(int engineTicks);
         void drawHealthBar();
-        static Point<int> scaleHealthBar(Point<int> healthBarSize, const Sprite &sprite);
     };
 }
 

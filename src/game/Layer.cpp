@@ -31,9 +31,7 @@ void trippin::Layer::updateStaticObject(const Rect<int> &viewport, const Layer::
 
 void trippin::Layer::updateAnimatedObject(const Rect<int> &viewport, Layer::Object &obj, int engineTicks) const {
     obj.x += obj.velocityX;
-    if (engineTicks % obj.sprite->getFramePeriodTicks() == 0) {
-        obj.frame = (obj.frame + 1) % obj.sprite->getFrames();
-    }
+    obj.sprite->advanceFrame(engineTicks, obj.frame);
 
     Point<int> target = {static_cast<int>(obj.x) + obj.position.x - viewport.x, obj.position.y - viewport.y};
     target /= obj.sprite->getScale().getDeviceEngineFactor();

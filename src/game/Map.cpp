@@ -45,6 +45,8 @@ void trippin::from_json(const nlohmann::json &j, Map::Object &obj) {
     j.at("position").get_to(obj.position);
     if (j.contains("lane"))
         j.at("lane").get_to(obj.lane);
+    if (j.contains("group"))
+        j.at("group").get_to(obj.group);
     if (j.contains("sparkle"))
         j.at("sparkle").get_to(obj.sparkle);
     if (j.contains("activation"))

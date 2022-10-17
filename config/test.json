@@ -165,7 +165,8 @@
       "fallGravity": 422,
       "runningAcceleration": -42,
       "hitPoints": 3,
-      "accelerateWhenGrounded": true
+      "accelerateWhenGrounded": true,
+      "randFrame": true
     },
     {
       "type": "chicken",
@@ -183,7 +184,8 @@
       "fallGravity": 422,
       "runningAcceleration": -42,
       "hitPoints": 3,
-      "accelerateWhenGrounded": true
+      "accelerateWhenGrounded": true,
+      "randFrame": true
     },
     {
       "type": "running_clock",

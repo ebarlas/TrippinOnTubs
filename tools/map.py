@@ -13,7 +13,7 @@ def extract_from_xml(node, name, target, fn):
 
 def find_objects(root):
     objects = []
-    ints = ['lane', 'activation']
+    ints = ['lane', 'group', 'activation']
     bools = ['sparkle']
     id_counter = 1
     # an object is an image within a group that does not have attribute type='layer'

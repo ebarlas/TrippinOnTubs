@@ -19,6 +19,7 @@
 #include "TrainingProgram.h"
 #include "SceneBuilder.h"
 #include "sprite/RenderClock.h"
+#include "GroupManager.h"
 
 namespace trippin {
     class Level : public Listener {
@@ -50,6 +51,7 @@ namespace trippin {
         const RenderClock *renderClock;
         SceneBuilder sceneBuilder;
         std::unique_ptr<ComboManager> comboManager;
+        GroupManager groupManager;
         void initMap();
         void initCamera();
         void initEngine();

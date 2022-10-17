@@ -12,7 +12,9 @@ trippin::GameObject::GameObject(
         ScoreTicker &scoreTicker,
         SoundManager &soundManager,
         const Camera &camera,
-        SceneBuilder &sceneBuilder) :
+        SceneBuilder &sceneBuilder,
+        GroupManager &groupManager,
+        const Sprite &sparkleSprite) :
         SpriteObject(configObject, object, sprite),
         object(object),
         configObject(configObject),
@@ -21,6 +23,8 @@ trippin::GameObject::GameObject(
         scoreTicker(scoreTicker),
         sceneBuilder(sceneBuilder),
         camera(camera),
+        groupManager(groupManager),
+        sparkleSprite(sparkleSprite),
         stompSound(soundManager.getEffect("chime0")),
         collisionDuration(static_cast<const int>(config.ticksPerSecond() * 0.4)),
         coolDownTicks(static_cast<const int>(config.ticksPerSecond() * 0.15)),
@@ -32,6 +36,7 @@ trippin::GameObject::GameObject(
     }
     stomped = false;
     frame = configObject.randFrame ? Random<>{}.next() % sprite.getFrames() / 2 : 0;
+    sparkleFrame = Random<>{}.next() % sparkleSprite.getFrames();
     collisionTicks = 0;
     if (configObject.coefficient > 0) {
         auto coefficient = configObject.coefficient;
@@ -74,15 +79,19 @@ void trippin::GameObject::afterTick(int engineTicks) {
         return;
     }
 
+    if (object.group) {
+        sparkleSprite.advanceFrame(engineTicks, sparkleFrame);
+    }
+
     if (configObject.accelerateWhenGrounded) {
         if (platformCollisions.testBottom() || objectCollisions.testBottom()) {
             acceleration.x = configObject.runningAcceleration;
-            advanceFrame(engineTicks);
+            sprite.advanceFrame(engineTicks, frame, true);
         } else {
             acceleration.x = 0;
         }
     } else {
-        advanceFrame(engineTicks);
+        sprite.advanceFrame(engineTicks, frame, true);
     }
 
     if (!stomped && (engineTicks >= collisionTicks + coolDownTicks)) {
@@ -105,16 +114,16 @@ void trippin::GameObject::afterTick(int engineTicks) {
             velocity.x = 0;
             scoreTicker.add(configObject.hitPoints * 25);
             goggin.addPointCloud(configObject.hitPoints * 25, engineTicks, true);
+            if (object.group) {
+                groupManager.remove(object.group, id);
+                if (groupManager.empty(object.group)) {
+                    goggin.addPointCloud(groupManager.size(object.group) * 25, engineTicks);
+                }
+            }
         }
     }
 
     drawSprite(engineTicks);
-}
-
-void trippin::GameObject::advanceFrame(int engineTicks) {
-    if (engineTicks % sprite.getFramePeriodTicks() == 0) {
-        frame = (frame + 1) % (sprite.getFrames() / 2);
-    }
 }
 
 void trippin::GameObject::drawSprite(int engineTicks) {
@@ -131,6 +140,19 @@ void trippin::GameObject::drawSprite(int engineTicks) {
     sceneBuilder.dispatch([this, posNow, frameNow, vp]() {
         sprite.renderEngine(posNow, frameNow, vp);
     });
+
+    if (object.group && !stomped) {
+        auto [_x, _y, width, height] = sparkleSprite.getEngineHitBox();
+        auto widthDiff = size.x - width;
+        auto x = roundedPosition.x + widthDiff / 2;
+        auto y = roundedPosition.y - height;
+        auto sparklePos = Point<int>{x, y};
+        auto rescale = 0.25 + (1.0 - groupManager.remaining(object.group)) * 0.75;
+        auto fr = sparkleFrame;
+        sceneBuilder.dispatch([this, sparklePos, fr, rescale, vp]() {
+            sparkleSprite.renderEngine(sparklePos, fr, vp, rescale);
+        });
+    }
 }
 
 void trippin::GameObject::drawHealthBar() {

@@ -9,6 +9,7 @@ namespace trippin {
         struct Object {
             int id{};
             int lane{};
+            int group{};
             std::string type;
             Point<int> position;
             bool sparkle{};

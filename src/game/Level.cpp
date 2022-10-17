@@ -178,10 +178,15 @@ void trippin::Level::initEngine() {
                     *scoreTicker,
                     *soundManager,
                     *camera,
-                    sceneBuilder);
+                    sceneBuilder,
+                    groupManager,
+                    spriteManager->get("sparkle"));
             engine.add(gameObject.get());
             engine.addListener(gameObject.get());
             objects.push_back(std::move(gameObject));
+            if (obj.group) {
+                groupManager.add(obj.group, obj.id);
+            }
         }
     }
 
