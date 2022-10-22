@@ -14,7 +14,7 @@ trippin::GameObject::GameObject(
         const Camera &camera,
         SceneBuilder &sceneBuilder,
         GroupManager &groupManager,
-        const Sprite &sparkleSprite) :
+        const Sprite &haloSprite) :
         SpriteObject(configObject, object, sprite),
         object(object),
         configObject(configObject),
@@ -24,7 +24,7 @@ trippin::GameObject::GameObject(
         sceneBuilder(sceneBuilder),
         camera(camera),
         groupManager(groupManager),
-        sparkleSprite(sparkleSprite),
+        haloSprite(haloSprite),
         stompSound(soundManager.getEffect("chime0")),
         collisionDuration(static_cast<const int>(config.ticksPerSecond() * 0.4)),
         coolDownTicks(static_cast<const int>(config.ticksPerSecond() * 0.15)),
@@ -36,7 +36,7 @@ trippin::GameObject::GameObject(
     }
     stomped = false;
     frame = configObject.randFrame ? Random<>{}.next() % sprite.getFrames() / 2 : 0;
-    sparkleFrame = Random<>{}.next() % sparkleSprite.getFrames();
+    haloFrame = Random<>{}.next() % haloSprite.getFrames();
     collisionTicks = 0;
     if (configObject.coefficient > 0) {
         auto coefficient = configObject.coefficient;
@@ -80,7 +80,7 @@ void trippin::GameObject::afterTick(int engineTicks) {
     }
 
     if (object.group) {
-        sparkleSprite.advanceFrame(engineTicks, sparkleFrame);
+        haloSprite.advanceFrame(engineTicks, haloFrame);
     }
 
     if (configObject.accelerateWhenGrounded) {
@@ -142,15 +142,15 @@ void trippin::GameObject::drawSprite(int engineTicks) {
     });
 
     if (object.group && !stomped) {
-        auto [_x, _y, width, height] = sparkleSprite.getEngineHitBox();
+        auto [_x, _y, width, height] = haloSprite.getEngineHitBox();
         auto widthDiff = size.x - width;
         auto x = roundedPosition.x + widthDiff / 2;
         auto y = roundedPosition.y - height;
-        auto sparklePos = Point<int>{x, y};
-        auto rescale = 0.25 + (1.0 - groupManager.remaining(object.group)) * 0.75;
-        auto fr = sparkleFrame;
-        sceneBuilder.dispatch([this, sparklePos, fr, rescale, vp]() {
-            sparkleSprite.renderEngine(sparklePos, fr, vp, rescale);
+        auto haloPos = Point<int>{x, y};
+        auto rescale = 0.4 + (1.0 - groupManager.remaining(object.group)) * 0.6;
+        auto fr = haloFrame;
+        sceneBuilder.dispatch([this, haloPos, fr, rescale, vp]() {
+            haloSprite.renderEngine(haloPos, fr, vp, rescale);
         });
     }
 }

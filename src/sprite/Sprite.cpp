@@ -28,7 +28,7 @@ void trippin::Sprite::renderDevice(trippin::Point<int> position, int frame, doub
     auto w = static_cast<int>(deviceSize.x * rescale);
     auto h = static_cast<int>(deviceSize.y * rescale);
     auto x = position.x + (deviceSize.x - w) / 2;
-    auto y = position.y + (deviceSize.y - h) / 2;
+    auto y = position.y + (deviceSize.y - h);
     SDL_Rect target{x, y, w, h};
     sheet.render(&clip, &target);
 }

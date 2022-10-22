@@ -180,7 +180,7 @@ void trippin::Level::initEngine() {
                     *camera,
                     sceneBuilder,
                     groupManager,
-                    spriteManager->get("sparkle"));
+                    spriteManager->get("flame"));
             engine.add(gameObject.get());
             engine.addListener(gameObject.get());
             objects.push_back(std::move(gameObject));
