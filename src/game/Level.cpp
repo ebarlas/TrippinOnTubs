@@ -83,10 +83,9 @@ void trippin::Level::initEngine() {
     for (auto &obj: map.objects) {
         if (obj.type == "goggin") {
             auto gogginHb = spriteManager->get("goggin").getEngineHitBox();
-            auto gogginSize = Point<int>{gogginHb.w, gogginHb.h};
             pointCloudManager = std::make_unique<PointCloudManager>(
-                    gogginSize * 2,
-                    gogginSize * 6,
+                    Point<int>{gogginHb.w * 2, gogginHb.h},
+                    Point<int>{gogginHb.w * 6, gogginHb.h * 2},
                     configuration->ticksPerSecond() * 2,
                     spriteManager->get("digits"),
                     sceneBuilder,
