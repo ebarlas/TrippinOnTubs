@@ -105,6 +105,7 @@ void trippin::Game::initAutoPlay() {
 }
 
 void trippin::Game::initLevel() {
+    state = State::TITLE;
     levelIndex = 0;
     level = nextLevel();
     spriteLoadTask->start();
@@ -185,8 +186,6 @@ void trippin::Game::start() {
 }
 
 void trippin::Game::renderLoop() {
-    state = State::TITLE;
-
     UserInput ui(rendererSize);
     while (state != State::EXIT) {
         auto event = ui.pollEvent();
@@ -395,9 +394,21 @@ void trippin::Game::handle(UserInput::Event &event) {
         }
     } else if (state == State::TODAY_SCORES) {
         if (event.anythingPressed()) {
-            titleMenu->reset();
-            state = State::START_MENU;
-            logStateChange("TODAY_SCORES", "START_MENU");
+            auto scoreClicked = todayScoreBoard->onClick(event.touchPoint);
+            if (scoreClicked) {
+                replayScore = *scoreClicked;
+                replayOffset = 0;
+                levelIndex = 0;
+                score = 0;
+                state = State::REPLAY;
+                exitOverlay->reset();
+                advanceLevel();
+                logStateChange("TODAY_SCORES", "REPLAY");
+            } else {
+                titleMenu->reset();
+                state = State::START_MENU;
+                logStateChange("TODAY_SCORES", "START_MENU");
+            }
         }
     } else if (state == State::REPLAY) {
         auto endFn = [this] {
