@@ -16,6 +16,7 @@
 #include "GogginInput.h"
 #include "LifeMeter.h"
 #include "ComboManager.h"
+#include "NotificationManager.h"
 #include "TrainingProgram.h"
 #include "SceneBuilder.h"
 #include "sprite/RenderClock.h"
@@ -51,6 +52,7 @@ namespace trippin {
         const RenderClock *renderClock;
         SceneBuilder sceneBuilder;
         std::unique_ptr<ComboManager> comboManager;
+        std::unique_ptr<NotificationManager> comboNotificationManager;
         GroupManager groupManager;
         void initMap();
         void initCamera();

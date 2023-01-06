@@ -8,6 +8,7 @@
 #include "SDL_mixer.h"
 #include "engine/Object.h"
 #include "sprite/Sprite.h"
+#include "sprite/SpriteManager.h"
 #include "SpriteObject.h"
 #include "SoundManager.h"
 #include "GogginInput.h"

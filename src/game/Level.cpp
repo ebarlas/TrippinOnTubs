@@ -71,13 +71,16 @@ void trippin::Level::initEngine() {
             Rect<int>{0, 0, windowSize.x, windowSize.y},
             sceneBuilder);
 
-    comboManager = std::make_unique<ComboManager>(
-            *spriteManager,
-            configuration->minComboHits,
+    comboNotificationManager = std::make_unique<NotificationManager>(
+            spriteManager->get("combo"),
+            spriteManager->get("digits"),
             configuration->msPerTick(),
-            windowSize,
+            windowSize.x,
+            windowSize.y / 4,
             configuration->meterMargin,
             sceneBuilder);
+
+    comboManager = std::make_unique<ComboManager>(*comboNotificationManager, configuration->minComboHits);
 
     // define goggin object prior to other game objects
     for (auto &obj: map.objects) {
@@ -239,7 +242,7 @@ void trippin::Level::initEngine() {
         engine.addListener(scoreTicker.get());
     }
 
-    engine.addListener(comboManager.get());
+    engine.addListener(comboNotificationManager.get());
 
     if (training) {
         trainingProgram = std::make_unique<TrainingProgram>(
