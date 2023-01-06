@@ -73,7 +73,7 @@ void trippin::Level::initEngine() {
 
     comboManager = std::make_unique<ComboManager>(
             *spriteManager,
-            *scoreTicker,
+            configuration->minComboHits,
             configuration->msPerTick(),
             windowSize,
             configuration->meterMargin,

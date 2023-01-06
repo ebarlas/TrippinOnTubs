@@ -207,7 +207,10 @@ void trippin::Goggin::afterTick(int engineTicks) {
 
     grounded = platformCollisions.testBottom();
     if (grounded) {
-        comboManager.reset();
+        int hits = comboManager.reset();
+        if (hits) {
+            addPointCloud(hits * 10, engineTicks);
+        }
     }
 
     // test for creation of new dust cloud

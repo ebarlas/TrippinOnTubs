@@ -18,6 +18,7 @@
   "meterMargin": 6,
   "fastReplayFactor": 5,
   "scrollPixelsPerSecond": 40,
+  "minComboHits": 3,
   "loadMap": "loading",
   "trainMap": "training",
   "loadAutoPlay": "test",

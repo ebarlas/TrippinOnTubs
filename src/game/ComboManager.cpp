@@ -4,12 +4,12 @@
 
 trippin::ComboManager::ComboManager(
         SpriteManager &spriteManager,
-        ScoreTicker &scoreTicker,
+        int minComboHits,
         double msPerTick,
         Point<int> windowSize,
         int margin,
         SceneBuilder &sceneBuilder) :
-        scoreTicker(scoreTicker),
+        minComboHits(minComboHits),
         msPerTick(msPerTick),
         windowSize(windowSize),
         margin(margin),
@@ -19,13 +19,15 @@ trippin::ComboManager::ComboManager(
 
 }
 
-void trippin::ComboManager::reset() {
-    if (hits >= 3) {
-        scoreTicker.add(10 * hits);
+int trippin::ComboManager::reset() {
+    int result = 0;
+    if (hits >= minComboHits) {
+        result = hits;
         displays[nextDisplayPos] = {hits, 0};
         nextDisplayPos = (nextDisplayPos + 1) % 3;
     }
     hits = 0;
+    return result;
 }
 
 void trippin::ComboManager::recordHit() {

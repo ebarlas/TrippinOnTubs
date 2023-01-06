@@ -13,12 +13,12 @@ namespace trippin {
     public:
         ComboManager(
                 SpriteManager &spriteManager,
-                ScoreTicker &scoreTicker,
+                int minComboHits,
                 double msPerTick,
                 Point<int> windowSize,
                 int margin,
                 SceneBuilder &sceneBuilder);
-        void reset();
+        int reset();
         void recordHit();
         void afterTick(int engineTicks) override;
     private:
@@ -30,7 +30,7 @@ namespace trippin {
         static const int DURATION_SLIDE = 1'000;
         static const int DURATION_PAUSE = 2'000;
 
-        ScoreTicker &scoreTicker;
+        const int minComboHits;
         const double msPerTick;
         const Point<int> windowSize;
         const int margin;

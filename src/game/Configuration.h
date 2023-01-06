@@ -64,6 +64,7 @@ namespace trippin {
         int meterMargin;
         int fastReplayFactor;
         int scrollPixelsPerSecond;
+        int minComboHits;
         Point<int> healthBarSize;
         std::vector<std::string> maps;
         std::string loadMap;
