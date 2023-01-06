@@ -147,10 +147,9 @@ void trippin::GameObject::drawSprite(int engineTicks) {
         auto x = roundedPosition.x + widthDiff / 2;
         auto y = roundedPosition.y - height;
         auto haloPos = Point<int>{x, y};
-        auto rescale = 0.4 + (1.0 - groupManager.remaining(object.group)) * 0.6;
         auto fr = haloFrame;
-        sceneBuilder.dispatch([this, haloPos, fr, rescale, vp]() {
-            haloSprite.renderEngine(haloPos, fr, vp, rescale);
+        sceneBuilder.dispatch([this, haloPos, fr, vp]() {
+            haloSprite.renderEngine(haloPos, fr, vp);
         });
     }
 }

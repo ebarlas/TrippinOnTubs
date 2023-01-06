@@ -11,8 +11,8 @@ namespace trippin {
     public:
         Sprite(SDL_Renderer *renderer, const std::string &name, const SpriteLoader &spriteLoader, double tickPeriod);
         Sprite(SDL_Renderer *renderer, const std::string &name, const Scale &scale, double  tickPeriod, SDL_Surface *sur);
-        void renderDevice(Point<int> position, int frame, double rescale=1) const;
-        void renderEngine(Point<int> hitBoxPos, int frame, const Rect<int> &viewport, double rescale=1) const;
+        void renderDevice(Point<int> position, int frame) const;
+        void renderEngine(Point<int> hitBoxPos, int frame, const Rect<int> &viewport) const;
         Point<int> getEngineSize() const;
         Point<int> getDeviceSize() const;
         Rect<int> getEngineHitBox() const;
