@@ -71,16 +71,28 @@ void trippin::Level::initEngine() {
             Rect<int>{0, 0, windowSize.x, windowSize.y},
             sceneBuilder);
 
+    auto &comboSprite = spriteManager->get("combo");
+    auto notificationsTop = windowSize.y / 4;
+
     comboNotificationManager = std::make_unique<NotificationManager>(
-            spriteManager->get("combo"),
+            comboSprite,
             spriteManager->get("digits"),
             configuration->msPerTick(),
             windowSize.x,
-            windowSize.y / 4,
+            notificationsTop,
             configuration->meterMargin,
             sceneBuilder);
 
     comboManager = std::make_unique<ComboManager>(*comboNotificationManager, configuration->minComboHits);
+
+    groupNotificationManager = std::make_unique<NotificationManager>(
+            spriteManager->get("group_bonus"),
+            spriteManager->get("digits"),
+            configuration->msPerTick(),
+            windowSize.x,
+            notificationsTop + comboSprite.getDeviceSize().y + configuration->meterMargin,
+            configuration->meterMargin,
+            sceneBuilder);
 
     // define goggin object prior to other game objects
     for (auto &obj: map.objects) {
@@ -182,7 +194,8 @@ void trippin::Level::initEngine() {
                     *camera,
                     sceneBuilder,
                     groupManager,
-                    spriteManager->get("flame"));
+                    spriteManager->get("flame"),
+                    *groupNotificationManager);
             engine.add(gameObject.get());
             engine.addListener(gameObject.get());
             objects.push_back(std::move(gameObject));
@@ -243,6 +256,7 @@ void trippin::Level::initEngine() {
     }
 
     engine.addListener(comboNotificationManager.get());
+    engine.addListener(groupNotificationManager.get());
 
     if (training) {
         trainingProgram = std::make_unique<TrainingProgram>(

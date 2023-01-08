@@ -14,7 +14,8 @@ trippin::GameObject::GameObject(
         const Camera &camera,
         SceneBuilder &sceneBuilder,
         GroupManager &groupManager,
-        const Sprite &haloSprite) :
+        const Sprite &haloSprite,
+        NotificationManager &groupNotificationManager) :
         SpriteObject(configObject, object, sprite),
         object(object),
         configObject(configObject),
@@ -25,6 +26,7 @@ trippin::GameObject::GameObject(
         camera(camera),
         groupManager(groupManager),
         haloSprite(haloSprite),
+        groupNotificationManager(groupNotificationManager),
         stompSound(soundManager.getEffect("chime0")),
         collisionDuration(static_cast<const int>(config.ticksPerSecond() * 0.4)),
         coolDownTicks(static_cast<const int>(config.ticksPerSecond() * 0.15)),
@@ -117,7 +119,9 @@ void trippin::GameObject::afterTick(int engineTicks) {
             if (object.group) {
                 groupManager.remove(object.group, id);
                 if (groupManager.empty(object.group)) {
-                    goggin.addPointCloud(groupManager.size(object.group) * 25, engineTicks);
+                    auto groupSize = groupManager.size(object.group);
+                    goggin.addPointCloud(groupSize * 25, engineTicks);
+                    groupNotificationManager.add(groupSize);
                 }
             }
         }

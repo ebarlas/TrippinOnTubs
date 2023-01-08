@@ -68,10 +68,11 @@ sprites = [
     'stop_controls',
     'charged_jump_controls',
     'charged_duck_jump_controls',
-    'jump_slam_down_controls'
+    'jump_slam_down_controls',
     'chicken',
     'sparkle',
-    'flame'
+    'flame',
+    'group_bonus'
 ]
 
 levels = ['loading', 'training', 'level1', 'level2']

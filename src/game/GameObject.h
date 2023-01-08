@@ -6,6 +6,7 @@
 #include "ScoreTicker.h"
 #include "SceneBuilder.h"
 #include "GroupManager.h"
+#include "NotificationManager.h"
 
 namespace trippin {
     class GameObject : public SpriteObject {
@@ -22,7 +23,8 @@ namespace trippin {
                 const Camera &camera,
                 SceneBuilder &sceneBuilder,
                 GroupManager &groupManager,
-                const Sprite &haloSprite);
+                const Sprite &haloSprite,
+                NotificationManager &groupNotificationManager);
         void beforeTick(int engineTicks) override;
         void afterTick(int engineTicks) override;
     private:
@@ -35,6 +37,7 @@ namespace trippin {
         const Camera &camera;
         GroupManager &groupManager;
         const Sprite &haloSprite;
+        NotificationManager &groupNotificationManager;
 
         Mix_Chunk *const stompSound;
         const int collisionDuration;

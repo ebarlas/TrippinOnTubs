@@ -53,6 +53,7 @@ namespace trippin {
         SceneBuilder sceneBuilder;
         std::unique_ptr<ComboManager> comboManager;
         std::unique_ptr<NotificationManager> comboNotificationManager;
+        std::unique_ptr<NotificationManager> groupNotificationManager;
         GroupManager groupManager;
         void initMap();
         void initCamera();
