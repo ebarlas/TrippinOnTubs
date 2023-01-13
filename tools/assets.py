@@ -72,7 +72,8 @@ sprites = [
     'chicken',
     'sparkle',
     'flame',
-    'group_bonus'
+    'group_bonus',
+    'petaluma_museum'
 ]
 
 levels = ['loading', 'training', 'level1', 'level2']
