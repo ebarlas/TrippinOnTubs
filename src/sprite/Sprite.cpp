@@ -36,7 +36,11 @@ void trippin::Sprite::renderEngine(trippin::Point<int> hitBoxPos, int frame, con
         renderDevice(target / scale.getDeviceEngineFactor(), frame);
         /*
         SDL_SetRenderDrawColor(ren, 0, 0, 255, 255);
-        SDL_Rect r{hitBoxPos.x - viewport.x, hitBoxPos.y - viewport.y, hitBox.w, hitBox.h};
+        SDL_Rect r{
+                (hitBoxPos.x - viewport.x) / scale.getDeviceEngineFactor(),
+                (hitBoxPos.y - viewport.y) / scale.getDeviceEngineFactor(),
+                engineHitBox.w / scale.getDeviceEngineFactor(),
+                engineHitBox.h / scale.getDeviceEngineFactor()};
         SDL_RenderDrawRect(ren, &r);
         */
     }
