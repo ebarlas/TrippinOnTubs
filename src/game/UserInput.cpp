@@ -69,8 +69,7 @@ trippin::UserInput::Event trippin::UserInput::pollEvent() {
         }
     };
 
-    // with VSYNC enabled, returns 0 at sync interval (for ex, 60 per sec)
-    if (events == 0) {
+    if (events == 0) { // if no events remain, proceed to render (which might delay with vsync enabled)
         result.render = true;
     } else if (e.type == SDL_QUIT) {
         result.quit = true;
