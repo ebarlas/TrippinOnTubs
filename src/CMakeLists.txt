@@ -141,6 +141,7 @@ add_library(Game
         game/ComboManager.cpp
         game/PointCloudManager.cpp
         game/NotificationManager.cpp
+        game/NotificationDrawer.cpp
         game/GroupManager.cpp
         game/SoundManager.cpp)
 target_link_libraries(Game Sprite Net Ui PkgConfig::SDL2_MIXER)

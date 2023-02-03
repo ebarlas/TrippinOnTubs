@@ -17,6 +17,7 @@
 #include "LifeMeter.h"
 #include "ComboManager.h"
 #include "NotificationManager.h"
+#include "NotificationDrawer.h"
 #include "TrainingProgram.h"
 #include "SceneBuilder.h"
 #include "sprite/RenderClock.h"
@@ -54,6 +55,7 @@ namespace trippin {
         std::unique_ptr<ComboManager> comboManager;
         std::unique_ptr<NotificationManager> comboNotificationManager;
         std::unique_ptr<NotificationManager> groupNotificationManager;
+        std::unique_ptr<NotificationDrawer> notificationDrawer;
         GroupManager groupManager;
         void initMap();
         void initCamera();
