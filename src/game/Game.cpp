@@ -189,7 +189,7 @@ void trippin::Game::renderLoop() {
     UserInput ui(rendererSize);
     while (state != State::EXIT) {
         auto event = ui.pollEvent();
-        if (!event) {
+        if (!event) { // events found in event queue, but none relevant, poll again
             continue;
         }
 
