@@ -13,23 +13,27 @@ namespace trippin {
                 const Configuration::Object &configObject,
                 const Map::Object &object,
                 const Sprite &sprite,
+                const Sprite &bonusText,
                 Goggin &goggin,
                 Spirit &spirit,
                 const Activation &activation,
                 ScoreTicker &scoreTicker,
                 SoundManager &soundManager,
                 const Camera &camera,
-                SceneBuilder &sceneBuilder);
+                SceneBuilder &sceneBuilder,
+                NotificationDrawer &notificationDrawer);
         void beforeTick(int engineTicks) override;
         void afterTick(int engineTicks) override;
     private:
         constexpr static const int FRAME_CLOUD_FIRST = 24;
 
+        const Sprite &bonusText;
         Goggin &goggin;
         Spirit &spirit;
         const Activation &activation;
         ScoreTicker &scoreTicker;
         SceneBuilder &sceneBuilder;
+        NotificationDrawer &notificationDrawer;
         const Camera &camera;
 
         const int points;

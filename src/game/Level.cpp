@@ -170,13 +170,15 @@ void trippin::Level::initEngine() {
                     *configuration->findObject(obj.type),
                     obj,
                     spriteManager->get(obj.type),
+                    spriteManager->get("time_bonus"),
                     *goggin,
                     spirit,
                     activation,
                     *scoreTicker,
                     *soundManager,
                     *camera,
-                    sceneBuilder);
+                    sceneBuilder,
+                    *notificationDrawer);
             engine.add(runningClock.get());
             engine.addListener(runningClock.get());
             objects.push_back(std::move(runningClock));

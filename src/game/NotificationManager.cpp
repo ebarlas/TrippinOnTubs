@@ -16,7 +16,7 @@ void trippin::NotificationManager::add(int value) {
     auto totalWidth = text.getDeviceSize().x + digitsWidth;
 
     auto renderFn = [this, value, totalWidth](Point<int> p) {
-        text.renderDevice({p.x, p.y}, 0);
+        text.renderDevice(p, 0);
         DigitLayout::renderDigits(digits, {p.x + totalWidth, p.y}, value);
     };
 

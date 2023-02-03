@@ -4,19 +4,23 @@ trippin::RunningClock::RunningClock(
         const Configuration::Object &configObject,
         const Map::Object &object,
         const Sprite &sprite,
+        const Sprite &bonusText,
         Goggin &goggin,
         Spirit &spirit,
         const Activation &activation,
         ScoreTicker &scoreTicker,
         SoundManager &soundManager,
         const Camera &camera,
-        SceneBuilder &sceneBuilder) :
+        SceneBuilder &sceneBuilder,
+        NotificationDrawer &notificationDrawer) :
         SpriteObject(configObject, object, sprite),
+        bonusText(bonusText),
         goggin(goggin),
         spirit(spirit),
         activation(activation),
         scoreTicker(scoreTicker),
         sceneBuilder(sceneBuilder),
+        notificationDrawer(notificationDrawer),
         camera(camera),
         points(50),
         runningAcceleration(configObject.runningAcceleration),
@@ -54,6 +58,9 @@ void trippin::RunningClock::afterTick(int engineTicks) {
         spirit.delay(1);
         scoreTicker.add(points);
         goggin.addPointCloud(points, engineTicks);
+        notificationDrawer.add([this](Point<int> p) {
+            bonusText.renderDevice(p, 0);
+        }, bonusText.getDeviceSize());
     } else if (hitGoggin) { // Case #2: Advance dust cloud
         hitTicks++;
         if (hitTicks % (sprite.getFramePeriodTicks() * 2) == 0) {
