@@ -380,6 +380,7 @@ void trippin::Game::handle(UserInput::Event &event) {
             if (scoreClicked) {
                 replayScore = *scoreClicked;
                 replayOffset = 0;
+                extraLives = 1;
                 levelIndex = 0;
                 score = 0;
                 state = State::REPLAY;
@@ -398,6 +399,7 @@ void trippin::Game::handle(UserInput::Event &event) {
             if (scoreClicked) {
                 replayScore = *scoreClicked;
                 replayOffset = 0;
+                extraLives = 1;
                 levelIndex = 0;
                 score = 0;
                 state = State::REPLAY;
