@@ -122,6 +122,7 @@ void trippin::Game::initOverlays() {
     topScoreBoard = std::make_unique<ScrollingScoreBoard>(rendererSize, scrollPixelsPerMs, *spriteManager, renderClock);
     todayScoreBoard = std::make_unique<ScrollingScoreBoard>(rendererSize, scrollPixelsPerMs, *spriteManager, renderClock);
     levelOverlay = std::make_unique<LevelOverlay>(rendererSize, *spriteManager, renderClock);
+    gameOverOverlay = std::make_unique<GameOverOverlay>(rendererSize, spriteManager->get("gameover"), renderClock);
     exitOverlay = std::make_unique<ExitOverlay>(rendererSize, configuration.meterMargin, *spriteManager, renderClock);
 }
 
@@ -305,6 +306,8 @@ void trippin::Game::render() {
         todayScoreBoard->render();
     } else if (state == State::LEVEL_TRANSITION) {
         levelOverlay->render();
+    } else if (state == State::GAME_OVER) {
+        gameOverOverlay->render();
     } else if (state == State::END_MENU) {
         endMenu->render();
     } else if (state == State::NAME_FORM) {
@@ -459,11 +462,17 @@ void trippin::Game::handle(UserInput::Event &event) {
                     extraLifeTime = std::chrono::time_point_cast<std::chrono::milliseconds>(now);
                     logStateChange("PLAYING", "EXTRA_LIFE_DELAY");
                 } else {
-                    state = State::END_MENU;
-                    endMenu->reset();
-                    logStateChange("PLAYING", "END_MENU");
+                    state = State::GAME_OVER;
+                    gameOverOverlay->reset();
+                    logStateChange("PLAYING", "GAME_OVER");
                 }
             }
+        }
+    } else if (state == State::GAME_OVER) {
+        if (event.anythingPressed()) {
+            state = State::END_MENU;
+            endMenu->reset();
+            logStateChange("GAME_OVER", "END_MENU");
         }
     } else if (state == State::EXTRA_LIFE_DELAY) {
         auto now = std::chrono::time_point_cast<std::chrono::milliseconds>(std::chrono::steady_clock::now());
