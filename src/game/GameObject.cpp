@@ -18,6 +18,7 @@ trippin::GameObject::GameObject(
         NotificationManager &groupNotificationManager) :
         SpriteObject(configObject, object, sprite),
         object(object),
+        config(config),
         configObject(configObject),
         goggin(goggin),
         activation(activation),
@@ -30,8 +31,7 @@ trippin::GameObject::GameObject(
         stompSound(soundManager.getEffect("chime0")),
         collisionDuration(static_cast<const int>(config.ticksPerSecond() * 0.4)),
         coolDownTicks(static_cast<const int>(config.ticksPerSecond() * 0.15)),
-        flashDuration(static_cast<const int>(config.ticksPerSecond() * 0.025)),
-        healthBarSize(config.healthBarSize) {
+        flashDuration(static_cast<const int>(config.ticksPerSecond() * 0.025)) {
     inactive = true;
     if (!configObject.accelerateWhenGrounded) {
         acceleration.x = configObject.runningAcceleration;
@@ -114,13 +114,14 @@ void trippin::GameObject::afterTick(int engineTicks) {
             gravity = goggin.gravity;
             velocity.y = -terminalVelocity.y / 2; // upward jolt
             velocity.x = 0;
-            scoreTicker.add(configObject.hitPoints * 25);
-            goggin.addPointCloud(configObject.hitPoints * 25, engineTicks, true);
+            auto points = config.pointsPerObject + config.pointsPerHitPoint * configObject.hitPoints;
+            scoreTicker.add(points);
+            goggin.addPointCloud(points, engineTicks, true);
             if (object.group) {
                 groupManager.remove(object.group, id);
                 if (groupManager.empty(object.group)) {
                     auto groupSize = groupManager.size(object.group);
-                    goggin.addPointCloud(groupSize * 25, engineTicks);
+                    goggin.addPointCloud(config.pointsPerGroup + groupSize * config.pointsPerMember, engineTicks);
                     groupNotificationManager.add(groupSize);
                 }
             }
@@ -164,9 +165,9 @@ void trippin::GameObject::drawHealthBar() {
     auto percent = static_cast<double>(hitPoints) / configObject.hitPoints;
     auto pos = Point<int>{roundedPosition.x - vp.x, roundedPosition.y - vp.y};
     pos /= sprite.getScale().getDeviceEngineFactor();
-    pos.y -= healthBarSize.y * 3;
-    SDL_Rect outline{pos.x, pos.y, healthBarSize.x, healthBarSize.y};
-    SDL_Rect fill{pos.x, pos.y, static_cast<int>(percent * healthBarSize.x), healthBarSize.y};
+    pos.y -= config.healthBarSize.y * 3;
+    SDL_Rect outline{pos.x, pos.y, config.healthBarSize.x, config.healthBarSize.y};
+    SDL_Rect fill{pos.x, pos.y, static_cast<int>(percent * config.healthBarSize.x), config.healthBarSize.y};
     sceneBuilder.dispatch([ren, fill, outline]() {
         SDL_SetRenderDrawBlendMode(ren, SDL_BLENDMODE_BLEND);
         SDL_SetRenderDrawColor(ren, 150, 150, 150, 100);

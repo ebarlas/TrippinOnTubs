@@ -155,6 +155,7 @@ void trippin::Level::initEngine() {
             objects.push_back(std::move(ground));
         } else if (obj.type == "winged_tub") {
             auto wingedTub = std::make_unique<WingedTub>(
+                    *configuration,
                     obj,
                     spriteManager->get(obj.type),
                     activation,
@@ -167,6 +168,7 @@ void trippin::Level::initEngine() {
             objects.push_back(std::move(wingedTub));
         } else if (obj.type == "running_clock") {
             auto runningClock = std::make_unique<RunningClock>(
+                    *configuration,
                     *configuration->findObject(obj.type),
                     obj,
                     spriteManager->get(obj.type),

@@ -1,6 +1,7 @@
 #include "RunningClock.h"
 
 trippin::RunningClock::RunningClock(
+        const Configuration &config,
         const Configuration::Object &configObject,
         const Map::Object &object,
         const Sprite &sprite,
@@ -14,6 +15,7 @@ trippin::RunningClock::RunningClock(
         SceneBuilder &sceneBuilder,
         NotificationDrawer &notificationDrawer) :
         SpriteObject(configObject, object, sprite),
+        config(config),
         bonusText(bonusText),
         goggin(goggin),
         spirit(spirit),
@@ -22,7 +24,6 @@ trippin::RunningClock::RunningClock(
         sceneBuilder(sceneBuilder),
         notificationDrawer(notificationDrawer),
         camera(camera),
-        points(50),
         runningAcceleration(configObject.runningAcceleration),
         sound(soundManager.getEffect("chime1")) {
     lane = -1;
@@ -49,15 +50,14 @@ void trippin::RunningClock::afterTick(int engineTicks) {
         return;
     }
 
-
     if (!hitGoggin && roundedBox.intersect(goggin.roundedBox)) { // Case #1: Goggin contact
         Mix_PlayChannel(-1, sound, 0);
         hitGoggin = true;
         hitTicks = 0;
         frame = FRAME_CLOUD_FIRST;
-        spirit.delay(1);
-        scoreTicker.add(points);
-        goggin.addPointCloud(points, engineTicks);
+        spirit.delay(config.timeBonusSeconds);
+        scoreTicker.add(config.timeBonusPoints);
+        goggin.addPointCloud(config.timeBonusPoints, engineTicks);
         notificationDrawer.add([this](Point<int> p) {
             bonusText.renderDevice(p, 0);
         }, bonusText.getDeviceSize());

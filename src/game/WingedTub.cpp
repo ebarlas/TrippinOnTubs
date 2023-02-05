@@ -1,6 +1,7 @@
 #include "WingedTub.h"
 
 trippin::WingedTub::WingedTub(
+        const Configuration &config,
         const Map::Object &object,
         const Sprite &sprite,
         const Activation &activation,
@@ -19,7 +20,7 @@ trippin::WingedTub::WingedTub(
         hitBox(sprite.getEngineHitBox() + position),
         tubFrameFirst(object.sparkle ? FRAME_SPARKLE_FIRST : FRAME_TUB_FIRST),
         tubFrameLast(object.sparkle ? FRAME_SPARKLE_LAST : FRAME_TUB_LAST),
-        points(object.sparkle ? 200 : 100),
+        points(object.sparkle ? config.sparkleTubBonusPoints : config.tubBonusPoints),
         sound(object.sparkle ? soundManager.getEffect("chime3") : soundManager.getEffect("chime2")) {
     expired = false;
     hitGoggin = false;

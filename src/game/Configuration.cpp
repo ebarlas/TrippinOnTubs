@@ -113,6 +113,14 @@ void trippin::from_json(const nlohmann::json &j, Configuration &config) {
     j.at("fastReplayFactor").get_to(config.fastReplayFactor);
     j.at("scrollPixelsPerSecond").get_to(config.scrollPixelsPerSecond);
     j.at("minComboHits").get_to(config.minComboHits);
+    j.at("pointsPerObject").get_to(config.pointsPerObject);
+    j.at("pointsPerHitPoint").get_to(config.pointsPerHitPoint);
+    j.at("pointsPerGroup").get_to(config.pointsPerGroup);
+    j.at("pointsPerMember").get_to(config.pointsPerMember);
+    j.at("timeBonusPoints").get_to(config.timeBonusPoints);
+    j.at("timeBonusSeconds").get_to(config.timeBonusSeconds);
+    j.at("tubBonusPoints").get_to(config.tubBonusPoints);
+    j.at("sparkleTubBonusPoints").get_to(config.sparkleTubBonusPoints);
     j.at("healthBarSize").at("x").get_to(config.healthBarSize.x);
     j.at("healthBarSize").at("y").get_to(config.healthBarSize.y);
     j.at("maps").get_to(config.maps);

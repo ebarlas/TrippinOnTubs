@@ -10,6 +10,7 @@ namespace trippin {
     class RunningClock : public SpriteObject {
     public:
         RunningClock(
+                const Configuration &config,
                 const Configuration::Object &configObject,
                 const Map::Object &object,
                 const Sprite &sprite,
@@ -27,6 +28,7 @@ namespace trippin {
     private:
         constexpr static const int FRAME_CLOUD_FIRST = 24;
 
+        const Configuration &config;
         const Sprite &bonusText;
         Goggin &goggin;
         Spirit &spirit;
@@ -36,7 +38,6 @@ namespace trippin {
         NotificationDrawer &notificationDrawer;
         const Camera &camera;
 
-        const int points;
         const double runningAcceleration;
         Mix_Chunk *const sound;
 

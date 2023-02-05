@@ -65,6 +65,14 @@ namespace trippin {
         int fastReplayFactor;
         int scrollPixelsPerSecond;
         int minComboHits;
+        int pointsPerObject;
+        int pointsPerHitPoint;
+        int pointsPerGroup;
+        int pointsPerMember;
+        int timeBonusPoints;
+        int timeBonusSeconds;
+        int tubBonusPoints;
+        int sparkleTubBonusPoints;
         Point<int> healthBarSize;
         std::vector<std::string> maps;
         std::string loadMap;

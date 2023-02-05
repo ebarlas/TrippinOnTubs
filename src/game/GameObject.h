@@ -12,7 +12,7 @@ namespace trippin {
     class GameObject : public SpriteObject {
     public:
         GameObject(
-                const Configuration &config,
+                const Configuration &configuration,
                 const Configuration::Object &configObject,
                 const Map::Object &object,
                 const Sprite &sprite,
@@ -29,6 +29,7 @@ namespace trippin {
         void afterTick(int engineTicks) override;
     private:
         const Map::Object &object;
+        const Configuration &config;
         const Configuration::Object &configObject;
         Goggin &goggin;
         const Activation &activation;
@@ -43,7 +44,6 @@ namespace trippin {
         const int collisionDuration;
         const int coolDownTicks;
         const int flashDuration;
-        const Point<int> healthBarSize;
 
         int frame;
         bool stomped;
