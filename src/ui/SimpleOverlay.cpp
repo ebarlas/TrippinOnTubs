@@ -1,6 +1,6 @@
-#include "GameOverOverlay.h"
+#include "SimpleOverlay.h"
 
-trippin::GameOverOverlay::GameOverOverlay(
+trippin::SimpleOverlay::SimpleOverlay(
         const Point<int> &windowSize,
         const Sprite &sprite,
         const RenderClock &renderClock) :
@@ -10,15 +10,17 @@ trippin::GameOverOverlay::GameOverOverlay(
                 renderClock,
                 750,
                 (windowSize.x - sprite.getDeviceSize().x) / 2 + sprite.getDeviceSize().x,
-                -sprite.getDeviceSize().x) {
+                -sprite.getDeviceSize().x),
+        frame(0) {
 
 }
 
-void trippin::GameOverOverlay::reset() {
+void trippin::SimpleOverlay::reset(int _frame) {
+    frame = _frame;
     interpolator.reset();
 }
 
-void trippin::GameOverOverlay::render() {
+void trippin::SimpleOverlay::render() {
     Point<int> pos{interpolator.interpolate(), (windowSize.y - sprite.getDeviceSize().y) / 2};
-    sprite.renderDevice(pos, 0);
+    sprite.renderDevice(pos, frame);
 }

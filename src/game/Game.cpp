@@ -112,17 +112,21 @@ void trippin::Game::initLevel() {
 }
 
 void trippin::Game::initOverlays() {
-    auto scrollPixelsPerMs = -configuration.scrollPixelsPerSecond / 1'000.0;
-    TitleOverlay::Options titleOptions{scrollPixelsPerMs, 3'000};
+    auto makeOverlay = [this](const char *name) {
+        return std::make_unique<SimpleOverlay>(rendererSize, spriteManager->get(name), renderClock);
+    };
+    auto scrollPxPerMs = -configuration.scrollPixelsPerSecond / 1'000.0;
+    TitleOverlay::Options titleOptions{scrollPxPerMs, 3'000};
     titleOverlay = std::make_unique<TitleOverlay>(rendererSize, titleOptions, *spriteManager, renderClock);
     titleMenu = std::make_unique<TitleMenu>(rendererSize, *spriteManager, renderClock);
     endMenu = std::make_unique<EndMenu>(rendererSize, *spriteManager, renderClock);
     nameForm = std::make_unique<NameForm>(rendererSize, *spriteManager);
     scoreMenu = std::make_unique<ScoreMenu>(rendererSize, *spriteManager, renderClock);
-    topScoreBoard = std::make_unique<ScrollingScoreBoard>(rendererSize, scrollPixelsPerMs, *spriteManager, renderClock);
-    todayScoreBoard = std::make_unique<ScrollingScoreBoard>(rendererSize, scrollPixelsPerMs, *spriteManager, renderClock);
-    levelOverlay = std::make_unique<LevelOverlay>(rendererSize, *spriteManager, renderClock);
-    gameOverOverlay = std::make_unique<GameOverOverlay>(rendererSize, spriteManager->get("gameover"), renderClock);
+    topScoreBoard = std::make_unique<ScrollingScoreBoard>(rendererSize, scrollPxPerMs, *spriteManager, renderClock);
+    todayScoreBoard = std::make_unique<ScrollingScoreBoard>(rendererSize, scrollPxPerMs, *spriteManager, renderClock);
+    levelOverlay = makeOverlay("level");
+    gameOverOverlay = makeOverlay("gameover");
+    levelsCompletedOverlay = makeOverlay("levels_completed");
     exitOverlay = std::make_unique<ExitOverlay>(rendererSize, configuration.meterMargin, *spriteManager, renderClock);
 }
 
@@ -308,6 +312,8 @@ void trippin::Game::render() {
         levelOverlay->render();
     } else if (state == State::GAME_OVER) {
         gameOverOverlay->render();
+    } else if (state == State::LEVELS_COMPLETED) {
+        levelsCompletedOverlay->render();
     } else if (state == State::END_MENU) {
         endMenu->render();
     } else if (state == State::NAME_FORM) {
@@ -451,9 +457,15 @@ void trippin::Game::handle(UserInput::Event &event) {
             score = level->getScore();
             inputEvents.push_back(level->takeInputEvents());
             if (level->completed()) {
-                state = State::LEVEL_TRANSITION;
-                levelOverlay->setLevel(static_cast<int>(levelIndex));
-                logStateChange("PLAYING", "LEVEL_TRANSITION");
+                if (levelIndex < configuration.maps.size() - 1) {
+                    state = State::LEVEL_TRANSITION;
+                    levelOverlay->reset(static_cast<int>(levelIndex));
+                    logStateChange("PLAYING", "LEVEL_TRANSITION");
+                } else {
+                    state = State::LEVELS_COMPLETED;
+                    endMenu->reset();
+                    logStateChange("PLAYING", "LEVELS_COMPLETED");
+                }
             } else {
                 if (extraLives > 0) {
                     extraLives--;
@@ -474,6 +486,12 @@ void trippin::Game::handle(UserInput::Event &event) {
             endMenu->reset();
             logStateChange("GAME_OVER", "END_MENU");
         }
+    } else if (state == State::LEVELS_COMPLETED) {
+        if (event.anythingPressed()) {
+            state = State::END_MENU;
+            endMenu->reset();
+            logStateChange("LEVELS_COMPLETED", "END_MENU");
+        }
     } else if (state == State::EXTRA_LIFE_DELAY) {
         auto now = std::chrono::time_point_cast<std::chrono::milliseconds>(std::chrono::steady_clock::now());
         if (now - extraLifeTime >= std::chrono::seconds{1}) {
@@ -490,16 +508,10 @@ void trippin::Game::handle(UserInput::Event &event) {
         }
     } else if (state == State::LEVEL_TRANSITION) {
         if (event.anythingPressed()) {
-            if (levelIndex < configuration.maps.size() - 1) {
-                levelIndex++;
-                state = State::PLAYING;
-                advanceLevel();
-                logStateChange("LEVEL_TRANSITION", "PLAYING");
-            } else {
-                state = State::END_MENU;
-                endMenu->reset();
-                logStateChange("LEVEL_TRANSITION", "END_MENU");
-            }
+            levelIndex++;
+            state = State::PLAYING;
+            advanceLevel();
+            logStateChange("LEVEL_TRANSITION", "PLAYING");
         }
     } else if (state == State::END_MENU) {
         if (endMenu->exitClicked(event.touchPoint)) {

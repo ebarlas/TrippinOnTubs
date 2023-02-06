@@ -75,7 +75,8 @@ sprites = [
     'group_bonus',
     'petaluma_museum',
     'time_bonus',
-    'gameover'
+    'gameover',
+    'levels_completed'
 ]
 
 levels = ['loading', 'training', 'level1', 'level2']

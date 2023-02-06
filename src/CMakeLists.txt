@@ -94,8 +94,7 @@ add_library(Ui
         ui/EndMenu.cpp
         ui/NameForm.cpp
         ui/ScoreMenu.cpp
-        ui/LevelOverlay.cpp
-        ui/GameOverOverlay.cpp
+        ui/SimpleOverlay.cpp
         ui/ExitOverlay.cpp)
 target_link_libraries(Ui Net)
 

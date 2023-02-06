@@ -17,8 +17,7 @@
 #include "ui/NameForm.h"
 #include "ui/ScoreMenu.h"
 #include "ui/ScrollingScoreBoard.h"
-#include "ui/LevelOverlay.h"
-#include "ui/GameOverOverlay.h"
+#include "ui/SimpleOverlay.h"
 #include "ui/ExitOverlay.h"
 #include "net/Transport.h"
 #include "net/StagingArea.h"
@@ -39,6 +38,7 @@ namespace trippin {
             EXTRA_LIFE_DELAY,
             LEVEL_TRANSITION,
             GAME_OVER,
+            LEVELS_COMPLETED,
             END_MENU,
             NAME_FORM,
             ALL_TIME_SCORES,
@@ -76,8 +76,9 @@ namespace trippin {
         std::unique_ptr<ScoreMenu> scoreMenu;
         std::unique_ptr<ScrollingScoreBoard> topScoreBoard;
         std::unique_ptr<ScrollingScoreBoard> todayScoreBoard;
-        std::unique_ptr<LevelOverlay> levelOverlay;
-        std::unique_ptr<GameOverOverlay> gameOverOverlay;
+        std::unique_ptr<SimpleOverlay> levelOverlay;
+        std::unique_ptr<SimpleOverlay> gameOverOverlay;
+        std::unique_ptr<SimpleOverlay> levelsCompletedOverlay;
         std::shared_ptr<StagingArea> stagingArea;
         RenderClock renderClock;
         std::unique_ptr<Logger> logger;
