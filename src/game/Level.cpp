@@ -198,7 +198,6 @@ void trippin::Level::initEngine() {
                     *camera,
                     sceneBuilder,
                     groupManager,
-                    spriteManager->get("flame"),
                     *groupNotificationManager);
             engine.add(gameObject.get());
             engine.addListener(gameObject.get());

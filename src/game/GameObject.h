@@ -23,7 +23,6 @@ namespace trippin {
                 const Camera &camera,
                 SceneBuilder &sceneBuilder,
                 GroupManager &groupManager,
-                const Sprite &haloSprite,
                 NotificationManager &groupNotificationManager);
         void beforeTick(int engineTicks) override;
         void afterTick(int engineTicks) override;
@@ -37,7 +36,6 @@ namespace trippin {
         SceneBuilder &sceneBuilder;
         const Camera &camera;
         GroupManager &groupManager;
-        const Sprite &haloSprite;
         NotificationManager &groupNotificationManager;
 
         Mix_Chunk *const stompSound;
@@ -49,7 +47,6 @@ namespace trippin {
         bool stomped;
         int hitPoints;
         int collisionTicks;
-        int haloFrame;
 
         void drawSprite(int engineTicks);
         void drawHealthBar();

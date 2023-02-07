@@ -14,7 +14,6 @@ trippin::GameObject::GameObject(
         const Camera &camera,
         SceneBuilder &sceneBuilder,
         GroupManager &groupManager,
-        const Sprite &haloSprite,
         NotificationManager &groupNotificationManager) :
         SpriteObject(configObject, object, sprite),
         object(object),
@@ -26,7 +25,6 @@ trippin::GameObject::GameObject(
         sceneBuilder(sceneBuilder),
         camera(camera),
         groupManager(groupManager),
-        haloSprite(haloSprite),
         groupNotificationManager(groupNotificationManager),
         stompSound(soundManager.getEffect("chime0")),
         collisionDuration(static_cast<const int>(config.ticksPerSecond() * 0.4)),
@@ -38,7 +36,6 @@ trippin::GameObject::GameObject(
     }
     stomped = false;
     frame = configObject.randFrame ? Random<>{}.next() % sprite.getFrames() / 2 : 0;
-    haloFrame = Random<>{}.next() % haloSprite.getFrames();
     collisionTicks = 0;
     if (configObject.coefficient > 0) {
         auto coefficient = configObject.coefficient;
@@ -79,10 +76,6 @@ void trippin::GameObject::afterTick(int engineTicks) {
     if (activation.shouldDeactivate(roundedBox)) {
         expired = true;
         return;
-    }
-
-    if (object.group) {
-        haloSprite.advanceFrame(engineTicks, haloFrame);
     }
 
     if (configObject.accelerateWhenGrounded) {
@@ -145,18 +138,6 @@ void trippin::GameObject::drawSprite(int engineTicks) {
     sceneBuilder.dispatch([this, posNow, frameNow, vp]() {
         sprite.renderEngine(posNow, frameNow, vp);
     });
-
-    if (object.group && !stomped) {
-        auto [_x, _y, width, height] = haloSprite.getEngineHitBox();
-        auto widthDiff = size.x - width;
-        auto x = roundedPosition.x + widthDiff / 2;
-        auto y = roundedPosition.y - height;
-        auto haloPos = Point<int>{x, y};
-        auto fr = haloFrame;
-        sceneBuilder.dispatch([this, haloPos, fr, vp]() {
-            haloSprite.renderEngine(haloPos, fr, vp);
-        });
-    }
 }
 
 void trippin::GameObject::drawHealthBar() {
