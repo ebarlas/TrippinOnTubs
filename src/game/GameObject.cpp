@@ -26,10 +26,10 @@ trippin::GameObject::GameObject(
         camera(camera),
         groupManager(groupManager),
         groupNotificationManager(groupNotificationManager),
-        stompSound(soundManager.getEffect("chime0")),
-        collisionDuration(static_cast<const int>(config.ticksPerSecond() * 0.4)),
-        coolDownTicks(static_cast<const int>(config.ticksPerSecond() * 0.15)),
-        flashDuration(static_cast<const int>(config.ticksPerSecond() * 0.025)) {
+        stompSound(soundManager.getEffect(config.stompSound)),
+        collisionDuration(static_cast<const int>(config.collisionDurationMilliseconds / config.msPerTick())),
+        coolDownTicks(static_cast<const int>(config.collisionCooldownMilliseconds / config.msPerTick())),
+        flashDuration(static_cast<const int>(config.collisionFlashMilliseconds / config.msPerTick())) {
     inactive = true;
     if (!configObject.accelerateWhenGrounded) {
         acceleration.x = configObject.runningAcceleration;
@@ -105,7 +105,7 @@ void trippin::GameObject::afterTick(int engineTicks) {
             stomped = true;
             lane = -2; // no-collision plane
             gravity = goggin.gravity;
-            velocity.y = -terminalVelocity.y / 2; // upward jolt
+            velocity.y = -terminalVelocity.y * config.knockoutVelocityFactor; // upward jolt
             velocity.x = 0;
             auto points = config.pointsPerObject + config.pointsPerHitPoint * configObject.hitPoints;
             scoreTicker.add(points);
@@ -146,7 +146,7 @@ void trippin::GameObject::drawHealthBar() {
     auto percent = static_cast<double>(hitPoints) / configObject.hitPoints;
     auto pos = Point<int>{roundedPosition.x - vp.x, roundedPosition.y - vp.y};
     pos /= sprite.getScale().getDeviceEngineFactor();
-    pos.y -= config.healthBarSize.y * 3;
+    pos.y -= config.healthBarSize.y * config.healthBarVerticalClearanceFactor;
     SDL_Rect outline{pos.x, pos.y, config.healthBarSize.x, config.healthBarSize.y};
     SDL_Rect fill{pos.x, pos.y, static_cast<int>(percent * config.healthBarSize.x), config.healthBarSize.y};
     sceneBuilder.dispatch([ren, fill, outline]() {

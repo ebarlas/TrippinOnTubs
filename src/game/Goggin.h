@@ -63,6 +63,8 @@ namespace trippin {
             Dust blast;
         };
 
+        const Configuration &config;
+
         const Sprite &dust;
         int dustTicks;
         unsigned int nextDustPos;
@@ -107,7 +109,6 @@ namespace trippin {
         const int minJumpChargeTicks;
         const int maxJumpChargeTicks;
 
-        const double shakeAmplitude;
         Shake xShake;
         Shake yShake;
 

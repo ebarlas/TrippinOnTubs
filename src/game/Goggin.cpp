@@ -16,6 +16,7 @@ trippin::Goggin::Goggin(
         Camera &camera,
         SceneBuilder &sceneBuilder) :
         SpriteObject(configObject, object, spriteManager.get("goggin")),
+        config(config),
         dust(spriteManager.get("dust")),
         dustPeriodTicks(configObject.dustPeriod),
         dustBlast(spriteManager.get("dust_blast")),
@@ -29,8 +30,7 @@ trippin::Goggin::Goggin(
         maxDuckJumpVelocity(configObject.maxDuckJumpVelocity),
         minJumpChargeTicks(configObject.minJumpChargeTime),
         maxJumpChargeTicks(configObject.maxJumpChargeTime),
-        shakeAmplitude(config.shakeAmplitude),
-        jumpSound(soundManager.getEffect("thud")),
+        jumpSound(soundManager.getEffect(config.jumpSound)),
         jumpSoundTimeoutTicks(configObject.jumpSoundTimeout),
         pointCloudManager(pointCloudManager),
         comboManager(comboManager),
@@ -45,8 +45,7 @@ trippin::Goggin::Goggin(
     maxFallingVelocity = 0;
     consecutiveJumps = 0;
 
-    // tick/ms * ms/s * s/shake = tick/shake
-    auto shakePeriod = (1.0 / config.msPerTick()) * (1000.0 / config.shakeHertz);
+    auto shakePeriod = config.ticksPerSecond() / config.shakeHertz; // (ticks/sec) / (shake/sec) = ticks/shake
     auto shakeDuration = config.shakeDuration / config.msPerTick();
     xShake.init(toInt(shakePeriod), toInt(shakeDuration));
     yShake.init(toInt(shakePeriod), toInt(shakeDuration));
@@ -146,12 +145,12 @@ void trippin::Goggin::handleJumpRelease(int engineTicks) {
     if (input.jumpRelease && jumpTicks) {
         auto maxEffective = state == ducking && jumpPercent == 1.0 ? maxDuckJumpVelocity : maxJumpVelocity;
         auto jumpVel = std::min(minJumpVelocity, jumpPercent * maxEffective);
-        if (state == running || state == ducking || consecutiveJumps < 2) {
+        if (state == running || state == ducking || consecutiveJumps < config.maxConsecutiveJumps) {
             if (state == ducking) {
                 growForStand();
             }
-            if ((platformCollisions.testBottom() && jumpPercent >= 0.5) ||
-                ((state == falling || state == rising) && consecutiveJumps < 2)) {
+            if ((platformCollisions.testBottom() && jumpPercent >= config.dustJumpFactor) ||
+                ((state == falling || state == rising) && consecutiveJumps < config.maxConsecutiveJumps)) {
                 resetDustBlast(state == falling || state == rising);
             }
             maxFallingVelocity = 0;
@@ -159,7 +158,7 @@ void trippin::Goggin::handleJumpRelease(int engineTicks) {
             frames.frame = FRAME_LAUNCHING_LAST;
             velocity.y = jumpVel;
             consecutiveJumps++;
-            if (consecutiveJumps == 2) {
+            if (consecutiveJumps == config.maxConsecutiveJumps) {
                 lastDoubleJumpTicks = engineTicks;
             }
             lastJumpTicks = engineTicks;
@@ -209,13 +208,13 @@ void trippin::Goggin::afterTick(int engineTicks) {
     if (grounded) {
         int hits = comboManager.reset();
         if (hits) {
-            addPointCloud(hits * 10, engineTicks);
+            addPointCloud(hits * config.pointsPerComboHit, engineTicks);
         }
     }
 
     // test for creation of new dust cloud
     auto dustTicksElapsed = engineTicks - dustTicks;
-    if (grounded && dustTicksElapsed >= dustPeriodTicks && velocity.x >= terminalVelocity.x / 2) {
+    if (grounded && dustTicksElapsed >= dustPeriodTicks && velocity.x >= terminalVelocity.x * config.dustRunFactor) {
         dustTicks = engineTicks;
         auto left = roundedPosition.x - dust.getEngineHitBox().w / 2; // horizontally center dust on goggin left
         auto top = roundedPosition.y + size.y - dust.getEngineHitBox().h;
@@ -271,7 +270,7 @@ void trippin::Goggin::onFalling(int engineTicks) {
         ticks = 0;
         frames.frame = FRAME_RUN_AFTER_LAND;
         acceleration.x = runningAcceleration;
-        if (platformCollisions.testBottom() && maxFallingVelocity >= terminalVelocity.y / 2.0) {
+        if (platformCollisions.testBottom() && maxFallingVelocity >= terminalVelocity.y * config.dustLandFactor) {
             resetDustBlast(false);
             xShake.start(engineTicks);
             yShake.start(engineTicks);
@@ -448,8 +447,8 @@ int trippin::Goggin::getLastJumpSlamDownTicks() const {
 
 trippin::Point<int> trippin::Goggin::centerCamera() {
     Point<int> shake{
-            static_cast<int>(static_cast<double>(xShake.amplitude()) * shakeAmplitude),
-            static_cast<int>(static_cast<double>(yShake.amplitude()) * shakeAmplitude)};
+            static_cast<int>(static_cast<double>(xShake.amplitude()) * config.shakeAmplitude),
+            static_cast<int>(static_cast<double>(yShake.amplitude()) * config.shakeAmplitude)};
     Point<int> pos;
     Point<int> cen;
     if (state == ducking) {
