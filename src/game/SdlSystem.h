@@ -24,7 +24,7 @@ namespace trippin {
             return windowSize;
         }
         SDL_Point getRendererSize() const {
-            return rendererSize;
+            return windowSize;
         }
         int getRefreshRate() const {
             return refreshRate;
@@ -33,7 +33,6 @@ namespace trippin {
         SDL_Window *window;
         SDL_Renderer *renderer;
         SDL_Point windowSize;
-        SDL_Point rendererSize;
         int refreshRate;
     };
 }

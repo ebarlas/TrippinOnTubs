@@ -21,9 +21,9 @@ trippin::SdlSystem::SdlSystem(SDL_Point ws) {
             "Trippin on Tubs",
             SDL_WINDOWPOS_UNDEFINED,
             SDL_WINDOWPOS_UNDEFINED,
-            windowSize.x,
-            windowSize.y,
-            SDL_WINDOW_SHOWN);
+            ws.x,
+            ws.y,
+            ws.x || ws.y ? SDL_WINDOW_SHOWN : SDL_WINDOW_SHOWN | SDL_WINDOW_FULLSCREEN);
     if (window == nullptr) {
         SDL_Log("Window could not be created. SDL error: %s", SDL_GetError());
         std::terminate();
@@ -37,9 +37,6 @@ trippin::SdlSystem::SdlSystem(SDL_Point ws) {
         SDL_Log("Renderer could not be created. SDL error: %s", SDL_GetError());
         std::terminate();
     }
-
-    SDL_GetRendererOutputSize(renderer, &rendererSize.x, &rendererSize.y);
-    SDL_Log("renderer size w=%d, h=%d", rendererSize.x, rendererSize.y);
 
     SDL_DisplayMode displayMode;
     SDL_GetDisplayMode(0, 0, &displayMode);
