@@ -4,9 +4,9 @@ include $(CLEAR_VARS)
 
 LOCAL_MODULE := main
 
-SDL2_PATH := ../SDL2-2.0.22
-SDL2_IMAGE_PATH := ../SDL2_image-2.6.2
-SDL2_MIXER_PATH := ../SDL2_mixer-2.6.2
+SDL2_PATH := ../SDL2-2.26.3
+SDL2_IMAGE_PATH := ../SDL2_image-2.6.3
+SDL2_MIXER_PATH := ../SDL2_mixer-2.6.3
 SDL2_NET_PATH := ../SDL2_net-2.2.0
 NLOHMANN_JSON_PATH := ../json-3.8.0
 

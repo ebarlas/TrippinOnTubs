@@ -6,14 +6,14 @@ rm -rf "${WORK_DIR}"
 mkdir "${WORK_DIR}"
 pushd "${WORK_DIR}"
 
-curl -L https://www.libsdl.org/release/SDL2-2.0.22.tar.gz | tar -xzv
-curl -L https://www.libsdl.org/projects/SDL_image/release/SDL2_image-2.6.2.tar.gz | tar -xzv
+curl -L https://www.libsdl.org/release/SDL2-2.26.3.tar.gz | tar -xzv
+curl -L https://www.libsdl.org/projects/SDL_image/release/SDL2_image-2.6.3.tar.gz | tar -xzv
 curl -L https://www.libsdl.org/projects/SDL_ttf/release/SDL2_ttf-2.20.1.tar.gz | tar -xzv
-curl -L https://www.libsdl.org/projects/SDL_mixer/release/SDL2_mixer-2.6.2.tar.gz | tar -xzv
+curl -L https://www.libsdl.org/projects/SDL_mixer/release/SDL2_mixer-2.6.3.tar.gz | tar -xzv
 curl -L https://www.libsdl.org/projects/SDL_net/release/SDL2_net-2.2.0.tar.gz | tar -xzv
 curl -L https://github.com/nlohmann/json/archive/v3.8.0.tar.gz | tar -xzv
 
-mv SDL2-2.0.22/android-project/ .
+mv SDL2-2.26.3/android-project/ .
 
 mv SDL2* android-project/app/jni/
 mv json* android-project/app/jni/
