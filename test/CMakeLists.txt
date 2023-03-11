@@ -1,10 +1,16 @@
 # automatically enable catch2 to generate ctest targets
-find_package(Catch2 REQUIRED)
-include(CTest)
-include(Catch)
+FetchContent_Declare(
+        Catch2
+        GIT_REPOSITORY https://github.com/catchorg/Catch2
+        GIT_TAG v2.13.8)
+FetchContent_MakeAvailable(Catch2)
 
 add_library(catch_main STATIC catch_main.cpp)
 target_link_libraries(catch_main Catch2::Catch2)
+
+list(APPEND CMAKE_MODULE_PATH ${catch2_SOURCE_DIR}/contrib)
+include(CTest)
+include(Catch)
 
 add_executable(engine_tests
         engine/engine_tests.cpp

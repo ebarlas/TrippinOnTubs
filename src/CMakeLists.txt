@@ -1,11 +1,39 @@
-find_package(SDL2 REQUIRED)
-find_package(nlohmann_json REQUIRED)
-find_package(PkgConfig REQUIRED)
+include(FetchContent)
 
-pkg_search_module(SDL2_MIXER REQUIRED IMPORTED_TARGET sdl2_mixer SDL2_mixer)
-pkg_search_module(SDL2_IMAGE REQUIRED IMPORTED_TARGET sdl2_image SDL2_image)
-pkg_search_module(SDL2_TTF REQUIRED IMPORTED_TARGET sdl2_ttf SDL2_ttf)
-pkg_search_module(SDL2_NET REQUIRED IMPORTED_TARGET sdl2_net SDL2_net)
+FetchContent_Declare(
+        SDL
+        GIT_REPOSITORY https://github.com/libsdl-org/SDL
+        GIT_TAG release-2.26.4)
+FetchContent_MakeAvailable(SDL)
+
+FetchContent_Declare(
+        SDL_image
+        GIT_REPOSITORY https://github.com/libsdl-org/SDL_image
+        GIT_TAG release-2.6.3)
+set(SDL2IMAGE_INSTALL OFF)
+set(BUILD_SHARED_LIBS FALSE)
+FetchContent_MakeAvailable(SDL_image)
+
+FetchContent_Declare(
+        SDL_mixer
+        GIT_REPOSITORY https://github.com/libsdl-org/SDL_mixer
+        GIT_TAG release-2.6.3)
+set(SDL2MIXER_OPUS FALSE)
+set(SDL2MIXER_FLAC FALSE)
+set(SDL2MIXER_MOD_MODPLUG FALSE)
+set(SDL2MIXER_MIDI_FLUIDSYNTH FALSE)
+FetchContent_MakeAvailable(SDL_mixer)
+
+FetchContent_Declare(
+        SDL_net
+        GIT_REPOSITORY https://github.com/libsdl-org/SDL_net
+        GIT_TAG release-2.2.0)
+FetchContent_MakeAvailable(SDL_net)
+
+include(FetchContent)
+
+FetchContent_Declare(json URL https://github.com/nlohmann/json/releases/download/v3.11.2/json.tar.xz)
+FetchContent_MakeAvailable(json)
 
 # https://github.com/lefticus/cppbestpractices/blob/master/02-Use_the_Tools_Available.md
 set(CLANG_WARNINGS
@@ -53,7 +81,7 @@ add_library(Engine
         engine/Clock.cpp
         engine/Timer.cpp)
 target_include_directories(Engine PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
-target_link_libraries(Engine SDL2::SDL2)
+target_link_libraries(Engine SDL2::SDL2-static)
 target_compile_options(Engine INTERFACE ${PROJECT_WARNINGS})
 
 add_library(Sprite
@@ -68,13 +96,7 @@ add_library(Sprite
         sprite/Camera.cpp
         sprite/RenderClock.cpp)
 target_include_directories(Sprite PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
-target_link_libraries(Sprite Engine nlohmann_json::nlohmann_json PkgConfig::SDL2_IMAGE)
-
-add_library(Graphics
-        demo/FontRenderer.cpp
-        demo/RenderableObject.cpp)
-target_include_directories(Graphics PUBLIC Engine)
-target_link_libraries(Graphics Engine PkgConfig::SDL2_TTF)
+target_link_libraries(Sprite Engine nlohmann_json::nlohmann_json SDL2_image::SDL2_image-static)
 
 add_library(Net
         net/Tcp.cpp
@@ -83,7 +105,7 @@ add_library(Net
         net/Logger.cpp
         net/StagingArea.cpp)
 target_include_directories(Net PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
-target_link_libraries(Net PkgConfig::SDL2_NET nlohmann_json::nlohmann_json)
+target_link_libraries(Net SDL2::SDL2-static SDL2_net::SDL2_net-static nlohmann_json::nlohmann_json)
 
 add_library(Ui
         ui/ScoreBoard.cpp
@@ -97,21 +119,6 @@ add_library(Ui
         ui/SimpleOverlay.cpp
         ui/ExitOverlay.cpp)
 target_link_libraries(Ui Net)
-
-add_library(GameLoop demo/gameloop.cpp)
-target_link_libraries(GameLoop Graphics)
-
-add_executable(enclosed demo/enclosed.cpp)
-target_link_libraries(enclosed GameLoop Sprite)
-
-add_executable(arena demo/arena.cpp)
-target_link_libraries(arena GameLoop Sprite)
-
-add_executable(frogs demo/frogs.cpp)
-target_link_libraries(frogs GameLoop Sprite)
-
-add_executable(mice demo/mice.cpp)
-target_link_libraries(mice GameLoop Sprite)
 
 add_library(Game
         game/SdlSystem.cpp
@@ -144,7 +151,7 @@ add_library(Game
         game/NotificationDrawer.cpp
         game/GroupManager.cpp
         game/SoundManager.cpp)
-target_link_libraries(Game Sprite Net Ui PkgConfig::SDL2_MIXER)
+target_link_libraries(Game Sprite Net Ui SDL2_mixer::SDL2_mixer-static)
 
 add_executable(trippin game/trippin.cpp)
 target_link_libraries(trippin Game)
