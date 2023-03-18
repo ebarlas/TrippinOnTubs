@@ -1,0 +1,141 @@
+<ns0:svg xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:ns0="http://www.w3.org/2000/svg" xmlns:ns1="http://www.inkscape.org/namespaces/inkscape" xmlns:ns2="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd" xmlns:ns4="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" frames="10" scale="10" fadeToWhite="0.5" width="565" height="255" viewBox="0 0 565 255" version="1.1" id="svg1296" ns1:version="1.0beta2 (2b71d25, 2019-12-03)" ns2:docname="generic_building_2.svg">
+  <ns0:defs id="defs1290" />
+  <ns2:namedview id="base" pagecolor="#ffffff" bordercolor="#666666" borderopacity="1.0" ns1:pageopacity="0.0" ns1:pageshadow="2" ns1:zoom="2.8" ns1:cx="472.74913" ns1:cy="174.48156" ns1:document-units="px" ns1:current-layer="layer2" ns1:document-rotation="0" showgrid="true" ns1:window-width="1792" ns1:window-height="974" ns1:window-x="0" ns1:window-y="25" ns1:window-maximized="0" units="px" ns1:snap-global="true">
+    <ns1:grid type="xygrid" id="grid1859" empspacing="5" />
+  </ns2:namedview>
+  <ns0:metadata id="metadata1293">
+    <rdf:RDF>
+      <ns4:Work rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title />
+      </ns4:Work>
+    </rdf:RDF>
+  </ns0:metadata>
+  <ns0:g style="display:none" ns2:insensitive="true" ns1:groupmode="layer" id="layer3" ns1:label="bg">
+    <ns0:rect style="fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;paint-order:stroke fill markers;stop-color:#000000" id="rect1681" width="540" height="300" x="0" y="0" ry="0.5" />
+  </ns0:g>
+  <ns0:g ns1:groupmode="layer" type="frame" frame="1" id="layer2" ns1:label="frame" style="display:inline">
+    <ns0:path ns2:nodetypes="cccccccccccccccccccccc" style="fill:#acb3c0;fill-opacity:1;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" d="M 100,255 V 105 L 90,95 V 75 H 85 V 70 H 80 V 65 55 h 20 V 35 h 440 v 20 h 20 v 15 h -5 v 5 h -5 v 20 l -10,10 v 150 z" id="path1834" ns1:connector-curvature="0" />
+    <ns0:path style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" d="M 80,55 H 560 V 70 H 80 Z" id="path1836" ns1:connector-curvature="0" />
+    <ns0:path style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" d="M 90,85 H 550 V 95 H 90 Z" id="path2074" ns1:connector-curvature="0" />
+    <ns0:path style="fill:#64758f;fill-opacity:1;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" d="m 140,185 v -85 c 5,-20 35,-20 40,0 v 85 z" id="path1838" ns1:connector-curvature="0" ns2:nodetypes="ccccc" />
+    <ns0:path style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" d="m 150,185 v -85 c 5,-10 15,-10 20,0 v 85" id="path1840" ns1:connector-curvature="0" ns2:nodetypes="cccc" />
+    <ns0:path style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" d="m 140,105 h 40" id="path1842" ns1:connector-curvature="0" />
+    <ns0:path style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" d="m 140,125 h 10" id="path1844" ns1:connector-curvature="0" />
+    <ns0:path style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" d="m 170,125 h 10" id="path1846" ns1:connector-curvature="0" />
+    <ns0:path style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" d="m 140,145 h 10" id="path1848" ns1:connector-curvature="0" />
+    <ns0:path style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" d="m 170,145 h 10" id="path1850" ns1:connector-curvature="0" />
+    <ns0:path style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" d="m 140,165 h 10" id="path1852" ns1:connector-curvature="0" />
+    <ns0:path style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" d="m 170,165 h 10" id="path1854" ns1:connector-curvature="0" />
+    <ns0:path style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" d="m 160,85 -0.17857,7.5" id="path1856" ns1:connector-curvature="0" />
+    <ns0:path style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" d="m 140,230 v -40 h 40 v 40 z" id="path1858" ns1:connector-curvature="0" />
+    <ns0:path ns2:nodetypes="ccccc" ns1:connector-curvature="0" id="path1860" d="m 220,185 v -85 c 5,-20 35,-20 40,0 v 85 z" style="fill:#64758f;fill-opacity:1;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+    <ns0:path ns2:nodetypes="cccc" ns1:connector-curvature="0" id="path1862" d="m 230,185 v -85 c 5,-10 15,-10 20,0 v 85" style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+    <ns0:path ns1:connector-curvature="0" id="path1864" d="m 220,105 h 40" style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+    <ns0:path ns1:connector-curvature="0" id="path1866" d="m 220,125 h 10" style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+    <ns0:path ns1:connector-curvature="0" id="path1868" d="m 250,125 h 10" style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+    <ns0:path ns1:connector-curvature="0" id="path1870" d="m 220,145 h 10" style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+    <ns0:path ns1:connector-curvature="0" id="path1872" d="m 250,145 h 10" style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+    <ns0:path ns1:connector-curvature="0" id="path1874" d="m 220,165 h 10" style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+    <ns0:path ns1:connector-curvature="0" id="path1876" d="m 250,165 h 10" style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+    <ns0:path ns1:connector-curvature="0" id="path1878" d="m 240,85 -0.17857,7.5" style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+    <ns0:path ns1:connector-curvature="0" id="path1880" d="m 220,230 v -40 h 40 v 40 z" style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+    <ns0:path style="fill:#64758f;fill-opacity:1;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" d="m 300,185 v -85 c 5,-20 35,-20 40,0 v 85 z" id="path1882" ns1:connector-curvature="0" ns2:nodetypes="ccccc" />
+    <ns0:path style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" d="m 310,185 v -85 c 5,-10 15,-10 20,0 v 85" id="path1884" ns1:connector-curvature="0" ns2:nodetypes="cccc" />
+    <ns0:path style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" d="m 300,105 h 40" id="path1886" ns1:connector-curvature="0" />
+    <ns0:path style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" d="m 300,125 h 10" id="path1888" ns1:connector-curvature="0" />
+    <ns0:path style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" d="m 330,125 h 10" id="path1890" ns1:connector-curvature="0" />
+    <ns0:path style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" d="m 300,145 h 10" id="path1892" ns1:connector-curvature="0" />
+    <ns0:path style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" d="m 330,145 h 10" id="path1894" ns1:connector-curvature="0" />
+    <ns0:path style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" d="m 300,165 h 10" id="path1896" ns1:connector-curvature="0" />
+    <ns0:path style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" d="m 330,165 h 10" id="path1898" ns1:connector-curvature="0" />
+    <ns0:path style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" d="m 320,85 -0.17857,7.5" id="path1900" ns1:connector-curvature="0" />
+    <ns0:path style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" d="m 300,230 v -40 h 40 v 40 z" id="path1902" ns1:connector-curvature="0" />
+    <ns0:path ns2:nodetypes="ccccc" ns1:connector-curvature="0" id="path1904" d="m 380,185 v -85 c 5,-20 35,-20 40,0 v 85 z" style="fill:#64758f;fill-opacity:1;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+    <ns0:path ns2:nodetypes="cccc" ns1:connector-curvature="0" id="path1906" d="m 390,185 v -85 c 5,-10 15,-10 20,0 v 85" style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+    <ns0:path ns1:connector-curvature="0" id="path1908" d="m 380,105 h 40" style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+    <ns0:path ns1:connector-curvature="0" id="path1910" d="m 380,125 h 10" style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+    <ns0:path ns1:connector-curvature="0" id="path1912" d="m 410,125 h 10" style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+    <ns0:path ns1:connector-curvature="0" id="path1914" d="m 380,145 h 10" style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+    <ns0:path ns1:connector-curvature="0" id="path1916" d="m 410,145 h 10" style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+    <ns0:path ns1:connector-curvature="0" id="path1918" d="m 380,165 h 10" style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+    <ns0:path ns1:connector-curvature="0" id="path1920" d="m 410,165 h 10" style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+    <ns0:path ns1:connector-curvature="0" id="path1922" d="m 400,85 -0.17857,7.5" style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+    <ns0:path ns1:connector-curvature="0" id="path1924" d="m 380,230 v -40 h 40 v 40 z" style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+    <ns0:path style="fill:#64758f;fill-opacity:1;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" d="m 460,185 v -85 c 5,-20 35,-20 40,0 v 85 z" id="path1926" ns1:connector-curvature="0" ns2:nodetypes="ccccc" />
+    <ns0:path style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" d="m 470,185 v -85 c 5,-10 15,-10 20,0 v 85" id="path1928" ns1:connector-curvature="0" ns2:nodetypes="cccc" />
+    <ns0:path style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" d="m 460,105 h 40" id="path1930" ns1:connector-curvature="0" />
+    <ns0:path style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" d="m 460,125 h 10" id="path1932" ns1:connector-curvature="0" />
+    <ns0:path style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" d="m 490,125 h 10" id="path1934" ns1:connector-curvature="0" />
+    <ns0:path style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" d="m 460,145 h 10" id="path1936" ns1:connector-curvature="0" />
+    <ns0:path style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" d="m 490,145 h 10" id="path1938" ns1:connector-curvature="0" />
+    <ns0:path style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" d="m 460,165 h 10" id="path1940" ns1:connector-curvature="0" />
+    <ns0:path style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" d="m 490,165 h 10" id="path1942" ns1:connector-curvature="0" />
+    <ns0:path style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" d="m 480,85 -0.17857,7.5" id="path1944" ns1:connector-curvature="0" />
+    <ns0:path style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" d="m 460,230 v -40 h 40 v 40 z" id="path1946" ns1:connector-curvature="0" />
+    <ns0:path style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" d="m 140,220 h 40" id="path1948" ns1:connector-curvature="0" />
+    <ns0:path style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" d="m 220,220 h 40" id="path1950" ns1:connector-curvature="0" />
+    <ns0:path style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" d="m 300,220 h 40" id="path1952" ns1:connector-curvature="0" />
+    <ns0:path style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" d="m 380,220 h 40" id="path1954" ns1:connector-curvature="0" />
+    <ns0:path style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" d="m 460,220 h 40" id="path1956" ns1:connector-curvature="0" />
+    <ns0:path style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" d="M 100,185 H 540" id="path1958" ns1:connector-curvature="0" />
+    <ns0:path style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" d="M 90,75 H 550" id="path1962" ns1:connector-curvature="0" />
+    <ns0:path style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" d="M 110,35 V 55" id="path1964" ns1:connector-curvature="0" />
+    <ns0:path style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" d="M 120,35 V 55" id="path1966" ns1:connector-curvature="0" />
+    <ns0:path style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" d="M 130,35 V 55" id="path1968" ns1:connector-curvature="0" />
+    <ns0:path style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" d="M 140,35 V 55" id="path1970" ns1:connector-curvature="0" />
+    <ns0:path style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" d="M 150,35 V 55" id="path1972" ns1:connector-curvature="0" />
+    <ns0:path ns1:connector-curvature="0" id="path1974" d="M 150,35 V 55" style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+    <ns0:path ns1:connector-curvature="0" id="path1976" d="M 160,35 V 55" style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+    <ns0:path ns1:connector-curvature="0" id="path1978" d="M 170,35 V 55" style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+    <ns0:path ns1:connector-curvature="0" id="path1980" d="M 180,35 V 55" style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+    <ns0:path ns1:connector-curvature="0" id="path1982" d="M 190,35 V 55" style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+    <ns0:path style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" d="M 190,35 V 55" id="path1984" ns1:connector-curvature="0" />
+    <ns0:path style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" d="M 200,35 V 55" id="path1986" ns1:connector-curvature="0" />
+    <ns0:path style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" d="M 210,35 V 55" id="path1988" ns1:connector-curvature="0" />
+    <ns0:path style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" d="M 220,35 V 55" id="path1990" ns1:connector-curvature="0" />
+    <ns0:path style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" d="M 230,35 V 55" id="path1992" ns1:connector-curvature="0" />
+    <ns0:path ns1:connector-curvature="0" id="path1994" d="M 230,35 V 55" style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+    <ns0:path ns1:connector-curvature="0" id="path1996" d="M 240,35 V 55" style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+    <ns0:path ns1:connector-curvature="0" id="path1998" d="M 250,35 V 55" style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+    <ns0:path ns1:connector-curvature="0" id="path2000" d="M 260,35 V 55" style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+    <ns0:path ns1:connector-curvature="0" id="path2002" d="M 270,35 V 55" style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+    <ns0:path style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" d="M 270,35 V 55" id="path2004" ns1:connector-curvature="0" />
+    <ns0:path style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" d="M 280,35 V 55" id="path2006" ns1:connector-curvature="0" />
+    <ns0:path style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" d="M 290,35 V 55" id="path2008" ns1:connector-curvature="0" />
+    <ns0:path style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" d="M 300,35 V 55" id="path2010" ns1:connector-curvature="0" />
+    <ns0:path style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" d="M 310,35 V 55" id="path2012" ns1:connector-curvature="0" />
+    <ns0:path ns1:connector-curvature="0" id="path2014" d="M 310,35 V 55" style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+    <ns0:path ns1:connector-curvature="0" id="path2016" d="M 320,35 V 55" style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+    <ns0:path ns1:connector-curvature="0" id="path2018" d="M 330,35 V 55" style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+    <ns0:path ns1:connector-curvature="0" id="path2020" d="M 340,35 V 55" style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+    <ns0:path ns1:connector-curvature="0" id="path2022" d="M 350,35 V 55" style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+    <ns0:path style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" d="M 350,35 V 55" id="path2024" ns1:connector-curvature="0" />
+    <ns0:path style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" d="M 360,35 V 55" id="path2026" ns1:connector-curvature="0" />
+    <ns0:path style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" d="M 370,35 V 55" id="path2028" ns1:connector-curvature="0" />
+    <ns0:path style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" d="M 380,35 V 55" id="path2030" ns1:connector-curvature="0" />
+    <ns0:path style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" d="M 390,35 V 55" id="path2032" ns1:connector-curvature="0" />
+    <ns0:path ns1:connector-curvature="0" id="path2034" d="M 390,35 V 55" style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+    <ns0:path ns1:connector-curvature="0" id="path2036" d="M 400,35 V 55" style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+    <ns0:path ns1:connector-curvature="0" id="path2038" d="M 410,35 V 55" style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+    <ns0:path ns1:connector-curvature="0" id="path2040" d="M 420,35 V 55" style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+    <ns0:path ns1:connector-curvature="0" id="path2042" d="M 430,35 V 55" style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+    <ns0:path style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" d="M 430,35 V 55" id="path2044" ns1:connector-curvature="0" />
+    <ns0:path style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" d="M 440,35 V 55" id="path2046" ns1:connector-curvature="0" />
+    <ns0:path style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" d="M 450,35 V 55" id="path2048" ns1:connector-curvature="0" />
+    <ns0:path style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" d="M 460,35 V 55" id="path2050" ns1:connector-curvature="0" />
+    <ns0:path style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" d="M 470,35 V 55" id="path2052" ns1:connector-curvature="0" />
+    <ns0:path ns1:connector-curvature="0" id="path2054" d="M 470,35 V 55" style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+    <ns0:path ns1:connector-curvature="0" id="path2056" d="M 480,35 V 55" style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+    <ns0:path ns1:connector-curvature="0" id="path2058" d="M 490,35 V 55" style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+    <ns0:path ns1:connector-curvature="0" id="path2060" d="M 500,35 V 55" style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+    <ns0:path ns1:connector-curvature="0" id="path2062" d="M 510,35 V 55" style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+    <ns0:path style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" d="M 510,35 V 55" id="path2064" ns1:connector-curvature="0" />
+    <ns0:path style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" d="M 520,35 V 55" id="path2066" ns1:connector-curvature="0" />
+    <ns0:path style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" d="M 530,35 V 55" id="path2068" ns1:connector-curvature="0" />
+    <ns0:path style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" d="M 540,35 V 55" id="path2070" ns1:connector-curvature="0" />
+    <ns0:path ns2:nodetypes="ccccccccccccccccc" style="fill:#666d7a;fill-opacity:1;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" d="M 80,55 H 0 v 15 h 5 v 5 h 5 v 20 l 10,10 v 150 h 80 V 105 L 90,95 V 75 h -5 v -5 h -5 z" id="path2076" ns1:connector-curvature="0" />
+    <ns0:path style="fill:#666d7a;fill-opacity:1;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" d="M 100,35 H 20 v 20 h 80 z" id="path2078" ns1:connector-curvature="0" />
+  </ns0:g>
+</ns0:svg>

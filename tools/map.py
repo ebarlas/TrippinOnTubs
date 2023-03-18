@@ -5,6 +5,9 @@ namespace = {
     'svg': 'http://www.w3.org/2000/svg'
 }
 
+# this ought to be equal to the value in config JSON
+DEFAULT_ACTIVATION = 360
+
 
 def extract_from_xml(node, name, target, fn):
     if name in node.attrib:
@@ -37,7 +40,9 @@ def find_objects(root):
                     ref = root.findall(f'.//*[@id="{id}"]')
                     if ref:
                         ref_x = int(ref[0].attrib['x'])
-                        ref_activation = int(ref[0].attrib['activation'])
+                        ref_activation = DEFAULT_ACTIVATION
+                        if 'activation' in ref[0]:
+                            ref_activation = int(ref[0].attrib['activation'])
                         obj['activation'] = ref_activation + (obj['position']['x'] - ref_x)
                 objects.append(obj)
                 id_counter = id_counter + 1

@@ -1,23 +1,23 @@
 {
   "windowSize": {
-    "x": 1600,
-    "y": 900
+    "x": 1200,
+    "y": 600
   },
-  "spiritSecondsBehind": 3,
+  "spiritSecondsBehind": 0,
   "tickRate": 120,
   "spiritClockTickPeriod": 500,
-  "activationProximity": 605,
-  "deactivationProximity": 302,
+  "activationProximity": 360,
+  "deactivationProximity": 150,
   "healthBarSize": {
-    "x": 38,
-    "y": 4
+    "x": 19,
+    "y": 2
   },
   "shakeDuration": 350,
   "shakeHertz": 60,
-  "shakeAmplitude": 11,
-  "meterMargin": 6,
+  "shakeAmplitude": 5,
+  "meterMargin": 3,
   "fastReplayFactor": 5,
-  "scrollPixelsPerSecond": 40,
+  "scrollPixelsPerSecond": 20,
   "minComboHits": 3,
   "pointsPerObject": 10,
   "pointsPerHitPoint": 5,
@@ -34,13 +34,13 @@
   "knockoutVelocityFactor": 0.5,
   "dustJumpFactor": 0.5,
   "dustLandFactor": 0.5,
-  "dustRunFactor": 1.0,
+  "dustRunFactor": 0.5,
   "healthBarVerticalClearanceFactor": 3,
   "maxConsecutiveJumps": 2,
   "jumpSound": "thud",
   "stompSound": "chime0",
-  "loadMap": "loading",
-  "trainMap": "training",
+  "loadMap": "load",
+  "trainMap": "train",
   "loadAutoPlay": "test",
   "prefetchSprites": [
     "walking_tub",
@@ -49,8 +49,7 @@
     "zombie"
   ],
   "maps": [
-    "level1",
-    "level2"
+    "level_1"
   ],
   "db": {
     "host": "www.trippinontubs.com",
@@ -58,28 +57,53 @@
   },
   "scales": [
     {
-      "name": "1x",
+      "name": "1z",
       "multiplier": 1,
+      "minWidth": 300
+    },
+    {
+      "name": "2z",
+      "multiplier": 2,
       "minWidth": 600
     },
     {
-      "name": "2x",
-      "multiplier": 2,
+      "name": "3z",
+      "multiplier": 3,
+      "minWidth": 900
+    },
+    {
+      "name": "4z",
+      "multiplier": 4,
       "minWidth": 1200
     },
     {
-      "name": "3x",
-      "multiplier": 3,
-      "minWidth": 1600
+      "name": "5z",
+      "multiplier": 5,
+      "minWidth": 1500
     },
     {
-      "name": "4x",
-      "multiplier": 4,
+      "name": "6z",
+      "multiplier": 6,
+      "minWidth": 1800
+    },
+    {
+      "name": "7z",
+      "multiplier": 7,
+      "minWidth": 2100
+    },
+    {
+      "name": "8z",
+      "multiplier": 8,
       "minWidth": 2400
     },
     {
-      "name": "5x",
-      "multiplier": 5,
+      "name": "9z",
+      "multiplier": 9,
+      "minWidth": 2700
+    },
+    {
+      "name": "10z",
+      "multiplier": 10,
       "minWidth": 3000
     }
   ],
@@ -88,18 +112,18 @@
       "type": "goggin",
       "platform": false,
       "terminalVelocity": {
-        "x": 120,
-        "y": 422
+        "x": 60,
+        "y": 211
       },
       "massFactor": 2.0,
-      "gravity": 352,
-      "fallGravity": 532,
-      "minJumpVelocity": -106,
-      "maxJumpVelocity": -309,
-      "maxDuckJumpVelocity": -385,
-      "runningAcceleration": 281,
-      "risingAcceleration": 14,
-      "duckFriction": 42,
+      "gravity": 176,
+      "fallGravity": 266,
+      "minJumpVelocity": -53,
+      "maxJumpVelocity": -154,
+      "maxDuckJumpVelocity": -192,
+      "runningAcceleration": 140,
+      "risingAcceleration": 7,
+      "duckFriction": 21,
       "minJumpChargeTime": 0,
       "maxJumpChargeTime": 400,
       "jumpGracePeriod": 125,
@@ -110,16 +134,16 @@
       "type": "bird",
       "platform": false,
       "velocity": {
-        "x": -14,
+        "x": -7,
         "y": 0.0
       },
       "terminalVelocity": {
-        "x": 35,
-        "y": 316
+        "x": 17,
+        "y": 158
       },
       "massFactor": 0.25,
-      "runningAcceleration": -42,
-      "risingAcceleration": 42,
+      "runningAcceleration": -21,
+      "risingAcceleration": 21,
       "hitPoints": 1,
       "randFrame": true
     },
@@ -127,15 +151,15 @@
       "type": "brick",
       "platform": false,
       "terminalVelocity": {
-        "x": 35,
-        "y": 316
+        "x": 17,
+        "y": 158
       },
       "friction": {
-        "x": 56,
+        "x": 28,
         "y": 0
       },
-      "gravity": 281,
-      "fallGravity": 422,
+      "gravity": 140,
+      "fallGravity": 211,
       "hitPoints": 8
     },
     {
@@ -146,13 +170,13 @@
       "type": "ball",
       "platform": false,
       "terminalVelocity": {
-        "x": 225,
-        "y": 225
+        "x": 112,
+        "y": 112
       },
       "massFactor": 0.5,
       "coefficient": 0.9,
-      "gravity": 281,
-      "fallGravity": 281,
+      "gravity": 140,
+      "fallGravity": 140,
       "hitPoints": 2,
       "elasticObjectCollisions": true
     },
@@ -160,13 +184,13 @@
       "type": "zombie",
       "platform": false,
       "terminalVelocity": {
-        "x": 28,
-        "y": 316
+        "x": 14,
+        "y": 158
       },
       "massFactor": 0.5,
-      "gravity": 281,
-      "fallGravity": 422,
-      "runningAcceleration": -35,
+      "gravity": 140,
+      "fallGravity": 211,
+      "runningAcceleration": -17,
       "hitPoints": 4,
       "accelerateWhenGrounded": true
     },
@@ -174,17 +198,17 @@
       "type": "rat",
       "platform": false,
       "velocity": {
-        "x": -14,
+        "x": -7,
         "y": 0
       },
       "terminalVelocity": {
-        "x": 37,
-        "y": 316
+        "x": 18,
+        "y": 158
       },
       "massFactor": 0.5,
-      "gravity": 281,
-      "fallGravity": 422,
-      "runningAcceleration": -42,
+      "gravity": 140,
+      "fallGravity": 211,
+      "runningAcceleration": -21,
       "hitPoints": 3,
       "accelerateWhenGrounded": true,
       "randFrame": true
@@ -193,17 +217,17 @@
       "type": "chicken",
       "platform": false,
       "velocity": {
-        "x": -14,
+        "x": -7,
         "y": 0
       },
       "terminalVelocity": {
-        "x": 37,
-        "y": 316
+        "x": 18,
+        "y": 158
       },
       "massFactor": 0.5,
-      "gravity": 281,
-      "fallGravity": 422,
-      "runningAcceleration": -42,
+      "gravity": 140,
+      "fallGravity": 211,
+      "runningAcceleration": -21,
       "hitPoints": 3,
       "accelerateWhenGrounded": true,
       "randFrame": true
@@ -212,19 +236,19 @@
       "type": "running_clock",
       "platform": false,
       "terminalVelocity": {
-        "x": 28,
-        "y": 316
+        "x": 14,
+        "y": 158
       },
-      "gravity": 281,
-      "fallGravity": 422,
-      "runningAcceleration": -42
+      "gravity": 140,
+      "fallGravity": 211,
+      "runningAcceleration": -21
     }
   ],
   "layerObjects": [
     {
       "type": "walking_tub",
       "velocity": {
-        "x": -28,
+        "x": -14,
         "y": 0
       },
       "randFrame": true
@@ -232,7 +256,7 @@
     {
       "type": "walking_tub_green",
       "velocity": {
-        "x": -28,
+        "x": -14,
         "y": 0
       },
       "randFrame": true
@@ -240,7 +264,7 @@
     {
       "type": "walking_tub_yellow",
       "velocity": {
-        "x": -28,
+        "x": -14,
         "y": 0
       },
       "randFrame": true

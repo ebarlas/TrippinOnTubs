@@ -220,7 +220,7 @@ void trippin::Level::initEngine() {
 
     spirit.setTicksPerSecond(configuration->ticksPerSecond());
     spirit.setVelocity(goggin->terminalVelocity.x);
-    spirit.delay(configuration->spiritSecondsBehind);
+    spirit.delay(training ? 10 : configuration->spiritSecondsBehind); // init spirit way back for training
 
     jumpMeter = std::make_unique<JumpMeter>(
             spriteManager->get("winged_foot"),

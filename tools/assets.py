@@ -6,10 +6,10 @@ import concurrent.futures
 # Roughly corresponds to device min-width of 600 px
 # The small floating value reflects the fact that the dimensions of raw SVGs are hugely inflated
 # Raw SVG scale is high to ease drafting, with grid lines on 1-px or 10-px boundaries
-unit_scale = 0.0703125
+unit_scale = 0.0703125 / 2
 
 scales = [
-    ('1x', 1), ('3x', 3)
+    ('1z', 1), ('2z', 2), ('3z', 3), ('4z', 4), ('5z', 5), ('6z', 6), ('7z', 7), ('8z', 8), ('9z', 9), ('10z', 10)
 ]
 
 sprites = [
@@ -76,10 +76,12 @@ sprites = [
     'petaluma_museum',
     'time_bonus',
     'gameover',
-    'levels_completed'
+    'levels_completed',
+    'generic_building',
+    'generic_building_2'
 ]
 
-levels = ['loading', 'training', 'level1', 'level2']
+levels = ['level_1', 'load', 'train']
 
 dir_raw = 'raw'
 dir_svgs = 'svgs'
