@@ -463,7 +463,7 @@ void trippin::Game::handle(UserInput::Event &event) {
                     logStateChange("PLAYING", "LEVEL_TRANSITION");
                 } else {
                     state = State::LEVELS_COMPLETED;
-                    endMenu->reset();
+                    levelsCompletedOverlay->reset();
                     logStateChange("PLAYING", "LEVELS_COMPLETED");
                 }
             } else {
