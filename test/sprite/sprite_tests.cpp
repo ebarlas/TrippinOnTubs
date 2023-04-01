@@ -12,6 +12,6 @@ TEST_CASE("Sprite load", "[sprite]")
     REQUIRE(ren != nullptr);
 
     trippin::Sprite sprite{ren, "goggin", trippin::Scale{"1x", 1, 2}, 5};
-    REQUIRE(sprite.getDeviceSize().x == 33);
-    REQUIRE(sprite.getDeviceSize().y == 33);
+    REQUIRE(sprite.getDeviceSize().x == 16);
+    REQUIRE(sprite.getDeviceSize().y == 16);
 }

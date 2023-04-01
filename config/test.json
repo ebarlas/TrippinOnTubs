@@ -57,52 +57,52 @@
   },
   "scales": [
     {
-      "name": "1z",
+      "name": "1x",
       "multiplier": 1,
       "minWidth": 300
     },
     {
-      "name": "2z",
+      "name": "2x",
       "multiplier": 2,
       "minWidth": 600
     },
     {
-      "name": "3z",
+      "name": "3x",
       "multiplier": 3,
       "minWidth": 900
     },
     {
-      "name": "4z",
+      "name": "4x",
       "multiplier": 4,
       "minWidth": 1200
     },
     {
-      "name": "5z",
+      "name": "5x",
       "multiplier": 5,
       "minWidth": 1500
     },
     {
-      "name": "6z",
+      "name": "6x",
       "multiplier": 6,
       "minWidth": 1800
     },
     {
-      "name": "7z",
+      "name": "7x",
       "multiplier": 7,
       "minWidth": 2100
     },
     {
-      "name": "8z",
+      "name": "8x",
       "multiplier": 8,
       "minWidth": 2400
     },
     {
-      "name": "9z",
+      "name": "9x",
       "multiplier": 9,
       "minWidth": 2700
     },
     {
-      "name": "10z",
+      "name": "10x",
       "multiplier": 10,
       "minWidth": 3000
     }

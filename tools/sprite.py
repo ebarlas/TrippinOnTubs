@@ -94,7 +94,7 @@ def export_pngs(svg_file, tmp_dir, export_dir, scales, name, unit_scale):
             e.set('style', replace_display(e.get('style'), 'display:inline'))
         tree.write(f'{tmp_dir}/{name}_tmp.svg')
         for scale in scales:
-            dst_png = f'{export_dir}/{name}/{scale[0]}/{name}_{n}.png'
+            dst_png = f'{export_dir}/{name}/{scale[0]}/{name}_{n-1}.png'
             tmp_svg = f'{tmp_dir}/{name}_tmp.svg'
             tmp_png = f'{tmp_dir}/{name}_tmp.png'
             subprocess.run([

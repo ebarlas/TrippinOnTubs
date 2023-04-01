@@ -28,7 +28,7 @@ SDL_Surface *trippin::SpriteLoader::loadSurface(const char *path) {
 
 std::string trippin::SpriteLoader::getSpriteSheetFile(const std::string &name, const Scale &scale, int frame) {
     std::stringstream path;
-    path << "sprites/" << name << "/" << scale.getName() << "/" << name << "_" << frame + 1 << ".png";
+    path << "sprites/" << name << "/" << scale.getName() << "/" << name << "_" << frame << ".png";
     return path.str();
 }
 

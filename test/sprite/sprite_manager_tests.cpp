@@ -14,6 +14,6 @@ TEST_CASE("Sprite manager load", "[sprite]")
     trippin::SpriteLoader spriteLoader{trippin::Scale{"1x", 1, 2}};
     trippin::SpriteManager manager{ren, spriteLoader, 5};
     auto &sprite = manager.get("goggin");
-    REQUIRE(sprite.getDeviceSize().x == 33);
-    REQUIRE(sprite.getDeviceSize().y == 33);
+    REQUIRE(sprite.getDeviceSize().x == 16);
+    REQUIRE(sprite.getDeviceSize().y == 16);
 }
