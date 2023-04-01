@@ -153,7 +153,7 @@ add_library(Game
         game/SoundManager.cpp)
 target_link_libraries(Game Sprite Net Ui SDL2_mixer::SDL2_mixer-static)
 
-add_executable(trippin game/trippin.cpp)
+add_executable(trippin trippin/trippin.cpp)
 target_link_libraries(trippin Game)
 
 add_executable(collisiondebug demo/collisiondebug.cpp)

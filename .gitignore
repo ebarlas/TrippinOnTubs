@@ -14,7 +14,6 @@ build-sprites
 __pycache__
 scratch/
 *.a
-src/trippin
 Testing/
 2x/
 3x/
