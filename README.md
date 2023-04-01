@@ -6,10 +6,9 @@ The game is build upon the [Simple DirectMedia Layer](https://www.libsdl.org/) l
 that provides graphics and media facilities. 
 
 Game art is developed in Inkscape and rasterized using Inkscape CLI invoked from
-custom Python tools. Sprite sheets are assembled using the [Pillow](https://pillow.readthedocs.io/en/stable/) image processing
-library also via custom Python tools.
+custom Python tools.
 
-![Frame rate and engine tick rate](docs/goggin.gif)
+![Goggin](docs/goggin.gif)
 
 # Dependencies
 
@@ -24,26 +23,25 @@ Building:
 
 Testing:
 * Catch2 library
-* SDL2_tff library
 
 Assets:
 * Inkscape
 * Python 3.7+
-* Pillow image processing Python library
 
 # Building
 
 The CMake build system generator is used for this project.
 
-SDL2, Catch2, and nlohmann_json rely on CMake modules that are locatable by the CMake `find_package()`. See the CMake [find_package documentation](https://cmake.org/cmake/help/latest/command/find_package.html) for details.
+CMake files use [FetchContent](https://cmake.org/cmake/help/latest/module/FetchContent.html) exclusively.
+The dependencies above do _not_ need to be installed as system libraries.
+Dependencies are downloaded and compiled from source.
 
-SDL2_image, SDL2_tff, SDL2_net, and SDL2_mixer ship with `pkg-config` files and rely on the CMake [FindPkgConfig](https://cmake.org/cmake/help/latest/module/FindPkgConfig.html) module.
+Review the GitHub actions [steps](.github/workflows/build.yml) to see complete build steps.
 
-Note that this [homebrew](https://brew.sh/) packages provide the necessary `.cmake` or `.pc` for these dependencies.
-
-The project should successfully build with the following shell command when run from the project root directory:
-
-    $ mkdir build && cd build && cmake ../ && make
+```shell
+cmake -S. -B build
+cmake --build build
+```
 
 # Fonts
 
@@ -56,12 +54,31 @@ is used in various places within the game. It was obtained from fontspace.com un
 
 The diagram below outlines the various game modules and the interdependencies.
 
-![Image of game modules](docs/game-modules.png)
+All modules are separate static libraries linked with the final Trippin on Tubs binary executable.
+The dependencies are encoded in the [CMakeLists.txt](src/CMakeLists.txt) file.
+
+```
+                   +----------+         +----------+
+                   |          |         |          |
+     +------------>|  Sprite  +-------->|  Engine  |
+     |             |          |         |          |
+     |             +----------+         +----------+
++----+-----+
+|          |
+|   Game   |
+|          |
++----+-----+
+     |             +----------+         +----------+
+     |             |          |         |          |
+     +------------>|    UI    +-------->|   Net    |
+                   |          |         |          |
+                   +----------+         +----------+
+```
 
 # Media
 
-Raw game assets are SVG images. SVGs are processed and rasterized
-into sprite sheet PNG images. Trippin on Tubs loads PNGs with the help of SDL_Image and libpng.
+Raw game assets are SVG images. SVGs are processed and sprite frames are rasterized
+into PNG images. Trippin on Tubs loads PNGs with the help of SDL_Image and libpng.
 
 PNGs are rasterized at multiple scales tailored for different devices and screen resolutions.
 
@@ -71,7 +88,7 @@ The diagram below outlines the flow of data between media components.
 
 # Image Pre-Loading
 
-Large sprite sheets can take a measurable amount of time to load. The level that appears on launch
+Large sprites can take a measurable amount of time to load. The level that appears on launch
 has relatively few objects and does not include the largest sprites. This represents an opportunity for
 pre-fetching large images. When the game launches, large sprites are loaded in a background thread
 while the auto-play loading level initializes and appears to the user. 
@@ -84,17 +101,22 @@ The [SpriteLoadTask](src/sprite/SpriteLoadTask.h) class is responsible for backg
 # Timing
 
 Two independent timers drive game progress. First, the render rate is the
-frequency with which game assets are rendered. The render rate is
+frequency at which game assets are rendered. The render rate is
 synchronized with the display refresh rate, typically 60 Hz. Second, the engine
 tick rate is the frequency with which the physical properties of game objects
-are updated, typically 100 Hz. The frame rendering thread and the physics engine 
-thread communicate via a shared channel. Object position data is communicated from
-the engine thread to the rendering thread. User input is communicated in the opposite
-direction.
+are updated, typically 120 Hz.
+
+The frame rendering thread and the physics engine 
+thread communicate via a [scene builder](src/game/SceneBuilder.h) where shared state is held.
+At the end of each engine clock cycle, a collection of immutable
+draw functions is added to the staging area that represents a
+scene snapshot in time.
+
+During each render clock cycle, the render thread
+takes the latest sample from the scene builder and invokes 
+the immutable draw functions to display the scene.
 
 ![Frame rate and engine tick rate](docs/game-rate.png)
-
-![Thread communication](docs/thread-communication.png)
 
 # Camera
 
