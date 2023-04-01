@@ -1,6 +1,42 @@
 #include <exception>
+#include <tuple>
+#include <string>
 #include "SDL_mixer.h"
 #include "SdlSystem.h"
+
+static std::tuple<int, int, unsigned int> getWinParams(const std::string &platform, SDL_Point ws) {
+    if (platform == "iOS") {
+        return {0, 0, SDL_WINDOW_SHOWN | SDL_WINDOW_FULLSCREEN | SDL_WINDOW_ALLOW_HIGHDPI};
+    } else if (platform == "Android") {
+        return {0, 0, SDL_WINDOW_SHOWN | SDL_WINDOW_FULLSCREEN};
+    } else if (platform == "Mac OS X") {
+        return {ws.x, ws.y, SDL_WINDOW_SHOWN | SDL_WINDOW_ALLOW_HIGHDPI};
+    } else {
+        return {ws.x, ws.y, SDL_WINDOW_SHOWN};
+    }
+}
+
+static std::tuple<int, int> getWinSize(const std::string &platform, SDL_Renderer* renderer) {
+    if (platform == "Android") {
+        SDL_DisplayMode displayMode;
+        SDL_GetCurrentDisplayMode(0, &displayMode);
+        return {displayMode.w, displayMode.h};
+    } else {
+        int w, h;
+        SDL_GetRendererOutputSize(renderer, &w, &h);
+        return {w, h};
+    }
+}
+
+static int getDpiScale(const std::string &platform, SDL_Window* window, int winWidth) {
+    if (platform == "Mac OS X") {
+        int w, h;
+        SDL_GetWindowSize(window, &w, &h);
+        return winWidth / w;
+    } else {
+        return 1;
+    }
+}
 
 trippin::SdlSystem::SdlSystem(SDL_Point ws) {
     if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO) < 0) {
@@ -8,22 +44,16 @@ trippin::SdlSystem::SdlSystem(SDL_Point ws) {
         std::terminate();
     }
 
-    if (ws.x || ws.y) {
-        windowSize = ws;
-    } else {
-        SDL_DisplayMode displayMode;
-        SDL_GetCurrentDisplayMode(0, &displayMode);
-        windowSize = {displayMode.w, displayMode.h};
-    }
-    SDL_Log("window size w=%d, h=%d", windowSize.x, windowSize.y);
+    auto platform = std::string(SDL_GetPlatform());
+    auto [winx, winy, winflags] = getWinParams(platform, ws);
 
     window = SDL_CreateWindow(
             "Trippin on Tubs",
             SDL_WINDOWPOS_UNDEFINED,
             SDL_WINDOWPOS_UNDEFINED,
-            ws.x,
-            ws.y,
-            ws.x || ws.y ? SDL_WINDOW_SHOWN : SDL_WINDOW_SHOWN | SDL_WINDOW_FULLSCREEN);
+            winx,
+            winy,
+            winflags);
     if (window == nullptr) {
         SDL_Log("Window could not be created. SDL error: %s", SDL_GetError());
         std::terminate();
@@ -38,9 +68,9 @@ trippin::SdlSystem::SdlSystem(SDL_Point ws) {
         std::terminate();
     }
 
-    SDL_DisplayMode displayMode;
-    SDL_GetDisplayMode(0, 0, &displayMode);
-    refreshRate = displayMode.refresh_rate;
+    auto [winw, winh] = getWinSize(platform, renderer);
+    windowSize = {winw, winh};
+    highDpiScale = getDpiScale(platform, window, winw);
 
     auto flags = MIX_INIT_MP3;
     if (Mix_Init(flags) != flags) {

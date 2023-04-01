@@ -33,7 +33,7 @@ namespace trippin {
             operator bool() const;
         };
 
-        UserInput(Point<int> rendererSize);
+        UserInput(Point<int> rendererSize, int highDpiScale);
         Event pollEvent();
     private:
         struct Touch {
@@ -42,6 +42,10 @@ namespace trippin {
         };
 
         const Point<int> rendererSize;
+
+        // https://github.com/libsdl-org/SDL/issues/2999
+        // https://forums.libsdl.org/viewtopic.php?p=43373
+        const int highDpiScale;
 
         bool spaceKeyHeldDown{};
         bool downKeyHeldDown{};

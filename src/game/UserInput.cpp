@@ -1,6 +1,7 @@
 #include "UserInput.h"
 
-trippin::UserInput::UserInput(trippin::Point<int> rendererSize) : rendererSize(rendererSize) {
+trippin::UserInput::UserInput(trippin::Point<int> rendererSize, int highDpiScale)
+        : rendererSize(rendererSize), highDpiScale(highDpiScale) {
 }
 
 trippin::GogginInput trippin::UserInput::Event::asGogginInput() const {
@@ -85,7 +86,7 @@ trippin::UserInput::Event trippin::UserInput::pollEvent() {
         keyUpFn(SDL_SCANCODE_R, rKeyHeldDown, result.rKeyUp);
     } else if (e.type == SDL_MOUSEBUTTONDOWN && e.button.which != SDL_TOUCH_MOUSEID) { // ignore synthetic mouse events
         result.mouseButtonDown = true;
-        result.touchPoint = {e.button.x, e.button.y};
+        result.touchPoint = {e.button.x * highDpiScale, e.button.y * highDpiScale};
     } else if (e.type == SDL_FINGERDOWN) {
         result.touchPoint = {
                 static_cast<int>(static_cast<double>(e.tfinger.x) * rendererSize.x),

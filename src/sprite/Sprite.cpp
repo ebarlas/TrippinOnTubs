@@ -2,20 +2,25 @@
 #include "Sprite.h"
 
 trippin::Sprite::Sprite(SDL_Renderer *renderer, const std::string &name, const SpriteLoader &loader, double tickPeriod)
-        : scale(loader.getScale()), sheet(renderer, name, loader), ren(renderer) {
+        : ren(renderer), scale(loader.getScale()) {
+    metadata.load(name);
+    sheet = std::make_unique<SpriteSheet>(ren, name, loader, metadata.getFrames());
     init(name, tickPeriod);
 }
 
-trippin::Sprite::Sprite(SDL_Renderer *ren, const std::string &name, const Scale &sc, double tickPer, SDL_Surface *sur)
-        : scale(sc), sheet(ren, sur), ren(ren) {
+trippin::Sprite::Sprite(
+        SDL_Renderer *ren,
+        const std::string &name,
+        const Scale &sc,
+        double tickPer,
+        const std::vector<SDL_Surface *> &surfaces) : ren(ren), scale(sc) {
+    metadata.load(name);
+    sheet = std::make_unique<SpriteSheet>(ren, surfaces);
     init(name, tickPer);
 }
 
 void trippin::Sprite::init(const std::string &name, double tickPeriod) {
-    metadata.load(name);
-
-    deviceSize = sheet.getSize();
-    deviceSize.x /= metadata.getFrames();
+    deviceSize = sheet->getSize();
     engineSize = deviceSize * scale.getDeviceEngineFactor();
     engineHitBox = metadata.getHitBox() * scale.getEngineFactor();
 
@@ -24,9 +29,8 @@ void trippin::Sprite::init(const std::string &name, double tickPeriod) {
 }
 
 void trippin::Sprite::renderDevice(trippin::Point<int> position, int frame) const {
-    SDL_Rect clip{frame * deviceSize.x, 0, deviceSize.x, deviceSize.y};
     SDL_Rect target{position.x, position.y, deviceSize.x, deviceSize.y};
-    sheet.render(&clip, &target);
+    sheet->render(frame, &target);
 }
 
 void trippin::Sprite::renderEngine(trippin::Point<int> hitBoxPos, int frame, const Rect<int> &viewport) const {

@@ -22,16 +22,16 @@ namespace trippin {
         void load();
         bool joined() const;
         bool started() const;
-        std::unique_ptr<std::unordered_map<std::string, SDL_Surface *>> take();
+        std::unique_ptr<std::unordered_map<std::string, std::vector<SDL_Surface *>>> take();
     private:
-        std::unique_ptr<std::unordered_map<std::string, SDL_Surface *>> surfaces;
+        std::unique_ptr<std::unordered_map<std::string, std::vector<SDL_Surface *>>> surfaces;
         std::vector<std::string> names;
         std::thread thread;
         const SpriteLoader &spriteLoader;
         bool threadStarted{};
         bool threadJoined{};
 
-        std::unordered_map<std::string, SDL_Surface *> loadSurfaces() const;
+        std::unordered_map<std::string, std::vector<SDL_Surface *>> loadSurfaces() const;
     };
 }
 

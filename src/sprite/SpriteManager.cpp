@@ -13,8 +13,8 @@ const trippin::Sprite &trippin::SpriteManager::get(const std::string &type) {
     }
 }
 
-void trippin::SpriteManager::setSurfaces(std::unique_ptr<std::unordered_map<std::string, SDL_Surface *>> surf) {
-    surfaces = std::move(surf);
+void trippin::SpriteManager::setSurfaces(std::unique_ptr<std::unordered_map<std::string, std::vector<SDL_Surface *>>> surfs) {
+    surfaces = std::move(surfs);
 }
 
 trippin::SpriteManager::SpritePtr trippin::SpriteManager::newSprite(const std::string &type) {

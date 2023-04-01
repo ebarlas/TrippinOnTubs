@@ -40,7 +40,7 @@
   "jumpSound": "thud",
   "stompSound": "chime0",
   "loadMap": "load",
-  "trainMap": "train",
+  "trainMap": "training",
   "loadAutoPlay": "test",
   "prefetchSprites": [
     "walking_tub",

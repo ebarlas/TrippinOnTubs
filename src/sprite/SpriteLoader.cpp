@@ -5,8 +5,16 @@
 trippin::SpriteLoader::SpriteLoader(const Scale &scale) : scale(scale) {
 }
 
-SDL_Surface *trippin::SpriteLoader::loadSurface(const std::string &name) const {
-    return loadSurface(getSpriteSheetFile(name, scale).c_str());
+SDL_Surface *trippin::SpriteLoader::loadSurface(const std::string &name, int frame) const {
+    return loadSurface(getSpriteSheetFile(name, scale, frame).c_str());
+}
+
+std::vector<SDL_Surface *> trippin::SpriteLoader::loadSurfaces(const std::string &name, int frames) const {
+    std::vector<SDL_Surface *> surfaces(frames);
+    for (int i = 0; i < frames; i++) {
+        surfaces[i] = loadSurface(name, i);
+    }
+    return surfaces;
 }
 
 SDL_Surface *trippin::SpriteLoader::loadSurface(const char *path) {
@@ -18,9 +26,9 @@ SDL_Surface *trippin::SpriteLoader::loadSurface(const char *path) {
     return surface;
 }
 
-std::string trippin::SpriteLoader::getSpriteSheetFile(const std::string &name, const Scale &scale) {
+std::string trippin::SpriteLoader::getSpriteSheetFile(const std::string &name, const Scale &scale, int frame) {
     std::stringstream path;
-    path << "sprites/" << name << "/" << name << "_" << scale.getName() << ".png";
+    path << "sprites/" << name << "/" << scale.getName() << "/" << name << "_" << frame + 1 << ".png";
     return path.str();
 }
 

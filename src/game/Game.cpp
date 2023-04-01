@@ -46,6 +46,8 @@ void trippin::Game::initAppId() {
 
 void trippin::Game::initLogger() {
     logger = std::make_unique<Logger>(*stagingArea, appId);
+    SDL_DisplayMode displayMode;
+    SDL_GetDisplayMode(0, 0, &displayMode);
     auto renName = getRendererName(sdlSystem->getRenderer());
     auto sysName = getSystemName(sdlSystem->getWindow());
     auto sysRam = SDL_GetSystemRAM();
@@ -54,9 +56,9 @@ void trippin::Game::initLogger() {
     ss << ", rendererName=" << renName;
     ss << ", systemName=" << sysName;
     ss << ", systemRam=" << sysRam;
-    ss << ", frameRate=" << sdlSystem->getRefreshRate();
+    ss << ", frameRate=" << displayMode.refresh_rate;
+    ss << ", highDpiScale=" << sdlSystem->getHighDpiScale();
     ss << ", winSize=(" << windowSize.x << "," << windowSize.y << ")";
-    ss << ", renSize=(" << rendererSize.x << "," << rendererSize.y << ")";
     logger->log(ss.str());
 }
 
@@ -191,7 +193,7 @@ void trippin::Game::start() {
 }
 
 void trippin::Game::renderLoop() {
-    UserInput ui(rendererSize);
+    UserInput ui(rendererSize, sdlSystem->getHighDpiScale());
     while (state != State::EXIT) {
         auto event = ui.pollEvent();
         if (!event) { // events found in event queue, but none relevant, poll again

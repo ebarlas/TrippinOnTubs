@@ -26,14 +26,14 @@ namespace trippin {
         SDL_Point getRendererSize() const {
             return windowSize;
         }
-        int getRefreshRate() const {
-            return refreshRate;
+        int getHighDpiScale() const {
+            return highDpiScale;
         }
     private:
         SDL_Window *window;
         SDL_Renderer *renderer;
         SDL_Point windowSize;
-        int refreshRate;
+        int highDpiScale;
     };
 }
 

@@ -81,7 +81,7 @@ sprites = [
     'generic_building_2'
 ]
 
-levels = ['level_1', 'load', 'train']
+levels = ['level_1', 'load', 'training']
 
 dir_raw = 'raw'
 dir_svgs = 'svgs'
@@ -103,13 +103,8 @@ def sprite_assets(proj_home):
 
         sprite.sanitize(raw_file, svg_file)
 
-        num_frames = sprite.count_frames(svg_file)
         sprite.make_metadata(svg_file, meta_file, unit_scale)
-        sprite.export_pngs(svg_file, build_dir, build_dir, scales, spr, unit_scale)
-        for scale in scales:
-            src_files = [f'{build_dir}/{spr}_{n + 1}_{scale[0]}.png' for n in range(num_frames)]
-            output_file = f'{sprites_dir}/{spr}/{spr}_{scale[0]}.png'
-            sprite.make_sprite_sheet(src_files, output_file)
+        sprite.export_pngs(svg_file, build_dir, sprites_dir, scales, spr, unit_scale)
 
     with concurrent.futures.ThreadPoolExecutor(max_workers=15) as executor:
         for spr in sprites:

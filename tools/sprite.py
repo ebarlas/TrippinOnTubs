@@ -2,6 +2,8 @@ import xml.etree.ElementTree as ET
 import subprocess
 import json
 import re
+import os
+import shutil
 from pathlib import Path
 from PIL import Image
 
@@ -61,9 +63,6 @@ def replace_display(style, display):
 
 
 def export_pngs(svg_file, tmp_dir, export_dir, scales, name, unit_scale):
-    for d in (tmp_dir, export_dir):
-        Path(d).mkdir(parents=True, exist_ok=True)
-
     tree = ET.parse(svg_file)
     root = tree.getroot()
 
@@ -83,6 +82,11 @@ def export_pngs(svg_file, tmp_dir, export_dir, scales, name, unit_scale):
             for e in root.findall(f'.//svg:g[@type="frame"]/svg:g/svg:{elem}', namespace):
                 fade_style(e, fade_to_white)
 
+    for scale in scales:
+        dest_dir = f'{export_dir}/{name}/{scale[0]}'
+        if not os.path.exists(dest_dir):
+            os.makedirs(dest_dir)
+
     for n in range(1, num_frames + 1):
         for e in root.findall(f'.//svg:g[@type="frame"]', namespace):
             e.set('style', replace_display(e.get('style'), 'display:none'))
@@ -90,16 +94,17 @@ def export_pngs(svg_file, tmp_dir, export_dir, scales, name, unit_scale):
             e.set('style', replace_display(e.get('style'), 'display:inline'))
         tree.write(f'{tmp_dir}/{name}_tmp.svg')
         for scale in scales:
+            dst_png = f'{export_dir}/{name}/{scale[0]}/{name}_{n}.png'
+            tmp_svg = f'{tmp_dir}/{name}_tmp.svg'
+            tmp_png = f'{tmp_dir}/{name}_tmp.png'
             subprocess.run([
                 'inkscape',
                 '--export-type=png',
                 f'--export-width={img_width * scale[1]}',
                 f'--export-height={img_height * scale[1]}',
-                f'{tmp_dir}/{name}_tmp.svg'])
-            subprocess.run([
-                'mv',
-                f'{tmp_dir}/{name}_tmp.png',
-                f'{export_dir}/{name}_{n}_{scale[0]}.png'])
+                tmp_svg])
+            shutil.move(tmp_png, dst_png)
+            print(dst_png)
 
 
 def find_hit_box(svg_file, unit_scale):
@@ -121,16 +126,14 @@ def find_frame_duration(svg_file):
     return int(root.attrib['duration']) if 'duration' in root.attrib else 80
 
 
-def count_frames(svg_file, check_attrib=False):
+def count_frames(svg_file):
     root = ET.parse(svg_file).getroot()
-    if check_attrib and 'frames' in root.attrib:
-        return int(root.attrib['scale'])
     return len(root.findall('.//svg:g[@type="frame"]', namespace))
 
 
 def make_metadata(svg_file, output_file, unit_scale):
     Path(output_file).parent.mkdir(parents=True, exist_ok=True)
-    num_frames = count_frames(svg_file, True)
+    num_frames = count_frames(svg_file)
     hit_box = find_hit_box(svg_file, unit_scale)
     duration = find_frame_duration(svg_file)
     metadata = {
