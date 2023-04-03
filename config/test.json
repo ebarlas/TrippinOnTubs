@@ -1,4 +1,8 @@
 {
+  "version": {
+    "major": 0,
+    "minor": 1
+  },
   "windowSize": {
     "x": 1200,
     "y": 600

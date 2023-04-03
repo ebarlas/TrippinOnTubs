@@ -9,7 +9,7 @@ import urllib.parse
 client = boto3.client('dynamodb', region_name='us-west-2')
 
 
-def top_scores(limit):
+def top_scores(version, limit):
     res = client.query(
         TableName='trippin-scores',
         IndexName='score-index',
@@ -17,11 +17,11 @@ def top_scores(limit):
         Limit=limit,
         KeyConditionExpression='#pk = :pk',
         ExpressionAttributeNames={'#pk': 'pk'},
-        ExpressionAttributeValues={':pk': {'N': '1'}})
+        ExpressionAttributeValues={':pk': {'N': str(version)}})
     return res['Items']
 
 
-def top_today_scores(day, limit):
+def top_today_scores(version, day, limit):
     res = client.query(
         TableName='trippin-scores',
         IndexName='dayscore-index',
@@ -29,11 +29,11 @@ def top_today_scores(day, limit):
         Limit=limit,
         KeyConditionExpression='#pk = :pk AND begins_with (#dayscore, :dayscore)',
         ExpressionAttributeNames={'#pk': 'pk', '#dayscore': 'dayscore'},
-        ExpressionAttributeValues={':pk': {'N': '1'}, ':dayscore': {'S': day}})
+        ExpressionAttributeValues={':pk': {'N': str(version)}, ':dayscore': {'S': day}})
     return res['Items']
 
 
-def extract_body(request):
+def extract_add_body(request):
     return json.loads(base64.b64decode(request['body']['data']).decode('utf-8'))
 
 
@@ -56,21 +56,23 @@ def validate_input_events(events):
     return True
 
 
-def validate(event):
+def validate_add(event):
     if 'body' not in event or 'data' not in event['body'] or 'querystring' not in event:
         return False
 
-    params = urllib.parse.parse_qs(event['querystring']) # querystring request property is a raw string
-    body = extract_body(event)
-    if 'id' not in body or 'name' not in body or 'score' not in body or 'game' not in body or 'events' not in body:
+    params = urllib.parse.parse_qs(event['querystring'])  # querystring request property is a raw string
+    body = extract_add_body(event)
+    if 'version' not in body or 'id' not in body or 'name' not in body or 'score' not in body or 'game' not in body or 'events' not in body:
         return False
+    version = body['version']
     id = body['id']
     game = body['game']
     name = body['name']
     score = body['score']
     events = body['events']
 
-    if type(id) is not str or type(score) is not int or type(name) is not str or type(game) is not int or type(events) is not list:
+    if type(version) is not int or type(id) is not str or type(score) is not int or type(name) is not str or type(
+            game) is not int or type(events) is not list:
         return False
     if not re.match(r'[A-Z]{3}', name):
         return False
@@ -100,6 +102,7 @@ def cur_day_and_time():
 
 
 def add_score(request):
+    version = request['version']
     id = request['id']
     game = request['game']
     name = request['name']
@@ -108,7 +111,7 @@ def add_score(request):
     day, daytime = cur_day_and_time()
     padded_score = '0' * (5 - len(str(score))) + str(score)
     item = {
-        'pk': {'N': '1'},
+        'pk': {'N': str(version)},
         'sk': {'S': f'{id}/{game}'},
         'name': {'S': name},
         'score': {'N': str(score)},
@@ -137,7 +140,6 @@ def convert_item(item):
     }
 
 
-
 def convert(items):
     return [convert_item(i) for i in items]
 
@@ -158,22 +160,39 @@ def to_response(items):
     }
 
 
+def extract_version_param(request):
+    if 'querystring' not in request:
+        return 1
+
+    params = urllib.parse.parse_qs(request['querystring'])
+    if 'version' not in params:
+        return 1
+
+    version = params['version'][0]
+    try:
+        return int(version)
+    except ValueError:
+        return 1
+
+
 def lambda_handler(event, context):
     request = event['Records'][0]['cf']['request']
 
     print(f'method={request["method"]}, path={request["uri"]}')
 
     if request['method'] == 'GET' and '/scores/today' in request['uri']:
+        version = extract_version_param(request)
         day, daytime = cur_day_and_time()
-        return to_response(convert(top_today_scores(day, 25)))
+        return to_response(convert(top_today_scores(version, day, 25)))
 
     if request['method'] == 'GET' and '/scores/alltime' in request['uri']:
-        return to_response(convert(top_scores(25)))
+        version = extract_version_param(request)
+        return to_response(convert(top_scores(version, 25)))
 
     if request['method'] == 'POST' and '/scores' in request['uri']:
-        if not validate(request):
+        if not validate_add(request):
             return {'status': '400', 'statusDescription': 'Bad Request'}
-        add_score(extract_body(request))
+        add_score(extract_add_body(request))
         return {'status': '200', 'statusDescription': 'OK'}
 
     return {

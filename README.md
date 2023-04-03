@@ -58,21 +58,21 @@ All modules are separate static libraries linked with the final Trippin on Tubs 
 The dependencies are encoded in the [CMakeLists.txt](src/CMakeLists.txt) file.
 
 ```
-                   +----------+         +----------+
-                   |          |         |          |
-     +------------>|  Sprite  +-------->|  Engine  |
-     |             |          |         |          |
-     |             +----------+         +----------+
-+----+-----+
-|          |
-|   Game   |
-|          |
-+----+-----+
-     |             +----------+         +----------+
-     |             |          |         |          |
-     +------------>|    UI    +-------->|   Net    |
-                   |          |         |          |
-                   +----------+         +----------+
+                       +----------+         +----------+
+                       |          |         |          |
+         +------------>|  Sprite  +-------->|  Engine  |
+         |             |          |         |          |
+         |             +----------+         +----------+
+    +----+-----+
+    |          |
+    |   Game   |
+    |          |
+    +----+-----+
+         |             +----------+         +----------+
+         |             |          |         |          |
+         +------------>|    UI    +-------->|   Net    |
+                       |          |         |          |
+                       +----------+         +----------+
 ```
 
 # Media
@@ -202,6 +202,44 @@ In some cases, a cluster of objects should activate at the same tick to achieve 
 The object-level activation proximity ought to be used in this case.
 
 ![Image of object activation](docs/object-activation.png)
+
+# High Scores
+
+At the end of each game, the player is given the option to enter a name
+to record a high score entry. When a name is an entered, a background
+thread immediately attempts to send the score entered to the
+high score server.
+
+The high score server is a [Python program](server/lambda_function.py)
+that is deployed as an AWS Lambda Function attached to a CloudFront distribution.
+
+High scores are stored in an Amazon DynamoDB table.
+
+Stores are organized in the database by major game version.
+The table partition key column is an integer named `version`.
+
+The sort key is a globally unique identifier for the game play.
+It is the application ID followed by the game ID.
+
+Local secondary indexes are defined for (1) score and (2) day, score
+to enable top-score and top-score-today searches.
+
+```
+POST /scores
+
+{
+  "id": "T1656642743N42",
+  "game": 1,
+  "version": 0,
+  "name": "EDB",
+  "score": 1500,
+  "events": [[{"t": 500, "e": 4}]]
+}
+```
+
+```
+GET /scores/alltime?version=1
+```
 
 # Engine
 The `trippin` physics engine handles the movement and interaction of all objects.
