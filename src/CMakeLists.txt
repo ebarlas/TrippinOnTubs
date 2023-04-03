@@ -72,85 +72,28 @@ else()
     message(AUTHOR_WARNING "No compiler warnings set for CXX compiler: '${CMAKE_CXX_COMPILER_ID}'")
 endif()
 
-add_library(Engine
-        engine/PlasmaPhysics.cpp
-        engine/Listener.cpp
-        engine/Object.cpp
-        engine/Sides.cpp
-        engine/Engine.cpp
-        engine/Clock.cpp
-        engine/Timer.cpp)
+file(GLOB enginecpp engine/**.cpp)
+add_library(Engine ${enginecpp})
 target_include_directories(Engine PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
 target_link_libraries(Engine SDL2::SDL2-static)
 target_compile_options(Engine INTERFACE ${PROJECT_WARNINGS})
 
-add_library(Sprite
-        sprite/Scale.cpp
-        sprite/SpriteMetadata.cpp
-        sprite/SpriteSheet.cpp
-        sprite/Sprite.cpp
-        sprite/SpriteManager.cpp
-        sprite/SpriteLoader.cpp
-        sprite/SpriteLoadTask.cpp
-        sprite/Files.cpp
-        sprite/Camera.cpp
-        sprite/RenderClock.cpp)
+file(GLOB spritecpp sprite/**.cpp)
+add_library(Sprite ${spritecpp})
 target_include_directories(Sprite PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
 target_link_libraries(Sprite Engine nlohmann_json::nlohmann_json SDL2_image::SDL2_image-static)
 
-add_library(Net
-        net/Tcp.cpp
-        net/Transport.cpp
-        net/DbSynchronizer.cpp
-        net/Logger.cpp
-        net/StagingArea.cpp)
+file(GLOB netcpp net/**.cpp)
+add_library(Net ${netcpp})
 target_include_directories(Net PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
 target_link_libraries(Net SDL2::SDL2-static SDL2_net::SDL2_net-static nlohmann_json::nlohmann_json)
 
-add_library(Ui
-        ui/ScoreBoard.cpp
-        ui/ScrollingScoreBoard.cpp
-        ui/Interpolator.cpp
-        ui/TitleMenu.cpp
-        ui/TitleOverlay.cpp
-        ui/EndMenu.cpp
-        ui/NameForm.cpp
-        ui/ScoreMenu.cpp
-        ui/SimpleOverlay.cpp
-        ui/ExitOverlay.cpp)
+file(GLOB uicpp ui/**.cpp)
+add_library(Ui ${uicpp})
 target_link_libraries(Ui Net)
 
-add_library(Game
-        game/SdlSystem.cpp
-        game/Game.cpp
-        game/UserInput.cpp
-        game/Map.cpp
-        game/Configuration.cpp
-        game/SpriteObject.cpp
-        game/Ground.cpp
-        game/WingedTub.cpp
-        game/Goggin.cpp
-        game/GogginRenderer.cpp
-        game/JumpMeter.cpp
-        game/LifeMeter.cpp
-        game/ScoreTicker.cpp
-        game/SpiritClock.cpp
-        game/Spirit.cpp
-        game/GameObject.cpp
-        game/TrainingProgram.cpp
-        game/RunningClock.cpp
-        game/Activation.cpp
-        game/Layer.cpp
-        game/Level.cpp
-        game/AutoPlay.cpp
-        game/Shake.cpp
-        game/SceneBuilder.cpp
-        game/ComboManager.cpp
-        game/PointCloudManager.cpp
-        game/NotificationManager.cpp
-        game/NotificationDrawer.cpp
-        game/GroupManager.cpp
-        game/SoundManager.cpp)
+file(GLOB gamecpp game/**.cpp)
+add_library(Game ${gamecpp})
 target_link_libraries(Game Sprite Net Ui SDL2_mixer::SDL2_mixer-static)
 
 add_executable(trippin trippin/trippin.cpp)

@@ -8,6 +8,7 @@ Makefile
 CMakeCache.txt
 build/
 android/work*/
+ios/work*/
 raw/
 .python-version
 build-sprites
