@@ -7,6 +7,11 @@
 
 namespace trippin {
     struct Configuration {
+        struct Version {
+            int major;
+            int minor;
+        };
+
         struct Object {
             std::string type;
             bool platform;
@@ -52,6 +57,7 @@ namespace trippin {
             int port;
         };
 
+        Version version;
         Point<int> windowSize;
         int spiritSecondsBehind;
         int tickRate;

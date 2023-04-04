@@ -97,6 +97,8 @@ const trippin::Configuration::LayerObject *trippin::Configuration::findLayerObje
 }
 
 void trippin::from_json(const nlohmann::json &j, Configuration &config) {
+    j.at("version").at("major").get_to(config.version.major);
+    j.at("version").at("minor").get_to(config.version.minor);
     if (j.contains("windowSize")) {
         j.at("windowSize").at("x").get_to(config.windowSize.x);
         j.at("windowSize").at("y").get_to(config.windowSize.y);

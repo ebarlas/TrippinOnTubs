@@ -2,6 +2,7 @@
 #define TRIPPIN_TRANSPORT_H
 
 #include <string>
+#include <string_view>
 #include <vector>
 #include "Score.h"
 #include "LogEvent.h"
@@ -15,14 +16,15 @@ namespace trippin {
             bool ok{};
         };
 
-        Transport(std::string host, int port);
+        Transport(std::string host, int port, int version);
         bool addScore(const Score &score) const;
         bool addLogEvent(const LogEvent &event) const;
         Scores topScores() const;
         Scores todayScores() const;
     private:
-        std::string host;
-        int port;
+        const std::string host;
+        const int port;
+        const int version;
         Scores sendRequest(const std::string &uri) const;
     };
 

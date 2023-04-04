@@ -3,7 +3,8 @@
 #include "Tcp.h"
 #include "SDL_net.h"
 
-trippin::Transport::Transport(std::string host, int port) : host(std::move(host)), port(port) {
+trippin::Transport::Transport(std::string host, int port, int version)
+        : host(std::move(host)), port(port), version(version) {
 
 }
 
@@ -24,6 +25,8 @@ trippin::Transport::Scores trippin::Transport::sendRequest(const std::string &ur
 
     std::string msg = "GET ";
     msg += uri;
+    msg += "?version=";
+    msg += std::to_string(version);
     msg += " HTTP/1.0\r\n";
     msg += "Host: ";
     msg += host;
@@ -61,6 +64,7 @@ bool trippin::Transport::addScore(const Score &score) const {
     }
 
     nlohmann::json j;
+    j["version"] = version;
     j["id"] = score.id;
     j["game"] = score.game;
     j["name"] = score.name;

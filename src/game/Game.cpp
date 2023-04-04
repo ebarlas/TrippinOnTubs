@@ -48,11 +48,14 @@ void trippin::Game::initLogger() {
     logger = std::make_unique<Logger>(*stagingArea, appId);
     SDL_DisplayMode displayMode;
     SDL_GetDisplayMode(0, 0, &displayMode);
+    auto platform = SDL_GetPlatform();
     auto renName = getRendererName(sdlSystem->getRenderer());
     auto sysName = getSystemName(sdlSystem->getWindow());
     auto sysRam = SDL_GetSystemRAM();
     std::stringstream ss;
     ss << "op=init";
+    ss << ", version=" << configuration.version.major << "." << configuration.version.minor;
+    ss << ", platform=" << platform;
     ss << ", rendererName=" << renName;
     ss << ", systemName=" << sysName;
     ss << ", systemRam=" << sysRam;
@@ -64,7 +67,7 @@ void trippin::Game::initLogger() {
 
 void trippin::Game::initDbSynchronizer() {
     stagingArea = std::make_shared<StagingArea>();
-    Transport transport(configuration.db.host, configuration.db.port);
+    Transport transport(configuration.db.host, configuration.db.port, configuration.version.major);
     DbSynchronizer::startAddScoresThread(transport, stagingArea);
     DbSynchronizer::startAddLogEventsThread(transport, stagingArea);
     DbSynchronizer::startQueryScoresThread(std::move(transport), stagingArea);
