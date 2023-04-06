@@ -5,7 +5,8 @@ static double calculateMass(const trippin::Configuration::Object &obj, const tri
         return obj.mass;
     }
     if (obj.massFactor > 0) {
-        return sprite.getEngineHitBox().area() * obj.massFactor;
+        auto hb = sprite.getEngineHitBox();
+        return static_cast<double>(hb.w) * static_cast<double>(hb.h) * obj.massFactor;
     }
     return sprite.getEngineHitBox().area();
 }
