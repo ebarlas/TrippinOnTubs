@@ -19,6 +19,6 @@ cp -R ../../autoplay android-project/app/src/main/assets/
 # SDLActivity invokes nativeRunMain JNI function
 # nativeRunMain, defined in SDL_android.c, looks for SDL_main function
 # Troubleshoot using objdump, for ex objdump -T app/build/intermediates/ndkBuild/debug/obj/local/arm64-v8a/libmain.so | grep SDL_main
-sed -i.bak 's/int main() {/int SDL_main(int argc, char *argv[]) {/g' android-project/app/jni/src/game/trippin.cpp
+sed -i.bak 's/int main/int SDL_main/g' android-project/app/jni/src/trippin/trippin.cpp
 
 popd
