@@ -25,7 +25,7 @@ trippin::WingedTub::WingedTub(
     expired = false;
     hitGoggin = false;
     inactive = true;
-    frame = tubFrameFirst;
+    frame = tubFrameFirst + Random<>{}.next() % (tubFrameLast - tubFrameFirst);
 }
 
 void trippin::WingedTub::beforeTick(int) {
