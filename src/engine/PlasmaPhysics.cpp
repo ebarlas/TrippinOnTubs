@@ -181,6 +181,8 @@ void collision2Ds(double m1, double m2, double R,
 
     double m21, dvx2, a, x21, y21, vx21, vy21, fy21, sign, vx_cm, vy_cm;
 
+    double vx1orig = vx1;
+    double vx2orig = vx2;
 
     m21 = m2 / m1;
     x21 = x2 - x1;
@@ -219,6 +221,12 @@ void collision2Ds(double m1, double m2, double R,
     vy1 = (vy1 - vy_cm) * R + vy_cm;
     vx2 = (vx2 - vx_cm) * R + vx_cm;
     vy2 = (vy2 - vy_cm) * R + vy_cm;
+
+    // This is an unfortunate amendment to ensure that a purely
+    // vertical collision never produces a horizontal velocity delta
+    if (x1 == x2 && vx1orig == 0 && vx2orig == 0) {
+        vx1 = vx2 = 0;
+    }
 
     return;
 }
