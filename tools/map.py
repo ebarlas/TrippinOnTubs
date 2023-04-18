@@ -41,7 +41,7 @@ def find_objects(root):
                     if ref:
                         ref_x = int(ref[0].attrib['x'])
                         ref_activation = DEFAULT_ACTIVATION
-                        if 'activation' in ref[0]:
+                        if 'activation' in ref[0].attrib:
                             ref_activation = int(ref[0].attrib['activation'])
                         obj['activation'] = ref_activation + (obj['position']['x'] - ref_x)
                 objects.append(obj)
