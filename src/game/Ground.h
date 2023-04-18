@@ -11,14 +11,14 @@ namespace trippin {
         Ground(
                 const Map::Object &object,
                 const Sprite &sprite,
-                const Activation &activation,
+                Activation activation,
                 const Spirit &spirit,
                 const Camera &camera,
                 SceneBuilder &sceneBuilder);
         void beforeTick(int engineTicks) override;
         void afterTick(int engineTicks) override;
     private:
-        const Activation &activation;
+        const Activation activation;
         const Spirit &spirit;
         const Camera &camera;
         SceneBuilder &sceneBuilder;

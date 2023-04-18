@@ -1,5 +1,7 @@
 #include "RunningClock.h"
 
+#include <utility>
+
 trippin::RunningClock::RunningClock(
         const Configuration &config,
         const Configuration::Object &configObject,
@@ -8,7 +10,7 @@ trippin::RunningClock::RunningClock(
         const Sprite &bonusText,
         Goggin &goggin,
         Spirit &spirit,
-        const Activation &activation,
+        Activation activation,
         ScoreTicker &scoreTicker,
         SoundManager &soundManager,
         const Camera &camera,
@@ -19,7 +21,7 @@ trippin::RunningClock::RunningClock(
         bonusText(bonusText),
         goggin(goggin),
         spirit(spirit),
-        activation(activation),
+        activation(std::move(activation)),
         scoreTicker(scoreTicker),
         sceneBuilder(sceneBuilder),
         notificationDrawer(notificationDrawer),

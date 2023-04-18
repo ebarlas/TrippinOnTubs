@@ -35,7 +35,6 @@ namespace trippin {
         Map map;
         std::unique_ptr<Camera> camera;
         Engine engine;
-        Activation activation;
         std::vector<std::unique_ptr<Listener>> objects;
         const std::vector<GogginInputTick> *autoPlay{};
         std::unique_ptr<PointCloudManager> pointCloudManager;

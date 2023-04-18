@@ -1,4 +1,6 @@
 #include "GameObject.h"
+
+#include <utility>
 #include "engine/Collisions.h"
 #include "Random.h"
 
@@ -8,7 +10,7 @@ trippin::GameObject::GameObject(
         const Map::Object &object,
         const Sprite &sprite,
         Goggin &goggin,
-        const Activation &activation,
+        Activation activation,
         ScoreTicker &scoreTicker,
         SoundManager &soundManager,
         const Camera &camera,
@@ -20,7 +22,7 @@ trippin::GameObject::GameObject(
         config(config),
         configObject(configObject),
         goggin(goggin),
-        activation(activation),
+        activation(std::move(activation)),
         scoreTicker(scoreTicker),
         sceneBuilder(sceneBuilder),
         camera(camera),

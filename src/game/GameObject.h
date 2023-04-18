@@ -17,7 +17,7 @@ namespace trippin {
                 const Map::Object &object,
                 const Sprite &sprite,
                 Goggin &goggin,
-                const Activation &activation,
+                Activation activation,
                 ScoreTicker &scoreTicker,
                 SoundManager &soundManager,
                 const Camera &camera,
@@ -31,7 +31,7 @@ namespace trippin {
         const Configuration &config;
         const Configuration::Object &configObject;
         Goggin &goggin;
-        const Activation &activation;
+        const Activation activation;
         ScoreTicker &scoreTicker;
         SceneBuilder &sceneBuilder;
         const Camera &camera;

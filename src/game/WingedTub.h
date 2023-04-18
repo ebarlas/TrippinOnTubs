@@ -14,7 +14,7 @@ namespace trippin {
                 const Configuration &config,
                 const Map::Object &object,
                 const Sprite &sprite,
-                const Activation &activation,
+                Activation activation,
                 Goggin &goggin,
                 ScoreTicker &scoreTicker,
                 SoundManager &soundManager,
@@ -32,7 +32,7 @@ namespace trippin {
         constexpr static const int FRAME_SPARKLE_LAST = 29;
 
         const Sprite &sprite;
-        const Activation &activation;
+        const Activation activation;
         Goggin &goggin;
         ScoreTicker &scoreTicker;
         SceneBuilder &sceneBuilder;

@@ -6,15 +6,16 @@
 namespace trippin {
     class Activation {
     private:
-        int activationProximity;
-        int deactivationProximity;
-        const Goggin *goggin;
-        Rect<int> universe;
+        const int activationProximity;
+        const int deactivationProximity;
+        const Goggin &goggin;
+        const Rect<int> universe;
     public:
-        void setActivationProximity(int proximity);
-        void setDeactivationProximity(int proximity);
-        void setGoggin(const Goggin *goggin);
-        void setUniverse(const Point<int> &universe);
+        Activation(
+                int activationProximity,
+                int deactivationProximity,
+                const Goggin &goggin,
+                Rect<int> universe);
         bool shouldActivate(const Rect<int> &rect) const;
         bool shouldDeactivate(const Rect<int> &rect) const;
     };

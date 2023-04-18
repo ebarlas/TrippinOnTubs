@@ -17,7 +17,7 @@ namespace trippin {
                 const Sprite &bonusText,
                 Goggin &goggin,
                 Spirit &spirit,
-                const Activation &activation,
+                Activation activation,
                 ScoreTicker &scoreTicker,
                 SoundManager &soundManager,
                 const Camera &camera,
@@ -32,7 +32,7 @@ namespace trippin {
         const Sprite &bonusText;
         Goggin &goggin;
         Spirit &spirit;
-        const Activation &activation;
+        const Activation activation;
         ScoreTicker &scoreTicker;
         SceneBuilder &sceneBuilder;
         NotificationDrawer &notificationDrawer;

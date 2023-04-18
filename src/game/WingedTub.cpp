@@ -1,17 +1,19 @@
 #include "WingedTub.h"
 
+#include <utility>
+
 trippin::WingedTub::WingedTub(
         const Configuration &config,
         const Map::Object &object,
         const Sprite &sprite,
-        const Activation &activation,
+        Activation activation,
         Goggin &goggin,
         ScoreTicker &scoreTicker,
         SoundManager &soundManager,
         const Camera &camera,
         SceneBuilder &sceneBuilder) :
         sprite(sprite),
-        activation(activation),
+        activation(std::move(activation)),
         goggin(goggin),
         scoreTicker(scoreTicker),
         sceneBuilder(sceneBuilder),

@@ -1,14 +1,16 @@
 #include "Ground.h"
 
+#include <utility>
+
 trippin::Ground::Ground(
         const Map::Object &object,
         const Sprite &sprite,
-        const Activation &activation,
+        Activation activation,
         const Spirit &spirit,
         const Camera &camera,
         SceneBuilder &sceneBuilder) :
         SpriteObject({}, object, sprite),
-        activation(activation),
+        activation(std::move(activation)),
         spirit(spirit),
         camera(camera),
         sceneBuilder(sceneBuilder) {

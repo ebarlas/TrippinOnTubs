@@ -142,6 +142,11 @@ void trippin::Level::initEngine() {
     }
 
     for (auto &obj: map.objects) {
+        Activation activation{
+                obj.activation > 0 ? obj.activation : configuration->activationProximity,
+                configuration->deactivationProximity,
+                *goggin,
+                {0, 0, map.universe.x, map.universe.y}};
         if (obj.type.rfind("ground_melt_", 0) == 0 || obj.type.rfind("platform", 0) == 0) {
             auto ground = std::make_unique<Ground>(
                     obj,
@@ -241,11 +246,6 @@ void trippin::Level::initEngine() {
     if (!training) {
         engine.addListener(spiritClock.get());
     }
-
-    activation.setUniverse(map.universe);
-    activation.setActivationProximity(configuration->activationProximity);
-    activation.setDeactivationProximity(configuration->deactivationProximity);
-    activation.setGoggin(goggin.get());
 
     // add separate goggin rendered last, to ensure goggin is laid over everything else
     // this must be separate from main goggin object, which much update the camera first (not last)
