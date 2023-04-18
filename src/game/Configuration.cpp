@@ -103,6 +103,7 @@ void trippin::from_json(const nlohmann::json &j, Configuration &config) {
         j.at("windowSize").at("x").get_to(config.windowSize.x);
         j.at("windowSize").at("y").get_to(config.windowSize.y);
     }
+    j.at("extraLives").get_to(config.extraLives);
     j.at("spiritSecondsBehind").get_to(config.spiritSecondsBehind);
     j.at("tickRate").get_to(config.tickRate);
     j.at("spiritClockTickPeriod").get_to(config.spiritClockTickPeriod);

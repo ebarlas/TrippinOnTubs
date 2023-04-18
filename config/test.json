@@ -7,6 +7,7 @@
     "x": 1200,
     "y": 600
   },
+  "extraLives": 2,
   "spiritSecondsBehind": 0,
   "tickRate": 120,
   "spiritClockTickPeriod": 500,
@@ -53,7 +54,10 @@
     "zombie"
   ],
   "maps": [
-    "level_1"
+    "level_1",
+    "level_2",
+    "level_3",
+    "level_4"
   ],
   "db": {
     "host": "www.trippinontubs.com",
@@ -162,9 +166,10 @@
         "x": 28,
         "y": 0
       },
+      "massFactor": 2.0,
       "gravity": 140,
       "fallGravity": 211,
-      "hitPoints": 8
+      "hitPoints": 5
     },
     {
       "type": "winged_tub",
@@ -178,7 +183,7 @@
         "y": 112
       },
       "massFactor": 0.5,
-      "coefficient": 0.9,
+      "coefficient": 1.0,
       "gravity": 140,
       "fallGravity": 140,
       "hitPoints": 2,
@@ -240,7 +245,7 @@
       "type": "running_clock",
       "platform": false,
       "terminalVelocity": {
-        "x": 14,
+        "x": 21,
         "y": 158
       },
       "gravity": 140,

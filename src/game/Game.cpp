@@ -351,7 +351,7 @@ void trippin::Game::handle(UserInput::Event &event) {
         }
     } else if (state == State::START_MENU) {
         if (titleMenu->startClicked(event.touchPoint)) {
-            extraLives = 1;
+            extraLives = configuration.extraLives;
             levelIndex = 0;
             score = 0;
             gameId++;
@@ -394,7 +394,7 @@ void trippin::Game::handle(UserInput::Event &event) {
             if (scoreClicked) {
                 replayScore = *scoreClicked;
                 replayOffset = 0;
-                extraLives = 1;
+                extraLives = configuration.extraLives;
                 levelIndex = 0;
                 score = 0;
                 state = State::REPLAY;
@@ -413,7 +413,7 @@ void trippin::Game::handle(UserInput::Event &event) {
             if (scoreClicked) {
                 replayScore = *scoreClicked;
                 replayOffset = 0;
-                extraLives = 1;
+                extraLives = configuration.extraLives;
                 levelIndex = 0;
                 score = 0;
                 state = State::REPLAY;

@@ -59,6 +59,7 @@ namespace trippin {
 
         Version version;
         Point<int> windowSize;
+        int extraLives;
         int spiritSecondsBehind;
         int tickRate;
         int spiritClockTickPeriod;
