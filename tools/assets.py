@@ -78,10 +78,14 @@ sprites = [
     'gameover',
     'levels_completed',
     'generic_building',
-    'generic_building_2'
+    'generic_building_2',
+    'level_time_bonus',
+    'level_completed_bonus',
+    'extra_lives_bonus',
+    'game_completed_bonus'
 ]
 
-levels = ['level_1', 'load', 'training']
+levels = ['level_1', 'level_2', 'level_3', 'level_4', 'load', 'training']
 
 dir_raw = 'raw'
 dir_svgs = 'svgs'

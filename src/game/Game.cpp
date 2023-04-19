@@ -153,6 +153,7 @@ std::unique_ptr<trippin::Level> trippin::Game::nextLevel() {
     lvl->setRenderClock(renderClock);
     lvl->setScore(score);
     lvl->setExtraLives(extraLives);
+    lvl->setLastLevel(false);
     if (state == State::TITLE || state == State::START_MENU) {
         lvl->setMapName(configuration.loadMap);
         lvl->setAutoPlay(autoPlay.events);
@@ -163,9 +164,11 @@ std::unique_ptr<trippin::Level> trippin::Game::nextLevel() {
         replayAutoPlay = convertEvents(replayScore.events[replayOffset]); // ensure extended lifetime for replay vec
         lvl->setAutoPlay(replayAutoPlay);
         lvl->setMapName(configuration.maps[levelIndex]);
+        lvl->setLastLevel(levelIndex == configuration.maps.size() - 1);
         transferSurfaces();
     } else {
         lvl->setMapName(configuration.maps[levelIndex]);
+        lvl->setLastLevel(levelIndex == configuration.maps.size() - 1);
         transferSurfaces();
     }
     lvl->init();

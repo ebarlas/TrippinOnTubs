@@ -22,6 +22,7 @@
 #include "SceneBuilder.h"
 #include "sprite/RenderClock.h"
 #include "GroupManager.h"
+#include "LevelBonuses.h"
 
 namespace trippin {
     class Level : public Listener {
@@ -48,6 +49,7 @@ namespace trippin {
         int initialExtraLives{};
         std::unique_ptr<LifeMeter> lifeMeter;
         bool training;
+        bool lastLevel;
         std::unique_ptr<TrainingProgram> trainingProgram;
         const RenderClock *renderClock;
         SceneBuilder sceneBuilder;
@@ -55,6 +57,7 @@ namespace trippin {
         std::unique_ptr<NotificationManager> comboNotificationManager;
         std::unique_ptr<NotificationManager> groupNotificationManager;
         std::unique_ptr<NotificationDrawer> notificationDrawer;
+        std::unique_ptr<LevelBonuses> levelBonuses;
         GroupManager groupManager;
         void initMap();
         void initCamera();
@@ -71,6 +74,7 @@ namespace trippin {
         void setScore(int score);
         void setExtraLives(int extraLives);
         void setTraining(bool training);
+        void setLastLevel(bool lastLevel);
         void init();
         bool ended();
         bool completed();

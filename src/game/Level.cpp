@@ -47,6 +47,10 @@ void trippin::Level::setTraining(bool b) {
     training = b;
 }
 
+void trippin::Level::setLastLevel(bool b) {
+    lastLevel = b;
+}
+
 void trippin::Level::initMap() {
     map.load(*mapName);
     map.rescale(scale->getEngineFactor());
@@ -259,6 +263,22 @@ void trippin::Level::initEngine() {
     }
 
     engine.addListener(notificationDrawer.get());
+
+    if (!training) {
+        levelBonuses = std::make_unique<LevelBonuses>(
+                *configuration,
+                *goggin,
+                *spiritClock,
+                *notificationDrawer,
+                *scoreTicker,
+                *pointCloudManager,
+                *camera,
+                *soundManager,
+                *spriteManager,
+                lastLevel,
+                initialExtraLives);
+        engine.addListener(levelBonuses.get());
+    }
 
     if (training) {
         trainingProgram = std::make_unique<TrainingProgram>(

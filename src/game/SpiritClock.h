@@ -25,6 +25,7 @@ namespace trippin {
                 int padding,
                 SceneBuilder &sceneBuilder);
         void afterTick(int engineTicks) override;
+        int getNumClockBars() const;
     };
 }
 

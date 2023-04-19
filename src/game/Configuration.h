@@ -60,6 +60,10 @@ namespace trippin {
         Version version;
         Point<int> windowSize;
         int extraLives;
+        int levelBonus;
+        int gameBonus;
+        int clockBarBonus;
+        int extraLivesBonus;
         int spiritSecondsBehind;
         int tickRate;
         int spiritClockTickPeriod;

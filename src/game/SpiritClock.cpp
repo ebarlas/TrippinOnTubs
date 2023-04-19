@@ -19,12 +19,16 @@ trippin::SpiritClock::SpiritClock(
 }
 
 void trippin::SpiritClock::afterTick(int) {
+    auto frameNow = getNumClockBars();
+    sceneBuilder.dispatch([this, frameNow]() {
+        sprite.renderDevice(position, frameNow);
+    });
+}
+
+int trippin::SpiritClock::getNumClockBars() const {
     auto distanceAway = goggin.position.x - spirit.getPosition() + padding;
     auto ticksAway = distanceAway / spirit.getVelocity();
     auto numClockBars = sprite.getFrames() - 1;
     auto barsAway = toInt(ticksAway / engineTicksPerClockBar);
-    auto frameNow = std::min(numClockBars, std::max(0, barsAway));
-    sceneBuilder.dispatch([this, frameNow]() {
-        sprite.renderDevice(position, frameNow);
-    });
+    return std::min(numClockBars, std::max(0, barsAway));
 }
