@@ -8,6 +8,7 @@
     "y": 600
   },
   "extraLives": 2,
+  "highScores": 15,
   "levelBonus": 1000,
   "gameBonus": 5000,
   "clockBarBonus": 100,

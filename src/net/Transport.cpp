@@ -3,8 +3,8 @@
 #include "Tcp.h"
 #include "SDL_net.h"
 
-trippin::Transport::Transport(std::string host, int port, int version)
-        : host(std::move(host)), port(port), version(version) {
+trippin::Transport::Transport(std::string host, int port, int version, int limit)
+        : host(std::move(host)), port(port), version(version), limit(limit) {
 
 }
 
@@ -27,6 +27,8 @@ trippin::Transport::Scores trippin::Transport::sendRequest(const std::string &ur
     msg += uri;
     msg += "?version=";
     msg += std::to_string(version);
+    msg += "&limit=";
+    msg += std::to_string(limit);
     msg += " HTTP/1.0\r\n";
     msg += "Host: ";
     msg += host;
@@ -143,12 +145,15 @@ void trippin::from_json(const nlohmann::json &j, trippin::Score &score) {
     j.at("events").get_to(score.events);
 }
 
-void trippin::to_json(nlohmann::json &j, const Score::InputEvent &evt) {
-    j["t"] = evt.tick;
-    j["e"] = evt.input;
+void trippin::from_json(const nlohmann::json &j, std::vector<Score::InputEvent> &points) {
+    for (auto i = j.cbegin(); i != j.cend(); i++) {
+        points.push_back({*i, *(++i)});
+    }
 }
 
-void trippin::from_json(const nlohmann::json &j, Score::InputEvent &evt) {
-    j.at("t").get_to(evt.tick);
-    j.at("e").get_to(evt.input);
+void trippin::to_json(nlohmann::json &j, const std::vector<Score::InputEvent> &events) {
+    for (auto &e: events) {
+        j.push_back(e.tick);
+        j.push_back(e.input);
+    }
 }

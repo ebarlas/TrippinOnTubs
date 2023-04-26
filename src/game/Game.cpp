@@ -67,7 +67,11 @@ void trippin::Game::initLogger() {
 
 void trippin::Game::initDbSynchronizer() {
     stagingArea = std::make_shared<StagingArea>();
-    Transport transport(configuration.db.host, configuration.db.port, configuration.version.major);
+    Transport transport(
+            configuration.db.host,
+            configuration.db.port,
+            configuration.version.major,
+            configuration.highScores);
     DbSynchronizer::startAddScoresThread(transport, stagingArea);
     DbSynchronizer::startAddLogEventsThread(transport, stagingArea);
     DbSynchronizer::startQueryScoresThread(std::move(transport), stagingArea);

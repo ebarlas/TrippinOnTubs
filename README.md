@@ -255,6 +255,8 @@ an _effective_ weight is calculated based on linear interpolation between those
 calculated steps. Finally, the effective weight is dampened by a factor from 1.0 to 0
 based on the shake progress.
 
+That final value is added to the camera to produce a shake or vibrate effect.
+
 # Engine
 The `trippin` physics engine handles the movement and interaction of all objects.
 The footprint of an object is represented with an axis aligned bounding box (AABB)

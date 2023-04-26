@@ -37,21 +37,13 @@ def extract_add_body(request):
     return json.loads(base64.b64decode(request['body']['data']).decode('utf-8'))
 
 
-def validate_input_event(event):
-    if type(event) is not dict:
-        return False
-    if 't' not in event or 'e' not in event:
-        return False
-    if type(event['t']) is not int or type(event['e']) is not int:
-        return False
-    return True
-
-
 def validate_input_events(events):
     if type(events) is not list:
         return False
+    if len(events) % 2 == 1:
+        return False
     for e in events:
-        if not validate_input_event(e):
+        if type(e) is not int:
             return False
     return True
 
@@ -116,8 +108,8 @@ def add_score(request):
         'name': {'S': name},
         'score': {'N': str(score)},
         'dayscore': {'S': f'{day}/{padded_score}'},
-        'time': {'S': daytime},
-        'events': {'S': json.dumps(events)},
+        'date': {'S': f'{day} {daytime}'},
+        'events': {'S': json.dumps(events, separators=(',', ':'))},
     }
     client.put_item(TableName='trippin-scores', Item=item)
     print(f'added score, id={id}, name={name}, score={score}')
@@ -156,38 +148,48 @@ def to_response(items):
                 }
             ]
         },
-        'body': json.dumps(items)
+        'body': json.dumps(items, separators=(',', ':'))
     }
 
 
-def extract_version_param(request):
+def extract_param(request, name, default, func):
     if 'querystring' not in request:
-        return 1
+        return default
 
     params = urllib.parse.parse_qs(request['querystring'])
-    if 'version' not in params:
-        return 1
+    if name not in params:
+        return default
 
-    version = params['version'][0]
+    version = params[name][0]
     try:
-        return int(version)
+        return func(version)
     except ValueError:
-        return 1
+        return default
+
+
+def extract_version_param(request):
+    return extract_param(request, 'version', 1, int)
+
+
+def extract_limit_param(request):
+    return extract_param(request, 'limit', 10, int)
 
 
 def lambda_handler(event, context):
     request = event['Records'][0]['cf']['request']
 
-    print(f'method={request["method"]}, path={request["uri"]}')
+    print(f'method={request["method"]}, path={request["uri"]}{"?" + request["querystring"] if "querystring" in request else ""}')
 
     if request['method'] == 'GET' and '/scores/today' in request['uri']:
         version = extract_version_param(request)
+        limit = extract_limit_param(request)
         day, daytime = cur_day_and_time()
-        return to_response(convert(top_today_scores(version, day, 25)))
+        return to_response(convert(top_today_scores(version, day, limit)))
 
     if request['method'] == 'GET' and '/scores/alltime' in request['uri']:
         version = extract_version_param(request)
-        return to_response(convert(top_scores(version, 25)))
+        limit = extract_limit_param(request)
+        return to_response(convert(top_scores(version, limit)))
 
     if request['method'] == 'POST' and '/scores' in request['uri']:
         if not validate_add(request):

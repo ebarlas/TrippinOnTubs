@@ -60,6 +60,7 @@ namespace trippin {
         Version version;
         Point<int> windowSize;
         int extraLives;
+        int highScores;
         int levelBonus;
         int gameBonus;
         int clockBarBonus;

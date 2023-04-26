@@ -16,7 +16,7 @@ namespace trippin {
             bool ok{};
         };
 
-        Transport(std::string host, int port, int version);
+        Transport(std::string host, int port, int version, int limit);
         bool addScore(const Score &score) const;
         bool addLogEvent(const LogEvent &event) const;
         Scores topScores() const;
@@ -25,12 +25,13 @@ namespace trippin {
         const std::string host;
         const int port;
         const int version;
+        const int limit;
         Scores sendRequest(const std::string &uri) const;
     };
 
     void from_json(const nlohmann::json &j, Score &score);
-    void from_json(const nlohmann::json &j, Score::InputEvent &evt);
-    void to_json(nlohmann::json &j, const Score::InputEvent &evt);
+    void from_json(const nlohmann::json &j, std::vector<Score::InputEvent> &points);
+    void to_json(nlohmann::json &j, const std::vector<Score::InputEvent> &events);
 }
 
 #endif
