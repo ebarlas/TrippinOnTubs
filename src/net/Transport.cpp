@@ -58,6 +58,25 @@ trippin::Transport::Scores trippin::Transport::sendRequest(const std::string &ur
     return scores;
 }
 
+std::vector<int> trippin::Transport::compress(const std::vector<Score::InputEvent> &events) {
+    std::vector<int> v;
+    v.reserve(events.size() * 2);
+    for (auto &e: events) {
+        v.push_back(e.tick);
+        v.push_back(e.input);
+    }
+    return v;
+}
+
+std::vector<std::vector<int>> trippin::Transport::compress(const std::vector<std::vector<Score::InputEvent>> &vecs) {
+    std::vector<std::vector<int>> v;
+    v.reserve(vecs.size());
+    for (auto &vec: vecs) {
+        v.push_back(compress(vec));
+    }
+    return v;
+}
+
 bool trippin::Transport::addScore(const Score &score) const {
     Tcp tcp(host, port);
     auto sock = tcp.get();
@@ -71,7 +90,7 @@ bool trippin::Transport::addScore(const Score &score) const {
     j["game"] = score.game;
     j["name"] = score.name;
     j["score"] = score.score;
-    j["events"] = score.events;
+    j["events"] = compress(score.events);
 
     std::stringstream ss;
     ss << score.id << score.game;
@@ -148,12 +167,5 @@ void trippin::from_json(const nlohmann::json &j, trippin::Score &score) {
 void trippin::from_json(const nlohmann::json &j, std::vector<Score::InputEvent> &points) {
     for (auto i = j.cbegin(); i != j.cend(); i++) {
         points.push_back({*i, *(++i)});
-    }
-}
-
-void trippin::to_json(nlohmann::json &j, const std::vector<Score::InputEvent> &events) {
-    for (auto &e: events) {
-        j.push_back(e.tick);
-        j.push_back(e.input);
     }
 }

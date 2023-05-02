@@ -19,6 +19,7 @@ trippin::Point<int> trippin::NameForm::computeGridSize(trippin::Point<int> windo
 
 void trippin::NameForm::reset() {
     cursor = 0;
+    entered = false;
 }
 
 void trippin::NameForm::render() {

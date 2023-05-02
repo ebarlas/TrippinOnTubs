@@ -1,7 +1,7 @@
 import json
 import boto3
-import time
 import datetime
+import zoneinfo
 import re
 import base64
 import urllib.parse
@@ -9,27 +9,35 @@ import urllib.parse
 client = boto3.client('dynamodb', region_name='us-west-2')
 
 
-def top_scores(version, limit):
-    res = client.query(
-        TableName='trippin-scores',
-        IndexName='score-index',
-        ScanIndexForward=False,
-        Limit=limit,
-        KeyConditionExpression='#pk = :pk',
-        ExpressionAttributeNames={'#pk': 'pk'},
-        ExpressionAttributeValues={':pk': {'N': str(version)}})
+def top_scores(version, limit, start_key=None):
+    params = {
+        'TableName': 'trippin-scores',
+        'IndexName': 'score-index',
+        'ScanIndexForward': False,
+        'Limit': limit,
+        'KeyConditionExpression': '#pk = :pk',
+        'ExpressionAttributeNames': {'#pk': 'pk'},
+        'ExpressionAttributeValues': {':pk': {'N': str(version)}}
+    }
+    if start_key:
+        params['ExclusiveStartKey'] = start_key
+    res = client.query(**params)
     return res['Items']
 
 
-def top_today_scores(version, day, limit):
-    res = client.query(
-        TableName='trippin-scores',
-        IndexName='dayscore-index',
-        ScanIndexForward=False,
-        Limit=limit,
-        KeyConditionExpression='#pk = :pk AND begins_with (#dayscore, :dayscore)',
-        ExpressionAttributeNames={'#pk': 'pk', '#dayscore': 'dayscore'},
-        ExpressionAttributeValues={':pk': {'N': str(version)}, ':dayscore': {'S': day}})
+def top_today_scores(version, day, limit, start_key=None):
+    params = {
+        'TableName': 'trippin-scores',
+        'IndexName': 'dayscore-index',
+        'ScanIndexForward': False,
+        'Limit': limit,
+        'KeyConditionExpression': '#pk = :pk AND begins_with (#dayscore, :dayscore)',
+        'ExpressionAttributeNames': {'#pk': 'pk', '#dayscore': 'dayscore'},
+        'ExpressionAttributeValues': {':pk': {'N': str(version)}, ':dayscore': {'S': day}}
+    }
+    if start_key:
+        params['ExclusiveStartKey'] = start_key
+    res = client.query(**params)
     return res['Items']
 
 
@@ -42,8 +50,14 @@ def validate_input_events(events):
         return False
     if len(events) % 2 == 1:
         return False
-    for e in events:
-        if type(e) is not int:
+    for n in range(0, len(events), 2):
+        tick = events[n]
+        input = events[n + 1]
+        if type(tick) is not int or type(input) is not int:
+            return False
+        if tick < 0 or tick > 86_400 * 120 * 7:  # ticks per week (arbitrary ceiling)
+            return False
+        if input < 0 or input > 15:
             return False
     return True
 
@@ -54,8 +68,19 @@ def validate_add(event):
 
     params = urllib.parse.parse_qs(event['querystring'])  # querystring request property is a raw string
     body = extract_add_body(event)
-    if 'version' not in body or 'id' not in body or 'name' not in body or 'score' not in body or 'game' not in body or 'events' not in body:
-        return False
+    schema = {
+        'version': int,
+        'id': str,
+        'name': str,
+        'score': int,
+        'game': int,
+        'events': list
+    }
+    for k, v in schema.items():
+        if k not in body:
+            return False
+        if type(body[k]) != v:
+            return False
     version = body['version']
     id = body['id']
     game = body['game']
@@ -63,8 +88,7 @@ def validate_add(event):
     score = body['score']
     events = body['events']
 
-    if type(version) is not int or type(id) is not str or type(score) is not int or type(name) is not str or type(
-            game) is not int or type(events) is not list:
+    if version not in [0, 1]:
         return False
     if not re.match(r'[A-Z]{3}', name):
         return False
@@ -86,11 +110,14 @@ def validate_add(event):
 
 
 def cur_day_and_time():
-    epoch = int(time.time())
-    date = datetime.datetime.fromtimestamp(epoch)
+    date = datetime.datetime.now(tz=zoneinfo.ZoneInfo('America/Los_Angeles'))
     day = date.strftime('%Y-%m-%d')
     daytime = date.strftime('%H:%M:%S')
-    return (day, daytime)
+    return day, daytime
+
+
+def zero_left_pad(s, size=5):
+    return '0' * (size - len(s)) + s
 
 
 def add_score(request):
@@ -101,7 +128,7 @@ def add_score(request):
     score = request['score']
     events = request['events']
     day, daytime = cur_day_and_time()
-    padded_score = '0' * (5 - len(str(score))) + str(score)
+    padded_score = zero_left_pad(str(score))
     item = {
         'pk': {'N': str(version)},
         'sk': {'S': f'{id}/{game}'},
@@ -109,31 +136,38 @@ def add_score(request):
         'score': {'N': str(score)},
         'dayscore': {'S': f'{day}/{padded_score}'},
         'date': {'S': f'{day} {daytime}'},
-        'events': {'S': json.dumps(events, separators=(',', ':'))},
+        'events': {'S': to_json(events)},
     }
     client.put_item(TableName='trippin-scores', Item=item)
     print(f'added score, id={id}, name={name}, score={score}')
 
 
 def convert_item(item):
-    sk = item['sk']['S']
-    split = sk.split('/')
-    id = split[0]
-    game = int(split[1])
+    id, game = item['sk']['S'].split('/')
     name = item['name']['S']
-    score = int(item['score']['N'])
+    score = item['score']['N']
     events = json.loads(item['events']['S'])
     return {
         'id': id,
-        'game': game,
+        'game': int(game),
         'name': name,
-        'score': score,
+        'score': int(score),
         'events': events
     }
 
 
 def convert(items):
     return [convert_item(i) for i in items]
+
+
+def to_json(val):
+    return json.dumps(val, separators=(',', ':'))
+
+
+def compress_if_needed(items):
+    while len(j := to_json(items)) >= 40_000:
+        del items[-1]  # remove trailing item until under 40 KB limit
+    return j
 
 
 def to_response(items):
@@ -148,11 +182,11 @@ def to_response(items):
                 }
             ]
         },
-        'body': json.dumps(items, separators=(',', ':'))
+        'body': to_json(items)
     }
 
 
-def extract_param(request, name, default, func):
+def extract_param(request, name, default=None, func=None):
     if 'querystring' not in request:
         return default
 
@@ -160,9 +194,12 @@ def extract_param(request, name, default, func):
     if name not in params:
         return default
 
-    version = params[name][0]
+    val = params[name][0]
+    if not func:
+        return val if val else default
+
     try:
-        return func(version)
+        return func(val)
     except ValueError:
         return default
 
@@ -175,21 +212,64 @@ def extract_limit_param(request):
     return extract_param(request, 'limit', 10, int)
 
 
+def extract_last_id_param(request):
+    return extract_param(request, 'last_id')
+
+
+def extract_last_game_param(request):
+    return extract_param(request, 'last_game', None, int)
+
+
+def extract_last_score_param(request):
+    return extract_param(request, 'last_score', None, int)
+
+
+def extract_last(request):
+    last_id = extract_last_id_param(request)
+    last_game = extract_last_game_param(request)
+    last_score = extract_last_score_param(request)
+    return last_id, last_game, last_score
+
+
+def all_time_start_key(version, last_id, last_game, last_score):
+    if last_id and last_game and last_score:
+        return {
+            'pk': {'N': str(version)},
+            'sk': {'S': f'{last_id}/{last_game}'},
+            'score': {'N': str(last_score)}
+        }
+
+
+def day_start_key(version, day, last_id, last_game, last_score):
+    if last_id and last_game and last_score:
+        padded_score = zero_left_pad(str(last_score))
+        return {
+            'pk': {'N': str(version)},
+            'sk': {'S': f'{last_id}/{last_game}'},
+            'dayscore': {'S': f'{day}/{padded_score}'}
+        }
+
+
 def lambda_handler(event, context):
     request = event['Records'][0]['cf']['request']
 
-    print(f'method={request["method"]}, path={request["uri"]}{"?" + request["querystring"] if "querystring" in request else ""}')
+    q = '?' + request['querystring'] if 'querystring' in request else ''
+    print(f'method={request["method"]}, path={request["uri"]}{q}')
 
     if request['method'] == 'GET' and '/scores/today' in request['uri']:
         version = extract_version_param(request)
         limit = extract_limit_param(request)
         day, daytime = cur_day_and_time()
-        return to_response(convert(top_today_scores(version, day, limit)))
+        last_params = extract_last(request)
+        start_key = day_start_key(version, day, *last_params)
+        return to_response(convert(top_today_scores(version, day, limit, start_key)))
 
     if request['method'] == 'GET' and '/scores/alltime' in request['uri']:
         version = extract_version_param(request)
         limit = extract_limit_param(request)
-        return to_response(convert(top_scores(version, limit)))
+        last_params = extract_last(request)
+        start_key = all_time_start_key(version, *last_params)
+        return to_response(convert(top_scores(version, limit, start_key)))
 
     if request['method'] == 'POST' and '/scores' in request['uri']:
         if not validate_add(request):
