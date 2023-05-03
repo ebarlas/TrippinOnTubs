@@ -437,6 +437,7 @@ void trippin::Game::handle(UserInput::Event &event) {
         auto endFn = [this] {
             titleMenu->reset();
             state = State::START_MENU;
+            level->onInput({false, true, false, false}, true);
             logStateChange("REPLAY", "START_MENU");
         };
         if (event.anythingPressed()) {
@@ -550,6 +551,7 @@ std::vector<std::vector<trippin::Score::InputEvent>> trippin::Game::convertInput
     std::vector<std::vector<Score::InputEvent>> result;
     for (auto &vec: inputEvents) {
         std::vector<Score::InputEvent> v;
+        v.reserve(vec.size());
         for (auto &e: vec) {
             v.push_back(Score::InputEvent::fromFlags(e.tick, e.jumpCharge, e.jumpRelease, e.duckStart, e.duckEnd));
         }
@@ -560,6 +562,7 @@ std::vector<std::vector<trippin::Score::InputEvent>> trippin::Game::convertInput
 
 std::vector<trippin::GogginInputTick> trippin::Game::convertEvents(const std::vector<Score::InputEvent> &events) {
     std::vector<GogginInputTick> result;
+    result.reserve(events.size());
     for (auto &e: events) {
         result.push_back({{e.jumpCharge(), e.jumpRelease(), e.duckStart(), e.duckEnd()}, e.tick});
     }
