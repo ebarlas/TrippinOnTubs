@@ -8,7 +8,7 @@ trippin::Tcp::Tcp(const std::string &host, int port) : sock(nullptr) {
         return;
     }
 
-    SDL_Log("resolved host, name=%s, ip=%s", host.c_str(), toString(ip.host).c_str());
+    // SDL_Log("resolved host, name=%s, ip=%s", host.c_str(), toString(ip.host).c_str());
 
     sock = SDLNet_TCP_Open(&ip);
     if (!sock) {

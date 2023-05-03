@@ -142,7 +142,7 @@ void trippin::Game::initOverlays() {
 void trippin::Game::initClock() {
     renderClock.init();
     timer = std::make_unique<Timer>([this](int tps) {
-        SDL_Log("timer=renderer, fps=%d, tpf=%s", tps, format(ticksPerFrame).c_str());
+        // SDL_Log("timer=renderer, fps=%d, tpf=%s", tps, format(ticksPerFrame).c_str());
         ticksPerFrame.clear();
     });
 }

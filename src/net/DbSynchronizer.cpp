@@ -26,7 +26,9 @@ static void runSyncLoop(Transport transport, std::weak_ptr<StagingArea> stagingA
 static void runAddScoresLoop(Transport transport, std::weak_ptr<StagingArea> stagingArea) {
     auto takeFn = [](std::shared_ptr<StagingArea> &sa) {
         auto scores = sa->takeAddedScores();
-        SDL_Log("took score from staging area, count=%lu", scores.size());
+        if (!scores.empty()) {
+            SDL_Log("took score from staging area, count=%lu", scores.size());
+        }
         return scores;
     };
     auto addFn = [](const Transport &t, const Score &s) {
@@ -44,13 +46,15 @@ static void runAddScoresLoop(Transport transport, std::weak_ptr<StagingArea> sta
 static void runAddLogEventsLoop(Transport transport, std::weak_ptr<StagingArea> stagingArea) {
     auto takeFn = [](std::shared_ptr<StagingArea> &sa) {
         auto events = sa->takeAddedLogEvents();
-        SDL_Log("took log events from staging area, count=%lu", events.size());
+        if (!events.empty()) {
+            SDL_Log("took log events from staging area, count=%lu", events.size());
+        }
         return events;
     };
     auto addFn = [](const Transport &t, const LogEvent &e) {
         auto success = t.addLogEvent(e);
         if (success) {
-            SDL_Log("added log event, message=%s", e.message.c_str());
+            SDL_Log("added log event, count=%d", e.index);
         } else {
             SDL_Log("failed to add log event, message=%s", e.message.c_str());
         }

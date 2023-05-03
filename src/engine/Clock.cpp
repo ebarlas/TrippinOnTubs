@@ -3,7 +3,7 @@
 #include "Clock.h"
 
 static void logTps(int tps) {
-    SDL_Log("timer=engine, tps=%d", tps);
+    // SDL_Log("timer=engine, tps=%d", tps);
 }
 
 trippin::Clock::Clock(int tickRate) :
