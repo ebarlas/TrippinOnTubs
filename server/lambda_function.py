@@ -164,7 +164,7 @@ def to_json(val):
     return json.dumps(val, separators=(',', ':'))
 
 
-def compress_if_needed(items):
+def truncate_if_needed(items):
     while len(j := to_json(items)) >= 40_000:
         del items[-1]  # remove trailing item until under 40 KB limit
     return j
@@ -182,7 +182,7 @@ def to_response(items):
                 }
             ]
         },
-        'body': to_json(items)
+        'body': truncate_if_needed(items)
     }
 
 
