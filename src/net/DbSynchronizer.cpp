@@ -19,7 +19,7 @@ static void runSyncLoop(Transport transport, std::weak_ptr<StagingArea> stagingA
                 std::this_thread::sleep_for(std::chrono::seconds(5));
             }
         }
-        std::this_thread::sleep_for(std::chrono::seconds(5));
+        std::this_thread::sleep_for(std::chrono::seconds(1));
     }
 }
 
@@ -54,9 +54,9 @@ static void runAddLogEventsLoop(Transport transport, std::weak_ptr<StagingArea> 
     auto addFn = [](const Transport &t, const LogEvent &e) {
         auto success = t.addLogEvent(e);
         if (success) {
-            SDL_Log("added log event, count=%d", e.index);
+            SDL_Log("sent log event, count=%d", e.index);
         } else {
-            SDL_Log("failed to add log event, message=%s", e.message.c_str());
+            SDL_Log("failed to send log event, message=%s", e.message.c_str());
         }
         return success;
     };

@@ -298,8 +298,7 @@ const char *trippin::Game::getRendererName(SDL_Renderer *renderer) {
 }
 
 void trippin::Game::logStateChange(const char *prev, const char *next) {
-    using namespace std::string_literals;
-    logger->log("op=state_change, prev="s + prev + ", next=" + next);
+    logger->log(std::string("op=state_change, prev=") + prev + ", next=" + next);
 }
 
 void trippin::Game::render() {
@@ -365,7 +364,10 @@ void trippin::Game::handle(UserInput::Event &event) {
             inputEvents.clear();
             state = State::PLAYING;
             advanceLevel();
-            logStateChange("START_MENU", "PLAYING");
+            logger->log(std::string("op=state_change")
+                        + ", prev=START_MENU"
+                        + ", next=PLAYING"
+                        + ", id=" + std::to_string(gameId));
         } else if (titleMenu->trainClicked(event.touchPoint)) {
             score = 0;
             state = State::TRAINING;
@@ -407,7 +409,12 @@ void trippin::Game::handle(UserInput::Event &event) {
                 state = State::REPLAY;
                 exitOverlay->reset();
                 advanceLevel();
-                logStateChange("ALL_TIME_SCORES", "REPLAY");
+                logger->log(std::string("op=state_change")
+                            + ", prev=ALL_TIME_SCORES"
+                            + ", next=REPLAY"
+                            + ", id=" + replayScore.id
+                            + ", game=" + std::to_string(replayScore.game)
+                            + ", name=" + replayScore.name);
             } else {
                 titleMenu->reset();
                 state = State::START_MENU;
@@ -426,7 +433,12 @@ void trippin::Game::handle(UserInput::Event &event) {
                 state = State::REPLAY;
                 exitOverlay->reset();
                 advanceLevel();
-                logStateChange("TODAY_SCORES", "REPLAY");
+                logger->log(std::string("op=state_change")
+                            + ", prev=TODAY_SCORES"
+                            + ", next=REPLAY"
+                            + ", id=" + replayScore.id
+                            + ", game=" + std::to_string(replayScore.game)
+                            + ", name=" + replayScore.name);
             } else {
                 titleMenu->reset();
                 state = State::START_MENU;
@@ -473,11 +485,19 @@ void trippin::Game::handle(UserInput::Event &event) {
                 if (levelIndex < configuration.maps.size() - 1) {
                     state = State::LEVEL_TRANSITION;
                     levelOverlay->reset(static_cast<int>(levelIndex));
-                    logStateChange("PLAYING", "LEVEL_TRANSITION");
+                    logger->log(std::string("op=state_change")
+                                + ", prev=PLAYING"
+                                + ", next=LEVEL_TRANSITION"
+                                + ", level=" + std::to_string(levelIndex)
+                                + ", score=" + std::to_string(score));
                 } else {
                     state = State::LEVELS_COMPLETED;
                     levelsCompletedOverlay->reset();
-                    logStateChange("PLAYING", "LEVELS_COMPLETED");
+                    logger->log(std::string("op=state_change")
+                                + ", prev=PLAYING"
+                                + ", next=LEVELS_COMPLETED"
+                                + ", level=" + std::to_string(levelIndex)
+                                + ", score=" + std::to_string(score));
                 }
             } else {
                 if (extraLives > 0) {
@@ -485,11 +505,20 @@ void trippin::Game::handle(UserInput::Event &event) {
                     state = State::EXTRA_LIFE_DELAY;
                     auto now = std::chrono::steady_clock::now();
                     extraLifeTime = std::chrono::time_point_cast<std::chrono::milliseconds>(now);
-                    logStateChange("PLAYING", "EXTRA_LIFE_DELAY");
+                    logger->log(std::string("op=state_change")
+                                + ", prev=PLAYING"
+                                + ", next=EXTRA_LIFE_DELAY"
+                                + ", level=" + std::to_string(levelIndex)
+                                + ", score=" + std::to_string(score)
+                                + ", extraLives=" + std::to_string(extraLives));
                 } else {
                     state = State::GAME_OVER;
                     gameOverOverlay->reset();
-                    logStateChange("PLAYING", "GAME_OVER");
+                    logger->log(std::string("op=state_change")
+                                + ", prev=PLAYING"
+                                + ", next=GAME_OVER"
+                                + ", level=" + std::to_string(levelIndex)
+                                + ", score=" + std::to_string(score));
                 }
             }
         }
@@ -524,7 +553,11 @@ void trippin::Game::handle(UserInput::Event &event) {
             levelIndex++;
             state = State::PLAYING;
             advanceLevel();
-            logStateChange("LEVEL_TRANSITION", "PLAYING");
+            logger->log(std::string("op=state_change")
+                        + ", prev=LEVEL_TRANSITION"
+                        + ", next=PLAYING"
+                        + ", level=" + std::to_string(levelIndex)
+                        + ", score=" + std::to_string(score));
         }
     } else if (state == State::END_MENU) {
         if (endMenu->exitClicked(event.touchPoint)) {
@@ -542,7 +575,15 @@ void trippin::Game::handle(UserInput::Event &event) {
             stagingArea->addScore({appId, gameId, score, nameForm->getName(), convertInputEvents()});
             state = State::START_MENU;
             titleMenu->reset();
-            logStateChange("NAME_FORM", "START_MENU");
+            auto sum = std::accumulate(inputEvents.begin(), inputEvents.end(), 0, [](std::size_t sum, const auto &vec) {
+                return sum + vec.size();
+            });
+            logger->log(std::string("op=state_change")
+                        + ", prev=NAME_FORM"
+                        + ", next=START_MENU"
+                        + ", name=" + nameForm->getName()
+                        + ", score=" + std::to_string(score)
+                        + ", events=" + std::to_string(sum));
         }
     }
 }

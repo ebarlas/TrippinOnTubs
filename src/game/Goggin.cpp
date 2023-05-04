@@ -400,8 +400,8 @@ void trippin::Goggin::transferInput(int engineTicks) {
     }
 
     if (input) {
-        SDL_Log("input event, ticks=%d, duckStart=%d, duckEnd=%d, jumpCharge=%d, jumpRelease=%d",
-                engineTicks, input.duckStart, input.duckEnd, input.jumpCharge, input.jumpRelease);
+        // SDL_Log("input event, ticks=%d, duckStart=%d, duckEnd=%d, jumpCharge=%d, jumpRelease=%d",
+        //        engineTicks, input.duckStart, input.duckEnd, input.jumpCharge, input.jumpRelease);
         {
             std::lock_guard<std::mutex> lock(mutex);
             inputEvents.push_back({{input.jumpCharge, input.jumpRelease, input.duckStart, input.duckEnd}, engineTicks});
