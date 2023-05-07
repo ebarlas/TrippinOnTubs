@@ -3,7 +3,7 @@ include(FetchContent)
 FetchContent_Declare(
         SDL
         GIT_REPOSITORY https://github.com/libsdl-org/SDL
-        GIT_TAG release-2.26.4)
+        GIT_TAG release-2.26.5)
 FetchContent_MakeAvailable(SDL)
 
 FetchContent_Declare(
