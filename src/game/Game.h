@@ -6,6 +6,7 @@
 #include "SDL.h"
 #include "engine/Point.h"
 #include "engine/Timer.h"
+#include "engine/ClockStats.h"
 #include "sprite/SpriteManager.h"
 #include "Configuration.h"
 #include "Map.h"
@@ -88,6 +89,7 @@ namespace trippin {
         Score replayScore;
         unsigned int replayOffset;
         std::vector<GogginInputTick> replayAutoPlay;
+        ClockStats fpsStats;
         void initSdl();
         void initAppId();
         void initLogger();
@@ -107,6 +109,9 @@ namespace trippin {
         void render();
         void handle(UserInput::Event &event);
         std::vector<std::vector<Score::InputEvent>> convertInputEvents() const;
+        std::string formatFps() const;
+        std::string formatTps() const;
+        static std::string formatTps(int min, int max, int avg);
         static std::vector<GogginInputTick> convertEvents(const std::vector<Score::InputEvent> &events) ;
         static const char *getSystemName(SDL_Window *window);
         static const char *getRendererName(SDL_Renderer *renderer);

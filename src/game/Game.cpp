@@ -141,8 +141,8 @@ void trippin::Game::initOverlays() {
 
 void trippin::Game::initClock() {
     renderClock.init();
-    timer = std::make_unique<Timer>([this](int tps) {
-        // SDL_Log("timer=renderer, fps=%d, tpf=%s", tps, format(ticksPerFrame).c_str());
+    timer = std::make_unique<Timer>([this](int fps) {
+        fpsStats.add(fps);
         ticksPerFrame.clear();
     });
 }
@@ -363,16 +363,22 @@ void trippin::Game::handle(UserInput::Event &event) {
             gameId++;
             inputEvents.clear();
             state = State::PLAYING;
-            advanceLevel();
             logger->log(std::string("op=state_change")
                         + ", prev=START_MENU"
                         + ", next=PLAYING"
-                        + ", id=" + std::to_string(gameId));
+                        + ", id=" + std::to_string(gameId)
+                        + ", tps=" + formatTps()
+                        + ", fps=" + formatFps());
+            advanceLevel();
         } else if (titleMenu->trainClicked(event.touchPoint)) {
             score = 0;
             state = State::TRAINING;
+            logger->log(std::string("op=state_change")
+                        + ", prev=START_MENU"
+                        + ", next=TRAINING"
+                        + ", tps=" + formatTps()
+                        + ", fps=" + formatFps());
             advanceLevel();
-            logStateChange("START_MENU", "TRAINING");
         } else if (titleMenu->exitClicked(event.touchPoint)) {
             level->stop();
             state = State::EXIT;
@@ -408,13 +414,15 @@ void trippin::Game::handle(UserInput::Event &event) {
                 score = 0;
                 state = State::REPLAY;
                 exitOverlay->reset();
-                advanceLevel();
                 logger->log(std::string("op=state_change")
                             + ", prev=ALL_TIME_SCORES"
                             + ", next=REPLAY"
                             + ", id=" + replayScore.id
                             + ", game=" + std::to_string(replayScore.game)
-                            + ", name=" + replayScore.name);
+                            + ", name=" + replayScore.name
+                            + ", tps=" + formatTps()
+                            + ", fps=" + formatFps());
+                advanceLevel();
             } else {
                 titleMenu->reset();
                 state = State::START_MENU;
@@ -432,13 +440,15 @@ void trippin::Game::handle(UserInput::Event &event) {
                 score = 0;
                 state = State::REPLAY;
                 exitOverlay->reset();
-                advanceLevel();
                 logger->log(std::string("op=state_change")
                             + ", prev=TODAY_SCORES"
                             + ", next=REPLAY"
                             + ", id=" + replayScore.id
                             + ", game=" + std::to_string(replayScore.game)
-                            + ", name=" + replayScore.name);
+                            + ", name=" + replayScore.name
+                            + ", tps=" + formatTps()
+                            + ", fps=" + formatFps());
+                advanceLevel();
             } else {
                 titleMenu->reset();
                 state = State::START_MENU;
@@ -450,7 +460,11 @@ void trippin::Game::handle(UserInput::Event &event) {
             titleMenu->reset();
             state = State::START_MENU;
             level->onInput({false, true, false, false}, true);
-            logStateChange("REPLAY", "START_MENU");
+            logger->log(std::string("op=state_change")
+                        + ", prev=REPLAY"
+                        + ", next=START_MENU"
+                        + ", tps=" + formatTps()
+                        + ", fps=" + formatFps());
         };
         if (event.anythingPressed()) {
             if (exitOverlay->exitClicked(event.touchPoint)) {
@@ -463,6 +477,11 @@ void trippin::Game::handle(UserInput::Event &event) {
                 if (levelIndex < configuration.maps.size() - 1 && replayOffset < replayScore.events.size() - 1) {
                     replayOffset++; // advance replay events on level change
                     levelIndex++;
+                    logger->log(std::string("op=replay_level")
+                                + ", replayEvents=" + std::to_string(replayOffset)
+                                + ", level=" + std::to_string(levelIndex)
+                                + ", tps=" + formatTps()
+                                + ", fps=" + formatFps());
                     advanceLevel();
                 } else {
                     endFn();
@@ -471,6 +490,11 @@ void trippin::Game::handle(UserInput::Event &event) {
                 if (extraLives > 0) {
                     replayOffset++; // advance replay events on level restart
                     extraLives--;
+                    logger->log(std::string("op=replay_extra_life")
+                                + ", replayEvents=" + std::to_string(replayOffset)
+                                + ", extraLives=" + std::to_string(extraLives)
+                                + ", tps=" + formatTps()
+                                + ", fps=" + formatFps());
                     advanceLevel();
                 } else {
                     endFn();
@@ -489,7 +513,11 @@ void trippin::Game::handle(UserInput::Event &event) {
                                 + ", prev=PLAYING"
                                 + ", next=LEVEL_TRANSITION"
                                 + ", level=" + std::to_string(levelIndex)
-                                + ", score=" + std::to_string(score));
+                                + ", events=" + std::to_string(inputEvents.rbegin()->size())
+                                + ", ticks=" + std::to_string(level->getTicks())
+                                + ", score=" + std::to_string(score)
+                                + ", tps=" + formatTps()
+                                + ", fps=" + formatFps());
                 } else {
                     state = State::LEVELS_COMPLETED;
                     levelsCompletedOverlay->reset();
@@ -497,7 +525,11 @@ void trippin::Game::handle(UserInput::Event &event) {
                                 + ", prev=PLAYING"
                                 + ", next=LEVELS_COMPLETED"
                                 + ", level=" + std::to_string(levelIndex)
-                                + ", score=" + std::to_string(score));
+                                + ", events=" + std::to_string(inputEvents.rbegin()->size())
+                                + ", ticks=" + std::to_string(level->getTicks())
+                                + ", score=" + std::to_string(score)
+                                + ", tps=" + formatTps()
+                                + ", fps=" + formatFps());
                 }
             } else {
                 if (extraLives > 0) {
@@ -509,8 +541,12 @@ void trippin::Game::handle(UserInput::Event &event) {
                                 + ", prev=PLAYING"
                                 + ", next=EXTRA_LIFE_DELAY"
                                 + ", level=" + std::to_string(levelIndex)
+                                + ", events=" + std::to_string(inputEvents.rbegin()->size())
+                                + ", ticks=" + std::to_string(level->getTicks())
                                 + ", score=" + std::to_string(score)
-                                + ", extraLives=" + std::to_string(extraLives));
+                                + ", extraLives=" + std::to_string(extraLives)
+                                + ", tps=" + formatTps()
+                                + ", fps=" + formatFps());
                 } else {
                     state = State::GAME_OVER;
                     gameOverOverlay->reset();
@@ -518,7 +554,11 @@ void trippin::Game::handle(UserInput::Event &event) {
                                 + ", prev=PLAYING"
                                 + ", next=GAME_OVER"
                                 + ", level=" + std::to_string(levelIndex)
-                                + ", score=" + std::to_string(score));
+                                + ", events=" + std::to_string(inputEvents.rbegin()->size())
+                                + ", ticks=" + std::to_string(level->getTicks())
+                                + ", score=" + std::to_string(score)
+                                + ", tps=" + formatTps()
+                                + ", fps=" + formatFps());
                 }
             }
         }
@@ -538,26 +578,36 @@ void trippin::Game::handle(UserInput::Event &event) {
         auto now = std::chrono::time_point_cast<std::chrono::milliseconds>(std::chrono::steady_clock::now());
         if (now - extraLifeTime >= std::chrono::seconds{1}) {
             state = State::PLAYING;
+            logger->log(std::string("op=state_change")
+                        + ", prev=EXTRA_LIFE_DELAY"
+                        + ", next=PLAYING"
+                        + ", tps=" + formatTps()
+                        + ", fps=" + formatFps());
             advanceLevel();
-            logStateChange("EXTRA_LIFE_DELAY", "PLAYING");
         }
     } else if (state == State::TRAINING) {
         if (level->completed()) {
             score = 0;
             state = State::START_MENU;
+            logger->log(std::string("op=state_change")
+                        + ", prev=TRAINING"
+                        + ", next=START_MENU"
+                        + ", tps=" + formatTps()
+                        + ", fps=" + formatFps());
             advanceLevel();
-            logStateChange("TRAINING", "START_MENU");
         }
     } else if (state == State::LEVEL_TRANSITION) {
         if (event.anythingPressed()) {
             levelIndex++;
             state = State::PLAYING;
-            advanceLevel();
             logger->log(std::string("op=state_change")
                         + ", prev=LEVEL_TRANSITION"
                         + ", next=PLAYING"
                         + ", level=" + std::to_string(levelIndex)
-                        + ", score=" + std::to_string(score));
+                        + ", score=" + std::to_string(score)
+                        + ", tps=" + formatTps()
+                        + ", fps=" + formatFps());
+            advanceLevel();
         }
     } else if (state == State::END_MENU) {
         if (endMenu->exitClicked(event.touchPoint)) {
@@ -608,4 +658,16 @@ std::vector<trippin::GogginInputTick> trippin::Game::convertEvents(const std::ve
         result.push_back({{e.jumpCharge(), e.jumpRelease(), e.duckStart(), e.duckEnd()}, e.tick});
     }
     return result;
+}
+
+std::string trippin::Game::formatFps() const {
+    return formatTps(fpsStats.getMin(), fpsStats.getMax(), fpsStats.getAvg());
+}
+
+std::string trippin::Game::formatTps() const {
+    return formatTps(level->getMinTps(), level->getMaxTps(), level->getAvgTps());
+}
+
+std::string trippin::Game::formatTps(int min, int max, int avg) {
+    return std::to_string(min) + "/" + std::to_string(max) + "/" + std::to_string(avg);
 }

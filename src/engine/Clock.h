@@ -2,6 +2,7 @@
 #define TRIPPIN_CLOCK_H
 
 #include "Timer.h"
+#include "ClockStats.h"
 
 namespace trippin {
     // Engine clock throttles the pace of the engine thread to match a target tick rate via the next() function
@@ -22,11 +23,14 @@ namespace trippin {
         int priorTicks{};
 
         static std::chrono::microseconds tickRateToTickPeriod(int tickRate);
+
+        ClockStats stats;
     public:
         Clock(int tickRate);
         void next();
         int getTicks() const;
         int getTickRate() const;
+        const ClockStats& getStats() const;
         void updateTickRate(int tickRate);
     };
 }

@@ -87,6 +87,9 @@ namespace trippin {
         int getScore() const;
         std::vector<GogginInputTick> takeInputEvents() const;
         int getTicks() const;
+        int getMinTps() const;
+        int getMaxTps() const;
+        int getAvgTps() const;
         void beforeTick(int engineTicks) override;
         void afterTick(int engineTicks) override;
     };

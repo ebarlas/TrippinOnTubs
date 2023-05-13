@@ -195,7 +195,6 @@ static void run(trippin::Engine *engine) {
 }
 
 void trippin::Engine::runEngineLoop() {
-    SDL_Log("starting engine");
     Clock clock{tickRate};
     while (!stopped) {
         if (paused) {
@@ -211,12 +210,15 @@ void trippin::Engine::runEngineLoop() {
             tick(clockTicks - pauseTime);
             ticks++;
         }
+        auto &clockStats = clock.getStats();
+        minTps = clockStats.getMin();
+        maxTps = clockStats.getMax();
+        avgTps = clockStats.getAvg();
         clock.next();
         if (tickRate != clock.getTickRate()) {
             clock.updateTickRate(tickRate);
         }
     }
-    SDL_Log("stopping engine");
 }
 
 void trippin::Engine::start() {
@@ -253,6 +255,18 @@ void trippin::Engine::addListener(trippin::Listener *listener) {
 
 int trippin::Engine::getTicks() const {
     return ticks;
+}
+
+int trippin::Engine::getMinTps() const {
+    return minTps;
+}
+
+int trippin::Engine::getMaxTps() const {
+    return maxTps;
+}
+
+int trippin::Engine::getAvgTps() const {
+    return avgTps;
 }
 
 bool trippin::Engine::sameLane(Object *left, Object *right) {

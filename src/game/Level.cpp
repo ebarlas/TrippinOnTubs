@@ -374,3 +374,15 @@ void trippin::Level::afterTick(int) {
 int trippin::Level::getTicks() const {
     return engine.getTicks();
 }
+
+int trippin::Level::getMinTps() const {
+    return engine.getMinTps();
+}
+
+int trippin::Level::getMaxTps() const {
+    return engine.getMaxTps();
+}
+
+int trippin::Level::getAvgTps() const {
+    return engine.getAvgTps();
+}

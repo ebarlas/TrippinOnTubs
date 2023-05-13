@@ -45,6 +45,9 @@ namespace trippin {
         void stop();
         void join();
         int getTicks() const;
+        int getMinTps() const;
+        int getMaxTps() const;
+        int getAvgTps() const;
     private:
         std::vector<Object *> inactive;
         std::vector<Object *> platforms;
@@ -59,6 +62,9 @@ namespace trippin {
         std::atomic_bool paused{};
         std::atomic_bool stopped{};
         std::atomic_int ticks{};
+        std::atomic_int minTps{};
+        std::atomic_int maxTps{};
+        std::atomic_int avgTps{};
         int pauseTicks{};
         int pauseTime{};
 
