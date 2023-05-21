@@ -137,6 +137,7 @@ void trippin::Game::initOverlays() {
     gameOverOverlay = makeOverlay("gameover");
     levelsCompletedOverlay = makeOverlay("levels_completed");
     exitOverlay = std::make_unique<ExitOverlay>(rendererSize, configuration.meterMargin, *spriteManager, renderClock);
+    speedUpOverlay = std::make_unique<SpeedUpOverlay>(rendererSize, configuration.meterMargin, *spriteManager, renderClock);
 }
 
 void trippin::Game::initClock() {
@@ -331,6 +332,7 @@ void trippin::Game::render() {
         nameForm->render();
     } else if (state == State::REPLAY) {
         exitOverlay->render();
+        speedUpOverlay->render();
     }
 
     SDL_RenderPresent(sdlSystem->getRenderer());
@@ -414,6 +416,7 @@ void trippin::Game::handle(UserInput::Event &event) {
                 score = 0;
                 state = State::REPLAY;
                 exitOverlay->reset();
+                speedUpOverlay->reset();
                 logger->log(std::string("op=state_change")
                             + ", prev=ALL_TIME_SCORES"
                             + ", next=REPLAY"
@@ -440,6 +443,7 @@ void trippin::Game::handle(UserInput::Event &event) {
                 score = 0;
                 state = State::REPLAY;
                 exitOverlay->reset();
+                speedUpOverlay->reset();
                 logger->log(std::string("op=state_change")
                             + ", prev=TODAY_SCORES"
                             + ", next=REPLAY"

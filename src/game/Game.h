@@ -20,6 +20,7 @@
 #include "ui/ScrollingScoreBoard.h"
 #include "ui/SimpleOverlay.h"
 #include "ui/ExitOverlay.h"
+#include "ui/SpeedUpOverlay.h"
 #include "net/Transport.h"
 #include "net/StagingArea.h"
 #include "SdlSystem.h"
@@ -72,6 +73,7 @@ namespace trippin {
         std::unique_ptr<TitleOverlay> titleOverlay;
         std::unique_ptr<TitleMenu> titleMenu;
         std::unique_ptr<ExitOverlay> exitOverlay;
+        std::unique_ptr<SpeedUpOverlay> speedUpOverlay;
         std::unique_ptr<EndMenu> endMenu;
         std::unique_ptr<NameForm> nameForm;
         std::unique_ptr<ScoreMenu> scoreMenu;
