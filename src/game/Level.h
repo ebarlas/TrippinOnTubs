@@ -23,6 +23,7 @@
 #include "sprite/RenderClock.h"
 #include "GroupManager.h"
 #include "LevelBonuses.h"
+#include "LevelEndListener.h"
 
 namespace trippin {
     class Level : public Listener {
@@ -58,6 +59,7 @@ namespace trippin {
         std::unique_ptr<NotificationManager> groupNotificationManager;
         std::unique_ptr<NotificationDrawer> notificationDrawer;
         std::unique_ptr<LevelBonuses> levelBonuses;
+        std::unique_ptr<LevelEndListener> levelEndListener;
         GroupManager groupManager;
         void initMap();
         void initCamera();

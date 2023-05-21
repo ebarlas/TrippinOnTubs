@@ -278,6 +278,8 @@ void trippin::Level::initEngine() {
                 lastLevel,
                 initialExtraLives);
         engine.addListener(levelBonuses.get());
+        levelEndListener = std::make_unique<LevelEndListener>(*goggin, *scoreTicker);
+        engine.addListener(levelEndListener.get());
     }
 
     if (training) {
@@ -323,7 +325,7 @@ void trippin::Level::start() {
 }
 
 bool trippin::Level::ended() {
-    return goggin->belowUniverse() || goggin->rightOfUniverse();
+    return levelEndListener->hasEnded();
 }
 
 bool trippin::Level::completed() {

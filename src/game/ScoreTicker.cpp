@@ -11,11 +11,14 @@ trippin::ScoreTicker::ScoreTicker(
         digits(digits),
         score(score),
         viewport(viewport),
-        sceneBuilder(sceneBuilder) {
+        sceneBuilder(sceneBuilder),
+        closed(false) {
 }
 
 void trippin::ScoreTicker::add(int n) {
-    score += n;
+    if (!closed) {
+        score += n;
+    }
 }
 
 int trippin::ScoreTicker::getScore() const {
@@ -29,4 +32,8 @@ void trippin::ScoreTicker::afterTick(int) {
     sceneBuilder.dispatch([this, scoreNow, pos]() {
         DigitLayout::renderDigits(digits, pos, scoreNow);
     });
+}
+
+void trippin::ScoreTicker::close() {
+    closed = true;
 }

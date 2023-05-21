@@ -14,6 +14,7 @@ namespace trippin {
         std::atomic_int score;
         const Rect<int> viewport;
         SceneBuilder &sceneBuilder;
+        bool closed;
     public:
         ScoreTicker(
                 int margin,
@@ -22,6 +23,7 @@ namespace trippin {
                 Rect<int> viewport,
                 SceneBuilder &sceneBuilder);
         void add(int n);
+        void close();
         void afterTick(int engineTicks) override;
         int getScore() const;
     };
