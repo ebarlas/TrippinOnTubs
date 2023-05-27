@@ -1,7 +1,7 @@
 {
   "version": {
-    "major": 0,
-    "minor": 1
+    "major": 1,
+    "minor": 0
   },
   "windowSize": {
     "x": 1200,
@@ -40,7 +40,7 @@
   "sparkleTubBonusPoints": 50,
   "collisionDurationMilliseconds": 400,
   "collisionFlashMilliseconds": 25,
-  "collisionCooldownMilliseconds": 150,
+  "collisionCooldownMilliseconds": 100,
   "knockoutVelocityFactor": 0.5,
   "dustJumpFactor": 0.5,
   "dustLandFactor": 0.5,
