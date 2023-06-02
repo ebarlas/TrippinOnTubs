@@ -10,7 +10,11 @@ int trippin::LevelStats::lastTime(Event event) const {
 }
 
 int trippin::LevelStats::count(Event event) const {
-    return getWithFallback(counts, event, -1);
+    return getWithFallback(counts, event, 0);
+}
+
+bool trippin::LevelStats::exists(Event event) const {
+    return count(event) > 0;
 }
 
 int trippin::LevelStats::getWithFallback(const std::unordered_map<Event, int> &m, Event key, int fallback) {

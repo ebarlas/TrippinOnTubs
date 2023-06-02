@@ -43,8 +43,9 @@ void trippin::Level::setScore(int score) {
     initialScore = score;
 }
 
-void trippin::Level::setTraining(bool b) {
-    training = b;
+void trippin::Level::setTraining(unsigned int stage) {
+    training = true;
+    trainingStage = stage;
 }
 
 void trippin::Level::setLastLevel(bool b) {
@@ -294,7 +295,8 @@ void trippin::Level::initEngine() {
                 *soundManager,
                 *levelStats,
                 *renderClock,
-                sceneBuilder);
+                sceneBuilder,
+                trainingStage);
         engine.addListener(trainingProgram.get());
     }
 
@@ -332,9 +334,11 @@ bool trippin::Level::ended() {
 }
 
 bool trippin::Level::completed() {
-    return training
-           ? goggin->rightOfUniverse() || trainingProgram->completed()
-           : goggin->rightOfUniverse();
+    return goggin->rightOfUniverse();
+}
+
+bool trippin::Level::trainingCompleted() const {
+    return trainingProgram->completed();
 }
 
 void trippin::Level::stop() {
@@ -390,4 +394,8 @@ int trippin::Level::getMaxTps() const {
 
 int trippin::Level::getAvgTps() const {
     return engine.getAvgTps();
+}
+
+unsigned int trippin::Level::getTrainingStage() const {
+    return trainingProgram->getStage();
 }

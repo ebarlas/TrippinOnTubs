@@ -64,6 +64,8 @@ trippin::Goggin::Goggin(
 
     rememberDuckStart = false;
 
+    lastJumpSoundTicks = 0;
+
     if (autoPlayVec != nullptr) {
         for (auto &uit: *autoPlayVec) {
             autoPlay[uit.tick] = {uit.jumpCharge, uit.jumpRelease, uit.duckStart, uit.duckEnd};

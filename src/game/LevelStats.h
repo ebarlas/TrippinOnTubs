@@ -20,6 +20,7 @@ namespace trippin {
 
         int lastTime(Event event) const;
         int count(Event event) const;
+        bool exists(Event event) const;
     private:
         std::unordered_map<Event, int> lastTimes;
         std::unordered_map<Event, int> counts;

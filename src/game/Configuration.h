@@ -100,7 +100,7 @@ namespace trippin {
         Point<int> healthBarSize;
         std::vector<std::string> maps;
         std::string loadMap;
-        std::string trainMap;
+        std::vector<std::string> trainMaps;
         std::string loadAutoPlay;
         std::vector<Scale> scales;
         std::vector<std::string> prefetchSprites;

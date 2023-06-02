@@ -163,8 +163,8 @@ std::unique_ptr<trippin::Level> trippin::Game::nextLevel() {
         lvl->setMapName(configuration.loadMap);
         lvl->setAutoPlay(autoPlay.events);
     } else if (state == State::TRAINING) {
-        lvl->setMapName(configuration.trainMap);
-        lvl->setTraining(true);
+        lvl->setMapName(configuration.trainMaps[trainingStage]);
+        lvl->setTraining(trainingStage);
     } else if (state == State::REPLAY) {
         replayAutoPlay = convertEvents(replayScore.events[replayOffset]); // ensure extended lifetime for replay vec
         lvl->setAutoPlay(replayAutoPlay);
@@ -590,12 +590,27 @@ void trippin::Game::handle(UserInput::Event &event) {
             advanceLevel();
         }
     } else if (state == State::TRAINING) {
-        if (level->completed()) {
-            score = 0;
-            state = State::START_MENU;
-            logger->log(std::string("op=state_change")
-                        + ", prev=TRAINING"
-                        + ", next=START_MENU"
+        if (level->trainingCompleted()) {
+            if (trainingStage == configuration.trainMaps.size() - 1) { // last training stage
+                score = 0;
+                state = State::START_MENU;
+                logger->log(std::string("op=state_change")
+                            + ", prev=TRAINING"
+                            + ", next=START_MENU"
+                            + ", tps=" + formatTps()
+                            + ", fps=" + formatFps());
+                advanceLevel();
+            } else {
+                trainingStage++;
+                logger->log(std::string("op=next_training_stage")
+                            + ", trainingStage=" + std::to_string(trainingStage)
+                            + ", tps=" + formatTps()
+                            + ", fps=" + formatFps());
+                advanceLevel();
+            }
+        } else if (level->completed()) {
+            logger->log(std::string("op=training_stage_repeat")
+                        + ", trainingStage=" + std::to_string(trainingStage)
                         + ", tps=" + formatTps()
                         + ", fps=" + formatFps());
             advanceLevel();

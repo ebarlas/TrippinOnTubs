@@ -145,7 +145,7 @@ void trippin::from_json(const nlohmann::json &j, Configuration &config) {
     j.at("healthBarSize").at("y").get_to(config.healthBarSize.y);
     j.at("maps").get_to(config.maps);
     j.at("loadMap").get_to(config.loadMap);
-    j.at("trainMap").get_to(config.trainMap);
+    j.at("trainMaps").get_to(config.trainMaps);
     j.at("loadAutoPlay").get_to(config.loadAutoPlay);
     j.at("prefetchSprites").get_to(config.prefetchSprites);
     j.at("db").at("host").get_to(config.db.host);

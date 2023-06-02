@@ -20,15 +20,23 @@ namespace trippin {
                 LevelStats::Event::DuckJump,
                 LevelStats::Event::DoubleJump,
                 LevelStats::Event::JumpSlamDown};
-        static constexpr int NUM_STAGES = 7;
-        static const std::array<const char *, NUM_STAGES> names;
-        const std::array<const Sprite *, NUM_STAGES> titleSprites;
-        const std::array<const Sprite *, NUM_STAGES> controlSprites;
+
+        static constexpr const char *NAMES[]{
+                "jump",
+                "duck",
+                "stop",
+                "charged_jump",
+                "charged_duck_jump",
+                "double_jump",
+                "jump_slam_down"};
+
+        const Sprite &titleSprite;
+        const Sprite &controlSprite;
 
         const LevelStats &stats;
         const Point<int> windowSize;
         const int margin;
-        unsigned int stage;
+        const unsigned int stage;
         Interpolator titleInterpolator;
         Interpolator controlInterpolator;
         const int finishedWaitTicks;
@@ -38,11 +46,10 @@ namespace trippin {
         SceneBuilder &sceneBuilder;
 
         std::atomic_bool complete;
+        bool firstTick;
+        bool stageDone;
 
         void resetInterpolators();
-
-        static std::array<const Sprite *, NUM_STAGES>
-        makeSprites(SpriteManager &spriteManager, const std::string &suffix = "");
     public:
         TrainingProgram(
                 Point<int> windowSize,
@@ -52,8 +59,10 @@ namespace trippin {
                 SoundManager &soundManager,
                 const LevelStats &stats,
                 const RenderClock &renderClock,
-                SceneBuilder &sb);
+                SceneBuilder &sb,
+                unsigned int stage);
         bool completed();
+        unsigned int getStage() const;
         void afterTick(int engineTicks) override;
     };
 }
