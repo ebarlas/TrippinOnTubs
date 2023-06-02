@@ -1,8 +1,8 @@
-<ns0:svg xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:ns0="http://www.w3.org/2000/svg" xmlns:ns1="http://www.inkscape.org/namespaces/inkscape" xmlns:ns2="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd" xmlns:ns4="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" scale="2" duration="40" width="320" height="240" viewBox="0 0 320 240" version="1.1" id="svg5057" ns1:version="1.0beta2 (2b71d25, 2019-12-03)" ns2:docname="run_dust.svg">
+<ns0:svg xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:ns0="http://www.w3.org/2000/svg" xmlns:ns1="http://www.inkscape.org/namespaces/inkscape" xmlns:ns2="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd" xmlns:ns4="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" scale="2" duration="40" width="320" height="240" viewBox="0 0 320 240" version="1.1" id="svg5057" ns1:version="1.2.2 (b0a8486, 2022-12-01)" ns2:docname="dust.svg">
   <ns0:defs id="defs5051" />
-  <ns2:namedview id="base" pagecolor="#ffffff" bordercolor="#666666" borderopacity="1.0" ns1:pageopacity="0.0" ns1:pageshadow="2" ns1:zoom="3.959798" ns1:cx="165.22927" ns1:cy="130.8113" ns1:document-units="px" ns1:current-layer="layer13" ns1:document-rotation="0" showgrid="true" units="px" ns1:window-width="2620" ns1:window-height="1289" ns1:window-x="482" ns1:window-y="246" ns1:window-maximized="0" ns1:snap-global="true" showguides="true" ns1:guide-bbox="true">
+  <ns2:namedview id="base" pagecolor="#ffffff" bordercolor="#666666" borderopacity="1.0" ns1:pageopacity="0.0" ns1:pageshadow="2" ns1:zoom="1.979899" ns1:cx="138.89597" ns1:cy="132.07744" ns1:document-units="px" ns1:current-layer="layer29" ns1:document-rotation="0" showgrid="true" units="px" ns1:window-width="1440" ns1:window-height="847" ns1:window-x="0" ns1:window-y="25" ns1:window-maximized="0" ns1:snap-global="true" showguides="true" ns1:guide-bbox="true" ns1:showpageshadow="2" ns1:pagecheckerboard="0" ns1:deskcolor="#d1d1d1">
     <ns1:grid type="xygrid" id="grid5620" />
-    <ns2:guide position="206,52" orientation="0,-1" id="guide5725" />
+    <ns2:guide position="206,52" orientation="0,-1" id="guide5725" ns1:locked="false" />
   </ns2:namedview>
   <ns0:metadata id="metadata5054">
     <rdf:RDF>
@@ -17,7 +17,7 @@
     <ns0:rect y="0" x="0" height="240" width="320" id="rect6541" style="fill:#ffffff;stroke-width:0.5;stroke-linejoin:bevel;stop-color:#000000" />
   </ns0:g>
   <ns0:g ns1:groupmode="layer" id="layer29" type="hitbox" ns1:label="hitbox" ns2:insensitive="true" style="display:none">
-    <ns0:rect style="fill:none;stroke:#000000;stroke-width:0.5;stroke-linejoin:bevel;stroke-opacity:1;stop-color:#000000" id="rect7209" width="155" height="88" x="90" y="100" />
+    <ns0:rect style="fill:none;stroke:#000000;stroke-width:0.5;stroke-linejoin:bevel;stroke-opacity:1;stop-color:#000000" id="rect7209" width="155" height="85" x="90" y="100" />
   </ns0:g>
   <ns0:g ns1:groupmode="layer" id="layer11" ns1:label="frame1" style="display:none" type="frame" frame="1" ns2:insensitive="true">
     <ns0:path style="fill:#897e68;fill-opacity:1;stroke:#000000;stroke-width:0.5px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" d="m 240,188 -13.25893,-8.71429 -11.11607,-7.32142 -9.82143,-7.54465 0.22322,1.11607 4.41964,3.88393 2.67857,2.72322 2.72321,2.8125 2.67858,3.25893 0.49107,1.02678 0.3125,3.92857 -0.625,0.17857 -0.89286,0.0447 -0.44643,-0.22322 -0.49107,-0.40178 -0.44643,-0.22322 -0.98214,-0.0446 -0.49107,0.0893 -0.26786,0.3125 -0.40179,0.53571 -8.25892,-0.13393 L 209,188 Z" id="path5709" ns1:connector-curvature="0" ns2:nodetypes="ccccccccccccccccccccccc" />

@@ -49,7 +49,8 @@ namespace trippin {
         bool firstTick;
         bool stageDone;
 
-        void resetInterpolators();
+        void slideIn();
+        void slideOut();
     public:
         TrainingProgram(
                 Point<int> windowSize,

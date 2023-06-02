@@ -34,17 +34,18 @@ bool trippin::TrainingProgram::completed() {
 void trippin::TrainingProgram::afterTick(int engineTicks) {
     if (firstTick) {
         firstTick = false;
-        resetInterpolators();
+        slideIn();
     }
     if (!stageDone && stats.exists(STAGES[stage])) {
         stageDone = true;
         stageTicks = engineTicks;
         Mix_PlayChannel(-1, sound, 0);
+        slideOut();
     }
     if (stageDone && engineTicks > stageTicks + finishedWaitTicks) {
         complete = true;
     }
-    Point<int> menuPoint{titleInterpolator.interpolate(), windowSize.y / 5};
+    Point<int> menuPoint{titleInterpolator.interpolate(), windowSize.y / 8};
     auto top = windowSize.y - controlSprite.getDeviceSize().y - margin;
     Point<int> controlPoint{controlInterpolator.interpolate(), top};
     sceneBuilder.dispatch([this, menuPoint, controlPoint]() {
@@ -53,14 +54,25 @@ void trippin::TrainingProgram::afterTick(int engineTicks) {
     });
 }
 
-void trippin::TrainingProgram::resetInterpolators() {
+void trippin::TrainingProgram::slideIn() {
     auto titleSpriteSize = titleSprite.getDeviceSize();
     auto controlSpriteSize = controlSprite.getDeviceSize();
     titleInterpolator.setMagnitude(titleSpriteSize.x + (windowSize.x - titleSpriteSize.x) / 2);
     titleInterpolator.setOffset(-titleSpriteSize.x);
     titleInterpolator.reset();
+    controlInterpolator.setMagnitude(-(margin + controlSpriteSize.x));
+    controlInterpolator.setOffset(windowSize.x);
+    controlInterpolator.reset();
+}
+
+void trippin::TrainingProgram::slideOut() {
+    auto titleSpriteSize = titleSprite.getDeviceSize();
+    auto controlSpriteSize = controlSprite.getDeviceSize();
+    titleInterpolator.setMagnitude(-(titleSpriteSize.x + (windowSize.x - titleSpriteSize.x) / 2));
+    titleInterpolator.setOffset((windowSize.x - titleSpriteSize.x) / 2);
+    titleInterpolator.reset();
     controlInterpolator.setMagnitude(margin + controlSpriteSize.x);
-    controlInterpolator.setOffset(-controlSpriteSize.x);
+    controlInterpolator.setOffset(windowSize.x - (margin + controlSpriteSize.x));
     controlInterpolator.reset();
 }
 

@@ -36,6 +36,7 @@ namespace trippin {
             START_MENU,
             SCORE_MENU,
             TRAINING,
+            TRAINING_COMPLETED,
             PLAYING,
             EXTRA_LIFE_DELAY,
             LEVEL_TRANSITION,
@@ -83,6 +84,7 @@ namespace trippin {
         std::unique_ptr<SimpleOverlay> levelOverlay;
         std::unique_ptr<SimpleOverlay> gameOverOverlay;
         std::unique_ptr<SimpleOverlay> levelsCompletedOverlay;
+        std::unique_ptr<SimpleOverlay> trainingCompletedOverlay;
         std::shared_ptr<StagingArea> stagingArea;
         RenderClock renderClock;
         std::unique_ptr<Logger> logger;

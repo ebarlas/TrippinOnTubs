@@ -82,7 +82,9 @@ sprites = [
     'level_time_bonus',
     'level_completed_bonus',
     'extra_lives_bonus',
-    'game_completed_bonus'
+    'game_completed_bonus',
+    'replay_speed_up',
+    'training_completed'
 ]
 
 levels = ['level_1', 'level_2', 'level_3', 'level_4', 'load', 'training']
