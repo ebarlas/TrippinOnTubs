@@ -15,12 +15,12 @@ trippin::TrainingProgram::TrainingProgram(
         const Configuration &configuration,
         SpriteManager &spriteManager,
         SoundManager &soundManager,
-        const Goggin &goggin,
+        const LevelStats &stats,
         const RenderClock &renderClock,
         SceneBuilder &sceneBuilder) :
         titleSprites(makeSprites(spriteManager)),
         controlSprites(makeSprites(spriteManager, "_controls")),
-        goggin(goggin),
+        stats(stats),
         windowSize(windowSize),
         margin(margin),
         stage(0),
@@ -43,7 +43,7 @@ void trippin::TrainingProgram::afterTick(int engineTicks) {
         resetInterpolators();
     }
     if (stage < names.size() &&
-        lastEventTimes[stage](goggin) > stageTicks) { // event time for this stage exceeds time for prior stage
+        stats.lastTime(STAGES[stage]) > stageTicks) { // event time for this stage exceeds time for prior stage
         stage = stage + 1;
         stageTicks = engineTicks;
         Mix_PlayChannel(-1, sound, 0);

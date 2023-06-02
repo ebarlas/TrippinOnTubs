@@ -14,7 +14,8 @@ trippin::Goggin::Goggin(
         const trippin::Point<int> &universe,
         SoundManager &soundManager,
         Camera &camera,
-        SceneBuilder &sceneBuilder) :
+        SceneBuilder &sceneBuilder,
+        LevelStats &levelStats) :
         SpriteObject(configObject, object, spriteManager.get("goggin")),
         config(config),
         dust(spriteManager.get("dust")),
@@ -35,7 +36,8 @@ trippin::Goggin::Goggin(
         pointCloudManager(pointCloudManager),
         comboManager(comboManager),
         sceneBuilder(sceneBuilder),
-        camera(camera) {
+        camera(camera),
+        levelStats(levelStats) {
 
     rightOfUni = false;
     belowUni = false;
@@ -61,15 +63,6 @@ trippin::Goggin::Goggin(
     nextDustPos = 0;
 
     rememberDuckStart = false;
-
-    lastJumpTicks = 0;
-    lastDuckTicks = 0;
-    lastChargedJumpTicks = 0;
-    lastDuckJumpTicks = 0;
-    lastDoubleJumpTicks = 0;
-    lastJumpSoundTicks = 0;
-    lastStopTicks = 0;
-    lastJumpSlamDownTicks = 0;
 
     if (autoPlayVec != nullptr) {
         for (auto &uit: *autoPlayVec) {
@@ -97,7 +90,7 @@ void trippin::Goggin::handleDuckStart(int engineTicks) {
         if (state == running && platformCollisions.testBottom()) {
             rememberDuckStart = false;
             state = ducking;
-            lastDuckTicks = engineTicks;
+            levelStats.onEvent(LevelStats::Event::Duck, engineTicks);
             ticks = 0;
             frames.frame = FRAME_DUCKING;
             acceleration.x = 0;
@@ -105,7 +98,7 @@ void trippin::Goggin::handleDuckStart(int engineTicks) {
             shrinkForDuck();
         } else if (state == rising || state == falling) {
             velocity.y = terminalVelocity.y;
-            lastJumpSlamDownTicks = engineTicks;
+            levelStats.onEvent(LevelStats::Event::JumpSlamDown, engineTicks);
         }
     }
 }
@@ -159,14 +152,14 @@ void trippin::Goggin::handleJumpRelease(int engineTicks) {
             velocity.y = jumpVel;
             consecutiveJumps++;
             if (consecutiveJumps == config.maxConsecutiveJumps) {
-                lastDoubleJumpTicks = engineTicks;
+                levelStats.onEvent(LevelStats::Event::DoubleJump, engineTicks);
             }
-            lastJumpTicks = engineTicks;
+            levelStats.onEvent(LevelStats::Event::Jump, engineTicks);
             if (jumpPercent == 1.0) {
                 if (maxEffective == maxDuckJumpVelocity) {
-                    lastDuckJumpTicks = engineTicks;
+                    levelStats.onEvent(LevelStats::Event::DuckJump, engineTicks);
                 } else {
-                    lastChargedJumpTicks = engineTicks;
+                    levelStats.onEvent(LevelStats::Event::ChargedJump, engineTicks);
                 }
             }
             playJumpSound(engineTicks);
@@ -316,7 +309,7 @@ void trippin::Goggin::onRising(int) {
 
 void trippin::Goggin::onDucking(int engineTicks) {
     if (velocity.x == 0) {
-        lastStopTicks = engineTicks;
+        levelStats.onEvent(LevelStats::Event::Stop, engineTicks);
     }
 
     if (!platformCollisions.testBottom()) {
@@ -415,34 +408,6 @@ void trippin::Goggin::addPointCloud(int points, int engineTicks, bool hit) {
     if (hit && !grounded) {
         comboManager.recordHit();
     }
-}
-
-int trippin::Goggin::getLastJumpTicks() const {
-    return lastJumpTicks;
-}
-
-int trippin::Goggin::getLastDuckTicks() const {
-    return lastDuckTicks;
-}
-
-int trippin::Goggin::getLastChargedJumpTicks() const {
-    return lastChargedJumpTicks;
-}
-
-int trippin::Goggin::getLastDuckJumpTicks() const {
-    return lastDuckJumpTicks;
-}
-
-int trippin::Goggin::getLastDoubleJumpTicks() const {
-    return lastDoubleJumpTicks;
-}
-
-int trippin::Goggin::getLastStopTicks() const {
-    return lastStopTicks;
-}
-
-int trippin::Goggin::getLastJumpSlamDownTicks() const {
-    return lastJumpSlamDownTicks;
 }
 
 trippin::Point<int> trippin::Goggin::centerCamera() {

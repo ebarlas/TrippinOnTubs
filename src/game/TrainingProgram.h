@@ -7,25 +7,25 @@
 #include "sprite/SpriteManager.h"
 #include "Goggin.h"
 #include "ui/Interpolator.h"
+#include "LevelStats.h"
 
 namespace trippin {
     class TrainingProgram : public Listener {
     private:
+        static constexpr LevelStats::Event STAGES[]{
+                LevelStats::Event::Jump,
+                LevelStats::Event::Duck,
+                LevelStats::Event::Stop,
+                LevelStats::Event::ChargedJump,
+                LevelStats::Event::DuckJump,
+                LevelStats::Event::DoubleJump,
+                LevelStats::Event::JumpSlamDown};
         static constexpr int NUM_STAGES = 7;
         static const std::array<const char *, NUM_STAGES> names;
-        const std::array<std::function<int(const Goggin &g)>, NUM_STAGES> lastEventTimes{
-                [](const Goggin &g) { return g.getLastJumpTicks(); },
-                [](const Goggin &g) { return g.getLastDuckTicks(); },
-                [](const Goggin &g) { return g.getLastStopTicks(); },
-                [](const Goggin &g) { return g.getLastChargedJumpTicks(); },
-                [](const Goggin &g) { return g.getLastDuckJumpTicks(); },
-                [](const Goggin &g) { return g.getLastDoubleJumpTicks(); },
-                [](const Goggin &g) { return g.getLastJumpSlamDownTicks(); }
-        };
         const std::array<const Sprite *, NUM_STAGES> titleSprites;
         const std::array<const Sprite *, NUM_STAGES> controlSprites;
 
-        const Goggin &goggin;
+        const LevelStats &stats;
         const Point<int> windowSize;
         const int margin;
         unsigned int stage;
@@ -50,7 +50,7 @@ namespace trippin {
                 const Configuration &configuration,
                 SpriteManager &spriteManager,
                 SoundManager &soundManager,
-                const Goggin &goggin,
+                const LevelStats &stats,
                 const RenderClock &renderClock,
                 SceneBuilder &sb);
         bool completed();

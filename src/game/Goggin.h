@@ -17,6 +17,7 @@
 #include "SceneBuilder.h"
 #include "ComboManager.h"
 #include "PointCloudManager.h"
+#include "LevelStats.h"
 
 namespace trippin {
     class Goggin : public SpriteObject {
@@ -32,7 +33,8 @@ namespace trippin {
                 const trippin::Point<int> &universe,
                 SoundManager &soundManager,
                 Camera &camera,
-                SceneBuilder &sceneBuilder);
+                SceneBuilder &sceneBuilder,
+                LevelStats &levelStats);
         void beforeTick(int engineTicks) override;
         void afterTick(int engineTicks) override;
         bool rightOfUniverse() const;
@@ -40,13 +42,6 @@ namespace trippin {
         void onUserInput(const GogginInput &input);
         double getJumpCharge() const;
         void addPointCloud(int points, int engineTicks, bool hit = false);
-        int getLastJumpTicks() const;
-        int getLastDuckTicks() const;
-        int getLastChargedJumpTicks() const;
-        int getLastDuckJumpTicks() const;
-        int getLastDoubleJumpTicks() const;
-        int getLastStopTicks() const;
-        int getLastJumpSlamDownTicks() const;
         std::vector<GogginInputTick> takeInputEvents();
         void render();
     private:
@@ -138,14 +133,7 @@ namespace trippin {
 
         SceneBuilder &sceneBuilder;
         Camera &camera;
-
-        int lastJumpTicks;
-        int lastChargedJumpTicks;
-        int lastDuckJumpTicks;
-        int lastDuckTicks;
-        int lastDoubleJumpTicks;
-        int lastStopTicks;
-        int lastJumpSlamDownTicks;
+        LevelStats &levelStats;
 
         std::vector<GogginInputTick> inputEvents;
 

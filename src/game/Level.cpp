@@ -68,6 +68,8 @@ void trippin::Level::initEngine() {
     engine.setPlatformCollision(onAbsorbentCollision);
     engine.setObjectCollision(onElasticCollision1D);
 
+    levelStats = std::make_unique<LevelStats>();
+
     scoreTicker = std::make_unique<ScoreTicker>(
             configuration->meterMargin,
             spriteManager->get("digits"),
@@ -120,7 +122,8 @@ void trippin::Level::initEngine() {
                     map.universe,
                     *soundManager,
                     *camera,
-                    sceneBuilder);
+                    sceneBuilder,
+                    *levelStats);
             gogginRenderer = std::make_unique<GogginRenderer>(*goggin);
             break;
         }
@@ -289,7 +292,7 @@ void trippin::Level::initEngine() {
                 *configuration,
                 *spriteManager,
                 *soundManager,
-                *goggin,
+                *levelStats,
                 *renderClock,
                 sceneBuilder);
         engine.addListener(trainingProgram.get());

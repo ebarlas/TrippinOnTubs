@@ -24,6 +24,7 @@
 #include "GroupManager.h"
 #include "LevelBonuses.h"
 #include "LevelEndListener.h"
+#include "LevelStats.h"
 
 namespace trippin {
     class Level : public Listener {
@@ -60,6 +61,7 @@ namespace trippin {
         std::unique_ptr<NotificationDrawer> notificationDrawer;
         std::unique_ptr<LevelBonuses> levelBonuses;
         std::unique_ptr<LevelEndListener> levelEndListener;
+        std::unique_ptr<LevelStats> levelStats;
         GroupManager groupManager;
         void initMap();
         void initCamera();
