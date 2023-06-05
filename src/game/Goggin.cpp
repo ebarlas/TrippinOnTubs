@@ -155,8 +155,9 @@ void trippin::Goggin::handleJumpRelease(int engineTicks) {
             consecutiveJumps++;
             if (consecutiveJumps == config.maxConsecutiveJumps) {
                 levelStats.onEvent(LevelStats::Event::DoubleJump, engineTicks);
+            } else {
+                levelStats.onEvent(LevelStats::Event::Jump, engineTicks);
             }
-            levelStats.onEvent(LevelStats::Event::Jump, engineTicks);
             if (jumpPercent == 1.0) {
                 if (maxEffective == maxDuckJumpVelocity) {
                     levelStats.onEvent(LevelStats::Event::DuckJump, engineTicks);

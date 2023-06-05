@@ -6,6 +6,7 @@
 #include "Goggin.h"
 #include "ScoreTicker.h"
 #include "Activation.h"
+#include "LevelStats.h"
 
 namespace trippin {
     class WingedTub : public Listener {
@@ -19,7 +20,8 @@ namespace trippin {
                 ScoreTicker &scoreTicker,
                 SoundManager &soundManager,
                 const Camera &camera,
-                SceneBuilder &sceneBuilder);
+                SceneBuilder &sceneBuilder,
+                LevelStats &levelStats);
         void beforeTick(int engineTicks) override;
         void afterTick(int engineTicks) override;
         bool isExpired() override;
@@ -36,6 +38,7 @@ namespace trippin {
         Goggin &goggin;
         ScoreTicker &scoreTicker;
         SceneBuilder &sceneBuilder;
+        LevelStats &levelStats;
         const Camera &camera;
 
         const Point<int> position;

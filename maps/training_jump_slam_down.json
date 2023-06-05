@@ -1,0 +1,809 @@
+{
+  "universe": {
+    "width": 2800,
+    "height": 700
+  },
+  "music": "track1",
+  "objects": [
+    {
+      "id": 1,
+      "type": "goggin",
+      "position": {
+        "x": 11,
+        "y": 202
+      }
+    },
+    {
+      "id": 2,
+      "type": "ground_melt_middle",
+      "position": {
+        "x": -10,
+        "y": 262
+      }
+    },
+    {
+      "id": 3,
+      "type": "ground_melt_middle",
+      "position": {
+        "x": 11,
+        "y": 262
+      }
+    },
+    {
+      "id": 4,
+      "type": "ground_melt_middle",
+      "position": {
+        "x": 32,
+        "y": 262
+      }
+    },
+    {
+      "id": 5,
+      "type": "ground_melt_middle",
+      "position": {
+        "x": 53,
+        "y": 262
+      }
+    },
+    {
+      "id": 6,
+      "type": "ground_melt_middle",
+      "position": {
+        "x": 74,
+        "y": 262
+      }
+    },
+    {
+      "id": 7,
+      "type": "ground_melt_middle",
+      "position": {
+        "x": 95,
+        "y": 262
+      }
+    },
+    {
+      "id": 8,
+      "type": "ground_melt_middle",
+      "position": {
+        "x": 116,
+        "y": 262
+      }
+    },
+    {
+      "id": 9,
+      "type": "ground_melt_middle",
+      "position": {
+        "x": 137,
+        "y": 262
+      }
+    },
+    {
+      "id": 10,
+      "type": "ground_melt_middle",
+      "position": {
+        "x": 158,
+        "y": 262
+      }
+    },
+    {
+      "id": 11,
+      "type": "ground_melt_right",
+      "position": {
+        "x": 179,
+        "y": 262
+      }
+    },
+    {
+      "id": 12,
+      "type": "winged_tub",
+      "position": {
+        "x": 227,
+        "y": 250
+      }
+    },
+    {
+      "id": 13,
+      "type": "winged_tub",
+      "position": {
+        "x": 227,
+        "y": 179
+      }
+    },
+    {
+      "id": 14,
+      "type": "winged_tub",
+      "position": {
+        "x": 198,
+        "y": 208
+      }
+    },
+    {
+      "id": 15,
+      "type": "winged_tub",
+      "position": {
+        "x": 227,
+        "y": 214
+      }
+    },
+    {
+      "id": 16,
+      "type": "ground_melt_middle",
+      "position": {
+        "x": 190,
+        "y": 332
+      }
+    },
+    {
+      "id": 17,
+      "type": "ground_melt_middle",
+      "position": {
+        "x": 211,
+        "y": 332
+      }
+    },
+    {
+      "id": 18,
+      "type": "ground_melt_middle",
+      "position": {
+        "x": 232,
+        "y": 332
+      }
+    },
+    {
+      "id": 19,
+      "type": "ground_melt_middle",
+      "position": {
+        "x": 253,
+        "y": 332
+      }
+    },
+    {
+      "id": 20,
+      "type": "ground_melt_middle",
+      "position": {
+        "x": 274,
+        "y": 332
+      }
+    },
+    {
+      "id": 21,
+      "type": "ground_melt_middle",
+      "position": {
+        "x": 295,
+        "y": 332
+      }
+    },
+    {
+      "id": 22,
+      "type": "ground_melt_middle",
+      "position": {
+        "x": 316,
+        "y": 332
+      }
+    },
+    {
+      "id": 23,
+      "type": "ground_melt_middle",
+      "position": {
+        "x": 337,
+        "y": 332
+      }
+    },
+    {
+      "id": 24,
+      "type": "ground_melt_middle",
+      "position": {
+        "x": 358,
+        "y": 332
+      }
+    },
+    {
+      "id": 25,
+      "type": "ground_melt_right",
+      "position": {
+        "x": 379,
+        "y": 332
+      }
+    },
+    {
+      "id": 26,
+      "type": "winged_tub",
+      "position": {
+        "x": 427,
+        "y": 320
+      }
+    },
+    {
+      "id": 27,
+      "type": "winged_tub",
+      "position": {
+        "x": 427,
+        "y": 249
+      }
+    },
+    {
+      "id": 28,
+      "type": "winged_tub",
+      "position": {
+        "x": 398,
+        "y": 278
+      }
+    },
+    {
+      "id": 29,
+      "type": "winged_tub",
+      "position": {
+        "x": 427,
+        "y": 284
+      }
+    },
+    {
+      "id": 30,
+      "type": "ground_melt_middle",
+      "position": {
+        "x": 390,
+        "y": 402
+      }
+    },
+    {
+      "id": 31,
+      "type": "ground_melt_middle",
+      "position": {
+        "x": 411,
+        "y": 402
+      }
+    },
+    {
+      "id": 32,
+      "type": "ground_melt_middle",
+      "position": {
+        "x": 432,
+        "y": 402
+      }
+    },
+    {
+      "id": 33,
+      "type": "ground_melt_middle",
+      "position": {
+        "x": 453,
+        "y": 402
+      }
+    },
+    {
+      "id": 34,
+      "type": "ground_melt_middle",
+      "position": {
+        "x": 474,
+        "y": 402
+      }
+    },
+    {
+      "id": 35,
+      "type": "ground_melt_middle",
+      "position": {
+        "x": 495,
+        "y": 402
+      }
+    },
+    {
+      "id": 36,
+      "type": "ground_melt_middle",
+      "position": {
+        "x": 516,
+        "y": 402
+      }
+    },
+    {
+      "id": 37,
+      "type": "ground_melt_middle",
+      "position": {
+        "x": 537,
+        "y": 402
+      }
+    },
+    {
+      "id": 38,
+      "type": "ground_melt_middle",
+      "position": {
+        "x": 558,
+        "y": 402
+      }
+    },
+    {
+      "id": 39,
+      "type": "ground_melt_right",
+      "position": {
+        "x": 579,
+        "y": 402
+      }
+    },
+    {
+      "id": 40,
+      "type": "winged_tub",
+      "position": {
+        "x": 627,
+        "y": 390
+      }
+    },
+    {
+      "id": 41,
+      "type": "winged_tub",
+      "position": {
+        "x": 627,
+        "y": 319
+      }
+    },
+    {
+      "id": 42,
+      "type": "winged_tub",
+      "position": {
+        "x": 598,
+        "y": 348
+      }
+    },
+    {
+      "id": 43,
+      "type": "winged_tub",
+      "position": {
+        "x": 627,
+        "y": 354
+      }
+    },
+    {
+      "id": 44,
+      "type": "ground_melt_middle",
+      "position": {
+        "x": 590,
+        "y": 472
+      }
+    },
+    {
+      "id": 45,
+      "type": "ground_melt_middle",
+      "position": {
+        "x": 611,
+        "y": 472
+      }
+    },
+    {
+      "id": 46,
+      "type": "ground_melt_middle",
+      "position": {
+        "x": 632,
+        "y": 472
+      }
+    },
+    {
+      "id": 47,
+      "type": "ground_melt_middle",
+      "position": {
+        "x": 653,
+        "y": 472
+      }
+    },
+    {
+      "id": 48,
+      "type": "ground_melt_middle",
+      "position": {
+        "x": 674,
+        "y": 472
+      }
+    },
+    {
+      "id": 49,
+      "type": "ground_melt_middle",
+      "position": {
+        "x": 695,
+        "y": 472
+      }
+    },
+    {
+      "id": 50,
+      "type": "ground_melt_middle",
+      "position": {
+        "x": 716,
+        "y": 472
+      }
+    },
+    {
+      "id": 51,
+      "type": "ground_melt_middle",
+      "position": {
+        "x": 737,
+        "y": 472
+      }
+    },
+    {
+      "id": 52,
+      "type": "ground_melt_middle",
+      "position": {
+        "x": 758,
+        "y": 472
+      }
+    },
+    {
+      "id": 53,
+      "type": "ground_melt_right",
+      "position": {
+        "x": 779,
+        "y": 472
+      }
+    },
+    {
+      "id": 54,
+      "type": "winged_tub",
+      "position": {
+        "x": 827,
+        "y": 460
+      }
+    },
+    {
+      "id": 55,
+      "type": "winged_tub",
+      "position": {
+        "x": 827,
+        "y": 389
+      }
+    },
+    {
+      "id": 56,
+      "type": "winged_tub",
+      "position": {
+        "x": 798,
+        "y": 418
+      }
+    },
+    {
+      "id": 57,
+      "type": "winged_tub",
+      "position": {
+        "x": 827,
+        "y": 424
+      }
+    },
+    {
+      "id": 58,
+      "type": "ground_melt_middle",
+      "position": {
+        "x": 790,
+        "y": 542
+      }
+    },
+    {
+      "id": 59,
+      "type": "ground_melt_middle",
+      "position": {
+        "x": 811,
+        "y": 542
+      }
+    },
+    {
+      "id": 60,
+      "type": "ground_melt_middle",
+      "position": {
+        "x": 832,
+        "y": 542
+      }
+    },
+    {
+      "id": 61,
+      "type": "ground_melt_middle",
+      "position": {
+        "x": 853,
+        "y": 542
+      }
+    },
+    {
+      "id": 62,
+      "type": "ground_melt_middle",
+      "position": {
+        "x": 874,
+        "y": 542
+      }
+    },
+    {
+      "id": 63,
+      "type": "ground_melt_middle",
+      "position": {
+        "x": 895,
+        "y": 542
+      }
+    },
+    {
+      "id": 64,
+      "type": "ground_melt_middle",
+      "position": {
+        "x": 916,
+        "y": 542
+      }
+    },
+    {
+      "id": 65,
+      "type": "ground_melt_middle",
+      "position": {
+        "x": 937,
+        "y": 542
+      }
+    },
+    {
+      "id": 66,
+      "type": "ground_melt_middle",
+      "position": {
+        "x": 958,
+        "y": 542
+      }
+    },
+    {
+      "id": 67,
+      "type": "ground_melt_right",
+      "position": {
+        "x": 979,
+        "y": 542
+      }
+    },
+    {
+      "id": 68,
+      "type": "winged_tub",
+      "position": {
+        "x": 1027,
+        "y": 530
+      }
+    },
+    {
+      "id": 69,
+      "type": "winged_tub",
+      "position": {
+        "x": 1027,
+        "y": 459
+      }
+    },
+    {
+      "id": 70,
+      "type": "winged_tub",
+      "position": {
+        "x": 998,
+        "y": 488
+      }
+    },
+    {
+      "id": 71,
+      "type": "winged_tub",
+      "position": {
+        "x": 1027,
+        "y": 494
+      }
+    },
+    {
+      "id": 72,
+      "type": "ground_melt_middle",
+      "position": {
+        "x": 990,
+        "y": 612
+      }
+    },
+    {
+      "id": 73,
+      "type": "ground_melt_middle",
+      "position": {
+        "x": 1011,
+        "y": 612
+      }
+    },
+    {
+      "id": 74,
+      "type": "ground_melt_middle",
+      "position": {
+        "x": 1032,
+        "y": 612
+      }
+    },
+    {
+      "id": 75,
+      "type": "ground_melt_middle",
+      "position": {
+        "x": 1053,
+        "y": 612
+      }
+    },
+    {
+      "id": 76,
+      "type": "ground_melt_middle",
+      "position": {
+        "x": 1074,
+        "y": 612
+      }
+    },
+    {
+      "id": 77,
+      "type": "ground_melt_middle",
+      "position": {
+        "x": 1095,
+        "y": 612
+      }
+    },
+    {
+      "id": 78,
+      "type": "ground_melt_middle",
+      "position": {
+        "x": 1116,
+        "y": 612
+      }
+    },
+    {
+      "id": 79,
+      "type": "ground_melt_middle",
+      "position": {
+        "x": 1137,
+        "y": 612
+      }
+    },
+    {
+      "id": 80,
+      "type": "ground_melt_middle",
+      "position": {
+        "x": 1158,
+        "y": 612
+      }
+    },
+    {
+      "id": 81,
+      "type": "ground_melt_right",
+      "position": {
+        "x": 1179,
+        "y": 612
+      }
+    },
+    {
+      "id": 82,
+      "type": "winged_tub",
+      "position": {
+        "x": 1227,
+        "y": 600
+      }
+    },
+    {
+      "id": 83,
+      "type": "winged_tub",
+      "position": {
+        "x": 1227,
+        "y": 529
+      }
+    },
+    {
+      "id": 84,
+      "type": "winged_tub",
+      "position": {
+        "x": 1198,
+        "y": 558
+      }
+    },
+    {
+      "id": 85,
+      "type": "winged_tub",
+      "position": {
+        "x": 1227,
+        "y": 564
+      }
+    }
+  ],
+  "layers": [
+    {
+      "objects": [
+        {
+          "type": "hills",
+          "position": {
+            "x": 0,
+            "y": 10
+          }
+        },
+        {
+          "type": "hills",
+          "position": {
+            "x": 147,
+            "y": 10
+          }
+        },
+        {
+          "type": "hills",
+          "position": {
+            "x": 294,
+            "y": 10
+          }
+        },
+        {
+          "type": "hills_base",
+          "position": {
+            "x": 0,
+            "y": 150
+          }
+        },
+        {
+          "type": "hills_base",
+          "position": {
+            "x": 147,
+            "y": 150
+          }
+        },
+        {
+          "type": "hills_base",
+          "position": {
+            "x": 294,
+            "y": 150
+          }
+        }
+      ],
+      "anchorTop": true,
+      "width": 422,
+      "height": 197
+    },
+    {
+      "objects": [
+        {
+          "type": "cloud",
+          "position": {
+            "x": 64,
+            "y": 93
+          }
+        },
+        {
+          "type": "cloud",
+          "position": {
+            "x": 374,
+            "y": 84
+          }
+        },
+        {
+          "type": "cloud",
+          "position": {
+            "x": 239,
+            "y": 11
+          }
+        },
+        {
+          "type": "cloud",
+          "position": {
+            "x": 34,
+            "y": 34
+          }
+        },
+        {
+          "type": "cloud",
+          "position": {
+            "x": 222,
+            "y": 73
+          }
+        },
+        {
+          "type": "cloud",
+          "position": {
+            "x": 424,
+            "y": 11
+          }
+        },
+        {
+          "type": "cloud",
+          "position": {
+            "x": 25,
+            "y": 171
+          }
+        },
+        {
+          "type": "cloud",
+          "position": {
+            "x": 233,
+            "y": 183
+          }
+        },
+        {
+          "type": "cloud",
+          "position": {
+            "x": 419,
+            "y": 160
+          }
+        }
+      ],
+      "width": 498,
+      "height": 228
+    }
+  ]
+}

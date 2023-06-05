@@ -13,7 +13,8 @@ namespace trippin {
             ChargedJump,
             DuckJump,
             DoubleJump,
-            JumpSlamDown
+            JumpSlamDown,
+            WingedTub
         };
 
         void onEvent(Event event, int ticks);

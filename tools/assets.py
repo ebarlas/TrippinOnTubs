@@ -84,10 +84,23 @@ sprites = [
     'extra_lives_bonus',
     'game_completed_bonus',
     'replay_speed_up',
-    'training_completed'
+    'training_completed',
+    'training_status'
 ]
 
-levels = ['level_1', 'level_2', 'level_3', 'level_4', 'load', 'training']
+levels = [
+    'level_1',
+    'level_2',
+    'level_3',
+    'level_4',
+    'load',
+    'training_jump',
+    'training_duck',
+    'training_double_jump',
+    'training_charged_jump',
+    'training_charged_duck_jump',
+    'training_jump_slam_down'
+]
 
 dir_raw = 'raw'
 dir_svgs = 'svgs'

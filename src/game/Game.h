@@ -53,6 +53,7 @@ namespace trippin {
         State state;
         int score{};
         unsigned int trainingStage{};
+        int trainingProgress{};
         std::vector<std::vector<GogginInputTick>> inputEvents;
         int extraLives{1};
         int lastTicks{};

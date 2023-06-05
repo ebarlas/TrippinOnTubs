@@ -11,12 +11,14 @@ trippin::WingedTub::WingedTub(
         ScoreTicker &scoreTicker,
         SoundManager &soundManager,
         const Camera &camera,
-        SceneBuilder &sceneBuilder) :
+        SceneBuilder &sceneBuilder,
+        LevelStats &levelStats) :
         sprite(sprite),
         activation(std::move(activation)),
         goggin(goggin),
         scoreTicker(scoreTicker),
         sceneBuilder(sceneBuilder),
+        levelStats(levelStats),
         camera(camera),
         position(object.position),
         hitBox(sprite.getEngineHitBox() + position),
@@ -24,6 +26,7 @@ trippin::WingedTub::WingedTub(
         tubFrameLast(object.sparkle ? FRAME_SPARKLE_LAST : FRAME_TUB_LAST),
         points(object.sparkle ? config.sparkleTubBonusPoints : config.tubBonusPoints),
         sound(object.sparkle ? soundManager.getEffect("chime3") : soundManager.getEffect("chime2")) {
+    hitTicks = 0;
     expired = false;
     hitGoggin = false;
     inactive = true;
@@ -53,6 +56,7 @@ void trippin::WingedTub::afterTick(int engineTicks) {
         frame = FRAME_CLOUD_FIRST;
         scoreTicker.add(points);
         goggin.addPointCloud(points, engineTicks);
+        levelStats.onEvent(LevelStats::Event::WingedTub, engineTicks);
     } else if (hitGoggin) { // Case #2: Advance dust cloud
         hitTicks++;
         if (hitTicks % sprite.getFramePeriodTicks() == 0) {

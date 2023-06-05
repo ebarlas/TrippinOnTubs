@@ -165,7 +165,7 @@ std::unique_ptr<trippin::Level> trippin::Game::nextLevel() {
         lvl->setAutoPlay(autoPlay.events);
     } else if (state == State::TRAINING) {
         lvl->setMapName(configuration.trainMaps[trainingStage]);
-        lvl->setTraining(trainingStage);
+        lvl->setTraining(trainingStage, trainingProgress);
     } else if (state == State::REPLAY) {
         replayAutoPlay = convertEvents(replayScore.events[replayOffset]); // ensure extended lifetime for replay vec
         lvl->setAutoPlay(replayAutoPlay);
@@ -337,6 +337,7 @@ void trippin::Game::render() {
     } else if (state == State::TRAINING) {
         exitOverlay->render();
     } else if (state == State::TRAINING_COMPLETED) {
+        exitOverlay->render();
         trainingCompletedOverlay->render();
     }
 
@@ -380,6 +381,7 @@ void trippin::Game::handle(UserInput::Event &event) {
         } else if (titleMenu->trainClicked(event.touchPoint)) {
             score = 0;
             trainingStage = 0;
+            trainingProgress = 0;
             state = State::TRAINING;
             exitOverlay->reset();
             logger->log(std::string("op=state_change")
@@ -610,6 +612,7 @@ void trippin::Game::handle(UserInput::Event &event) {
         } else if (level->trainingCompleted()) {
             if (trainingStage == configuration.trainMaps.size() - 1) { // last training stage
                 state = State::TRAINING_COMPLETED;
+                exitOverlay->reset();
                 trainingCompletedOverlay->reset();
                 logger->log(std::string("op=state_change")
                             + ", prev=TRAINING"
@@ -625,16 +628,18 @@ void trippin::Game::handle(UserInput::Event &event) {
                             + ", fps=" + formatFps());
                 advanceLevel();
             }
-        } else if (level->completed()) {
+        } else if (level->ended()) {
             exitOverlay->reset();
+            trainingProgress = level->getTrainingProgress();
             logger->log(std::string("op=training_stage_repeat")
                         + ", trainingStage=" + std::to_string(trainingStage)
+                        + ", trainingProgress=" + std::to_string(trainingProgress)
                         + ", tps=" + formatTps()
                         + ", fps=" + formatFps());
             advanceLevel();
         }
     } else if (state == State::TRAINING_COMPLETED) {
-        if (event.anythingPressed()) {
+        if (event.anythingPressed() && exitOverlay->exitClicked(event.touchPoint)) {
             score = 0;
             titleMenu->reset();
             state = State::START_MENU;

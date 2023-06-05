@@ -43,9 +43,10 @@ void trippin::Level::setScore(int score) {
     initialScore = score;
 }
 
-void trippin::Level::setTraining(unsigned int stage) {
+void trippin::Level::setTraining(unsigned int stage, int progress) {
     training = true;
     trainingStage = stage;
+    trainingProgress = progress;
 }
 
 void trippin::Level::setLastLevel(bool b) {
@@ -176,7 +177,8 @@ void trippin::Level::initEngine() {
                     *scoreTicker,
                     *soundManager,
                     *camera,
-                    sceneBuilder);
+                    sceneBuilder,
+                    *levelStats);
             engine.addListener(wingedTub.get());
             objects.push_back(std::move(wingedTub));
         } else if (obj.type == "running_clock") {
@@ -260,9 +262,8 @@ void trippin::Level::initEngine() {
     engine.addListener(gogginRenderer.get());
     engine.add(goggin.get());
 
-    engine.addListener(pointCloudManager.get());
-
     if (!training) {
+        engine.addListener(pointCloudManager.get());
         engine.addListener(scoreTicker.get());
     }
 
@@ -282,9 +283,10 @@ void trippin::Level::initEngine() {
                 lastLevel,
                 initialExtraLives);
         engine.addListener(levelBonuses.get());
-        levelEndListener = std::make_unique<LevelEndListener>(*goggin, *scoreTicker);
-        engine.addListener(levelEndListener.get());
     }
+
+    levelEndListener = std::make_unique<LevelEndListener>(*goggin, *scoreTicker);
+    engine.addListener(levelEndListener.get());
 
     if (training) {
         trainingProgram = std::make_unique<TrainingProgram>(
@@ -296,7 +298,8 @@ void trippin::Level::initEngine() {
                 *levelStats,
                 *renderClock,
                 sceneBuilder,
-                trainingStage);
+                trainingStage,
+                trainingProgress);
         engine.addListener(trainingProgram.get());
     }
 
@@ -396,6 +399,6 @@ int trippin::Level::getAvgTps() const {
     return engine.getAvgTps();
 }
 
-unsigned int trippin::Level::getTrainingStage() const {
-    return trainingProgram->getStage();
+int trippin::Level::getTrainingProgress() const {
+    return trainingProgram->getProgress();
 }

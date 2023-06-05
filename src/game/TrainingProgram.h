@@ -14,24 +14,26 @@ namespace trippin {
     private:
         static constexpr LevelStats::Event STAGES[]{
                 LevelStats::Event::Jump,
-                LevelStats::Event::Duck,
-                LevelStats::Event::Stop,
                 LevelStats::Event::ChargedJump,
-                LevelStats::Event::DuckJump,
                 LevelStats::Event::DoubleJump,
-                LevelStats::Event::JumpSlamDown};
+                LevelStats::Event::Duck,
+                LevelStats::Event::JumpSlamDown,
+                LevelStats::Event::DuckJump};
 
         static constexpr const char *NAMES[]{
                 "jump",
-                "duck",
-                "stop",
                 "charged_jump",
-                "charged_duck_jump",
                 "double_jump",
-                "jump_slam_down"};
+                "duck",
+                "jump_slam_down",
+                "charged_duck_jump"};
+
+        static constexpr const int MOVES_PER_STAGE = 3;
+        static constexpr const int TUBS_PER_JUMP = 4;
 
         const Sprite &titleSprite;
         const Sprite &controlSprite;
+        const Sprite &statusSprite;
 
         const LevelStats &stats;
         const Point<int> windowSize;
@@ -49,6 +51,13 @@ namespace trippin {
         bool firstTick;
         bool stageDone;
 
+        const int startProgress;
+        int progress;
+        std::atomic_int trainingProgress;
+
+        int lastTubTime;
+        int tubCount;
+
         void slideIn();
         void slideOut();
     public:
@@ -61,9 +70,10 @@ namespace trippin {
                 const LevelStats &stats,
                 const RenderClock &renderClock,
                 SceneBuilder &sb,
-                unsigned int stage);
+                unsigned int stage,
+                int progress);
         bool completed();
-        unsigned int getStage() const;
+        int getProgress() const;
         void afterTick(int engineTicks) override;
     };
 }

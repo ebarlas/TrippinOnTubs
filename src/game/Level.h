@@ -52,6 +52,7 @@ namespace trippin {
         std::unique_ptr<LifeMeter> lifeMeter;
         bool training;
         unsigned int trainingStage;
+        int trainingProgress;
         bool lastLevel;
         std::unique_ptr<TrainingProgram> trainingProgram;
         const RenderClock *renderClock;
@@ -78,8 +79,8 @@ namespace trippin {
         void setMapName(const std::string &name);
         void setScore(int score);
         void setExtraLives(int extraLives);
-        void setTraining(unsigned int stage);
-        unsigned int getTrainingStage() const;
+        void setTraining(unsigned int stage, int progress);
+        int getTrainingProgress() const;
         void setLastLevel(bool lastLevel);
         void init();
         bool ended();

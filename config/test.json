@@ -51,13 +51,12 @@
   "stompSound": "chime0",
   "loadMap": "load",
   "trainMaps": [
-    "training",
-    "training",
-    "training",
-    "training",
-    "training",
-    "training",
-    "training"
+    "training_jump",
+    "training_charged_jump",
+    "training_double_jump",
+    "training_duck",
+    "training_jump_slam_down",
+    "training_charged_duck_jump"
   ],
   "loadAutoPlay": "test",
   "prefetchSprites": [
