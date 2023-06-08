@@ -621,6 +621,7 @@ void trippin::Game::handle(UserInput::Event &event) {
                             + ", fps=" + formatFps());
             } else {
                 trainingStage++;
+                trainingProgress = 0;
                 exitOverlay->reset();
                 logger->log(std::string("op=next_training_stage")
                             + ", trainingStage=" + std::to_string(trainingStage)
