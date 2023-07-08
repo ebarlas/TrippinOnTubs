@@ -88,7 +88,7 @@ def validate_add(event):
     score = body['score']
     events = body['events']
 
-    if version not in [0, 1]:
+    if version < 0 or version > 1000:
         return False
     if not re.match(r'[A-Z]{3}', name):
         return False
