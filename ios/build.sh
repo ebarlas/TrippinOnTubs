@@ -14,10 +14,6 @@ cp -R ../../autoplay .
 
 cp ../CMakeLists.txt .
 
-# ios-cmake is a CMake toolchain file for iOS
-# it generates Trippin.xcodeproj
-curl -s "https://raw.githubusercontent.com/leetal/ios-cmake/master/ios.toolchain.cmake" --output ios.toolchain.cmake
-
 mkdir src
 
 folders="engine game net sprite ui trippin"
@@ -30,14 +26,9 @@ done
 mkdir build
 pushd build
 
-cmake .. -G Xcode -DCMAKE_TOOLCHAIN_FILE=../ios.toolchain.cmake -DPLATFORM=OS64COMBINED -DENABLE_ARC=OFF -DDEPLOYMENT_TARGET=14.0
+cmake .. -G Xcode -DCMAKE_SYSTEM_NAME=iOS -DCMAKE_OSX_DEPLOYMENT_TARGET=12.4
 
 cp ../../Info.plist ./CMakeFiles/trippin.dir/Info.plist
-
-# iosLaunchScreen.storyboard was provided by @RavBug in SDL Discord
-# https://github.com/RavEngine/Samples/blob/master/Samples/iosLaunchScreen.storyboard
-# https://github.com/RavEngine/Samples/blob/master/Samples/Info.plist.in
-cp ../../iosLaunchScreen.storyboard ./CMakeFiles/trippin.dir/iosLaunchScreen.storyboard
 
 popd
 popd

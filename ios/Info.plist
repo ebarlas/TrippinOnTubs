@@ -10,14 +10,16 @@
 	<string></string>
 	<key>CFBundleIconFile</key>
 	<string></string>
+	<key>CFBundleIconName</key>
+	<string>AppIcon</string>
 	<key>CFBundleIdentifier</key>
-	<string>Trippin</string>
+	<string>com.trippinontubs</string>
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>CFBundleLongVersionString</key>
 	<string></string>
 	<key>CFBundleName</key>
-	<string></string>
+	<string>Trippin on Tubs</string>
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
@@ -28,13 +30,20 @@
 	<string>1</string>
 	<key>CSResourcesFileMapped</key>
 	<true/>
+	<key>LSApplicationCategoryType</key>
+	<string></string>
 	<key>NSHumanReadableCopyright</key>
 	<string></string>
 	<key>UISupportedInterfaceOrientations</key>
 	<array>
-    		<string>UIInterfaceOrientationLandscapeLeft</string>
+		<string>UIInterfaceOrientationLandscapeLeft</string>
+		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
-        <key>UILaunchStoryboardName</key>
-        <string>iosLaunchScreen.storyboard</string>
+	<key>UILaunchStoryboardName</key>
+	<string>iosLaunchScreen.storyboard</string>
+	<key>NSBluetoothPeripheralUsageDescription</key>
+	<string>Game pad and joystick peripheral access</string>
+	<key>NSBluetoothAlwaysUsageDescription</key>
+	<string>Game pad and joystick peripheral access</string>
 </dict>
 </plist>
