@@ -390,9 +390,6 @@ void trippin::Game::handle(UserInput::Event &event) {
                         + ", tps=" + formatTps()
                         + ", fps=" + formatFps());
             advanceLevel();
-        } else if (titleMenu->exitClicked(event.touchPoint)) {
-            level->stop();
-            state = State::EXIT;
         } else if (titleMenu->highScoreClicked(event.touchPoint)) {
             state = State::SCORE_MENU;
             scoreMenu->reset();

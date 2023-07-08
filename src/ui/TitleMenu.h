@@ -12,10 +12,9 @@ namespace trippin {
         void render();
         bool startClicked(const Point<int> &coords) const;
         bool trainClicked(const Point<int> &coords) const;
-        bool exitClicked(const Point<int> &coords) const;
         bool highScoreClicked(const Point<int> &coords) const;
     private:
-        MenuLayout<4> menuLayout;
+        MenuLayout<3> menuLayout;
     };
 }
 

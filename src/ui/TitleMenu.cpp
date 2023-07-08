@@ -8,7 +8,6 @@ trippin::TitleMenu::TitleMenu(
     menuLayout.setSprite(0, &spriteManager.get("start"));
     menuLayout.setSprite(1, &spriteManager.get("train"));
     menuLayout.setSprite(2, &spriteManager.get("high_score"));
-    menuLayout.setSprite(3, &spriteManager.get("exit"));
     menuLayout.init();
 }
 
@@ -26,10 +25,6 @@ bool trippin::TitleMenu::startClicked(const Point<int> &coords) const {
 
 bool trippin::TitleMenu::trainClicked(const Point<int> &coords) const {
     return menuLayout.contains(1, coords);
-}
-
-bool trippin::TitleMenu::exitClicked(const trippin::Point<int> &coords) const {
-    return menuLayout.contains(3, coords);
 }
 
 bool trippin::TitleMenu::highScoreClicked(const trippin::Point<int> &coords) const {
