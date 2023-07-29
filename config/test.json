@@ -1,6 +1,6 @@
 {
   "version": {
-    "major": 2,
+    "major": 3,
     "minor": 0
   },
   "windowSize": {
@@ -12,7 +12,7 @@
   "levelBonus": 1000,
   "gameBonus": 5000,
   "clockBarBonus": 100,
-  "extraLivesBonus": 1000,
+  "extraLivesBonus": 5000,
   "spiritSecondsBehind": 0,
   "tickRate": 120,
   "spiritClockTickPeriod": 500,
@@ -69,7 +69,8 @@
     "level_1",
     "level_2",
     "level_3",
-    "level_4"
+    "level_4",
+    "level_5"
   ],
   "db": {
     "host": "www.trippinontubs.com",
@@ -213,7 +214,8 @@
       "fallGravity": 211,
       "runningAcceleration": -17,
       "hitPoints": 4,
-      "accelerateWhenGrounded": true
+      "accelerateWhenGrounded": true,
+      "randFrame": true
     },
     {
       "type": "rat",
