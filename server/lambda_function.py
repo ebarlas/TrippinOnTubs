@@ -9,10 +9,10 @@ import urllib.parse
 client = boto3.client('dynamodb', region_name='us-west-2')
 
 
-def top_scores(version, limit, start_key=None):
+def top_scores(version, limit, start_key=None, no_events=False):
     params = {
         'TableName': 'trippin-scores',
-        'IndexName': 'score-index',
+        'IndexName': 'score-noevents-index' if no_events else 'score-index',
         'ScanIndexForward': False,
         'Limit': limit,
         'KeyConditionExpression': '#pk = :pk',
@@ -25,10 +25,10 @@ def top_scores(version, limit, start_key=None):
     return res['Items']
 
 
-def top_today_scores(version, day, limit, start_key=None):
+def top_today_scores(version, day, limit, start_key=None, no_events=False):
     params = {
         'TableName': 'trippin-scores',
-        'IndexName': 'dayscore-index',
+        'IndexName': 'dayscore-noevents-index' if no_events else 'dayscore-index',
         'ScanIndexForward': False,
         'Limit': limit,
         'KeyConditionExpression': '#pk = :pk AND begins_with (#dayscore, :dayscore)',
@@ -146,14 +146,17 @@ def convert_item(item):
     id, game = item['sk']['S'].split('/')
     name = item['name']['S']
     score = item['score']['N']
-    events = json.loads(item['events']['S'])
-    return {
+    date = item['date']['S']
+    d = {
         'id': id,
         'game': int(game),
         'name': name,
         'score': int(score),
-        'events': events
+        'date': date
     }
+    if 'events' in item:
+        d['events'] = json.loads(item['events']['S'])
+    return d
 
 
 def convert(items):
@@ -224,6 +227,10 @@ def extract_last_score_param(request):
     return extract_param(request, 'last_score', None, int)
 
 
+def extract_no_events_param(request):
+    return extract_param(request, 'no_events', False, lambda v: v == 'true')
+
+
 def extract_last(request):
     last_id = extract_last_id_param(request)
     last_game = extract_last_game_param(request)
@@ -262,14 +269,16 @@ def lambda_handler(event, context):
         day, daytime = cur_day_and_time()
         last_params = extract_last(request)
         start_key = day_start_key(version, day, *last_params)
-        return to_response(convert(top_today_scores(version, day, limit, start_key)))
+        no_events = extract_no_events_param(request)
+        return to_response(convert(top_today_scores(version, day, limit, start_key, no_events)))
 
     if request['method'] == 'GET' and '/scores/alltime' in request['uri']:
         version = extract_version_param(request)
         limit = extract_limit_param(request)
         last_params = extract_last(request)
         start_key = all_time_start_key(version, *last_params)
-        return to_response(convert(top_scores(version, limit, start_key)))
+        no_events = extract_no_events_param(request)
+        return to_response(convert(top_scores(version, limit, start_key, no_events)))
 
     if request['method'] == 'POST' and '/scores' in request['uri']:
         if not validate_add(request):
