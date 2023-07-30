@@ -224,6 +224,10 @@ It is the application ID followed by the game ID.
 Local secondary indexes are defined for (1) score and (2) day, score
 to enable top-score and top-score-today searches.
 
+Another pair of secondary indexes is defined without events in the projection.
+These indexes are tailored for score listings without events, such as
+on the trippinontubs.com [website](#website).
+
 ```
 POST /scores
 
@@ -240,6 +244,17 @@ POST /scores
 ```
 GET /scores/alltime?version=1
 ```
+
+# Website
+
+www.trippinontubs.com is the official game website.
+The website content is in this [repo](site), including the landing page
+[index.html](site/index.html).
+
+It includes various game-related links and a high score page [highscores.html](site/highscores.html).
+The in-game high scores are also visible on this page.
+
+The high scores page is powered by the same API endpoints used in-game.
 
 # Screen Shake
 
