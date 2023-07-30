@@ -203,6 +203,51 @@ The object-level activation proximity ought to be used in this case.
 
 ![Image of object activation](docs/object-activation.png)
 
+# Remote Logging
+
+Noteable events that occur during game play are captured and sent to
+the Trippin on Tubs server via HTTP API endpoint.
+
+Events are game state changes such as menu selections, training start, game start, and level completion.
+Events include details such as version, display resolution, display refresh rate, and frame rate.
+
+Every event sent from a particular launch of the game includes a globally unique
+app ID and a monotonically increasing log counter starting with 1.
+The app ID is generated when the game is initialized as follows:
+
+```
+T{unix-epoch-seconds}N{random-int}
+```
+
+Absolutely no personal information or identifying device information
+is ever obtained by the game or sent to the server.
+
+The high score server is a [Python program](server/logger_lambda_function.py)
+that is deployed as an AWS Lambda Function attached to the CloudFront distribution
+for www.trippinontubs.com.
+
+Logs are stored in an Amazon DynamoDB table.
+
+Log entries are organized in the table under a single universal partition
+to facilitate linear streaming over the data using local secondary indexes.
+
+The sort key is a composition of the app ID and the log counter described above.
+Together, they form a globally unique identifier for each individual log entry.
+
+```
+{app-id}/{counter}
+```
+
+```
+POST /logs
+
+{
+  "id": "T1690735947N5135802/1",
+  "index": 1,
+  "message": "op=state_change, prev=TITLE, next=START_MENU"
+}
+```
+
 # High Scores
 
 At the end of each game, the player is given the option to enter a name
@@ -211,11 +256,12 @@ thread immediately attempts to send the score entered to the
 high score server.
 
 The high score server is a [Python program](server/lambda_function.py)
-that is deployed as an AWS Lambda Function attached to a CloudFront distribution.
+that is deployed as an AWS Lambda Function attached to a CloudFront distribution
+for www.trippinontubs.com.
 
 High scores are stored in an Amazon DynamoDB table.
 
-Stores are organized in the database by major game version.
+Scores are organized in the database by major game version.
 The table partition key column is an integer named `version`.
 
 The sort key is a globally unique identifier for the game play.
@@ -242,7 +288,11 @@ POST /scores
 ```
 
 ```
-GET /scores/alltime?version=1
+GET /scores/alltime
+```
+
+```
+GET /scores/today
 ```
 
 # Website
@@ -271,6 +321,30 @@ calculated steps. Finally, the effective weight is dampened by a factor from 1.0
 based on the shake progress.
 
 That final value is added to the camera to produce a shake or vibrate effect.
+
+# Health Bar
+
+Every baddie has a number of hit points. When the player collides
+with a baddie, a health bar is briefly displayed showing current hit
+points.
+
+The health bar provides an indication of the life remaining after a collision.
+
+The health bar is the only visual effect drawn programmatically
+and not with static image asset.
+
+# Strobe Effect
+
+When the player collides with a baddie such as a zombie or a rat,
+a strobe effect timer is started that lasts for 400 milliseconds.
+During that period, the baddie animation alternates between normal
+frames and frames with a white fill, such as those shown below.
+This produces a simple strobe effect without the use of a rendering
+pipeline or shaders. 
+
+![Rat](sprites/rat/8x/rat_11.png)
+![Chicken](sprites/chicken/8x/chicken_12.png)
+![Zombie](sprites/zombie/8x/zombie_12.png)
 
 # Engine
 The `trippin` physics engine handles the movement and interaction of all objects.
