@@ -92,7 +92,7 @@
         document.getElementById('txt_label').innerText = text;
     }
 
-    const qs = '?version=3&no_events=true&limit=50';
+    const qs = '?version=4&no_events=true&limit=50';
     loadScores(`/scores/alltime${qs}`, (scores) => {addScores(scores, 'tb_alltime')});
     loadScores(`/scores/today${qs}`, (scores) => {addScores(scores, 'tb_today')});
 
