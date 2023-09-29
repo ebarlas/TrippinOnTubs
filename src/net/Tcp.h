@@ -13,7 +13,7 @@ namespace trippin {
         Tcp(const std::string &host, int port);
         ~Tcp();
         void send(const std::string &request) const;
-        std::string receive() const;
+        std::string receive(int maxSize) const;
         TCPsocket get();
     };
 }

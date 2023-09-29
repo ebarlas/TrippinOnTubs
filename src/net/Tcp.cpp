@@ -33,16 +33,18 @@ void trippin::Tcp::send(const std::string &request) const {
     }
 }
 
-std::string trippin::Tcp::receive() const {
+std::string trippin::Tcp::receive(int maxSize) const {
     std::string response;
     int bytes;
+    int total = 0;
     do {
-        char buf[1024];
-        bytes = SDLNet_TCP_Recv(sock, buf, 1024);
+        char buf[1'024];
+        bytes = SDLNet_TCP_Recv(sock, buf, 1'024);
         if (bytes > 0) {
             response.append(buf, bytes);
+            total += bytes;
         }
-    } while (bytes > 0);
+    } while (total < maxSize && bytes > 0);
     return response;
 }
 

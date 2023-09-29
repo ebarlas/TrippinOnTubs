@@ -36,7 +36,7 @@ trippin::Transport::Scores trippin::Transport::sendRequest(const std::string &ur
     msg += "Accept: */*\r\n\r\n";
 
     tcp.send(msg);
-    std::string response = tcp.receive();
+    std::string response = tcp.receive(1'024 * 64);
 
     auto f = response.find("\r\n\r\n");
     if (f == std::string::npos) {
@@ -114,7 +114,7 @@ bool trippin::Transport::addScore(const Score &score) const {
     msg += json;
 
     tcp.send(msg);
-    std::string response = tcp.receive();
+    std::string response = tcp.receive(4'096);
     return response.find(" 200 OK") != std::string::npos;
 }
 
@@ -152,7 +152,7 @@ bool trippin::Transport::addLogEvent(const LogEvent &event) const {
     msg += json;
 
     tcp.send(msg);
-    std::string response = tcp.receive();
+    std::string response = tcp.receive(4'096);
     return response.find(" 200 OK") != std::string::npos;
 }
 
