@@ -11,4 +11,4 @@ aws s3 cp . s3://trippinontubs/ --recursive \
 
 aws cloudfront create-invalidation \
 --distribution-id E3UAX08O8UI5X3 \
---paths /index.html /highscores.html /privacy.html /pico.min.css /pico.min.css.map /walking_tub.gif /favicon.ico
+--paths /index.html /highscores.html /privacy.html /support.html /pico.min.css /pico.min.css.map /walking_tub.gif /favicon.ico
