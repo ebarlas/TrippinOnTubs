@@ -9,8 +9,8 @@ client = boto3.client('dynamodb', region_name='us-west-2')
 
 table = 'trippin-logs'
 
-epoch = int(time.time())
-date = datetime.datetime.fromtimestamp(epoch).strftime('%Y-%m-%d %H:%M:%S')
+date = datetime.datetime.utcnow().strftime('%Y-%m-%d %H:%M:%S')
+print(f'epoch: {date}')
 
 
 def query(date, last_key=None):
@@ -53,12 +53,19 @@ def print_item(item):
     print(f'[{date}] id={id}, index={index}, {msg}')
 
 
+def item_sort_key(item):
+    d = item["date"]["S"]
+    id, index = item['sk']['S'].split('/')
+    return d, id, int(index)
+
+
 def scroll_date(date):
     last_key = None
     last_date = date
     while True:
         res = query(date, last_key)
         items = res['Items']
+        items.sort(key=item_sort_key)
         if items:
             last_date = items[-1]['date']['S']
         for item in items:
