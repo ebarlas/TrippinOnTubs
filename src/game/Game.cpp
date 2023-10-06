@@ -223,11 +223,13 @@ void trippin::Game::renderLoop() {
         }
 
         if (!renderClock.isPaused() && (event.pKeyDown || event.focusLost)) {
+            logger->log("paused, focusLost=" + std::to_string(event.focusLost));
             renderClock.pause();
             level->pause();
         }
 
         if (renderClock.isPaused() && (event.rKeyDown || event.focusGained)) {
+            logger->log("resumed, focusGained=" + std::to_string(event.focusGained));
             renderClock.resume();
             level->resume();
         }
