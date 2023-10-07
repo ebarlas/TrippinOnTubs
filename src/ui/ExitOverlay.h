@@ -1,7 +1,7 @@
 #ifndef TRIPPIN_EXITOVERLAY_H
 #define TRIPPIN_EXITOVERLAY_H
 
-#include "sprite/SpriteManager.h"
+#include "sprite/Sprite.h"
 #include "ui/Interpolator.h"
 
 namespace trippin {
@@ -10,15 +10,29 @@ namespace trippin {
         ExitOverlay(
                 const Point<int> &windowSize,
                 int margin,
-                SpriteManager &spriteManager,
-                const RenderClock &renderClock);
+                const Sprite &sprite,
+                const RenderClock &renderClock,
+                int slideDuration,
+                int pauseDuration = 0);
         void reset();
         void render();
         bool exitClicked(const Point<int> &coords) const;
     private:
-        const Sprite &exitSprite;
+        enum class Direction {
+            in,
+            pause,
+            out
+        };
+
+        const Sprite &sprite;
+        const int slideDuration;
+        const int pauseDuration;
         const int top;
-        Interpolator interpolator;
+        Direction direction;
+        Interpolator inInterpolator;
+        Interpolator outInterpolator;
+
+        int interpolate() const;
     };
 }
 

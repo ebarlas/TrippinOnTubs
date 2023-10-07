@@ -11,6 +11,8 @@ namespace trippin {
         void setOffset(int offset);
         void reset();
         int interpolate() const;
+        bool complete() const;
+        unsigned int elapsed() const;
     private:
         const RenderClock& renderClock;
         const int duration;

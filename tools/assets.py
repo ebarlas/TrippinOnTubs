@@ -85,7 +85,8 @@ sprites = [
     'game_completed_bonus',
     'replay_speed_up',
     'training_completed',
-    'training_status'
+    'training_status',
+    'tap_score_exit'
 ]
 
 levels = [
@@ -94,7 +95,7 @@ levels = [
     'level_3',
     'level_4',
     'level_5',
-    'level_6'
+    'level_6',
     'load',
     'training_jump',
     'training_duck',

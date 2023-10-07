@@ -3,22 +3,42 @@
 trippin::ExitOverlay::ExitOverlay(
         const Point<int> &windowSize,
         int margin,
-        SpriteManager &spriteManager,
-        const RenderClock &renderClock) :
-        exitSprite(spriteManager.get("exit")),
-        top{windowSize.y - exitSprite.getDeviceSize().y - margin},
-        interpolator(renderClock, 750, margin + exitSprite.getDeviceSize().x, -exitSprite.getDeviceSize().x) {}
+        const Sprite &sprite,
+        const RenderClock &renderClock,
+        int slideDuration,
+        int pauseDuration) :
+        sprite(sprite),
+        slideDuration(slideDuration),
+        pauseDuration(pauseDuration),
+        top{windowSize.y - sprite.getDeviceSize().y - margin},
+        direction(Direction::in),
+        inInterpolator(renderClock, slideDuration, margin + sprite.getDeviceSize().x, -sprite.getDeviceSize().x),
+        outInterpolator(renderClock, slideDuration, -(margin + sprite.getDeviceSize().x), margin) {}
 
 void trippin::ExitOverlay::reset() {
-    interpolator.reset();
+    direction = Direction::in;
+    inInterpolator.reset();
 }
 
 void trippin::ExitOverlay::render() {
-    exitSprite.renderDevice({interpolator.interpolate(), top}, 0);
+    if (direction == Direction::in && inInterpolator.complete()) {
+        direction = Direction::pause;
+    }
+    if (pauseDuration && direction == Direction::pause && inInterpolator.elapsed() >= slideDuration + pauseDuration) {
+        direction = Direction::out;
+        outInterpolator.reset();
+    }
+    sprite.renderDevice({interpolate(), top}, 0);
 }
 
 bool trippin::ExitOverlay::exitClicked(const trippin::Point<int> &coords) const {
-    auto dims = exitSprite.getDeviceSize();
-    Rect<int> r{interpolator.interpolate(), top, dims.x, dims.y};
+    auto dims = sprite.getDeviceSize();
+    Rect<int> r{interpolate(), top, dims.x, dims.y};
     return r.contains(coords);
+}
+
+int trippin::ExitOverlay::interpolate() const {
+    return direction == Direction::in || direction == Direction::pause
+           ? inInterpolator.interpolate()
+           : outInterpolator.interpolate();;
 }

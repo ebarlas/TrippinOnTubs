@@ -26,10 +26,18 @@ float trippin::Interpolator::interpolate(float input) {
 }
 
 int trippin::Interpolator::interpolate() const {
-    auto elapsed = (renderClock.getTicks() - firstTick).count();
-    if (elapsed < duration) {
-        auto progress = static_cast<float>(elapsed) / static_cast<float>(duration);
+    auto e = elapsed();
+    if (e < duration) {
+        auto progress = static_cast<float>(e) / static_cast<float>(duration);
         return offset + static_cast<int>(static_cast<float>(magnitude) * interpolate(progress));
     }
     return offset + magnitude;
+}
+
+bool trippin::Interpolator::complete() const {
+    return elapsed() >= duration;
+}
+
+unsigned int trippin::Interpolator::elapsed() const {
+    return (renderClock.getTicks() - firstTick).count();
 }

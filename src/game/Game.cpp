@@ -107,6 +107,9 @@ void trippin::Game::initSpriteManager() {
     spriteLoader = std::make_unique<SpriteLoader>(*scale);
     spriteLoadTask = std::make_unique<SpriteLoadTask>(*spriteLoader, configuration.prefetchSprites);
     spriteManager = std::make_unique<SpriteManager>(sdlSystem->getRenderer(), *spriteLoader, configuration.msPerTick());
+    auto digitSize = spriteManager->get("digits").getDeviceSize();
+    auto textWidth = digitSize.x * 4;
+    scoreArea = Rect<int>{windowSize.x / 2 - textWidth / 2, configuration.meterMargin, textWidth, digitSize.y};
 }
 
 void trippin::Game::initAutoPlay() {
@@ -137,7 +140,8 @@ void trippin::Game::initOverlays() {
     gameOverOverlay = makeOverlay("gameover");
     levelsCompletedOverlay = makeOverlay("levels_completed");
     trainingCompletedOverlay = makeOverlay("training_completed");
-    exitOverlay = std::make_unique<ExitOverlay>(rendererSize, configuration.meterMargin, *spriteManager, renderClock);
+    exitOverlay = std::make_unique<ExitOverlay>(rendererSize, configuration.meterMargin, spriteManager->get("exit"), renderClock, 750);
+    tapScoreExitOverlay = std::make_unique<ExitOverlay>(rendererSize, configuration.meterMargin, spriteManager->get("tap_score_exit"), renderClock, 750, 5'000);
     speedUpOverlay = std::make_unique<SpeedUpOverlay>(rendererSize, configuration.meterMargin, *spriteManager, renderClock);
 }
 
@@ -341,6 +345,8 @@ void trippin::Game::render() {
     } else if (state == State::TRAINING_COMPLETED) {
         exitOverlay->render();
         trainingCompletedOverlay->render();
+    } else if (state == State::PLAYING) {
+        tapScoreExitOverlay->render();
     }
 
     SDL_RenderPresent(sdlSystem->getRenderer());
@@ -373,6 +379,7 @@ void trippin::Game::handle(UserInput::Event &event) {
             gameId++;
             inputEvents.clear();
             state = State::PLAYING;
+            tapScoreExitOverlay->reset();
             logger->log(std::string("op=state_change")
                         + ", prev=START_MENU"
                         + ", next=PLAYING"
@@ -514,7 +521,11 @@ void trippin::Game::handle(UserInput::Event &event) {
             }
         }
     } else if (state == State::PLAYING) {
-        if (level->ended()) {
+        if (event.anythingPressed() && scoreArea.contains(event.touchPoint)) {
+            titleMenu->reset();
+            state = State::START_MENU;
+            logStateChange("PLAYING", "START_MENU");
+        } else if (level->ended()) {
             score = level->getScore();
             inputEvents.push_back(level->takeInputEvents());
             if (level->completed()) {
