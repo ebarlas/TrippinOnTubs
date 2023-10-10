@@ -2223,6 +2223,390 @@
     },
     {
       "id": 278,
+      "type": "double_jump_arc",
+      "position": {
+        "x": 200,
+        "y": 194
+      }
+    },
+    {
+      "id": 279,
+      "type": "double_jump_arc",
+      "position": {
+        "x": 295,
+        "y": 194
+      }
+    },
+    {
+      "id": 280,
+      "type": "double_jump_arc",
+      "position": {
+        "x": 578,
+        "y": 194
+      }
+    },
+    {
+      "id": 281,
+      "type": "double_jump_arc",
+      "position": {
+        "x": 673,
+        "y": 194
+      }
+    },
+    {
+      "id": 282,
+      "type": "double_jump_arc",
+      "position": {
+        "x": 956,
+        "y": 194
+      }
+    },
+    {
+      "id": 283,
+      "type": "double_jump_arc",
+      "position": {
+        "x": 1051,
+        "y": 194
+      }
+    },
+    {
+      "id": 284,
+      "type": "double_jump_arc",
+      "position": {
+        "x": 1334,
+        "y": 194
+      }
+    },
+    {
+      "id": 285,
+      "type": "double_jump_arc",
+      "position": {
+        "x": 1429,
+        "y": 194
+      }
+    },
+    {
+      "id": 286,
+      "type": "double_jump_arc",
+      "position": {
+        "x": 1712,
+        "y": 194
+      }
+    },
+    {
+      "id": 287,
+      "type": "double_jump_arc",
+      "position": {
+        "x": 1807,
+        "y": 194
+      }
+    },
+    {
+      "id": 288,
+      "type": "double_jump_arc",
+      "position": {
+        "x": 2090,
+        "y": 194
+      }
+    },
+    {
+      "id": 289,
+      "type": "double_jump_arc",
+      "position": {
+        "x": 2185,
+        "y": 194
+      }
+    },
+    {
+      "id": 290,
+      "type": "double_jump_arc",
+      "position": {
+        "x": 2468,
+        "y": 194
+      }
+    },
+    {
+      "id": 291,
+      "type": "double_jump_arc",
+      "position": {
+        "x": 2563,
+        "y": 194
+      }
+    },
+    {
+      "id": 292,
+      "type": "double_jump_arc",
+      "position": {
+        "x": 400,
+        "y": 314
+      }
+    },
+    {
+      "id": 293,
+      "type": "double_jump_arc",
+      "position": {
+        "x": 495,
+        "y": 314
+      }
+    },
+    {
+      "id": 294,
+      "type": "double_jump_arc",
+      "position": {
+        "x": 778,
+        "y": 314
+      }
+    },
+    {
+      "id": 295,
+      "type": "double_jump_arc",
+      "position": {
+        "x": 873,
+        "y": 314
+      }
+    },
+    {
+      "id": 296,
+      "type": "double_jump_arc",
+      "position": {
+        "x": 1156,
+        "y": 314
+      }
+    },
+    {
+      "id": 297,
+      "type": "double_jump_arc",
+      "position": {
+        "x": 1251,
+        "y": 314
+      }
+    },
+    {
+      "id": 298,
+      "type": "double_jump_arc",
+      "position": {
+        "x": 1534,
+        "y": 314
+      }
+    },
+    {
+      "id": 299,
+      "type": "double_jump_arc",
+      "position": {
+        "x": 1629,
+        "y": 314
+      }
+    },
+    {
+      "id": 300,
+      "type": "double_jump_arc",
+      "position": {
+        "x": 1912,
+        "y": 314
+      }
+    },
+    {
+      "id": 301,
+      "type": "double_jump_arc",
+      "position": {
+        "x": 2007,
+        "y": 314
+      }
+    },
+    {
+      "id": 302,
+      "type": "double_jump_arc",
+      "position": {
+        "x": 2290,
+        "y": 314
+      }
+    },
+    {
+      "id": 303,
+      "type": "double_jump_arc",
+      "position": {
+        "x": 2385,
+        "y": 314
+      }
+    },
+    {
+      "id": 304,
+      "type": "double_jump_arc",
+      "position": {
+        "x": 578,
+        "y": 434
+      }
+    },
+    {
+      "id": 305,
+      "type": "double_jump_arc",
+      "position": {
+        "x": 673,
+        "y": 434
+      }
+    },
+    {
+      "id": 306,
+      "type": "double_jump_arc",
+      "position": {
+        "x": 956,
+        "y": 434
+      }
+    },
+    {
+      "id": 307,
+      "type": "double_jump_arc",
+      "position": {
+        "x": 1051,
+        "y": 434
+      }
+    },
+    {
+      "id": 308,
+      "type": "double_jump_arc",
+      "position": {
+        "x": 1334,
+        "y": 434
+      }
+    },
+    {
+      "id": 309,
+      "type": "double_jump_arc",
+      "position": {
+        "x": 1429,
+        "y": 434
+      }
+    },
+    {
+      "id": 310,
+      "type": "double_jump_arc",
+      "position": {
+        "x": 1712,
+        "y": 434
+      }
+    },
+    {
+      "id": 311,
+      "type": "double_jump_arc",
+      "position": {
+        "x": 1807,
+        "y": 434
+      }
+    },
+    {
+      "id": 312,
+      "type": "double_jump_arc",
+      "position": {
+        "x": 2090,
+        "y": 434
+      }
+    },
+    {
+      "id": 313,
+      "type": "double_jump_arc",
+      "position": {
+        "x": 2185,
+        "y": 434
+      }
+    },
+    {
+      "id": 314,
+      "type": "double_jump_arc",
+      "position": {
+        "x": 2468,
+        "y": 434
+      }
+    },
+    {
+      "id": 315,
+      "type": "double_jump_arc",
+      "position": {
+        "x": 2563,
+        "y": 434
+      }
+    },
+    {
+      "id": 316,
+      "type": "double_jump_arc",
+      "position": {
+        "x": 778,
+        "y": 554
+      }
+    },
+    {
+      "id": 317,
+      "type": "double_jump_arc",
+      "position": {
+        "x": 873,
+        "y": 554
+      }
+    },
+    {
+      "id": 318,
+      "type": "double_jump_arc",
+      "position": {
+        "x": 1156,
+        "y": 554
+      }
+    },
+    {
+      "id": 319,
+      "type": "double_jump_arc",
+      "position": {
+        "x": 1251,
+        "y": 554
+      }
+    },
+    {
+      "id": 320,
+      "type": "double_jump_arc",
+      "position": {
+        "x": 1534,
+        "y": 554
+      }
+    },
+    {
+      "id": 321,
+      "type": "double_jump_arc",
+      "position": {
+        "x": 1629,
+        "y": 554
+      }
+    },
+    {
+      "id": 322,
+      "type": "double_jump_arc",
+      "position": {
+        "x": 1912,
+        "y": 554
+      }
+    },
+    {
+      "id": 323,
+      "type": "double_jump_arc",
+      "position": {
+        "x": 2007,
+        "y": 554
+      }
+    },
+    {
+      "id": 324,
+      "type": "double_jump_arc",
+      "position": {
+        "x": 2290,
+        "y": 554
+      }
+    },
+    {
+      "id": 325,
+      "type": "double_jump_arc",
+      "position": {
+        "x": 2385,
+        "y": 554
+      }
+    },
+    {
+      "id": 326,
       "type": "winged_tub",
       "position": {
         "x": 227,
@@ -2230,7 +2614,7 @@
       }
     },
     {
-      "id": 279,
+      "id": 327,
       "type": "winged_tub",
       "position": {
         "x": 605,
@@ -2238,7 +2622,7 @@
       }
     },
     {
-      "id": 280,
+      "id": 328,
       "type": "winged_tub",
       "position": {
         "x": 983,
@@ -2246,7 +2630,7 @@
       }
     },
     {
-      "id": 281,
+      "id": 329,
       "type": "winged_tub",
       "position": {
         "x": 1361,
@@ -2254,7 +2638,7 @@
       }
     },
     {
-      "id": 282,
+      "id": 330,
       "type": "winged_tub",
       "position": {
         "x": 1739,
@@ -2262,7 +2646,7 @@
       }
     },
     {
-      "id": 283,
+      "id": 331,
       "type": "winged_tub",
       "position": {
         "x": 2117,
@@ -2270,7 +2654,7 @@
       }
     },
     {
-      "id": 284,
+      "id": 332,
       "type": "winged_tub",
       "position": {
         "x": 2495,
@@ -2278,7 +2662,7 @@
       }
     },
     {
-      "id": 285,
+      "id": 333,
       "type": "winged_tub",
       "position": {
         "x": 427,
@@ -2286,7 +2670,7 @@
       }
     },
     {
-      "id": 286,
+      "id": 334,
       "type": "winged_tub",
       "position": {
         "x": 805,
@@ -2294,7 +2678,7 @@
       }
     },
     {
-      "id": 287,
+      "id": 335,
       "type": "winged_tub",
       "position": {
         "x": 1183,
@@ -2302,7 +2686,7 @@
       }
     },
     {
-      "id": 288,
+      "id": 336,
       "type": "winged_tub",
       "position": {
         "x": 1561,
@@ -2310,7 +2694,7 @@
       }
     },
     {
-      "id": 289,
+      "id": 337,
       "type": "winged_tub",
       "position": {
         "x": 1939,
@@ -2318,7 +2702,7 @@
       }
     },
     {
-      "id": 290,
+      "id": 338,
       "type": "winged_tub",
       "position": {
         "x": 2317,
@@ -2326,7 +2710,7 @@
       }
     },
     {
-      "id": 291,
+      "id": 339,
       "type": "winged_tub",
       "position": {
         "x": 605,
@@ -2334,7 +2718,7 @@
       }
     },
     {
-      "id": 292,
+      "id": 340,
       "type": "winged_tub",
       "position": {
         "x": 983,
@@ -2342,7 +2726,7 @@
       }
     },
     {
-      "id": 293,
+      "id": 341,
       "type": "winged_tub",
       "position": {
         "x": 1361,
@@ -2350,7 +2734,7 @@
       }
     },
     {
-      "id": 294,
+      "id": 342,
       "type": "winged_tub",
       "position": {
         "x": 1739,
@@ -2358,7 +2742,7 @@
       }
     },
     {
-      "id": 295,
+      "id": 343,
       "type": "winged_tub",
       "position": {
         "x": 2117,
@@ -2366,7 +2750,7 @@
       }
     },
     {
-      "id": 296,
+      "id": 344,
       "type": "winged_tub",
       "position": {
         "x": 2495,
@@ -2374,7 +2758,7 @@
       }
     },
     {
-      "id": 297,
+      "id": 345,
       "type": "winged_tub",
       "position": {
         "x": 805,
@@ -2382,7 +2766,7 @@
       }
     },
     {
-      "id": 298,
+      "id": 346,
       "type": "winged_tub",
       "position": {
         "x": 1183,
@@ -2390,7 +2774,7 @@
       }
     },
     {
-      "id": 299,
+      "id": 347,
       "type": "winged_tub",
       "position": {
         "x": 1561,
@@ -2398,7 +2782,7 @@
       }
     },
     {
-      "id": 300,
+      "id": 348,
       "type": "winged_tub",
       "position": {
         "x": 1939,
@@ -2406,7 +2790,7 @@
       }
     },
     {
-      "id": 301,
+      "id": 349,
       "type": "winged_tub",
       "position": {
         "x": 2317,
@@ -2414,7 +2798,7 @@
       }
     },
     {
-      "id": 302,
+      "id": 350,
       "type": "winged_tub",
       "position": {
         "x": 327,
@@ -2422,7 +2806,7 @@
       }
     },
     {
-      "id": 303,
+      "id": 351,
       "type": "winged_tub",
       "position": {
         "x": 705,
@@ -2430,7 +2814,7 @@
       }
     },
     {
-      "id": 304,
+      "id": 352,
       "type": "winged_tub",
       "position": {
         "x": 1083,
@@ -2438,7 +2822,7 @@
       }
     },
     {
-      "id": 305,
+      "id": 353,
       "type": "winged_tub",
       "position": {
         "x": 1461,
@@ -2446,7 +2830,7 @@
       }
     },
     {
-      "id": 306,
+      "id": 354,
       "type": "winged_tub",
       "position": {
         "x": 1839,
@@ -2454,7 +2838,7 @@
       }
     },
     {
-      "id": 307,
+      "id": 355,
       "type": "winged_tub",
       "position": {
         "x": 2217,
@@ -2462,7 +2846,7 @@
       }
     },
     {
-      "id": 308,
+      "id": 356,
       "type": "winged_tub",
       "position": {
         "x": 2595,
@@ -2470,7 +2854,7 @@
       }
     },
     {
-      "id": 309,
+      "id": 357,
       "type": "winged_tub",
       "position": {
         "x": 527,
@@ -2478,7 +2862,7 @@
       }
     },
     {
-      "id": 310,
+      "id": 358,
       "type": "winged_tub",
       "position": {
         "x": 905,
@@ -2486,7 +2870,7 @@
       }
     },
     {
-      "id": 311,
+      "id": 359,
       "type": "winged_tub",
       "position": {
         "x": 1283,
@@ -2494,7 +2878,7 @@
       }
     },
     {
-      "id": 312,
+      "id": 360,
       "type": "winged_tub",
       "position": {
         "x": 1661,
@@ -2502,7 +2886,7 @@
       }
     },
     {
-      "id": 313,
+      "id": 361,
       "type": "winged_tub",
       "position": {
         "x": 2039,
@@ -2510,7 +2894,7 @@
       }
     },
     {
-      "id": 314,
+      "id": 362,
       "type": "winged_tub",
       "position": {
         "x": 2417,
@@ -2518,7 +2902,7 @@
       }
     },
     {
-      "id": 315,
+      "id": 363,
       "type": "winged_tub",
       "position": {
         "x": 705,
@@ -2526,7 +2910,7 @@
       }
     },
     {
-      "id": 316,
+      "id": 364,
       "type": "winged_tub",
       "position": {
         "x": 1083,
@@ -2534,7 +2918,7 @@
       }
     },
     {
-      "id": 317,
+      "id": 365,
       "type": "winged_tub",
       "position": {
         "x": 1461,
@@ -2542,7 +2926,7 @@
       }
     },
     {
-      "id": 318,
+      "id": 366,
       "type": "winged_tub",
       "position": {
         "x": 1839,
@@ -2550,7 +2934,7 @@
       }
     },
     {
-      "id": 319,
+      "id": 367,
       "type": "winged_tub",
       "position": {
         "x": 2217,
@@ -2558,7 +2942,7 @@
       }
     },
     {
-      "id": 320,
+      "id": 368,
       "type": "winged_tub",
       "position": {
         "x": 2595,
@@ -2566,7 +2950,7 @@
       }
     },
     {
-      "id": 321,
+      "id": 369,
       "type": "winged_tub",
       "position": {
         "x": 905,
@@ -2574,7 +2958,7 @@
       }
     },
     {
-      "id": 322,
+      "id": 370,
       "type": "winged_tub",
       "position": {
         "x": 1283,
@@ -2582,7 +2966,7 @@
       }
     },
     {
-      "id": 323,
+      "id": 371,
       "type": "winged_tub",
       "position": {
         "x": 1661,
@@ -2590,7 +2974,7 @@
       }
     },
     {
-      "id": 324,
+      "id": 372,
       "type": "winged_tub",
       "position": {
         "x": 2039,
@@ -2598,7 +2982,7 @@
       }
     },
     {
-      "id": 325,
+      "id": 373,
       "type": "winged_tub",
       "position": {
         "x": 2417,
@@ -2606,7 +2990,7 @@
       }
     },
     {
-      "id": 326,
+      "id": 374,
       "type": "winged_tub",
       "position": {
         "x": 307,
@@ -2614,7 +2998,7 @@
       }
     },
     {
-      "id": 327,
+      "id": 375,
       "type": "winged_tub",
       "position": {
         "x": 685,
@@ -2622,7 +3006,7 @@
       }
     },
     {
-      "id": 328,
+      "id": 376,
       "type": "winged_tub",
       "position": {
         "x": 1063,
@@ -2630,7 +3014,7 @@
       }
     },
     {
-      "id": 329,
+      "id": 377,
       "type": "winged_tub",
       "position": {
         "x": 1441,
@@ -2638,7 +3022,7 @@
       }
     },
     {
-      "id": 330,
+      "id": 378,
       "type": "winged_tub",
       "position": {
         "x": 1819,
@@ -2646,7 +3030,7 @@
       }
     },
     {
-      "id": 331,
+      "id": 379,
       "type": "winged_tub",
       "position": {
         "x": 2197,
@@ -2654,7 +3038,7 @@
       }
     },
     {
-      "id": 332,
+      "id": 380,
       "type": "winged_tub",
       "position": {
         "x": 2575,
@@ -2662,7 +3046,7 @@
       }
     },
     {
-      "id": 333,
+      "id": 381,
       "type": "winged_tub",
       "position": {
         "x": 507,
@@ -2670,7 +3054,7 @@
       }
     },
     {
-      "id": 334,
+      "id": 382,
       "type": "winged_tub",
       "position": {
         "x": 885,
@@ -2678,7 +3062,7 @@
       }
     },
     {
-      "id": 335,
+      "id": 383,
       "type": "winged_tub",
       "position": {
         "x": 1263,
@@ -2686,7 +3070,7 @@
       }
     },
     {
-      "id": 336,
+      "id": 384,
       "type": "winged_tub",
       "position": {
         "x": 1641,
@@ -2694,7 +3078,7 @@
       }
     },
     {
-      "id": 337,
+      "id": 385,
       "type": "winged_tub",
       "position": {
         "x": 2019,
@@ -2702,7 +3086,7 @@
       }
     },
     {
-      "id": 338,
+      "id": 386,
       "type": "winged_tub",
       "position": {
         "x": 2397,
@@ -2710,7 +3094,7 @@
       }
     },
     {
-      "id": 339,
+      "id": 387,
       "type": "winged_tub",
       "position": {
         "x": 685,
@@ -2718,7 +3102,7 @@
       }
     },
     {
-      "id": 340,
+      "id": 388,
       "type": "winged_tub",
       "position": {
         "x": 1063,
@@ -2726,7 +3110,7 @@
       }
     },
     {
-      "id": 341,
+      "id": 389,
       "type": "winged_tub",
       "position": {
         "x": 1441,
@@ -2734,7 +3118,7 @@
       }
     },
     {
-      "id": 342,
+      "id": 390,
       "type": "winged_tub",
       "position": {
         "x": 1819,
@@ -2742,7 +3126,7 @@
       }
     },
     {
-      "id": 343,
+      "id": 391,
       "type": "winged_tub",
       "position": {
         "x": 2197,
@@ -2750,7 +3134,7 @@
       }
     },
     {
-      "id": 344,
+      "id": 392,
       "type": "winged_tub",
       "position": {
         "x": 2575,
@@ -2758,7 +3142,7 @@
       }
     },
     {
-      "id": 345,
+      "id": 393,
       "type": "winged_tub",
       "position": {
         "x": 885,
@@ -2766,7 +3150,7 @@
       }
     },
     {
-      "id": 346,
+      "id": 394,
       "type": "winged_tub",
       "position": {
         "x": 1263,
@@ -2774,7 +3158,7 @@
       }
     },
     {
-      "id": 347,
+      "id": 395,
       "type": "winged_tub",
       "position": {
         "x": 1641,
@@ -2782,7 +3166,7 @@
       }
     },
     {
-      "id": 348,
+      "id": 396,
       "type": "winged_tub",
       "position": {
         "x": 2019,
@@ -2790,7 +3174,7 @@
       }
     },
     {
-      "id": 349,
+      "id": 397,
       "type": "winged_tub",
       "position": {
         "x": 2397,
@@ -2798,7 +3182,7 @@
       }
     },
     {
-      "id": 350,
+      "id": 398,
       "type": "winged_tub",
       "position": {
         "x": 200,
@@ -2806,7 +3190,7 @@
       }
     },
     {
-      "id": 351,
+      "id": 399,
       "type": "winged_tub",
       "position": {
         "x": 578,
@@ -2814,7 +3198,7 @@
       }
     },
     {
-      "id": 352,
+      "id": 400,
       "type": "winged_tub",
       "position": {
         "x": 956,
@@ -2822,7 +3206,7 @@
       }
     },
     {
-      "id": 353,
+      "id": 401,
       "type": "winged_tub",
       "position": {
         "x": 1334,
@@ -2830,7 +3214,7 @@
       }
     },
     {
-      "id": 354,
+      "id": 402,
       "type": "winged_tub",
       "position": {
         "x": 1712,
@@ -2838,7 +3222,7 @@
       }
     },
     {
-      "id": 355,
+      "id": 403,
       "type": "winged_tub",
       "position": {
         "x": 2090,
@@ -2846,7 +3230,7 @@
       }
     },
     {
-      "id": 356,
+      "id": 404,
       "type": "winged_tub",
       "position": {
         "x": 2468,
@@ -2854,7 +3238,7 @@
       }
     },
     {
-      "id": 357,
+      "id": 405,
       "type": "winged_tub",
       "position": {
         "x": 400,
@@ -2862,7 +3246,7 @@
       }
     },
     {
-      "id": 358,
+      "id": 406,
       "type": "winged_tub",
       "position": {
         "x": 778,
@@ -2870,7 +3254,7 @@
       }
     },
     {
-      "id": 359,
+      "id": 407,
       "type": "winged_tub",
       "position": {
         "x": 1156,
@@ -2878,7 +3262,7 @@
       }
     },
     {
-      "id": 360,
+      "id": 408,
       "type": "winged_tub",
       "position": {
         "x": 1534,
@@ -2886,7 +3270,7 @@
       }
     },
     {
-      "id": 361,
+      "id": 409,
       "type": "winged_tub",
       "position": {
         "x": 1912,
@@ -2894,7 +3278,7 @@
       }
     },
     {
-      "id": 362,
+      "id": 410,
       "type": "winged_tub",
       "position": {
         "x": 2290,
@@ -2902,7 +3286,7 @@
       }
     },
     {
-      "id": 363,
+      "id": 411,
       "type": "winged_tub",
       "position": {
         "x": 578,
@@ -2910,7 +3294,7 @@
       }
     },
     {
-      "id": 364,
+      "id": 412,
       "type": "winged_tub",
       "position": {
         "x": 956,
@@ -2918,7 +3302,7 @@
       }
     },
     {
-      "id": 365,
+      "id": 413,
       "type": "winged_tub",
       "position": {
         "x": 1334,
@@ -2926,7 +3310,7 @@
       }
     },
     {
-      "id": 366,
+      "id": 414,
       "type": "winged_tub",
       "position": {
         "x": 1712,
@@ -2934,7 +3318,7 @@
       }
     },
     {
-      "id": 367,
+      "id": 415,
       "type": "winged_tub",
       "position": {
         "x": 2090,
@@ -2942,7 +3326,7 @@
       }
     },
     {
-      "id": 368,
+      "id": 416,
       "type": "winged_tub",
       "position": {
         "x": 2468,
@@ -2950,7 +3334,7 @@
       }
     },
     {
-      "id": 369,
+      "id": 417,
       "type": "winged_tub",
       "position": {
         "x": 778,
@@ -2958,7 +3342,7 @@
       }
     },
     {
-      "id": 370,
+      "id": 418,
       "type": "winged_tub",
       "position": {
         "x": 1156,
@@ -2966,7 +3350,7 @@
       }
     },
     {
-      "id": 371,
+      "id": 419,
       "type": "winged_tub",
       "position": {
         "x": 1534,
@@ -2974,7 +3358,7 @@
       }
     },
     {
-      "id": 372,
+      "id": 420,
       "type": "winged_tub",
       "position": {
         "x": 1912,
@@ -2982,7 +3366,7 @@
       }
     },
     {
-      "id": 373,
+      "id": 421,
       "type": "winged_tub",
       "position": {
         "x": 2290,

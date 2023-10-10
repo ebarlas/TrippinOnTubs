@@ -2,6 +2,7 @@
 #include "Ground.h"
 #include "GameObject.h"
 #include "WingedTub.h"
+#include "DecorativeObject.h"
 #include "RunningClock.h"
 #include "Layer.h"
 #include "engine/Convert.h"
@@ -181,6 +182,20 @@ void trippin::Level::initEngine() {
                     *levelStats);
             engine.addListener(wingedTub.get());
             objects.push_back(std::move(wingedTub));
+        } else if (obj.type == "double_jump_arc"
+                   || obj.type == "jump_arc"
+                   || obj.type == "charged_jump_arc"
+                   || obj.type == "duck_line"
+                   || obj.type == "jump_slam_down_arc"
+                   || obj.type == "charged_duck_jump_arc") {
+            auto decObj = std::make_unique<DecorativeObject>(
+                    obj,
+                    spriteManager->get(obj.type),
+                    activation,
+                    *camera,
+                    sceneBuilder);
+            engine.addListener(decObj.get());
+            objects.push_back(std::move(decObj));
         } else if (obj.type == "running_clock") {
             auto runningClock = std::make_unique<RunningClock>(
                     *configuration,
@@ -199,8 +214,12 @@ void trippin::Level::initEngine() {
             engine.add(runningClock.get());
             engine.addListener(runningClock.get());
             objects.push_back(std::move(runningClock));
-        } else if (obj.type == "zombie" || obj.type == "rat" || obj.type == "bird" || obj.type == "ball" ||
-                   obj.type == "brick" || obj.type == "chicken") {
+        } else if (obj.type == "zombie"
+                   || obj.type == "rat"
+                   || obj.type == "bird"
+                   || obj.type == "ball"
+                   || obj.type == "brick"
+                   || obj.type == "chicken") {
             auto gameObject = std::make_unique<GameObject>(
                     *configuration,
                     *configuration->findObject(obj.type),

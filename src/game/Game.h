@@ -75,8 +75,9 @@ namespace trippin {
         unsigned int levelIndex;
         std::unique_ptr<TitleOverlay> titleOverlay;
         std::unique_ptr<TitleMenu> titleMenu;
-        std::unique_ptr<ExitOverlay> exitOverlay;
-        std::unique_ptr<ExitOverlay> tapScoreExitOverlay;
+        std::unique_ptr<ExitOverlay> replayExitOverlay;
+        std::unique_ptr<ExitOverlay> trainingExitOverlay;
+        std::unique_ptr<ExitOverlay> playingExitOverlay;
         std::unique_ptr<SpeedUpOverlay> speedUpOverlay;
         std::unique_ptr<EndMenu> endMenu;
         std::unique_ptr<NameForm> nameForm;
@@ -89,6 +90,7 @@ namespace trippin {
         std::unique_ptr<SimpleOverlay> trainingCompletedOverlay;
         std::shared_ptr<StagingArea> stagingArea;
         Rect<int> scoreArea;
+        Rect<int> flagsArea;
         RenderClock renderClock;
         std::unique_ptr<Logger> logger;
         Random<int, 0, 10'000'000> random;

@@ -109,7 +109,10 @@ void trippin::Game::initSpriteManager() {
     spriteManager = std::make_unique<SpriteManager>(sdlSystem->getRenderer(), *spriteLoader, configuration.msPerTick());
     auto digitSize = spriteManager->get("digits").getDeviceSize();
     auto textWidth = digitSize.x * 4;
-    scoreArea = Rect<int>{windowSize.x / 2 - textWidth / 2, configuration.meterMargin, textWidth, digitSize.y};
+    auto margin = configuration.meterMargin;
+    scoreArea = Rect<int>{windowSize.x / 2 - textWidth / 2, margin, textWidth, digitSize.y};
+    auto flagsSize = spriteManager->get("training_status").getDeviceSize();
+    flagsArea = Rect<int>{windowSize.x - flagsSize.x - margin, margin, flagsSize.x, flagsSize.y};
 }
 
 void trippin::Game::initAutoPlay() {
@@ -140,8 +143,9 @@ void trippin::Game::initOverlays() {
     gameOverOverlay = makeOverlay("gameover");
     levelsCompletedOverlay = makeOverlay("levels_completed");
     trainingCompletedOverlay = makeOverlay("training_completed");
-    exitOverlay = std::make_unique<ExitOverlay>(rendererSize, configuration.meterMargin, spriteManager->get("exit"), renderClock, 750);
-    tapScoreExitOverlay = std::make_unique<ExitOverlay>(rendererSize, configuration.meterMargin, spriteManager->get("tap_score_exit"), renderClock, 750, 5'000);
+    replayExitOverlay = std::make_unique<ExitOverlay>(rendererSize, configuration.meterMargin, spriteManager->get("exit"), renderClock, 750);
+    trainingExitOverlay = std::make_unique<ExitOverlay>(rendererSize, configuration.meterMargin, spriteManager->get("tap_flags_exit"), renderClock, 750);
+    playingExitOverlay = std::make_unique<ExitOverlay>(rendererSize, configuration.meterMargin, spriteManager->get("tap_score_exit"), renderClock, 750, 5'000);
     speedUpOverlay = std::make_unique<SpeedUpOverlay>(rendererSize, configuration.meterMargin, *spriteManager, renderClock);
 }
 
@@ -338,15 +342,15 @@ void trippin::Game::render() {
     } else if (state == State::NAME_FORM) {
         nameForm->render();
     } else if (state == State::REPLAY) {
-        exitOverlay->render();
+        replayExitOverlay->render();
         speedUpOverlay->render();
     } else if (state == State::TRAINING) {
-        exitOverlay->render();
+        trainingExitOverlay->render();
     } else if (state == State::TRAINING_COMPLETED) {
-        exitOverlay->render();
+        trainingExitOverlay->render();
         trainingCompletedOverlay->render();
     } else if (state == State::PLAYING) {
-        tapScoreExitOverlay->render();
+        playingExitOverlay->render();
     }
 
     SDL_RenderPresent(sdlSystem->getRenderer());
@@ -379,7 +383,7 @@ void trippin::Game::handle(UserInput::Event &event) {
             gameId++;
             inputEvents.clear();
             state = State::PLAYING;
-            tapScoreExitOverlay->reset();
+            playingExitOverlay->reset();
             logger->log(std::string("op=state_change")
                         + ", prev=START_MENU"
                         + ", next=PLAYING"
@@ -392,7 +396,7 @@ void trippin::Game::handle(UserInput::Event &event) {
             trainingStage = 0;
             trainingProgress = 0;
             state = State::TRAINING;
-            exitOverlay->reset();
+            trainingExitOverlay->reset();
             logger->log(std::string("op=state_change")
                         + ", prev=START_MENU"
                         + ", next=TRAINING"
@@ -430,7 +434,7 @@ void trippin::Game::handle(UserInput::Event &event) {
                 levelIndex = 0;
                 score = 0;
                 state = State::REPLAY;
-                exitOverlay->reset();
+                replayExitOverlay->reset();
                 speedUpOverlay->reset();
                 logger->log(std::string("op=state_change")
                             + ", prev=ALL_TIME_SCORES"
@@ -457,7 +461,7 @@ void trippin::Game::handle(UserInput::Event &event) {
                 levelIndex = 0;
                 score = 0;
                 state = State::REPLAY;
-                exitOverlay->reset();
+                replayExitOverlay->reset();
                 speedUpOverlay->reset();
                 logger->log(std::string("op=state_change")
                             + ", prev=TODAY_SCORES"
@@ -486,7 +490,7 @@ void trippin::Game::handle(UserInput::Event &event) {
                         + ", fps=" + formatFps());
         };
         if (event.anythingPressed()) {
-            if (exitOverlay->exitClicked(event.touchPoint)) {
+            if (replayExitOverlay->exitClicked(event.touchPoint)) {
                 endFn();
             }
         }
@@ -609,7 +613,7 @@ void trippin::Game::handle(UserInput::Event &event) {
             advanceLevel();
         }
     } else if (state == State::TRAINING) {
-        if (event.anythingPressed() && exitOverlay->exitClicked(event.touchPoint)) {
+        if (event.anythingPressed() && flagsArea.contains(event.touchPoint)) {
             score = 0;
             titleMenu->reset();
             state = State::START_MENU;
@@ -622,7 +626,7 @@ void trippin::Game::handle(UserInput::Event &event) {
         } else if (level->trainingCompleted()) {
             if (trainingStage == configuration.trainMaps.size() - 1) { // last training stage
                 state = State::TRAINING_COMPLETED;
-                exitOverlay->reset();
+                trainingExitOverlay->reset();
                 trainingCompletedOverlay->reset();
                 logger->log(std::string("op=state_change")
                             + ", prev=TRAINING"
@@ -632,7 +636,7 @@ void trippin::Game::handle(UserInput::Event &event) {
             } else {
                 trainingStage++;
                 trainingProgress = 0;
-                exitOverlay->reset();
+                trainingExitOverlay->reset();
                 logger->log(std::string("op=next_training_stage")
                             + ", trainingStage=" + std::to_string(trainingStage)
                             + ", tps=" + formatTps()
@@ -640,7 +644,7 @@ void trippin::Game::handle(UserInput::Event &event) {
                 advanceLevel();
             }
         } else if (level->ended()) {
-            exitOverlay->reset();
+            trainingExitOverlay->reset();
             trainingProgress = level->getTrainingProgress();
             logger->log(std::string("op=training_stage_repeat")
                         + ", trainingStage=" + std::to_string(trainingStage)
@@ -650,7 +654,7 @@ void trippin::Game::handle(UserInput::Event &event) {
             advanceLevel();
         }
     } else if (state == State::TRAINING_COMPLETED) {
-        if (event.anythingPressed() && exitOverlay->exitClicked(event.touchPoint)) {
+        if (event.anythingPressed() && flagsArea.contains(event.touchPoint)) {
             score = 0;
             titleMenu->reset();
             state = State::START_MENU;

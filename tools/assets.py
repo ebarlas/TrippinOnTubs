@@ -86,7 +86,14 @@ sprites = [
     'replay_speed_up',
     'training_completed',
     'training_status',
-    'tap_score_exit'
+    'tap_score_exit',
+    'double_jump_arc',
+    'jump_arc',
+    'charged_jump_arc',
+    'duck_line',
+    'jump_slam_down_arc',
+    'charged_duck_jump_arc',
+    'tap_flags_exit'
 ]
 
 levels = [

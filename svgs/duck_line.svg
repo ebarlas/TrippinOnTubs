@@ -1,0 +1,9 @@
+<ns0:svg xmlns:ns0="http://www.w3.org/2000/svg" xmlns:ns1="http://www.inkscape.org/namespaces/inkscape" xmlns:ns2="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd" width="69" height="16" viewBox="0 0 69 16" version="1.1" id="svg18359" scale="23" ns1:version="1.2.2 (b0a84865, 2022-12-01)" ns2:docname="duck_line.svg">
+  <ns2:namedview id="namedview18361" pagecolor="#ffffff" bordercolor="#000000" borderopacity="0.25" ns1:showpageshadow="2" ns1:pageopacity="0.0" ns1:pagecheckerboard="0" ns1:deskcolor="#d1d1d1" ns1:document-units="px" showgrid="true" ns1:zoom="13.455443" ns1:cx="30.285141" ns1:cy="16.164462" ns1:window-width="1728" ns1:window-height="1051" ns1:window-x="0" ns1:window-y="38" ns1:window-maximized="1" ns1:current-layer="layer6">
+    <ns1:grid type="xygrid" id="grid18480" originx="0" originy="0" />
+  </ns2:namedview>
+  <ns0:defs id="defs18356" />
+  <ns0:g ns1:groupmode="layer" id="layer6" ns1:label="arc" frame="1" type="frame">
+    <ns0:path style="fill:#ffffff;fill-opacity:0.4;stroke:#000000;stroke-width:0.3;stroke-linejoin:round;stroke-opacity:0.4" d="M 0.85136127,6.9256806 62.9581,7.0629536 56.429288,4.1962877 57.662742,0.80542018 68.371803,8.2863129 58.369852,15.47788 56.513702,12.56107 62.54429,9.9094204 0.82904541,9.9978204 Z" id="path549" ns2:nodetypes="cccccccccc" />
+  </ns0:g>
+</ns0:svg>

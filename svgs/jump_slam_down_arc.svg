@@ -1,0 +1,11 @@
+<ns0:svg xmlns:ns0="http://www.w3.org/2000/svg" xmlns:ns1="http://www.inkscape.org/namespaces/inkscape" xmlns:ns2="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd" width="68" height="112" viewBox="0 0 68 112" version="1.1" id="svg18359" scale="28" ns1:version="1.2.2 (b0a84865, 2022-12-01)" ns2:docname="jump_slam_down_arc.svg">
+  <ns2:namedview id="namedview18361" pagecolor="#ffffff" bordercolor="#000000" borderopacity="0.25" ns1:showpageshadow="2" ns1:pageopacity="0.0" ns1:pagecheckerboard="0" ns1:deskcolor="#d1d1d1" ns1:document-units="px" showgrid="true" ns1:zoom="4.7572176" ns1:cx="26.591174" ns1:cy="56.440555" ns1:window-width="1728" ns1:window-height="1051" ns1:window-x="0" ns1:window-y="38" ns1:window-maximized="1" ns1:current-layer="layer6">
+    <ns1:grid type="xygrid" id="grid18480" originx="0" originy="0" />
+  </ns2:namedview>
+  <ns0:defs id="defs18356" />
+  <ns0:g ns1:groupmode="layer" id="layer6" ns1:label="arc" frame="1" type="frame">
+    <ns0:path style="fill:#ffffff;fill-opacity:0.4;stroke:#000000;stroke-width:0.25;stroke-linejoin:round;stroke-opacity:0.4" d="m 1.836723,83.767035 v -4.875 l 0.75,-7.375 1.25,-8.5 1.125,-7.5 3.5,-12.6875 -5.25,4.5625 -2,-2.4375 10.625,-8.5625 4.25,13.625 -3,0.25 -2.125,-6.75 -1.75,8.125 -1.125,7.375 -1,8.375 -1,6.125 -0.43655,5.87502 -0.12595,4.62498 z" id="path1226" ns2:nodetypes="ccccccccccccccccccc" />
+    <ns0:path style="fill:#ffffff;fill-opacity:0.4;stroke:#000000;stroke-width:0.25;stroke-linejoin:round;stroke-opacity:0.4" d="m 11.836723,30.892035 3.75,-6 4.25,-5.75 2.97418,-3.27923 2.33832,-2.22077 2.41172,-1.60931 2.90078,-1.76569 5.375,-2.1250004 2.375,-0.375 -5.6875,-3.375 1.1875,-3.0000005 9.625,7.8750005 -7,8.3750004 -2.5,-2.3125 4.75,-4.3125 -5.125,1.875 -3.625,1.625 -3.375,2.5 -3.5,3.75 -2.875,4 -2.75,4.25 -2.25,3.625 z" id="path1228" ns2:nodetypes="ccccccccccccccccccccccc" />
+    <ns0:path style="fill:#ffffff;fill-opacity:0.4;stroke:#000000;stroke-width:0.25;stroke-linejoin:round;stroke-opacity:0.4" d="m 46.461723,17.017035 13.875,87.874995 2.375,-9.499996 3.875,2.5 -7,12.874996 -10.5,-10.5 2.375,-2.874996 6,7.749996 -14.5,-87.874995 z" id="path1230" ns2:nodetypes="cccccccccc" />
+  </ns0:g>
+</ns0:svg>
