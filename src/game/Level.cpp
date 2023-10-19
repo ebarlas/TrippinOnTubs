@@ -126,7 +126,8 @@ void trippin::Level::initEngine() {
                     *soundManager,
                     *camera,
                     sceneBuilder,
-                    *levelStats);
+                    *levelStats,
+                    *scoreTicker);
             gogginRenderer = std::make_unique<GogginRenderer>(*goggin);
             break;
         }

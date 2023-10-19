@@ -15,7 +15,8 @@ trippin::Goggin::Goggin(
         SoundManager &soundManager,
         Camera &camera,
         SceneBuilder &sceneBuilder,
-        LevelStats &levelStats) :
+        LevelStats &levelStats,
+        ScoreTicker &scoreTicker) :
         SpriteObject(configObject, object, spriteManager.get("goggin")),
         config(config),
         dust(spriteManager.get("dust")),
@@ -37,8 +38,8 @@ trippin::Goggin::Goggin(
         comboManager(comboManager),
         sceneBuilder(sceneBuilder),
         camera(camera),
-        levelStats(levelStats) {
-
+        levelStats(levelStats),
+        scoreTicker(scoreTicker) {
     rightOfUni = false;
     belowUni = false;
 
@@ -204,7 +205,9 @@ void trippin::Goggin::afterTick(int engineTicks) {
     if (grounded) {
         int hits = comboManager.reset();
         if (hits) {
-            addPointCloud(hits * config.pointsPerComboHit, engineTicks);
+            auto comboPoints = hits * config.pointsPerComboHit;
+            scoreTicker.add(comboPoints);
+            addPointCloud(comboPoints, engineTicks);
         }
     }
 

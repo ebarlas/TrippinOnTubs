@@ -18,6 +18,7 @@
 #include "ComboManager.h"
 #include "PointCloudManager.h"
 #include "LevelStats.h"
+#include "ScoreTicker.h"
 
 namespace trippin {
     class Goggin : public SpriteObject {
@@ -34,7 +35,8 @@ namespace trippin {
                 SoundManager &soundManager,
                 Camera &camera,
                 SceneBuilder &sceneBuilder,
-                LevelStats &levelStats);
+                LevelStats &levelStats,
+                ScoreTicker &scoreTicker);
         void beforeTick(int engineTicks) override;
         void afterTick(int engineTicks) override;
         bool rightOfUniverse() const;
@@ -134,6 +136,7 @@ namespace trippin {
         SceneBuilder &sceneBuilder;
         Camera &camera;
         LevelStats &levelStats;
+        ScoreTicker &scoreTicker;
 
         std::vector<GogginInputTick> inputEvents;
 

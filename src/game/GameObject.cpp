@@ -116,7 +116,9 @@ void trippin::GameObject::afterTick(int engineTicks) {
                 groupManager.remove(object.group, id);
                 if (groupManager.empty(object.group)) {
                     auto groupSize = groupManager.size(object.group);
-                    goggin.addPointCloud(config.pointsPerGroup + groupSize * config.pointsPerMember, engineTicks);
+                    auto groupPoints = config.pointsPerGroup + groupSize * config.pointsPerMember;
+                    scoreTicker.add(groupPoints);
+                    goggin.addPointCloud(groupPoints, engineTicks);
                     groupNotificationManager.add(groupSize);
                 }
             }

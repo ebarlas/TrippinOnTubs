@@ -103,6 +103,7 @@ levels = [
     'level_4',
     'level_5',
     'level_6',
+    'level_7',
     'load',
     'training_jump',
     'training_duck',

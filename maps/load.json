@@ -3712,14 +3712,14 @@
         {
           "type": "generic_building_2",
           "position": {
-            "x": 210,
-            "y": 261
+            "x": 207,
+            "y": 262
           }
         },
         {
           "type": "phoenix",
           "position": {
-            "x": 0,
+            "x": -5,
             "y": 260
           }
         }
