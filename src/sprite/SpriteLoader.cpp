@@ -1,3 +1,4 @@
+#include <sstream>
 #include "SDL_image.h"
 #include "SpriteLoader.h"
 #include "Files.h"

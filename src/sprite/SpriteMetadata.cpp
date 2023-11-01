@@ -1,13 +1,13 @@
+#include <sstream>
 #include <iostream>
 #include "nlohmann/json.hpp"
 #include "SpriteMetadata.h"
 #include "Files.h"
 
 void trippin::SpriteMetadata::load(const std::string &name) {
-    auto in = readFile(getMetadataFile(name).c_str());
+    auto json = readFile(getMetadataFile(name).c_str());
 
-    nlohmann::json j;
-    in >> j;
+    auto j = nlohmann::json::parse(json);
 
     j.at("frames").get_to(frames);
     j.at("duration").get_to(duration);

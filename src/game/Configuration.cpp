@@ -4,9 +4,8 @@
 #include "Configuration.h"
 
 void trippin::Configuration::load(const std::string &name) {
-    auto in = readFile(getConfigFile(name).c_str());
-    nlohmann::json j;
-    in >> j;
+    auto json = readFile(getConfigFile(name).c_str());
+    auto j = nlohmann::json::parse(json);
     j.get_to(*this);
 }
 

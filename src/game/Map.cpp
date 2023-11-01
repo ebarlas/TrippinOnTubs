@@ -1,11 +1,11 @@
+#include <sstream>
 #include "nlohmann/json.hpp"
 #include "sprite/Files.h"
 #include "Map.h"
 
 void trippin::Map::load(const std::string &name) {
-    auto in = readFile(getMapFile(name).c_str());
-    nlohmann::json j;
-    in >> j;
+    auto json = readFile(getMapFile(name).c_str());
+    auto j = nlohmann::json::parse(json);
     j.get_to(*this);
 }
 

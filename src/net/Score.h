@@ -1,6 +1,8 @@
 #ifndef TRIPPIN_SCORE_H
 #define TRIPPIN_SCORE_H
 
+#include "nlohmann/json.hpp"
+
 namespace trippin {
     struct Score {
         struct InputEvent {
@@ -51,7 +53,57 @@ namespace trippin {
         bool operator==(const Score &ds) const {
             return id == ds.id && game == ds.game;
         }
+
+        static std::vector<int> compress(const std::vector<InputEvent> &events) {
+            std::vector<int> v;
+            v.reserve(events.size() * 2);
+            for (auto &e: events) {
+                v.push_back(e.tick);
+                v.push_back(e.input);
+            }
+            return v;
+        }
+
+        std::vector<std::vector<int>> compress() const {
+            std::vector<std::vector<int>> v;
+            v.reserve(events.size());
+            for (auto &vec: events) {
+                v.push_back(compress(vec));
+            }
+            return v;
+        }
+
+        nlohmann::json to_json() const {
+            nlohmann::json j;
+            j["id"] = id;
+            j["game"] = game;
+            j["name"] = name;
+            j["score"] = score;
+            j["events"] = compress();
+            return j;
+        }
     };
+
+    inline void to_json(nlohmann::json& j, const Score& score) {
+        j = score.to_json();
+    }
+
+    inline void from_json(const nlohmann::json &j, std::vector<Score::InputEvent> &points) {
+        for (auto i = j.cbegin(); i != j.cend(); i++) {
+            int ticket = *i;
+            if (++i != j.cend()) {
+                points.push_back({ticket, *i});
+            }
+        }
+    }
+
+    inline void from_json(const nlohmann::json &j, trippin::Score &score) {
+        j.at("id").get_to(score.id);
+        j.at("game").get_to(score.game);
+        j.at("name").get_to(score.name);
+        j.at("score").get_to(score.score);
+        j.at("events").get_to(score.events);
+    }
 }
 
 #endif

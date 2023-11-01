@@ -93,7 +93,10 @@ sprites = [
     'duck_line',
     'jump_slam_down_arc',
     'charged_duck_jump_arc',
-    'tap_flags_exit'
+    'tap_flags_exit',
+    'top_scores',
+    'latest_scores',
+    'my_scores'
 ]
 
 levels = [

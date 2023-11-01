@@ -11,9 +11,9 @@ namespace trippin {
     template<std::size_t N>
     class MenuLayout {
     public:
-        MenuLayout(Point<int> windowSize, Uint32 duration, const RenderClock &renderClock);
-        void setSprite(int index, const Sprite *sprite);
-        void init();
+        template<typename... Sprites>
+        explicit
+        MenuLayout(Point<int> windowSize, Uint32 duration, const RenderClock &renderClock, Sprites &&... sprites);
         void reset();
         void render();
         bool contains(int index, Point<int> point) const;
@@ -25,30 +25,36 @@ namespace trippin {
         Point<int> windowSize;
         std::array<Item, N> items;
         Interpolator interpolator;
+        void init();
         const Item &maxItem() const;
     };
 }
 
 template<std::size_t N>
-trippin::MenuLayout<N>::MenuLayout(Point<int> windowSize, Uint32 duration, const RenderClock &renderClock)
-        : windowSize(windowSize), interpolator(renderClock, static_cast<int>(duration)) {
-
-}
-
-template<std::size_t N>
-void trippin::MenuLayout<N>::setSprite(int index, const Sprite *sprite) {
-    items[index].sprite = sprite;
+template<typename... Sprites>
+trippin::MenuLayout<N>::MenuLayout(
+        Point<int> windowSize,
+        Uint32 duration,
+        const RenderClock &renderClock,
+        Sprites &&... sprites):
+        windowSize(windowSize),
+        interpolator(renderClock, static_cast<int>(duration)) {
+    static_assert(sizeof...(sprites) == N);
+    int n = 0;
+    auto fn = [this, &n](const Sprite &s) { items[n++].sprite = &s; };
+    (fn(sprites), ...);
+    init();
 }
 
 template<std::size_t N>
 void trippin::MenuLayout<N>::init() {
     int menuHeight = 0;
-    for (auto &item : items) {
+    for (auto &item: items) {
         menuHeight += item.sprite->getDeviceSize().y;
     }
 
     int itemY = 0;
-    for (auto &item : items) {
+    for (auto &item: items) {
         item.position.x = (windowSize.x - item.sprite->getDeviceSize().x) / 2;
         item.position.y = (windowSize.y - menuHeight) / 2 + itemY;
         itemY += item.sprite->getDeviceSize().y;
@@ -68,7 +74,7 @@ template<std::size_t N>
 void trippin::MenuLayout<N>::render() {
     auto &max = maxItem();
     int x = interpolator.interpolate();
-    for (auto &item : items) {
+    for (auto &item: items) {
         Point<int> p{x + item.position.x - max.position.x, item.position.y};
         item.sprite->renderDevice(p, 0);
     }

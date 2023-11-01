@@ -13,10 +13,8 @@
 #include "Level.h"
 #include "AutoPlay.h"
 #include "ui/TitleOverlay.h"
-#include "ui/TitleMenu.h"
-#include "ui/EndMenu.h"
+#include "ui/MenuLayout.h"
 #include "ui/NameForm.h"
-#include "ui/ScoreMenu.h"
 #include "ui/ScrollingScoreBoard.h"
 #include "ui/SimpleOverlay.h"
 #include "ui/ExitOverlay.h"
@@ -27,6 +25,7 @@
 #include "net/Logger.h"
 #include "UserInput.h"
 #include "Random.h"
+#include "MyScores.h"
 
 namespace trippin {
     class Game {
@@ -47,7 +46,10 @@ namespace trippin {
             ALL_TIME_SCORES,
             TODAY_SCORES,
             REPLAY,
-            EXIT
+            EXIT,
+            MY_SCORES_MENU,
+            MY_TOP_SCORES,
+            MY_LATEST_SCORES
         };
 
         State state;
@@ -74,21 +76,23 @@ namespace trippin {
         std::unique_ptr<Level> level;
         unsigned int levelIndex;
         std::unique_ptr<TitleOverlay> titleOverlay;
-        std::unique_ptr<TitleMenu> titleMenu;
+        std::unique_ptr<MenuLayout<4>> titleMenu;
         std::unique_ptr<ExitOverlay> replayExitOverlay;
         std::unique_ptr<ExitOverlay> trainingExitOverlay;
         std::unique_ptr<ExitOverlay> playingExitOverlay;
         std::unique_ptr<SpeedUpOverlay> speedUpOverlay;
-        std::unique_ptr<EndMenu> endMenu;
+        std::unique_ptr<MenuLayout<2>> endMenu;
         std::unique_ptr<NameForm> nameForm;
-        std::unique_ptr<ScoreMenu> scoreMenu;
+        std::unique_ptr<MenuLayout<3>> scoreMenu;
+        std::unique_ptr<MenuLayout<3>> myScoresMenu;
         std::unique_ptr<ScrollingScoreBoard> topScoreBoard;
-        std::unique_ptr<ScrollingScoreBoard> todayScoreBoard;
         std::unique_ptr<SimpleOverlay> levelOverlay;
         std::unique_ptr<SimpleOverlay> gameOverOverlay;
         std::unique_ptr<SimpleOverlay> levelsCompletedOverlay;
         std::unique_ptr<SimpleOverlay> trainingCompletedOverlay;
         std::shared_ptr<StagingArea> stagingArea;
+        std::unique_ptr<MyScores> myLatestScores;
+        std::unique_ptr<MyScores> myTopScores;
         Rect<int> scoreArea;
         Rect<int> flagsArea;
         RenderClock renderClock;

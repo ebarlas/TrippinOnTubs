@@ -75,6 +75,8 @@ void trippin::Game::initDbSynchronizer() {
     DbSynchronizer::startAddScoresThread(transport, stagingArea);
     DbSynchronizer::startAddLogEventsThread(transport, stagingArea);
     DbSynchronizer::startQueryScoresThread(std::move(transport), stagingArea);
+    myTopScores = std::make_unique<MyScores>(MyScores::Type::top, configuration.version.major, 10);
+    myLatestScores = std::make_unique<MyScores>(MyScores::Type::latest, configuration.version.major, 10);
 }
 
 void trippin::Game::initConfiguration() {
@@ -133,12 +135,36 @@ void trippin::Game::initOverlays() {
     auto scrollPxPerMs = -configuration.scrollPixelsPerSecond / 1'000.0;
     TitleOverlay::Options titleOptions{scrollPxPerMs, 3'000};
     titleOverlay = std::make_unique<TitleOverlay>(rendererSize, titleOptions, *spriteManager, renderClock);
-    titleMenu = std::make_unique<TitleMenu>(rendererSize, *spriteManager, renderClock);
-    endMenu = std::make_unique<EndMenu>(rendererSize, *spriteManager, renderClock);
+    titleMenu = std::make_unique<MenuLayout<4>>(
+            rendererSize,
+            750,
+            renderClock,
+            spriteManager->get("start"),
+            spriteManager->get("train"),
+            spriteManager->get("high_score"),
+            spriteManager->get("my_scores"));
+    endMenu = std::make_unique<MenuLayout<2>>(
+            rendererSize,
+            750,
+            renderClock,
+            spriteManager->get("save_score"),
+            spriteManager->get("exit"));
     nameForm = std::make_unique<NameForm>(rendererSize, *spriteManager);
-    scoreMenu = std::make_unique<ScoreMenu>(rendererSize, *spriteManager, renderClock);
+    scoreMenu = std::make_unique<MenuLayout<3>>(
+            rendererSize,
+            750,
+            renderClock,
+            spriteManager->get("all_time"),
+            spriteManager->get("today"),
+            spriteManager->get("exit"));
+    myScoresMenu = std::make_unique<MenuLayout<3>>(
+            rendererSize,
+            750,
+            renderClock,
+            spriteManager->get("top_scores"),
+            spriteManager->get("latest_scores"),
+            spriteManager->get("exit"));
     topScoreBoard = std::make_unique<ScrollingScoreBoard>(rendererSize, scrollPxPerMs, *spriteManager, renderClock);
-    todayScoreBoard = std::make_unique<ScrollingScoreBoard>(rendererSize, scrollPxPerMs, *spriteManager, renderClock);
     levelOverlay = makeOverlay("level");
     gameOverOverlay = makeOverlay("gameover");
     levelsCompletedOverlay = makeOverlay("levels_completed");
@@ -327,10 +353,16 @@ void trippin::Game::render() {
         titleMenu->render();
     } else if (state == State::SCORE_MENU) {
         scoreMenu->render();
+    } else if (state == State::MY_SCORES_MENU) {
+        myScoresMenu->render();
     } else if (state == State::ALL_TIME_SCORES) {
         topScoreBoard->render();
     } else if (state == State::TODAY_SCORES) {
-        todayScoreBoard->render();
+        topScoreBoard->render();
+    } else if (state == State::MY_TOP_SCORES) {
+        topScoreBoard->render();
+    } else if (state == State::MY_LATEST_SCORES) {
+        topScoreBoard->render();
     } else if (state == State::LEVEL_TRANSITION) {
         levelOverlay->render();
     } else if (state == State::GAME_OVER) {
@@ -376,7 +408,7 @@ void trippin::Game::handle(UserInput::Event &event) {
             logStateChange("TITLE", "START_MENU");
         }
     } else if (state == State::START_MENU) {
-        if (titleMenu->startClicked(event.touchPoint)) {
+        if (titleMenu->contains(0, event.touchPoint)) {
             extraLives = configuration.extraLives;
             levelIndex = 0;
             score = 0;
@@ -391,7 +423,7 @@ void trippin::Game::handle(UserInput::Event &event) {
                         + ", tps=" + formatTps()
                         + ", fps=" + formatFps());
             advanceLevel();
-        } else if (titleMenu->trainClicked(event.touchPoint)) {
+        } else if (titleMenu->contains(1, event.touchPoint)) {
             score = 0;
             trainingStage = 0;
             trainingProgress = 0;
@@ -403,28 +435,61 @@ void trippin::Game::handle(UserInput::Event &event) {
                         + ", tps=" + formatTps()
                         + ", fps=" + formatFps());
             advanceLevel();
-        } else if (titleMenu->highScoreClicked(event.touchPoint)) {
+        } else if (titleMenu->contains(2, event.touchPoint)) {
             state = State::SCORE_MENU;
             scoreMenu->reset();
             logStateChange("START_MENU", "SCORE_MENU");
+        } else if (titleMenu->contains(3, event.touchPoint)) {
+            state = State::MY_SCORES_MENU;
+            myScoresMenu->reset();
+            logStateChange("START_MENU", "MY_SCORES_MENU");
         }
     } else if (state == State::SCORE_MENU) {
-        if (scoreMenu->exitClicked(event.touchPoint)) {
+        if (scoreMenu->contains(2, event.touchPoint)) {
             titleMenu->reset();
             state = State::START_MENU;
             logStateChange("SCORE_MENU", "START_MENU");
-        } else if (scoreMenu->allTimeClicked(event.touchPoint)) {
+        } else if (scoreMenu->contains(0, event.touchPoint)) {
             state = State::ALL_TIME_SCORES;
             topScoreBoard->reset();
             topScoreBoard->setScores(stagingArea->getTopScores(25));
             logStateChange("SCORE_MENU", "ALL_TIME_SCORES");
-        } else if (scoreMenu->todayClicked(event.touchPoint)) {
+        } else if (scoreMenu->contains(1, event.touchPoint)) {
             state = State::TODAY_SCORES;
-            todayScoreBoard->reset();
-            todayScoreBoard->setScores(stagingArea->getTodayScores(25));
+            topScoreBoard->reset();
+            topScoreBoard->setScores(stagingArea->getTodayScores(25));
             logStateChange("SCORE_MENU", "TODAY_SCORES");
         }
-    } else if (state == State::ALL_TIME_SCORES) {
+    } else if (state == State::MY_SCORES_MENU) {
+        if (myScoresMenu->contains(2, event.touchPoint)) {
+            titleMenu->reset();
+            state = State::START_MENU;
+            logStateChange("MY_SCORES_MENU", "START_MENU");
+        } else if (myScoresMenu->contains(0, event.touchPoint)) {
+            state = State::MY_TOP_SCORES;
+            topScoreBoard->reset();
+            topScoreBoard->setScores(myTopScores->getScores());
+            logStateChange("MY_SCORES_MENU", "MY_TOP_SCORES");
+        } else if (myScoresMenu->contains(1, event.touchPoint)) {
+            state = State::MY_LATEST_SCORES;
+            topScoreBoard->reset();
+            topScoreBoard->setScores(myLatestScores->getScores());
+            logStateChange("MY_SCORES_MENU", "MY_LATEST_SCORES");
+        }
+    } else if (state == State::ALL_TIME_SCORES
+               || state == State::TODAY_SCORES
+               || state == State::MY_TOP_SCORES
+               || state == State::MY_LATEST_SCORES) {
+        const char* prevLabel;
+        if (state == State::ALL_TIME_SCORES) {
+            prevLabel = "ALL_TIME_SCORES";
+        } else if (state == State::TODAY_SCORES) {
+            prevLabel = "TODAY_SCORES";
+        } else if (state == State::MY_TOP_SCORES) {
+            prevLabel = "MY_TOP_SCORES";
+        } else if (state == State::MY_LATEST_SCORES) {
+            prevLabel = "MY_LATEST_SCORES";
+        }
         if (event.anythingPressed()) {
             auto scoreClicked = topScoreBoard->onClick(event.touchPoint);
             if (scoreClicked) {
@@ -437,7 +502,7 @@ void trippin::Game::handle(UserInput::Event &event) {
                 replayExitOverlay->reset();
                 speedUpOverlay->reset();
                 logger->log(std::string("op=state_change")
-                            + ", prev=ALL_TIME_SCORES"
+                            + ", prev=" + prevLabel
                             + ", next=REPLAY"
                             + ", id=" + replayScore.id
                             + ", game=" + std::to_string(replayScore.game)
@@ -448,34 +513,7 @@ void trippin::Game::handle(UserInput::Event &event) {
             } else {
                 titleMenu->reset();
                 state = State::START_MENU;
-                logStateChange("ALL_TIME_SCORES", "START_MENU");
-            }
-        }
-    } else if (state == State::TODAY_SCORES) {
-        if (event.anythingPressed()) {
-            auto scoreClicked = todayScoreBoard->onClick(event.touchPoint);
-            if (scoreClicked) {
-                replayScore = *scoreClicked;
-                replayOffset = 0;
-                extraLives = configuration.extraLives;
-                levelIndex = 0;
-                score = 0;
-                state = State::REPLAY;
-                replayExitOverlay->reset();
-                speedUpOverlay->reset();
-                logger->log(std::string("op=state_change")
-                            + ", prev=TODAY_SCORES"
-                            + ", next=REPLAY"
-                            + ", id=" + replayScore.id
-                            + ", game=" + std::to_string(replayScore.game)
-                            + ", name=" + replayScore.name
-                            + ", tps=" + formatTps()
-                            + ", fps=" + formatFps());
-                advanceLevel();
-            } else {
-                titleMenu->reset();
-                state = State::START_MENU;
-                logStateChange("TODAY_SCORES", "START_MENU");
+                logStateChange(prevLabel, "START_MENU");
             }
         }
     } else if (state == State::REPLAY) {
@@ -679,11 +717,11 @@ void trippin::Game::handle(UserInput::Event &event) {
             advanceLevel();
         }
     } else if (state == State::END_MENU) {
-        if (endMenu->exitClicked(event.touchPoint)) {
+        if (endMenu->contains(1, event.touchPoint)) {
             titleMenu->reset();
             state = State::START_MENU;
             logStateChange("END_MENU", "START_MENU");
-        } else if (endMenu->saveClicked(event.touchPoint)) {
+        } else if (endMenu->contains(0, event.touchPoint)) {
             state = State::NAME_FORM;
             nameForm->reset();
             logStateChange("END_MENU", "NAME_FORM");
@@ -691,7 +729,10 @@ void trippin::Game::handle(UserInput::Event &event) {
     } else {
         nameForm->onClick(event.touchPoint);
         if (nameForm->nameEntered()) {
-            stagingArea->addScore({appId, gameId, score, nameForm->getName(), convertInputEvents()});
+            Score sc{appId, gameId, score, nameForm->getName(), convertInputEvents()};
+            stagingArea->addScore(sc);
+            myTopScores->addScore(sc);
+            myLatestScores->addScore(sc);
             state = State::START_MENU;
             titleMenu->reset();
             auto sum = std::accumulate(inputEvents.begin(), inputEvents.end(), 0, [](std::size_t sum, const auto &vec) {

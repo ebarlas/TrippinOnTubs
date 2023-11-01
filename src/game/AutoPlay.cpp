@@ -1,10 +1,10 @@
+#include <sstream>
 #include "AutoPlay.h"
 #include "sprite/Files.h"
 
 void trippin::AutoPlay::load(const std::string &name) {
-    auto in = readFile(getMapFile(name).c_str());
-    nlohmann::json j;
-    in >> j;
+    auto json = readFile(getMapFile(name).c_str());
+    auto j = nlohmann::json::parse(json);
     j.get_to(*this);
 }
 

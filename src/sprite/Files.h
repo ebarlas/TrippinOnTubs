@@ -1,11 +1,13 @@
 #ifndef TRIPPINONTUBS_FILES_H
 #define TRIPPINONTUBS_FILES_H
 
-#include <sstream>
+#include <string>
+#include <optional>
 
 namespace trippin {
-    constexpr int fileBufferSize = 128;
-    std::stringstream readFile(const char *fileName);
+    std::string readFile(const char *fileName);
+    std::optional<std::string> readPrefFile(const char *fileName);
+    bool writePrefFile(const char *fileName, const std::string &ss);
 }
 
 #endif
