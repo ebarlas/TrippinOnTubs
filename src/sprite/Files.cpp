@@ -1,5 +1,6 @@
 #include <sstream>
 #include <exception>
+#include <memory>
 #include "SDL.h"
 #include "Files.h"
 
