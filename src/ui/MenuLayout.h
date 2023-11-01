@@ -11,9 +11,11 @@ namespace trippin {
     template<std::size_t N>
     class MenuLayout {
     public:
-        template<typename... Sprites>
-        explicit
-        MenuLayout(Point<int> windowSize, Uint32 duration, const RenderClock &renderClock, Sprites &&... sprites);
+        MenuLayout(
+                Point<int> windowSize,
+                Uint32 duration,
+                const RenderClock &renderClock,
+                std::array<const Sprite *, N> sprites);
         void reset();
         void render();
         bool contains(int index, Point<int> point) const;
@@ -31,18 +33,16 @@ namespace trippin {
 }
 
 template<std::size_t N>
-template<typename... Sprites>
 trippin::MenuLayout<N>::MenuLayout(
         Point<int> windowSize,
         Uint32 duration,
         const RenderClock &renderClock,
-        Sprites &&... sprites):
+        std::array<const Sprite *, N> sprites):
         windowSize(windowSize),
         interpolator(renderClock, static_cast<int>(duration)) {
-    static_assert(sizeof...(sprites) == N);
-    int n = 0;
-    auto fn = [this, &n](const Sprite &s) { items[n++].sprite = &s; };
-    (fn(sprites), ...);
+    for (int i = 0; i < sprites.size(); i++) {
+        items[i].sprite = sprites[i];
+    }
     init();
 }
 

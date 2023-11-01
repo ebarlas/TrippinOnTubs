@@ -139,40 +139,48 @@ void trippin::Game::initOverlays() {
             rendererSize,
             750,
             renderClock,
-            spriteManager->get("start"),
-            spriteManager->get("train"),
-            spriteManager->get("high_score"),
-            spriteManager->get("my_scores"));
+            std::array<const Sprite *, 4>{
+                    &spriteManager->get("start"),
+                    &spriteManager->get("train"),
+                    &spriteManager->get("high_score"),
+                    &spriteManager->get("my_scores")});
     endMenu = std::make_unique<MenuLayout<2>>(
             rendererSize,
             750,
             renderClock,
-            spriteManager->get("save_score"),
-            spriteManager->get("exit"));
+            std::array<const Sprite *, 2>{
+                    &spriteManager->get("save_score"),
+                    &spriteManager->get("exit")});
     nameForm = std::make_unique<NameForm>(rendererSize, *spriteManager);
     scoreMenu = std::make_unique<MenuLayout<3>>(
             rendererSize,
             750,
             renderClock,
-            spriteManager->get("all_time"),
-            spriteManager->get("today"),
-            spriteManager->get("exit"));
+            std::array<const Sprite *, 3>{
+                    &spriteManager->get("all_time"),
+                    &spriteManager->get("today"),
+                    &spriteManager->get("exit")});
     myScoresMenu = std::make_unique<MenuLayout<3>>(
             rendererSize,
             750,
             renderClock,
-            spriteManager->get("top_scores"),
-            spriteManager->get("latest_scores"),
-            spriteManager->get("exit"));
+            std::array<const Sprite *, 3>{
+                    &spriteManager->get("top_scores"),
+                    &spriteManager->get("latest_scores"),
+                    &spriteManager->get("exit")});
     topScoreBoard = std::make_unique<ScrollingScoreBoard>(rendererSize, scrollPxPerMs, *spriteManager, renderClock);
     levelOverlay = makeOverlay("level");
     gameOverOverlay = makeOverlay("gameover");
     levelsCompletedOverlay = makeOverlay("levels_completed");
     trainingCompletedOverlay = makeOverlay("training_completed");
-    replayExitOverlay = std::make_unique<ExitOverlay>(rendererSize, configuration.meterMargin, spriteManager->get("exit"), renderClock, 750);
-    trainingExitOverlay = std::make_unique<ExitOverlay>(rendererSize, configuration.meterMargin, spriteManager->get("tap_flags_exit"), renderClock, 750);
-    playingExitOverlay = std::make_unique<ExitOverlay>(rendererSize, configuration.meterMargin, spriteManager->get("tap_score_exit"), renderClock, 750, 5'000);
-    speedUpOverlay = std::make_unique<SpeedUpOverlay>(rendererSize, configuration.meterMargin, *spriteManager, renderClock);
+    replayExitOverlay = std::make_unique<ExitOverlay>(rendererSize, configuration.meterMargin,
+                                                      spriteManager->get("exit"), renderClock, 750);
+    trainingExitOverlay = std::make_unique<ExitOverlay>(rendererSize, configuration.meterMargin,
+                                                        spriteManager->get("tap_flags_exit"), renderClock, 750);
+    playingExitOverlay = std::make_unique<ExitOverlay>(rendererSize, configuration.meterMargin,
+                                                       spriteManager->get("tap_score_exit"), renderClock, 750, 5'000);
+    speedUpOverlay = std::make_unique<SpeedUpOverlay>(rendererSize, configuration.meterMargin, *spriteManager,
+                                                      renderClock);
 }
 
 void trippin::Game::initClock() {
@@ -480,7 +488,7 @@ void trippin::Game::handle(UserInput::Event &event) {
                || state == State::TODAY_SCORES
                || state == State::MY_TOP_SCORES
                || state == State::MY_LATEST_SCORES) {
-        const char* prevLabel;
+        const char *prevLabel;
         if (state == State::ALL_TIME_SCORES) {
             prevLabel = "ALL_TIME_SCORES";
         } else if (state == State::TODAY_SCORES) {
