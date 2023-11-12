@@ -1,10 +1,14 @@
-import json
-import boto3
-import datetime
-import zoneinfo
-import re
 import base64
+import datetime
+import json
+import re
+import secrets
+import string
 import urllib.parse
+import zoneinfo
+
+import boto3
+import botocore
 
 client = boto3.client('dynamodb', region_name='us-west-2')
 
@@ -120,6 +124,33 @@ def zero_left_pad(s, size=5):
     return '0' * (size - len(s)) + s
 
 
+def random_code():
+    alphabet = string.ascii_uppercase + string.digits
+    return ''.join(secrets.choice(alphabet) for _ in range(6))
+
+
+def add_score_with_fallback(request):
+    try:
+        return add_score(request)
+    except botocore.exceptions.ClientError as e:
+        if e.response['Error']['Code'] == 'ConditionalCheckFailedException':
+            return get_code(request)
+        else:
+            raise e
+
+
+def get_code(request):
+    version, id, game = (request[k] for k in ['version', 'id', 'game'])
+    key = {
+        'pk': {'N': str(version)},
+        'sk': {'S': f'{id}/{game}'}
+    }
+    item = client.get_item(TableName='trippin-scores', Key=key, ConsistentRead=True)
+    code = item['Item']['code']['S']
+    print(f'loaded score, version={version}, id={id}, game={game}, code={code}')
+    return code
+
+
 def add_score(request):
     version = request['version']
     id = request['id']
@@ -127,6 +158,7 @@ def add_score(request):
     name = request['name']
     score = request['score']
     events = request['events']
+    code = random_code()
     day, daytime = cur_day_and_time()
     padded_score = zero_left_pad(str(score))
     item = {
@@ -136,10 +168,12 @@ def add_score(request):
         'score': {'N': str(score)},
         'dayscore': {'S': f'{day}/{padded_score}'},
         'date': {'S': f'{day} {daytime}'},
-        'events': {'S': to_json(events)},
+        'events': {'S': to_json_string(events)},
+        'code': {'S': code}
     }
-    client.put_item(TableName='trippin-scores', Item=item)
-    print(f'added score, id={id}, name={name}, score={score}')
+    client.put_item(TableName='trippin-scores', Item=item, ConditionExpression='attribute_not_exists(pk)')
+    print(f'added score, version={version}, id={id}, game={game}, name={name}, score={score}, code={code}')
+    return code
 
 
 def convert_item(item):
@@ -163,17 +197,21 @@ def convert(items):
     return [convert_item(i) for i in items]
 
 
-def to_json(val):
+def to_json_string(val):
     return json.dumps(val, separators=(',', ':'))
 
 
 def truncate_if_needed(items):
-    while len(j := to_json(items)) >= 40_000:
+    while len(j := to_json_string(items)) >= 40_000:
         del items[-1]  # remove trailing item until under 40 KB limit
     return j
 
 
-def to_response(items):
+def to_scores_response(items):
+    return to_json_response(truncate_if_needed(items))
+
+
+def to_json_response(body):
     return {
         'status': '200',
         'statusDescription': 'OK',
@@ -185,7 +223,7 @@ def to_response(items):
                 }
             ]
         },
-        'body': truncate_if_needed(items)
+        'body': body
     }
 
 
@@ -270,7 +308,7 @@ def lambda_handler(event, context):
         last_params = extract_last(request)
         start_key = day_start_key(version, day, *last_params)
         no_events = extract_no_events_param(request)
-        return to_response(convert(top_today_scores(version, day, limit, start_key, no_events)))
+        return to_scores_response(convert(top_today_scores(version, day, limit, start_key, no_events)))
 
     if request['method'] == 'GET' and '/scores/alltime' in request['uri']:
         version = extract_version_param(request)
@@ -278,13 +316,13 @@ def lambda_handler(event, context):
         last_params = extract_last(request)
         start_key = all_time_start_key(version, *last_params)
         no_events = extract_no_events_param(request)
-        return to_response(convert(top_scores(version, limit, start_key, no_events)))
+        return to_scores_response(convert(top_scores(version, limit, start_key, no_events)))
 
     if request['method'] == 'POST' and '/scores' in request['uri']:
         if not validate_add(request):
             return {'status': '400', 'statusDescription': 'Bad Request'}
-        add_score(extract_add_body(request))
-        return {'status': '200', 'statusDescription': 'OK'}
+        score_code = add_score_with_fallback(extract_add_body(request))
+        return to_json_response(to_json_string({'code': score_code}))
 
     return {
         'status': '404',
