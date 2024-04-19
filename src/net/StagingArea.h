@@ -5,6 +5,7 @@
 #include <vector>
 #include <unordered_map>
 #include <mutex>
+#include <optional>
 #include "Score.h"
 #include "LogEvent.h"
 
