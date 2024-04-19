@@ -10,16 +10,22 @@
     <link rel="shortcut icon" href="favicon.ico">
     <link rel="stylesheet" href="pico.min.css">
     <title>High Scores</title>
+    <style>
+        a.active {
+            font-weight: bold;
+        }
+    </style>
 </head>
 <body>
 <main class="container">
     <nav>
         <ul>
-            <li><strong id="txt_label">All-Time High Scores</strong></li>
+            <li><a href="#" id="a_alltime" class="active">All-Time</a></li>
+            <li><a href="#" id="a_today">Today</a></li>
         </ul>
         <ul>
-            <li><a href="#" id="a_alltime">All-Time</a></li>
-            <li><a href="#" id="a_today">Today</a></li>
+            <li><a id="season1" href="highscores.html?version=4">Season 1</a></li>
+            <li><a id="season2" href="highscores.html">Season 2</a></li>
         </ul>
     </nav>
     <table id="tbl_alltime" role="grid">
@@ -49,6 +55,22 @@
 </main>
 </body>
 <script>
+    const latestVersion = "5";
+    const params = new URLSearchParams(window.location.search);
+    const versionParam = params.get("version");
+    const targetVersion = versionParam ? versionParam.toString() : latestVersion;
+
+    if (targetVersion === latestVersion) {
+        setActive('season2', 'season1');
+    } else {
+        setActive('season1', 'season2');
+    }
+
+    function setActive(active, inactive) {
+        document.getElementById(active).classList.add('active');
+        document.getElementById(inactive).classList.remove('active');
+    }
+
     function addCell(row, text) {
         const cell = row.insertCell();
         cell.appendChild(document.createTextNode(text));
@@ -88,21 +110,17 @@
         document.getElementById(hideId).style.display = 'none';
     }
 
-    function setLabel(text) {
-        document.getElementById('txt_label').innerText = text;
-    }
-
-    const qs = '?version=4&no_events=true&limit=50';
+    const qs = `?version=${targetVersion}&no_events=true&limit=50`;
     loadScores(`/scores/alltime${qs}`, (scores) => {addScores(scores, 'tb_alltime')});
     loadScores(`/scores/today${qs}`, (scores) => {addScores(scores, 'tb_today')});
 
     addClickHandler('a_alltime', () => {
-        setLabel('All-Time High Scores');
+        setActive('a_alltime', 'a_today');
         toggle('tbl_alltime', 'tbl_today');
     });
 
     addClickHandler('a_today', () => {
-        setLabel('Today High Scores');
+        setActive('a_today', 'a_alltime');
         toggle('tbl_today', 'tbl_alltime');
     });
 </script>
