@@ -78,19 +78,19 @@ static int runQueryScoresLoop(Transport transport, std::weak_ptr<StagingArea> st
 
     while (!stagingArea.expired()) {
         auto top = transport.topScores();
-        if (top.ok) {
+        if (top) {
             if (auto sa = stagingArea.lock()) {
-                sa->setTopScores(top.scores);
+                sa->setTopScores(*top);
             }
-            SDL_Log("set top scores in staging area, count=%lu", top.scores.size());
+            SDL_Log("set top scores in staging area, count=%lu", top->size());
         }
 
         auto today = transport.todayScores();
-        if (today.ok) {
+        if (today) {
             if (auto sa = stagingArea.lock()) {
-                sa->setTodayScores(today.scores);
+                sa->setTodayScores(*today);
             }
-            SDL_Log("set today scores in staging area, count=%lu", today.scores.size());
+            SDL_Log("set today scores in staging area, count=%lu", today->size());
         }
 
         std::this_thread::sleep_for(std::chrono::minutes(1));

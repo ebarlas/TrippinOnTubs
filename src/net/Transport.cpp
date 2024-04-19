@@ -8,15 +8,15 @@ trippin::Transport::Transport(std::string host, int port, int version, int limit
 
 }
 
-trippin::Transport::Scores trippin::Transport::topScores() const {
-    return sendRequest("/scores/alltime");
+std::optional<std::vector<trippin::Score>> trippin::Transport::topScores() const {
+    return getScores("/scores/alltime");
 }
 
-trippin::Transport::Scores trippin::Transport::todayScores() const {
-    return sendRequest("/scores/today");
+std::optional<std::vector<trippin::Score>> trippin::Transport::todayScores() const {
+    return getScores("/scores/today");
 }
 
-trippin::Transport::Scores trippin::Transport::sendRequest(const std::string &uri) const {
+std::optional<std::vector<trippin::Score>> trippin::Transport::getScores(const std::string &uri) const {
     Tcp tcp(host, port);
     auto sock = tcp.get();
     if (sock == nullptr) {
@@ -38,31 +38,23 @@ trippin::Transport::Scores trippin::Transport::sendRequest(const std::string &ur
     tcp.send(msg);
     std::string response = tcp.receive(1'024 * 64);
 
-    auto f = response.find("\r\n\r\n");
-    if (f == std::string::npos) {
-        SDL_Log("response parse delimiter not found");
-        return {};
-    }
-
-    Scores scores;
-    auto json = response.substr(f + 4);
     try {
-        nlohmann::json j = nlohmann::json::parse(json);
-        j.get_to(scores.scores);
-        scores.ok = true;
+        nlohmann::json j = parseResponse(response);
+        std::vector<trippin::Score> scores;
+        j.get_to(scores);
+        return {std::move(scores)};
     } catch (nlohmann::json::exception &e) {
         SDL_Log("json parse error, message=%s", e.what());
-        scores.ok = false;
     }
 
-    return scores;
+    return {};
 }
 
-bool trippin::Transport::addScore(const Score &score) const {
+std::optional<std::string> trippin::Transport::addScore(const Score &score) const {
     Tcp tcp(host, port);
     auto sock = tcp.get();
     if (sock == nullptr) {
-        return false;
+        return {};
     }
 
     nlohmann::json j = score.to_json();
@@ -91,7 +83,22 @@ bool trippin::Transport::addScore(const Score &score) const {
 
     tcp.send(msg);
     std::string response = tcp.receive(4'096);
-    return response.find(" 200 OK") != std::string::npos;
+    if (response.find(" 200 OK") != std::string::npos) {
+        return {};
+    }
+
+    try {
+        nlohmann::json body = parseResponse(response);
+        if (body.contains("code")) {
+            std::string code;
+            body.at("code").get_to(code);
+            return {code};
+        }
+    } catch (nlohmann::json::exception &e) {
+        SDL_Log("json parse error, message=%s", e.what());
+    }
+
+    return {};
 }
 
 bool trippin::Transport::addLogEvent(const LogEvent &event) const {
@@ -130,4 +137,14 @@ bool trippin::Transport::addLogEvent(const LogEvent &event) const {
     tcp.send(msg);
     std::string response = tcp.receive(4'096);
     return response.find(" 200 OK") != std::string::npos;
+}
+
+nlohmann::json trippin::Transport::parseResponse(std::string &response) {
+    auto f = response.find("\r\n\r\n");
+    if (f == std::string::npos) {
+        SDL_Log("response parse delimiter not found");
+        return {};
+    }
+    auto body = response.substr(f + 4);
+    return nlohmann::json::parse(body);
 }

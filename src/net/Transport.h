@@ -3,22 +3,18 @@
 
 #include <string>
 #include <vector>
+#include <optional>
 #include "Score.h"
 #include "LogEvent.h"
 
 namespace trippin {
     class Transport {
     public:
-        struct Scores {
-            std::vector<Score> scores;
-            bool ok{};
-        };
-
         Transport(std::string host, int port, int version, int limit);
-        bool addScore(const Score &score) const;
+        std::optional<std::string> addScore(const Score &score) const;
         bool addLogEvent(const LogEvent &event) const;
-        Scores topScores() const;
-        Scores todayScores() const;
+        std::optional<std::vector<Score>> topScores() const;
+        std::optional<std::vector<Score>> todayScores() const;
     private:
         const std::string host;
         const int port;
@@ -26,7 +22,8 @@ namespace trippin {
         const int limit;
         static std::vector<int> compress(const std::vector<Score::InputEvent> &events);
         static std::vector<std::vector<int>> compress(const std::vector<std::vector<Score::InputEvent>> &vecs);
-        Scores sendRequest(const std::string &uri) const;
+        std::optional<std::vector<Score>> getScores(const std::string &uri) const;
+        static nlohmann::json parseResponse(std::string &response);
     };
 }
 

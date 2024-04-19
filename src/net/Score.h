@@ -49,6 +49,7 @@ namespace trippin {
         int score;
         std::string name;
         std::vector<std::vector<InputEvent>> events;
+        std::string code;
 
         bool operator==(const Score &ds) const {
             return id == ds.id && game == ds.game;
@@ -80,6 +81,9 @@ namespace trippin {
             j["name"] = name;
             j["score"] = score;
             j["events"] = compress();
+            if (!code.empty()) {
+                j["code"] = code;
+            }
             return j;
         }
     };
@@ -103,6 +107,9 @@ namespace trippin {
         j.at("name").get_to(score.name);
         j.at("score").get_to(score.score);
         j.at("events").get_to(score.events);
+        if (j.contains("code")) {
+            j.at("code").get_to(score.code);
+        }
     }
 }
 

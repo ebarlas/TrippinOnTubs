@@ -3,6 +3,7 @@
 
 #include <string>
 #include <vector>
+#include <unordered_map>
 #include <mutex>
 #include "Score.h"
 #include "LogEvent.h"
@@ -14,6 +15,8 @@ namespace trippin {
         void addLogEvent(const LogEvent &logEvent);
         void setTodayScores(std::vector<Score> scores);
         void setTopScores(std::vector<Score> scores);
+        void setScoreCode(const Score &score, const std::string &code);
+        std::optional<std::string> getScoreCode(const Score &score) const;
         std::vector<Score> takeAddedScores();
         std::vector<LogEvent> takeAddedLogEvents();
         std::vector<Score> getTodayScores(int limit) const;
@@ -26,6 +29,7 @@ namespace trippin {
         std::vector<Score> todayScores;
         std::vector<Score> topScores;
         std::vector<LogEvent> outgoingLogEvents;
+        std::unordered_map<std::string, std::string> scoreCodes;
         bool todaySet{};
         bool topSet{};
         static std::vector<Score> combine(

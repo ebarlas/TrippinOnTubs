@@ -56,7 +56,7 @@ std::vector<trippin::Score> trippin::StagingArea::combine(
     auto fn = [](const Score &left, const Score &right) {
         return left.score > right.score;
     };
-    for (auto &sc : unsorted) {
+    for (auto &sc: unsorted) {
         if (std::find(scores.begin(), scores.end(), sc) == scores.end()) {
             scores.insert(std::upper_bound(scores.begin(), scores.end(), sc, fn), sc);
         }
@@ -69,4 +69,17 @@ std::vector<trippin::Score> trippin::StagingArea::combine(
 
 bool trippin::StagingArea::bothSet() const {
     return topSet && todaySet;
+}
+
+void trippin::StagingArea::setScoreCode(const Score &score, const std::string &code) {
+    std::lock_guard<std::mutex> lock(mutex);
+    std::string key = score.id + std::to_string(score.game);
+    scoreCodes[key] = code;
+}
+
+std::optional<std::string> trippin::StagingArea::getScoreCode(const Score &score) const {
+    std::lock_guard<std::mutex> lock(mutex);
+    std::string key = score.id + std::to_string(score.game);
+    auto search = scoreCodes.find(key);
+    return search == scoreCodes.end() ? std::optional<std::string>{} : search->second;
 }
