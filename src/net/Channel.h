@@ -4,6 +4,7 @@
 #include <queue>
 #include <optional>
 #include <mutex>
+#include <condition_variable>
 
 namespace trippin {
     template<class T>
