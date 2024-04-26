@@ -2,26 +2,35 @@
 #define TRIPPIN_MYSCORES_H
 
 #include <vector>
+#include "net/Channel.h"
 #include "net/Score.h"
 
 namespace trippin {
     class MyScores {
     public:
-        enum class Type {
-            top,
-            latest
+        MyScores(int version, unsigned long limit);
+        void start();
+        void addScore(const Score &score);
+        [[nodiscard]] std::vector<Score> getLatestScores() const;
+        [[nodiscard]] std::vector<Score> getTopScores() const;
+    private:
+        struct Scores {
+            std::string filename;
+            std::vector<Score> scores;
         };
 
-        MyScores(Type type, int version, int limit);
-        void addScore(const Score &score);
-        std::vector<Score> getScores() const;
-    private:
-        const Type type;
         const int version;
-        const int limit;
-        std::vector<Score> scores;
+        const unsigned long limit;
+        Channel<Score> channel;
+        Scores latestScores;
+        Scores topScores;
 
-        std::string fileName() const;
+        static std::string fileName(std::string_view type, int version);
+        static void loadScores(Scores &scores);
+        void run();
+        void addLatestScore(const trippin::Score &score);
+        void addTopScore(const trippin::Score &score);
+        void resizeAndStore(std::string &filename, std::vector<Score> &scores) const;
     };
 }
 

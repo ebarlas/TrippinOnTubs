@@ -91,8 +91,7 @@ namespace trippin {
         std::unique_ptr<SimpleOverlay> levelsCompletedOverlay;
         std::unique_ptr<SimpleOverlay> trainingCompletedOverlay;
         std::shared_ptr<StagingArea> stagingArea;
-        std::unique_ptr<MyScores> myLatestScores;
-        std::unique_ptr<MyScores> myTopScores;
+        std::unique_ptr<MyScores> myScores;
         Rect<int> scoreArea;
         Rect<int> flagsArea;
         RenderClock renderClock;

@@ -1,12 +1,46 @@
 #include <sstream>
+#include <thread>
 #include "MyScores.h"
 #include "sprite/Files.h"
 #include "SDL.h"
 
-trippin::MyScores::MyScores(trippin::MyScores::Type type, int version, int limit)
-        : type(type), version(version), limit(limit) {
-    auto fn = fileName();
-    auto json = readPrefFile(fn.c_str());
+void trippin::MyScores::start() {
+    auto t = std::thread(&MyScores::run, this);
+    t.detach();
+}
+
+void trippin::MyScores::run() {
+    unsigned long count = 0;
+    while (true) {
+        auto score = channel.take();
+        if (!score) {
+            break;
+        }
+        addLatestScore(*score);
+        addTopScore(*score);
+        count++;
+        SDL_Log("added my score, count=%lu, score=%d, name=%s", count, score->score, score->name.c_str());
+    }
+}
+
+trippin::MyScores::MyScores(int version, unsigned long limit) :
+        version(version),
+        limit(limit),
+        latestScores{fileName("latest_", version), {}},
+        topScores{fileName("top_", version), {}} {
+    loadScores(latestScores);
+    loadScores(topScores);
+}
+
+std::string trippin::MyScores::fileName(std::string_view type, int version) {
+    std::stringstream fileName;
+    fileName << "scores_" << type << version << ".json";
+    return fileName.str();
+}
+
+void trippin::MyScores::loadScores(Scores &sc) {
+    auto& [filename, scores] = sc;
+    auto json = readPrefFile(filename.c_str());
     if (json) {
         auto j = nlohmann::json::parse(*json);
         try {
@@ -17,28 +51,39 @@ trippin::MyScores::MyScores(trippin::MyScores::Type type, int version, int limit
     }
 }
 
-std::string trippin::MyScores::fileName() const {
-    std::stringstream fileName;
-    fileName << "scores_" << (type == Type::top ? "top_" : "latest_") << version << ".json";
-    return fileName.str();
-}
-
 static bool scoreOrder(const trippin::Score &left, const trippin::Score &right) {
     return left.score > right.score;
 }
 
 void trippin::MyScores::addScore(const trippin::Score &score) {
-    auto at = type == Type::latest
-            ? scores.begin()
-            : std::upper_bound(scores.begin(), scores.end(), score, scoreOrder);
+    channel.put(score);
+}
+
+void trippin::MyScores::addLatestScore(const trippin::Score &score) {
+    auto& [filename, scores] = latestScores;
+    auto at = scores.begin();
     scores.insert(at, score);
+    resizeAndStore(filename, scores);
+}
+
+void trippin::MyScores::addTopScore(const trippin::Score &score) {
+    auto& [filename, scores] = topScores;
+    auto at = std::upper_bound(scores.begin(), scores.end(), score, scoreOrder);
+    scores.insert(at, score);
+    resizeAndStore(filename, scores);
+}
+
+void trippin::MyScores::resizeAndStore(std::string &filename, std::vector<Score> &scores) const {
     if (scores.size() > limit) {
         scores.resize(limit);
     }
-    auto fn = fileName();
-    writePrefFile(fn.c_str(), nlohmann::json(scores).dump());
+    writePrefFile(filename.c_str(), nlohmann::json(scores).dump());
 }
 
-std::vector<trippin::Score> trippin::MyScores::getScores() const {
-    return scores;
+std::vector<trippin::Score> trippin::MyScores::getLatestScores() const {
+    return latestScores.scores;
+}
+
+std::vector<trippin::Score> trippin::MyScores::getTopScores() const {
+    return topScores.scores;
 }

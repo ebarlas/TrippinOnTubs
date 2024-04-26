@@ -75,8 +75,8 @@ void trippin::Game::initDbSynchronizer() {
     DbSynchronizer::startAddScoresThread(transport, stagingArea);
     DbSynchronizer::startAddLogEventsThread(transport, stagingArea);
     DbSynchronizer::startQueryScoresThread(std::move(transport), stagingArea);
-    myTopScores = std::make_unique<MyScores>(MyScores::Type::top, configuration.version.major, 10);
-    myLatestScores = std::make_unique<MyScores>(MyScores::Type::latest, configuration.version.major, 10);
+    myScores = std::make_unique<MyScores>(configuration.version.major, 10);
+    myScores->start();
 }
 
 void trippin::Game::initConfiguration() {
@@ -476,12 +476,12 @@ void trippin::Game::handle(UserInput::Event &event) {
         } else if (myScoresMenu->contains(0, event.touchPoint)) {
             state = State::MY_TOP_SCORES;
             topScoreBoard->reset();
-            topScoreBoard->setScores(myTopScores->getScores());
+            topScoreBoard->setScores(myScores->getTopScores());
             logStateChange("MY_SCORES_MENU", "MY_TOP_SCORES");
         } else if (myScoresMenu->contains(1, event.touchPoint)) {
             state = State::MY_LATEST_SCORES;
             topScoreBoard->reset();
-            topScoreBoard->setScores(myLatestScores->getScores());
+            topScoreBoard->setScores(myScores->getLatestScores());
             logStateChange("MY_SCORES_MENU", "MY_LATEST_SCORES");
         }
     } else if (state == State::ALL_TIME_SCORES
@@ -739,8 +739,7 @@ void trippin::Game::handle(UserInput::Event &event) {
         if (nameForm->nameEntered()) {
             Score sc{appId, gameId, score, nameForm->getName(), convertInputEvents()};
             stagingArea->addScore(sc);
-            myTopScores->addScore(sc);
-            myLatestScores->addScore(sc);
+            myScores->addScore(sc);
             state = State::START_MENU;
             titleMenu->reset();
             auto sum = std::accumulate(inputEvents.begin(), inputEvents.end(), 0, [](std::size_t sum, const auto &vec) {
