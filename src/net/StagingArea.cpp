@@ -1,15 +1,13 @@
 #include <algorithm>
+#include <thread>
+#include "SDL.h"
 #include "StagingArea.h"
+
+trippin::StagingArea::StagingArea(trippin::Transport &transport) : transport(transport) {}
 
 void trippin::StagingArea::addScore(const Score &score) {
     std::lock_guard<std::mutex> lock(mutex);
     addedScores.push_back(score);
-    outgoingScores.push_back(score);
-}
-
-void trippin::StagingArea::addLogEvent(const LogEvent &logEvent) {
-    std::lock_guard<std::mutex> lock(mutex);
-    outgoingLogEvents.push_back(logEvent);
 }
 
 void trippin::StagingArea::setTodayScores(std::vector<Score> scores) {
@@ -34,20 +32,6 @@ std::vector<trippin::Score> trippin::StagingArea::getTopScores(int limit) const 
     return combine(topScores, addedScores, limit);
 }
 
-std::vector<trippin::Score> trippin::StagingArea::takeAddedScores() {
-    std::lock_guard<std::mutex> lock(mutex);
-    std::vector<Score> scores = std::move(outgoingScores);
-    outgoingScores.clear();
-    return scores;
-}
-
-std::vector<trippin::LogEvent> trippin::StagingArea::takeAddedLogEvents() {
-    std::lock_guard<std::mutex> lock(mutex);
-    std::vector<LogEvent> events = std::move(outgoingLogEvents);
-    outgoingLogEvents.clear();
-    return events;
-}
-
 std::vector<trippin::Score> trippin::StagingArea::combine(
         const std::vector<Score> &sorted,
         const std::vector<Score> &unsorted,
@@ -69,4 +53,26 @@ std::vector<trippin::Score> trippin::StagingArea::combine(
 
 bool trippin::StagingArea::bothSet() const {
     return topSet && todaySet;
+}
+
+void trippin::StagingArea::start() {
+    auto in = std::thread(&StagingArea::run, this);
+    in.detach();
+}
+
+void trippin::StagingArea::run() {
+    SDL_Log("entering query scores loop");
+    while (true) {
+        auto top = transport.topScores();
+        if (top.ok) {
+            setTopScores(top.scores);
+            SDL_Log("set top scores in staging area, count=%lu", top.scores.size());
+        }
+        auto today = transport.todayScores();
+        if (today.ok) {
+            setTodayScores(today.scores);
+            SDL_Log("set today scores in staging area, count=%lu", today.scores.size());
+        }
+        std::this_thread::sleep_for(std::chrono::minutes(1));
+    }
 }

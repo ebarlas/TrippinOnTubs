@@ -8,6 +8,7 @@ namespace trippin {
     std::string readFile(const char *fileName);
     std::optional<std::string> readPrefFile(const char *fileName);
     bool writePrefFile(const char *fileName, const std::string &ss);
+    bool appendPrefFile(const char *fileName, const std::string &ss);
 }
 
 #endif

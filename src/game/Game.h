@@ -26,6 +26,7 @@
 #include "UserInput.h"
 #include "Random.h"
 #include "MyScores.h"
+#include "Db.h"
 
 namespace trippin {
     class Game {
@@ -90,8 +91,11 @@ namespace trippin {
         std::unique_ptr<SimpleOverlay> gameOverOverlay;
         std::unique_ptr<SimpleOverlay> levelsCompletedOverlay;
         std::unique_ptr<SimpleOverlay> trainingCompletedOverlay;
-        std::shared_ptr<StagingArea> stagingArea;
+        std::unique_ptr<StagingArea> stagingArea;
         std::unique_ptr<MyScores> myScores;
+        std::unique_ptr<Transport> transport;
+        std::unique_ptr<Db<Score>> scoreDb;
+        std::unique_ptr<Db<LogEvent>> logDb;
         Rect<int> scoreArea;
         Rect<int> flagsArea;
         RenderClock renderClock;

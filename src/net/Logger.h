@@ -2,15 +2,15 @@
 #define TRIPPIN_LOGGER_H
 
 #include <string>
-#include "net/StagingArea.h"
+#include "LogEvent.h"
 
 namespace trippin {
     class Logger {
     public:
-        Logger(StagingArea &stagingArea, std::string appId);
+        Logger(std::function<void(const LogEvent&)> logFn, std::string appId);
         void log(const std::string &message);
     private:
-        StagingArea &stagingArea;
+        std::function<void(const LogEvent&)> logFn;
         const std::string appId;
         int counter;
     };

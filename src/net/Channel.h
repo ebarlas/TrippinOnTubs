@@ -12,7 +12,7 @@ namespace trippin {
     public:
         std::optional<T> take() {
             std::unique_lock lock(mutex);
-            cv.wait(lock, [this]{ return closed || !queue.empty(); });
+            cv.wait(lock, [this] { return closed || !queue.empty(); });
             if (closed) {
                 return {};
             }
@@ -20,6 +20,7 @@ namespace trippin {
             queue.pop();
             return e;
         }
+
         bool put(T elem) {
             {
                 std::lock_guard lock(mutex);
@@ -31,6 +32,7 @@ namespace trippin {
             cv.notify_one();
             return true;
         }
+
         void close() {
             {
                 std::unique_lock lk(mutex);
@@ -38,6 +40,7 @@ namespace trippin {
             }
             cv.notify_all();
         }
+
     private:
         std::queue<T> queue;
         std::mutex mutex;

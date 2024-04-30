@@ -5,7 +5,6 @@
 #include "SDL_syswm.h"
 #include "SDL_mixer.h"
 #include "Game.h"
-#include "net/DbSynchronizer.h"
 #include "UserInput.h"
 
 void trippin::Game::init() {
@@ -45,7 +44,7 @@ void trippin::Game::initAppId() {
 }
 
 void trippin::Game::initLogger() {
-    logger = std::make_unique<Logger>(*stagingArea, appId);
+    logger = std::make_unique<Logger>([this](const LogEvent& e){logDb->add(e);}, appId);
     SDL_DisplayMode displayMode;
     SDL_GetDisplayMode(0, 0, &displayMode);
     auto platform = SDL_GetPlatform();
@@ -65,18 +64,58 @@ void trippin::Game::initLogger() {
     logger->log(ss.str());
 }
 
+namespace trippin {
+    void to_json(nlohmann::json &j, const trippin::Db<Score>::Event &event) {
+        j["val"] = event.val;
+        j["add"] = event.add;
+    }
+
+    void from_json(const nlohmann::json &j, trippin::Db<Score>::Event &event) {
+        j.at("val").get_to(event.val);
+        j.at("add").get_to(event.add);
+    }
+
+    void to_json(nlohmann::json &j, const trippin::Db<LogEvent>::Event &event) {
+        j["val"] = event.val;
+        j["add"] = event.add;
+    }
+
+    void from_json(const nlohmann::json &j, trippin::Db<LogEvent>::Event &event) {
+        j.at("val").get_to(event.val);
+        j.at("add").get_to(event.add);
+    }
+};
+
 void trippin::Game::initDbSynchronizer() {
-    stagingArea = std::make_shared<StagingArea>();
-    Transport transport(
+    transport = std::make_unique<Transport>(
             configuration.db.host,
             configuration.db.port,
             configuration.version.major,
             configuration.highScores);
-    DbSynchronizer::startAddScoresThread(transport, stagingArea);
-    DbSynchronizer::startAddLogEventsThread(transport, stagingArea);
-    DbSynchronizer::startQueryScoresThread(std::move(transport), stagingArea);
+    stagingArea = std::make_unique<StagingArea>(*transport);
+    stagingArea->start();
     myScores = std::make_unique<MyScores>(configuration.version.major, 10);
     myScores->start();
+    scoreDb = std::make_unique<Db<Score>>("scores", configuration.version.major, [t = transport.get()](const Score &s) {
+        if (t->addScore(s)) {
+            SDL_Log("added score, id=%s, game=%d, name=%s, score=%d", s.id.c_str(), s.game, s.name.c_str(), s.score);
+            return true;
+        } else {
+            SDL_Log("failed to add score, id=%s, game=%d, name=%s, score=%d", s.id.c_str(), s.game, s.name.c_str(), s.score);
+            return false;
+        }
+    });
+    scoreDb->start();
+    logDb = std::make_unique<Db<LogEvent>>("logs", configuration.version.major, [t = transport.get()](const LogEvent &e) {
+        if (t->addLogEvent(e)) {
+            SDL_Log("sent log event, index=%d", e.index);
+            return true;
+        } else {
+            SDL_Log("failed to send log event, index=%d", e.index);
+            return false;
+        }
+    });
+    logDb->start();
 }
 
 void trippin::Game::initConfiguration() {
@@ -739,6 +778,7 @@ void trippin::Game::handle(UserInput::Event &event) {
         if (nameForm->nameEntered()) {
             Score sc{appId, gameId, score, nameForm->getName(), convertInputEvents()};
             stagingArea->addScore(sc);
+            scoreDb->add(sc);
             myScores->addScore(sc);
             state = State::START_MENU;
             titleMenu->reset();
