@@ -295,6 +295,23 @@ GET /scores/alltime
 GET /scores/today
 ```
 
+# Journal Files
+
+Remote logging and high score events outlined above are staged in a local journal
+file prior to remote server upload. Local disk persistence allows the application to
+tolerate and recover from a loss of network connectivity and premature application
+stoppage.
+
+Journal file I/O and remote server network I/O occur in their own threads, isolated
+from other parts of the application including the main render thread.
+
+1. Add add-event to journal [channel](src/net/Channel.h)
+2. Journal thread takes add-event from channel and adds to journal file
+3. Journal thread adds event to dispatch channel
+4. Dispatch thread takes from dispatch channel and uploads to remote server
+5. On success, dispatch thread adds ack-event to journal channel
+6. Journal thread takes ack-event from channel and adds to journal file
+
 # Website
 
 www.trippinontubs.com is the official game website.
