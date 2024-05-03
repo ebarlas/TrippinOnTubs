@@ -1,27 +1,7 @@
 #include <sstream>
-#include <thread>
 #include "MyScores.h"
 #include "sprite/Files.h"
 #include "SDL.h"
-
-void trippin::MyScores::start() {
-    auto t = std::thread(&MyScores::run, this);
-    t.detach();
-}
-
-void trippin::MyScores::run() {
-    unsigned long count = 0;
-    while (true) {
-        auto score = channel.take();
-        if (!score) {
-            break;
-        }
-        addLatestScore(*score);
-        addTopScore(*score);
-        count++;
-        SDL_Log("added my score, count=%lu, score=%d, name=%s", count, score->score, score->name.c_str());
-    }
-}
 
 trippin::MyScores::MyScores(int version, unsigned long limit) :
         version(version),
@@ -56,7 +36,8 @@ static bool scoreOrder(const trippin::Score &left, const trippin::Score &right) 
 }
 
 void trippin::MyScores::addScore(const trippin::Score &score) {
-    channel.put(score);
+    addLatestScore(score);
+    addTopScore(score);
 }
 
 void trippin::MyScores::addLatestScore(const trippin::Score &score) {

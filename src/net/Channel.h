@@ -21,7 +21,7 @@ namespace trippin {
             return e;
         }
 
-        bool put(T elem) {
+        bool put(const T& elem) {
             {
                 std::lock_guard lock(mutex);
                 if (closed) {

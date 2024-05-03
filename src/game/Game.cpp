@@ -44,7 +44,7 @@ void trippin::Game::initAppId() {
 }
 
 void trippin::Game::initLogger() {
-    logger = std::make_unique<Logger>([this](const LogEvent& e){logDb->add(e);}, appId);
+    logger = std::make_unique<Logger>([this](const LogEvent &e) { logDb->add(e); }, appId);
     SDL_DisplayMode displayMode;
     SDL_GetDisplayMode(0, 0, &displayMode);
     auto platform = SDL_GetPlatform();
@@ -95,18 +95,24 @@ void trippin::Game::initDbSynchronizer() {
     stagingArea = std::make_unique<StagingArea>(*transport);
     stagingArea->start();
     myScores = std::make_unique<MyScores>(configuration.version.major, 10);
-    myScores->start();
-    scoreDb = std::make_unique<Db<Score>>("scores", configuration.version.major, [t = transport.get()](const Score &s) {
+    auto scoreAddCallback = [m = myScores.get()](const Score &s) {
+        m->addScore(s);
+    };
+    auto scoreDispatchFn = [t = transport.get()](const Score &s) {
+        auto id = s.id.c_str();
+        auto name = s.name.c_str();
         if (t->addScore(s)) {
-            SDL_Log("added score, id=%s, game=%d, name=%s, score=%d", s.id.c_str(), s.game, s.name.c_str(), s.score);
+            SDL_Log("added score, id=%s, game=%d, name=%s, score=%d", id, s.game, name, s.score);
             return true;
         } else {
-            SDL_Log("failed to add score, id=%s, game=%d, name=%s, score=%d", s.id.c_str(), s.game, s.name.c_str(), s.score);
+            SDL_Log("failed to add score, id=%s, game=%d, name=%s, score=%d", id, s.game, name, s.score);
             return false;
         }
-    });
+    };
+    scoreDb = std::make_unique<Db<Score>>("scores", configuration.version.major, scoreAddCallback, scoreDispatchFn);
     scoreDb->start();
-    logDb = std::make_unique<Db<LogEvent>>("logs", configuration.version.major, [t = transport.get()](const LogEvent &e) {
+    auto logAddCallback = [](const LogEvent &e) {};
+    auto logDispatchFn = [t = transport.get()](const LogEvent &e) {
         if (t->addLogEvent(e)) {
             SDL_Log("sent log event, index=%d", e.index);
             return true;
@@ -114,7 +120,8 @@ void trippin::Game::initDbSynchronizer() {
             SDL_Log("failed to send log event, index=%d", e.index);
             return false;
         }
-    });
+    };
+    logDb = std::make_unique<Db<LogEvent>>("logs", configuration.version.major, logAddCallback, logDispatchFn);
     logDb->start();
 }
 
@@ -779,7 +786,6 @@ void trippin::Game::handle(UserInput::Event &event) {
             Score sc{appId, gameId, score, nameForm->getName(), convertInputEvents()};
             stagingArea->addScore(sc);
             scoreDb->add(sc);
-            myScores->addScore(sc);
             state = State::START_MENU;
             titleMenu->reset();
             auto sum = std::accumulate(inputEvents.begin(), inputEvents.end(), 0, [](std::size_t sum, const auto &vec) {

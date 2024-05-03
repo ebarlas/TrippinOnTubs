@@ -9,7 +9,6 @@ namespace trippin {
     class MyScores {
     public:
         MyScores(int version, unsigned long limit);
-        void start();
         void addScore(const Score &score);
         [[nodiscard]] std::vector<Score> getLatestScores() const;
         [[nodiscard]] std::vector<Score> getTopScores() const;
@@ -21,13 +20,11 @@ namespace trippin {
 
         const int version;
         const unsigned long limit;
-        Channel<Score> channel;
         Scores latestScores;
         Scores topScores;
 
         static std::string fileName(std::string_view type, int version);
         static void loadScores(Scores &scores);
-        void run();
         void addLatestScore(const trippin::Score &score);
         void addTopScore(const trippin::Score &score);
         void resizeAndStore(std::string &filename, std::vector<Score> &scores) const;

@@ -21,14 +21,19 @@ namespace trippin {
             }
         };
 
-        explicit Db(const char *name, int version, std::function<bool(const T&)> outFn) :
+        explicit Db(
+                const char *name,
+                int version,
+                std::function<void(const T &)> addCallback,
+                std::function<bool(const T &)> dispatchFn) :
                 name(name),
-                outFn(outFn),
-                fileName(makeFileName(name, version)) {
+                fileName(makeFileName(name, version)),
+                addCallback(addCallback),
+                dispatchFn(dispatchFn) {
         }
 
         void start() {
-            auto t1 = std::thread(&Db<T>::runFilePersistenceLoop, this);
+            auto t1 = std::thread(&Db<T>::runJournalLoop, this);
             t1.detach();
             auto t2 = std::thread(&Db<T>::runDispatchLoop, this);
             t2.detach();
@@ -43,7 +48,8 @@ namespace trippin {
         std::string fileName;
         Channel<Event> inChannel;
         Channel<T> outChannel;
-        std::function<bool(const T&)> outFn;
+        std::function<void(const T &)> addCallback;
+        std::function<bool(const T &)> dispatchFn;
 
         static std::string makeFileName(const char *name, int version) {
             std::stringstream fileName;
@@ -54,12 +60,12 @@ namespace trippin {
         void load() {
             auto contents = readPrefFile(fileName.c_str());
             if (contents) {
-                SDL_Log("initializing from journal file, type=%s, filename=%s", name, fileName.c_str());
+                SDL_Log("initializing from journal file, file=%s", fileName.c_str());
                 auto events = parseLines(*contents);
                 addInitialEvents(events);
-                SDL_Log("done initializing from journal file, type=%s, filename=%s", name, fileName.c_str());
+                SDL_Log("done initializing from journal file, file=%s", fileName.c_str());
             } else {
-                SDL_Log("unable to initialize from journal file, type=%s, filename=%s", name, fileName.c_str());
+                SDL_Log("unable to initialize from journal file, filen=%s", fileName.c_str());
             }
         }
 
@@ -103,8 +109,8 @@ namespace trippin {
             }
         }
 
-        void runFilePersistenceLoop() {
-            SDL_Log("started file persistence thread, type=%s", name);
+        void runJournalLoop() {
+            SDL_Log("started journal thread, file=%s", fileName.c_str());
             load();
             unsigned long iter = 0;
             while (true) {
@@ -113,9 +119,12 @@ namespace trippin {
                     break;
                 }
                 addNextEvent(*event);
+                if (event->add) {
+                    addCallback(event->val);
+                }
                 iter++;
                 auto *op = event->add ? "add" : "ack";
-                SDL_Log("persisted event in journal, iter=%lu, type=%s, op=%s", iter, name, op);
+                SDL_Log("persisted event in journal, iter=%lu, op=%s, file=%s", iter, op, fileName.c_str());
             }
         }
 
@@ -127,7 +136,7 @@ namespace trippin {
                 if (!val) {
                     break;
                 }
-                while (!outFn(*val)) {
+                while (!dispatchFn(*val)) {
                     std::this_thread::sleep_for(std::chrono::seconds(5));
                 }
                 inChannel.put({*val, false});
