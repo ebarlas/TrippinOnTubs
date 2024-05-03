@@ -99,27 +99,18 @@ void trippin::Game::initDbSynchronizer() {
         m->addScore(s);
     };
     auto scoreDispatchFn = [t = transport.get()](const Score &s) {
-        auto id = s.id.c_str();
-        auto name = s.name.c_str();
-        if (t->addScore(s)) {
-            SDL_Log("added score, id=%s, game=%d, name=%s, score=%d", id, s.game, name, s.score);
-            return true;
-        } else {
-            SDL_Log("failed to add score, id=%s, game=%d, name=%s, score=%d", id, s.game, name, s.score);
-            return false;
-        }
+        auto result = t->addScore(s);
+        SDL_Log("add score attempted, id=%s, game=%d, name=%s, score=%d, result=%s",
+                s.id.c_str(), s.game, s.name.c_str(), s.score, toString(result));
+        return result == AddResult::success || result == AddResult::clientError;
     };
     scoreDb = std::make_unique<Db<Score>>("scores", configuration.version.major, scoreAddCallback, scoreDispatchFn);
     scoreDb->start();
     auto logAddCallback = [](const LogEvent &e) {};
     auto logDispatchFn = [t = transport.get()](const LogEvent &e) {
-        if (t->addLogEvent(e)) {
-            SDL_Log("sent log event, index=%d", e.index);
-            return true;
-        } else {
-            SDL_Log("failed to send log event, index=%d", e.index);
-            return false;
-        }
+        auto result = t->addLogEvent(e);
+        SDL_Log("add log event attempted, index=%d, result=%s", e.index, toString(result));
+        return result == AddResult::success || result == AddResult::clientError;
     };
     logDb = std::make_unique<Db<LogEvent>>("logs", configuration.version.major, logAddCallback, logDispatchFn);
     logDb->start();

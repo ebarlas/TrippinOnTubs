@@ -5,7 +5,6 @@
 
 trippin::Transport::Transport(std::string host, int port, int version, int limit)
         : host(std::move(host)), port(port), version(version), limit(limit) {
-
 }
 
 trippin::Transport::Scores trippin::Transport::topScores() const {
@@ -23,19 +22,15 @@ trippin::Transport::Scores trippin::Transport::sendRequest(const std::string &ur
         return {};
     }
 
-    std::string msg = "GET ";
-    msg += uri;
-    msg += "?version=";
-    msg += std::to_string(version);
-    msg += "&limit=";
-    msg += std::to_string(limit);
-    msg += " HTTP/1.0\r\n";
-    msg += "Host: ";
-    msg += host;
-    msg += "\r\n";
-    msg += "Accept: */*\r\n\r\n";
+    std::stringstream req;
+    req << "GET " << uri
+        << "?version=" << version
+        << "&limit=" << limit
+        << " HTTP/1.0\r\n"
+        << "Host: " << host << "\r\n"
+        << "Accept: */*\r\n\r\n";
 
-    tcp.send(msg);
+    tcp.send(req.str());
     std::string response = tcp.receive(1'024 * 64);
 
     auto f = response.find("\r\n\r\n");
@@ -58,11 +53,11 @@ trippin::Transport::Scores trippin::Transport::sendRequest(const std::string &ur
     return scores;
 }
 
-bool trippin::Transport::addScore(const Score &score) const {
+trippin::AddResult trippin::Transport::addScore(const Score &score) const {
     Tcp tcp(host, port);
     auto sock = tcp.get();
     if (sock == nullptr) {
-        return false;
+        return AddResult::other;
     }
 
     nlohmann::json j = score.to_json();
@@ -76,29 +71,25 @@ bool trippin::Transport::addScore(const Score &score) const {
 
     auto json = j.dump();
 
-    std::string msg = "POST /scores?h=";
-    msg += std::to_string(hash);
-    msg += " HTTP/1.0\r\n";
-    msg += "Host: ";
-    msg += host;
-    msg += "\r\n";
-    msg += "Content-Type: application/json\r\n";
-    msg += "Content-Length: ";
-    msg += std::to_string(json.size());
-    msg += "\r\n";
-    msg += "Accept: */*\r\n\r\n";
-    msg += json;
+    std::stringstream req;
+    req << "POST /scores?h=" << hash
+        << " HTTP/1.0\r\n"
+        << "Host: " << host << "\r\n"
+        << "Content-Type: application/json\r\n"
+        << "Content-Length: " << json.size() << "\r\n"
+        << "Accept: */*\r\n\r\n"
+        << json;
 
-    tcp.send(msg);
+    tcp.send(req.str());
     std::string response = tcp.receive(4'096);
-    return response.find(" 200 OK") != std::string::npos;
+    return classifyResponse(response);
 }
 
-bool trippin::Transport::addLogEvent(const LogEvent &event) const {
+trippin::AddResult trippin::Transport::addLogEvent(const LogEvent &event) const {
     Tcp tcp(host, port);
     auto sock = tcp.get();
     if (sock == nullptr) {
-        return false;
+        return AddResult::other;
     }
 
     nlohmann::json j;
@@ -114,20 +105,29 @@ bool trippin::Transport::addLogEvent(const LogEvent &event) const {
 
     auto json = j.dump();
 
-    std::string msg = "POST /logs?h=";
-    msg += std::to_string(hash);
-    msg += " HTTP/1.0\r\n";
-    msg += "Host: ";
-    msg += host;
-    msg += "\r\n";
-    msg += "Content-Type: application/json\r\n";
-    msg += "Content-Length: ";
-    msg += std::to_string(json.size());
-    msg += "\r\n";
-    msg += "Accept: */*\r\n\r\n";
-    msg += json;
+    std::stringstream req;
+    req << "POST /logs?h=" << hash
+        << " HTTP/1.0\r\n"
+        << "Host: " << host << "\r\n"
+        << "Content-Type: application/json\r\n"
+        << "Content-Length: " << json.size() << "\r\n"
+        << "Accept: */*\r\n\r\n"
+        << json;
 
-    tcp.send(msg);
+    tcp.send(req.str());
     std::string response = tcp.receive(4'096);
-    return response.find(" 200 OK") != std::string::npos;
+    return classifyResponse(response);
+}
+
+trippin::AddResult trippin::Transport::classifyResponse(const std::string &response) {
+    auto findFn = [&response](const char *str) {
+        return response.find(str) != std::string::npos;
+    };
+    if (findFn(" 200 OK")) {
+        return AddResult::success;
+    }
+    if (findFn(" 400 Bad Request") || findFn(" 404 Not Found")) {
+        return AddResult::clientError;
+    }
+    return AddResult::other;
 }

@@ -5,6 +5,7 @@
 #include <vector>
 #include "Score.h"
 #include "LogEvent.h"
+#include "AddResult.h"
 
 namespace trippin {
     class Transport {
@@ -15,18 +16,17 @@ namespace trippin {
         };
 
         Transport(std::string host, int port, int version, int limit);
-        bool addScore(const Score &score) const;
-        bool addLogEvent(const LogEvent &event) const;
-        Scores topScores() const;
-        Scores todayScores() const;
+        [[nodiscard]] AddResult addScore(const Score &score) const;
+        [[nodiscard]] AddResult addLogEvent(const LogEvent &event) const;
+        [[nodiscard]] Scores topScores() const;
+        [[nodiscard]] Scores todayScores() const;
     private:
         const std::string host;
         const int port;
         const int version;
         const int limit;
-        static std::vector<int> compress(const std::vector<Score::InputEvent> &events);
-        static std::vector<std::vector<int>> compress(const std::vector<std::vector<Score::InputEvent>> &vecs);
-        Scores sendRequest(const std::string &uri) const;
+        static AddResult classifyResponse(const std::string &response);
+        [[nodiscard]] Scores sendRequest(const std::string &uri) const;
     };
 }
 
