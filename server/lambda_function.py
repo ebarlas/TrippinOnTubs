@@ -193,6 +193,23 @@ def convert_item(item):
     return d
 
 
+def compress_with_diffs(items):
+    for item in items:
+        if 'events' in item:
+            events = item['events']
+            cevents = []
+            for evts in events:
+                cevts = []
+                last_tick = 0
+                for n, (tick, inpt) in enumerate(zip(evts[0::2], evts[1::2])):
+                    tick_diff = tick - last_tick
+                    last_tick = tick
+                    cevts.append(tick_diff)
+                    cevts.append(inpt)
+                cevents.append(cevts)
+            item['events'] = cevents
+
+
 def convert(items):
     return [convert_item(i) for i in items]
 
@@ -207,7 +224,9 @@ def truncate_if_needed(items):
     return j
 
 
-def to_scores_response(items):
+def to_scores_response(items, compression):
+    if compression == 'diff':
+        compress_with_diffs(items)
     return to_json_response(truncate_if_needed(items))
 
 
@@ -269,6 +288,10 @@ def extract_no_events_param(request):
     return extract_param(request, 'no_events', False, lambda v: v == 'true')
 
 
+def extract_compression_param(request):
+    return extract_param(request, 'compression')
+
+
 def extract_last(request):
     last_id = extract_last_id_param(request)
     last_game = extract_last_game_param(request)
@@ -308,7 +331,9 @@ def lambda_handler(event, context):
         last_params = extract_last(request)
         start_key = day_start_key(version, day, *last_params)
         no_events = extract_no_events_param(request)
-        return to_scores_response(convert(top_today_scores(version, day, limit, start_key, no_events)))
+        compression = extract_compression_param(request)
+        items = convert(top_today_scores(version, day, limit, start_key, no_events))
+        return to_scores_response(items, compression)
 
     if request['method'] == 'GET' and '/scores/alltime' in request['uri']:
         version = extract_version_param(request)
@@ -316,7 +341,9 @@ def lambda_handler(event, context):
         last_params = extract_last(request)
         start_key = all_time_start_key(version, *last_params)
         no_events = extract_no_events_param(request)
-        return to_scores_response(convert(top_scores(version, limit, start_key, no_events)))
+        compression = extract_compression_param(request)
+        items = convert(top_scores(version, limit, start_key, no_events))
+        return to_scores_response(items, compression)
 
     if request['method'] == 'POST' and '/scores' in request['uri']:
         if not validate_add(request):
