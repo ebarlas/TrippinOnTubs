@@ -26,6 +26,7 @@ trippin::Transport::Scores trippin::Transport::sendRequest(const std::string &ur
     req << "GET " << uri
         << "?version=" << version
         << "&limit=" << limit
+        << "&compression=diff"
         << " HTTP/1.0\r\n"
         << "Host: " << host << "\r\n"
         << "Accept: */*\r\n\r\n";

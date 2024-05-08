@@ -84,15 +84,18 @@ namespace trippin {
         }
     };
 
-    inline void to_json(nlohmann::json& j, const Score& score) {
+    inline void to_json(nlohmann::json &j, const Score &score) {
         j = score.to_json();
     }
 
+    // this function assumes diff-compressed form
     inline void from_json(const nlohmann::json &j, std::vector<Score::InputEvent> &points) {
+        int lastTick = 0;
         for (auto i = j.cbegin(); i != j.cend(); i++) {
-            int ticket = *i;
+            int tickDiff = *i;
+            lastTick += tickDiff;
             if (++i != j.cend()) {
-                points.push_back({ticket, *i});
+                points.push_back({lastTick, *i});
             }
         }
     }
