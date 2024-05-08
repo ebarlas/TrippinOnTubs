@@ -65,7 +65,7 @@ namespace trippin {
                 addInitialEvents(events);
                 SDL_Log("done initializing from journal file, file=%s", fileName.c_str());
             } else {
-                SDL_Log("unable to initialize from journal file, filen=%s", fileName.c_str());
+                SDL_Log("unable to initialize from journal file, file=%s", fileName.c_str());
             }
         }
 
