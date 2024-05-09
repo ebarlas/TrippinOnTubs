@@ -87,14 +87,15 @@ namespace trippin {
 };
 
 void trippin::Game::initDbSynchronizer() {
+    int version = configuration.version.major;
     transport = std::make_unique<Transport>(
             configuration.db.host,
             configuration.db.port,
-            configuration.version.major,
+            version,
             configuration.highScores);
     stagingArea = std::make_unique<StagingArea>(*transport);
     stagingArea->start();
-    myScores = std::make_unique<MyScores>(configuration.version.major, 10);
+    myScores = std::make_unique<MyScores>(version, 10);
     auto scoreAddCallback = [m = myScores.get()](const Score &s) {
         m->addScore(s);
     };
@@ -104,7 +105,8 @@ void trippin::Game::initDbSynchronizer() {
                 s.id.c_str(), s.game, s.name.c_str(), s.score, toString(result));
         return result == AddResult::success || result == AddResult::clientError;
     };
-    scoreDb = std::make_unique<Db<Score>>("scores", configuration.version.major, scoreAddCallback, scoreDispatchFn);
+    int mdcs = configuration.maxDispatchChannelSize;
+    scoreDb = std::make_unique<Db<Score>>("scores", version, mdcs, scoreAddCallback, scoreDispatchFn);
     scoreDb->start();
     auto logAddCallback = [](const LogEvent &e) {};
     auto logDispatchFn = [t = transport.get()](const LogEvent &e) {
@@ -112,7 +114,7 @@ void trippin::Game::initDbSynchronizer() {
         SDL_Log("add log event attempted, index=%d, result=%s", e.index, toString(result));
         return result == AddResult::success || result == AddResult::clientError;
     };
-    logDb = std::make_unique<Db<LogEvent>>("logs", configuration.version.major, logAddCallback, logDispatchFn);
+    logDb = std::make_unique<Db<LogEvent>>("logs", version, mdcs, logAddCallback, logDispatchFn);
     logDb->start();
 }
 

@@ -21,7 +21,7 @@ namespace trippin {
             return e;
         }
 
-        bool put(const T& elem) {
+        bool put(const T &elem) {
             {
                 std::lock_guard lock(mutex);
                 if (closed) {
@@ -39,6 +39,13 @@ namespace trippin {
                 closed = true;
             }
             cv.notify_all();
+        }
+
+        int size() {
+            {
+                std::lock_guard lock(mutex);
+                return queue.size();
+            }
         }
 
     private:

@@ -24,10 +24,12 @@ namespace trippin {
         explicit Db(
                 const char *name,
                 int version,
+                int maxChannelSize,
                 std::function<void(const T &)> addCallback,
                 std::function<bool(const T &)> dispatchFn) :
                 name(name),
                 fileName(makeFileName(name, version)),
+                maxChannelSize(maxChannelSize),
                 addCallback(addCallback),
                 dispatchFn(dispatchFn) {
         }
@@ -48,6 +50,7 @@ namespace trippin {
         std::string fileName;
         Channel<Event> inChannel;
         Channel<T> outChannel;
+        const int maxChannelSize;
         std::function<void(const T &)> addCallback;
         std::function<bool(const T &)> dispatchFn;
 
@@ -137,6 +140,11 @@ namespace trippin {
                     break;
                 }
                 while (!dispatchFn(*val)) {
+                    auto sz = outChannel.size();
+                    if (sz >= maxChannelSize) {
+                        SDL_Log("aborting dispatch due to full channel, iter=%lu, type=%s, size=%d", iter, name, sz);
+                        break;
+                    }
                     std::this_thread::sleep_for(std::chrono::seconds(5));
                 }
                 inChannel.put({*val, false});

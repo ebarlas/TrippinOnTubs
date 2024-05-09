@@ -1,12 +1,13 @@
 {
   "version": {
     "major": 5,
-    "minor": 0
+    "minor": 1
   },
   "windowSize": {
     "x": 1200,
     "y": 600
   },
+  "maxDispatchChannelSize": 100,
   "extraLives": 2,
   "highScores": 15,
   "levelBonus": 1000,

@@ -102,6 +102,7 @@ void trippin::from_json(const nlohmann::json &j, Configuration &config) {
         j.at("windowSize").at("x").get_to(config.windowSize.x);
         j.at("windowSize").at("y").get_to(config.windowSize.y);
     }
+    j.at("maxDispatchChannelSize").get_to(config.maxDispatchChannelSize);
     j.at("extraLives").get_to(config.extraLives);
     j.at("highScores").get_to(config.highScores);
     j.at("levelBonus").get_to(config.levelBonus);

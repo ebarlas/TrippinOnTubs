@@ -59,6 +59,7 @@ namespace trippin {
 
         Version version;
         Point<int> windowSize;
+        int maxDispatchChannelSize;
         int extraLives;
         int highScores;
         int levelBonus;
