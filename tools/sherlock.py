@@ -59,28 +59,20 @@ def item_sort_key(item):
     return d, id, int(index)
 
 
-def scroll_date(date):
+def scroll(date):
     last_key = None
-    last_date = date
     while True:
         res = query(date, last_key)
+        if not res.get('Items'):
+            print('sleeping...')
+            time.sleep(5)
+            continue
         items = res['Items']
         items.sort(key=item_sort_key)
-        if items:
-            last_date = items[-1]['date']['S']
         for item in items:
             print_item(item)
-        last_key = res.get('LastEvaluatedKey')
-        if not last_key:
-            break
-    return last_date
-
-
-def scroll(date):
-    while True:
-        date = scroll_date(date)
-        time.sleep(5)
-        print(f'sleeping...')
+        last_item = items[-1]
+        last_key = {'pk': {'N': '1'}, 'sk': last_item['sk'], 'date': last_item['date']}
 
 
 scroll(date)
