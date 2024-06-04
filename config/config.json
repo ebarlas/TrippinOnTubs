@@ -1,7 +1,7 @@
 {
   "version": {
-    "major": 5,
-    "minor": 1
+    "major": 6,
+    "minor": 0
   },
   "windowSize": {
     "x": 1200,
@@ -73,7 +73,8 @@
     "level_4",
     "level_5",
     "level_6",
-    "level_7"
+    "level_7",
+    "level_8"
   ],
   "db": {
     "host": "www.trippinontubs.com",
@@ -206,6 +207,25 @@
       "elasticObjectCollisions": true
     },
     {
+      "type": "fireball",
+      "platform": false,
+      "velocity": {
+        "x": -30,
+        "y": 60
+      },
+      "terminalVelocity": {
+        "x": 30,
+        "y": 60
+      },
+      "massFactor": 10,
+      "runningAcceleration": -21,
+      "risingAcceleration": 21,
+      "hitPoints": 1,
+      "gravity": 140,
+      "fallGravity": 140,
+      "randFrame": true
+    },
+    {
       "type": "zombie",
       "platform": false,
       "terminalVelocity": {
@@ -217,6 +237,21 @@
       "fallGravity": 211,
       "runningAcceleration": -17,
       "hitPoints": 4,
+      "accelerateWhenGrounded": true,
+      "randFrame": true
+    },
+    {
+      "type": "zombie_green",
+      "platform": false,
+      "terminalVelocity": {
+        "x": 36,
+        "y": 158
+      },
+      "massFactor": 0.75,
+      "gravity": 140,
+      "fallGravity": 211,
+      "runningAcceleration": -30,
+      "hitPoints": 5,
       "accelerateWhenGrounded": true,
       "randFrame": true
     },

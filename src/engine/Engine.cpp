@@ -270,19 +270,25 @@ int trippin::Engine::getAvgTps() const {
 }
 
 bool trippin::Engine::sameLane(Object *left, Object *right) {
-    if (left->lane == -2 || right->lane == -2) {
+    if (left->lane == -3 && right->platform) { // lane -3 denotes no-platform collisions
+        return false;
+    }
+    if (right->lane == -3 && left->platform) {
         return false;
     }
 
-    if (left->lane == -1 && !right->platform) {
+    if (left->lane == -2 || right->lane == -2) { // lane -2 denotes no collisions whatsoever
         return false;
     }
 
+    if (left->lane == -1 && !right->platform) { // lane -1 denotes only platform collisions
+        return false;
+    }
     if (right->lane == -1 && !left->platform) {
         return false;
     }
 
-    if (!left->lane || !right->lane) {
+    if (!left->lane || !right->lane) { // no lane denotes collisions with all lanes
         return true;
     }
 

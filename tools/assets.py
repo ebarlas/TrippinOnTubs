@@ -15,6 +15,7 @@ scales = [
 sprites = [
     'goggin',
     'ball',
+    'fireball',
     'ground',
     'ground_melt_left',
     'ground_melt_middle',
@@ -30,6 +31,9 @@ sprites = [
     'masonic_lodge',
     'hills',
     'hills_base',
+    'hills_dark',
+    'hills_base_dark',
+    'cloud_dark',
     'hotel_petaluma',
     'dust',
     'dust_blast',
@@ -97,6 +101,8 @@ sprites = [
     'top_scores',
     'latest_scores',
     'my_scores'
+    'zombie_green',
+    'post_office',
 ]
 
 levels = [
@@ -107,6 +113,7 @@ levels = [
     'level_5',
     'level_6',
     'level_7',
+    'level_8',
     'load',
     'training_jump',
     'training_duck',

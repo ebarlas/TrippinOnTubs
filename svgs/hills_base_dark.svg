@@ -1,0 +1,18 @@
+<ns0:svg xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:ns0="http://www.w3.org/2000/svg" xmlns:ns1="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd" xmlns:ns2="http://www.inkscape.org/namespaces/inkscape" xmlns:ns4="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" ns1:docname="hills_base_dark.svg" ns2:version="1.2.2 (b0a84865, 2022-12-01)" id="svg8" version="1.1" viewBox="0 0 420 400" scale="10" fadeToWhite="0.45" height="400" width="420">
+  <ns0:defs id="defs2" />
+  <ns1:namedview ns2:snap-global="true" showguides="false" ns2:window-maximized="0" ns2:window-y="80" ns2:window-x="0" ns2:window-height="1009" ns2:window-width="1728" units="px" showgrid="true" ns2:document-rotation="0" ns2:current-layer="layer2" ns2:document-units="px" ns2:cy="200.46477" ns2:cx="73.539103" ns2:zoom="1.4142136" ns2:pageshadow="2" ns2:pageopacity="0.0" borderopacity="1.0" bordercolor="#666666" pagecolor="#ffffff" id="base" ns2:snap-grids="true" ns2:snap-to-guides="true" ns2:showpageshadow="2" ns2:pagecheckerboard="0" ns2:deskcolor="#d1d1d1">
+    <ns2:grid id="grid833" type="xygrid" />
+  </ns1:namedview>
+  <ns0:metadata id="metadata5">
+    <rdf:RDF>
+      <ns4:Work rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title />
+      </ns4:Work>
+    </rdf:RDF>
+  </ns0:metadata>
+  <ns0:g style="display:inline;opacity:1" ns2:label="frame" type="frame" frame="1" id="layer2" ns2:groupmode="layer">
+    <ns0:path ns2:connector-curvature="0" id="path4514" d="M 0,0 H 420 V 400 H 0 Z" style="fill:#293038;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" ns1:nodetypes="ccccc" />
+  </ns0:g>
+</ns0:svg>
