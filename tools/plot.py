@@ -122,15 +122,15 @@ def date_range(start_date, end_date, delta, target_fmt):
     return arr
 
 
-def plot(x, y, title, file):
+def plot(x, y, title, file, xlabel):
     plt.figure(figsize=(16, 10))
-    plt.bar(x, y, color='blue')
-    plt.xlabel('Time')
+    plt.bar(x, y)
+    plt.xlabel(xlabel)
     plt.ylabel('Events')
     plt.title(title)
     plt.xticks(rotation=90)
     plt.subplots_adjust(bottom=0.2)
-    plt.grid()
+    plt.grid(axis='y', linestyle='--', alpha=0.7)
     plt.savefig(file)
 
 
@@ -165,7 +165,7 @@ def main():
     start_file = switch_format(start, compact_fmt)
     end_file = switch_format(end, compact_fmt)
     plot_file = f'tot_chart_{start_file}_{end_file}_{bucket}_{filter_name}.png'
-    plot(x, y, plot_title, plot_file)
+    plot(x, y, plot_title, plot_file, bucket_title)
     print(plot_file)
 
 
