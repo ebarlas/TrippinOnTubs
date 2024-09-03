@@ -37,7 +37,7 @@ std::vector<trippin::Marquee::Char> trippin::Marquee::compile(const std::string 
             if (lineWidth < 0) {
                 lineWidth = calculateLineWidth(msg, it);
             }
-            chars.push_back({frame, x + windowSize.x / 2 - lineWidth / 2 - diffHalf, y + windowSize.y});
+            chars.push_back({frame, x + windowSize.x / 2 - lineWidth / 2 - diffHalf, y + windowSize.y - windowSize.y / 4});
         }
         x += adjustedWidth;
         if (endOfLine(c, x)) {
@@ -82,7 +82,7 @@ int trippin::Marquee::calculateLineWidth(const std::string &s, std::string::cons
 }
 
 bool trippin::Marquee::endOfLine(char c, int lineWidth) const {
-    return c == '\n' || (c == ' ' && lineWidth > windowSize.x / 4);
+    return c == '\n' || (c == ' ' && lineWidth > windowSize.x / 2);
 }
 
 int trippin::Marquee::getFrame(char c) {
