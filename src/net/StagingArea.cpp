@@ -68,6 +68,11 @@ void trippin::StagingArea::start() {
 void trippin::StagingArea::run() {
     SDL_Log("entering query scores loop");
     while (true) {
+        auto n = transport.getNotification();
+        if (!n.empty()) {
+            notification = n;
+            SDL_Log("set notification in staging area");
+        }
         auto top = transport.topScores();
         if (top.ok) {
             setTopScores(top.scores);
@@ -77,11 +82,6 @@ void trippin::StagingArea::run() {
         if (today.ok) {
             setTodayScores(today.scores);
             SDL_Log("set today scores in staging area, count=%lu", today.scores.size());
-        }
-        auto n = transport.getNotification();
-        if (!n.empty()) {
-            notification = n;
-            SDL_Log("set notification in staging area");
         }
         std::this_thread::sleep_for(std::chrono::minutes(1));
     }
