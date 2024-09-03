@@ -19,6 +19,7 @@
 #include "ui/SimpleOverlay.h"
 #include "ui/ExitOverlay.h"
 #include "ui/SpeedUpOverlay.h"
+#include "ui/Marquee.h"
 #include "net/Transport.h"
 #include "net/StagingArea.h"
 #include "SdlSystem.h"
@@ -91,6 +92,7 @@ namespace trippin {
         std::unique_ptr<SimpleOverlay> gameOverOverlay;
         std::unique_ptr<SimpleOverlay> levelsCompletedOverlay;
         std::unique_ptr<SimpleOverlay> trainingCompletedOverlay;
+        std::unique_ptr<Marquee> marquee;
         std::unique_ptr<StagingArea> stagingArea;
         std::unique_ptr<MyScores> myScores;
         std::unique_ptr<Transport> transport;

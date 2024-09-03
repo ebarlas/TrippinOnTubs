@@ -295,6 +295,32 @@ GET /scores/alltime
 GET /scores/today
 ```
 
+# Notifications
+
+At the start of each game, the player is shown a vertically scrolling
+text message notification. Notifications are intended to provide
+players with news and updates about the game.
+
+The message is obtained from the notification web server in the background
+when the application launches in the same way that high scores are obtained.
+
+The notification server protocol allows for a distinct message given a major and minor
+version.
+
+```
+GET /notifications/{major}/{minor}
+```
+
+The notification server is a [Python program](server/notification_lambda_function.py)
+that is deployed as an AWS Lambda Function attached to a CloudFront distribution
+for www.trippinontubs.com.
+
+Notifications are stored in an Amazon DynamoDB table.
+
+Scores are organized in the database by game version.
+The table partition key column is an integer named `major` and the 
+sort key column is an integer named `minor`.
+
 # Journal Files
 
 Remote logging and high score events outlined above are staged in a local journal

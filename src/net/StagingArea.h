@@ -15,6 +15,7 @@ namespace trippin {
         void addScore(const Score &score);
         std::vector<Score> getTodayScores(int limit) const;
         std::vector<Score> getTopScores(int limit) const;
+        std::string getNotification() const;
         bool bothSet() const;
         void start();
     private:
@@ -23,6 +24,7 @@ namespace trippin {
         std::vector<Score> addedScores;
         std::vector<Score> todayScores;
         std::vector<Score> topScores;
+        std::string notification;
         bool todaySet{};
         bool topSet{};
         static std::vector<Score> combine(

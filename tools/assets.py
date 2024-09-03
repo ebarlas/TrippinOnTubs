@@ -25,6 +25,7 @@ sprites = [
     'winged_foot',
     'digits',
     'alpha',
+    'alpha_small',
     'zombie',
     'rat',
     'phoenix',

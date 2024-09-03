@@ -32,6 +32,11 @@ std::vector<trippin::Score> trippin::StagingArea::getTopScores(int limit) const 
     return combine(topScores, addedScores, limit);
 }
 
+std::string trippin::StagingArea::getNotification() const {
+    std::lock_guard<std::mutex> lock(mutex);
+    return notification;
+}
+
 std::vector<trippin::Score> trippin::StagingArea::combine(
         const std::vector<Score> &sorted,
         const std::vector<Score> &unsorted,
@@ -72,6 +77,11 @@ void trippin::StagingArea::run() {
         if (today.ok) {
             setTodayScores(today.scores);
             SDL_Log("set today scores in staging area, count=%lu", today.scores.size());
+        }
+        auto n = transport.getNotification();
+        if (!n.empty()) {
+            notification = n;
+            SDL_Log("set notification in staging area");
         }
         std::this_thread::sleep_for(std::chrono::minutes(1));
     }

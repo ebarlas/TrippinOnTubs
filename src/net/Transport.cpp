@@ -3,8 +3,8 @@
 #include "Tcp.h"
 #include "SDL_net.h"
 
-trippin::Transport::Transport(std::string host, int port, int version, int limit)
-        : host(std::move(host)), port(port), version(version), limit(limit) {
+trippin::Transport::Transport(std::string host, int port, int major, int minor, int limit)
+        : host(std::move(host)), port(port), major(major), minor(minor), limit(limit) {
 }
 
 trippin::Transport::Scores trippin::Transport::topScores() const {
@@ -24,7 +24,7 @@ trippin::Transport::Scores trippin::Transport::sendRequest(const std::string &ur
 
     std::stringstream req;
     req << "GET " << uri
-        << "?version=" << version
+        << "?version=" << major
         << "&limit=" << limit
         << "&compression=diff"
         << " HTTP/1.0\r\n"
@@ -62,7 +62,7 @@ trippin::AddResult trippin::Transport::addScore(const Score &score) const {
     }
 
     nlohmann::json j = score.to_json();
-    j["version"] = version;
+    j["version"] = major;
 
     std::stringstream ss;
     ss << score.id << score.game;
@@ -131,4 +131,61 @@ trippin::AddResult trippin::Transport::classifyResponse(const std::string &respo
         return AddResult::clientError;
     }
     return AddResult::other;
+}
+
+std::string trippin::Transport::getNotification() {
+    Tcp tcp(host, port);
+    auto sock = tcp.get();
+    if (sock == nullptr) {
+        return {};
+    }
+
+    std::stringstream req;
+    req << "GET " << "/notifications/" << major << "/" << minor
+        << " HTTP/1.0\r\n"
+        << "Host: " << host << "\r\n"
+        << "Accept: */*\r\n\r\n";
+
+    tcp.send(req.str());
+    std::string response = tcp.receive(1'024 * 4);
+
+    auto f = response.find("\r\n\r\n");
+    if (f == std::string::npos) {
+        SDL_Log("response parse delimiter not found");
+        return {};
+    }
+
+    if (response.find(" 200 OK") == std::string::npos) {
+        SDL_Log("error response received from notification request");
+        return {};
+    }
+
+    auto s = response.substr(f + 4);
+    if (validNotification(s)) {
+        return s;
+    }
+
+    SDL_Log("invalid characters in notification string");
+    return {};
+}
+
+bool trippin::Transport::validNotification(std::string &notification) {
+    for (auto &c: notification) {
+        c = static_cast<char>(std::toupper(c)); // normalize notification string to uppercase
+        if (!validNotificationChar(c)) {
+            return false;
+        }
+    }
+    return true;
+}
+
+bool trippin::Transport::validNotificationChar(char c) {
+    return (c >= 'A' && c <= 'Z')
+           || (c >= '0' && c <= '9')
+           || c == '.'
+           || c == ','
+           || c == '!'
+           || c == ' '
+           || c == '\''
+           || c == '\n';
 }

@@ -87,15 +87,17 @@ namespace trippin {
 };
 
 void trippin::Game::initDbSynchronizer() {
-    int version = configuration.version.major;
+    int major = configuration.version.major;
+    int minor = configuration.version.minor;
     transport = std::make_unique<Transport>(
             configuration.db.host,
             configuration.db.port,
-            version,
+            major,
+            minor,
             configuration.highScores);
     stagingArea = std::make_unique<StagingArea>(*transport);
     stagingArea->start();
-    myScores = std::make_unique<MyScores>(version, 10);
+    myScores = std::make_unique<MyScores>(major, 10);
     auto scoreAddCallback = [m = myScores.get()](const Score &s) {
         m->addScore(s);
     };
@@ -106,7 +108,7 @@ void trippin::Game::initDbSynchronizer() {
         return result == AddResult::success || result == AddResult::clientError;
     };
     int mdcs = configuration.maxDispatchChannelSize;
-    scoreDb = std::make_unique<Db<Score>>("scores", version, mdcs, scoreAddCallback, scoreDispatchFn);
+    scoreDb = std::make_unique<Db<Score>>("scores", major, mdcs, scoreAddCallback, scoreDispatchFn);
     scoreDb->start();
     auto logAddCallback = [](const LogEvent &e) {};
     auto logDispatchFn = [t = transport.get()](const LogEvent &e) {
@@ -114,7 +116,7 @@ void trippin::Game::initDbSynchronizer() {
         SDL_Log("add log event attempted, index=%d, result=%s", e.index, toString(result));
         return result == AddResult::success || result == AddResult::clientError;
     };
-    logDb = std::make_unique<Db<LogEvent>>("logs", version, mdcs, logAddCallback, logDispatchFn);
+    logDb = std::make_unique<Db<LogEvent>>("logs", major, mdcs, logAddCallback, logDispatchFn);
     logDb->start();
 }
 
@@ -220,6 +222,12 @@ void trippin::Game::initOverlays() {
                                                        spriteManager->get("tap_score_exit"), renderClock, 750, 5'000);
     speedUpOverlay = std::make_unique<SpeedUpOverlay>(rendererSize, configuration.meterMargin, *spriteManager,
                                                       renderClock);
+    marquee = std::make_unique<Marquee>(
+            scrollPxPerMs,
+            windowSize,
+            spriteManager->get("alpha_small"),
+            renderClock,
+            configuration.meterMargin);
 }
 
 void trippin::Game::initClock() {
@@ -430,6 +438,7 @@ void trippin::Game::render() {
         trainingCompletedOverlay->render();
     } else if (state == State::PLAYING) {
         playingExitOverlay->render();
+        marquee->render();
     }
 
     SDL_RenderPresent(sdlSystem->getRenderer());
@@ -463,12 +472,17 @@ void trippin::Game::handle(UserInput::Event &event) {
             inputEvents.clear();
             state = State::PLAYING;
             playingExitOverlay->reset();
+            auto notification = stagingArea->getNotification();
+            if (!notification.empty()) {
+                marquee->start(notification);
+            }
             logger->log(std::string("op=state_change")
                         + ", prev=START_MENU"
                         + ", next=PLAYING"
                         + ", id=" + std::to_string(gameId)
                         + ", tps=" + formatTps()
-                        + ", fps=" + formatFps());
+                        + ", fps=" + formatFps()
+                        + ", notification=" + (notification.empty() ? "no" : "yes"));
             advanceLevel();
         } else if (titleMenu->contains(1, event.touchPoint)) {
             score = 0;
