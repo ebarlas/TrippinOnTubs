@@ -3,7 +3,7 @@
 
 TEST_CASE("Add score", "[staging]")
 {
-    trippin::Transport t{"localhost", 8080, 1, 10};
+    trippin::Transport t{"localhost", 8080, 1, 0, 10};
     trippin::StagingArea sa{t};
     sa.addScore({"abc123", 1, 100, "ABC", {}});
     auto scores = sa.getTodayScores(10);
