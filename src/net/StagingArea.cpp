@@ -22,6 +22,11 @@ void trippin::StagingArea::setTopScores(std::vector<Score> scores) {
     topSet = true;
 }
 
+void trippin::StagingArea::setNotification(std::string n) {
+    std::lock_guard<std::mutex> lock(mutex);
+    notification = std::move(n);
+}
+
 std::vector<trippin::Score> trippin::StagingArea::getTodayScores(int limit) const {
     std::lock_guard<std::mutex> lock(mutex);
     return combine(todayScores, addedScores, limit);
@@ -70,7 +75,7 @@ void trippin::StagingArea::run() {
     while (true) {
         auto n = transport.getNotification();
         if (!n.empty()) {
-            notification = n;
+            setNotification(n);
             SDL_Log("set notification in staging area");
         }
         auto top = transport.topScores();

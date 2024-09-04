@@ -34,6 +34,7 @@ namespace trippin {
         void run();
         void setTodayScores(std::vector<Score> scores);
         void setTopScores(std::vector<Score> scores);
+        void setNotification(std::string notification);
     };
 }
 
