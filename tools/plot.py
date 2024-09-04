@@ -54,7 +54,6 @@ def query(start_date, end_date, last_key=None):
     params = {
         'TableName': table,
         'IndexName': 'date-index',
-        'Limit': 50,
         'KeyConditionExpression': 'pk = :pk and #date between :start_date and :end_date',
         'ExpressionAttributeNames': {
             '#date': 'date'
