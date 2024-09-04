@@ -101,7 +101,7 @@ sprites = [
     'tap_flags_exit',
     'top_scores',
     'latest_scores',
-    'my_scores'
+    'my_scores',
     'zombie_green',
     'post_office',
 ]
