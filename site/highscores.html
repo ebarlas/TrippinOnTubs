@@ -20,12 +20,13 @@
 <main class="container">
     <nav>
         <ul>
-            <li><a href="#" id="a_alltime" class="active">All-Time</a></li>
-            <li><a href="#" id="a_today">Today</a></li>
+            <li><a class="period active" href="#" id="a_alltime">All-Time</a></li>
+            <li><a class="period" href="#" id="a_today">Today</a></li>
         </ul>
         <ul>
-            <li><a id="season1" href="highscores.html?version=4">Season 1</a></li>
-            <li><a id="season2" href="highscores.html">Season 2</a></li>
+            <li><a class="version" id="v4" href="highscores.html?version=4">V1</a></li>
+            <li><a class="version" id="v5" href="highscores.html?version=5">V2</a></li>
+            <li><a class="version" id="v6" href="highscores.html?version=6">V3</a></li>
         </ul>
     </nav>
     <table id="tbl_alltime" role="grid">
@@ -55,21 +56,19 @@
 </main>
 </body>
 <script>
-    const latestVersion = "5";
+    const latestVersion = "6";
     const params = new URLSearchParams(window.location.search);
     const versionParam = params.get("version");
     const targetVersion = versionParam ? versionParam.toString() : latestVersion;
 
-    if (targetVersion === latestVersion) {
-        setActive('season2', 'season1');
-    } else {
-        setActive('season1', 'season2');
+    function setActive(type, id) {
+        document.querySelectorAll(`.${type}`).forEach(element => {
+            element.classList.remove('active');
+        });
+        document.getElementById(id).classList.add('active');
     }
 
-    function setActive(active, inactive) {
-        document.getElementById(active).classList.add('active');
-        document.getElementById(inactive).classList.remove('active');
-    }
+    setActive('version', `v${targetVersion}`);
 
     function addCell(row, text) {
         const cell = row.insertCell();
@@ -110,17 +109,17 @@
         document.getElementById(hideId).style.display = 'none';
     }
 
-    const qs = `?version=${targetVersion}&no_events=true&limit=50`;
+    const qs = `?version=${targetVersion}&no_events=true&limit=100`;
     loadScores(`/scores/alltime${qs}`, (scores) => {addScores(scores, 'tb_alltime')});
     loadScores(`/scores/today${qs}`, (scores) => {addScores(scores, 'tb_today')});
 
     addClickHandler('a_alltime', () => {
-        setActive('a_alltime', 'a_today');
+        setActive('period', 'a_alltime');
         toggle('tbl_alltime', 'tbl_today');
     });
 
     addClickHandler('a_today', () => {
-        setActive('a_today', 'a_alltime');
+        setActive('period', 'a_today');
         toggle('tbl_today', 'tbl_alltime');
     });
 </script>
