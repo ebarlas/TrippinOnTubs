@@ -109,7 +109,7 @@
         document.getElementById(hideId).style.display = 'none';
     }
 
-    const qs = `?version=${targetVersion}&no_events=true&limit=100`;
+    const qs = `?version=${targetVersion}&no_events=true&limit=150`;
     loadScores(`/scores/alltime${qs}`, (scores) => {addScores(scores, 'tb_alltime')});
     loadScores(`/scores/today${qs}`, (scores) => {addScores(scores, 'tb_today')});
 
