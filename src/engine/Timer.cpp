@@ -1,6 +1,6 @@
 #include "Timer.h"
 
-trippin::Timer::Timer(std::function<void(int)> oncePerSecFn) : oncePerSecFn(move(oncePerSecFn)) {
+trippin::Timer::Timer(std::function<void(int)> oncePerSecFn) : oncePerSecFn(std::move(oncePerSecFn)) {
     totalTicks = 0;
     secondTicks = 0;
     auto now = std::chrono::steady_clock::now();

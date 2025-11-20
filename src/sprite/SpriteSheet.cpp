@@ -9,9 +9,9 @@ trippin::SpriteSheet::SpriteSheet(SDL_Renderer *ren, const std::string &name, co
 trippin::SpriteSheet::SpriteSheet(SDL_Renderer *renderer, const std::vector<SDL_Surface *> &surfaces) : renderer(renderer) {
     size = {surfaces[0]->w, surfaces[0]->h};
     textures.reserve(surfaces.size());
-    for (int i = 0; i < surfaces.size(); i++) {
-        textures[i] = SpriteLoader::createTexture(renderer, surfaces[i]);
-        SDL_FreeSurface(surfaces[i]);
+    for (auto surface : surfaces) {
+        textures.push_back(SpriteLoader::createTexture(renderer, surface));
+        SDL_FreeSurface(surface);
     }
 }
 
